@@ -1,0 +1,2141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<xsi_file type="Shelf" xsi_version="11.1.57.0" syntax_version="1.0">
+   <shelf_view name="Domemaster3D" clsid="{111B430D-D85E-4C53-B67E-390456B404B2}">
+      <properties>
+         <showtabs>false</showtabs>
+      </properties>
+      <definition maxinstances="10000" acceptfocus="true" private="false" defaultsize="0,100,200,300" cmdmap="{00000000-0000-0000-0000-000000000000}" supportedtypes="6" category=""></definition>
+      <tabs layout="top" active="DS Toolbar">
+         <tab label="DS Toolbar" type="toolbar">
+            <properties id="{464A0E9A-B944-45B2-BE7E-8CF7F8252058}" name="" display_preset_as_small="False" display_as_text_only="False"></properties>
+            <item type="separator" mode="group_header" group_name="Tools"></item>
+            <item type="scriptbutton" label="AutoMagic" bitmap="render_magicDome" scriptengine="XSI.SIPython.1" tooltip="AutoMagic Fulldome 3D Scene">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Domemaster3D Camera Setup Script
+Created by Andrew Hazelden  andrew@andrewhazelden.com
+Based upon the Softimage camera scripting work of Max Crow
+
+This script makes it easy to start creating fulldome stereoscopic content in Autodesk Softimage.
+&quot;&quot;&quot;
+
+
+&quot;&quot;&quot;
+Find out the path to the sourceimages folder
+----------------------
+A python function to check the operating system platform and the source images folder. 
+
+&quot;&quot;&quot;
+def getSourceImagesPath(imageFileName):
+
+  # ---------------------------------------------------------------------
+  #Setup the base folder path for the Domemaster3D control maps
+  # ---------------------------------------------------------------------
+
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+  # Find the Domemaster3D Addon folder
+  import os
+  xsiUserFolder = os.getenv( &quot;XSI_USERHOME&quot; )
+  # C:\Users\hazelden\Autodesk\Softimage_2014_SP1
+
+  #This is the base path for the images folder
+  baseImagesFolder = &quot;&quot;
+
+  if platform.system()=='Windows':
+    #Check if the program is running on Windows 
+    # C:\Users\hazelden\Autodesk\Softimage_2014_SP1\Addons\domemaster3D\Application\bitmaps\
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'win32':
+    #Check if the program is running on Windows 32
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'Linux':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  elif platform.system()== 'Linux2':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  else:
+    # Create the empty variable as a fallback mode
+    baseImagesFolder = &quot;&quot;
+
+  combinedFileAndImagePath = baseImagesFolder + imageFileName
+
+  print &quot;[Domemaster3D is running on a &quot; + platform.system() + &quot; System]&quot;
+  print &quot;[Requesting the image file]: &quot; + combinedFileAndImagePath
+
+  return combinedFileAndImagePath
+
+
+
+&quot;&quot;&quot;
+Domemaster3D Fulldome Stereo Rig
+--------------------------------
+A python function to create a fulldome stereo rig in Softimage.
+&quot;&quot;&quot;
+
+def createFulldomeStereoRig():
+
+  # Deselect the objects in the scene
+  Application.DeselectAll() 
+
+  # ---------------------------------------------------------------------
+  # Create the stereo rig
+  # ---------------------------------------------------------------------
+
+  #Setup the base folder path for the Domemaster3D control maps
+  #Variables
+  #separationMapFileTexture = &quot;C:\\Program Files\\Domemaster3D\\sourceimages\\separation_map.png&quot;
+  separationMapFileTexture = getSourceImagesPath(&quot;separation_map.png&quot;)
+  turnMapFileTexture = getSourceImagesPath(&quot;turn_map.png&quot;)
+
+  # Add a stereo camera named &quot;DomeStereoCamera&quot;
+  rigName = &quot;DomeStereoCamera&quot;
+
+  rig = str(Application.GetPrimStereoCamera(rigName))
+  #  DomeStereoCamera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  DomeStereoCamera1
+  leftRig = rig.replace(&quot;_Root&quot;, &quot;_Left&quot;);
+  #  DomeStereoCamera_Left1
+  rightRig = rig.replace(&quot;_Root&quot;, &quot;_Right&quot;);
+  #  DomeStereoCamera_Right1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  DomeStereoCamera_Interest1
+  print(&quot;Stereo Camera Rig:&quot; + rig + &quot; Left: &quot; + leftRig + &quot; Right: &quot; + rightRig + &quot; Interest: &quot; + interestRig )
+
+  # Variable to hold the rig controls name
+  rigControls = rig+&quot;.Domemaster_camera_controls&quot;
+  # DomeStereoCamera_Root1.Domemaster_camera_controls
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Snap the rig to the origin
+  Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Move the center of interest upwards above the origin
+  Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+  #Application.Translate(&quot;DomeStereoCamera_Interest&quot;, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+  # Turn off the default Softimage stereo controls
+  Application.SetValue(rig+&quot;.Stereo.StereoType&quot;, 0, &quot;&quot;)
+
+  # Add the domeAFL_FOV_Stereo lens shader to the camera rig
+  Application.SIAddArrayElement(leftRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_FOV_Stereo.1.0&quot;, leftRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(leftRig+&quot;.camera.domeAFL_FOV_Stereo.Camera&quot;, 1, &quot;&quot;)
+
+  Application.SIAddArrayElement(rightRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_FOV_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(rightRig+&quot;.camera.domeAFL_FOV_Stereo.Camera&quot;, 2, &quot;&quot;)
+
+  # Enable the PPG Windows
+  Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, True, &quot;&quot;)
+
+  # Create the user interface controls
+  Application.SelectObj(rig, &quot;&quot;, &quot;&quot;)
+  Application.AddProp(&quot;Custom_parameter_list&quot;, &quot;&quot;, &quot;&quot;, &quot;Domemaster Camera Controls&quot;, &quot;&quot;)
+  Application.SelectObj(rigControls, &quot;&quot;, &quot;&quot;)
+
+  # Set the camera separation control to have a 6.5 cm default value
+  Application.SIAddCustomParameter(rigControls, &quot;Separation&quot;, &quot;siDouble&quot;, 6.5, &quot;&quot;, 1000000, &quot;&quot;, 2053, &quot;&quot;, 1000000, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Field of View&quot;, &quot;siDouble&quot;, 180, &quot;&quot;, 360, &quot;&quot;, 2053, &quot;&quot;, 360, &quot;&quot;, &quot;&quot;)
+
+  # Set the dome radius control to have a 10 meter default value
+  Application.SIAddCustomParameter(rigControls, &quot;Dome Radius&quot;, &quot;siDouble&quot;, 1000, 1, 1000000, &quot;&quot;, 2053, 1, 1000000, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Dome Tilt&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 90, &quot;&quot;, 2053, &quot;&quot;, 90, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Separation Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Turn Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Head Tilt&quot;, &quot;siDouble&quot;, 0.5, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
+
+  # Stop the PPG Windows from opening
+  Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+  # Link the stereo user interface elements
+  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Field_of_View&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.FOV_Angle&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Field_of_View&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.FOV_Angle&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Dome_Radius&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Radius&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Dome_Radius&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Radius&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Dome_Tilt&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Dome_Tilt&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Tilt_Compensation&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt_Compensation&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Tilt_Compensation&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt_Compensation&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Vertical_Mode&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Vertical_Mode&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Vertical_Mode&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Vertical_Mode&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Separation_Multiplier&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Separation_Multiplier&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Turn_Multiplier&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Turn_Multiplier&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Head_Tilt&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Tilt_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Head_Tilt&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Tilt_Map&quot;, 1)
+
+  # -----------------------------------------------
+
+  # Create the DomeAFL_FOV_Stereo control texture maps
+  #baseRig = &quot;DomeStereoCamera&quot;
+
+  # Add the separation map to the left and right cameras
+  right_separation_map_color_to_scalar_node  = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  rightRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, &quot;right_separation_map_color_to_scalar&quot;, &quot;&quot;))
+  left_separation_map_color_to_scalar_node  =  str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  leftRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, &quot;left_separation_map_color_to_scalar&quot;, &quot;&quot;))
+
+  #baseRig = &quot;DomeStereoCamera&quot;
+  separation_mib_texture_filter_lookup_node = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_filter_lookup.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_filter_lookup&quot;))
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, right_separation_map_color_to_scalar_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, left_separation_map_color_to_scalar_node+&quot;.input&quot;, False)
+  separationMapFileTexture_node = str(Application.SICreateImageClip(separationMapFileTexture, &quot;&quot;, &quot;&quot;))
+  Application.SIConnectShaderToCnxPoint(&quot;Clips.separation_map_png&quot;, separation_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
+  separation_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_vector&quot;))
+  separation_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_remap&quot;))
+  Application.SetValue(separation_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_vector_node+&quot;.out&quot;, separation_mib_texture_remap_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_remap_node+&quot;.out&quot;, separation_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
+
+  # -----------------------------------------------
+
+  # Add the turn map to the left and right cameras
+  right_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, &quot;right_turn_map_color_to_scalar&quot;, &quot;&quot;))
+  left_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, &quot;left_turn_map_color_to_scalar&quot;, &quot;&quot;))
+
+  #baseRig = &quot;DomeStereoCamera&quot;
+  turn_mib_texture_filter_lookup_node = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_filter_lookup.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_filter_lookup&quot;))
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_filter_lookup_node+&quot;.out&quot;, right_turn_map_color_to_scalar_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_filter_lookup_node+&quot;.out&quot;, left_turn_map_color_to_scalar_node+&quot;.input&quot;, False)
+  turnMapFileTexture_node = str(Application.SICreateImageClip(turnMapFileTexture, &quot;&quot;, &quot;&quot;))
+  Application.SIConnectShaderToCnxPoint(&quot;Clips.turn_map_png&quot;, turn_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
+  turn_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_vector&quot;))
+  turn_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_remap&quot;))
+  Application.SetValue(turn_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_vector_node+&quot;.out&quot;, turn_mib_texture_remap_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_remap_node+&quot;.out&quot;, turn_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
+
+  # -----------------------------------------------
+
+  # Create and assign render passes for the left and right cameras
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, leftRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Camera&quot;, leftRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Main.Filename&quot;, &quot;DomeLeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Camera&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Main.Filename&quot;, &quot;DomeRightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  # Enable textured shading in the fulldome camera
+  Application.SetDisplayMode(baseRig, &quot;textured&quot;)
+
+
+&quot;&quot;&quot;
+Change the output resolution 
+---------------------------
+A python function to resize the render resolution
+
+example: changeRenderRes( width, height, aspectRatio)
+&quot;&quot;&quot;
+def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+
+
+
+
+&quot;&quot;&quot;
+Remove the Old DomeGrid Mesh
+---------------------------
+A python function to remove the old DomeGrid when the tool is run a 2nd time.
+&quot;&quot;&quot;
+def cleanDomeGrid():
+  # This polygon mesh selection code is based upon the blog post:
+  # https://codingforxsi.wordpress.com/2012/07/19/plugins-that-take-input-and-give-output/
+
+  # Find all the domeGrid meshes in the scene and store them in a python list.
+  polymesh_lst = list(Application.ActiveSceneRoot.FindChildren(&quot;*&quot;, &quot;polymsh&quot;))
+
+  # Create a list to store the meshes names in
+  polymeshName_lst= []
+  # Loop through the mesh objects and store their names
+  for polymesh in polymesh_lst:
+    # Add the meshes name to the mesh name list
+    polymeshName_lst.append(polymesh.FullName)
+
+  # Join the names in the list into a string and separate each name by a comma. eg &quot;sphere, cone, cube, domeGrid&quot;
+  polymeshSel_str = &quot;, &quot;.join(polymeshName_lst)
+
+  print (polymeshSel_str)
+  # domeGrid, starglobe_mesh_starglobe_mesh_polyStarglobe
+
+  for polymesh in polymesh_lst:
+    # Check if the polymesh's name is domeGrid
+    if polymesh.name == &quot;domeGrid&quot;:
+      # If it is, remove it from the selection
+      #Application.Selection.Remove(polymesh)
+      Application.DeleteObj(polymesh)
+      print(&quot;Removing the old domeGrid mesh.&quot;)
+ 
+
+
+&quot;&quot;&quot;
+Domemaster3D DomeGrid test background 
+--------------------------------------
+A python function to create a hemispherical yellow test grid. 
+
+&quot;&quot;&quot;
+def createDomeGrid():
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    import os
+
+    #Remove the Old Starglobe Mesh
+    cleanDomeGrid()
+
+    #---------------------------------------------------------------------------
+    # Variables
+    #---------------------------------------------------------------------------
+    
+    grid_material_name = &quot;yellow_constant_grid_material&quot;
+
+    # Get the Domemaster3D Addons path for the obj mesh
+    gridModelFile = getSourceImagesPath(&quot;grid_mesh.obj&quot;)
+
+    # Remove the old grid model and texture
+    #Application.DeleteObj(&quot;grid_mesh_grid_mesh_polygrid.Scene_Material.grid_material&quot;)
+
+    # Load the quads based grid sphere model
+    grid_mesh_file = str(Application.ObjImport(gridModelFile, 1, 0, False, True, False, True))
+    # grid_mesh_grid_mesh_polygrid1
+    print(&quot;grid Mesh: &quot; + grid_mesh_file)
+
+    # Scale the grid model to 25 units
+    #Application.Scale(grid_mesh_file, 25, 25, 25, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+   
+    #Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, &quot;&quot;, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+
+    # Select the grid mesh
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, True)
+
+    # Create a new material library named StarglobeLib
+    material_library_name = &quot;StarglobeLib&quot;
+    material_library = Application.CreateLibrary(material_library_name, 1, &quot;&quot;)(0)
+    Application.SetCurrentMaterialLibrary(material_library)
+    material_library_name = str(material_library)
+    # Creating a material library named: Sources.Materials.StarglobeLib
+    print(&quot;Creating a material library named: &quot; + material_library_name)
+
+    # Apply the constant shading surface material
+    Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, grid_material_name, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+    print(&quot;grid material: &quot; + grid_material_name)
+
+    # Apply a yellow color to the grid
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.blue&quot;, 0, &quot;&quot;)
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.green&quot;, 1, &quot;&quot;)
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.red&quot;, 1, &quot;&quot;)
+
+    # Set the views to textured
+    Application.SetDisplayMode(&quot;Camera&quot;, &quot;textured&quot;)
+
+    # Rename the grid mesh to a friendlier name
+    #grid_mesh_file = &quot;grid_mesh_grid_mesh_polygrid&quot; 
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, &quot;&quot;)
+    grid_mesh_file = str(Application.SetValue(grid_mesh_file+&quot;.Name&quot;, &quot;domeGrid&quot;, &quot;&quot;))
+
+    # Select the renamed grid mesh object
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, &quot;&quot;)
+
+    # Turn off shadow catching and receiving on the grid mesh so lights outside the grid can reach objects inside the grid
+    Application.SetValue(grid_mesh_file+&quot;.visibility.shdwcast&quot;, False, &quot;&quot;)
+    Application.SetValue(grid_mesh_file+&quot;.visibility.shdwrecv&quot;, False, &quot;&quot;)
+
+    # Turn off the primary and secondary rays on the grid
+    #Application.SetValue(grid_mesh_file+&quot;.visibility.primray&quot;, False, &quot;&quot;)
+    #Application.SetValue(grid_mesh_file+&quot;.visibility.scndray&quot;, False, &quot;&quot;)
+
+    # Rename the base grid material
+    #Application.SetValue(grid_mesh_file+&quot;.Material.Name&quot;, &quot;grid_material&quot;, &quot;&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+&quot;&quot;&quot;
+Domemaster3D createTestShapes
+----------------------
+A python function to create a test sphere and cube. 
+&quot;&quot;&quot;
+
+def createTestShapes():
+  # Add a NURBS sphere test shape
+  test_sphere_name = str(Application.CreatePrim(&quot;Sphere&quot;, &quot;NurbsSurface&quot;, &quot;nurbsTestSphere&quot;, &quot;&quot;))
+  # Set the sphere to a 24 cm radius
+  Application.SetValue(test_sphere_name+&quot;.surfmsh.geom.sphere.radius&quot;, 24, &quot;&quot;)
+  #Move the sphere in place
+  Application.SetValue(test_sphere_name+&quot;.kine.global.posx&quot;, 80, &quot;&quot;)
+  Application.SetValue(test_sphere_name+&quot;.kine.global.posy&quot;, 75, &quot;&quot;)
+  Application.SetValue(test_sphere_name+&quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Add a NURBS cube test shape
+  test_cube_name = str(Application.CreatePrim(&quot;Cube&quot;, &quot;NurbsSurface&quot;, &quot;nurbsTestCube&quot;, &quot;&quot;))
+  # Set the cube to a 40 cm length
+  Application.SetValue(test_cube_name+&quot;.surfmsh.geom.cube.length&quot;, 40, &quot;&quot;)
+  #Move the cube in place
+  Application.SetValue(test_cube_name+&quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.posy&quot;, 75, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.posz&quot;, -80, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.rotx&quot;, 88, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Add a directional light
+  dome_light_shape_name = str(Application.GetPrimLight(&quot;Infinite.Preset&quot;, &quot;Infinite&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  # Move the light -32 on the X axis
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.posx&quot;, -32, &quot;&quot;)
+  # Point the directional light upwards
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.rotx&quot;, 38, &quot;&quot;)
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.roty&quot;, 47, &quot;&quot;)
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.rotz&quot;, -62, &quot;&quot;)
+
+# Keep the PPG WIndows closed
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Run the AutoMagic Fulldome 3D Scene tool
+Application.NewScene(&quot;&quot;, &quot;&quot;)
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 1024, 1024, 1)
+
+# Add a few test models to the scene
+createTestShapes()
+
+# Create a grid
+createDomeGrid()
+
+# Create the fulldome stereo camera
+createFulldomeStereoRig()
+
+# Start rendering a preview in mental ray
+Application.OpenView(&quot;Render Preview&quot;, &quot;&quot;)]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="Stereo Rig" bitmap="render_domeAFL_FOV_Stereo" scriptengine="XSI.SIPython.1" tooltip="Fulldome Stereo Rig">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Domemaster3D Camera Setup Script
+Created by Andrew Hazelden  andrew@andrewhazelden.com
+Based upon the Softimage scripting work of Max Crow
+
+This script makes it easy to start creating fulldome stereoscopic content in Autodesk Softimage.
+
+&quot;&quot;&quot;
+
+
+
+&quot;&quot;&quot;
+Find out the path to the sourceimages folder
+----------------------
+A python function to check the operating system platform and the source images folder. 
+
+&quot;&quot;&quot;
+def getSourceImagesPath(imageFileName):
+
+  # ---------------------------------------------------------------------
+  #Setup the base folder path for the Domemaster3D control maps
+  # ---------------------------------------------------------------------
+
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+  # Find the Domemaster3D Addon folder
+  import os
+  xsiUserFolder = os.getenv( &quot;XSI_USERHOME&quot; )
+  # C:\Users\hazelden\Autodesk\Softimage_2014_SP1
+
+  #This is the base path for the images folder
+  baseImagesFolder = &quot;&quot;
+
+  if platform.system()=='Windows':
+    #Check if the program is running on Windows 
+    # C:\Users\hazelden\Autodesk\Softimage_2014_SP1\Addons\domemaster3D\Application\bitmaps\
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'win32':
+    #Check if the program is running on Windows 32
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'Linux':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  elif platform.system()== 'Linux2':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  else:
+    # Create the empty variable as a fallback mode
+    baseImagesFolder = &quot;&quot;
+
+  combinedFileAndImagePath = baseImagesFolder + imageFileName
+
+  print &quot;[Domemaster3D is running on a &quot; + platform.system() + &quot; System]&quot;
+  print &quot;[Requesting the image file]: &quot; + combinedFileAndImagePath
+
+  return combinedFileAndImagePath
+
+
+
+&quot;&quot;&quot;
+Domemaster3D Fulldome Stereo Rig
+--------------------------------
+A python function to create a fulldome stereo rig in Softimage.
+&quot;&quot;&quot;
+
+def createFulldomeStereoRig():
+
+  # Deselect the objects in the scene
+  Application.DeselectAll() 
+
+  # ---------------------------------------------------------------------
+  # Create the stereo rig
+  # ---------------------------------------------------------------------
+
+  #Setup the base folder path for the Domemaster3D control maps
+  #Variables
+  #separationMapFileTexture = &quot;C:\\Program Files\\Domemaster3D\\sourceimages\\separation_map.png&quot;
+  separationMapFileTexture = getSourceImagesPath(&quot;separation_map.png&quot;)
+  turnMapFileTexture = getSourceImagesPath(&quot;turn_map.png&quot;)
+
+  # Add a stereo camera named &quot;DomeStereoCamera&quot;
+  rigName = &quot;DomeStereoCamera&quot;
+
+  rig = str(Application.GetPrimStereoCamera(rigName))
+  #  DomeStereoCamera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  DomeStereoCamera1
+  leftRig = rig.replace(&quot;_Root&quot;, &quot;_Left&quot;);
+  #  DomeStereoCamera_Left1
+  rightRig = rig.replace(&quot;_Root&quot;, &quot;_Right&quot;);
+  #  DomeStereoCamera_Right1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  DomeStereoCamera_Interest1
+  print(&quot;Stereo Camera Rig:&quot; + rig + &quot; Left: &quot; + leftRig + &quot; Right: &quot; + rightRig + &quot; Interest: &quot; + interestRig )
+
+  # Variable to hold the rig controls name
+  rigControls = rig+&quot;.Domemaster_camera_controls&quot;
+  # DomeStereoCamera_Root1.Domemaster_camera_controls
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Snap the rig to the origin
+  Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Move the center of interest upwards above the origin
+  Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+  #Application.Translate(&quot;DomeStereoCamera_Interest&quot;, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+  # Turn off the default Softimage stereo controls
+  Application.SetValue(rig+&quot;.Stereo.StereoType&quot;, 0, &quot;&quot;)
+
+  # Add the domeAFL_FOV_Stereo lens shader to the camera rig
+  Application.SIAddArrayElement(leftRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_FOV_Stereo.1.0&quot;, leftRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(leftRig+&quot;.camera.domeAFL_FOV_Stereo.Camera&quot;, 1, &quot;&quot;)
+
+  Application.SIAddArrayElement(rightRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_FOV_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(rightRig+&quot;.camera.domeAFL_FOV_Stereo.Camera&quot;, 2, &quot;&quot;)
+
+
+  # Enable the PPG Windows
+  Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, True, &quot;&quot;)
+
+  # Create the user interface controls
+  Application.SelectObj(rig, &quot;&quot;, &quot;&quot;)
+  Application.AddProp(&quot;Custom_parameter_list&quot;, &quot;&quot;, &quot;&quot;, &quot;Domemaster Camera Controls&quot;, &quot;&quot;)
+  Application.SelectObj(rigControls, &quot;&quot;, &quot;&quot;)
+
+  # Set the camera separation control to have a 6.5 cm default value
+  Application.SIAddCustomParameter(rigControls, &quot;Separation&quot;, &quot;siDouble&quot;, 6.5, &quot;&quot;, 1000000, &quot;&quot;, 2053, &quot;&quot;, 1000000, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Field of View&quot;, &quot;siDouble&quot;, 180, &quot;&quot;, 360, &quot;&quot;, 2053, &quot;&quot;, 360, &quot;&quot;, &quot;&quot;)
+
+  # Set the dome radius control to have a 10 meter default value
+  Application.SIAddCustomParameter(rigControls, &quot;Dome Radius&quot;, &quot;siDouble&quot;, 1000, 1, 1000000, &quot;&quot;, 2053, 1, 1000000, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Dome Tilt&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 90, &quot;&quot;, 2053, &quot;&quot;, 90, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Separation Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Turn Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
+
+  Application.SIAddCustomParameter(rigControls, &quot;Head Tilt&quot;, &quot;siDouble&quot;, 0.5, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
+
+  # Stop the PPG Windows from opening
+  Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+  # Link the stereo user interface elements
+  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Field_of_View&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.FOV_Angle&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Field_of_View&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.FOV_Angle&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Dome_Radius&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Radius&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Dome_Radius&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Radius&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Dome_Tilt&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Dome_Tilt&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Tilt_Compensation&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt_Compensation&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Tilt_Compensation&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Dome_Tilt_Compensation&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Vertical_Mode&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Vertical_Mode&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Vertical_Mode&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Vertical_Mode&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Separation_Multiplier&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Separation_Multiplier&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Turn_Multiplier&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Turn_Multiplier&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, 1)
+
+  Application.CopyPaste(rigControls+&quot;.Head_Tilt&quot;, &quot;&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Tilt_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Head_Tilt&quot;, &quot;&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Tilt_Map&quot;, 1)
+
+  # -----------------------------------------------
+
+  # Create the DomeAFL_FOV_Stereo control texture maps
+  #baseRig = &quot;DomeStereoCamera&quot;
+
+  # Add the separation map to the left and right cameras
+  right_separation_map_color_to_scalar_node  = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  rightRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, &quot;right_separation_map_color_to_scalar&quot;, &quot;&quot;))
+  left_separation_map_color_to_scalar_node  =  str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  leftRig+&quot;.camera.domeAFL_FOV_Stereo.Cameras_Separation_Map&quot;, &quot;left_separation_map_color_to_scalar&quot;, &quot;&quot;))
+
+  #baseRig = &quot;DomeStereoCamera&quot;
+  separation_mib_texture_filter_lookup_node = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_filter_lookup.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_filter_lookup&quot;))
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, right_separation_map_color_to_scalar_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, left_separation_map_color_to_scalar_node+&quot;.input&quot;, False)
+  separationMapFileTexture_node = str(Application.SICreateImageClip(separationMapFileTexture, &quot;&quot;, &quot;&quot;))
+  Application.SIConnectShaderToCnxPoint(&quot;Clips.separation_map_png&quot;, separation_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
+  separation_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_vector&quot;))
+  separation_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_remap&quot;))
+  Application.SetValue(separation_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_vector_node+&quot;.out&quot;, separation_mib_texture_remap_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_remap_node+&quot;.out&quot;, separation_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
+
+  # -----------------------------------------------
+
+  # Add the turn map to the left and right cameras
+  right_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, rightRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, &quot;right_turn_map_color_to_scalar&quot;, &quot;&quot;))
+  left_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, leftRig+&quot;.camera.domeAFL_FOV_Stereo.Head_Turn_Map&quot;, &quot;left_turn_map_color_to_scalar&quot;, &quot;&quot;))
+
+  #baseRig = &quot;DomeStereoCamera&quot;
+  turn_mib_texture_filter_lookup_node = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_filter_lookup.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_filter_lookup&quot;))
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_filter_lookup_node+&quot;.out&quot;, right_turn_map_color_to_scalar_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_filter_lookup_node+&quot;.out&quot;, left_turn_map_color_to_scalar_node+&quot;.input&quot;, False)
+  turnMapFileTexture_node = str(Application.SICreateImageClip(turnMapFileTexture, &quot;&quot;, &quot;&quot;))
+  Application.SIConnectShaderToCnxPoint(&quot;Clips.turn_map_png&quot;, turn_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
+  turn_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_vector&quot;))
+  turn_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_remap&quot;))
+  Application.SetValue(turn_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_vector_node+&quot;.out&quot;, turn_mib_texture_remap_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(turn_mib_texture_remap_node+&quot;.out&quot;, turn_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
+
+  # -----------------------------------------------
+
+  # Create and assign render passes for the left and right cameras
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, leftRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Camera&quot;, leftRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Main.Filename&quot;, &quot;DomeLeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Camera&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Main.Filename&quot;, &quot;DomeRightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  # Enable textured shading in the fulldome camera
+  Application.SetDisplayMode(baseRig, &quot;textured&quot;)
+
+# Close the Expression Editor window
+def closeExprWindow():
+  # Window States
+  siNormal = 0
+  siClosed = 1
+  siMinimized = 2
+
+  # Target Window Name
+  targetWindowName = &quot;Expression Editor&quot;
+
+  # Get the active window list
+  layout = Application.Desktop.ActiveLayout
+  views = layout.Views
+  for x in views:
+    if str(x) == targetWindowName:
+      # Change the current window state to siClosed (1)
+      x.State = siClosed
+      print(&quot;The &quot;+str(x)+&quot; window has been closed&quot;)
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create the fulldome stereo camera
+createFulldomeStereoRig()
+
+# Close the Expression Editor window
+closeExprWindow()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="DomeTexture" bitmap="render_rob_lookup_background" scriptengine="XSI.SIPython.1" tooltip="Screen Space Texture">
+               <scripttext>&lt;![CDATA[
+&quot;&quot;&quot;
+Find out the path to the sourceimages folder
+----------------------
+A python function to check the operating system platform and the source images folder. 
+
+&quot;&quot;&quot;
+def getSourceImagesPath(imageFileName):
+
+  # ---------------------------------------------------------------------
+  #Setup the base folder path for the Domemaster3D control maps
+  # ---------------------------------------------------------------------
+
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+
+  # Find the Domemaster3D Addon folder
+  import os
+  xsiUserFolder = os.getenv( &quot;XSI_USERHOME&quot; )
+  # C:\Users\hazelden\Autodesk\Softimage_2014_SP1
+
+  #This is the base path for the images folder
+  baseImagesFolder = &quot;&quot;
+
+  if platform.system()=='Windows':
+    #Check if the program is running on Windows 
+    # C:\Users\hazelden\Autodesk\Softimage_2014_SP1\Addons\domemaster3D\Application\bitmaps\
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'win32':
+    #Check if the program is running on Windows 32
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'Linux':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  elif platform.system()== 'Linux2':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  else:
+    # Create the empty variable as a fallback mode
+    baseImagesFolder = &quot;&quot;
+
+  combinedFileAndImagePath = baseImagesFolder + imageFileName
+
+  print &quot;[Domemaster3D is running on a &quot; + platform.system() + &quot; System]&quot;
+  print &quot;[Requesting the image file]: &quot; + combinedFileAndImagePath
+
+  return combinedFileAndImagePath
+
+
+&quot;&quot;&quot;
+Domemaster3D createRobLookup
+----------------------
+A python function to create a mental ray screen space texture 
+and connect it to a robLookupBackground lens shader. 
+&quot;&quot;&quot;
+
+def createRobLookup():
+
+  #Setup the base folder path for the Domemaster3D control maps
+  #Variables
+  #separationMapFileTexture = &quot;C:\\Program Files\\Domemaster3D\\sourceimages\\separation_map.png&quot;
+  separationMapFileTexture = getSourceImagesPath(&quot;separation_map.png&quot;)
+  print &quot;[Loading Separation Map]: &quot; + separationMapFileTexture 
+
+  # Deselect the objects in the scene
+  Application.DeselectAll() 
+
+  # Add a camera named &quot;robLookupCamera&quot;
+  rigName = &quot;robLookupCamera&quot;
+  rig = str(Application.GetPrimCamera(&quot;&quot;, rigName, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  #  DomeStereoCamera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  DomeStereoCamera1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  DomeStereoCamera_Interest1
+  print(&quot;Fulldome Camera Rig Name: &quot; + rig)
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Move the center of interest upwards above the origin
+  Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+  # Add the rob_lookup_background lens shader to the camera
+  Application.SIAddArrayElement(baseRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.rob_lookup_background.1.0&quot;, baseRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+
+  # Add a screen space separation map to the robLookupCamera
+  Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  baseRig+&quot;.camera.rob_lookup_background.tex&quot;, &quot;&quot;, &quot;&quot;)
+  separation_map_color_to_scalar_node  = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  baseRig+&quot;.camera.rob_lookup_background.tex&quot;, &quot;separation_map_color_to_scalar&quot;, &quot;&quot;))
+
+  separation_mib_texture_filter_lookup_node = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_filter_lookup.1.0&quot;, baseRig+&quot;.camera&quot;, &quot;separation_mib_texture_filter_lookup&quot;))
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, separation_map_color_to_scalar_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, separation_map_color_to_scalar_node+&quot;.input&quot;, False)
+  separationMapFileTexture_node = str(Application.SICreateImageClip(separationMapFileTexture, &quot;&quot;, &quot;&quot;))
+  Application.SIConnectShaderToCnxPoint(&quot;Clips.separation_map_png&quot;, separation_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
+  separation_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, baseRig+&quot;.camera&quot;, &quot;separation_mib_texture_vector&quot;))
+  separation_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, baseRig+&quot;.camera&quot;, &quot;separation_mib_texture_remap&quot;))
+  Application.SetValue(separation_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_vector_node+&quot;.out&quot;, separation_mib_texture_remap_node+&quot;.input&quot;, False)
+  Application.SIConnectShaderToCnxPoint(separation_mib_texture_remap_node+&quot;.out&quot;, separation_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
+
+  # Create and assign render passes for the camera
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Camera&quot;,  baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Main.Filename&quot;, &quot;robLookupCamera\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create a screen space texture
+createRobLookup()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="FOV Camera" bitmap="render_domeAFL_FOV" scriptengine="XSI.SIPython.1" tooltip="domeAFL_FOV">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Domemaster3D createDomeAFL_FOV_Camera
+----------------------
+A python function to create a domeAFL_FOV lens shader and attach it to a camera.
+&quot;&quot;&quot;	
+def createDomeAFL_FOV_Camera():
+
+  # Deselect the objects in the scene
+  Application.DeselectAll() 
+
+  # Add a camera named &quot;domeAFL_FOV_Camera&quot;
+  rigName = &quot;domeAFL_FOV_Camera&quot;
+  rig = str(Application.GetPrimCamera(&quot;&quot;, rigName, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  #  domeAFL_FOV_Camera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  domeAFL_FOV_Camera1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  domeAFL_FOV_Camera_Interest1
+  print(&quot;Fulldome Camera Rig Name: &quot; + rig)
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Snap the rig to the origin
+  Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Move the center of interest upwards above the origin
+  Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+  # Add the domeAFL_FOV_Stereo lens shader to the camera
+  Application.SIAddArrayElement(baseRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_FOV.1.0&quot;, baseRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  #Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_FOV_Stereo.1.0&quot;, baseRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+
+  #Make sure the fisheye view is set to center
+  #Application.SetValue( baseRig+&quot;.camera.domeAFL_FOV_Stereo.Camera&quot;, 0, &quot;&quot;)
+
+  # Create and assign render passes for the camera
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Camera&quot;,  baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Main.Filename&quot;, &quot;DomeFOVCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  # Enable textured shading in the fulldome camera
+  Application.SetDisplayMode(baseRig, &quot;textured&quot;)
+
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create the FOV camera
+createDomeAFL_FOV_Camera()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="WxH Camera" bitmap="render_domeAFL_WxH" scriptengine="XSI.SIPython.1" tooltip="domeAFL_WxH">
+               <scripttext>&lt;![CDATA[
+&quot;&quot;&quot;
+Domemaster3D createDomeAFL_WxH_Camera
+----------------------
+A python function to create a domeAFL_WxH lens shader and attach it to a camera.
+&quot;&quot;&quot;	
+def createDomeAFL_WxH_Camera():
+
+  # Deselect the objects in the scene
+  Application.DeselectAll() 
+
+  # Add a camera named &quot;domeAFL_WxH_Camera&quot;
+  rigName = &quot;domeAFL_WxH_Camera&quot;
+  rig = str(Application.GetPrimCamera(&quot;&quot;, rigName, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  #  DomeStereoCamera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  DomeStereoCamera1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  DomeStereoCamera_Interest1
+  print(&quot;Fulldome Camera Rig Name: &quot; + rig)
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Snap the rig to the origin
+  Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Move the center of interest upwards above the origin
+  Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+  # Add the domeAFL_FOV_Stereo lens shader to the camera
+  Application.SIAddArrayElement(baseRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.domeAFL_WxH.1.0&quot;, baseRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+
+  # Create and assign render passes for the camera
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Camera&quot;,  baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Main.Filename&quot;, &quot;DomeWxHCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  # Enable textured shading in the fulldome camera
+  Application.SetDisplayMode(baseRig, &quot;textured&quot;)
+
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create the WxH camera
+createDomeAFL_WxH_Camera()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="Lat Camera" bitmap="render_latlong_lens" scriptengine="XSI.SIPython.1" tooltip="LatLong">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Domemaster3D createLatLong_Camera
+----------------------
+A python function to create a latitude longitude lens shader and attach it to a camera.
+&quot;&quot;&quot;	
+def createLatLong_Camera():
+
+  # Deselect the objects in the scene
+  Application.DeselectAll() 
+
+  # Add a camera named &quot;latlong_lens&quot;
+  rigName = &quot;LatLong_Camera&quot;
+  rig = str(Application.GetPrimCamera(&quot;&quot;, rigName, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  #  DomeStereoCamera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  DomeStereoCamera1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  DomeStereoCamera_Interest1
+  print(&quot;Fulldome Camera Rig Name: &quot; + rig)
+
+  # Move the root transform of the camera to the origin
+  Application.SetValue(rig+&quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Snap the rig to the origin
+  Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Move the center of interest upwards above the origin
+  #Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+  # Move the center of interest to 10 units on the Z axis from origin
+  Application.Translate(interestRig, 0, 0, 10, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+  # Add the latlong_lens lens shader to the camera
+  Application.SIAddArrayElement(baseRig+&quot;.camera.lensshader&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.latlong_lens.1.0&quot;, baseRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+
+  # Create and assign render passes for the camera
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Camera&quot;,  baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Main.Filename&quot;, &quot;LatLongCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  # Enable textured shading in the fulldome camera
+  Application.SetDisplayMode(baseRig, &quot;textured&quot;)
+
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create the latlong camera
+createLatLong_Camera()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="Starglobe" bitmap="render_starglobe" scriptengine="XSI.SIPython.1" tooltip="Starglobe">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Starglobe Python Script
+
+Notes:
+A constant shading material node is used on the starglobe so the object is self-illuminated
+
+The starglobe's shadow casting and receiving properties are turned off so an exterior light can pass through the starglobe mesh and cast shadows on objects inside the starglobe
+
+&quot;&quot;&quot;
+
+
+&quot;&quot;&quot;
+Find out the path to the sourceimages folder
+----------------------
+A python function to check the operating system platform and the source images folder. 
+
+&quot;&quot;&quot;
+def getSourceImagesPath(imageFileName):
+
+  # ---------------------------------------------------------------------
+  #Setup the base folder path for the Domemaster3D control maps
+  # ---------------------------------------------------------------------
+
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+
+  # Find the Domemaster3D Addon folder
+  import os
+  xsiUserFolder = os.getenv( &quot;XSI_USERHOME&quot; )
+  # C:\Users\hazelden\Autodesk\Softimage_2014_SP1
+
+  #This is the base path for the images folder
+  baseImagesFolder = &quot;&quot;
+
+  if platform.system()=='Windows':
+    #Check if the program is running on Windows 
+    # C:\Users\hazelden\Autodesk\Softimage_2014_SP1\Addons\domemaster3D\Application\bitmaps\
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'win32':
+    #Check if the program is running on Windows 32
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'Linux':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  elif platform.system()== 'Linux2':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  else:
+    # Create the empty variable as a fallback mode
+    baseImagesFolder = &quot;&quot;
+
+  combinedFileAndImagePath = baseImagesFolder + imageFileName
+
+  print &quot;[Domemaster3D is running on a &quot; + platform.system() + &quot; System]&quot;
+  print &quot;[Requesting the image file]: &quot; + combinedFileAndImagePath
+
+  return combinedFileAndImagePath
+
+
+&quot;&quot;&quot;
+Remove the Old Starglobe Mesh
+---------------------------
+A python function to remove the old starglobe when the tool is run a 2nd time.
+&quot;&quot;&quot;
+def cleanStarglobe():
+  # This polygon mesh selection code is based upon the blog post:
+  # https://codingforxsi.wordpress.com/2012/07/19/plugins-that-take-input-and-give-output/
+
+  # Find all the starglobe meshes in the scene and store them in a python list.
+  polymesh_lst = list(Application.ActiveSceneRoot.FindChildren(&quot;*&quot;, &quot;polymsh&quot;))
+
+  # Create a list to store the meshes names in
+  polymeshName_lst= []
+  # Loop through the mesh objects and store their names
+  for polymesh in polymesh_lst:
+    # Add the meshes name to the mesh name list
+    polymeshName_lst.append(polymesh.FullName)
+
+  # Join the names in the list into a string and separate each name by a comma. eg &quot;sphere, cone, cube, starglobe&quot;
+  polymeshSel_str = &quot;, &quot;.join(polymeshName_lst)
+
+  print (polymeshSel_str)
+  # starglobe, starglobe_mesh_starglobe_mesh_polyStarglobe
+
+  for polymesh in polymesh_lst:
+    # Check if the polymesh's name is starglobe
+    if polymesh.name == &quot;starglobe&quot;:
+      # If it is, remove it from the selection
+      #Application.Selection.Remove(polymesh)
+      Application.DeleteObj(polymesh)
+      print(&quot;Removing the old starglobe mesh.&quot;)
+ 
+
+&quot;&quot;&quot;
+Create a starglobe
+---------------------------
+A python function to create a 8K textured starglobe with a mia_material_x_passes shading network.
+&quot;&quot;&quot;
+def createStarglobe():
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    import os
+
+    #Remove the Old Starglobe Mesh
+    cleanStarglobe()
+
+    # ---------------------------------------------------------------------
+    # Set up the base folder path for the Domemaster3D textures
+    # ---------------------------------------------------------------------
+    # Set the file texture variables to &quot;&quot; if you don't want a file to be specified
+    #StarglobeMapFileTexture = &quot;&quot;
+
+    StarglobeMapFileTexture2k = getSourceImagesPath(&quot;starglobe_quadsphere_2k.jpg&quot;)
+    StarglobeMapFileTexture8k = getSourceImagesPath(&quot;starglobe_quadsphere_8k.jpg&quot;)
+
+    starglobe_material_name = &quot;starglobe_constant_material&quot;
+
+    # Get the Domemaster3D Addons path for the obj mesh
+    StarglobeModelFile = getSourceImagesPath(&quot;starglobe_mesh.obj&quot;)
+    #StarglobeModelFile = getModelsPath(&quot;starglobe_mesh.obj&quot;)
+
+    # Remove the old starglobe model and texture
+    #Application.DeleteObj(&quot;starglobe_mesh_starglobe_mesh_polyStarglobe.Scene_Material.starglobe_material&quot;)
+
+    # Load the quads based starglobe sphere model
+    starglobe_mesh_file = str(Application.ObjImport(StarglobeModelFile, 1, 0, False, True, False, True))
+    # starglobe_mesh_starglobe_mesh_polyStarglobe1
+    print (&quot;Starglobe Mesh: &quot; + starglobe_mesh_file)
+
+
+    # Create a new material library named StarglobeLib
+    material_library_name = &quot;StarglobeLib&quot;
+    material_library = Application.CreateLibrary(material_library_name, 1, &quot;&quot;)(0)
+    Application.SetCurrentMaterialLibrary(material_library)
+    material_library_name = str(material_library)
+    # Creating a material library named: Sources.Materials.StarglobeLib
+    print(&quot;Creating a material library named: &quot; + material_library_name)
+
+    # Apply the constant shading surface material
+    #Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, &quot;&quot;, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+
+    # Scale the starglobe model to 25 units
+    #Application.Scale(starglobe_mesh_file, 25, 25, 25, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+    # Select the starglobe mesh
+    Application.SelectObj(starglobe_mesh_file, &quot;&quot;, True)
+
+    # Apply the constant shading surface material
+    Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, starglobe_material_name, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+    Application.CreateShaderFromProgID(&quot;Softimage.txt2d-image-explicit.1.0&quot;, material_library_name+&quot;.Material&quot;, &quot;Image&quot;)
+    Application.SIConnectShaderToCnxPoint(material_library_name+&quot;.Material.Image.out&quot;, material_library_name+&quot;.Material.&quot;+starglobe_material_name+&quot;.color&quot;, False)
+    Application.SetInstanceDataValue(&quot;&quot;, material_library_name+&quot;.Material.Image.tspace_id&quot;, &quot;Texture_Projection&quot;)
+
+    print(&quot;Starglobe image name: &quot; + material_library_name+&quot;.Material.Image.out&quot;)
+    print(&quot;Starglobe material name: &quot; + material_library_name+&quot;.Material.&quot;+starglobe_material_name+&quot;.color&quot;)
+
+    # Load the actual starglobe texture map
+    # Load the 2k resolution texture
+    Application.SICreateImageClip(StarglobeMapFileTexture2k, &quot;&quot;, &quot;&quot;)
+    starglobeMapFileTexture_node = str(Application.SIConnectShaderToCnxPoint(&quot;Clips.starglobe_quadsphere_2k_jpg&quot;, material_library_name+&quot;.Material.Image.tex&quot;, False))
+
+    # Load the 8k resolution texture
+    #Application.SICreateImageClip(StarglobeMapFileTexture8k, &quot;&quot;, &quot;&quot;)
+    #starglobeMapFileTexture_node = str(Application.SIConnectShaderToCnxPoint(&quot;Clips.starglobe_quadsphere_8k_jpg&quot;, material_library_name+&quot;.Material.Image.tex&quot;, False))
+
+    # Set the views to textured
+    Application.SetDisplayMode(&quot;Camera&quot;, &quot;textured&quot;)
+
+    # Rename the starglobe mesh to a friendlier name
+    #starglobe_mesh_file = &quot;starglobe_mesh_starglobe_mesh_polyStarglobe&quot; 
+    Application.SelectObj(starglobe_mesh_file, &quot;&quot;, &quot;&quot;)
+    starglobe_mesh_file = str(Application.SetValue(starglobe_mesh_file+&quot;.Name&quot;, &quot;starglobe&quot;, &quot;&quot;))
+
+    # Select the renamed starglobe mesh object
+    Application.SelectObj(starglobe_mesh_file, &quot;&quot;, &quot;&quot;)
+
+    # Set the display smoothness level on the starglobe mesh for OpenGL + Render time previews
+    Application.SetValue(starglobe_mesh_file+&quot;.geomapprox.gapproxmosl&quot;, 2, &quot;&quot;)
+    Application.SetValue(starglobe_mesh_file+&quot;.geomapprox.gapproxmordrsl&quot;, 2, &quot;&quot;)
+
+    # Turn off shadow catching and receiving on the starglobe mesh so lights outside the starglobe can reach objects inside the starglobe
+    Application.SetValue(starglobe_mesh_file+&quot;.visibility.shdwcast&quot;, False, &quot;&quot;)
+    Application.SetValue(starglobe_mesh_file+&quot;.visibility.shdwrecv&quot;, False, &quot;&quot;)
+
+    # Turn off the primary and secondary rays on the starglobe
+    #Application.SetValue(starglobe_mesh_file+&quot;.visibility.primray&quot;, False, &quot;&quot;)
+    #Application.SetValue(starglobe_mesh_file+&quot;.visibility.scndray&quot;, False, &quot;&quot;)
+
+    # Rename the base starglobe material
+    #Application.SetValue(starglobe_mesh_file+&quot;.Material.Name&quot;, &quot;starglobe_material&quot;, &quot;&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create a starglobe
+createStarglobe()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="domeGrid" bitmap="domeGrid" scriptengine="XSI.SIPython.1" tooltip="Reference Grid">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+domeGrid Python Script
+
+Notes:
+A constant shading material node is used on the polygon grid so the object is self-illuminated
+
+The domeGrid's shadow casting and receiving properties are turned off so an exterior light can pass through the grid mesh and cast shadows on objects inside the grid
+
+&quot;&quot;&quot;
+
+
+&quot;&quot;&quot;
+Find out the path to the sourceimages folder
+----------------------
+A python function to check the operating system platform and the source images folder. 
+
+&quot;&quot;&quot;
+def getSourceImagesPath(imageFileName):
+
+  # ---------------------------------------------------------------------
+  #Setup the base folder path for the Domemaster3D control maps
+  # ---------------------------------------------------------------------
+
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+
+  # Find the Domemaster3D Addon folder
+  import os
+  xsiUserFolder = os.getenv( &quot;XSI_USERHOME&quot; )
+  # C:\Users\hazelden\Autodesk\Softimage_2014_SP1
+
+  #This is the base path for the images folder
+  baseImagesFolder = &quot;&quot;
+
+  if platform.system()=='Windows':
+    #Check if the program is running on Windows 
+    # C:\Users\hazelden\Autodesk\Softimage_2014_SP1\Addons\domemaster3D\Application\bitmaps\
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'win32':
+    #Check if the program is running on Windows 32
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'Linux':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  elif platform.system()== 'Linux2':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  else:
+    # Create the empty variable as a fallback mode
+    baseImagesFolder = &quot;&quot;
+
+  combinedFileAndImagePath = baseImagesFolder + imageFileName
+
+  print &quot;[Domemaster3D is running on a &quot; + platform.system() + &quot; System]&quot;
+  print &quot;[Requesting the image file]: &quot; + combinedFileAndImagePath
+
+  return combinedFileAndImagePath
+
+
+&quot;&quot;&quot;
+Remove the Old DomeGrid Mesh
+---------------------------
+A python function to remove the old DomeGrid when the tool is run a 2nd time.
+&quot;&quot;&quot;
+def cleanDomeGrid():
+  # This polygon mesh selection code is based upon the blog post:
+  # https://codingforxsi.wordpress.com/2012/07/19/plugins-that-take-input-and-give-output/
+
+  # Find all the domeGrid meshes in the scene and store them in a python list.
+  polymesh_lst = list(Application.ActiveSceneRoot.FindChildren(&quot;*&quot;, &quot;polymsh&quot;))
+
+  # Create a list to store the meshes names in
+  polymeshName_lst= []
+  # Loop through the mesh objects and store their names
+  for polymesh in polymesh_lst:
+    # Add the meshes name to the mesh name list
+    polymeshName_lst.append(polymesh.FullName)
+
+  # Join the names in the list into a string and separate each name by a comma. eg &quot;sphere, cone, cube, domeGrid&quot;
+  polymeshSel_str = &quot;, &quot;.join(polymeshName_lst)
+
+  print (polymeshSel_str)
+  # domeGrid, starglobe_mesh_starglobe_mesh_polyStarglobe
+
+  for polymesh in polymesh_lst:
+    # Check if the polymesh's name is domeGrid
+    if polymesh.name == &quot;domeGrid&quot;:
+      # If it is, remove it from the selection
+      #Application.Selection.Remove(polymesh)
+      Application.DeleteObj(polymesh)
+      print(&quot;Removing the old domeGrid mesh.&quot;)
+ 
+
+
+&quot;&quot;&quot;
+Domemaster3D DomeGrid test background 
+--------------------------------------
+A python function to create a hemispherical yellow test grid. 
+
+&quot;&quot;&quot;
+def createDomeGrid():
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    import os
+
+    #Remove the Old Starglobe Mesh
+    cleanDomeGrid()
+
+    #---------------------------------------------------------------------------
+    # Variables
+    #---------------------------------------------------------------------------
+    
+    grid_material_name = &quot;yellow_constant_grid_material&quot;
+
+    # Get the Domemaster3D Addons path for the obj mesh
+    gridModelFile = getSourceImagesPath(&quot;grid_mesh.obj&quot;)
+
+    # Remove the old grid model and texture
+    #Application.DeleteObj(&quot;grid_mesh_grid_mesh_polygrid.Scene_Material.grid_material&quot;)
+
+    # Load the quads based grid sphere model
+    grid_mesh_file = str(Application.ObjImport(gridModelFile, 1, 0, False, True, False, True))
+    # grid_mesh_grid_mesh_polygrid1
+    print(&quot;grid Mesh: &quot; + grid_mesh_file)
+
+    # Scale the grid model to 25 units
+    #Application.Scale(grid_mesh_file, 25, 25, 25, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+   
+    #Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, &quot;&quot;, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+
+    # Select the grid mesh
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, True)
+
+    # Create a new material library named StarglobeLib
+    material_library_name = &quot;StarglobeLib&quot;
+    material_library = Application.CreateLibrary(material_library_name, 1, &quot;&quot;)(0)
+    Application.SetCurrentMaterialLibrary(material_library)
+    material_library_name = str(material_library)
+    # Creating a material library named: Sources.Materials.StarglobeLib
+    print(&quot;Creating a material library named: &quot; + material_library_name)
+
+    # Apply the constant shading surface material
+    Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, grid_material_name, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+    print(&quot;grid material: &quot; + grid_material_name)
+
+    # Apply a yellow color to the grid
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.blue&quot;, 0, &quot;&quot;)
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.green&quot;, 1, &quot;&quot;)
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.red&quot;, 1, &quot;&quot;)
+
+    # Set the views to textured
+    Application.SetDisplayMode(&quot;Camera&quot;, &quot;textured&quot;)
+
+    # Rename the grid mesh to a friendlier name
+    #grid_mesh_file = &quot;grid_mesh_grid_mesh_polygrid&quot; 
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, &quot;&quot;)
+    grid_mesh_file = str(Application.SetValue(grid_mesh_file+&quot;.Name&quot;, &quot;domeGrid&quot;, &quot;&quot;))
+
+    # Select the renamed grid mesh object
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, &quot;&quot;)
+
+    # Turn off shadow catching and receiving on the grid mesh so lights outside the grid can reach objects inside the grid
+    Application.SetValue(grid_mesh_file+&quot;.visibility.shdwcast&quot;, False, &quot;&quot;)
+    Application.SetValue(grid_mesh_file+&quot;.visibility.shdwrecv&quot;, False, &quot;&quot;)
+
+    # Turn off the primary and secondary rays on the grid
+    #Application.SetValue(grid_mesh_file+&quot;.visibility.primray&quot;, False, &quot;&quot;)
+    #Application.SetValue(grid_mesh_file+&quot;.visibility.scndray&quot;, False, &quot;&quot;)
+
+    # Rename the base grid material
+    #Application.SetValue(grid_mesh_file+&quot;.Material.Name&quot;, &quot;grid_material&quot;, &quot;&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+
+# Stop the PPG Windows from opening
+Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Create a grid
+createDomeGrid()]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="Dome Viewer" bitmap="domeViewer" scriptengine="XSI.SIPython.1" tooltip="Dome Viewer">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Dome Viewer Python Script 1.4B4
+2014-03-23
+
+Notes:
+A constant shading material node is used on the Dome Viewer surface so the object is self-illuminated
+
+The Dome Viewer's shadow casting and receiving properties are turned off so an exterior light can pass through the viewer mesh and cast shadows on objects the inside.
+
+&quot;&quot;&quot;
+
+
+&quot;&quot;&quot;
+Find out the path to the sourceimages folder
+----------------------
+A python function to check the operating system platform and the source images folder. 
+
+&quot;&quot;&quot;
+def getSourceImagesPath(imageFileName):
+
+  # ---------------------------------------------------------------------
+  #Setup the base folder path for the Domemaster3D control maps
+  # ---------------------------------------------------------------------
+
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+
+  # Find the Domemaster3D Addon folder
+  import os
+  xsiUserFolder = os.getenv( &quot;XSI_USERHOME&quot; )
+  # C:\Users\hazelden\Autodesk\Softimage_2014_SP1
+
+  #This is the base path for the images folder
+  baseImagesFolder = &quot;&quot;
+
+  if platform.system()=='Windows':
+    #Check if the program is running on Windows 
+    # C:\Users\hazelden\Autodesk\Softimage_2014_SP1\Addons\domemaster3D\Application\bitmaps\
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'win32':
+    #Check if the program is running on Windows 32
+    baseImagesFolder =  xsiUserFolder + &quot;\\Addons\\domemaster3D\\Application\\bitmaps\\&quot;
+  elif platform.system()== 'Linux':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  elif platform.system()== 'Linux2':
+    #Check if the program is running on Linux
+    baseImagesFolder =  xsiUserFolder + &quot;/Addons/domemaster3D/Application/bitmaps/&quot;
+  else:
+    # Create the empty variable as a fallback mode
+    baseImagesFolder = &quot;&quot;
+
+  combinedFileAndImagePath = baseImagesFolder + imageFileName
+
+  print &quot;[Domemaster3D is running on a &quot; + platform.system() + &quot; System]&quot;
+  print &quot;[Requesting the image file]: &quot; + combinedFileAndImagePath
+
+  return combinedFileAndImagePath
+
+
+&quot;&quot;&quot;
+Remove the Old Viewer Mesh
+---------------------------
+A python function to remove the old viewer when the tool is run a 2nd time.
+&quot;&quot;&quot;
+def cleanDomeViewer():
+  # This polygon mesh selection code is based upon the blog post:
+  # https://codingforxsi.wordpress.com/2012/07/19/plugins-that-take-input-and-give-output/
+
+  # Find all the domeViewer meshes in the scene and store them in a python list.
+  polymesh_lst = list(Application.ActiveSceneRoot.FindChildren(&quot;*&quot;, &quot;polymsh&quot;))
+
+  # Create a list to store the meshes names in
+  polymeshName_lst= []
+  # Loop through the mesh objects and store their names
+  for polymesh in polymesh_lst:
+    # Add the meshes name to the mesh name list
+    polymeshName_lst.append(polymesh.FullName)
+
+  # Join the names in the list into a string and separate each name by a comma. eg &quot;sphere, cone, cube, domeViewer&quot;
+  polymeshSel_str = &quot;, &quot;.join(polymeshName_lst)
+
+  print (polymeshSel_str)
+  # domeViewer, fulldome_mesh_domeViewer
+
+  for polymesh in polymesh_lst:
+    # Check if the polymesh's name is domeViewer
+    if polymesh.name == &quot;domeViewer&quot;:
+      # If it is, remove it from the selection
+      #Application.Selection.Remove(polymesh)
+      Application.DeleteObj(polymesh)
+      print(&quot;Removing the old domeViewer mesh.&quot;)
+ 
+
+&quot;&quot;&quot;
+Create a DomeViewer
+---------------------------
+A python function to create a textured domeViewer with a constant shading network.
+&quot;&quot;&quot;
+def createDomeViewer():
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    import os
+
+    # Stop the PPG Windows from opening
+    Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+    #Remove the Old domeViewer Mesh
+    cleanDomeViewer()
+
+    # ---------------------------------------------------------------------
+    # Set up the base folder path for the Domemaster3D textures
+    # ---------------------------------------------------------------------
+    # Set the file texture variables to &quot;&quot; if you don't want a file to be specified
+    #domeViewerMapFileTexture2k = &quot;&quot;
+
+    domeViewerMapFileTexture2k = getSourceImagesPath(&quot;fulldome_2K.jpg&quot;)
+
+    domeviewer_material_name = &quot;domeviewer_constant_material&quot;
+
+    # Get the Domemaster3D Addons path for the obj mesh
+    domeViewerModelFile = getSourceImagesPath(&quot;fulldome_mesh.obj&quot;)
+    #domeViewerModelFile = getModelsPath(&quot;fulldome_mesh.obj&quot;)
+
+    # Load the fulldome preview shape model
+    domeviewer_mesh_file = str(Application.ObjImport(domeViewerModelFile, 1, 0, False, True, False, True))
+    # fulldome_mesh_domeViewer
+    print (&quot;DomeViewer Mesh: &quot; + domeviewer_mesh_file)
+
+    # Create a new material library named DomeViewerLib
+    material_library_name = &quot;DomeViewerLib&quot;
+    material_library = Application.CreateLibrary(material_library_name, 1, &quot;&quot;)(0)
+    Application.SetCurrentMaterialLibrary(material_library)
+    material_library_name = str(material_library)
+    # Creating a material library named: Sources.Materials.DomeViewerLib
+    print(&quot;Creating a material library named: &quot; + material_library_name)
+
+    # Apply the constant shading surface material
+    #Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, &quot;&quot;, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+
+    # Scale the fulldome model to 300 units
+    Application.Scale(domeviewer_mesh_file, 300, 300, 300, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+
+    # Select the fulldome mesh
+    Application.SelectObj(domeviewer_mesh_file, &quot;&quot;, True)
+
+    # Apply the constant shading surface material
+    Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, domeviewer_material_name, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+
+    Application.CreateShaderFromProgID(&quot;Softimage.txt2d-image-explicit.1.0&quot;, material_library_name+&quot;.Material&quot;, &quot;Image&quot;)
+
+    Application.SIConnectShaderToCnxPoint(material_library_name+&quot;.Material.Image.out&quot;, material_library_name+&quot;.Material.&quot;+domeviewer_material_name+&quot;.color&quot;, False)
+    Application.SetInstanceDataValue(&quot;&quot;, material_library_name+&quot;.Material.Image.tspace_id&quot;, &quot;Texture_Projection&quot;)
+
+    print(&quot;DomeViewer image name: &quot; + material_library_name+&quot;.Material.Image.out&quot;)
+    print(&quot;DomeViewer material name: &quot; + material_library_name+&quot;.Material.&quot;+domeviewer_material_name+&quot;.color&quot;)
+
+    # Load the actual fulldome texture map
+    # Load the 2k resolution texture
+    Application.SICreateImageClip(domeViewerMapFileTexture2k, &quot;&quot;, &quot;&quot;)
+    domeviewerMapFileTexture_node = str(Application.SIConnectShaderToCnxPoint(&quot;Clips.fulldome_2K_jpg&quot;, material_library_name+&quot;.Material.Image.tex&quot;, False))
+
+    # Load the 8k resolution texture
+    #Application.SICreateImageClip(domeViewerMapFileTexture8k, &quot;&quot;, &quot;&quot;)
+    #domeviewerMapFileTexture_node = str(Application.SIConnectShaderToCnxPoint(&quot;Clips.fulldome_8k_jpg&quot;, material_library_name+&quot;.Material.Image.tex&quot;, False))
+
+    # Set the views to textured
+    Application.SetDisplayMode(&quot;Camera&quot;, &quot;textured&quot;)
+
+    # Rename the domeViewer mesh to a friendlier name
+    #domeviewer_mesh_file = &quot;fulldome_mesh_domeViewer&quot; 
+    Application.SelectObj(domeviewer_mesh_file, &quot;&quot;, &quot;&quot;)
+    domeviewer_mesh_file = str(Application.SetValue(domeviewer_mesh_file+&quot;.Name&quot;, &quot;domeViewer&quot;, &quot;&quot;))
+
+    # Select the renamed domeviewer mesh object
+    Application.SelectObj(domeviewer_mesh_file, &quot;&quot;, &quot;&quot;)
+
+
+    # Set the display smoothness level on the domeViewer mesh for OpenGL + Render time previews
+    Application.SetValue(domeviewer_mesh_file+&quot;.geomapprox.gapproxmosl&quot;, 2, &quot;&quot;)
+    Application.SetValue(domeviewer_mesh_file+&quot;.geomapprox.gapproxmordrsl&quot;, 2, &quot;&quot;)
+
+    # Turn off shadow catching and receiving on the domeviewer mesh so lights outside the domeviewer can reach objects inside the domeviewer
+    Application.SetValue(domeviewer_mesh_file+&quot;.visibility.shdwcast&quot;, False, &quot;&quot;)
+    Application.SetValue(domeviewer_mesh_file+&quot;.visibility.shdwrecv&quot;, False, &quot;&quot;)
+
+    # Turn off the primary and secondary rays on the domeviewer
+    #Application.SetValue(domeviewer_mesh_file+&quot;.visibility.primray&quot;, False, &quot;&quot;)
+    #Application.SetValue(domeviewer_mesh_file+&quot;.visibility.scndray&quot;, False, &quot;&quot;)
+
+    # Rename the base domeviewer material
+    #Application.SetValue(domeviewer_mesh_file+&quot;.Material.Name&quot;, &quot;domeviewer_material&quot;, &quot;&quot;)
+
+    # Stop the PPG Windows from opening
+    Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, True, &quot;&quot;)    
+
+    # Show the fulldome texture
+    #Application.SelectObj(&quot;domeViewer.Material.fulldome_2K_jpg&quot;, &quot;&quot;, &quot;&quot;)
+    #Application.InspectObj(&quot;domeViewer.Material.fulldome_2K_jpg&quot;, &quot;All&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+    Application.SelectObj(domeviewerMapFileTexture_node, &quot;&quot;, &quot;&quot;)
+    Application.InspectObj(domeviewerMapFileTexture_node, &quot;All&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+
+&quot;&quot;&quot;
+Domemaster3D createDomeViewerCamera
+----------------------
+A python function to create a ldomeViewer camera.
+&quot;&quot;&quot;	
+def createDomeViewerCamera():
+
+  # Stop the PPG Windows from opening
+  Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)    
+
+  # Deselect the objects in the scene
+  Application.DeselectAll()
+
+  # Add a camera named &quot;viewerCamera&quot;
+  rigName = &quot;viewerCamera&quot;
+  rig = str(Application.GetPrimCamera(&quot;&quot;, rigName, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  #  viewerCamera_Root1
+  baseRig = rig.replace(&quot;_Root&quot;, &quot;&quot;);
+  #  viewerCamera1
+  interestRig = rig.replace(&quot;_Root&quot;, &quot;_Interest&quot;);
+  #  viewerCamera_Interest1
+  print(&quot;DomeViewer Camera Rig Name: &quot; + rig)
+
+  # Move the root transform of the camera to the origin
+  Application.SetValue(rig+&quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+
+  # Rotate the camera rig upright
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Snap the rig to the origin
+  Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Remove the DomeViewer camera interest rig to make rotations easier
+  Application.DeleteObj(interestRig)
+
+  # Change the camera icon size
+  Application.SetValue(baseRig+&quot;.kine.local.sclx&quot;, 30, &quot;&quot;)
+  Application.SetValue(baseRig+&quot;.kine.local.scly&quot;, 30, &quot;&quot;)
+  Application.SetValue(baseRig+&quot;.kine.local.sclz&quot;, 30, &quot;&quot;)
+
+  # Name of the regular Softimage perspective camera
+  regularSceneCamera = &quot;Camera&quot;
+  
+  # Regular scene camera area of interest
+  Application.SetValue(regularSceneCamera+&quot;_Interest.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(regularSceneCamera+&quot;_Interest.kine.global.posy&quot;, 0, &quot;&quot;)
+  Application.SetValue(regularSceneCamera+&quot;_Interest.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # View on regular scene camera
+  Application.SetValue(regularSceneCamera+&quot;.kine.global.posx&quot;, -1201.52, &quot;&quot;)
+  Application.SetValue(regularSceneCamera+&quot;.kine.global.posy&quot;, -294.3, &quot;&quot;)
+  Application.SetValue(regularSceneCamera+&quot;.kine.global.posz&quot;, 211.86, &quot;&quot;)
+
+  # Set the camera to use a custom focal length
+  # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
+  Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
+
+  # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
+  #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
+
+  # Disable the grid on the domeViewer camera
+  Application.SetValue(baseRig+&quot;.camvis.gridvis&quot;, False, &quot;&quot;)
+
+  # Disable the grid on the regular scene camera
+  Application.SetValue(&quot;Camera.camvis.gridvis&quot;, False, &quot;&quot;)
+
+  # Set the domeViewer camera view to textured mode
+  Application.SetDisplayMode(&quot;viewerCamera&quot;, &quot;textured&quot;)
+
+  # Set the regular camera view to textured mode
+  Application.SetDisplayMode(&quot;Camera&quot;, &quot;textured&quot;)
+
+  # Create and assign render passes for the camera
+  Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Camera&quot;,  baseRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+baseRig+&quot;.Main.Filename&quot;, &quot;DomeViewerCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+
+  # Stop the PPG Windows from opening
+  Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, True, &quot;&quot;)    
+
+# Create a new scene
+Application.NewScene(&quot;&quot;, &quot;&quot;)
+
+# Create a domeViewer mesh
+createDomeViewer()
+
+# Create the DomeViewer camera
+createDomeViewerCamera()
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="Wiki" bitmap="domeHelp" scriptengine="XSI.SIPython.1" tooltip="Wiki Help">
+               <scripttext>&lt;![CDATA[def openDomemasterWiki():
+  import webbrowser
+
+  # Domemaster Stereo Shader - Wiki Page
+  url = 'https://code.google.com/p/domemaster-stereo-shader/w/list'
+
+  # Open URL in new window, raising the window if possible.
+  webbrowser.open_new(url)
+
+# Open the Wiki page
+openDomemasterWiki()
+
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="Info" bitmap="domeInfo" scriptengine="XSI.SIPython.1" tooltip="Version Info">
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+  Dome Version for Softimage V1.0
+  by Andrew Hazelden
+
+  This tool displays the version number.
+
+  Version History
+  ----------------
+  Domemaster3D V1.4 B2 - March 3, 2014
+  Domemaster3D V1.4 B3 - March 4, 2014
+
+&quot;&quot;&quot;
+
+domemaster3D_title = &quot;About Domemaster3D for Softimage&quot;;
+domemaster3D_version = &quot;1.4 B3&quot;;
+release_date = &quot;March 4, 2014&quot;;
+
+domeDialgueString = &quot;Domemaster3D Shader for Softimage&quot; + &quot; - Version &quot; + domemaster3D_version + &quot;\n&quot;
+domeDialgueString += &quot;This edition was released on &quot; + release_date + &quot;.\n&quot;
+domeDialgueString += &quot;\n&quot;
+domeDialgueString += &quot;A 2D/3D angular fisheye rendering system for planetariums and fulldome theatres. This shader is also available for 3DS Max, and Maya.\n&quot;;
+domeDialgueString += &quot;\n&quot;
+domeDialgueString += &quot;The Domemaster3D shader is distributed under the GPL v3 license.\n&quot;;
+print (domeDialgueString)
+
+XSIUIToolkit.MsgBox( domeDialgueString, 0, domemaster3D_title)]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="0.5" bitmap="render_resolution512" scriptengine="XSI.SIPython.1" tooltip="Render 0.5K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 512, 512, 1)
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="1K" bitmap="render_resolution1k" scriptengine="XSI.SIPython.1" tooltip="Render 1K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 1024, 1024, 1)
+
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="2k" bitmap="render_resolution2k" scriptengine="XSI.SIPython.1" tooltip="Render 2K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 2048, 2048, 1)
+
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="4K" bitmap="render_resolution4k" scriptengine="XSI.SIPython.1" tooltip="Render 4K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+     # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 4096, 4096, 1)
+
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="8K" bitmap="render_resolution8k" scriptengine="XSI.SIPython.1" tooltip="Render 8K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+     # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 8192, 8192, 1)
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="1x0.5K" bitmap="render_resolution1024x512.bmp" scriptengine="XSI.SIPython.1" tooltip="Render 1x0.5K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+
+  try:
+     # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes(width, height, aspectRatio)
+changeRenderRes(1024, 512, 2)
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="2x1K" bitmap="render_resolution2x1k" scriptengine="XSI.SIPython.1" tooltip="Render 2x1K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+
+  try:
+     # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes(2048, 1024, 2)
+
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="4x2K" bitmap="render_resolution4x2k" scriptengine="XSI.SIPython.1" tooltip="Render 4x2K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 4096, 1024, 2)]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="8x4K" bitmap="render_resolution8x4k" scriptengine="XSI.SIPython.1" tooltip="Render 8x4K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 8196, 4096, 2)
+
+]]&gt;</scripttext>
+            </item>
+            <item type="scriptbutton" label="16x8k" bitmap="render_resolution16x8k" scriptengine="XSI.SIPython.1" tooltip="Render 16x8K">
+               <scripttext>&lt;![CDATA[def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes(16384, 8192, 2)
+
+]]&gt;</scripttext>
+            </item>
+         </tab>
+      </tabs>
+   </shelf_view>
+</xsi_file>

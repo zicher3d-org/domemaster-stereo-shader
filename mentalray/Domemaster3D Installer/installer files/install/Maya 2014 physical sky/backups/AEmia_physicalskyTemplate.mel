@@ -1,0 +1,264 @@
+
+//  Procedure Name: AEmia_physicalskyTemplate
+//
+//  Description Name;
+//	Creates the attribute editor controls for the mia_physicalsky Nodes
+//
+//  Input Value:
+//	nodeName 
+//
+//  Output Value:
+//	None
+//
+
+global proc miUpdateSkyCameras(string $skyShader)
+{
+	string $exposureControl;
+	string $connections[] = `listConnections ($skyShader + ".miSkyExposure")`;
+	if(size($connections))
+		$exposureControl = $connections[0];
+		
+	// hookup sky as environment shader to all render cameras
+	string $cameras[] = `ls -type camera`;
+	for ($camera in $cameras) 
+	{
+		string $cmd;
+		if (!`getAttr ($camera + ".orthographic")`) 
+		{
+			$cmd = ("connectAttr -force " + $skyShader + ".message " + $camera + ".miEnvironmentShader");
+			catchQuiet(`eval $cmd`);
+			
+			if(size($exposureControl))
+			{
+				$cmd = ("connectAttr -force " + $exposureControl + ".message " + $camera + ".miLensShader");
+				catchQuiet(`eval $cmd`);
+			}
+		}
+	}
+}
+
+global proc miRemoveSkyCameras(string $skyShader)
+{
+	string $result = `confirmDialog -m (getPluginResource("Mayatomr", "kRemoveCamConnect")) 
+						-button (getPluginResource("Mayatomr", "kYes"))
+						-button (getPluginResource("Mayatomr", "kNo")) 
+						-defaultButton (getPluginResource( "Mayatomr", "kNo"))`;
+	if ($result == (getPluginResource( "Mayatomr", "kNo"))) {
+		return;
+	} 
+  
+	string $exposureControl;
+	string $connections[] = `listConnections ($skyShader + ".miSkyExposure")`;
+	if(size($connections))
+		$exposureControl = $connections[0];
+		
+	string $cameras[] = `listConnections -type camera ($skyShader + ".message")`;
+	for ($camera in $cameras) 
+	{
+		disconnectAttr 
+			($skyShader + ".message")
+			($camera + ".miEnvironmentShader");
+	}
+	
+	if(size($exposureControl))
+	{
+		string $exposureCameras[] = `listConnections -type camera ($exposureControl + ".message")`;
+		for ($camera in $exposureCameras) 
+		{
+			disconnectAttr
+				($exposureControl + ".message")
+				($camera + ".miLensShader");
+		}
+	}
+}
+
+global proc miSkyCamerasButtonCreate(string $attr)
+{
+	string $buffer[];
+	tokenize($attr, ".", $buffer);
+	string $node = (size($buffer) > 0) ? $buffer[0] : "";
+
+	button -label (getPluginResource("Mayatomr", "kUpdateCameraConnections")) 
+		-command ("miUpdateSkyCameras " + $node)
+		updateCamerasButton;
+
+	button -label (getPluginResource("Mayatomr", "kRemoveCameraConnections")) 
+		-command ("miRemoveSkyCameras " + $node)
+		removeCamerasButton;
+}
+
+global proc miSkyCamerasButtonReplace(string $attr)
+{
+	string $buffer[];
+	tokenize($attr, ".", $buffer);
+	string $node = (size($buffer) > 0) ? $buffer[0] : "";
+
+	button	-edit
+		-command ("miUpdateSkyCameras " + $node)
+		updateCamerasButton;
+
+	button -edit 
+		-command ("miRemoveSkyCameras " + $node)
+		removeCamerasButton;
+}
+
+global proc AEmia_skyUnitConversionReplace(string $attr)
+{
+	attrFieldSliderGrp -edit
+		-attribute ($attr + "R")
+		-minValue 0.0
+		-maxValue 1.0
+		-fieldMaxValue 1000.0
+		redUnitConversionControl;
+	attrFieldSliderGrp -edit
+		-attribute ($attr + "G")
+		-minValue 0.0
+		-maxValue 1.0
+		-fieldMaxValue 1000.0
+		greenUnitConversionControl;
+	attrFieldSliderGrp -edit
+		-attribute ($attr + "B")
+		-minValue 0.0
+		-maxValue 1.0
+		-fieldMaxValue 1000.0
+		blueUnitConversionControl;
+}
+
+global proc AEmia_skyUnitConversionCreate(string $attr)
+{
+	attrFieldSliderGrp	-label (getPluginResource("Mayatomr", "kRedUnitConversionControl"))
+						-precision 6
+						-hideMapButton true
+						redUnitConversionControl;
+	attrFieldSliderGrp	-label (getPluginResource("Mayatomr", "kGreenUnitConversionControl"))
+						-precision 6
+						-hideMapButton true
+						greenUnitConversionControl;
+	attrFieldSliderGrp	-label (getPluginResource("Mayatomr", "kBlueUnitConversionControl"))
+						-precision 6
+						-hideMapButton true
+						blueUnitConversionControl;
+
+	AEmia_skyUnitConversionReplace $attr;
+}
+
+global proc AEmia_physicalskyTemplate ( string $nodeName )
+{
+	AEswatchDisplay $nodeName;
+	editorTemplate -beginScrollLayout;
+
+	//Shading
+	//
+	editorTemplate -beginLayout (getPluginResource("Mayatomr", "kShading"))
+		-collapse 0;
+
+		editorTemplate	-addControl "on" "AEmia_physicalskyEnable";
+		editorTemplate	-addControl "multiplier";
+
+		editorTemplate	-callCustom
+							"AEmia_skyUnitConversionCreate"
+							"AEmia_skyUnitConversionReplace"
+							"rgb_unit_conversion";
+
+		editorTemplate	-addControl "haze";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kRBShift"))
+						-addControl "redblueshift";
+		editorTemplate	-addControl "saturation";
+		
+		editorTemplate	-label (getPluginResource("Mayatomr", "kHorizonHeight"))
+						-addControl "horizon_height";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kHorizonBlur"))
+						-addControl "horizon_blur";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kGroundColor"))
+						-addControl "ground_color";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kNightColor"))
+						-addControl "night_color";
+						
+		editorTemplate	-label (getPluginResource("Mayatomr", "kSunDirection"))
+						-addControl "sun_direction";
+		editorTemplate	-addControl "sun";
+		
+		editorTemplate	-label (getPluginResource("Mayatomr", "kSunDiskIntensity"))
+						-addControl "sun_disk_intensity";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kSunDiskScale"))
+						-addControl "sun_disk_scale";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kSunGlowIntensity"))
+						-addControl "sun_glow_intensity";
+		
+		editorTemplate	-label (getPluginResource("Mayatomr", "kUseBackground"))
+						-addControl "use_background" "AEmia_physicalskyBackgroundEnable";
+		editorTemplate	-addControl "background";
+
+		editorTemplate	-label (getPluginResource("Mayatomr", "kYisUp"))
+						-addControl "y_is_up";
+		editorTemplate	-addControl "flags";
+		editorTemplate	-label (getPluginResource("Mayatomr", "kVisibilityDistance")) -addControl "visibility_distance";
+
+	separator -style "none" -height 10;
+
+	rowLayout
+		-numberOfColumns 2
+		-columnWidth 2 180;
+
+		text -label "";
+		editorTemplate -callCustom
+			"miSkyCamerasButtonCreate"
+			"miSkyCamerasButtonReplace"
+			"message";
+		text -label "";
+
+	setParent ..;
+
+	separator -style "none" -height 10;
+	editorTemplate -endLayout;
+
+	// include/call base class/node attributes
+	//
+	AEmentalrayBaseTemplate($nodeName);
+
+	editorTemplate -endScrollLayout;
+}
+
+
+
+//dims all controls whens "On" is not activated
+global proc AEmia_physicalskyEnable(string $node)
+{
+	int $pluginLoaded = `pluginInfo -q -loaded Mayatomr`;
+
+	editorTemplate -dc $node "on" (! $pluginLoaded);
+
+	int $dim = ($pluginLoaded && `getAttr ($node + ".on")`) ? 0 : 1;
+
+	editorTemplate -dimControl $node "multiplier" $dim;
+	editorTemplate -dimControl $node "rgb_unit_conversion" $dim;
+	editorTemplate -dimControl $node "haze" $dim;
+	editorTemplate -dimControl $node "redblueshift" $dim;
+	editorTemplate -dimControl $node "saturation" $dim;
+	editorTemplate -dimControl $node "horizon_height" $dim;
+	editorTemplate -dimControl $node "horizon_blur" $dim;
+	editorTemplate -dimControl $node "ground_color" $dim;
+	editorTemplate -dimControl $node "night_color" $dim;
+	editorTemplate -dimControl $node "sun_direction" $dim;
+	editorTemplate -dimControl $node "sun" $dim;
+	editorTemplate -dimControl $node "sun_disk_intensity" $dim;
+	editorTemplate -dimControl $node "sun_disk_scale" $dim;
+	editorTemplate -dimControl $node "sun_glow_intensity" $dim;
+	editorTemplate -dimControl $node "use_background" $dim;
+	editorTemplate -dimControl $node "background" $dim;
+	editorTemplate -dimControl $node "y_is_up" $dim;
+	editorTemplate -dimControl $node "flags" $dim;
+}
+
+
+//dims "Background" control whens "UseBackground" is not activated
+global proc AEmia_physicalskyBackgroundEnable(string $node)
+{
+	int $pluginLoaded = `pluginInfo -q -loaded Mayatomr`;
+
+	editorTemplate -dc $node "use_background" (! $pluginLoaded);
+
+	int $dim = ($pluginLoaded && `getAttr ($node+".use_background")`) ? 0 : 1;
+
+	editorTemplate -dimControl $node "background" $dim;
+}

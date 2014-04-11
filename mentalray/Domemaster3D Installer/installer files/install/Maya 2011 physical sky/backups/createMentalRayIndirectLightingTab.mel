@@ -1,0 +1,2487 @@
+// Copyright (C) 1997-2010 Autodesk, Inc., and/or its licensors.
+// All rights reserved.
+//
+// The coded instructions, statements, computer programs, and/or related
+// material (collectively the "Data") in these files contain unpublished
+// information proprietary to Autodesk, Inc. ("Autodesk") and/or its licensors,
+// which is protected by U.S. and Canadian federal copyright law and by
+// international treaties.
+//
+// The Data is provided for use exclusively by You. You have the right to use,
+// modify, and incorporate this Data into other products for purposes authorized 
+// by the Autodesk software license agreement, without fee.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. AUTODESK
+// DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES
+// INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT,
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ARISING FROM A COURSE 
+// OF DEALING, USAGE, OR TRADE PRACTICE. IN NO EVENT WILL AUTODESK AND/OR ITS
+// LICENSORS BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+// DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF AUTODESK AND/OR ITS
+// LICENSORS HAS BEEN ADVISED OF THE POSSIBILITY OR PROBABILITY OF SUCH DAMAGES.
+
+//==================================================================
+// Mental Ray Indirect Lighting Tab
+//==================================================================
+
+global proc miCreateIbl()
+{
+	string $iblNode = `shadingNode -asLight mentalrayIblShape`;
+	string $children[] = `listRelatives $iblNode`;
+	$iblNode = $children[0];
+
+	if (size($iblNode)) {
+
+	string $oldNode[] =
+		`listConnections "mentalrayGlobals.imageBasedLighting"`;
+	if (size($oldNode))
+		delete $oldNode[0];
+
+	connectAttr
+		($iblNode + ".message") "mentalrayGlobals.imageBasedLighting";
+
+	setAttr ($iblNode + ".primaryVisibility")    1;
+	setAttr ($iblNode + ".visibleInReflections") 1;
+	setAttr ($iblNode + ".visibleInRefractions") 1;
+	setAttr ($iblNode + ".visibleInEnvironment") 1;
+	setAttr ($iblNode + ".visibleInFinalGather") 1;
+
+	// scale up to 10 times the scene BB
+        // get all the dag objects
+	string $geometries[] = `ls -type nurbsSurface -type mesh -type subdiv`;
+
+	// exclude itself
+	string $objs[];
+	int $count=0;
+	for($geo in $geometries) {
+		if ($geo != $iblNode) {
+			$objs[$count] = $geo;
+			$count++;
+			}
+		}
+
+	if ($count > 0) {
+		float $bbox[] = `exactWorldBoundingBox $objs`;
+		float $newSize = 0 ;
+		for($bb in $bbox)
+			$newSize = max($newSize, abs($bb));
+
+		if ($newSize > 0) {
+			// ibl shape itself has size
+			float $iblBB[] = `exactWorldBoundingBox $iblNode`;
+			float $iblSize = $iblBB[3];
+
+			$newSize = $newSize * 10 / $iblSize ;
+			string $transformNode[] =
+				`listRelatives  -parent $iblNode`;
+
+			setAttr ($transformNode[0] + ".scaleX") $newSize;
+			setAttr ($transformNode[0] + ".scaleY") $newSize;
+			setAttr ($transformNode[0] + ".scaleZ") $newSize;
+			}
+		}
+	}
+
+	miPropagateIbl();
+}
+
+global proc miPropagateIbl()
+{
+	string $iblNode[] =
+		`listConnections "mentalrayGlobals.imageBasedLighting"`;
+
+	if (size($iblNode))
+		showEditor $iblNode[0];
+}
+
+global proc miUpdateIbl()
+{
+	if (!size(`ls mentalrayGlobals`))
+		return;
+
+	int $ibl = `connectionInfo -id "mentalrayGlobals.imageBasedLighting"`;
+	if ($ibl)
+		button -e -label (uiRes("m_createMentalRayIndirectLightingTab.kDelete"))
+			-command miDeleteIbl
+			miCreateIblButton;
+	else
+		button -e
+			-label (uiRes("m_createMentalRayIndirectLightingTab.kCreate"))
+			-command miCreateIbl
+			miCreateIblButton;
+	control -e -en $ibl miOpenIblButton;
+}
+
+global proc miDeleteIbl()
+{
+	string $ibl[] = `listConnections "mentalrayGlobals.imageBasedLighting"`;
+	if (size($ibl))
+		delete $ibl[0];
+}
+
+global proc miCreateSunSky()
+{
+	// Don't forget to turn on FG 'cause this won't work
+	// without out it...
+	setAttr "miDefaultOptions.finalGather" 1;
+
+	// create exposure control, to be used as a lens shader
+	string $exposureControl = `shadingNode -asUtility mia_exposure_simple`;
+	// Set some defaults for the exposure control
+	setAttr ($exposureControl + ".pedestal") 0.0;
+	setAttr ($exposureControl + ".gain") 0.2;
+	setAttr ($exposureControl + ".knee") 0.75;
+	setAttr ($exposureControl + ".compression") 3.0;
+	setAttr ($exposureControl + ".gamma") 2.2;
+
+	// create a unique named directional light
+	string $lightInst = `createNode -name sunDirection transform`;
+	string $lightShape=
+	`shadingNode -name sunShape -p $lightInst -asLight directionalLight`;
+	// set a reasonable default value 
+	// otherwise the sun is hidden under the ground :(
+	setAttr ($lightInst + ".rotateX") -75.0;
+	string $light[]   = `listRelatives $lightInst`;
+	// custom light, no Maya shaders please.
+	setAttr ($light[0] + ".miExportMrLight") 1;
+	// create "physical sun", connect as light/emitter shader.
+	string $sunShader = `shadingNode -asUtility mia_physicalsun`;
+	connectAttr ($sunShader + ".message") ($light[0] + ".miLightShader");
+	connectAttr ($sunShader + ".message") ($light[0] + ".miPhotonEmitter");
+	// create "physical sky", to be used as environment shader.
+	string $skyShader = `shadingNode -asUtility mia_physicalsky`;
+	// mia_physicalsky wants to know where the sun is...
+	connectAttr ($lightInst + ".message") ($skyShader + ".sun");
+	// the Y axis is up by default in Maya.
+	setAttr ($skyShader + ".y_is_up") 1;
+	// To make searching easier, add a connection to the exposure control
+	addAttr -shortName "miSkyExposure" -longName "miSkyExposure"
+		-hidden true -at "message" $skyShader;
+	connectAttr
+		($exposureControl + ".message")
+		($skyShader + ".miSkyExposure");
+
+	// create input-to-input connections from sky to sun to enforce
+	// consistency between the two shaders. common attributes can only
+	// be set on the sky environment shader.
+	connectAttr
+		($skyShader + ".on")
+		($sunShader + ".on");
+	connectAttr
+		($skyShader + ".multiplier")
+		($sunShader + ".multiplier");
+	connectAttr
+		($skyShader + ".rgb_unit_conversion")
+		($sunShader + ".rgb_unit_conversion");
+	connectAttr
+		($skyShader + ".haze")
+		($sunShader + ".haze");
+	connectAttr
+		($skyShader + ".redblueshift")
+		($sunShader + ".redblueshift");
+	connectAttr
+		($skyShader + ".saturation")
+		($sunShader + ".saturation");
+	connectAttr
+		($skyShader + ".horizon_height")
+		($sunShader + ".horizon_height");
+	connectAttr
+		($skyShader + ".y_is_up")
+		($sunShader + ".y_is_up");
+
+	// hookup sky as environment shader to all render cameras
+	string $cameras[] = `ls -type camera`;
+	for ($camera in $cameras) {
+		if (!`getAttr ($camera + ".orthographic")`) {
+			connectAttr -force
+				($exposureControl + ".message")
+				($camera + ".miLensShader");
+			connectAttr -force
+				($skyShader + ".message")
+				($camera + ".miEnvironmentShader");
+			}
+		}
+
+	// connect sky shader to dynamic attr on mentalrayGlobals
+	connectAttr -force
+		($skyShader + ".message")
+		"mentalrayGlobals.sunAndSkyShader";
+
+	miPropagateSunSky();
+}
+
+global proc miPropagateSunSky()
+{
+	if (`attributeQuery -exists -node mentalrayGlobals sunAndSkyShader`) {
+		string $skyNode[] =
+			`listConnections "mentalrayGlobals.sunAndSkyShader"`;
+		if (size($skyNode))
+			showEditor $skyNode[0];
+		}
+}
+
+global proc miUpdateSunSky()
+{
+	if (size(`ls mentalrayGlobals`) == 0) return;
+	int $sun = `connectionInfo -id mentalrayGlobals.sunAndSkyShader`;
+	if ($sun)
+		button -e -label (uiRes("m_createMentalRayIndirectLightingTab.kDelete"))
+			-command miDeleteSunSky
+			miCreateSunSkyButton;
+	else
+		button -e
+			-label (uiRes("m_createMentalRayIndirectLightingTab.kCreate"))
+			-command miCreateSunSky
+			miCreateSunSkyButton;
+	control -e -en $sun miOpenSunSkyButton;
+}
+
+global proc miDeleteSunSky()
+{
+	if (`attributeQuery -exists -node mentalrayGlobals sunAndSkyShader`) {
+		string $nodes[] =
+			`listConnections "mentalrayGlobals.sunAndSkyShader"`;
+		if (size($nodes)) {
+			string $sky = $nodes[0]; 
+			clear($nodes);
+			$nodes = `listConnections ($sky + ".sun")`;
+			if (size($nodes)) {
+				string $sun = $nodes[0];
+				clear($nodes);
+				$nodes = `listConnections ($sun + ".miLightShader")`;
+				if (size($nodes)) {
+					string $sunShader = $nodes[0];
+					delete -s true $sunShader;
+					}
+				else
+					miWarn((uiRes("m_createMentalRayIndirectLightingTab.kNoSunShaderFound")));
+					
+				delete -s true $sun;
+				}
+			else
+				miWarn((uiRes("m_createMentalRayIndirectLightingTab.kNoSunFound")));
+				
+			clear($nodes);
+			$nodes = `listConnections ($sky + ".miSkyExposure")`;
+			if (size($nodes)) {
+				string $exposureControl = $nodes[0];
+				delete -s true $exposureControl;
+				}
+			else
+				miWarn((uiRes("m_createMentalRayIndirectLightingTab.kNoExposureFound")));
+
+			delete $sky;
+			}
+		else
+			miWarn((uiRes("m_createMentalRayIndirectLightingTab.kNoSunSkyFound")));
+		}
+}
+
+global proc miSetAOStateValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptAOStateIndex;
+	
+	string $resValue = $StringOptionDefaults[$gMiStringOptAOStateIndex];
+
+	if(`checkBoxGrp -query -exists miAOCtrl`)
+	{
+		int $value = `checkBoxGrp -query -value1 miAOCtrl`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";	
+	}
+	miSetStringOptionValue($gMiStringOptAOStateIndex,$resValue);
+}
+
+global proc miSetAORaysValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptAORaysIndex ;
+
+	int $value = $StringOptionDefaults[$gMiStringOptAORaysIndex];
+	if(`intField -query -exists miAORaysCtrl`)
+	{
+		$value = `intField -query -value miAORaysCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptAORaysIndex,$value);
+}
+
+global proc miSetAOCacheValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptAOCacheIndex;
+	
+	string $resValue = $StringOptionDefaults[$gMiStringOptAOCacheIndex];
+
+	if(`checkBoxGrp -query -exists miAOCacheCtrl`)
+	{
+		int $value = `checkBoxGrp -query -value1 miAOCacheCtrl`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";	
+	}
+	miSetStringOptionValue($gMiStringOptAOCacheIndex,$resValue);
+}
+
+global proc miSetAOCacheDensityValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptAODensityIndex;
+	
+	float $value = $StringOptionDefaults[$gMiStringOptAODensityIndex];
+
+	if(`floatField -query -exists miAOCacheDensityCtrl`)
+	{
+		$value = `floatField -query -value miAOCacheDensityCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptAODensityIndex,$value);
+}
+
+global proc miSetAOCachePointsValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptAOCachePointsIndex;
+	
+	int $value = $StringOptionDefaults[$gMiStringOptAOCachePointsIndex];
+
+	if(`intField -query -exists miAOCachePointsCtrl`)
+	{
+		$value = `intField -query -value miAOCachePointsCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptAOCachePointsIndex,$value);
+}
+
+global proc miSetImportonStateValue()
+{	
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptImpStateIndex; 
+
+	string $resValue = $StringOptionDefaults[$gMiStringOptImpStateIndex];
+
+	if(`checkBoxGrp -query -exists miImportons`)
+	{
+		int $value = `checkBoxGrp -query -value1 miImportons`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";	
+	}
+	miSetStringOptionValue($gMiStringOptImpStateIndex,$resValue);
+}
+
+global proc miSetImportonDensityValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptImpDensityIndex;
+
+
+	float $value = $StringOptionDefaults[$gMiStringOptImpDensityIndex];
+	if(`floatSliderGrp -query -exists miImportonsDensityCtrl`)
+	{
+		$value = `floatSliderGrp -query -value miImportonsDensityCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptImpDensityIndex,$value);
+}
+
+global proc miSetImportonMergeValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptImpMergeIndex;
+
+	float $value = $StringOptionDefaults[$gMiStringOptImpMergeIndex];
+
+	if(`floatField -query -exists miImportonsMergeCtrl`)
+	{
+		$value = `floatField -query -value miImportonsMergeCtrl`;		
+	}
+	miSetStringOptionValue($gMiStringOptImpMergeIndex,$value);	
+}
+
+global proc miSetImportonTraceDepthValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptImpTraceDepthIndex;
+
+
+	int $value = $StringOptionDefaults[$gMiStringOptImpTraceDepthIndex];
+
+	if(`intField -query -exists miImportonsDepthCtrl`)
+	{
+		$value = `intField -query -value miImportonsDepthCtrl`;
+	}
+	miSetStringOptionValue($gMiStringOptImpTraceDepthIndex,$value);
+}
+
+global proc miSetImportonTraverseValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptImpTraverseIndex;
+
+	string $resValue = $StringOptionDefaults[$gMiStringOptImpTraverseIndex];
+	
+	if(`checkBoxGrp -query -exists miImportonsTraverseCtrl`)
+	{
+		int $value = `checkBoxGrp -query -value1 miImportonsTraverseCtrl`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";
+	}
+	miSetStringOptionValue($gMiStringOptImpTraverseIndex,$resValue);	
+}
+
+global proc miSetIPStateValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptIPStateIndex;
+	
+	string $resValue = $StringOptionDefaults[$gMiStringOptIPStateIndex];
+
+	if(`checkBoxGrp -query -exists miIPCtrl`)
+	{
+		int $value = `checkBoxGrp -query -value1 miIPCtrl`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";	
+	}
+	miSetStringOptionValue($gMiStringOptIPStateIndex,$resValue);
+}
+
+global proc miSetIPRaysValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPRaysIndex ;
+
+	int $value = $StringOptionDefaults[$gMiStringOptIPRaysIndex];
+	if(`intField -query -exists miIPRaysCtrl`)
+	{
+		$value = `intField -query -value miIPRaysCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptIPRaysIndex,$value);
+}
+
+global proc miSetIPIndirectPassesValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPIndirectPassesIndex;
+
+	int $value = $StringOptionDefaults[$gMiStringOptIPIndirectPassesIndex];
+	if(`intField -query -exists miIPIndirectPassesCtrl`)
+	{
+		$value = `intField -query -value miIPIndirectPassesCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptIPIndirectPassesIndex,$value);
+}
+
+global proc miSetIPScaleValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPScaleIndex;
+
+	float $value = $StringOptionDefaults[$gMiStringOptIPScaleIndex];
+
+	if(`floatSliderGrp -query -exists miIPScaleCtrl`)
+	{
+		$value = `floatSliderGrp -query -value miIPScaleCtrl`;		
+	}
+	miSetStringOptionValue($gMiStringOptIPScaleIndex,$value);	
+}
+
+global proc miSetIPInterpolateValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPInterpolateIndex;
+
+	string $resValue = $StringOptionDefaults[$gMiStringOptIPInterpolateIndex];
+	if(`optionMenuGrp -query -exists miIPInterpolateCtrl`)
+	{
+		//using -select in order to get an int not handling string because of possible localization issue.
+		int $value = `optionMenuGrp -query -select miIPInterpolateCtrl`;	
+		switch( $value ) 
+		{
+			case 1:
+				$resValue = "0"; break;
+			default:
+			case 2:
+				$resValue = "1"; break;
+			case 3:
+				$resValue = "2"; break;
+		}
+	}
+	miSetStringOptionValue($gMiStringOptIPInterpolateIndex,$resValue);
+}
+
+global proc miSetIPInterpointsValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPInterpointsIndex;
+
+	int $value = $StringOptionDefaults[$gMiStringOptIPInterpointsIndex];
+	if(`intField -query -exists miIPInterpointsCtrl`)
+	{
+		$value = `intField -query -value miIPInterpointsCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptIPInterpointsIndex,$value);
+}
+
+global proc miSetIPEnvironmentValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptIPEnvIndex;
+	
+	string $resValue = $StringOptionDefaults[$gMiStringOptIPEnvIndex];
+
+	if(`checkBoxGrp -query -exists miIPEnvironmentCtrl`)
+	{
+		int $value = `checkBoxGrp -query -value1 miIPEnvironmentCtrl`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";	
+	}
+	miSetStringOptionValue($gMiStringOptIPEnvIndex,$resValue);
+}
+
+global proc miSetIPEnvRaysValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPEnvRaysIndex;
+
+	int $value = $StringOptionDefaults[$gMiStringOptIPEnvRaysIndex];
+	if(`intField -query -exists miIPEnvRaysCtrl`)
+	{
+		$value = `intField -query -value miIPEnvRaysCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptIPEnvRaysIndex,$value);
+}
+
+global proc miSetIPEnvScaleValue()
+{
+	global string $StringOptionDefaults[]; 
+	global int $gMiStringOptIPEnvScaleIndex;
+
+	int $value = $StringOptionDefaults[$gMiStringOptIPEnvScaleIndex];
+	if(`intField -query -exists miIPEnvScaleCtrl`)
+	{
+		$value = `intField -query -value miIPEnvScaleCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptIPEnvScaleIndex,$value);
+}
+
+global proc miSetIPRebuildValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptIPRebuildIndex;
+	
+	string $resValue = $StringOptionDefaults[$gMiStringOptIPRebuildIndex];
+
+	if(`checkBoxGrp -query -exists miIPRebuildCtrl`)
+	{
+		int $value = `checkBoxGrp -query -value1 miIPRebuildCtrl`;
+		if ( $value == 1 )
+			$resValue = "true";
+		else
+			$resValue = "false";	
+	}
+	miSetStringOptionValue($gMiStringOptIPRebuildIndex,$resValue);
+}
+
+global proc miSetIPMapFileValue()
+{
+	global string $StringOptionDefaults[];
+	global int $gMiStringOptIPMapFileIndex;
+	
+	string $resValue = $StringOptionDefaults[$gMiStringOptIPMapFileIndex];
+
+	if(`textField -query -exists miMapFile`)
+		$resValue = `textField -query -text miMapFile`;	
+	
+	miSetStringOptionValue($gMiStringOptIPMapFileIndex,$resValue);
+}
+
+global proc miSetFGNormalToleranceValue()
+{
+    global string $StringOptionDefaults[];
+    global int $gMiStringOptFGNormalToleranceIndex;
+
+	float $value = $StringOptionDefaults[$gMiStringOptFGNormalToleranceIndex];
+
+	if(`floatField -query -exists miFinalGatherNormalTolCtrl`)
+	{
+		$value = `floatField -query -value miFinalGatherNormalTolCtrl`;	
+	}
+	miSetStringOptionValue($gMiStringOptFGNormalToleranceIndex, $value);
+}
+
+proc miSetIPRebuildUIValue()
+{
+	global int $gMiStringOptIPRebuildIndex;
+	int $stateValue = miGetBoolStringOptionValue($gMiStringOptIPRebuildIndex);
+	checkBoxGrp -edit -value1 $stateValue miIPRebuildCtrl;
+}
+
+proc miSetIPMapFileUIValue()
+{
+	global int $gMiStringOptIPMapFileIndex;	
+	string $resValue = miGetStringOptionValue($gMiStringOptIPMapFileIndex);
+	textField -edit -text $resValue miMapFile;	
+}
+
+proc miSetIPStateUIValue()
+{
+	global int $gMiStringOptIPStateIndex;
+	int $stateValue = miGetBoolStringOptionValue($gMiStringOptIPStateIndex);
+	checkBoxGrp -edit -value1 $stateValue miIPCtrl;
+}
+
+proc miSetIPRaysUIValue()  
+{
+	global int $gMiStringOptIPRaysIndex;
+
+	int $ipRaysValue = miGetStringOptionValue($gMiStringOptIPRaysIndex);
+	intField -edit -value $ipRaysValue miIPRaysCtrl;
+}
+
+proc miSetIPIndirectPassesUIValue()  
+{
+	global int $gMiStringOptIPIndirectPassesIndex;
+
+	int $value = miGetStringOptionValue($gMiStringOptIPIndirectPassesIndex);
+	intField -edit -value $value miIPIndirectPassesCtrl;
+}
+
+proc miSetIPScaleUIValue()  
+{
+	global int $gMiStringOptIPScaleIndex;
+
+	float $value = miGetStringOptionValue($gMiStringOptIPScaleIndex);
+	floatSliderGrp -edit -value $value miIPScaleCtrl;
+}
+
+proc miSetIPInterpolateUIValue()  
+{
+	global int $gMiStringOptIPInterpolateIndex;
+	
+	int $value = miGetStringOptionValue($gMiStringOptIPInterpolateIndex);
+	if ($value < 0)
+		$value = 0;
+		else if ($value > 2)
+			$value = 2;
+	optionMenuGrp -edit -select ($value+1) miIPInterpolateCtrl;
+}
+
+proc miSetIPInterpointsUIValue()  
+{
+	global int $gMiStringOptIPInterpointsIndex;
+
+	int $value = miGetStringOptionValue($gMiStringOptIPInterpointsIndex);
+	intField -edit -value $value miIPInterpointsCtrl;
+}
+
+proc miSetIPEnvironmentUIValue()
+{
+	global int $gMiStringOptIPEnvIndex;
+	int $stateValue = miGetBoolStringOptionValue($gMiStringOptIPEnvIndex);
+	checkBoxGrp -edit -value1 $stateValue miIPEnvironmentCtrl;
+}
+
+proc miSetIPEnvRaysUIValue()  
+{
+	global int $gMiStringOptIPEnvRaysIndex;
+
+	int $value = miGetStringOptionValue($gMiStringOptIPEnvRaysIndex);
+	intField -edit -value $value miIPEnvRaysCtrl;
+}
+
+proc miSetIPEnvScaleUIValue()  
+{
+	global int $gMiStringOptIPEnvScaleIndex;
+
+	int $value = miGetStringOptionValue($gMiStringOptIPEnvScaleIndex);
+	intField -edit -value $value miIPEnvScaleCtrl;
+}
+
+global proc miSetIPUIValues()
+{
+	miSetIPStateUIValue();
+	miSetIPRaysUIValue();
+	miSetIPIndirectPassesUIValue();
+	miSetIPScaleUIValue();
+	miSetIPInterpolateUIValue();
+	miSetIPInterpointsUIValue();
+	miSetIPEnvironmentUIValue();
+	miSetIPEnvRaysUIValue();
+	miSetIPEnvScaleUIValue();
+	miSetIPRebuildUIValue();
+}
+
+proc miSetAOStateUIValue()
+{
+	global int $gMiStringOptAOStateIndex;
+	int $stateValue = miGetBoolStringOptionValue($gMiStringOptAOStateIndex);
+	checkBoxGrp -edit -value1 $stateValue miAOCtrl;
+}
+
+proc miSetAORaysUIValue()  
+{
+	global int $gMiStringOptAORaysIndex;
+	int $aoRaysValue = miGetStringOptionValue($gMiStringOptAORaysIndex);
+	intField -edit -value $aoRaysValue miAORaysCtrl;
+}
+
+proc miSetAOCacheUIValue()  
+{
+	global int $gMiStringOptAOCacheIndex;
+	int $stateValue = miGetBoolStringOptionValue($gMiStringOptAOCacheIndex);	
+	checkBoxGrp -edit -value1 $stateValue miAOCacheCtrl;
+}
+
+proc miSetAOCacheDensityUIValue()  
+{
+	global int $gMiStringOptAODensityIndex;
+	float $aoDensityValue = miGetStringOptionValue($gMiStringOptAODensityIndex);
+	floatField -edit -value $aoDensityValue miAOCacheDensityCtrl;
+}
+
+proc miSetAOCachePointsUIValue()  
+{
+	global int $gMiStringOptAOCachePointsIndex;
+	int $aoCachePointsValue = miGetStringOptionValue($gMiStringOptAOCachePointsIndex);
+	intField -edit -value $aoCachePointsValue miAOCachePointsCtrl;
+}
+
+global proc miSetAOUIValues()
+{
+	miSetAOStateUIValue();
+	miSetAORaysUIValue();
+	miSetAOCacheUIValue();
+	miSetAOCacheDensityUIValue();
+	miSetAOCachePointsUIValue();
+}
+proc miSetImportonStateUIValue()
+{
+	global int $gMiStringOptImpStateIndex;
+	int $stateValue = miGetBoolStringOptionValue($gMiStringOptImpStateIndex);
+	checkBoxGrp -edit -value1 $stateValue miImportons;
+}
+
+proc miSetImportonDensityUIValue()  
+{
+	global int $gMiStringOptImpDensityIndex;
+	float $densityValue = miGetStringOptionValue($gMiStringOptImpDensityIndex);
+	floatSliderGrp -edit -value $densityValue miImportonsDensityCtrl;
+}
+
+proc miSetImportonMergeUIValue()
+{
+	global int $gMiStringOptImpMergeIndex;	
+	float $mergeValue = miGetStringOptionValue($gMiStringOptImpMergeIndex);
+	floatField -edit -value $mergeValue miImportonsMergeCtrl;
+}
+
+proc miSetImportonTraceDepthUIValue()
+{
+	global int $gMiStringOptImpTraceDepthIndex;	
+	int $traceDepthValue = miGetStringOptionValue($gMiStringOptImpTraceDepthIndex);
+	intField -edit -value $traceDepthValue miImportonsDepthCtrl;
+}
+
+proc miSetImportonTraverseUIValue()
+{
+	global int $gMiStringOptImpTraverseIndex;
+	int $traverseValue = miGetBoolStringOptionValue($gMiStringOptImpTraverseIndex);
+	checkBoxGrp -edit -value1 $traverseValue miImportonsTraverseCtrl;
+}
+
+global proc miSetImportonsUIValues()
+{
+	miSetImportonStateUIValue();
+	miSetImportonDensityUIValue();
+	miSetImportonMergeUIValue();
+	miSetImportonTraceDepthUIValue();
+	miSetImportonTraverseUIValue();
+}
+
+global proc miSetFGNormalToleranceUIValue()
+{
+    global int $gMiStringOptFGNormalToleranceIndex;
+    float $tolValue = miGetStringOptionValue($gMiStringOptFGNormalToleranceIndex);
+    floatField -edit -value $tolValue miFinalGatherNormalTolCtrl;
+}
+
+// Description: This procedure is called to create the
+//		Global Illumination frame.
+//
+global proc miCreateGlobalIlluminationFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miGlobalIlluminationLayout";
+	if (`columnLayout -exists  $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miGlobalIlluminationLayout;
+
+global	string	$miPresetsGlobillum[];
+
+	miPresetMenu("Globillum", $miPresetsGlobillum);
+
+	attrControlGrp -attribute "miDefaultOptions.globalIllum"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kGlobalIllumination"))
+		-cc ("mentalRayOptionsCheckGlobalIllum;" +
+		     "miUpdateRenderQualityMenu globalIllum")
+			miGlobalIllumCtrl;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kGlobalIlluminationAnnot"))
+			miGlobalIllumCtrl;
+
+	columnLayout -adj true miGlobalIllumGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.globalIllumAccuracy"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kAccuracy"))
+		-cc "miUpdateRenderQualityMenu globalIllumAccuracy"
+			miGlobalIllumAccuracy;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kGIAccuracyAnnot"))
+			miGlobalIllumAccuracy;
+
+	attrControlGrp -attribute "miDefaultOptions.globalIllumScale"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kScale"))
+		-hideMapButton true
+		-cc "miUpdateRenderQualityMenu globalIllumScale"
+			miGlobalIllumScale;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kGIScaleAnnot"))
+			miGlobalIllumScale;	
+		
+	setParent ..; // miGlobalIllumGroup
+
+	columnLayout -adj true miGlobalIllumOptionsGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.globalIllumRadius"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kRadius"))
+		-cc "miUpdateRenderQualityMenu globalIllumRadius";
+		
+	attrControlGrp -attribute "miDefaultOptions.globalIllumMerge"
+	-label (uiRes("m_createMentalRayIndirectLightingTab.kGIMerge"))
+		miglobalIllumMerge;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kGIMergeAnnot"))
+		miglobalIllumMerge;
+
+	setParent ..; // miGlobalIllumOptionsGroup
+
+	setParent ..;
+	setUITemplate -popTemplate;
+}
+
+// Description: This procedure is called to create the
+//		Caustics frame.
+//
+global proc miCreateCausticsFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miCausticsLayout";
+	if (`columnLayout -exists  $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miGlobalIlluminationLayout;
+
+global	string	$miPresetsCaustics[];
+global	string	$miHintsCaustics[];
+
+	miPresetMenu("Caustics", $miPresetsCaustics);
+
+	attrControlGrp -attribute "miDefaultOptions.caustics"
+		-cc ("mentalRayOptionsCheckCaustics;"+
+		     "miUpdateRenderQualityMenu caustics")
+			miCausticsCtrl;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kEnableCausticsPhotonTracing"))
+			miCausticsCtrl;
+
+	columnLayout -adj true miCausticsGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.causticAccuracy"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kAccuracy"))
+		-cc "miUpdateRenderQualityMenu causticAccuracy"
+			miCausticsAccuracy;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kAccuracyAnnot"))
+			miCausticsAccuracy;
+
+	attrControlGrp -attribute "miDefaultOptions.causticScale"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kScale"))
+		-hideMapButton true
+		-cc "miUpdateRenderQualityMenu causticScale"
+			miCausticsScale;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kScaleAnnot"))
+			miCausticsScale;
+
+	setParent ..; // miCausticsGroup
+
+	columnLayout -adj true miCausticsOptionsGroup;
+/*
+ * New 'auto' radius UI button, to indicate render-time calculation.
+ * Not yet enabled. steveR
+
+	attrControlGrp -attribute "miDefaultOptions.causticAutoRadius"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kAutoRadius"))
+		-cc "miUpdateRenderQualityMenu causticAutoRadius"
+			miCausticsAutoRadius;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kAutoRadiusAnnot"))
+			miCausticsAutoRadius;
+*/
+	attrControlGrp -attribute "miDefaultOptions.causticRadius"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kRadius"))
+		-cc "miUpdateRenderQualityMenu causticRadius"
+			miCausticsRadius;
+			
+	attrControlGrp -attribute "miDefaultOptions.causticMerge"
+	-label (uiRes("m_createMentalRayIndirectLightingTab.kCausticMerge"))
+		miCausticMerge;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kCausticMergeAnnot"))
+		miCausticMerge;
+		
+/*
+ * Related to above 'auto' radius.
+	scriptJob -p miCausticsRadius -rp
+		-ac "miDefaultOptions.causticAutoRadius"
+			"mentalRayOptionsCheckCausticRadius";
+*/
+
+	attrControlGrp -attribute "miDefaultOptions.causticFilterType"
+		-cc "miUpdateRenderQualityMenu causticFilterType";
+
+	attrControlGrp -attribute "miDefaultOptions.causticFilterKernel"
+		-cc "miUpdateRenderQualityMenu causticFilterKernel";
+
+	setParent ..; // miCausticsOptionsGroup
+
+	setParent ..;
+	setUITemplate -popTemplate;
+}
+
+// Description: This procedure is called to create the
+//		Photon Tracing frame.
+//
+global proc miCreatePhotonTracingFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miPhotonTracingLayout";
+	if (`columnLayout -exists  $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miPhotonTracingLayout;
+
+	columnLayout -adj true miPhotonTracingGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.maxReflectionPhotons"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonReflections"))
+		-cc "miUpdateRenderQualityMenu maxReflectionPhotons"
+			miPhotonReflectionDepth;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPhotonReflectionsAnnot"))
+			miPhotonReflectionDepth;
+
+	attrControlGrp -attribute "miDefaultOptions.maxRefractionPhotons"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonRefractions"))
+		-cc "miUpdateRenderQualityMenu maxRefractionPhotons"
+			miPhotonRefractionDepth;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPhotonRefractionsAnnot"))
+			miPhotonRefractionDepth;
+
+	attrControlGrp -attribute "miDefaultOptions.maxPhotonDepth"
+		-cc "miUpdateRenderQualityMenu maxPhotonDepth"
+			miPhotonTraceDepth;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kMaxPhotonDepthAnnot"))
+			miPhotonTraceDepth;
+
+	setParent ..;	// miPhotonTracingGroup
+	setParent ..;
+	setUITemplate -popTemplate;
+}
+
+// Description: This procedure is called to create the
+//		Photon Map frame.
+//
+global proc miCreatePhotonMapFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miPhotonMapLayout";
+	if (`columnLayout -exists  $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miPhotonMapLayout;
+
+global	string	$miPresetsPhotons[];
+global	string	$miHintsPhotons[];
+
+	miPresetMenu("Photons", $miPresetsPhotons);
+
+	columnLayout -adj true miPhotonMapGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.photonMapRebuild"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kRebuildPhotonMap"))
+		-cc "miUpdateRenderQualityMenu photonMapRebuild"
+			miPhotonMapRebuild;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kRebuildPhotonMapAnnot"))
+			miPhotonMapRebuild;
+
+	attrControlGrp -attribute "miDefaultOptions.photonMapFilename"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonMapFile"))
+		-cc "miUpdateRenderQualityMenu photonMapFilename"
+			miPhotonMapFile;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPhotonMapFileAnnot"))
+			miPhotonMapFile;
+
+	if (!`about -evalVersion`) {
+		attrControlGrp -attribute "miDefaultOptions.photonMapVisualizer"
+			-label (uiRes("m_createMentalRayIndirectLightingTab.kEnableMapVisualizer"))
+			-cc ("MapVisualizerOptionChanged " +
+			     "miDefaultOptions.photonMapVisualizer")
+				miPhotonMapVisualizer;
+		miControlGrpAnnotate
+			(uiRes("m_createMentalRayIndirectLightingTab.kEnableMapVisualizerAnnot"))
+				miPhotonMapVisualizer;
+		}
+
+	attrControlGrp -attribute "mentalrayGlobals.shadowEffectsWithPhotons"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kDirectIlluminationShadowEffects"))
+			miPhotonShadowEffects;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kDirectIlluminationShadowEffectsAnnot"))
+			miPhotonShadowEffects;
+
+	columnLayout miPhotonMapDiagPhotonGroup;
+
+	// Diagnose Photon
+	//
+// #define I18N_TODO_API_ENUM
+	attrControlGrp
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kDiagnosePhoton"))
+		-attribute "miDefaultOptions.diagnosePhoton"
+		-cc ("mentalRayOptionsCheckDiagPhoton; " +
+		     "miUpdateRenderQualityMenu diagnosePhoton");
+
+	attrControlGrp
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonDensity"))
+		-attribute "miDefaultOptions.diagnosePhotonDensity"
+		-cc "miUpdateRenderQualityMenu diagnosePhotonDensity"
+	miPhotonMapDiagPhotonDensityCtrl;
+
+	setParent ..; // miPhotonMapDiagPhotonGroup
+
+	setParent ..;	//	miPhotonMapGroup
+	setParent ..;
+	setUITemplate -popTemplate;	
+}
+
+// Description: This procedure is called to create the
+//		Photon Volume frame.
+//
+global proc miCreatePhotonVolumeFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miPhotonVolumeLayout";
+	if (`columnLayout -exists  $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miPhotonVolumeLayout;
+
+	columnLayout -adj true miPhotonVolumeGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.photonAutoVolume"
+		-cc "miUpdateRenderQualityMenu photonAutoVolume"
+			miPhotonAutoVolume;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kAutoPhotonVolumesAnnot"))
+			miPhotonAutoVolume;
+
+	attrControlGrp -attribute "miDefaultOptions.photonVolumeAccuracy"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kAccuracy"))
+		-cc "miUpdateRenderQualityMenu photonVolumeAccuracy"
+			miPhotonVolumeAccuracy;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPhotonVolumeAccuracyAnnot"))
+			miPhotonVolumeAccuracy;
+
+	attrControlGrp -attribute "miDefaultOptions.photonVolumeRadius"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kRadius"))
+		-cc "miUpdateRenderQualityMenu photonVolumeRadius";
+		
+	attrControlGrp -attribute "miDefaultOptions.photonVolumeMerge"
+	-label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonVolMerge"))
+		miPhotonVolMerge;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPhotonVolMergeAnnot"))
+		miPhotonVolMerge;
+
+	setParent ..;	// miPhotonVolumeGroup
+	setParent ..;
+	setUITemplate -popTemplate;
+}
+
+// Description: This procedure is called to create the
+//		Importons frame.
+//
+global proc miCreateImportonsFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	global int $gAttributeEditorTemplateSingleWidgetWidth;
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miImportonsLayout";
+	if (`columnLayout -exists  $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miImportonsLayout;
+	
+	columnLayout -adj true miImportonsGroup;
+				
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportons"))
+		-cc ("miSetImportonStateValue; " + 
+		"mentalRayOptionsCheckImporton")
+			miImportons;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kImportonsCBAnnot"))
+			miImportons;
+
+	columnLayout -adj true miImportonsOptionsGroup;
+
+	floatSliderGrp
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kImportonsDensity"))
+		-cc "miSetImportonDensityValue"
+		-min 0.02
+		-fmn 0.02
+		-max 64.0
+		-fmx 10000.0
+			miImportonsDensityCtrl;			
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kImportonsDensityAnnot"))
+			miImportonsDensityCtrl;
+			
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kImportonsMerge"));
+		floatField
+			-cc "miSetImportonMergeValue"
+			-minValue 0.0
+			-annotation (uiRes("m_createMentalRayIndirectLightingTab.kImportonsMergeAnnot"))
+			miImportonsMergeCtrl;			
+	setParent ..;
+		
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kImportonsDepth"));
+		intField		
+			-cc "miSetImportonTraceDepthValue"
+			-minValue 0
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kImportonsDepthAnnot"))
+			miImportonsDepthCtrl;
+	setParent ..;
+		
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonsTraverse"))
+		-cc "miSetImportonTraverseValue"
+			miImportonsTraverseCtrl;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kImportonsTraverseAnnot"))
+			miImportonsTraverseCtrl;
+	
+	scriptJob
+		-replacePrevious
+		-parent miImportonsGroup
+		-allChildren
+		-attributeChange ("miDefaultOptions.stringOptions")
+		"miSetImportonsUIValues()";
+		
+	setParent ..;	// miImportonsGroup
+	setParent ..;
+
+	setParent ..;
+	setUITemplate -popTemplate;
+}
+
+// Description:  This procedure is called to create the
+//         Final Gather frame.
+//
+global proc miCreateFinalGatherFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+    global int $gAttributeEditorTemplateSingleWidgetWidth;
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miFinalGatherLayout";
+	if (`columnLayout -exists $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+
+	columnLayout -adjustableColumn true miFinalGatherLayout;
+
+global	string	$miPresetsFinalGather[];
+global	string	$miHintsFinalGather[];
+	//---------------------
+	// Final Gathering
+	//---------------------
+
+	attrControlGrp -attribute "miDefaultOptions.finalGather"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kFinalGathering"))
+		-cc ("mentalRayOptionsCheckFinalGather;" +
+		     "miUpdateRenderQualityMenu finalGather")
+			miFinalGatherCtrl;
+
+	columnLayout -adj true miFinalGatherGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherRays"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kAccuracy"))
+		-cc "miUpdateRenderQualityMenu finalGatherRays"
+			miFinalGatherAccurracy;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFinalGatherAccuracyAnnot"))
+			miFinalGatherAccurracy;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherPresampleDensity"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPointDensity"))
+		-cc "miUpdateRenderQualityMenu finalGatherPresampleDensity"
+			miFinalGatherDensity;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPointDensityAnnot"))
+			miFinalGatherDensity;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherPoints"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPointInterpolation"))
+		-cc "miUpdateRenderQualityMenu finalGatherPoints"
+			miFinalGatherPoints;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPointInterpolationAnnot"))
+			miFinalGatherPoints;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherScale"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kPrimaryDiffuseScale"))
+		-hideMapButton true
+		-cc "miUpdateRenderQualityMenu finalGatherScale"
+			miFinalGatherScale;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFGScaleAnnot"))
+			miFinalGatherScale;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherBounceScale"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kSecondaryBounceScale"))
+		-hideMapButton true
+		-cc "miUpdateRenderQualityMenu finalGatherBounceScale"
+			miFinalGatherBounceScale;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kSecondaryBounceScaleAnnot"))
+			miFinalGatherBounceScale;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherTraceDiffuse"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kSecondaryDiffuseBounces"))
+		-cc "miUpdateRenderQualityMenu finalGatherTraceDiffuse"
+			miFinalGatherDiffuseCtrl;
+
+	setParent ..;
+
+	//---------------------
+	// Final Gathering Map
+	//---------------------
+
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kFGMap"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kFinalGatheringMapAnnot"))
+			miFinalGatherMapFrame;
+
+	columnLayout -adj true miFinalGatherMapGroup;
+
+// #define I18N_TODO_API_ENUM
+	attrControlGrp -attribute "miDefaultOptions.finalGatherRebuild"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kRebuild"))
+		-cc "miUpdateRenderQualityMenu finalGatherRebuild";
+//			miFinalGatherRebuild;
+//	miControlGrpAnnotate
+//		_L10N(kRebuildAnnot, "Control recomputation of final gathering in every frame of the rendering, to handle animated illumination situations.")
+//			miFinalGatherRebuild;
+// Maya Bug:
+// The attrControlGrp command reports errors on enum attributes as soon as
+// a name is specified:
+// Error: line 1: Flags must come before objects: -enumeratedItem //
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherFilename"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kFGFile"))
+		-cc "miUpdateRenderQualityMenu finalGatherFilename"
+			miFinalGatherFile;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFGFileAnnot"))
+			miFinalGatherFile;
+
+	columnLayout -adj true miFGSecondaryfile;
+
+	rowLayout -nc 2;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kFGSecondaryFile"));
+		string $AddNewItem = (uiRes("m_createMentalRayIndirectLightingTab.kAddNewItem"));
+		if(`layout -exists "miAEFGSecondaryfile"`)
+			button -label $AddNewItem
+				-command ("AEnewNonNumericMultiAddNewItem(\"miDefaultOptions\", \"finalGatherMergeFiles\");"
+						+ "miReplaceNonNumericMulti(\"miFGSecondaryfile\", \"miAEFGSecondaryfile\", \"miDefaultOptions\", \"finalGatherMergeFiles\");"
+						+ "miReplaceNonNumericMulti(\"miAEFGSecondaryfile\", \"miFGSecondaryfile\", \"miDefaultOptions\", \"finalGatherMergeFiles\");");
+		else
+			button -label $AddNewItem
+				-command ("AEnewNonNumericMultiAddNewItem(\"miDefaultOptions\", \"finalGatherMergeFiles\");"
+						+ "miReplaceNonNumericMulti(\"miFGSecondaryfile\", \"miAEFGSecondaryfile\", \"miDefaultOptions\", \"finalGatherMergeFiles\");");
+	setParent ..;
+
+	int $elementIndexString[] = miGetElementIndex("miDefaultOptions", "finalGatherMergeFiles");
+	global int $gMaxNonNumericMultis;
+
+	int		$numElements = size($elementIndexString);
+
+	int $tooBig = 0;
+	if ( $numElements > $gMaxNonNumericMultis ){
+		$tooBig = $numElements - $gMaxNonNumericMultis;
+		$numElements = $gMaxNonNumericMultis;
+	}
+
+	for ( $i = 0; $i < $numElements; $i++ ) {
+		miNewNonNumericMultiCreateNewControl(
+			"miFGSecondaryfile", "miAEFGSecondaryfile", "miDefaultOptions", "finalGatherMergeFiles", "\"\"", "AEnewString", $elementIndexString[$i]);
+	}
+	if ( $tooBig > 0 ){
+		string $fmt = (uiRes("m_createMentalRayIndirectLightingTab.kInsufficientRoom"));
+		text -l `format -s $tooBig $fmt`;
+	}
+	setParent ..;
+
+	if (!`about -evalVersion`) {
+		attrControlGrp
+			-attribute "miDefaultOptions.finalGatherMapVisualizer"
+			-label (uiRes("m_createMentalRayIndirectLightingTab.kEnableMapVisualizer"))
+			-cc ("MapVisualizerOptionChanged " +
+			     "miDefaultOptions.finalGatherMapVisualizer");
+		}
+
+	attrControlGrp -attribute "mentalrayGlobals.previewFinalGatherTiles"
+			miFinalGatherPreview;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kPreviewFG"))
+			miFinalGatherPreview;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherFast"
+		 -label (uiRes("m_createMentalRayIndirectLightingTab.kPrecomputePhotonLookup"))
+		-cc "miUpdateRenderQualityMenu finalGatherFast"
+			miFinalGatherFast;
+
+	attrControlGrp
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kDiagnoseFG"))
+		-attribute "miDefaultOptions.diagnoseFinalg"
+		-cc "miUpdateRenderQualityMenu diagnoseFinalg";
+
+	separator -st none;
+
+	setParent ..; // miFinalGatherMapGroup
+	setParent ..;
+
+	//---------------------
+	// Final Gathering Quality
+	//---------------------
+
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kFGQuality"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kFinalGatherQualityAnnot"))
+			miFinalGatherQualityFrame;
+
+	columnLayout -adj true miFinalGatherQualityGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherFilter"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kFilter"))
+		-cc "miUpdateRenderQualityMenu finalGatherFilter"
+			miFinalGatherFilter;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFilterAnnot"))
+			miFinalGatherFilter;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherFalloffStart"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kFalloffStart"))
+		-cc "miUpdateRenderQualityMenu finalGatherFalloffStart"
+			miFinalGatherFalloffStart;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFalloffStartAnnot"))
+			miFinalGatherFalloffStart;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherFalloffStop"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kFalloffStop"))
+		-cc "miUpdateRenderQualityMenu finalGatherFalloffStop"
+			miFinalGatherFalloffStop;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFalloffStopAnnot"))
+			miFinalGatherFalloffStop;
+
+    global int $gMiStringOptFGNormalToleranceIndex;
+    float $tolValue = miGetStringOptionValue($gMiStringOptFGNormalToleranceIndex);
+    rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kFGNormalTolerance"));
+		floatField
+			-cc "miSetFGNormalToleranceValue"
+            -pre 3
+			-minValue 0.001
+            -maxValue 89.999
+            -value $tolValue
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kFGNormalToleranceAnnot"))
+			miFinalGatherNormalTolCtrl;			
+
+	setParent ..;
+
+	scriptJob
+		-replacePrevious
+		-parent miFinalGatherNormalTolCtrl
+		-allChildren
+		-attributeChange ("miDefaultOptions.stringOptions")
+		"miSetFGNormalToleranceUIValue()";
+
+	setParent ..; //	miFinalGatherQualityGroup
+	setParent ..;
+
+	//---------------------
+	// Final Gathering Tracing
+	//---------------------
+
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kFGTracing"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kFinalGatherTracingAnnot"))
+			miFinalGatherTracingFrame;
+
+	columnLayout -adj true miFinalGatherTracingGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherTraceReflection"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kReflections"))
+		-cc "miUpdateRenderQualityMenu finalGatherTraceReflection"
+			miFinalgReflectionDepth;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFGReflectionsAnnot"))
+			miFinalgReflectionDepth;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherTraceRefraction"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kRefractions"))
+		-cc "miUpdateRenderQualityMenu finalGatherTraceRefraction"
+			miFinalRefractionDepth;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFGRefractionsAnnot"))
+			miFinalRefractionDepth;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherTraceDepth"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kMaxTraceDepth"))
+		-cc "miUpdateRenderQualityMenu finalGatherTraceDepth"
+			miFinalgTraceDepth;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kFGMaxTraceDepthAnnot"))
+			miFinalgTraceDepth;
+
+	optionMenuGrp -label (uiRes("m_createMentalRayIndirectLightingTab.kFGMode"))
+        -cc "mentalRayOptionsUpdateFinalGatherMode"
+            miFinalGatherModeCtrl;
+            menuItem
+                -label (uiRes("m_createMentalRayIndirectLightingTab.kAutomatic"))
+                -ann (uiRes("m_createMentalRayIndirectLightingTab.kAutomaticAnnot"));
+            menuItem
+                -label (uiRes("m_createMentalRayIndirectLightingTab.kOptimizeForAnimations"))
+                -ann (uiRes("m_createMentalRayIndirectLightingTab.kOptimizeForAnimationsAnnot"));
+            menuItem
+                -label (uiRes("m_createMentalRayIndirectLightingTab.kNoFGCaching"))
+                -ann (uiRes("m_createMentalRayIndirectLightingTab.kNoFGCachingAnnot"));
+            menuItem
+                -label (uiRes("m_createMentalRayIndirectLightingTab.kRadiusQualityControl"))
+                -ann (uiRes("m_createMentalRayIndirectLightingTab.kRadiusQualityControlAnnot"));
+    miControlGrpAnnotate
+        (uiRes("m_createMentalRayIndirectLightingTab.kFGModeAnnot"))
+        miFinalGatherModeCtrl;
+
+	scriptJob -p miFinalGatherModeCtrl -rp
+		-ac "miDefaultOptions.finalGatherMode"
+			("mentalRayOptionsCheckFinalGatherMode;" +
+			 "miUpdateRenderQualityMenu finalGatherMode");
+
+	columnLayout -adj true miFinalGatherRadiusGroup;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherMaxRadius"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kMaxRadius"))
+		-cc "miUpdateRenderQualityMenu finalGatherMaxRadius"
+			miFinalGatherMaxRadius;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kMaxRadiusAnnot"))
+			miFinalGatherMaxRadius;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherMinRadius"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kMinRadius"))
+		-cc "miUpdateRenderQualityMenu finalGatherMinRadius"
+			miFinalGatherMinRadius;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kMinRadiusAnnot"))
+			miFinalGatherMinRadius;
+
+	attrControlGrp -attribute "miDefaultOptions.finalGatherView"
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kView"))
+		-cc "miUpdateRenderQualityMenu finalGatherView"
+			miFinalGatherView;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kViewAnnot"))
+			miFinalGatherView;
+
+	setParent ..;	// miFinalGatherRadiusGroup
+
+	mentalRayOptionsCheckFinalGatherMode;
+
+	setParent ..;	//	miFinalGatherTracingGroup
+	setParent ..;
+
+	setParent ..;
+	setUITemplate -popTemplate;
+}
+
+// Description:  This procedure is called to create the
+//         Irradiance Particles frame.
+//
+global proc miCreateIrradianceParticlesFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	global int $gAttributeEditorTemplateSingleWidgetWidth;
+
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miIrradianceParticlesLayout";
+	if (`columnLayout -exists $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miIrradianceParticlesLayout;
+
+	columnLayout -adj true miIPGroup;
+	
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kIP"))
+		-cc ("miSetIPStateValue;" 
+			+ "mentalRayOptionsCheckIP")
+			miIPCtrl;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kIPAnnotation"))
+			miIPCtrl;
+
+	columnLayout -adj true miIPOptionsGroup;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kIPRays"));
+		intField 	
+			-cc "miSetIPRaysValue"
+			-value 2
+			-minValue 2			
+			-maxValue 512
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kIPRaysAnnot"))
+			miIPRaysCtrl;			
+	setParent ..;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kIPIndirectPasses"));
+		intField 	
+			-cc "miSetIPIndirectPassesValue"
+			-minValue -1			
+			-maxValue 100000
+			-step 1			
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kIPIndirectPassesAnnot"))
+			miIPIndirectPassesCtrl;			
+	setParent ..;
+	
+	floatSliderGrp
+		-label (uiRes("m_createMentalRayIndirectLightingTab.kIPScale"))
+		-cc "miSetIPScaleValue"
+		-min 0.0
+		-fmn -10000000.0
+		-max 1.0
+		-fmx 10000000.0
+			miIPScaleCtrl;			
+	
+	optionMenuGrp -label (uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolate"))		
+		-cc "miSetIPInterpolateValue"
+			miIPInterpolateCtrl;
+			menuItem -label (uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolate0")) -ann 
+				(uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolateNever"));
+			menuItem -label (uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolate1")) -ann 
+				(uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolateAlways"));
+			menuItem -label (uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolate2")) -ann
+				(uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolateSecondary"));	
+	miControlGrpAnnotate (uiRes("m_createMentalRayIndirectLightingTab.kIPInterpolateAnnot"))
+			miIPInterpolateCtrl;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kIPInterpoints"));
+		intField 	
+			-cc "miSetIPInterpointsValue"
+			-minValue 0			
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kIPInterpointsAnnot"))
+			miIPInterpointsCtrl;			
+	setParent ..;
+	
+	separator;
+	
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kIPEnvironment"))
+		-cc ("miSetIPEnvironmentValue;" 
+			+ "mentalRayOptionsCheckIP")
+			miIPEnvironmentCtrl;
+	
+	columnLayout -adj true miIPEnvOptGroup;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kIPEnvRays"));
+		intField 	
+			-cc "miSetIPEnvRaysValue"
+			-value 2
+			-minValue 2			
+			miIPEnvRaysCtrl;
+	setParent ..;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kIPEnvScale"));
+		intField 	
+			-cc "miSetIPEnvScaleValue"
+			miIPEnvScaleCtrl;
+	setParent ..;
+	
+	setParent ..; // miIPEnvOptGroup
+	
+	separator;
+	
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kIPRebuild"))
+		-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kIPRebuildTooltip"))
+		-cc "miSetIPRebuildValue"
+			miIPRebuildCtrl;
+
+	
+	rowLayout -nc 2;
+			text -label (uiRes("m_createMentalRayIndirectLightingTab.kIPMapFile"));
+			textField
+				-annotation (uiRes("m_createMentalRayIndirectLightingTab.kIPMapFileAnnot"))
+				-cc "miSetIPMapFileValue"		
+				miMapFile;
+		setParent ..;
+
+	scriptJob
+		-replacePrevious
+		-parent miIPGroup
+		-allChildren
+		-attributeChange ("miDefaultOptions.stringOptions")
+		"miSetIPUIValues()";	
+	
+	
+	setParent ..; // miIPOptionsGroup
+	setParent ..; // miIPGroup
+	setParent ..; // miIrradianceParticlesLayout
+	setUITemplate -popTemplate;
+}
+
+// Description:  This procedure is called to create the
+//         Ambient Occlusion frame.
+//
+global proc miCreateAmbientOcclusionFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	global int $gAttributeEditorTemplateSingleWidgetWidth;
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miAmbientOcclusionLayout";
+	if (`columnLayout -exists $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miAmbientOcclusionLayout;
+	
+	columnLayout -adj true miAmbientOcclusionGroup;
+				
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kAO"))
+		-cc ("miSetAOStateValue; " + 
+		"mentalRayOptionsCheckAO")
+			miAOCtrl;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kAOCBAnnot"))
+			miAOCtrl;
+	
+	columnLayout -adj true miAmbientOcclusionOptionsGroup;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kAORays"));
+		intField 	
+			-cc "miSetAORaysValue"
+			-minValue 0			
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kAORaysAnnot"))
+			miAORaysCtrl;			
+	setParent ..;
+	
+	checkBoxGrp -numberOfCheckBoxes 1
+		-label1 (uiRes("m_createMentalRayIndirectLightingTab.kAOCache"))
+		-cc ("miSetAOCacheValue; " + "mentalRayOptionsCheckAO")
+			miAOCacheCtrl;
+	miControlGrpAnnotate
+		(uiRes("m_createMentalRayIndirectLightingTab.kAOCacheAnnot"))
+			miAOCacheCtrl;
+	columnLayout -adj true miAmbientOcclusionOptionsCacheGroup;
+	
+	rowLayout -numberOfColumns 2
+		-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kAOCacheDensity"));
+		floatField
+			-cc "miSetAOCacheDensityValue"
+			-minValue 0.0			
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kAOCacheDensityAnnot"))
+			miAOCacheDensityCtrl;			
+			
+	setParent ..;
+
+	rowLayout -numberOfColumns 2
+	-columnWidth 2 $gAttributeEditorTemplateSingleWidgetWidth;		
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kAOCachePoints"));
+		intField
+			-cc "miSetAOCachePointsValue"
+			-minValue 0		
+			-annotation	(uiRes("m_createMentalRayIndirectLightingTab.kAOCachePointsAnnot"))
+			miAOCachePointsCtrl;		
+	setParent ..;
+	
+	scriptJob
+		-replacePrevious
+		-parent miAmbientOcclusionGroup
+		-allChildren
+		-attributeChange ("miDefaultOptions.stringOptions")
+		"miSetAOUIValues()";		
+			
+	setParent ..;
+	setParent ..;
+				
+	setParent ..; // miAmbientOcclusionOptionsGroup
+	setParent ..; // miAmbientOcclusionGroup
+	setUITemplate -popTemplate;
+}
+
+// Related to 'auto' radius UI, not yet enabled.
+// steveR
+/*
+global proc mentalRayOptionsCheckCausticRadius()
+{
+	string $oldParent = `setParent -q`;
+
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+		int $isAuto = `getAttr "miDefaultOptions.causticAutoRadius"`;
+
+		attrControlGrp -edit -enable (! $isAuto) miCausticsRadius;
+	}
+
+	setParent $oldParent;
+}
+*/
+
+global proc mentalRayOptionsCheckCaustics()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+
+	global int $gMiStringOptIPStateIndex;
+	global int $gMiStringOptImpStateIndex;
+
+	string $oldParent = `setParent -q`;
+	int $rayTrace = `getAttr "miDefaultOptions.rayTracing"`;
+	int $globIllum = `getAttr "miDefaultOptions.globalIllum"`;
+	int $caustics = `getAttr "miDefaultOptions.caustics"`;
+	int $IPCheckBox = miGetBoolStringOptionValue($gMiStringOptIPStateIndex);
+	int $ImportonCheckBox = miGetBoolStringOptionValue($gMiStringOptImpStateIndex);
+	int $impEnabled = ($caustics || $globIllum || $IPCheckBox);
+
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+		int $enableState = ($rayTrace && $caustics);
+
+		layout -edit -enable $enableState miCausticsGroup;
+		layout -edit -enable $enableState miCausticsOptionsGroup;
+		
+		if (! $impEnabled)
+		{
+			checkBoxGrp -edit -value1 false miImportons;
+			miSetImportonStateValue();			
+		}
+	}
+	if(setParentToMentalTab("Features")) 
+	{
+		if (! $impEnabled)
+		{
+			checkBoxGrp -edit -value1 false miImportonsFeatureCtrl;
+			miSetImportonStateFeatureValue();			
+		}
+	}
+	mentalRayOptionsCheckImporton();	
+
+	mentalRayOptionsCheckPhotons();
+	
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckGlobalIllum()
+{
+
+	if (!size(`ls miDefaultOptions`))
+		return;
+
+	global int $gMiStringOptIPStateIndex;
+	global int $gMiStringOptImpStateIndex;
+
+	string $oldParent = `setParent -q`;
+	int $rayTrace = `getAttr "miDefaultOptions.rayTracing"`;
+	int $globIllum = `getAttr "miDefaultOptions.globalIllum"`;
+	int $caustics = `getAttr "miDefaultOptions.caustics"`;
+	int $IPCheckBox = miGetBoolStringOptionValue($gMiStringOptIPStateIndex);
+	int $ImportonCheckBox = miGetBoolStringOptionValue($gMiStringOptImpStateIndex);
+	int $impEnabled = ($caustics || $globIllum || $IPCheckBox);
+
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+		int $finalGather = `getAttr "miDefaultOptions.finalGather"`;
+		int $enableFGFast = ($finalGather && $globIllum);
+		int $enableGI = ($rayTrace && $globIllum);
+
+		layout -edit -enable $enableGI miGlobalIllumGroup;
+		layout -edit -enable $enableGI miGlobalIllumOptionsGroup;
+		control -edit -enable $enableFGFast miFinalGatherFast;
+		if (! $impEnabled)
+		{
+			checkBoxGrp -edit -value1 false miImportons;
+			miSetImportonStateValue();			
+		}
+	}	
+	if(setParentToMentalTab("Features")) 
+	{
+		if (! $impEnabled)
+		{
+			checkBoxGrp -edit -value1 false miImportonsFeatureCtrl;
+			miSetImportonStateFeatureValue();			
+		}
+	}
+
+	mentalRayOptionsCheckImporton();	
+
+	mentalRayOptionsCheckPhotons();
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckImporton()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+
+	global int $gMiStringOptIPStateIndex;
+	global int $gMiStringOptImpStateIndex;
+	
+	string $oldParent = `setParent -q`;
+	
+	int $rayTrace = `getAttr "miDefaultOptions.rayTracing"`;
+	int $globIllum= `getAttr "miDefaultOptions.globalIllum"`;
+	int $caustics = `getAttr "miDefaultOptions.caustics"`;
+	int $IPCheckBox = miGetBoolStringOptionValue($gMiStringOptIPStateIndex);
+	int $ImportonCheckBox = miGetBoolStringOptionValue($gMiStringOptImpStateIndex);
+
+	if(setParentToMentalTab("IndirectLighting"))
+	{	
+		int $enableImp = ($rayTrace && ($globIllum || $caustics ));		 
+		int $enableOptions = ($enableImp && $ImportonCheckBox);
+		
+		layout -edit -enable $enableImp miImportonsGroup;
+		layout -edit -enable $enableOptions miImportonsOptionsGroup;
+		
+		if ($IPCheckBox)
+		{
+			layout -edit -enable $IPCheckBox miImportonsGroup;
+			layout -edit -enable $IPCheckBox miImportonsOptionsGroup;
+			checkBoxGrp -edit -enable (! $IPCheckBox) miImportons;
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonEnforced")) miImportons;
+			checkBoxGrp -edit -enable (! $IPCheckBox) miImportonsTraverseCtrl;		
+		}
+	}
+	if(setParentToMentalTab("Features")) 
+	{	
+		int $enableImp = ($rayTrace && ($globIllum || $caustics ));
+
+		// IP force Imp disable + label + checked on(logic done in checkIP).
+		if ($IPCheckBox)
+		{	
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonEnforced")) miImportonsFeatureCtrl;	
+			checkBoxGrp -edit -enable (! $IPCheckBox) miImportonsFeatureCtrl;
+		}
+		else
+		{
+			checkBoxGrp -edit -enable $enableImp miImportonsFeatureCtrl;
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportons")) miImportonsFeatureCtrl;	
+		}
+	}
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckIP()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+	global int $gMiStringOptIPStateIndex;
+	global int $gMiStringOptImpStateIndex;
+
+	
+	string $oldParent = `setParent -q`;
+	int $rayTrace = `getAttr "miDefaultOptions.rayTracing"`;	
+	int $finalGather = `getAttr "miDefaultOptions.finalGather"`;
+	int $enableFinalGather = ($rayTrace && $finalGather);
+	
+	int $globIllum = `getAttr "miDefaultOptions.globalIllum"`;
+	int $caustics = `getAttr "miDefaultOptions.caustics"`;
+	int $impEnabled = ($caustics || $globIllum);
+	int $IPCheckBox = miGetBoolStringOptionValue($gMiStringOptIPStateIndex);
+	int $ImportonCheckBox = miGetBoolStringOptionValue($gMiStringOptImpStateIndex);
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+		int $IPEnvCheckBox = `checkBoxGrp -q -v1 "miIPEnvironmentCtrl"`;	
+		int $enableOptions = ($IPCheckBox && $rayTrace);
+		int $enableEnvOptions = ($enableOptions && $IPEnvCheckBox);
+		checkBoxGrp -edit -enable ($rayTrace && ! $finalGather) miIPCtrl;
+		layout -edit -enable $enableOptions miIPOptionsGroup;
+		layout -edit -enable $enableEnvOptions miIPEnvOptGroup;
+		if ($enableFinalGather)
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kIPEnforced")) miIPCtrl;
+		else
+		{
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kIP")) miIPCtrl;
+		}
+		if (! $IPCheckBox)
+		{
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportons")) miImportons;	
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonsTraverse")) miImportonsTraverseCtrl;	
+			if (! $impEnabled)
+			{
+				checkBoxGrp -edit -value1 false miImportons;
+				miSetImportonStateValue();			
+			}
+		}
+		else
+		{
+			// IP On, FG Off : Importons label(enforced), Importons checkbox value, ImportonsTraverse value.
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonEnforced")) miImportons;
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonTraverseEnforced")) miImportonsTraverseCtrl;
+			checkBoxGrp -edit -value1 true miImportons;
+			miSetImportonStateValue();
+			checkBoxGrp -edit -value1 false miImportonsTraverseCtrl;		
+			miSetImportonTraverseValue();	
+		}			
+
+	}
+	if(setParentToMentalTab("Features")) 
+	{
+		if ($enableFinalGather)
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kIPEnforced")) miIPFeatureCtrl;
+		else
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kIP")) miIPFeatureCtrl;
+
+		checkBoxGrp -edit -enable (! $IPCheckBox) miImportonsFeatureCtrl;
+		if ( $IPCheckBox)
+		{
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportonEnforced")) miImportonsFeatureCtrl;
+			checkBoxGrp -edit -value1 $IPCheckBox miImportonsFeatureCtrl;
+			miSetImportonStateFeatureValue();
+		}	
+		else
+		{
+			checkBoxGrp -edit -label1 (uiRes("m_createMentalRayIndirectLightingTab.kImportons")) miImportonsFeatureCtrl;
+			// Update the state.
+			if (! $impEnabled)
+			{
+				checkBoxGrp -edit -value1 false miImportonsFeatureCtrl;
+				miSetImportonStateFeatureValue();			
+			}
+		}	
+	
+		checkBoxGrp -edit -enable ($rayTrace && ! $finalGather) miIPFeatureCtrl;
+	}
+	mentalRayOptionsCheckImporton(); 			
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckAO()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+	
+	string $oldParent = `setParent -q`;
+	global int $gMiStringOptAOStateIndex;
+	global int $gMiStringOptAOCacheIndex;
+
+	int $rayTrace = `getAttr "miDefaultOptions.rayTracing"`;
+	int $AOCheckBox = miGetBoolStringOptionValue($gMiStringOptAOStateIndex);
+	int $AOCacheBox = miGetBoolStringOptionValue($gMiStringOptAOCacheIndex);
+	
+	if(setParentToMentalTab("IndirectLighting"))
+	{		
+		int $enableAOOptGroup = ($AOCheckBox && $rayTrace);		
+		int $enableAOCacheGroup = ($enableAOOptGroup && $AOCacheBox);
+		
+		layout -edit -enable $rayTrace miAmbientOcclusionGroup;
+		layout -edit -enable $enableAOOptGroup miAmbientOcclusionOptionsGroup;
+		layout -edit -enable $enableAOCacheGroup miAmbientOcclusionOptionsCacheGroup;
+	}
+	if(setParentToMentalTab("Features")) 
+	{		
+		checkBoxGrp -edit -enable $rayTrace miAOFeatureCtrl;
+	}
+	
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckPhotons()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+
+	string $oldParent = `setParent -q`;
+
+	int $rayTrace = `getAttr "miDefaultOptions.rayTracing"`;
+	int $caustics = `getAttr "miDefaultOptions.caustics"`;
+	int $globIllum= `getAttr "miDefaultOptions.globalIllum"`;
+	int $enablePhoton = ($rayTrace && ($caustics || $globIllum));
+
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+		layout -edit -enable $enablePhoton miPhotonMapGroup;
+		layout -edit -enable $enablePhoton miPhotonTracingGroup;
+		layout -edit -enable $enablePhoton miPhotonVolumeGroup;
+	}
+	if(setParentToMentalTab("Features"))
+		control -edit -enable $enablePhoton miExtraFeaturesPhotonAutoVolume;
+
+	mentalRayOptionsCheckDiagnostics();
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckFinalGather()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+
+	string $oldParent = `setParent -q`;
+
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+		int $rayTracing = `getAttr "miDefaultOptions.rayTracing"`;
+		int $globIllum= `getAttr "miDefaultOptions.globalIllum"`;	
+		int $finalGather = `getAttr "miDefaultOptions.finalGather"`;
+		int $enableFinalGather = ($rayTracing && $finalGather);
+		int $enableFGFast = ($finalGather && $globIllum);
+
+		layout -edit -enable $enableFinalGather miFinalGatherGroup;
+		layout -edit -enable $enableFinalGather miFinalGatherMapGroup;
+		layout -edit -enable $enableFinalGather miFinalGatherQualityGroup;
+		layout -edit -enable $enableFinalGather miFinalGatherTracingGroup;
+		control -edit -enable $enableFGFast miFinalGatherFast;
+		
+		// FG on cause disabling IP, FG have precendance.
+		checkBoxGrp -edit -enable (! $enableFinalGather) miIPCtrl;
+		if ($enableFinalGather)
+		{
+			checkBoxGrp -edit -value1 false miIPCtrl;			
+			miSetIPStateValue();				
+		}
+		// Update the IP section.
+		mentalRayOptionsCheckIP();
+	
+		mentalRayOptionsCheckFinalGatherMode();
+	}
+
+	mentalRayOptionsCheckDiagnostics();
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsUpdateFinalGatherMode()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+	string $oldParent = `setParent -q`;
+    
+	if(setParentToMentalTab("IndirectLighting"))
+	{
+        int $fgMode = 2;
+        int $value = `optionMenuGrp -q -select miFinalGatherModeCtrl`;
+        switch($value) {
+            default:
+            case 1: $fgMode = 2; break; // automatic
+            case 2: $fgMode = 3; break; // multiframe
+            case 3: $fgMode = 4; break; // force
+            case 4: $fgMode = 1; break; // compatible
+        }
+        setAttr miDefaultOptions.finalGatherMode $fgMode;
+	}
+
+	setParent $oldParent;
+}
+
+global proc mentalRayOptionsCheckFinalGatherMode()
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+	string $oldParent = `setParent -q`;
+
+	if (`layout -q -enable "miFinalGatherGroup"` && setParentToMentalTab("IndirectLighting")) 
+	{
+		int $fgMode = `getAttr "miDefaultOptions.finalGatherMode"`;
+		int $value = 0;
+		int $doPoints = 1;
+		int $doRadius = 0;
+		switch ($fgMode) {
+			case 0:
+			case 1: $value = 4; $doPoints = 0; $doRadius = 1; break;
+			default:
+			case 2: $value = 1; $doPoints = 1; $doRadius = 0; break;
+			case 3: $value = 2; $doPoints = 1; $doRadius = 1; break;
+			case 4: $value = 3; $doPoints = 0; $doRadius = 0; break;
+		}
+        optionMenuGrp -edit -select $value miFinalGatherModeCtrl;
+		layout -edit -enable $doRadius miFinalGatherRadiusGroup;
+		control -edit -enable $doPoints miFinalGatherPoints;
+    }
+
+	setParent $oldParent;
+}
+
+// Only one of "Enable Map Visualizer" should be enabled.
+// If either of the control is enabled, and the map does not have name,
+// assign a default map name.
+//
+global proc MapVisualizerOptionChanged(string $plug)
+{
+	if (!size(`ls miDefaultOptions`))
+		return;
+
+	string $pmap = "miDefaultOptions.photonMapVisualizer";
+	string $fgmap = "miDefaultOptions.finalGatherMapVisualizer";
+
+	if (($plug != $pmap) && ($plug != $fgmap))
+		return;
+
+	if (!`getAttr $plug`)
+		return;
+
+	// the control is enabled.
+	if ( $plug == $pmap ) {
+		// "Enable Map Visualizer" in FG section is on. Disalbe it
+		if ( `getAttr $fgmap` )
+			setAttr $fgmap 0;
+		// assign a default map name
+		if ( `getAttr "miDefaultOptions.photonMapFilename"` == "" )
+			setAttr "miDefaultOptions.photonMapFilename"
+				-type "string" "default.pmap";
+		}
+	else {
+		// "Enable Map Visualizer" in GI section is on. Disalbe it
+		if ( `getAttr $pmap` )
+			setAttr $pmap 0;
+		// assign a default map name
+		if ( `getAttr "miDefaultOptions.finalGatherFilename"` == "" )
+			setAttr "miDefaultOptions.finalGatherFilename"
+				-type "string" "default.fgmap";
+		}
+}
+
+global proc miPresetMenuFinalGather(int $index)
+{
+global	string $miPresetsFinalGather[];
+global	string $miOptions;
+	int $rays, $pnts;
+	float $dens;
+
+	string $entry = $miPresetsFinalGather[$index];
+	string $tokens[];
+
+	tokenize($entry, $tokens);
+	$rays = $tokens[1];
+	$dens = $tokens[2];
+	$pnts = $tokens[3];
+
+	setAttr ($miOptions + ".finalGatherRays") $rays;
+	setAttr ($miOptions + ".finalGatherPresampleDensity") $dens;
+	setAttr ($miOptions + ".finalGatherPoints") $pnts;
+
+	miDebug ("selected menu item: " + $index);
+}
+
+global proc miCreateEnvironmentFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+	
+	string $fullPath = `setParent -q` + "|miIndirectLightingLayout";
+	if (`columnLayout -exists $fullPath`)
+		return;	
+	
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miEnvironmentLayout;
+
+	rowLayout -numberOfColumns 3 miIblLayout;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kImageBasedLighting"));
+		button -label (uiRes("m_createMentalRayIndirectLightingTab.kCreate"))
+			-command "miCreateIbl"
+				miCreateIblButton;
+		symbolButton -image "inArrow.png"
+			-command "miPropagateIbl"
+				miOpenIblButton;
+	setParent ..;
+
+	scriptJob -p miIblLayout -rp
+		-con "mentalrayGlobals.imageBasedLighting" miUpdateIbl;
+
+	miUpdateIbl();
+
+	rowLayout -numberOfColumns 3 miSunSkyLayout;
+		text -label (uiRes("m_createMentalRayIndirectLightingTab.kPhysicalSunSky"));
+		button -label (uiRes("m_createMentalRayIndirectLightingTab.kCreate"))
+			-command "miCreateSunSky"
+				miCreateSunSkyButton;
+		symbolButton -image "inArrow.png"
+			-command "miPropagateSunSky"
+				miOpenSunSkyButton;
+	setParent ..;
+
+	if (!`attributeQuery -exists -node mentalrayGlobals sunAndSkyShader`)
+		addAttr -longName "sunAndSkyShader"
+			-attributeType "message" -hidden true
+			-writable true -storable true
+			mentalrayGlobals;
+
+	scriptJob -p miSunSkyLayout -rp
+		-con "mentalrayGlobals.sunAndSkyShader" miUpdateSunSky;
+
+	miUpdateSunSky();
+	
+	setParent ..;
+	setUITemplate -popTemplate;
+
+}
+
+// Description:  This procedure is called to create the frame named
+//      "Indirect Lighting".
+//
+global proc miCreateIndirectLightingFrame(string $parent)
+{
+	setParentToMentalTab("IndirectLighting");
+	setParent $parent;
+
+	string $fullPath = `setParent -q` + "|miIndirectLightingLayout";
+	if (`columnLayout -exists $fullPath`)
+		return;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	columnLayout -adjustableColumn true miIndirectLightingLayout;
+	
+	// Environment
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kRaytracing"))
+		-cll true -cl false
+			miEnvironmentFrame;
+		miCreateEnvironmentFrame
+			miEnvironmentFrame;
+	setParent ..;
+	
+	// Global Illumination
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kGlobalIllumination"))
+		-cll true -cl false
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kRenderGIEffectsWithPhotonTracing"))
+			miGlobalIlluminaitonFrame;
+		miCreateGlobalIlluminationFrame
+			miGlobalIlluminaitonFrame;
+	setParent ..;
+
+	// Caustics
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kCaustics"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kRenderCausticsWithPhotonTracing"))
+			miCausticsFrame;
+		miCreateCausticsFrame
+			miCausticsFrame;
+	setParent ..;
+
+	// Photon Tracing
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonTracing"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kPhotonTracingAnnot"))
+			miPhotonTracingFrame;
+		miCreatePhotonTracingFrame
+			miPhotonTracingFrame;
+	setParent ..;
+
+	// Photon Map
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonMap"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kPhotonMapOptions"))
+			miPhotonMapFrame;
+		miCreatePhotonMapFrame
+			miPhotonMapFrame;
+	setParent ..;
+
+	// Photon Volume
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kPhotonVolume"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kImportonsAnnot"))
+			miPhotonVolumeFrame;
+		miCreatePhotonVolumeFrame
+			miPhotonVolumeFrame;
+	setParent ..;
+
+	// Importons
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kImportons"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kPhotonVolumeAnnot"))
+			miImportonsFrame;
+		miCreateImportonsFrame
+			miImportonsFrame;
+	setParent ..;
+
+	// Final Gathering
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kFinalGathering"))
+		-cll true -cl false
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kRenderGIEffectsWithFinalGathering"))
+			miFinalGatherFrame;
+		miCreateFinalGatherFrame
+			miFinalGatherFrame;
+	setParent ..;
+
+	// Irradiance Particles
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kIrradianceParticles"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kIrradianceParticlesAnnot"))
+			miIrradianceParticlesFrame;
+		miCreateIrradianceParticlesFrame
+			miIrradianceParticlesFrame;
+	setParent ..;
+
+	// Ambient Occlusion
+	//
+	frameLayout -label (uiRes("m_createMentalRayIndirectLightingTab.kAmbientOcclusion"))
+		-cll true -cl true
+		-annotation (uiRes("m_createMentalRayIndirectLightingTab.kAmbientOcclusionAnnot"))
+			miAmbientOcclusionFrame;
+		miCreateAmbientOcclusionFrame
+			miAmbientOcclusionFrame;
+	setParent ..;
+
+	// Update controls in Indirect Lighting Frame
+	//
+	mentalRayOptionsCheckRayTracing();
+
+	setUITemplate -popTemplate;
+	setParent ..;
+}
+
+// ------------------------------------------------------
+//  Code to create the "Indirect Lighting" tab.
+//
+global proc createMentalRayIndirectLightingTab()
+{
+	// Make sure the default mentalray globals nodes exist.
+	//
+	miCreateDefaultNodes();
+
+	// Make sure the other mentalray quality options nodes get created
+	//
+
+	miCreateOtherOptionsNodesForURG();
+
+	// Create the tab.
+	//
+	string $parentForm = `setParent -query`;
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	scrollLayout -horizontalScrollBarThickness 0 scrollLayout;
+	columnLayout -adjustableColumn true mentalIndirectLightingTabColumn;
+	
+	columnLayout -adj true miIndirectLightingFrame;
+		miCreateIndirectLightingFrame miIndirectLightingFrame;
+	setParent ..;
+
+	setParent ..;	// from columnLayout
+	setParent ..;	// from scrollLayout
+
+	setUITemplate -popTemplate;
+
+	formLayout -edit
+		-af scrollLayout "top" 0
+		-af scrollLayout "bottom" 0
+		-af scrollLayout "left" 0
+		-af scrollLayout "right" 0
+			$parentForm;
+}
+
+// ------------------------------------------------------
+//  Code to update the "Indirect Lighting" tab.
+//
+global proc updateMentalRayIndirectLightingTab()
+{
+	string $oldParent = `setParent -query`;
+	setParentToMentalTab("IndirectLighting");
+
+	mentalRayOptionsCheckRayTracing();
+	mentalRayOptionsCheckCaustics();
+	mentalRayOptionsCheckGlobalIllum();
+	mentalRayOptionsCheckFinalGather();
+	mentalRayOptionsCheckAO();
+	
+	// Force the Quality Presets menu to refresh
+	global	int $currentQualitySetting;
+	$currentQualitySetting = 1;
+	miUpdateRenderQualityMenu("");
+
+	setParent $oldParent;
+}

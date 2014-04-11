@@ -1,0 +1,449 @@
+global proc shelf_Domemaster3D () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AutoMagic Fulldome 3D Scene" 
+        -align "center" 
+        -label "AutoMagic" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_magicDome.xpm" 
+        -image1 "render_magicDome.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()\ndomeCamera.createDomeGrid()\ndomeCamera.createTestShapes()\ndomeCamera.setRenderRes()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Fulldome Stereo Rig" 
+        -align "center" 
+        -label "Stereo Rig" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_domeAFL_FOV_Stereo.xpm" 
+        -image1 "render_domeAFL_FOV_Stereo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Screen Space Texture" 
+        -align "center" 
+        -label "DomeTexture" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_rob_lookup_background.xpm" 
+        -image1 "render_rob_lookup_background.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Screen Space Ramp" 
+        -align "center" 
+        -label "DomeRamp" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_domeRamp.xpm" 
+        -image1 "render_domeRamp.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "DomeAFL_FOV" 
+        -align "center" 
+        -label "DomeAFL_FOV" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_domeAFL_FOV.xpm" 
+        -image1 "render_domeAFL_FOV.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_FOV_Camera()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "DomeAFL_WxH" 
+        -align "center" 
+        -label "DomeAFL_WxH" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_domeAFL_WxH.xpm" 
+        -image1 "render_domeAFL_WxH.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_WxH_Camera()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "LatLong" 
+        -align "center" 
+        -label "LatLong" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_latlong_lens.xpm" 
+        -image1 "render_latlong_lens.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+   shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Color Material" 
+        -align "center" 
+        -label "Color" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "colorMaterial.xpm" 
+        -image1 "colorMaterial.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorMiaMaterial()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Color + Bump Material" 
+        -align "center" 
+        -label "C+Bump" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "bumpMaterial.xpm" 
+        -image1 "bumpMaterial.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorBumpMiaMaterial()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -align "center" 
+        -label "Starglobe" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_starglobe.xpm" 
+        -image1 "render_starglobe.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeStarglobe.mel\";\ncreateStarglobe();" 
+        -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -align "center" 
+        -label "DomeGrid" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "domeGrid.xpm" 
+        -image1 "domeGrid.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeGrid()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Load the MentalRay Plugin" 
+        -align "center" 
+        -label "Reload MR" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "mentalray_load.xpm" 
+        -image1 "mentalray_load.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "# Make sure the mental ray plugin was loaded\nif not (cmds.pluginInfo(\"Mayatomr\",q=True,loaded=True)):\n  cmds.loadPlugin(\"Mayatomr\")\n  print(\"The Mental Ray plugin was loaded.\")\nelse:\n  print(\"The Mental Ray plugin is already active.\")" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Wiki Help" 
+        -align "center" 
+        -label "Wiki Help" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "domeHelp.xpm" 
+        -image1 "domeHelp.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Version Info" 
+        -align "center" 
+        -label "Version Info" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "domeInfo.xpm" 
+        -image1 "domeInfo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeVersion.mel\";\ndomeVersion();" 
+        -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 0.5k" 
+        -align "center" 
+        -label "Render 0.5k" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "0.5k" 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(512)" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 1k" 
+        -align "center" 
+        -label "Render 1k" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "1k" 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(1024)" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 2k" 
+        -align "center" 
+        -label "Render 2k" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "2k" 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(2048)" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 4k" 
+        -align "center" 
+        -label "Render 4k" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "4k" 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(4096)" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 8k" 
+        -align "center" 
+        -label "Render 8k" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "8k" 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(8192)" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+
+} 

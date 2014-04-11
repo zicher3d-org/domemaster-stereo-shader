@@ -1,0 +1,27 @@
+# MI declarations for latlong_lens Mental Ray shader
+# by Ralf Habel (ralf.habel@vi-motion.de)
+
+# 3DS MAX GUI controls added by Andrew Hazelden (andrew@andrewhazelden.com)
+
+# Version 2.0
+
+
+declare shader
+	color "latlong_lens" (
+			boolean "flipHorizontal"          #: default 0
+	)
+	version 1
+	apply lens
+	scanline off
+	trace on
+	#: nodeid 58675
+	gui "gui_latlong_lens" {
+		control "Global"  "Global" (
+			"uiName" "LatLong Shader"	#, "hidden"
+		)
+		control	"flipHorizontal" "boolean" (
+			"uiName" "Flip Horizontal", "value" 0,
+			"nonConnectable"
+		)
+		}
+end declare

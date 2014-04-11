@@ -1,0 +1,1580 @@
+ domeAFL_2009
+
+ Timestamp is 50969303 (Sun Nov 04 12:08:35 2012)
+
+ Preferred load address is 0000000180000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00023884H .text                   CODE
+ 0001:00023890 00000091H .text$x                 CODE
+ 0002:00000000 00000120H .idata$5                DATA
+ 0002:00000120 00000008H .CRT$XCA                DATA
+ 0002:00000128 00000008H .CRT$XCZ                DATA
+ 0002:00000130 00000008H .CRT$XIA                DATA
+ 0002:00000138 00000008H .CRT$XIAA               DATA
+ 0002:00000140 00000008H .CRT$XIZ                DATA
+ 0002:00000150 000043a4H .rdata                  DATA
+ 0002:000044f8 00000008H .rtc$IAA                DATA
+ 0002:00004500 00000008H .rtc$IZZ                DATA
+ 0002:00004508 00000008H .rtc$TAA                DATA
+ 0002:00004510 00000008H .rtc$TZZ                DATA
+ 0002:00004518 00008544H .xdata                  DATA
+ 0002:0000ca5c 00000028H .idata$2                DATA
+ 0002:0000ca84 00000014H .idata$3                DATA
+ 0002:0000ca98 00000120H .idata$4                DATA
+ 0002:0000cbb8 00000216H .idata$6                DATA
+ 0002:0000cdd0 0000018bH .edata                  DATA
+ 0003:00000000 00000020H .data                   DATA
+ 0003:00000020 00001628H .bss                    DATA
+ 0004:00000000 00006288H .pdata                  DATA
+ 0005:00000000 00000010H .rsrc$01                DATA
+ 0005:00000010 00000000H .rsrc$02                DATA
+
+  Address         Publics by Value              Rva+Base               Lib:Object
+
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
+ 0000:00000000       __ImageBase                0000000180000000     <linker-defined>
+ 0001:00000000       domeAFL_FOV_version        0000000180001000 f   domeAFL_FOV.obj
+ 0001:00000010       domeAFL_FOV                0000000180001010 f   domeAFL_FOV.obj
+ 0001:00000330       domeAFL_FOV_Stereo_version 0000000180001330 f   domeAFL_FOV_Stereo.obj
+ 0001:00000340       domeAFL_FOV_Stereo         0000000180001340 f   domeAFL_FOV_Stereo.obj
+ 0001:00000c60       domeAFL_FOV_Stereo_init    0000000180001c60 f   domeAFL_FOV_Stereo.obj
+ 0001:00000ef0       domeAFL_FOV_Stereo_exit    0000000180001ef0 f   domeAFL_FOV_Stereo.obj
+ 0001:00000f00       domeAFL_WxH_version        0000000180001f00 f   domeAFL_WxH.obj
+ 0001:00000f10       domeAFL_WxH                0000000180001f10 f   domeAFL_WxH.obj
+ 0001:000012a0       rob_lookup_background_version 00000001800022a0 f   test_texture.obj
+ 0001:000012b0       rob_lookup_background      00000001800022b0 f   test_texture.obj
+ 0001:00001530       miSetModuleHandle          0000000180002530 f   shader:shader.obj
+ 0001:00001560       mi_scene_book_max_lines    0000000180002560 f   shader:shader.obj
+ 0001:00001610       mi_scene_book_free_blk_start 0000000180002610 f   shader:shader.obj
+ 0001:000016c0       mi_scene_book_enumerate    00000001800026c0 f   shader:shader.obj
+ 0001:00001790       mi_scene_book_no_used_lines 0000000180002790 f   shader:shader.obj
+ 0001:00001840       mi_scene_book_line_valid   0000000180002840 f   shader:shader.obj
+ 0001:00001900       mi_scene_book_get_line     0000000180002900 f   shader:shader.obj
+ 0001:000019c0       mi_scene_book_release_line 00000001800029c0 f   shader:shader.obj
+ 0001:00001a80       mi_scene_book_detach       0000000180002a80 f   shader:shader.obj
+ 0001:00001b40       mi_scene_book_attach       0000000180002b40 f   shader:shader.obj
+ 0001:00001c10       mi_scene_book_sort_freelist 0000000180002c10 f   shader:shader.obj
+ 0001:00001cc0       mi_scene_book_compactify   0000000180002cc0 f   shader:shader.obj
+ 0001:00001d80       mi_scene_book_allocate_line 0000000180002d80 f   shader:shader.obj
+ 0001:00001e40       mi_scene_dump              0000000180002e40 f   shader:shader.obj
+ 0001:00001f00       mi_scene_type_name         0000000180002f00 f   shader:shader.obj
+ 0001:00001fb0       mi_geoshader_tesselate_end 0000000180002fb0 f   shader:shader.obj
+ 0001:00002060       mi_geoshader_tesselate     0000000180003060 f   shader:shader.obj
+ 0001:00002130       mi_scene_delete_one        0000000180003130 f   shader:shader.obj
+ 0001:000021e0       mi_scene_delete            00000001800031e0 f   shader:shader.obj
+ 0001:00002290       mi_scene_unlink            0000000180003290 f   shader:shader.obj
+ 0001:00002360       mi_scene_link              0000000180003360 f   shader:shader.obj
+ 0001:00002430       mi_scene_edit_end          0000000180003430 f   shader:shader.obj
+ 0001:000024e0       mi_scene_growedit          00000001800034e0 f   shader:shader.obj
+ 0001:000025d0       mi_scene_edit              00000001800035d0 f   shader:shader.obj
+ 0001:00002680       mi_scene_recreate          0000000180003680 f   shader:shader.obj
+ 0001:00002810       mi_scene_create            0000000180003810 f   shader:shader.obj
+ 0001:000029a0       mi_lightmap_edit_end       00000001800039a0 f   shader:shader.obj
+ 0001:00002a50       mi_lightmap_edit           0000000180003a50 f   shader:shader.obj
+ 0001:00002b10       mi_ambient_occlusion       0000000180003b10 f   shader:shader.obj
+ 0001:00002be0       mi_photon_transmission_diffuse 0000000180003be0 f   shader:shader.obj
+ 0001:00002cb0       mi_photon_reflection_diffuse 0000000180003cb0 f   shader:shader.obj
+ 0001:00002d80       mi_photon_transmission_glossy 0000000180003d80 f   shader:shader.obj
+ 0001:00002e50       mi_photon_reflection_glossy 0000000180003e50 f   shader:shader.obj
+ 0001:00002f20       mi_photon_transparent      0000000180003f20 f   shader:shader.obj
+ 0001:00002fe0       mi_photon_transmission_specular 0000000180003fe0 f   shader:shader.obj
+ 0001:000030b0       mi_photon_reflection_specular 00000001800040b0 f   shader:shader.obj
+ 0001:00003180       mi_photon_volume_scattering 0000000180004180 f   shader:shader.obj
+ 0001:00003250       mi_photon_light            0000000180004250 f   shader:shader.obj
+ 0001:00003310       mi_scattering_pathlength   0000000180004310 f   shader:shader.obj
+ 0001:000033d0       mi_choose_lobe             00000001800043d0 f   shader:shader.obj
+ 0001:00003490       mi_scattering_dir_diffuse  0000000180004490 f   shader:shader.obj
+ 0001:00003550       mi_scattering_dir_directional 0000000180004550 f   shader:shader.obj
+ 0001:00003620       mi_transmission_dir_anisglossy 0000000180004620 f   shader:shader.obj
+ 0001:00003740       mi_transmission_dir_glossy 0000000180004740 f   shader:shader.obj
+ 0001:00003830       mi_transmission_dir_diffuse 0000000180004830 f   shader:shader.obj
+ 0001:000038f0       mi_transmission_dir_specular 00000001800048f0 f   shader:shader.obj
+ 0001:000039d0       mi_reflection_dir_specular 00000001800049d0 f   shader:shader.obj
+ 0001:00003a90       mi_reflection_dir_anisglossy 0000000180004a90 f   shader:shader.obj
+ 0001:00003b90       mi_reflection_dir_glossy   0000000180004b90 f   shader:shader.obj
+ 0001:00003c60       mi_reflection_dir_diffuse  0000000180004c60 f   shader:shader.obj
+ 0001:00003d20       mi_choose_simple_scatter_type 0000000180004d20 f   shader:shader.obj
+ 0001:00003e10       mi_choose_scatter_type     0000000180004e10 f   shader:shader.obj
+ 0001:00003f00       mi_store_photon            0000000180004f00 f   shader:shader.obj
+ 0001:00003fc0       mi_store_volume_photon     0000000180004fc0 f   shader:shader.obj
+ 0001:00004080       mi_compute_volume_irradiance 0000000180005080 f   shader:shader.obj
+ 0001:00004140       mi_compute_irradiance_backside 0000000180005140 f   shader:shader.obj
+ 0001:00004200       mi_compute_irradiance      0000000180005200 f   shader:shader.obj
+ 0001:000042c0       mi_compute_avg_radiance    00000001800052c0 f   shader:shader.obj
+ 0001:000043b0       mi_compute_directional_irradiance 00000001800053b0 f   shader:shader.obj
+ 0001:000044a0       mi_finalgather_store       00000001800054a0 f   shader:shader.obj
+ 0001:00004570       mi_add_contour_lines       0000000180005570 f   shader:shader.obj
+ 0001:00004640       mi_get_contour_line        0000000180005640 f   shader:shader.obj
+ 0001:00004700       mi_ray_offset              0000000180005700 f   shader:shader.obj
+ 0001:000047c0       mi_ray_falloff             00000001800057c0 f   shader:shader.obj
+ 0001:00004890       mi_volume_num_shaders      0000000180005890 f   shader:shader.obj
+ 0001:00004940       mi_volume_cur_shader       0000000180005940 f   shader:shader.obj
+ 0001:000049f0       mi_volume_tags             00000001800059f0 f   shader:shader.obj
+ 0001:00004aa0       mi_volume_instances        0000000180005aa0 f   shader:shader.obj
+ 0001:00004b50       mi_volume_user_color       0000000180005b50 f   shader:shader.obj
+ 0001:00004c00       mi_state_set_pri           0000000180005c00 f   shader:shader.obj
+ 0001:00004cd0       mi_texture_interpolate     0000000180005cd0 f   shader:shader.obj
+ 0001:00004da0       mi_tri_vectors             0000000180005da0 f   shader:shader.obj
+ 0001:00004ea0       mi_opacity_set             0000000180005ea0 f   shader:shader.obj
+ 0001:00004f60       mi_opacity_get             0000000180005f60 f   shader:shader.obj
+ 0001:00005020       mi_trace_probe             0000000180006020 f   shader:shader.obj
+ 0001:000050f0       mi_trace_probe_x           00000001800060f0 f   shader:shader.obj
+ 0001:000051d0       mi_trace_transparent       00000001800061d0 f   shader:shader.obj
+ 0001:00005290       mi_trace_continue          0000000180006290 f   shader:shader.obj
+ 0001:00005350       mi_trace_environment       0000000180006350 f   shader:shader.obj
+ 0001:00005420       mi_trace_eye               0000000180006420 f   shader:shader.obj
+ 0001:00005500       mi_trace_refraction        0000000180006500 f   shader:shader.obj
+ 0001:000055d0       mi_trace_reflection        00000001800065d0 f   shader:shader.obj
+ 0001:000056a0       mi_sample                  00000001800066a0 f   shader:shader.obj
+ 0001:00005790       mi_rc_run_query            0000000180006790 f   shader:shader.obj
+ 0001:00005860       mi_renderpass_resolution   0000000180006860 f   shader:shader.obj
+ 0001:00005990       mi_renderpass_access       0000000180006990 f   shader:shader.obj
+ 0001:00005a60       mi_renderpass_samplerect_flush 0000000180006a60 f   shader:shader.obj
+ 0001:00005b40       mi_renderpass_samplerect_black 0000000180006b40 f   shader:shader.obj
+ 0001:00005c20       mi_renderpass_sample_get   0000000180006c20 f   shader:shader.obj
+ 0001:00005d20       mi_renderpass_sample_put   0000000180006d20 f   shader:shader.obj
+ 0001:00005e20       mi_continue_shadow_seg     0000000180006e20 f   shader:shader.obj
+ 0001:00005ee0       mi_trace_shadow_seg        0000000180006ee0 f   shader:shader.obj
+ 0001:00005fa0       mi_sample_light            0000000180006fa0 f   shader:shader.obj
+ 0001:000060a0       mi_trace_light             00000001800070a0 f   shader:shader.obj
+ 0001:00006190       mi_trace_shadow            0000000180007190 f   shader:shader.obj
+ 0001:00006250       mi_instance_lightlist      0000000180007250 f   shader:shader.obj
+ 0001:00006320       mi_exclusive_lightlist     0000000180007320 f   shader:shader.obj
+ 0001:000063f0       mi_inclusive_lightlist     00000001800073f0 f   shader:shader.obj
+ 0001:000064c0       mi_expand_lightlist        00000001800074c0 f   shader:shader.obj
+ 0001:00006590       mi_fb_get                  0000000180007590 f   shader:shader.obj
+ 0001:00006660       mi_fb_put                  0000000180007660 f   shader:shader.obj
+ 0001:00006730       mi_phen_eval               0000000180007730 f   shader:shader.obj
+ 0001:000067f0       mi_phen_call               00000001800077f0 f   shader:shader.obj
+ 0001:000068b0       mi_phen_get_material       00000001800078b0 f   shader:shader.obj
+ 0001:00006980       mi_phen_function_lookup_ref 0000000180007980 f   shader:shader.obj
+ 0001:00006a40       mi_phen_obj_requirements   0000000180007a40 f   shader:shader.obj
+ 0001:00006b10       mi_output_image_close      0000000180007b10 f   shader:shader.obj
+ 0001:00006bd0       mi_output_image_open       0000000180007bd0 f   shader:shader.obj
+ 0001:00006c90       mi_call_contour_material   0000000180007c90 f   shader:shader.obj
+ 0001:00006d70       mi_phen_call_shader        0000000180007d70 f   shader:shader.obj
+ 0001:00006e70       mi_call_shader_x           0000000180007e70 f   shader:shader.obj
+ 0001:00006f60       mi_call_photonvol_material 0000000180007f60 f   shader:shader.obj
+ 0001:00007020       mi_call_environment_material 0000000180008020 f   shader:shader.obj
+ 0001:000070e0       mi_call_volume_material    00000001800080e0 f   shader:shader.obj
+ 0001:000071a0       mi_call_shadow_material    00000001800081a0 f   shader:shader.obj
+ 0001:00007260       mi_call_photon_material    0000000180008260 f   shader:shader.obj
+ 0001:00007320       mi_call_material           0000000180008320 f   shader:shader.obj
+ 0001:000073e0       mi_call_shader             00000001800083e0 f   shader:shader.obj
+ 0001:000074c0       mi_flush_cache             00000001800084c0 f   shader:shader.obj
+ 0001:00007570       mi_par_userthread          0000000180008570 f   shader:shader.obj
+ 0001:00007630       mi_par_abort               0000000180008630 f   shader:shader.obj
+ 0001:000076e0       mi_par_aborted             00000001800086e0 f   shader:shader.obj
+ 0001:00007790       mi_abort                   0000000180008790 f   shader:shader.obj
+ 0001:00007840       mi_get_metasl_interface    0000000180008840 f   shader:shader.obj
+ 0001:000078f0       mi_msg_no_of_cpus          00000001800088f0 f   shader:shader.obj
+ 0001:000079a0       mi_msg_get_hostname        00000001800089a0 f   shader:shader.obj
+ 0001:00007a50       mi_unlock                  0000000180008a50 f   shader:shader.obj
+ 0001:00007b00       mi_trylock                 0000000180008b00 f   shader:shader.obj
+ 0001:00007bb0       mi_lock                    0000000180008bb0 f   shader:shader.obj
+ 0001:00007c60       mi_delete_lock             0000000180008c60 f   shader:shader.obj
+ 0001:00007d10       mi_init_lock               0000000180008d10 f   shader:shader.obj
+ 0001:00007dc0       mi_msg_is_slave            0000000180008dc0 f   shader:shader.obj
+ 0001:00007e70       mi_mi_parse                0000000180008e70 f   shader:shader.obj
+ 0001:00007f80       mi_mem_vblkgetsize         0000000180008f80 f   shader:shader.obj
+ 0001:00008040       mi_mem_vblkreallocate      0000000180009040 f   shader:shader.obj
+ 0001:00008110       mi_mem_vblkrelease         0000000180009110 f   shader:shader.obj
+ 0001:000081d0       mi_mem_vblkallocate        00000001800091d0 f   shader:shader.obj
+ 0001:00008290       mi_mem_vblkclear           0000000180009290 f   shader:shader.obj
+ 0001:00008340       mi_mem_int_vblkdelete      0000000180009340 f   shader:shader.obj
+ 0001:00008410       mi_mem_vblkdump            0000000180009410 f   shader:shader.obj
+ 0001:000084c0       mi_mem_int_vblkcreate      00000001800094c0 f   shader:shader.obj
+ 0001:00008590       mi_mem_blkenumerate        0000000180009590 f   shader:shader.obj
+ 0001:00008650       mi_mem_blkfrelease         0000000180009650 f   shader:shader.obj
+ 0001:00008710       mi_mem_blkclear            0000000180009710 f   shader:shader.obj
+ 0001:000087c0       mi_mem_blkrelease          00000001800097c0 f   shader:shader.obj
+ 0001:00008880       mi_mem_blkdelete           0000000180009880 f   shader:shader.obj
+ 0001:00008930       mi_mem_blkfallocate        0000000180009930 f   shader:shader.obj
+ 0001:000089e0       mi_mem_blkallocate         00000001800099e0 f   shader:shader.obj
+ 0001:00008a90       mi_mem_int_blkcreate       0000000180009a90 f   shader:shader.obj
+ 0001:00008b60       mi_mem_getsize             0000000180009b60 f   shader:shader.obj
+ 0001:00008c10       mi_mem_dump                0000000180009c10 f   shader:shader.obj
+ 0001:00008cc0       mi_mem_check               0000000180009cc0 f   shader:shader.obj
+ 0001:00008d70       mi_mem_int_release         0000000180009d70 f   shader:shader.obj
+ 0001:00008e40       mi_mem_int_allocate        0000000180009e40 f   shader:shader.obj
+ 0001:00008f10       mi_mem_int_test_allocate   0000000180009f10 f   shader:shader.obj
+ 0001:00008fe0       mi_mem_int_reallocate      0000000180009fe0 f   shader:shader.obj
+ 0001:000090c0       mi_mem_int_test_reallocate 000000018000a0c0 f   shader:shader.obj
+ 0001:000091a0       mi_mem_summary             000000018000a1a0 f   shader:shader.obj
+ 0001:00009250       mi_mem_int_strdup          000000018000a250 f   shader:shader.obj
+ 0001:00009320       mi_lightprofile_value      000000018000a320 f   shader:shader.obj
+ 0001:00009410       mi_lightprofile_sample     000000018000a410 f   shader:shader.obj
+ 0001:000094e0       mi_link_lookup_module      000000018000a4e0 f   shader:shader.obj
+ 0001:000095a0       mi_link_lookup             000000018000a5a0 f   shader:shader.obj
+ 0001:00009650       mi_link_module_max_id      000000018000a650 f   shader:shader.obj
+ 0001:00009700       mi_link_module_name        000000018000a700 f   shader:shader.obj
+ 0001:000097b0       mi_link_file_add           000000018000a7b0 f   shader:shader.obj
+ 0001:00009890       mi_link_file_remove        000000018000a890 f   shader:shader.obj
+ 0001:00009940       mi_ciexyz_weights          000000018000a940 f   shader:shader.obj
+ 0001:00009a00       mi_spectrum_cie_sky        000000018000aa00 f   shader:shader.obj
+ 0001:00009ad0       mi_spectrum_blackbody      000000018000aad0 f   shader:shader.obj
+ 0001:00009ba0       mi_spectrum_cie            000000018000aba0 f   shader:shader.obj
+ 0001:00009c70       mi_spectrum_visible_range  000000018000ac70 f   shader:shader.obj
+ 0001:00009d30       mi_spectrum_check          000000018000ad30 f   shader:shader.obj
+ 0001:00009de0       mi_spectrum_linewidth      000000018000ade0 f   shader:shader.obj
+ 0001:00009ea0       mi_spectrum_range_get      000000018000aea0 f   shader:shader.obj
+ 0001:00009f70       mi_spectrum_value_add      000000018000af70 f   shader:shader.obj
+ 0001:0000a040       mi_spectrum_value_set      000000018000b040 f   shader:shader.obj
+ 0001:0000a110       mi_spectrum_value_get      000000018000b110 f   shader:shader.obj
+ 0001:0000a1d0       mi_spectrum_iterator_size  000000018000b1d0 f   shader:shader.obj
+ 0001:0000a280       mi_spectrum_iterator_end   000000018000b280 f   shader:shader.obj
+ 0001:0000a330       mi_spectrum_iterator_next  000000018000b330 f   shader:shader.obj
+ 0001:0000a3e0       mi_spectrum_iterator_begin 000000018000b3e0 f   shader:shader.obj
+ 0001:0000a490       mi_spectrum_color_add      000000018000b490 f   shader:shader.obj
+ 0001:0000a550       mi_spectrum_lerp           000000018000b550 f   shader:shader.obj
+ 0001:0000a620       mi_spectrum_scale_add      000000018000b620 f   shader:shader.obj
+ 0001:0000a6f0       mi_spectrum_scale          000000018000b6f0 f   shader:shader.obj
+ 0001:0000a7b0       mi_spectrum_add            000000018000b7b0 f   shader:shader.obj
+ 0001:0000a870       mi_spectrum_mul            000000018000b870 f   shader:shader.obj
+ 0001:0000a930       mi_spectrum_assign_data    000000018000b930 f   shader:shader.obj
+ 0001:0000a9f0       mi_spectrum_assign         000000018000b9f0 f   shader:shader.obj
+ 0001:0000aab0       mi_spectrum_copy           000000018000bab0 f   shader:shader.obj
+ 0001:0000ab70       mi_spectrum_ciexyz         000000018000bb70 f   shader:shader.obj
+ 0001:0000ac30       mi_spectrum_reset          000000018000bc30 f   shader:shader.obj
+ 0001:0000ace0       mi_spectrum_clear          000000018000bce0 f   shader:shader.obj
+ 0001:0000ad90       mi_spectrum_blueprint      000000018000bd90 f   shader:shader.obj
+ 0001:0000ae40       mi_spectrum_size           000000018000be40 f   shader:shader.obj
+ 0001:0000aef0       mi_spectrum_ensure         000000018000bef0 f   shader:shader.obj
+ 0001:0000afa0       mi_spectrum_enabled        000000018000bfa0 f   shader:shader.obj
+ 0001:0000b050       mi_spectrum_iterator_destroy 000000018000c050 f   shader:shader.obj
+ 0001:0000b100       mi_spectrum_iterator_create 000000018000c100 f   shader:shader.obj
+ 0001:0000b1c0       mi_spectrum_delete_fromheap 000000018000c1c0 f   shader:shader.obj
+ 0001:0000b270       mi_spectrum_delete         000000018000c270 f   shader:shader.obj
+ 0001:0000b320       mi_spectrum_clone          000000018000c320 f   shader:shader.obj
+ 0001:0000b3d0       mi_spectrum_create_inheap  000000018000c3d0 f   shader:shader.obj
+ 0001:0000b480       mi_spectrum_create         000000018000c480 f   shader:shader.obj
+ 0001:0000b530       mi_spectrum_rgb            000000018000c530 f   shader:shader.obj
+ 0001:0000b5f0       mi_kdtree_delete           000000018000c5f0 f   shader:shader.obj
+ 0001:0000b6a0       mi_kdtree_iterate          000000018000c6a0 f   shader:shader.obj
+ 0001:0000b770       mi_kdtree_lookup           000000018000c770 f   shader:shader.obj
+ 0001:0000b880       mi_kdtree_edit             000000018000c880 f   shader:shader.obj
+ 0001:0000b950       mi_kdtree_access           000000018000c950 f   shader:shader.obj
+ 0001:0000ba20       mi_kdtree_unpin            000000018000ca20 f   shader:shader.obj
+ 0001:0000bad0       mi_kdtree_add              000000018000cad0 f   shader:shader.obj
+ 0001:0000bba0       mi_kdtree_create           000000018000cba0 f   shader:shader.obj
+ 0001:0000bc60       mi_shaderstate_enumerate   000000018000cc60 f   shader:shader.obj
+ 0001:0000bd30       mi_shaderstate_get         000000018000cd30 f   shader:shader.obj
+ 0001:0000be00       mi_shaderstate_set         000000018000ce00 f   shader:shader.obj
+ 0001:0000bef0       mi_par_nthreads            000000018000cef0 f   shader:shader.obj
+ 0001:0000bfa0       mi_luminance               000000018000cfa0 f   shader:shader.obj
+ 0001:0000c060       mi_blackbody_spectral_radiance 000000018000d060 f   shader:shader.obj
+ 0001:0000c130       mi_blackbody_radiance      000000018000d130 f   shader:shader.obj
+ 0001:0000c200       mi_lib_registry_lookup     000000018000d200 f   shader:shader.obj
+ 0001:0000c2c0       mi_fresnel                 000000018000d2c0 f   shader:shader.obj
+ 0001:0000c3b0       mi_schlick_scatter         000000018000d3b0 f   shader:shader.obj
+ 0001:0000c480       mi_fresnel_reflection      000000018000d480 f   shader:shader.obj
+ 0001:0000c550       mi_ward_anisglossy         000000018000d550 f   shader:shader.obj
+ 0001:0000c660       mi_ward_glossy             000000018000d660 f   shader:shader.obj
+ 0001:0000c740       mi_cooktorr_specular       000000018000d740 f   shader:shader.obj
+ 0001:0000c840       mi_blinn_specular          000000018000d840 f   shader:shader.obj
+ 0001:0000c930       mi_fresnel_specular        000000018000d930 f   shader:shader.obj
+ 0001:0000ca40       mi_blong_specular          000000018000da40 f   shader:shader.obj
+ 0001:0000cb10       mi_phong_specular          000000018000db10 f   shader:shader.obj
+ 0001:0000cbe0       mi_texture_filter_transform 000000018000dbe0 f   shader:shader.obj
+ 0001:0000ccb0       mi_texture_filter_project  000000018000dcb0 f   shader:shader.obj
+ 0001:0000cda0       mi_lookup_filter_color_texture_x 000000018000dda0 f   shader:shader.obj
+ 0001:0000cea0       mi_lookup_filter_color_texture 000000018000dea0 f   shader:shader.obj
+ 0001:0000cf90       mi_refraction_dir          000000018000df90 f   shader:shader.obj
+ 0001:0000d070       mi_transmission_dir_anisglossy_x 000000018000e070 f   shader:shader.obj
+ 0001:0000d1a0       mi_reflection_dir          000000018000e1a0 f   shader:shader.obj
+ 0001:0000d260       mi_reflection_dir_anisglossy_x 000000018000e260 f   shader:shader.obj
+ 0001:0000d370       mi_transmission_dir_glossy_x 000000018000e370 f   shader:shader.obj
+ 0001:0000d470       mi_reflection_dir_glossy_x 000000018000e470 f   shader:shader.obj
+ 0001:0000d550       mi_reflection_dir_diffuse_x 000000018000e550 f   shader:shader.obj
+ 0001:0000d620       mi_transmission_dir_diffuse_x 000000018000e620 f   shader:shader.obj
+ 0001:0000d6f0       mi_rbtree_dupsearch        000000018000e6f0 f   shader:shader.obj
+ 0001:0000d7e0       mi_rbtree_search           000000018000e7e0 f   shader:shader.obj
+ 0001:0000d8b0       mi_rbtree_min              000000018000e8b0 f   shader:shader.obj
+ 0001:0000d980       mi_rbtree_max              000000018000e980 f   shader:shader.obj
+ 0001:0000da50       mi_rbtree_traverse         000000018000ea50 f   shader:shader.obj
+ 0001:0000db20       mi_rbtree_get_nitems       000000018000eb20 f   shader:shader.obj
+ 0001:0000dbd0       mi_rbtree_delete           000000018000ebd0 f   shader:shader.obj
+ 0001:0000dc90       mi_rbtree_create           000000018000ec90 f   shader:shader.obj
+ 0001:0000dd50       mi_rbtree_dupremove        000000018000ed50 f   shader:shader.obj
+ 0001:0000de20       mi_rbtree_remove           000000018000ee20 f   shader:shader.obj
+ 0001:0000dee0       mi_rbtree_insert           000000018000eee0 f   shader:shader.obj
+ 0001:0000dfb0       mi_query                   000000018000efb0 f   shader:shader.obj
+ 0001:0000e1b0       mi_string_substitute       000000018000f1b0 f   shader:shader.obj
+ 0001:0000e280       mi_raylib_version          000000018000f280 f   shader:shader.obj
+ 0001:0000e330       mi_raylib_date             000000018000f330 f   shader:shader.obj
+ 0001:0000e3e0       mi_lib_detach_process      000000018000f3e0 f   shader:shader.obj
+ 0001:0000e490       mi_lib_attach_process      000000018000f490 f   shader:shader.obj
+ 0001:0000e540       mi_version                 000000018000f540 f   shader:shader.obj
+ 0001:0000e5f0       mi_shader_info             000000018000f5f0 f   shader:shader.obj
+ 0001:0000e6a0       mi_geoshader_add_result    000000018000f6a0 f   shader:shader.obj
+ 0001:0000e760       mi_instance_info           000000018000f760 f   shader:shader.obj
+ 0001:0000e850       mi_normal_from_object      000000018000f850 f   shader:shader.obj
+ 0001:0000e920       mi_normal_from_camera      000000018000f920 f   shader:shader.obj
+ 0001:0000e9f0       mi_normal_from_world       000000018000f9f0 f   shader:shader.obj
+ 0001:0000eac0       mi_normal_to_object        000000018000fac0 f   shader:shader.obj
+ 0001:0000eb90       mi_normal_to_camera        000000018000fb90 f   shader:shader.obj
+ 0001:0000ec60       mi_normal_to_world         000000018000fc60 f   shader:shader.obj
+ 0001:0000ed30       mi_vector_from_object      000000018000fd30 f   shader:shader.obj
+ 0001:0000ee00       mi_vector_from_camera      000000018000fe00 f   shader:shader.obj
+ 0001:0000eed0       mi_vector_from_world       000000018000fed0 f   shader:shader.obj
+ 0001:0000efa0       mi_vector_to_object        000000018000ffa0 f   shader:shader.obj
+ 0001:0000f070       mi_vector_to_camera        0000000180010070 f   shader:shader.obj
+ 0001:0000f140       mi_vector_to_world         0000000180010140 f   shader:shader.obj
+ 0001:0000f210       mi_point_from_object       0000000180010210 f   shader:shader.obj
+ 0001:0000f2e0       mi_point_from_camera       00000001800102e0 f   shader:shader.obj
+ 0001:0000f3b0       mi_point_from_world        00000001800103b0 f   shader:shader.obj
+ 0001:0000f480       mi_point_to_object         0000000180010480 f   shader:shader.obj
+ 0001:0000f550       mi_point_to_camera         0000000180010550 f   shader:shader.obj
+ 0001:0000f620       mi_raster_unit             0000000180010620 f   shader:shader.obj
+ 0001:0000f6f0       mi_point_to_raster         00000001800106f0 f   shader:shader.obj
+ 0001:0000f7c0       mi_point_to_world          00000001800107c0 f   shader:shader.obj
+ 0001:0000f890       mi_light_info              0000000180010890 f   shader:shader.obj
+ 0001:0000f970       mi_global_lights_info      0000000180010970 f   shader:shader.obj
+ 0001:0000fa20       mi_texture_info            0000000180010a20 f   shader:shader.obj
+ 0001:0000fb00       mi_lookup_vector_texture   0000000180010b00 f   shader:shader.obj
+ 0001:0000fbe0       mi_lookup_vector_texture_x 0000000180010be0 f   shader:shader.obj
+ 0001:0000fcd0       mi_lookup_scalar_texture   0000000180010cd0 f   shader:shader.obj
+ 0001:0000fdb0       mi_lookup_scalar_texture_x 0000000180010db0 f   shader:shader.obj
+ 0001:0000fea0       mi_lookup_color_texture    0000000180010ea0 f   shader:shader.obj
+ 0001:0000ff80       mi_lookup_color_texture_x  0000000180010f80 f   shader:shader.obj
+ 0001:00010070       mi_normal_from_light       0000000180011070 f   shader:shader.obj
+ 0001:00010140       mi_normal_to_light         0000000180011140 f   shader:shader.obj
+ 0001:00010210       mi_vector_from_light       0000000180011210 f   shader:shader.obj
+ 0001:000102e0       mi_vector_to_light         00000001800112e0 f   shader:shader.obj
+ 0001:000103b0       mi_point_from_light        00000001800113b0 f   shader:shader.obj
+ 0001:00010480       mi_point_to_light          0000000180011480 f   shader:shader.obj
+ 0001:00010550       mi_spline                  0000000180011550 f   shader:shader.obj
+ 0001:00010620       mi_unoise_3d_grad          0000000180011620 f   shader:shader.obj
+ 0001:000106e0       mi_unoise_3d               00000001800116e0 f   shader:shader.obj
+ 0001:00010790       mi_unoise_2d_grad          0000000180011790 f   shader:shader.obj
+ 0001:00010870       mi_unoise_2d               0000000180011870 f   shader:shader.obj
+ 0001:00010940       mi_unoise_1d_grad          0000000180011940 f   shader:shader.obj
+ 0001:00010a00       mi_unoise_1d               0000000180011a00 f   shader:shader.obj
+ 0001:00010ac0       mi_noise_3d_grad           0000000180011ac0 f   shader:shader.obj
+ 0001:00010b80       mi_noise_3d                0000000180011b80 f   shader:shader.obj
+ 0001:00010c30       mi_noise_2d_grad           0000000180011c30 f   shader:shader.obj
+ 0001:00010d10       mi_noise_2d                0000000180011d10 f   shader:shader.obj
+ 0001:00010de0       mi_noise_1d_grad           0000000180011de0 f   shader:shader.obj
+ 0001:00010ea0       mi_noise_1d                0000000180011ea0 f   shader:shader.obj
+ 0001:00010f60       mi_erandom                 0000000180011f60 f   shader:shader.obj
+ 0001:00011010       mi_srandom                 0000000180012010 f   shader:shader.obj
+ 0001:000110c0       mi_random                  00000001800120c0 f   shader:shader.obj
+ 0001:00011170       mi_par_random              0000000180012170 f   shader:shader.obj
+ 0001:00011220       mi_matrix_rot_det          0000000180012220 f   shader:shader.obj
+ 0001:000112d0       mi_point_transform         00000001800122d0 f   shader:shader.obj
+ 0001:000113a0       mi_vector_transform        00000001800123a0 f   shader:shader.obj
+ 0001:00011470       mi_vector_transform_T      0000000180012470 f   shader:shader.obj
+ 0001:00011540       mi_matrix_prod             0000000180012540 f   shader:shader.obj
+ 0001:00011610       mi_matrix_ident            0000000180012610 f   shader:shader.obj
+ 0001:000116c0       mi_matrix_solve            00000001800126c0 f   shader:shader.obj
+ 0001:000117a0       mi_matrix_invert           00000001800127a0 f   shader:shader.obj
+ 0001:00011860       mi_matrix_rotate_axis      0000000180012860 f   shader:shader.obj
+ 0001:00011930       mi_matrix_rotate           0000000180012930 f   shader:shader.obj
+ 0001:00011a20       mi_matrix_isnull           0000000180012a20 f   shader:shader.obj
+ 0001:00011ad0       mi_matrix_isident          0000000180012ad0 f   shader:shader.obj
+ 0001:00011b80       mi_strerror                0000000180012b80 f   shader:shader.obj
+ 0001:00011c30       mi_fatal_error_freeze      0000000180012c30 f   shader:shader.obj
+ 0001:00011ce0       mi_vdebug                  0000000180012ce0 f   shader:shader.obj
+ 0001:00011dd0       mi_debug                   0000000180012dd0 f   shader:shader.obj
+ 0001:00011ec0       mi_progress                0000000180012ec0 f   shader:shader.obj
+ 0001:00011fb0       mi_info                    0000000180012fb0 f   shader:shader.obj
+ 0001:000120a0       mi_nwarning                00000001800130a0 f   shader:shader.obj
+ 0001:00012190       mi_warning                 0000000180013190 f   shader:shader.obj
+ 0001:00012280       mi_nerror                  0000000180013280 f   shader:shader.obj
+ 0001:00012370       mi_error                   0000000180013370 f   shader:shader.obj
+ 0001:00012460       mi_nfatal                  0000000180013460 f   shader:shader.obj
+ 0001:00012550       mi_fatal                   0000000180013550 f   shader:shader.obj
+ 0001:00012640       mi_colorprofile_ciexyz_to_internal 0000000180013640 f   shader:shader.obj
+ 0001:000126f0       mi_colorprofile_internal_to_ciexyz 00000001800136f0 f   shader:shader.obj
+ 0001:000127a0       mi_colorprofile_ciexyz_color_id 00000001800137a0 f   shader:shader.obj
+ 0001:00012850       mi_colorprofile_internalspace_id 0000000180013850 f   shader:shader.obj
+ 0001:00012900       mi_colorprofile_sourcespace_id 0000000180013900 f   shader:shader.obj
+ 0001:000129b0       mi_colorprofile_renderspace_id 00000001800139b0 f   shader:shader.obj
+ 0001:00012a60       mi_colorprofile_internal_to_render 0000000180013a60 f   shader:shader.obj
+ 0001:00012b10       mi_colorprofile_ciexyz_to_render 0000000180013b10 f   shader:shader.obj
+ 0001:00012bc0       mi_colorprofile_render_to_internal 0000000180013bc0 f   shader:shader.obj
+ 0001:00012c70       mi_colorprofile_render_to_ciexyz 0000000180013c70 f   shader:shader.obj
+ 0001:00012d20       mi_img_get_width           0000000180013d20 f   shader:shader.obj
+ 0001:00012dd0       mi_img_get_height          0000000180013dd0 f   shader:shader.obj
+ 0001:00012e80       mi_img_cache_get           0000000180013e80 f   shader:shader.obj
+ 0001:00012f40       mi_img_pyramid_get_level   0000000180013f40 f   shader:shader.obj
+ 0001:00013000       mi_img_get_label           0000000180014000 f   shader:shader.obj
+ 0001:000130e0       mi_img_get_normal          00000001800140e0 f   shader:shader.obj
+ 0001:000131c0       mi_img_get_coverage        00000001800141c0 f   shader:shader.obj
+ 0001:000132a0       mi_img_get_depth           00000001800142a0 f   shader:shader.obj
+ 0001:00013380       mi_img_get_vector          0000000180014380 f   shader:shader.obj
+ 0001:00013460       mi_img_get_scalar          0000000180014460 f   shader:shader.obj
+ 0001:00013540       mi_img_put_label           0000000180014540 f   shader:shader.obj
+ 0001:00013620       mi_img_put_normal          0000000180014620 f   shader:shader.obj
+ 0001:00013700       mi_img_put_coverage        0000000180014700 f   shader:shader.obj
+ 0001:000137e0       mi_img_put_depth           00000001800147e0 f   shader:shader.obj
+ 0001:000138c0       mi_img_clip_color          00000001800148c0 f   shader:shader.obj
+ 0001:00013980       mi_img_put_vector          0000000180014980 f   shader:shader.obj
+ 0001:00013a60       mi_img_get_color           0000000180014a60 f   shader:shader.obj
+ 0001:00013b40       mi_img_put_scalar          0000000180014b40 f   shader:shader.obj
+ 0001:00013c20       mi_img_put_color           0000000180014c20 f   shader:shader.obj
+ 0001:00013d00       mi_img_access              0000000180014d00 f   shader:shader.obj
+ 0001:00013dd0       mi_img_image_shared        0000000180014dd0 f   shader:shader.obj
+ 0001:00013e90       mi_img_image_dbcreate      0000000180014e90 f   shader:shader.obj
+ 0001:00013f50       mi_img_placeholder_dbcreate 0000000180014f50 f   shader:shader.obj
+ 0001:00014020       mi_img_image_release       0000000180015020 f   shader:shader.obj
+ 0001:000140d0       mi_img_format_name         00000001800150d0 f   shader:shader.obj
+ 0001:00014180       mi_img_type_name           0000000180015180 f   shader:shader.obj
+ 0001:00014230       mi_img_best_type           0000000180015230 f   shader:shader.obj
+ 0001:000142e0       mi_img_tonemap             00000001800152e0 f   shader:shader.obj
+ 0001:000143b0       mi_img_image_alloc         00000001800153b0 f   shader:shader.obj
+ 0001:00014460       mi_img_err_msg             0000000180015460 f   shader:shader.obj
+ 0001:00014510       mi_img_type_query          0000000180015510 f   shader:shader.obj
+ 0001:000145f0       mi_img_format_identify     00000001800155f0 f   shader:shader.obj
+ 0001:000146a0       mi_img_type_identify       00000001800156a0 f   shader:shader.obj
+ 0001:00014750       mi_img_image_write         0000000180015750 f   shader:shader.obj
+ 0001:00014810       mi_img_image_read          0000000180015810 f   shader:shader.obj
+ 0001:000148d0       mi_img_custom_format_error 00000001800158d0 f   shader:shader.obj
+ 0001:000149a0       mi_img_close               00000001800159a0 f   shader:shader.obj
+ 0001:00014a50       mi_img_create              0000000180015a50 f   shader:shader.obj
+ 0001:00014b50       mi_img_open                0000000180015b50 f   shader:shader.obj
+ 0001:00014c20       mi_img_lseek               0000000180015c20 f   shader:shader.obj
+ 0001:00014ce0       mi_img_nread               0000000180015ce0 f   shader:shader.obj
+ 0001:00014db0       mi_img_custom_format       0000000180015db0 f   shader:shader.obj
+ 0001:00014f00       mi_geomo_uv_loft           0000000180015f00 f   shader:shader.obj
+ 0001:00015000       mi_geomo_free_curves       0000000180016000 f   shader:shader.obj
+ 0001:000150c0       mi_geomo_homogenize_curves 00000001800160c0 f   shader:shader.obj
+ 0001:00015180       mi_geomo_concatenate_curves 0000000180016180 f   shader:shader.obj
+ 0001:00015250       mi_geomo_free_surface      0000000180016250 f   shader:shader.obj
+ 0001:00015300       mi_geomo_u_loft            0000000180016300 f   shader:shader.obj
+ 0001:00015420       mi_geomo_init_tangent      0000000180016420 f   shader:shader.obj
+ 0001:000154d0       mi_geomo_extract_and_convert_curve 00000001800164d0 f   shader:shader.obj
+ 0001:000155e0       mi_geomo_blend_surfaces    00000001800165e0 f   shader:shader.obj
+ 0001:00015740       mi_geoshader_release_adjacency 0000000180016740 f   shader:shader.obj
+ 0001:00015800       mi_geoshader_get_adjacency 0000000180016800 f   shader:shader.obj
+ 0001:000158d0       mi_geoshader_eval_curve    00000001800168d0 f   shader:shader.obj
+ 0001:000159b0       mi_geoshader_eval_surface  00000001800169b0 f   shader:shader.obj
+ 0001:00015a90       mi_geoshader_approximate_object_end 0000000180016a90 f   shader:shader.obj
+ 0001:00015b40       mi_geoshader_approximate_object 0000000180016b40 f   shader:shader.obj
+ 0001:00015c00       mi_geoshader_approximate_object_begin 0000000180016c00 f   shader:shader.obj
+ 0001:00015cc0       mi_geoshader_echo_tag      0000000180016cc0 f   shader:shader.obj
+ 0001:00015d90       mi_echo_scene              0000000180016d90 f   shader:shader.obj
+ 0001:00015e80       mi_db_summary              0000000180016e80 f   shader:shader.obj
+ 0001:00015f30       mi_db_dump                 0000000180016f30 f   shader:shader.obj
+ 0001:00015fe0       mi_db_flush                0000000180016fe0 f   shader:shader.obj
+ 0001:00016090       mi_db_deferredflush        0000000180017090 f   shader:shader.obj
+ 0001:00016140       mi_db_delete               0000000180017140 f   shader:shader.obj
+ 0001:000161f0       mi_db_access_type          00000001800171f0 f   shader:shader.obj
+ 0001:000162b0       mi_db_access               00000001800172b0 f   shader:shader.obj
+ 0001:00016360       mi_db_realloc              0000000180017360 f   shader:shader.obj
+ 0001:00016420       mi_db_size                 0000000180017420 f   shader:shader.obj
+ 0001:000164d0       mi_db_create               00000001800174d0 f   shader:shader.obj
+ 0001:000165a0       mi_db_unpin                00000001800175a0 f   shader:shader.obj
+ 0001:00016650       mi_db_copy                 0000000180017650 f   shader:shader.obj
+ 0001:00016700       mi_db_accessinfo           0000000180017700 f   shader:shader.obj
+ 0001:000167b0       mi_db_type                 00000001800177b0 f   shader:shader.obj
+ 0001:00016860       mi_api_metasl_end          0000000180017860 f   shader:shader.obj
+ 0001:00016910       mi_api_metasl_code         0000000180017910 f   shader:shader.obj
+ 0001:000169c0       mi_api_metasl_filename     00000001800179c0 f   shader:shader.obj
+ 0001:00016a70       mi_api_metasl_begin        0000000180017a70 f   shader:shader.obj
+ 0001:00016b20       mi_api_get_assembly_root   0000000180017b20 f   shader:shader.obj
+ 0001:00016bd0       mi_api_assembly_path_search 0000000180017bd0 f   shader:shader.obj
+ 0001:00016c80       mi_api_assembly_root       0000000180017c80 f   shader:shader.obj
+ 0001:00016d30       mi_api_assembly_end        0000000180017d30 f   shader:shader.obj
+ 0001:00016de0       mi_api_assembly_callback   0000000180017de0 f   shader:shader.obj
+ 0001:00016eb0       mi_api_assembly_filename   0000000180017eb0 f   shader:shader.obj
+ 0001:00016f60       mi_api_assembly_begin      0000000180017f60 f   shader:shader.obj
+ 0001:00017010       mi_api_ccmesh_bary         0000000180018010 f   shader:shader.obj
+ 0001:000170c0       mi_api_ccmesh_derivative   00000001800180c0 f   shader:shader.obj
+ 0001:00017180       mi_api_ccmesh_approx       0000000180018180 f   shader:shader.obj
+ 0001:00017240       mi_api_ccmesh_crease       0000000180018240 f   shader:shader.obj
+ 0001:000172f0       mi_api_ccmesh_polygon      00000001800182f0 f   shader:shader.obj
+ 0001:000173c0       mi_api_ccmesh_end          00000001800183c0 f   shader:shader.obj
+ 0001:00017470       mi_api_ccmesh_begin        0000000180018470 f   shader:shader.obj
+ 0001:00017530       mi_api_primlist_dimensions 0000000180018530 f   shader:shader.obj
+ 0001:000175f0       mi_api_primlist_border     00000001800185f0 f   shader:shader.obj
+ 0001:000176b0       mi_api_primlist_end        00000001800186b0 f   shader:shader.obj
+ 0001:00017760       mi_api_primlist_approx     0000000180018760 f   shader:shader.obj
+ 0001:00017810       mi_api_primlist_begin_2    0000000180018810 f   shader:shader.obj
+ 0001:00017920       mi_api_primlist_begin      0000000180018920 f   shader:shader.obj
+ 0001:00017a20       mi_api_primlist_topology   0000000180018a20 f   shader:shader.obj
+ 0001:00017ad0       mi_api_colorprofile_white  0000000180018ad0 f   shader:shader.obj
+ 0001:00017ba0       mi_api_colorprofile_custom 0000000180018ba0 f   shader:shader.obj
+ 0001:00017c60       mi_api_colorprofile_gamma  0000000180018c60 f   shader:shader.obj
+ 0001:00017d30       mi_api_colorprofile_space  0000000180018d30 f   shader:shader.obj
+ 0001:00017de0       mi_api_colorprofile_lookup 0000000180018de0 f   shader:shader.obj
+ 0001:00017e90       mi_api_colorprofile_to_renderspace 0000000180018e90 f   shader:shader.obj
+ 0001:00017f80       mi_api_colorprofile_end    0000000180018f80 f   shader:shader.obj
+ 0001:00018030       mi_api_colorprofile_begin  0000000180019030 f   shader:shader.obj
+ 0001:000180e0       mi_api_spectrum_lookup     00000001800190e0 f   shader:shader.obj
+ 0001:00018190       mi_api_spectrum_pair_add   0000000180019190 f   shader:shader.obj
+ 0001:00018260       mi_api_spectrum_end        0000000180019260 f   shader:shader.obj
+ 0001:00018310       mi_api_spectrum_begin      0000000180019310 f   shader:shader.obj
+ 0001:000183c0       mi_api_trilist_triangles   00000001800193c0 f   shader:shader.obj
+ 0001:00018480       mi_api_trilist_end         0000000180019480 f   shader:shader.obj
+ 0001:00018530       mi_api_trilist_triangle_tag 0000000180019530 f   shader:shader.obj
+ 0001:000185f0       mi_api_trilist_triangle    00000001800195f0 f   shader:shader.obj
+ 0001:000186b0       mi_api_trilist_vertices    00000001800196b0 f   shader:shader.obj
+ 0001:00018770       mi_api_trilist_vectors     0000000180019770 f   shader:shader.obj
+ 0001:00018830       mi_api_trilist_approx      0000000180019830 f   shader:shader.obj
+ 0001:000188e0       mi_api_trilist_begin       00000001800198e0 f   shader:shader.obj
+ 0001:000189c0       mi_api_pass_delete_def     00000001800199c0 f   shader:shader.obj
+ 0001:00018a70       mi_api_pass_merge_def      0000000180019a70 f   shader:shader.obj
+ 0001:00018b70       mi_api_pass_prep_def       0000000180019b70 f   shader:shader.obj
+ 0001:00018c70       mi_api_pass_save_def       0000000180019c70 f   shader:shader.obj
+ 0001:00018d50       mi_api_subdivsurf_texspace 0000000180019d50 f   shader:shader.obj
+ 0001:00018e10       mi_api_subdivsurf_subdivide 0000000180019e10 f   shader:shader.obj
+ 0001:00018ec0       mi_api_subdivsurf_pop      0000000180019ec0 f   shader:shader.obj
+ 0001:00018f70       mi_api_subdivsurf_push     0000000180019f70 f   shader:shader.obj
+ 0001:00019020       mi_api_subdivsurf_baseface 000000018001a020 f   shader:shader.obj
+ 0001:000190d0       mi_api_subdivsurf_crease_edge 000000018001a0d0 f   shader:shader.obj
+ 0001:00019190       mi_api_subdivsurf_derivative 000000018001a190 f   shader:shader.obj
+ 0001:00019250       mi_api_subdivsurf_approx_displace 000000018001a250 f   shader:shader.obj
+ 0001:00019310       mi_api_subdivsurf_approx   000000018001a310 f   shader:shader.obj
+ 0001:000193d0       mi_api_subdivsurf_detail   000000018001a3d0 f   shader:shader.obj
+ 0001:00019480       mi_api_subdivsurf_trim     000000018001a480 f   shader:shader.obj
+ 0001:00019540       mi_api_subdivsurf_crease   000000018001a540 f   shader:shader.obj
+ 0001:00019600       mi_api_subdivsurf_index    000000018001a600 f   shader:shader.obj
+ 0001:000196b0       mi_api_subdivsurf_mtl_tag  000000018001a6b0 f   shader:shader.obj
+ 0001:00019770       mi_api_subdivsurf_mtl      000000018001a770 f   shader:shader.obj
+ 0001:00019830       mi_api_subdivsurf_end      000000018001a830 f   shader:shader.obj
+ 0001:000198e0       mi_api_subdivsurf_begin_x  000000018001a8e0 f   shader:shader.obj
+ 0001:000199a0       mi_api_subdivsurf_begin    000000018001a9a0 f   shader:shader.obj
+ 0001:00019a50       mi_api_spacecurve_end      000000018001aa50 f   shader:shader.obj
+ 0001:00019b00       mi_api_spacecurve_approx   000000018001ab00 f   shader:shader.obj
+ 0001:00019bc0       mi_api_spacecurve_curveseg 000000018001abc0 f   shader:shader.obj
+ 0001:00019c90       mi_api_spacecurve_begin    000000018001ac90 f   shader:shader.obj
+ 0001:00019d40       mi_api_scope_apply         000000018001ad40 f   shader:shader.obj
+ 0001:00019df0       mi_api_scope_end           000000018001adf0 f   shader:shader.obj
+ 0001:00019ea0       mi_api_scope_begin         000000018001aea0 f   shader:shader.obj
+ 0001:00019f50       mi_api_nodes_end           000000018001af50 f   shader:shader.obj
+ 0001:0001a000       mi_api_node_add            000000018001b000 f   shader:shader.obj
+ 0001:0001a0c0       mi_api_nodes_begin         000000018001b0c0 f   shader:shader.obj
+ 0001:0001a170       mi_api_phen_end            000000018001b170 f   shader:shader.obj
+ 0001:0001a220       mi_api_phen_begin          000000018001b220 f   shader:shader.obj
+ 0001:0001a2f0       mi_api_variable_lookup     000000018001b2f0 f   shader:shader.obj
+ 0001:0001a3a0       mi_api_registry_end        000000018001b3a0 f   shader:shader.obj
+ 0001:0001a450       mi_api_registry_lookup     000000018001b450 f   shader:shader.obj
+ 0001:0001a500       mi_api_registry_eval       000000018001b500 f   shader:shader.obj
+ 0001:0001a5b0       mi_api_registry_add        000000018001b5b0 f   shader:shader.obj
+ 0001:0001a670       mi_api_registry_begin      000000018001b670 f   shader:shader.obj
+ 0001:0001a720       mi_api_tag_lookup          000000018001b720 f   shader:shader.obj
+ 0001:0001a7d0       mi_api_variable_set        000000018001b7d0 f   shader:shader.obj
+ 0001:0001a890       mi_api_rename              000000018001b890 f   shader:shader.obj
+ 0001:0001a950       mi_api_debug               000000018001b950 f   shader:shader.obj
+ 0001:0001aa10       mi_api_touch               000000018001ba10 f   shader:shader.obj
+ 0001:0001aac0       mi_api_decl_lookup         000000018001bac0 f   shader:shader.obj
+ 0001:0001ab70       mi_api_name_lookup         000000018001bb70 f   shader:shader.obj
+ 0001:0001ac20       mi_api_delete_tree         000000018001bc20 f   shader:shader.obj
+ 0001:0001acd0       mi_api_delete              000000018001bcd0 f   shader:shader.obj
+ 0001:0001ad80       mi_api_lightprofile_lookup 000000018001bd80 f   shader:shader.obj
+ 0001:0001ae30       mi_api_lightprofile_end    000000018001be30 f   shader:shader.obj
+ 0001:0001aee0       mi_api_lightprofile_begin  000000018001bee0 f   shader:shader.obj
+ 0001:0001af90       mi_api_instgroup_register  000000018001bf90 f   shader:shader.obj
+ 0001:0001b050       mi_api_instgroup_end       000000018001c050 f   shader:shader.obj
+ 0001:0001b100       mi_api_instgroup_clear     000000018001c100 f   shader:shader.obj
+ 0001:0001b1b0       mi_api_instgroup_delitem   000000018001c1b0 f   shader:shader.obj
+ 0001:0001b260       mi_api_instgroup_additem   000000018001c260 f   shader:shader.obj
+ 0001:0001b310       mi_api_instgroup_begin     000000018001c310 f   shader:shader.obj
+ 0001:0001b3c0       mi_api_instance_register   000000018001c3c0 f   shader:shader.obj
+ 0001:0001b480       mi_api_instance_approx     000000018001c480 f   shader:shader.obj
+ 0001:0001b540       mi_api_instance_begin      000000018001c540 f   shader:shader.obj
+ 0001:0001b5f0       mi_api_instance_end        000000018001c5f0 f   shader:shader.obj
+ 0001:0001b6c0       mi_api_get_typeinfo        000000018001c6c0 f   shader:shader.obj
+ 0001:0001b770       mi_api_parameter_offset_lookup 000000018001c770 f   shader:shader.obj
+ 0001:0001b870       mi_api_parameter_lookup    000000018001c870 f   shader:shader.obj
+ 0001:0001b970       mi_api_parameter_path_lookup 000000018001c970 f   shader:shader.obj
+ 0001:0001ba60       mi_api_parameter_child     000000018001ca60 f   shader:shader.obj
+ 0001:0001bb20       mi_api_parameter_append    000000018001cb20 f   shader:shader.obj
+ 0001:0001bbe0       mi_api_parameter_default   000000018001cbe0 f   shader:shader.obj
+ 0001:0001bca0       mi_api_parameter_decl      000000018001cca0 f   shader:shader.obj
+ 0001:0001bd70       mi_api_funcdecl_end        000000018001cd70 f   shader:shader.obj
+ 0001:0001be20       mi_api_funcdecl_begin      000000018001ce20 f   shader:shader.obj
+ 0001:0001bef0       mi_api_dlist_delete        000000018001cef0 f   shader:shader.obj
+ 0001:0001bfa0       mi_api_dlist_add           000000018001cfa0 f   shader:shader.obj
+ 0001:0001c060       mi_api_dlist_create        000000018001d060 f   shader:shader.obj
+ 0001:0001c110       mi_api_data_lookup         000000018001d110 f   shader:shader.obj
+ 0001:0001c1c0       mi_api_data_callback       000000018001d1c0 f   shader:shader.obj
+ 0001:0001c290       mi_api_data_byte_copy      000000018001d290 f   shader:shader.obj
+ 0001:0001c350       mi_api_data_append         000000018001d350 f   shader:shader.obj
+ 0001:0001c410       mi_api_data_end            000000018001d410 f   shader:shader.obj
+ 0001:0001c4c0       mi_api_data_begin          000000018001d4c0 f   shader:shader.obj
+ 0001:0001c590       mi_api_geovector_xyz_add   000000018001d590 f   shader:shader.obj
+ 0001:0001c640       mi_api_vector_xyz_add      000000018001d640 f   shader:shader.obj
+ 0001:0001c6f0       mi_api_vector_lookup       000000018001d6f0 f   shader:shader.obj
+ 0001:0001c7b0       mi_api_vertex_info_add     000000018001d7b0 f   shader:shader.obj
+ 0001:0001c860       mi_api_vertex_lookup       000000018001d860 f   shader:shader.obj
+ 0001:0001c920       mi_api_vertex_user_add     000000018001d920 f   shader:shader.obj
+ 0001:0001c9d0       mi_api_vertex_tex_add      000000018001d9d0 f   shader:shader.obj
+ 0001:0001caa0       mi_api_vertex_motion_add   000000018001daa0 f   shader:shader.obj
+ 0001:0001cb50       mi_api_vertex_deriv2_add   000000018001db50 f   shader:shader.obj
+ 0001:0001cc20       mi_api_vertex_deriv_add    000000018001dc20 f   shader:shader.obj
+ 0001:0001cce0       mi_api_vertex_normal_add   000000018001dce0 f   shader:shader.obj
+ 0001:0001cd90       mi_api_vertex_add          000000018001dd90 f   shader:shader.obj
+ 0001:0001ce40       mi_api_vertex_ref_add      000000018001de40 f   shader:shader.obj
+ 0001:0001cf00       mi_api_vertex_flags_add    000000018001df00 f   shader:shader.obj
+ 0001:0001cfd0       mi_api_curve_lookup        000000018001dfd0 f   shader:shader.obj
+ 0001:0001d0c0       mi_api_curve_approx_store  000000018001e0c0 f   shader:shader.obj
+ 0001:0001d180       mi_api_curve_approx        000000018001e180 f   shader:shader.obj
+ 0001:0001d240       mi_api_curve_specpnt       000000018001e240 f   shader:shader.obj
+ 0001:0001d300       mi_api_curve_begin         000000018001e300 f   shader:shader.obj
+ 0001:0001d3d0       mi_api_curve_end           000000018001e3d0 f   shader:shader.obj
+ 0001:0001d480       mi_api_poly_end            000000018001e480 f   shader:shader.obj
+ 0001:0001d530       mi_api_poly_approx         000000018001e530 f   shader:shader.obj
+ 0001:0001d5e0       mi_api_poly_index_add      000000018001e5e0 f   shader:shader.obj
+ 0001:0001d690       mi_api_poly_hole_add       000000018001e690 f   shader:shader.obj
+ 0001:0001d740       mi_api_poly_begin_tag      000000018001e740 f   shader:shader.obj
+ 0001:0001d800       mi_api_poly_begin          000000018001e800 f   shader:shader.obj
+ 0001:0001d8c0       mi_api_map_obj_field       000000018001e8c0 f   shader:shader.obj
+ 0001:0001d980       mi_api_map_obj_type        000000018001e980 f   shader:shader.obj
+ 0001:0001da30       mi_api_map_field_decl      000000018001ea30 f   shader:shader.obj
+ 0001:0001db10       mi_api_map_lookup          000000018001eb10 f   shader:shader.obj
+ 0001:0001dbc0       mi_api_map_decl_dim        000000018001ebc0 f   shader:shader.obj
+ 0001:0001dc70       mi_api_map_add             000000018001ec70 f   shader:shader.obj
+ 0001:0001dd30       mi_api_map_end             000000018001ed30 f   shader:shader.obj
+ 0001:0001dde0       mi_api_map_file            000000018001ede0 f   shader:shader.obj
+ 0001:0001de90       mi_api_map_element_end     000000018001ee90 f   shader:shader.obj
+ 0001:0001df40       mi_api_map_field_end       000000018001ef40 f   shader:shader.obj
+ 0001:0001dff0       mi_api_map_global_end      000000018001eff0 f   shader:shader.obj
+ 0001:0001e0a0       mi_api_map_value           000000018001f0a0 f   shader:shader.obj
+ 0001:0001e160       mi_api_map_global_value    000000018001f160 f   shader:shader.obj
+ 0001:0001e220       mi_api_map_begin           000000018001f220 f   shader:shader.obj
+ 0001:0001e2d0       mi_api_map_decl_end        000000018001f2d0 f   shader:shader.obj
+ 0001:0001e380       mi_api_map_decl_begin      000000018001f380 f   shader:shader.obj
+ 0001:0001e440       mi_api_map_field_append    000000018001f440 f   shader:shader.obj
+ 0001:0001e500       mi_api_mappath_search      000000018001f500 f   shader:shader.obj
+ 0001:0001e5b0       mi_api_light_list_begin    000000018001f5b0 f   shader:shader.obj
+ 0001:0001e660       mi_api_light_list_end      000000018001f660 f   shader:shader.obj
+ 0001:0001e710       mi_api_light_list_add      000000018001f710 f   shader:shader.obj
+ 0001:0001e7c0       mi_api_surface_derivative  000000018001f7c0 f   shader:shader.obj
+ 0001:0001e870       mi_api_surface_lookup      000000018001f870 f   shader:shader.obj
+ 0001:0001e940       mi_api_surface_approx_trim 000000018001f940 f   shader:shader.obj
+ 0001:0001ea00       mi_api_surface_approx_displace 000000018001fa00 f   shader:shader.obj
+ 0001:0001eac0       mi_api_surface_approx      000000018001fac0 f   shader:shader.obj
+ 0001:0001eb80       mi_api_surface_texture_begin 000000018001fb80 f   shader:shader.obj
+ 0001:0001ec90       mi_api_surface_params      000000018001fc90 f   shader:shader.obj
+ 0001:0001ed90       mi_api_surface_specpnt     000000018001fd90 f   shader:shader.obj
+ 0001:0001ee50       mi_api_surface_curveseg    000000018001fe50 f   shader:shader.obj
+ 0001:0001ef30       mi_api_surface_begin_tag   000000018001ff30 f   shader:shader.obj
+ 0001:0001eff0       mi_api_surface_begin       000000018001fff0 f   shader:shader.obj
+ 0001:0001f0b0       mi_api_surface_end         00000001800200b0 f   shader:shader.obj
+ 0001:0001f160       mi_api_basis_lookup        0000000180020160 f   shader:shader.obj
+ 0001:0001f230       mi_api_basis_list_clear    0000000180020230 f   shader:shader.obj
+ 0001:0001f2e0       mi_api_basis_add           00000001800202e0 f   shader:shader.obj
+ 0001:0001f3e0       mi_api_object_placeholder_callback 00000001800203e0 f   shader:shader.obj
+ 0001:0001f4b0       mi_api_object_callback     00000001800204b0 f   shader:shader.obj
+ 0001:0001f570       mi_api_object_file         0000000180020570 f   shader:shader.obj
+ 0001:0001f620       mi_api_object_group_end    0000000180020620 f   shader:shader.obj
+ 0001:0001f6d0       mi_api_object_group_connection 00000001800206d0 f   shader:shader.obj
+ 0001:0001f7d0       mi_api_object_group_begin  00000001800207d0 f   shader:shader.obj
+ 0001:0001f890       mi_api_object_matrix       0000000180020890 f   shader:shader.obj
+ 0001:0001f940       mi_api_object_end          0000000180020940 f   shader:shader.obj
+ 0001:0001f9f0       mi_api_object_begin        00000001800209f0 f   shader:shader.obj
+ 0001:0001faa0       mi_api_taglist             0000000180020aa0 f   shader:shader.obj
+ 0001:0001fb50       mi_api_material_lookup     0000000180020b50 f   shader:shader.obj
+ 0001:0001fc00       mi_api_material_end        0000000180020c00 f   shader:shader.obj
+ 0001:0001fcb0       mi_api_material_begin      0000000180020cb0 f   shader:shader.obj
+ 0001:0001fd60       mi_api_light_lookup        0000000180020d60 f   shader:shader.obj
+ 0001:0001fe10       mi_api_light_end           0000000180020e10 f   shader:shader.obj
+ 0001:0001fec0       mi_api_light_shmap_camera  0000000180020ec0 f   shader:shader.obj
+ 0001:0001ff70       mi_api_light_begin         0000000180020f70 f   shader:shader.obj
+ 0001:00020020       mi_get_shader_interface    0000000180021020 f   shader:shader.obj
+ 0001:000200d0       mi_api_hair_end            00000001800210d0 f   shader:shader.obj
+ 0001:00020180       mi_api_hair_hairs_add      0000000180021180 f   shader:shader.obj
+ 0001:00020230       mi_api_hair_info           0000000180021230 f   shader:shader.obj
+ 0001:00020300       mi_api_hair_hairs_end      0000000180021300 f   shader:shader.obj
+ 0001:000203b0       mi_api_hair_scalars_end    00000001800213b0 f   shader:shader.obj
+ 0001:00020460       mi_api_hair_hairs_begin    0000000180021460 f   shader:shader.obj
+ 0001:00020510       mi_api_hair_scalars_begin  0000000180021510 f   shader:shader.obj
+ 0001:000205c0       mi_api_hair_begin          00000001800215c0 f   shader:shader.obj
+ 0001:00020670       mi_api_texpath_search      0000000180021670 f   shader:shader.obj
+ 0001:00020720       mi_api_texture_type_identify 0000000180021720 f   shader:shader.obj
+ 0001:000207d0       mi_api_texture_lookup      00000001800217d0 f   shader:shader.obj
+ 0001:00020890       mi_api_texture_set_colorprofile 0000000180021890 f   shader:shader.obj
+ 0001:00020940       mi_api_texture_set_filter  0000000180021940 f   shader:shader.obj
+ 0001:00020a00       mi_api_texture_end         0000000180021a00 f   shader:shader.obj
+ 0001:00020ab0       mi_api_texture_file_size   0000000180021ab0 f   shader:shader.obj
+ 0001:00020b90       mi_api_texture_byte_copy   0000000180021b90 f   shader:shader.obj
+ 0001:00020c50       mi_api_texture_array_def_end 0000000180021c50 f   shader:shader.obj
+ 0001:00020d00       mi_api_texture_begin       0000000180021d00 f   shader:shader.obj
+ 0001:00020dd0       mi_api_texture_callback_def 0000000180021dd0 f   shader:shader.obj
+ 0001:00020ea0       mi_api_texture_function_def 0000000180021ea0 f   shader:shader.obj
+ 0001:00020f50       mi_api_texture_file_def    0000000180021f50 f   shader:shader.obj
+ 0001:00021000       mi_api_texture_fileext_def 0000000180022000 f   shader:shader.obj
+ 0001:000210c0       mi_api_texture_array_def_begin 00000001800220c0 f   shader:shader.obj
+ 0001:00021190       mi_api_private             0000000180022190 f   shader:shader.obj
+ 0001:00021240       mi_api_taglist_reset       0000000180022240 f   shader:shader.obj
+ 0001:00021300       mi_api_version_check       0000000180022300 f   shader:shader.obj
+ 0001:000213c0       mi_api_render_params       00000001800223c0 f   shader:shader.obj
+ 0001:000214b0       mi_api_incremental         00000001800224b0 f   shader:shader.obj
+ 0001:00021560       mi_api_camera_end          0000000180022560 f   shader:shader.obj
+ 0001:00021610       mi_api_render              0000000180022610 f   shader:shader.obj
+ 0001:000216f0       mi_api_camera_begin        00000001800226f0 f   shader:shader.obj
+ 0001:000217a0       mi_api_options_end         00000001800227a0 f   shader:shader.obj
+ 0001:00021850       mi_api_options_begin       0000000180022850 f   shader:shader.obj
+ 0001:00021900       mi_api_render_release      0000000180022900 f   shader:shader.obj
+ 0001:000219b0       mi_api_view_transform      00000001800229b0 f   shader:shader.obj
+ 0001:00021a60       mi_api_output_file_def     0000000180022a60 f   shader:shader.obj
+ 0001:00021b40       mi_api_output_file_parameter 0000000180022b40 f   shader:shader.obj
+ 0001:00021c10       mi_api_framebuffer_add     0000000180022c10 f   shader:shader.obj
+ 0001:00021d00       mi_api_output_list         0000000180022d00 f   shader:shader.obj
+ 0001:00021dc0       mi_api_output_imfdisp_handle 0000000180022dc0 f   shader:shader.obj
+ 0001:00021e80       mi_api_framebuffer         0000000180022e80 f   shader:shader.obj
+ 0001:00021f50       mi_api_output_type_identify 0000000180022f50 f   shader:shader.obj
+ 0001:00022020       mi_api_output_function_def 0000000180023020 f   shader:shader.obj
+ 0001:000220f0       mi_api_output_file_dir     00000001800230f0 f   shader:shader.obj
+ 0001:000221a0       mi_api_output_file_override 00000001800231a0 f   shader:shader.obj
+ 0001:00022260       mi_api_function_assign     0000000180023260 f   shader:shader.obj
+ 0001:00022310       mi_api_shader_call_x       0000000180023310 f   shader:shader.obj
+ 0001:00022400       mi_api_shader_call         0000000180023400 f   shader:shader.obj
+ 0001:000224d0       mi_api_new_array_element   00000001800234d0 f   shader:shader.obj
+ 0001:00022580       mi_api_parameter_pop       0000000180023580 f   shader:shader.obj
+ 0001:00022630       mi_api_parameter_push      0000000180023630 f   shader:shader.obj
+ 0001:000226e0       mi_api_shader_add          00000001800236e0 f   shader:shader.obj
+ 0001:000227a0       mi_api_function_call_end   00000001800237a0 f   shader:shader.obj
+ 0001:00022850       mi_api_parameter_interface 0000000180023850 f   shader:shader.obj
+ 0001:00022900       mi_api_parameter_shader    0000000180023900 f   shader:shader.obj
+ 0001:000229b0       mi_api_parameter_colorprofile 00000001800239b0 f   shader:shader.obj
+ 0001:00022a60       mi_api_parameter_value     0000000180023a60 f   shader:shader.obj
+ 0001:00022b40       mi_api_parameter_name      0000000180023b40 f   shader:shader.obj
+ 0001:00022bf0       mi_api_function_call       0000000180023bf0 f   shader:shader.obj
+ 0001:00022ca0       mi_api_function_append     0000000180023ca0 f   shader:shader.obj
+ 0001:00022d60       mi_api_function_delete     0000000180023d60 f   shader:shader.obj
+ 0001:00022e10       mi_api_get_reload_limit    0000000180023e10 f   shader:shader.obj
+ 0001:00022ec0       mi_api_warning             0000000180023ec0 f   shader:shader.obj
+ 0001:00022fb0       mi_api_error               0000000180023fb0 f   shader:shader.obj
+ 0001:00023098       GetLastError               0000000180024098 f   kernel32:KERNEL32.dll
+ 0001:0002309e       GetProcAddress             000000018002409e f   kernel32:KERNEL32.dll
+ 0001:000230a4       sqrt                       00000001800240a4 f   MSVCRT:MSVCR90.dll
+ 0001:000230aa       atan2                      00000001800240aa f   MSVCRT:MSVCR90.dll
+ 0001:000230b0       sin                        00000001800240b0 f   MSVCRT:MSVCR90.dll
+ 0001:000230b6       cos                        00000001800240b6 f   MSVCRT:MSVCR90.dll
+ 0001:000230bc       asin                       00000001800240bc f   MSVCRT:MSVCR90.dll
+ 0001:000230c2       floor                      00000001800240c2 f   MSVCRT:MSVCR90.dll
+ 0001:000230c8       NtCurrentTeb               00000001800240c8 f i MSVCRT:crtdll.obj
+ 0001:00023134       _CRT_INIT                  0000000180024134 f   MSVCRT:crtdll.obj
+ 0001:000234c8       _DllMainCRTStartup         00000001800244c8 f   MSVCRT:crtdll.obj
+ 0001:00023506       memset                     0000000180024506 f   MSVCRT:MSVCR90.dll
+ 0001:0002350c       fprintf                    000000018002450c f   MSVCRT:MSVCR90.dll
+ 0001:00023512       __iob_func                 0000000180024512 f   MSVCRT:MSVCR90.dll
+ 0001:00023518       __clean_type_info_names    0000000180024518 f   MSVCRT:tncleanup.obj
+ 0001:00023524       _onexit                    0000000180024524 f   MSVCRT:atonexit.obj
+ 0001:000235d4       atexit                     00000001800245d4 f   MSVCRT:atonexit.obj
+ 0001:000235ec       _RTC_Initialize            00000001800245ec f   MSVCRT:_initsect_.obj
+ 0001:00023624       _RTC_Terminate             0000000180024624 f   MSVCRT:_initsect_.obj
+ 0001:0002365c       _encode_pointer            000000018002465c f   MSVCRT:MSVCR90.dll
+ 0001:00023662       _malloc_crt                0000000180024662 f   MSVCRT:MSVCR90.dll
+ 0001:00023670       _ValidateImageBase         0000000180024670 f   MSVCRT:pesect.obj
+ 0001:000236a0       _FindPESection             00000001800246a0 f   MSVCRT:pesect.obj
+ 0001:000236f0       _IsNonwritableInCurrentImage 00000001800246f0 f   MSVCRT:pesect.obj
+ 0001:00023732       _initterm                  0000000180024732 f   MSVCRT:MSVCR90.dll
+ 0001:00023738       _initterm_e                0000000180024738 f   MSVCRT:MSVCR90.dll
+ 0001:0002373e       free                       000000018002473e f   MSVCRT:MSVCR90.dll
+ 0001:00023744       _encoded_null              0000000180024744 f   MSVCRT:MSVCR90.dll
+ 0001:0002374a       _decode_pointer            000000018002474a f   MSVCRT:MSVCR90.dll
+ 0001:00023750       _amsg_exit                 0000000180024750 f   MSVCRT:MSVCR90.dll
+ 0001:00023756       __C_specific_handler       0000000180024756 f   MSVCRT:MSVCR90.dll
+ 0001:0002375c       __CppXcptFilter            000000018002475c f   MSVCRT:MSVCR90.dll
+ 0001:00023764       DllMain                    0000000180024764 f   MSVCRT:dllmain.obj
+ 0001:00023788       __security_init_cookie     0000000180024788 f   MSVCRT:gs_support.obj
+ 0001:0002383c       _vsnprintf                 000000018002483c f   MSVCRT:MSVCR90.dll
+ 0001:00023842       __clean_type_info_names_internal 0000000180024842 f   MSVCRT:MSVCR90.dll
+ 0001:00023848       _unlock                    0000000180024848 f   MSVCRT:MSVCR90.dll
+ 0001:0002384e       __dllonexit                000000018002484e f   MSVCRT:MSVCR90.dll
+ 0001:00023854       _lock                      0000000180024854 f   MSVCRT:MSVCR90.dll
+ 0001:0002385a       Sleep                      000000018002485a f   kernel32:KERNEL32.dll
+ 0001:00023860       DisableThreadLibraryCalls  0000000180024860 f   kernel32:KERNEL32.dll
+ 0001:00023866       QueryPerformanceCounter    0000000180024866 f   kernel32:KERNEL32.dll
+ 0001:0002386c       GetTickCount               000000018002486c f   kernel32:KERNEL32.dll
+ 0001:00023872       GetCurrentThreadId         0000000180024872 f   kernel32:KERNEL32.dll
+ 0001:00023878       GetCurrentProcessId        0000000180024878 f   kernel32:KERNEL32.dll
+ 0001:0002387e       GetSystemTimeAsFileTime    000000018002487e f   kernel32:KERNEL32.dll
+ 0002:00000000       __imp_GetLastError         0000000180025000     kernel32:KERNEL32.dll
+ 0002:00000008       __imp_GetProcAddress       0000000180025008     kernel32:KERNEL32.dll
+ 0002:00000010       __imp_GetCurrentProcessId  0000000180025010     kernel32:KERNEL32.dll
+ 0002:00000018       __imp_GetCurrentThreadId   0000000180025018     kernel32:KERNEL32.dll
+ 0002:00000020       __imp_GetTickCount         0000000180025020     kernel32:KERNEL32.dll
+ 0002:00000028       __imp_QueryPerformanceCounter 0000000180025028     kernel32:KERNEL32.dll
+ 0002:00000030       __imp_DisableThreadLibraryCalls 0000000180025030     kernel32:KERNEL32.dll
+ 0002:00000038       __imp_Sleep                0000000180025038     kernel32:KERNEL32.dll
+ 0002:00000040       __imp_GetSystemTimeAsFileTime 0000000180025040     kernel32:KERNEL32.dll
+ 0002:00000048       \177KERNEL32_NULL_THUNK_DATA 0000000180025048     kernel32:KERNEL32.dll
+ 0002:00000050       __imp_fprintf              0000000180025050     MSVCRT:MSVCR90.dll
+ 0002:00000058       __imp___iob_func           0000000180025058     MSVCRT:MSVCR90.dll
+ 0002:00000060       __imp__encode_pointer      0000000180025060     MSVCRT:MSVCR90.dll
+ 0002:00000068       __imp__malloc_crt          0000000180025068     MSVCRT:MSVCR90.dll
+ 0002:00000070       __imp__initterm            0000000180025070     MSVCRT:MSVCR90.dll
+ 0002:00000078       __imp__initterm_e          0000000180025078     MSVCRT:MSVCR90.dll
+ 0002:00000080       __imp_free                 0000000180025080     MSVCRT:MSVCR90.dll
+ 0002:00000088       __imp__encoded_null        0000000180025088     MSVCRT:MSVCR90.dll
+ 0002:00000090       __imp_memset               0000000180025090     MSVCRT:MSVCR90.dll
+ 0002:00000098       __imp__amsg_exit           0000000180025098     MSVCRT:MSVCR90.dll
+ 0002:000000a0       __imp___C_specific_handler 00000001800250a0     MSVCRT:MSVCR90.dll
+ 0002:000000a8       __imp___CppXcptFilter      00000001800250a8     MSVCRT:MSVCR90.dll
+ 0002:000000b0       __imp__vsnprintf           00000001800250b0     MSVCRT:MSVCR90.dll
+ 0002:000000b0       __imp_vsnprintf            00000001800250b0     MSVCRT:MSVCR90.dll
+ 0002:000000b8       __imp___clean_type_info_names_internal 00000001800250b8     MSVCRT:MSVCR90.dll
+ 0002:000000c0       __imp__unlock              00000001800250c0     MSVCRT:MSVCR90.dll
+ 0002:000000c8       __imp___dllonexit          00000001800250c8     MSVCRT:MSVCR90.dll
+ 0002:000000d0       __imp__lock                00000001800250d0     MSVCRT:MSVCR90.dll
+ 0002:000000d8       __imp__onexit              00000001800250d8     MSVCRT:MSVCR90.dll
+ 0002:000000e0       __imp_floor                00000001800250e0     MSVCRT:MSVCR90.dll
+ 0002:000000e8       __imp_asin                 00000001800250e8     MSVCRT:MSVCR90.dll
+ 0002:000000f0       __imp_cos                  00000001800250f0     MSVCRT:MSVCR90.dll
+ 0002:000000f8       __imp_sin                  00000001800250f8     MSVCRT:MSVCR90.dll
+ 0002:00000100       __imp_atan2                0000000180025100     MSVCRT:MSVCR90.dll
+ 0002:00000108       __imp_sqrt                 0000000180025108     MSVCRT:MSVCR90.dll
+ 0002:00000110       __imp__decode_pointer      0000000180025110     MSVCRT:MSVCR90.dll
+ 0002:00000118       \177MSVCR90_NULL_THUNK_DATA 0000000180025118     MSVCRT:MSVCR90.dll
+ 0002:00000120       __xc_a                     0000000180025120     MSVCRT:cinitexe.obj
+ 0002:00000128       __xc_z                     0000000180025128     MSVCRT:cinitexe.obj
+ 0002:00000130       __xi_a                     0000000180025130     MSVCRT:cinitexe.obj
+ 0002:00000140       __xi_z                     0000000180025140     MSVCRT:cinitexe.obj
+ 0002:00000150       __real@80000000            0000000180025150     domeAFL_FOV.obj
+ 0002:00000158       __real@8000000000000000    0000000180025158     domeAFL_FOV.obj
+ 0002:00000160       __real@3fe0000000000000    0000000180025160     domeAFL_FOV.obj
+ 0002:00000168       __real@4066800000000000    0000000180025168     domeAFL_FOV.obj
+ 0002:00000170       __real@400921fb54442d18    0000000180025170     domeAFL_FOV.obj
+ 0002:00000178       __real@3ee4f8b588e368f1    0000000180025178     domeAFL_FOV.obj
+ 0002:00000180       __real@bee4f8b588e368f1    0000000180025180     domeAFL_FOV.obj
+ 0002:00000188       __real@3ff0000000000000    0000000180025188     domeAFL_FOV.obj
+ 0002:00000190       __real@4000000000000000    0000000180025190     domeAFL_FOV.obj
+ 0002:00000198       __real@3f800000            0000000180025198     domeAFL_FOV_Stereo.obj
+ 0002:0000019c       __real@00000000            000000018002519c     domeAFL_FOV_Stereo.obj
+ 0002:000001a0       __mask@@AbsDouble@         00000001800251a0     domeAFL_FOV_Stereo.obj
+ 0002:000001b0       __real@bf000000            00000001800251b0     domeAFL_FOV_Stereo.obj
+ 0002:000001b4       __real@3f000000            00000001800251b4     domeAFL_FOV_Stereo.obj
+ 0002:000001b8       ??_C@_0BO@EEOJFKNA@domeAFL_FOV_Stereo?5ver?3?50?41?41?$AA@ 00000001800251b8     domeAFL_FOV_Stereo.obj
+ 0002:000001d8       __real@41000000            00000001800251d8     domeAFL_WxH.obj
+ 0002:000001dc       __real@40800000            00000001800251dc     domeAFL_WxH.obj
+ 0002:000001e0       __real@3fefff2e48e8a71e    00000001800251e0     test_texture.obj
+ 0002:000001e8       ??_C@_0CP@IENCJFEA@dlsym?5failed?5on?5?$CC?$CFs?$CC?5?$CIhandle?3?5?$CF0@ 00000001800251e8     shader:shader.obj
+ 0002:00000218       ??_C@_0BI@DAIEPGJF@mi_scene_book_max_lines?$AA@ 0000000180025218     shader:shader.obj
+ 0002:00000230       ??_C@_0BJ@BKJAPNMP@DYNLOAD?3?5dl_handle?5null?6?$AA@ 0000000180025230     shader:shader.obj
+ 0002:00000250       ??_C@_0BN@CONCNFEA@mi_scene_book_free_blk_start?$AA@ 0000000180025250     shader:shader.obj
+ 0002:00000270       ??_C@_0BI@DBDDEDIH@mi_scene_book_enumerate?$AA@ 0000000180025270     shader:shader.obj
+ 0002:00000288       ??_C@_0BM@JGOLHGEB@mi_scene_book_no_used_lines?$AA@ 0000000180025288     shader:shader.obj
+ 0002:000002a8       ??_C@_0BJ@BNKIFHJI@mi_scene_book_line_valid?$AA@ 00000001800252a8     shader:shader.obj
+ 0002:000002c8       ??_C@_0BH@COMBLCHJ@mi_scene_book_get_line?$AA@ 00000001800252c8     shader:shader.obj
+ 0002:000002e0       ??_C@_0BL@OHOLONJG@mi_scene_book_release_line?$AA@ 00000001800252e0     shader:shader.obj
+ 0002:00000300       ??_C@_0BF@EMAKEOIL@mi_scene_book_detach?$AA@ 0000000180025300     shader:shader.obj
+ 0002:00000318       ??_C@_0BF@NGLILABC@mi_scene_book_attach?$AA@ 0000000180025318     shader:shader.obj
+ 0002:00000330       ??_C@_0BM@PPEKINIP@mi_scene_book_sort_freelist?$AA@ 0000000180025330     shader:shader.obj
+ 0002:00000350       ??_C@_0BJ@EODBFOFF@mi_scene_book_compactify?$AA@ 0000000180025350     shader:shader.obj
+ 0002:00000370       ??_C@_0BM@JPKFFFON@mi_scene_book_allocate_line?$AA@ 0000000180025370     shader:shader.obj
+ 0002:00000390       ??_C@_0O@CHFKOIKE@mi_scene_dump?$AA@ 0000000180025390     shader:shader.obj
+ 0002:000003a0       ??_C@_0BD@DOIFIIBE@mi_scene_type_name?$AA@ 00000001800253a0     shader:shader.obj
+ 0002:000003b8       ??_C@_0BL@GBLADOIE@mi_geoshader_tesselate_end?$AA@ 00000001800253b8     shader:shader.obj
+ 0002:000003d8       ??_C@_0BH@HNIHPIBG@mi_geoshader_tesselate?$AA@ 00000001800253d8     shader:shader.obj
+ 0002:000003f0       ??_C@_0BE@MEMOGGPH@mi_scene_delete_one?$AA@ 00000001800253f0     shader:shader.obj
+ 0002:00000408       ??_C@_0BA@HGLJOHBF@mi_scene_delete?$AA@ 0000000180025408     shader:shader.obj
+ 0002:00000418       ??_C@_0BA@BIDDDEDM@mi_scene_unlink?$AA@ 0000000180025418     shader:shader.obj
+ 0002:00000428       ??_C@_0O@KGJFDOIB@mi_scene_link?$AA@ 0000000180025428     shader:shader.obj
+ 0002:00000438       ??_C@_0BC@LNHBFLKO@mi_scene_edit_end?$AA@ 0000000180025438     shader:shader.obj
+ 0002:00000450       ??_C@_0BC@NALHMPIG@mi_scene_growedit?$AA@ 0000000180025450     shader:shader.obj
+ 0002:00000468       ??_C@_0O@JBPKJMDG@mi_scene_edit?$AA@ 0000000180025468     shader:shader.obj
+ 0002:00000478       ??_C@_0BC@KHAKOIEM@mi_scene_recreate?$AA@ 0000000180025478     shader:shader.obj
+ 0002:00000490       ??_C@_0BA@CPLPBOJO@mi_scene_create?$AA@ 0000000180025490     shader:shader.obj
+ 0002:000004a0       ??_C@_0BF@JJHNAMNC@mi_lightmap_edit_end?$AA@ 00000001800254a0     shader:shader.obj
+ 0002:000004b8       ??_C@_0BB@EGEPDPOJ@mi_lightmap_edit?$AA@ 00000001800254b8     shader:shader.obj
+ 0002:000004d0       ??_C@_0BF@CAFGEDII@mi_ambient_occlusion?$AA@ 00000001800254d0     shader:shader.obj
+ 0002:000004e8       ??_C@_0BP@EKOFEIGM@mi_photon_transmission_diffuse?$AA@ 00000001800254e8     shader:shader.obj
+ 0002:00000508       ??_C@_0BN@DDHNOPKH@mi_photon_reflection_diffuse?$AA@ 0000000180025508     shader:shader.obj
+ 0002:00000528       ??_C@_0BO@PCKFGCHJ@mi_photon_transmission_glossy?$AA@ 0000000180025528     shader:shader.obj
+ 0002:00000548       ??_C@_0BM@LGLKANHA@mi_photon_reflection_glossy?$AA@ 0000000180025548     shader:shader.obj
+ 0002:00000568       ??_C@_0BG@HOGKEFJE@mi_photon_transparent?$AA@ 0000000180025568     shader:shader.obj
+ 0002:00000580       ??_C@_0CA@JMEELCMM@mi_photon_transmission_specular?$AA@ 0000000180025580     shader:shader.obj
+ 0002:000005a0       ??_C@_0BO@JAILDBFD@mi_photon_reflection_specular?$AA@ 00000001800255a0     shader:shader.obj
+ 0002:000005c0       ??_C@_0BM@IIBAHIIB@mi_photon_volume_scattering?$AA@ 00000001800255c0     shader:shader.obj
+ 0002:000005e0       ??_C@_0BA@BNOMCBJC@mi_photon_light?$AA@ 00000001800255e0     shader:shader.obj
+ 0002:000005f0       ??_C@_0BJ@NAFGNLLK@mi_scattering_pathlength?$AA@ 00000001800255f0     shader:shader.obj
+ 0002:00000610       ??_C@_0P@OGFHDDHB@mi_choose_lobe?$AA@ 0000000180025610     shader:shader.obj
+ 0002:00000620       ??_C@_0BK@KMMEIINJ@mi_scattering_dir_diffuse?$AA@ 0000000180025620     shader:shader.obj
+ 0002:00000640       ??_C@_0BO@JLDDHPLM@mi_scattering_dir_directional?$AA@ 0000000180025640     shader:shader.obj
+ 0002:00000660       ??_C@_0BP@NDOLPDIH@mi_transmission_dir_anisglossy?$AA@ 0000000180025660     shader:shader.obj
+ 0002:00000680       ??_C@_0BL@NMDLMPAK@mi_transmission_dir_glossy?$AA@ 0000000180025680     shader:shader.obj
+ 0002:000006a0       ??_C@_0BM@IDMHPGEH@mi_transmission_dir_diffuse?$AA@ 00000001800256a0     shader:shader.obj
+ 0002:000006c0       ??_C@_0BN@DADBGJDC@mi_transmission_dir_specular?$AA@ 00000001800256c0     shader:shader.obj
+ 0002:000006e0       ??_C@_0BL@IOJCEHID@mi_reflection_dir_specular?$AA@ 00000001800256e0     shader:shader.obj
+ 0002:00000700       ??_C@_0BN@PCODNPBC@mi_reflection_dir_anisglossy?$AA@ 0000000180025700     shader:shader.obj
+ 0002:00000720       ??_C@_0BJ@IFEFOIKH@mi_reflection_dir_glossy?$AA@ 0000000180025720     shader:shader.obj
+ 0002:00000740       ??_C@_0BK@CLPJFHDF@mi_reflection_dir_diffuse?$AA@ 0000000180025740     shader:shader.obj
+ 0002:00000760       ??_C@_0BO@OCHOPHON@mi_choose_simple_scatter_type?$AA@ 0000000180025760     shader:shader.obj
+ 0002:00000780       ??_C@_0BH@GNOIIPMF@mi_choose_scatter_type?$AA@ 0000000180025780     shader:shader.obj
+ 0002:00000798       ??_C@_0BA@KCIJKOPH@mi_store_photon?$AA@ 0000000180025798     shader:shader.obj
+ 0002:000007a8       ??_C@_0BH@KPFJNIIP@mi_store_volume_photon?$AA@ 00000001800257a8     shader:shader.obj
+ 0002:000007c0       ??_C@_0BN@JLPAFFID@mi_compute_volume_irradiance?$AA@ 00000001800257c0     shader:shader.obj
+ 0002:000007e0       ??_C@_0BP@BJHNDBJG@mi_compute_irradiance_backside?$AA@ 00000001800257e0     shader:shader.obj
+ 0002:00000800       ??_C@_0BG@NJGMALF@mi_compute_irradiance?$AA@ 0000000180025800     shader:shader.obj
+ 0002:00000818       ??_C@_0BI@EOJAKGGA@mi_compute_avg_radiance?$AA@ 0000000180025818     shader:shader.obj
+ 0002:00000830       ??_C@_0CC@KGABGGA@mi_compute_directional_irradianc@ 0000000180025830     shader:shader.obj
+ 0002:00000858       ??_C@_0BF@MMFKHDAL@mi_finalgather_store?$AA@ 0000000180025858     shader:shader.obj
+ 0002:00000870       ??_C@_0BF@NAPPMCN@mi_add_contour_lines?$AA@ 0000000180025870     shader:shader.obj
+ 0002:00000888       ??_C@_0BE@OGKEIKNK@mi_get_contour_line?$AA@ 0000000180025888     shader:shader.obj
+ 0002:000008a0       ??_C@_0O@FDGDJEPE@mi_ray_offset?$AA@ 00000001800258a0     shader:shader.obj
+ 0002:000008b0       ??_C@_0P@GAPIAIFK@mi_ray_falloff?$AA@ 00000001800258b0     shader:shader.obj
+ 0002:000008c0       ??_C@_0BG@BFFKFMND@mi_volume_num_shaders?$AA@ 00000001800258c0     shader:shader.obj
+ 0002:000008d8       ??_C@_0BF@PBJAHKHM@mi_volume_cur_shader?$AA@ 00000001800258d8     shader:shader.obj
+ 0002:000008f0       ??_C@_0P@EKCDDAKH@mi_volume_tags?$AA@ 00000001800258f0     shader:shader.obj
+ 0002:00000900       ??_C@_0BE@LEDJEOAH@mi_volume_instances?$AA@ 0000000180025900     shader:shader.obj
+ 0002:00000918       ??_C@_0BF@FNGOMPP@mi_volume_user_color?$AA@ 0000000180025918     shader:shader.obj
+ 0002:00000930       ??_C@_0BB@LLNOLABB@mi_state_set_pri?$AA@ 0000000180025930     shader:shader.obj
+ 0002:00000948       ??_C@_0BH@PBLDDAL@mi_texture_interpolate?$AA@ 0000000180025948     shader:shader.obj
+ 0002:00000960       ??_C@_0P@JKNHBIIO@mi_tri_vectors?$AA@ 0000000180025960     shader:shader.obj
+ 0002:00000970       ??_C@_0P@FIGKNLIP@mi_opacity_set?$AA@ 0000000180025970     shader:shader.obj
+ 0002:00000980       ??_C@_0P@IHBBBLEH@mi_opacity_get?$AA@ 0000000180025980     shader:shader.obj
+ 0002:00000990       ??_C@_0P@LFJODEFK@mi_trace_probe?$AA@ 0000000180025990     shader:shader.obj
+ 0002:000009a0       ??_C@_0BB@OBOGGOIG@mi_trace_probe_x?$AA@ 00000001800259a0     shader:shader.obj
+ 0002:000009b8       ??_C@_0BF@IPKBLNFN@mi_trace_transparent?$AA@ 00000001800259b8     shader:shader.obj
+ 0002:000009d0       ??_C@_0BC@JIAEAOHD@mi_trace_continue?$AA@ 00000001800259d0     shader:shader.obj
+ 0002:000009e8       ??_C@_0BF@FDDJODKF@mi_trace_environment?$AA@ 00000001800259e8     shader:shader.obj
+ 0002:00000a00       ??_C@_0N@MNCJEJDF@mi_trace_eye?$AA@ 0000000180025a00     shader:shader.obj
+ 0002:00000a10       ??_C@_0BE@KGHFLOOO@mi_trace_refraction?$AA@ 0000000180025a10     shader:shader.obj
+ 0002:00000a28       ??_C@_0BE@DLALLJOE@mi_trace_reflection?$AA@ 0000000180025a28     shader:shader.obj
+ 0002:00000a40       ??_C@_09JFIGGFD@mi_sample?$AA@ 0000000180025a40     shader:shader.obj
+ 0002:00000a50       ??_C@_0BA@EPGDIMF@mi_rc_run_query?$AA@ 0000000180025a50     shader:shader.obj
+ 0002:00000a60       ??_C@_0BJ@PFCAPLDA@mi_renderpass_resolution?$AA@ 0000000180025a60     shader:shader.obj
+ 0002:00000a80       ??_C@_0BF@DJOGJDLN@mi_renderpass_access?$AA@ 0000000180025a80     shader:shader.obj
+ 0002:00000a98       ??_C@_0BP@OHFNGBBL@mi_renderpass_samplerect_flush?$AA@ 0000000180025a98     shader:shader.obj
+ 0002:00000ab8       ??_C@_0BP@JELMBDHG@mi_renderpass_samplerect_black?$AA@ 0000000180025ab8     shader:shader.obj
+ 0002:00000ad8       ??_C@_0BJ@BEHOCKFO@mi_renderpass_sample_get?$AA@ 0000000180025ad8     shader:shader.obj
+ 0002:00000af8       ??_C@_0BJ@MFJGOGAI@mi_renderpass_sample_put?$AA@ 0000000180025af8     shader:shader.obj
+ 0002:00000b18       ??_C@_0BH@EBNJCBHE@mi_continue_shadow_seg?$AA@ 0000000180025b18     shader:shader.obj
+ 0002:00000b30       ??_C@_0BE@NBCIBDFK@mi_trace_shadow_seg?$AA@ 0000000180025b30     shader:shader.obj
+ 0002:00000b48       ??_C@_0BA@IOPEOOF@mi_sample_light?$AA@ 0000000180025b48     shader:shader.obj
+ 0002:00000b58       ??_C@_0P@ENEANOAA@mi_trace_light?$AA@ 0000000180025b58     shader:shader.obj
+ 0002:00000b68       ??_C@_0BA@OPBMJGOE@mi_trace_shadow?$AA@ 0000000180025b68     shader:shader.obj
+ 0002:00000b78       ??_C@_0BG@HKOHLPFJ@mi_instance_lightlist?$AA@ 0000000180025b78     shader:shader.obj
+ 0002:00000b90       ??_C@_0BH@IPPJBDIB@mi_exclusive_lightlist?$AA@ 0000000180025b90     shader:shader.obj
+ 0002:00000ba8       ??_C@_0BH@NCFBBOHD@mi_inclusive_lightlist?$AA@ 0000000180025ba8     shader:shader.obj
+ 0002:00000bc0       ??_C@_0BE@HIIBOJKH@mi_expand_lightlist?$AA@ 0000000180025bc0     shader:shader.obj
+ 0002:00000bd8       ??_C@_09PAANDLML@mi_fb_get?$AA@ 0000000180025bd8     shader:shader.obj
+ 0002:00000be8       ??_C@_09CBOFPHJN@mi_fb_put?$AA@ 0000000180025be8     shader:shader.obj
+ 0002:00000bf8       ??_C@_0N@NHJKHLIG@mi_phen_eval?$AA@ 0000000180025bf8     shader:shader.obj
+ 0002:00000c08       ??_C@_0N@JNMMHCFD@mi_phen_call?$AA@ 0000000180025c08     shader:shader.obj
+ 0002:00000c18       ??_C@_0BF@PLOGHII@mi_phen_get_material?$AA@ 0000000180025c18     shader:shader.obj
+ 0002:00000c30       ??_C@_0BM@GLFDOCNJ@mi_phen_function_lookup_ref?$AA@ 0000000180025c30     shader:shader.obj
+ 0002:00000c50       ??_C@_0BJ@BGGKBMOO@mi_phen_obj_requirements?$AA@ 0000000180025c50     shader:shader.obj
+ 0002:00000c70       ??_C@_0BG@CIAENOMP@mi_output_image_close?$AA@ 0000000180025c70     shader:shader.obj
+ 0002:00000c88       ??_C@_0BF@BGHKCIAD@mi_output_image_open?$AA@ 0000000180025c88     shader:shader.obj
+ 0002:00000ca0       ??_C@_0BJ@JLCGOB@mi_call_contour_material?$AA@ 0000000180025ca0     shader:shader.obj
+ 0002:00000cc0       ??_C@_0BE@MBDKOJLO@mi_phen_call_shader?$AA@ 0000000180025cc0     shader:shader.obj
+ 0002:00000cd8       ??_C@_0BB@BBFGELGI@mi_call_shader_x?$AA@ 0000000180025cd8     shader:shader.obj
+ 0002:00000cf0       ??_C@_0BL@JKCJKFK@mi_call_photonvol_material?$AA@ 0000000180025cf0     shader:shader.obj
+ 0002:00000d10       ??_C@_0BN@GIABGIIO@mi_call_environment_material?$AA@ 0000000180025d10     shader:shader.obj
+ 0002:00000d30       ??_C@_0BI@MDKLMLFC@mi_call_volume_material?$AA@ 0000000180025d30     shader:shader.obj
+ 0002:00000d48       ??_C@_0BI@OGDJPFMP@mi_call_shadow_material?$AA@ 0000000180025d48     shader:shader.obj
+ 0002:00000d60       ??_C@_0BI@GFNGEICJ@mi_call_photon_material?$AA@ 0000000180025d60     shader:shader.obj
+ 0002:00000d78       ??_C@_0BB@MBCCCNKP@mi_call_material?$AA@ 0000000180025d78     shader:shader.obj
+ 0002:00000d90       ??_C@_0P@NDFFLCGJ@mi_call_shader?$AA@ 0000000180025d90     shader:shader.obj
+ 0002:00000da0       ??_C@_0P@FFPOHJMP@mi_flush_cache?$AA@ 0000000180025da0     shader:shader.obj
+ 0002:00000db0       ??_C@_0BC@KMJKDMM@mi_par_userthread?$AA@ 0000000180025db0     shader:shader.obj
+ 0002:00000dc8       ??_C@_0N@DOGJHMKB@mi_par_abort?$AA@ 0000000180025dc8     shader:shader.obj
+ 0002:00000dd8       ??_C@_0P@KBCCCJLO@mi_par_aborted?$AA@ 0000000180025dd8     shader:shader.obj
+ 0002:00000de8       ??_C@_08PBNKLACH@mi_abort?$AA@ 0000000180025de8     shader:shader.obj
+ 0002:00000df8       ??_C@_0BI@NHCEGBLP@mi_get_metasl_interface?$AA@ 0000000180025df8     shader:shader.obj
+ 0002:00000e10       ??_C@_0BC@LNGAMDIP@mi_msg_no_of_cpus?$AA@ 0000000180025e10     shader:shader.obj
+ 0002:00000e28       ??_C@_0BE@BKHPGKON@mi_msg_get_hostname?$AA@ 0000000180025e28     shader:shader.obj
+ 0002:00000e40       ??_C@_09DLBLOFHG@mi_unlock?$AA@ 0000000180025e40     shader:shader.obj
+ 0002:00000e50       ??_C@_0L@DPOIMFM@mi_trylock?$AA@ 0000000180025e50     shader:shader.obj
+ 0002:00000e60       ??_C@_07MBNKJMOE@mi_lock?$AA@ 0000000180025e60     shader:shader.obj
+ 0002:00000e68       ??_C@_0P@LCMGOIME@mi_delete_lock?$AA@ 0000000180025e68     shader:shader.obj
+ 0002:00000e78       ??_C@_0N@IHPOEGCM@mi_init_lock?$AA@ 0000000180025e78     shader:shader.obj
+ 0002:00000e88       ??_C@_0BA@FAPNCHFO@mi_msg_is_slave?$AA@ 0000000180025e88     shader:shader.obj
+ 0002:00000e98       ??_C@_0M@MGDPBHPD@mi_mi_parse?$AA@ 0000000180025e98     shader:shader.obj
+ 0002:00000ea8       ??_C@_0BD@ECODCPFN@mi_mem_vblkgetsize?$AA@ 0000000180025ea8     shader:shader.obj
+ 0002:00000ec0       ??_C@_0BG@JFJNPMBJ@mi_mem_vblkreallocate?$AA@ 0000000180025ec0     shader:shader.obj
+ 0002:00000ed8       ??_C@_0BD@LMPIOBKG@mi_mem_vblkrelease?$AA@ 0000000180025ed8     shader:shader.obj
+ 0002:00000ef0       ??_C@_0BE@JBCOCCBE@mi_mem_vblkallocate?$AA@ 0000000180025ef0     shader:shader.obj
+ 0002:00000f08       ??_C@_0BB@BBFBCHGP@mi_mem_vblkclear?$AA@ 0000000180025f08     shader:shader.obj
+ 0002:00000f20       ??_C@_0BG@GAGAKCBI@mi_mem_int_vblkdelete?$AA@ 0000000180025f20     shader:shader.obj
+ 0002:00000f38       ??_C@_0BA@CMNMJFGG@mi_mem_vblkdump?$AA@ 0000000180025f38     shader:shader.obj
+ 0002:00000f48       ??_C@_0BG@DJGGFLJD@mi_mem_int_vblkcreate?$AA@ 0000000180025f48     shader:shader.obj
+ 0002:00000f60       ??_C@_0BE@NNHCGLEH@mi_mem_blkenumerate?$AA@ 0000000180025f60     shader:shader.obj
+ 0002:00000f78       ??_C@_0BD@PCADOAAN@mi_mem_blkfrelease?$AA@ 0000000180025f78     shader:shader.obj
+ 0002:00000f90       ??_C@_0BA@LKMLKPHC@mi_mem_blkclear?$AA@ 0000000180025f90     shader:shader.obj
+ 0002:00000fa0       ??_C@_0BC@KAPHCNDC@mi_mem_blkrelease?$AA@ 0000000180025fa0     shader:shader.obj
+ 0002:00000fb8       ??_C@_0BB@MCGMKCIP@mi_mem_blkdelete?$AA@ 0000000180025fb8     shader:shader.obj
+ 0002:00000fd0       ??_C@_0BE@NAGEKDHF@mi_mem_blkfallocate?$AA@ 0000000180025fd0     shader:shader.obj
+ 0002:00000fe8       ??_C@_0BD@GGFAHKIF@mi_mem_blkallocate?$AA@ 0000000180025fe8     shader:shader.obj
+ 0002:00001000       ??_C@_0BF@FLIBDGDK@mi_mem_int_blkcreate?$AA@ 0000000180026000     shader:shader.obj
+ 0002:00001018       ??_C@_0P@KOECNKOE@mi_mem_getsize?$AA@ 0000000180026018     shader:shader.obj
+ 0002:00001028       ??_C@_0M@CMKMNOID@mi_mem_dump?$AA@ 0000000180026028     shader:shader.obj
+ 0002:00001038       ??_C@_0N@KMDFJKGF@mi_mem_check?$AA@ 0000000180026038     shader:shader.obj
+ 0002:00001048       ??_C@_0BD@IPMKFBCO@mi_mem_int_release?$AA@ 0000000180026048     shader:shader.obj
+ 0002:00001060       ??_C@_0BE@HCHOBLLG@mi_mem_int_allocate?$AA@ 0000000180026060     shader:shader.obj
+ 0002:00001078       ??_C@_0BJ@GKPHGIAO@mi_mem_int_test_allocate?$AA@ 0000000180026078     shader:shader.obj
+ 0002:00001098       ??_C@_0BG@FGKJEJCK@mi_mem_int_reallocate?$AA@ 0000000180026098     shader:shader.obj
+ 0002:000010b0       ??_C@_0BL@LDLJFFJF@mi_mem_int_test_reallocate?$AA@ 00000001800260b0     shader:shader.obj
+ 0002:000010d0       ??_C@_0P@OHLECHEB@mi_mem_summary?$AA@ 00000001800260d0     shader:shader.obj
+ 0002:000010e0       ??_C@_0BC@KLIEIIGI@mi_mem_int_strdup?$AA@ 00000001800260e0     shader:shader.obj
+ 0002:000010f8       ??_C@_0BG@NMNPBJGM@mi_lightprofile_value?$AA@ 00000001800260f8     shader:shader.obj
+ 0002:00001110       ??_C@_0BH@LAFKACC@mi_lightprofile_sample?$AA@ 0000000180026110     shader:shader.obj
+ 0002:00001128       ??_C@_0BG@DICAOAMF@mi_link_lookup_module?$AA@ 0000000180026128     shader:shader.obj
+ 0002:00001140       ??_C@_0P@DOEGMCPD@mi_link_lookup?$AA@ 0000000180026140     shader:shader.obj
+ 0002:00001150       ??_C@_0BG@FKJEEAGP@mi_link_module_max_id?$AA@ 0000000180026150     shader:shader.obj
+ 0002:00001168       ??_C@_0BE@LHJCHFOE@mi_link_module_name?$AA@ 0000000180026168     shader:shader.obj
+ 0002:00001180       ??_C@_0BB@DPMDBNFA@mi_link_file_add?$AA@ 0000000180026180     shader:shader.obj
+ 0002:00001198       ??_C@_0BE@CKHEIKEL@mi_link_file_remove?$AA@ 0000000180026198     shader:shader.obj
+ 0002:000011b0       ??_C@_0BC@IDFDEGOB@mi_ciexyz_weights?$AA@ 00000001800261b0     shader:shader.obj
+ 0002:000011c8       ??_C@_0BE@CNCBNHJ@mi_spectrum_cie_sky?$AA@ 00000001800261c8     shader:shader.obj
+ 0002:000011e0       ??_C@_0BG@PFODAIJO@mi_spectrum_blackbody?$AA@ 00000001800261e0     shader:shader.obj
+ 0002:000011f8       ??_C@_0BA@NLOHMKKC@mi_spectrum_cie?$AA@ 00000001800261f8     shader:shader.obj
+ 0002:00001208       ??_C@_0BK@MELIDLGB@mi_spectrum_visible_range?$AA@ 0000000180026208     shader:shader.obj
+ 0002:00001228       ??_C@_0BC@BGHIMAIH@mi_spectrum_check?$AA@ 0000000180026228     shader:shader.obj
+ 0002:00001240       ??_C@_0BG@IAHHKOGE@mi_spectrum_linewidth?$AA@ 0000000180026240     shader:shader.obj
+ 0002:00001258       ??_C@_0BG@BMAOHJEM@mi_spectrum_range_get?$AA@ 0000000180026258     shader:shader.obj
+ 0002:00001270       ??_C@_0BG@MJOKHEBG@mi_spectrum_value_add?$AA@ 0000000180026270     shader:shader.obj
+ 0002:00001288       ??_C@_0BG@HIPKJDGE@mi_spectrum_value_set?$AA@ 0000000180026288     shader:shader.obj
+ 0002:000012a0       ??_C@_0BG@KHIBFDKM@mi_spectrum_value_get?$AA@ 00000001800262a0     shader:shader.obj
+ 0002:000012b8       ??_C@_0BK@ICPJLLKC@mi_spectrum_iterator_size?$AA@ 00000001800262b8     shader:shader.obj
+ 0002:000012d8       ??_C@_0BJ@GIOLNHJI@mi_spectrum_iterator_end?$AA@ 00000001800262d8     shader:shader.obj
+ 0002:000012f8       ??_C@_0BK@CKAFH@mi_spectrum_iterator_next?$AA@ 00000001800262f8     shader:shader.obj
+ 0002:00001318       ??_C@_0BL@GFDHDHEP@mi_spectrum_iterator_begin?$AA@ 0000000180026318     shader:shader.obj
+ 0002:00001338       ??_C@_0BG@BNNCBEIL@mi_spectrum_color_add?$AA@ 0000000180026338     shader:shader.obj
+ 0002:00001350       ??_C@_0BB@MGNDMBGE@mi_spectrum_lerp?$AA@ 0000000180026350     shader:shader.obj
+ 0002:00001368       ??_C@_0BG@GIHGFLBI@mi_spectrum_scale_add?$AA@ 0000000180026368     shader:shader.obj
+ 0002:00001380       ??_C@_0BC@HIMDAOOJ@mi_spectrum_scale?$AA@ 0000000180026380     shader:shader.obj
+ 0002:00001398       ??_C@_0BA@GACNKADL@mi_spectrum_add?$AA@ 0000000180026398     shader:shader.obj
+ 0002:000013a8       ??_C@_0BA@PPMGFMMM@mi_spectrum_mul?$AA@ 00000001800263a8     shader:shader.obj
+ 0002:000013b8       ??_C@_0BI@DDDKHOHP@mi_spectrum_assign_data?$AA@ 00000001800263b8     shader:shader.obj
+ 0002:000013d0       ??_C@_0BD@PPDNLADJ@mi_spectrum_assign?$AA@ 00000001800263d0     shader:shader.obj
+ 0002:000013e8       ??_C@_0BB@PJHINJPG@mi_spectrum_copy?$AA@ 00000001800263e8     shader:shader.obj
+ 0002:00001400       ??_C@_0BD@PFPMILBK@mi_spectrum_ciexyz?$AA@ 0000000180026400     shader:shader.obj
+ 0002:00001418       ??_C@_0BC@JKMHKPGH@mi_spectrum_reset?$AA@ 0000000180026418     shader:shader.obj
+ 0002:00001430       ??_C@_0BC@HLHMBLDB@mi_spectrum_clear?$AA@ 0000000180026430     shader:shader.obj
+ 0002:00001448       ??_C@_0BG@PKGBMDOI@mi_spectrum_blueprint?$AA@ 0000000180026448     shader:shader.obj
+ 0002:00001460       ??_C@_0BB@FHBDMJCD@mi_spectrum_size?$AA@ 0000000180026460     shader:shader.obj
+ 0002:00001478       ??_C@_0BD@FHOMNFBI@mi_spectrum_ensure?$AA@ 0000000180026478     shader:shader.obj
+ 0002:00001490       ??_C@_0BE@DOLCBCIO@mi_spectrum_enabled?$AA@ 0000000180026490     shader:shader.obj
+ 0002:000014a8       ??_C@_0BN@KOLNCPEO@mi_spectrum_iterator_destroy?$AA@ 00000001800264a8     shader:shader.obj
+ 0002:000014c8       ??_C@_0BM@OIONJAGK@mi_spectrum_iterator_create?$AA@ 00000001800264c8     shader:shader.obj
+ 0002:000014e8       ??_C@_0BM@BEPJKACA@mi_spectrum_delete_fromheap?$AA@ 00000001800264e8     shader:shader.obj
+ 0002:00001508       ??_C@_0BD@CNHIAFBB@mi_spectrum_delete?$AA@ 0000000180026508     shader:shader.obj
+ 0002:00001520       ??_C@_0BC@BKBODIPO@mi_spectrum_clone?$AA@ 0000000180026520     shader:shader.obj
+ 0002:00001538       ??_C@_0BK@OIBBPMFP@mi_spectrum_create_inheap?$AA@ 0000000180026538     shader:shader.obj
+ 0002:00001558       ??_C@_0BD@HEHOPMJK@mi_spectrum_create?$AA@ 0000000180026558     shader:shader.obj
+ 0002:00001570       ??_C@_0BA@HGJNEBJF@mi_spectrum_rgb?$AA@ 0000000180026570     shader:shader.obj
+ 0002:00001580       ??_C@_0BB@HEHJNFKE@mi_kdtree_delete?$AA@ 0000000180026580     shader:shader.obj
+ 0002:00001598       ??_C@_0BC@BMAFHHNN@mi_kdtree_iterate?$AA@ 0000000180026598     shader:shader.obj
+ 0002:000015b0       ??_C@_0BB@HHAFDJGF@mi_kdtree_lookup?$AA@ 00000001800265b0     shader:shader.obj
+ 0002:000015c8       ??_C@_0P@FHMJBJFM@mi_kdtree_edit?$AA@ 00000001800265c8     shader:shader.obj
+ 0002:000015d8       ??_C@_0BB@GLJPCNJN@mi_kdtree_access?$AA@ 00000001800265d8     shader:shader.obj
+ 0002:000015f0       ??_C@_0BA@OJHNKAOD@mi_kdtree_unpin?$AA@ 00000001800265f0     shader:shader.obj
+ 0002:00001600       ??_C@_0O@MMAICFEL@mi_kdtree_add?$AA@ 0000000180026600     shader:shader.obj
+ 0002:00001610       ??_C@_0BB@CNHPCMCP@mi_kdtree_create?$AA@ 0000000180026610     shader:shader.obj
+ 0002:00001628       ??_C@_0BJ@INPENPGH@mi_shaderstate_enumerate?$AA@ 0000000180026628     shader:shader.obj
+ 0002:00001648       ??_C@_0BD@KNKAMHGP@mi_shaderstate_get?$AA@ 0000000180026648     shader:shader.obj
+ 0002:00001660       ??_C@_0BD@HCNLAHKH@mi_shaderstate_set?$AA@ 0000000180026660     shader:shader.obj
+ 0002:00001678       ??_C@_0BA@FKECHGAB@mi_par_nthreads?$AA@ 0000000180026678     shader:shader.obj
+ 0002:00001688       ??_C@_0N@NMIIPIGC@mi_luminance?$AA@ 0000000180026688     shader:shader.obj
+ 0002:00001698       ??_C@_0BP@OHENOCJF@mi_blackbody_spectral_radiance?$AA@ 0000000180026698     shader:shader.obj
+ 0002:000016b8       ??_C@_0BG@BGNFDHNF@mi_blackbody_radiance?$AA@ 00000001800266b8     shader:shader.obj
+ 0002:000016d0       ??_C@_0BH@GAFDLAKJ@mi_lib_registry_lookup?$AA@ 00000001800266d0     shader:shader.obj
+ 0002:000016e8       ??_C@_0L@FILEPFKJ@mi_fresnel?$AA@ 00000001800266e8     shader:shader.obj
+ 0002:000016f8       ??_C@_0BD@HMDPFBLG@mi_schlick_scatter?$AA@ 00000001800266f8     shader:shader.obj
+ 0002:00001710       ??_C@_0BG@DNCLDMFH@mi_fresnel_reflection?$AA@ 0000000180026710     shader:shader.obj
+ 0002:00001728       ??_C@_0BD@MPBNGOON@mi_ward_anisglossy?$AA@ 0000000180026728     shader:shader.obj
+ 0002:00001740       ??_C@_0P@NPFFFKCM@mi_ward_glossy?$AA@ 0000000180026740     shader:shader.obj
+ 0002:00001750       ??_C@_0BF@PGALAPLK@mi_cooktorr_specular?$AA@ 0000000180026750     shader:shader.obj
+ 0002:00001768       ??_C@_0BC@LAACEDPI@mi_blinn_specular?$AA@ 0000000180026768     shader:shader.obj
+ 0002:00001780       ??_C@_0BE@KFDKPPCE@mi_fresnel_specular?$AA@ 0000000180026780     shader:shader.obj
+ 0002:00001798       ??_C@_0BC@GLKKKCKA@mi_blong_specular?$AA@ 0000000180026798     shader:shader.obj
+ 0002:000017b0       ??_C@_0BC@JOOCADGF@mi_phong_specular?$AA@ 00000001800267b0     shader:shader.obj
+ 0002:000017c8       ??_C@_0BM@KMGCGBGN@mi_texture_filter_transform?$AA@ 00000001800267c8     shader:shader.obj
+ 0002:000017e8       ??_C@_0BK@MPHDGOI@mi_texture_filter_project?$AA@ 00000001800267e8     shader:shader.obj
+ 0002:00001808       ??_C@_0CB@NMMGLCBB@mi_lookup_filter_color_texture_x@ 0000000180026808     shader:shader.obj
+ 0002:00001830       ??_C@_0BP@JOHADIIH@mi_lookup_filter_color_texture?$AA@ 0000000180026830     shader:shader.obj
+ 0002:00001850       ??_C@_0BC@MKMOIFGE@mi_refraction_dir?$AA@ 0000000180026850     shader:shader.obj
+ 0002:00001868       ??_C@_0CB@NAHAOELC@mi_transmission_dir_anisglossy_x@ 0000000180026868     shader:shader.obj
+ 0002:00001890       ??_C@_0BC@JPDOMIAE@mi_reflection_dir?$AA@ 0000000180026890     shader:shader.obj
+ 0002:000018a8       ??_C@_0BP@OOJONHAG@mi_reflection_dir_anisglossy_x?$AA@ 00000001800268a8     shader:shader.obj
+ 0002:000018c8       ??_C@_0BN@HBDCHBOD@mi_transmission_dir_glossy_x?$AA@ 00000001800268c8     shader:shader.obj
+ 0002:000018e8       ??_C@_0BL@MPJBFPFC@mi_reflection_dir_glossy_x?$AA@ 00000001800268e8     shader:shader.obj
+ 0002:00001908       ??_C@_0BM@NHDILHGL@mi_reflection_dir_diffuse_x?$AA@ 0000000180026908     shader:shader.obj
+ 0002:00001928       ??_C@_0BO@GLOAJHFP@mi_transmission_dir_diffuse_x?$AA@ 0000000180026928     shader:shader.obj
+ 0002:00001948       ??_C@_0BE@LGMCDNJA@mi_rbtree_dupsearch?$AA@ 0000000180026948     shader:shader.obj
+ 0002:00001960       ??_C@_0BB@CHJIALDK@mi_rbtree_search?$AA@ 0000000180026960     shader:shader.obj
+ 0002:00001978       ??_C@_0O@KMEMGLCD@mi_rbtree_min?$AA@ 0000000180026978     shader:shader.obj
+ 0002:00001988       ??_C@_0O@LOMHIPEM@mi_rbtree_max?$AA@ 0000000180026988     shader:shader.obj
+ 0002:00001998       ??_C@_0BD@MFCMDMDE@mi_rbtree_traverse?$AA@ 0000000180026998     shader:shader.obj
+ 0002:000019b0       ??_C@_0BF@PLGGAELA@mi_rbtree_get_nitems?$AA@ 00000001800269b0     shader:shader.obj
+ 0002:000019c8       ??_C@_0BB@BMHIMJFF@mi_rbtree_delete?$AA@ 00000001800269c8     shader:shader.obj
+ 0002:000019e0       ??_C@_0BB@EFHODANO@mi_rbtree_create?$AA@ 00000001800269e0     shader:shader.obj
+ 0002:000019f8       ??_C@_0BE@NIHFELLB@mi_rbtree_dupremove?$AA@ 00000001800269f8     shader:shader.obj
+ 0002:00001a10       ??_C@_0BB@EJCPHNBL@mi_rbtree_remove?$AA@ 0000000180026a10     shader:shader.obj
+ 0002:00001a28       ??_C@_0BB@KCIMAHKH@mi_rbtree_insert?$AA@ 0000000180026a28     shader:shader.obj
+ 0002:00001a40       ??_C@_08PKNPGHAH@mi_query?$AA@ 0000000180026a40     shader:shader.obj
+ 0002:00001a50       ??_C@_0BF@JGGIIBKD@mi_string_substitute?$AA@ 0000000180026a50     shader:shader.obj
+ 0002:00001a68       ??_C@_0BC@JBMHFEGJ@mi_raylib_version?$AA@ 0000000180026a68     shader:shader.obj
+ 0002:00001a80       ??_C@_0P@PJECJBFA@mi_raylib_date?$AA@ 0000000180026a80     shader:shader.obj
+ 0002:00001a90       ??_C@_0BG@ODCLFDFP@mi_lib_detach_process?$AA@ 0000000180026a90     shader:shader.obj
+ 0002:00001aa8       ??_C@_0BG@CLBBDAMO@mi_lib_attach_process?$AA@ 0000000180026aa8     shader:shader.obj
+ 0002:00001ac0       ??_C@_0L@DKNDILAM@mi_version?$AA@ 0000000180026ac0     shader:shader.obj
+ 0002:00001ad0       ??_C@_0P@ODMEECEM@mi_shader_info?$AA@ 0000000180026ad0     shader:shader.obj
+ 0002:00001ae0       ??_C@_0BI@MBNKLOMN@mi_geoshader_add_result?$AA@ 0000000180026ae0     shader:shader.obj
+ 0002:00001af8       ??_C@_0BB@JDIDJEOM@mi_instance_info?$AA@ 0000000180026af8     shader:shader.obj
+ 0002:00001b10       ??_C@_0BG@MCBGNAO@mi_normal_from_object?$AA@ 0000000180026b10     shader:shader.obj
+ 0002:00001b28       ??_C@_0BG@NFGEIGJH@mi_normal_from_camera?$AA@ 0000000180026b28     shader:shader.obj
+ 0002:00001b40       ??_C@_0BF@CDGBFJB@mi_normal_from_world?$AA@ 0000000180026b40     shader:shader.obj
+ 0002:00001b58       ??_C@_0BE@KNAJHOBP@mi_normal_to_object?$AA@ 0000000180026b58     shader:shader.obj
+ 0002:00001b70       ??_C@_0BE@HEEMJFIG@mi_normal_to_camera?$AA@ 0000000180026b70     shader:shader.obj
+ 0002:00001b88       ??_C@_0BD@PLLGHKDA@mi_normal_to_world?$AA@ 0000000180026b88     shader:shader.obj
+ 0002:00001ba0       ??_C@_0BG@OPLGJNOJ@mi_vector_from_object?$AA@ 0000000180026ba0     shader:shader.obj
+ 0002:00001bb8       ??_C@_0BG@DGPDHGHA@mi_vector_from_camera?$AA@ 0000000180026bb8     shader:shader.obj
+ 0002:00001bd0       ??_C@_0BF@PGMNOABJ@mi_vector_from_world?$AA@ 0000000180026bd0     shader:shader.obj
+ 0002:00001be8       ??_C@_0BE@ICEJKHAJ@mi_vector_to_object?$AA@ 0000000180026be8     shader:shader.obj
+ 0002:00001c00       ??_C@_0BE@FLAMEMJA@mi_vector_to_camera?$AA@ 0000000180026c00     shader:shader.obj
+ 0002:00001c18       ??_C@_0BD@NEBDOLAM@mi_vector_to_world?$AA@ 0000000180026c18     shader:shader.obj
+ 0002:00001c30       ??_C@_0BF@NDLCLJPI@mi_point_from_object?$AA@ 0000000180026c30     shader:shader.obj
+ 0002:00001c48       ??_C@_0BF@KPHFCGB@mi_point_from_camera?$AA@ 0000000180026c48     shader:shader.obj
+ 0002:00001c60       ??_C@_0BE@PBANCADN@mi_point_from_world?$AA@ 0000000180026c60     shader:shader.obj
+ 0002:00001c78       ??_C@_0BD@CPENJKAN@mi_point_to_object?$AA@ 0000000180026c78     shader:shader.obj
+ 0002:00001c90       ??_C@_0BD@PGAIHBJE@mi_point_to_camera?$AA@ 0000000180026c90     shader:shader.obj
+ 0002:00001ca8       ??_C@_0P@ILMNNFCG@mi_raster_unit?$AA@ 0000000180026ca8     shader:shader.obj
+ 0002:00001cb8       ??_C@_0BD@HIFCALJA@mi_point_to_raster?$AA@ 0000000180026cb8     shader:shader.obj
+ 0002:00001cd0       ??_C@_0BC@LHKGKJGG@mi_point_to_world?$AA@ 0000000180026cd0     shader:shader.obj
+ 0002:00001ce8       ??_C@_0O@JKMBALEL@mi_light_info?$AA@ 0000000180026ce8     shader:shader.obj
+ 0002:00001cf8       ??_C@_0BG@OJLLGNI@mi_global_lights_info?$AA@ 0000000180026cf8     shader:shader.obj
+ 0002:00001d10       ??_C@_0BA@IGJAFBCM@mi_texture_info?$AA@ 0000000180026d10     shader:shader.obj
+ 0002:00001d20       ??_C@_0BJ@KOJBJOBM@mi_lookup_vector_texture?$AA@ 0000000180026d20     shader:shader.obj
+ 0002:00001d40       ??_C@_0BL@HBMGNHPM@mi_lookup_vector_texture_x?$AA@ 0000000180026d40     shader:shader.obj
+ 0002:00001d60       ??_C@_0BJ@FNOKGOGO@mi_lookup_scalar_texture?$AA@ 0000000180026d60     shader:shader.obj
+ 0002:00001d80       ??_C@_0BL@NBHCMNOP@mi_lookup_scalar_texture_x?$AA@ 0000000180026d80     shader:shader.obj
+ 0002:00001da0       ??_C@_0BI@FMLCKEAC@mi_lookup_color_texture?$AA@ 0000000180026da0     shader:shader.obj
+ 0002:00001db8       ??_C@_0BK@GDILMDLC@mi_lookup_color_texture_x?$AA@ 0000000180026db8     shader:shader.obj
+ 0002:00001dd8       ??_C@_0BF@MOGLAPEJ@mi_normal_from_light?$AA@ 0000000180026dd8     shader:shader.obj
+ 0002:00001df0       ??_C@_0BD@DHOLGAOI@mi_normal_to_light?$AA@ 0000000180026df0     shader:shader.obj
+ 0002:00001e08       ??_C@_0BF@DKJAPKMB@mi_vector_from_light?$AA@ 0000000180026e08     shader:shader.obj
+ 0002:00001e20       ??_C@_0BD@BIEOPBNE@mi_vector_to_light?$AA@ 0000000180026e20     shader:shader.obj
+ 0002:00001e38       ??_C@_0BE@DNFADKOF@mi_point_from_light?$AA@ 0000000180026e38     shader:shader.obj
+ 0002:00001e50       ??_C@_0BC@HLPLLDLO@mi_point_to_light?$AA@ 0000000180026e50     shader:shader.obj
+ 0002:00001e68       ??_C@_09NCCHFCKG@mi_spline?$AA@ 0000000180026e68     shader:shader.obj
+ 0002:00001e78       ??_C@_0BC@OAKHJDCN@mi_unoise_3d_grad?$AA@ 0000000180026e78     shader:shader.obj
+ 0002:00001e90       ??_C@_0N@BMHLLOCB@mi_unoise_3d?$AA@ 0000000180026e90     shader:shader.obj
+ 0002:00001ea0       ??_C@_0BC@CMANJDLD@mi_unoise_2d_grad?$AA@ 0000000180026ea0     shader:shader.obj
+ 0002:00001eb8       ??_C@_0N@BNLJNEBG@mi_unoise_2d?$AA@ 0000000180026eb8     shader:shader.obj
+ 0002:00001ec8       ??_C@_0BC@KCICJEFA@mi_unoise_1d_grad?$AA@ 0000000180026ec8     shader:shader.obj
+ 0002:00001ee0       ??_C@_0N@BPPPGKEP@mi_unoise_1d?$AA@ 0000000180026ee0     shader:shader.obj
+ 0002:00001ef0       ??_C@_0BB@GEHIOCCG@mi_noise_3d_grad?$AA@ 0000000180026ef0     shader:shader.obj
+ 0002:00001f08       ??_C@_0M@LKKDKNNF@mi_noise_3d?$AA@ 0000000180026f08     shader:shader.obj
+ 0002:00001f18       ??_C@_0BB@KINCOCLI@mi_noise_2d_grad?$AA@ 0000000180026f18     shader:shader.obj
+ 0002:00001f30       ??_C@_0M@LLGBMHOC@mi_noise_2d?$AA@ 0000000180026f30     shader:shader.obj
+ 0002:00001f40       ??_C@_0BB@CGFNOFFL@mi_noise_1d_grad?$AA@ 0000000180026f40     shader:shader.obj
+ 0002:00001f58       ??_C@_0M@LJCHHJLL@mi_noise_1d?$AA@ 0000000180026f58     shader:shader.obj
+ 0002:00001f68       ??_C@_0L@KOOLLHJM@mi_erandom?$AA@ 0000000180026f68     shader:shader.obj
+ 0002:00001f78       ??_C@_0L@BEDPIPDA@mi_srandom?$AA@ 0000000180026f78     shader:shader.obj
+ 0002:00001f88       ??_C@_09PNGLODKO@mi_random?$AA@ 0000000180026f88     shader:shader.obj
+ 0002:00001f98       ??_C@_0O@PJHPHGHH@mi_par_random?$AA@ 0000000180026f98     shader:shader.obj
+ 0002:00001fa8       ??_C@_0BC@KOCGJAHK@mi_matrix_rot_det?$AA@ 0000000180026fa8     shader:shader.obj
+ 0002:00001fc0       ??_C@_0BD@KANBMJNE@mi_point_transform?$AA@ 0000000180026fc0     shader:shader.obj
+ 0002:00001fd8       ??_C@_0BE@NNFPENA@mi_vector_transform?$AA@ 0000000180026fd8     shader:shader.obj
+ 0002:00001ff0       ??_C@_0BG@ICNPAPBC@mi_vector_transform_T?$AA@ 0000000180026ff0     shader:shader.obj
+ 0002:00002008       ??_C@_0P@LDIIGON@mi_matrix_prod?$AA@ 0000000180027008     shader:shader.obj
+ 0002:00002018       ??_C@_0BA@DMLAEOHC@mi_matrix_ident?$AA@ 0000000180027018     shader:shader.obj
+ 0002:00002028       ??_C@_0BA@NFMJMAMM@mi_matrix_solve?$AA@ 0000000180027028     shader:shader.obj
+ 0002:00002038       ??_C@_0BB@KADDCJCL@mi_matrix_invert?$AA@ 0000000180027038     shader:shader.obj
+ 0002:00002050       ??_C@_0BG@LFMPCGEJ@mi_matrix_rotate_axis?$AA@ 0000000180027050     shader:shader.obj
+ 0002:00002068       ??_C@_0BB@KMEAKJCP@mi_matrix_rotate?$AA@ 0000000180027068     shader:shader.obj
+ 0002:00002080       ??_C@_0BB@ILFBKFJB@mi_matrix_isnull?$AA@ 0000000180027080     shader:shader.obj
+ 0002:00002098       ??_C@_0BC@PCNJFLOL@mi_matrix_isident?$AA@ 0000000180027098     shader:shader.obj
+ 0002:000020b0       ??_C@_0M@IPANFCEO@mi_strerror?$AA@ 00000001800270b0     shader:shader.obj
+ 0002:000020c0       ??_C@_0BG@CCHDKOPN@mi_fatal_error_freeze?$AA@ 00000001800270c0     shader:shader.obj
+ 0002:000020d8       ??_C@_02DKCKIIND@?$CFs?$AA@ 00000001800270d8     shader:shader.obj
+ 0002:000020e0       ??_C@_09OAAMPGOP@mi_vdebug?$AA@ 00000001800270e0     shader:shader.obj
+ 0002:000020f0       ??_C@_08IFPNHCEO@mi_debug?$AA@ 00000001800270f0     shader:shader.obj
+ 0002:00002100       ??_C@_0M@PKMHDPHK@mi_progress?$AA@ 0000000180027100     shader:shader.obj
+ 0002:00002110       ??_C@_07NDCBHDBO@mi_info?$AA@ 0000000180027110     shader:shader.obj
+ 0002:00002118       ??_C@_0M@JHGCMF@mi_nwarning?$AA@ 0000000180027118     shader:shader.obj
+ 0002:00002128       ??_C@_0L@EKEGCNMM@mi_warning?$AA@ 0000000180027128     shader:shader.obj
+ 0002:00002138       ??_C@_09NLLMCLFM@mi_nerror?$AA@ 0000000180027138     shader:shader.obj
+ 0002:00002148       ??_C@_08OKHMHNFE@mi_error?$AA@ 0000000180027148     shader:shader.obj
+ 0002:00002158       ??_C@_09IBNMPJKJ@mi_nfatal?$AA@ 0000000180027158     shader:shader.obj
+ 0002:00002168       ??_C@_08LABMKPKB@mi_fatal?$AA@ 0000000180027168     shader:shader.obj
+ 0002:00002178       ??_C@_0CD@GOIIJAIC@mi_colorprofile_ciexyz_to_intern@ 0000000180027178     shader:shader.obj
+ 0002:000021a0       ??_C@_0CD@CEGDPNI@mi_colorprofile_internal_to_ciex@ 00000001800271a0     shader:shader.obj
+ 0002:000021c8       ??_C@_0CA@ILJJJCAM@mi_colorprofile_ciexyz_color_id?$AA@ 00000001800271c8     shader:shader.obj
+ 0002:000021e8       ??_C@_0CB@EHDEKNHK@mi_colorprofile_internalspace_id@ 00000001800271e8     shader:shader.obj
+ 0002:00002210       ??_C@_0BP@KPKBJJKJ@mi_colorprofile_sourcespace_id?$AA@ 0000000180027210     shader:shader.obj
+ 0002:00002230       ??_C@_0BP@FJEBJJGN@mi_colorprofile_renderspace_id?$AA@ 0000000180027230     shader:shader.obj
+ 0002:00002250       ??_C@_0CD@ENHGBPD@mi_colorprofile_internal_to_rend@ 0000000180027250     shader:shader.obj
+ 0002:00002278       ??_C@_0CB@KNDHOMDD@mi_colorprofile_ciexyz_to_render@ 0000000180027278     shader:shader.obj
+ 0002:000022a0       ??_C@_0CD@HAJAIDAL@mi_colorprofile_render_to_intern@ 00000001800272a0     shader:shader.obj
+ 0002:000022c8       ??_C@_0CB@CGHBFBIO@mi_colorprofile_render_to_ciexyz@ 00000001800272c8     shader:shader.obj
+ 0002:000022f0       ??_C@_0BB@KFGNIMGA@mi_img_get_width?$AA@ 00000001800272f0     shader:shader.obj
+ 0002:00002308       ??_C@_0BC@FKCMKALK@mi_img_get_height?$AA@ 0000000180027308     shader:shader.obj
+ 0002:00002320       ??_C@_0BB@GDIJALLK@mi_img_cache_get?$AA@ 0000000180027320     shader:shader.obj
+ 0002:00002338       ??_C@_0BJ@EANFMJEF@mi_img_pyramid_get_level?$AA@ 0000000180027338     shader:shader.obj
+ 0002:00002358       ??_C@_0BB@KAOPGGGG@mi_img_get_label?$AA@ 0000000180027358     shader:shader.obj
+ 0002:00002370       ??_C@_0BC@GNCAFDMH@mi_img_get_normal?$AA@ 0000000180027370     shader:shader.obj
+ 0002:00002388       ??_C@_0BE@BPLCBKAG@mi_img_get_coverage?$AA@ 0000000180027388     shader:shader.obj
+ 0002:000023a0       ??_C@_0BB@DKKENBJM@mi_img_get_depth?$AA@ 00000001800273a0     shader:shader.obj
+ 0002:000023b8       ??_C@_0BC@DGMEBGPK@mi_img_get_vector?$AA@ 00000001800273b8     shader:shader.obj
+ 0002:000023d0       ??_C@_0BC@FHFGNLFK@mi_img_get_scalar?$AA@ 00000001800273d0     shader:shader.obj
+ 0002:000023e8       ??_C@_0BB@MJFNLOIG@mi_img_put_label?$AA@ 00000001800273e8     shader:shader.obj
+ 0002:00002400       ??_C@_0BC@MNEDADGH@mi_img_put_normal?$AA@ 0000000180027400     shader:shader.obj
+ 0002:00002418       ??_C@_0BE@NKNOFHHI@mi_img_put_coverage?$AA@ 0000000180027418     shader:shader.obj
+ 0002:00002430       ??_C@_0BB@FDBGAJHM@mi_img_put_depth?$AA@ 0000000180027430     shader:shader.obj
+ 0002:00002448       ??_C@_0BC@NLPAJGEN@mi_img_clip_color?$AA@ 0000000180027448     shader:shader.obj
+ 0002:00002460       ??_C@_0BC@JGKHEGFK@mi_img_put_vector?$AA@ 0000000180027460     shader:shader.obj
+ 0002:00002478       ??_C@_0BB@NHIAKHOI@mi_img_get_color?$AA@ 0000000180027478     shader:shader.obj
+ 0002:00002490       ??_C@_0BC@PHDFILPK@mi_img_put_scalar?$AA@ 0000000180027490     shader:shader.obj
+ 0002:000024a8       ??_C@_0BB@LODCHPAI@mi_img_put_color?$AA@ 00000001800274a8     shader:shader.obj
+ 0002:000024c0       ??_C@_0O@EKAAIKMO@mi_img_access?$AA@ 00000001800274c0     shader:shader.obj
+ 0002:000024d0       ??_C@_0BE@CANPCMIP@mi_img_image_shared?$AA@ 00000001800274d0     shader:shader.obj
+ 0002:000024e8       ??_C@_0BG@DMJBEFLN@mi_img_image_dbcreate?$AA@ 00000001800274e8     shader:shader.obj
+ 0002:00002500       ??_C@_0BM@KPMIJAAM@mi_img_placeholder_dbcreate?$AA@ 0000000180027500     shader:shader.obj
+ 0002:00002520       ??_C@_0BF@DAIFMFMP@mi_img_image_release?$AA@ 0000000180027520     shader:shader.obj
+ 0002:00002538       ??_C@_0BD@CIJNLIMN@mi_img_format_name?$AA@ 0000000180027538     shader:shader.obj
+ 0002:00002550       ??_C@_0BB@GDABLOMD@mi_img_type_name?$AA@ 0000000180027550     shader:shader.obj
+ 0002:00002568       ??_C@_0BB@OHGAKOOA@mi_img_best_type?$AA@ 0000000180027568     shader:shader.obj
+ 0002:00002580       ??_C@_0P@LDKIIHJM@mi_img_tonemap?$AA@ 0000000180027580     shader:shader.obj
+ 0002:00002590       ??_C@_0BD@PBCGNDBM@mi_img_image_alloc?$AA@ 0000000180027590     shader:shader.obj
+ 0002:000025a8       ??_C@_0P@IABENKGI@mi_img_err_msg?$AA@ 00000001800275a8     shader:shader.obj
+ 0002:000025b8       ??_C@_0BC@EHMOEMBN@mi_img_type_query?$AA@ 00000001800275b8     shader:shader.obj
+ 0002:000025d0       ??_C@_0BH@DDECJDHM@mi_img_format_identify?$AA@ 00000001800275d0     shader:shader.obj
+ 0002:000025e8       ??_C@_0BF@OLOKMFPD@mi_img_type_identify?$AA@ 00000001800275e8     shader:shader.obj
+ 0002:00002600       ??_C@_0BD@IKIOAAFM@mi_img_image_write?$AA@ 0000000180027600     shader:shader.obj
+ 0002:00002618       ??_C@_0BC@JHOOIGHD@mi_img_image_read?$AA@ 0000000180027618     shader:shader.obj
+ 0002:00002630       ??_C@_0BL@DGBCGLD@mi_img_custom_format_error?$AA@ 0000000180027630     shader:shader.obj
+ 0002:00002650       ??_C@_0N@JHFOEMJF@mi_img_close?$AA@ 0000000180027650     shader:shader.obj
+ 0002:00002660       ??_C@_0O@MOAILHM@mi_img_create?$AA@ 0000000180027660     shader:shader.obj
+ 0002:00002670       ??_C@_0M@JMIJGEDA@mi_img_open?$AA@ 0000000180027670     shader:shader.obj
+ 0002:00002680       ??_C@_0N@GNCNOMDL@mi_img_lseek?$AA@ 0000000180027680     shader:shader.obj
+ 0002:00002690       ??_C@_0N@JNBENAJD@mi_img_nread?$AA@ 0000000180027690     shader:shader.obj
+ 0002:000026a0       ??_C@_0BF@MNAGHMEH@mi_img_custom_format?$AA@ 00000001800276a0     shader:shader.obj
+ 0002:000026b8       ??_C@_0BB@HBHDFNKO@mi_geomo_uv_loft?$AA@ 00000001800276b8     shader:shader.obj
+ 0002:000026d0       ??_C@_0BF@GJAMJAAA@mi_geomo_free_curves?$AA@ 00000001800276d0     shader:shader.obj
+ 0002:000026e8       ??_C@_0BL@MOCDBPBG@mi_geomo_homogenize_curves?$AA@ 00000001800276e8     shader:shader.obj
+ 0002:00002708       ??_C@_0BM@HOBLENMH@mi_geomo_concatenate_curves?$AA@ 0000000180027708     shader:shader.obj
+ 0002:00002728       ??_C@_0BG@JHPMABPM@mi_geomo_free_surface?$AA@ 0000000180027728     shader:shader.obj
+ 0002:00002740       ??_C@_0BA@DGACOAHL@mi_geomo_u_loft?$AA@ 0000000180027740     shader:shader.obj
+ 0002:00002750       ??_C@_0BG@HPKLHBCF@mi_geomo_init_tangent?$AA@ 0000000180027750     shader:shader.obj
+ 0002:00002768       ??_C@_0CD@PENOLBGG@mi_geomo_extract_and_convert_cur@ 0000000180027768     shader:shader.obj
+ 0002:00002790       ??_C@_0BI@CFANFJOI@mi_geomo_blend_surfaces?$AA@ 0000000180027790     shader:shader.obj
+ 0002:000027a8       ??_C@_0BP@BHFCBEEH@mi_geoshader_release_adjacency?$AA@ 00000001800277a8     shader:shader.obj
+ 0002:000027c8       ??_C@_0BL@EELPEFIF@mi_geoshader_get_adjacency?$AA@ 00000001800277c8     shader:shader.obj
+ 0002:000027e8       ??_C@_0BI@DLEBPOKF@mi_geoshader_eval_curve?$AA@ 00000001800277e8     shader:shader.obj
+ 0002:00002800       ??_C@_0BK@EIFHHHJD@mi_geoshader_eval_surface?$AA@ 0000000180027800     shader:shader.obj
+ 0002:00002820       ??_C@_0CE@FEHMABBE@mi_geoshader_approximate_object_@ 0000000180027820     shader:shader.obj
+ 0002:00002848       ??_C@_0CA@PDGKDFLG@mi_geoshader_approximate_object?$AA@ 0000000180027848     shader:shader.obj
+ 0002:00002868       ??_C@_0CG@JNLBKLHO@mi_geoshader_approximate_object_@ 0000000180027868     shader:shader.obj
+ 0002:00002890       ??_C@_0BG@MOHEPJPM@mi_geoshader_echo_tag?$AA@ 0000000180027890     shader:shader.obj
+ 0002:000028a8       ??_C@_0O@PHELONHG@mi_echo_scene?$AA@ 00000001800278a8     shader:shader.obj
+ 0002:000028b8       ??_C@_0O@CJELPLLB@mi_db_summary?$AA@ 00000001800278b8     shader:shader.obj
+ 0002:000028c8       ??_C@_0L@GFBCNNDI@mi_db_dump?$AA@ 00000001800278c8     shader:shader.obj
+ 0002:000028d8       ??_C@_0M@DCJANODN@mi_db_flush?$AA@ 00000001800278d8     shader:shader.obj
+ 0002:000028e8       ??_C@_0BE@FELLBBII@mi_db_deferredflush?$AA@ 00000001800278e8     shader:shader.obj
+ 0002:00002900       ??_C@_0N@PNPOKEGI@mi_db_delete?$AA@ 0000000180027900     shader:shader.obj
+ 0002:00002910       ??_C@_0BC@FBBDNBEO@mi_db_access_type?$AA@ 0000000180027910     shader:shader.obj
+ 0002:00002928       ??_C@_0N@OCBIFMFB@mi_db_access?$AA@ 0000000180027928     shader:shader.obj
+ 0002:00002938       ??_C@_0O@JOCEJMAP@mi_db_realloc?$AA@ 0000000180027938     shader:shader.obj
+ 0002:00002948       ??_C@_0L@IDMBCNGM@mi_db_size?$AA@ 0000000180027948     shader:shader.obj
+ 0002:00002958       ??_C@_0N@KEPIFNOD@mi_db_create?$AA@ 0000000180027958     shader:shader.obj
+ 0002:00002968       ??_C@_0M@LNCHIMHK@mi_db_unpin?$AA@ 0000000180027968     shader:shader.obj
+ 0002:00002978       ??_C@_0L@CNKKDNLJ@mi_db_copy?$AA@ 0000000180027978     shader:shader.obj
+ 0002:00002988       ??_C@_0BB@DLOMPBOI@mi_db_accessinfo?$AA@ 0000000180027988     shader:shader.obj
+ 0002:000029a0       ??_C@_0L@GMGPCDDF@mi_db_type?$AA@ 00000001800279a0     shader:shader.obj
+ 0002:000029b0       ??_C@_0BC@EEBCEHMD@mi_api_metasl_end?$AA@ 00000001800279b0     shader:shader.obj
+ 0002:000029c8       ??_C@_0BD@CNFPIMGK@mi_api_metasl_code?$AA@ 00000001800279c8     shader:shader.obj
+ 0002:000029e0       ??_C@_0BH@IGECHEBJ@mi_api_metasl_filename?$AA@ 00000001800279e0     shader:shader.obj
+ 0002:000029f8       ??_C@_0BE@MMHHAMGN@mi_api_metasl_begin?$AA@ 00000001800279f8     shader:shader.obj
+ 0002:00002a10       ??_C@_0BJ@KIPBOJIE@mi_api_get_assembly_root?$AA@ 0000000180027a10     shader:shader.obj
+ 0002:00002a30       ??_C@_0BM@IFGPJAAP@mi_api_assembly_path_search?$AA@ 0000000180027a30     shader:shader.obj
+ 0002:00002a50       ??_C@_0BF@DELMFLIN@mi_api_assembly_root?$AA@ 0000000180027a50     shader:shader.obj
+ 0002:00002a68       ??_C@_0BE@KKBCBIJG@mi_api_assembly_end?$AA@ 0000000180027a68     shader:shader.obj
+ 0002:00002a80       ??_C@_0BJ@MKLCBHID@mi_api_assembly_callback?$AA@ 0000000180027a80     shader:shader.obj
+ 0002:00002aa0       ??_C@_0BJ@CFCCPFDE@mi_api_assembly_filename?$AA@ 0000000180027aa0     shader:shader.obj
+ 0002:00002ac0       ??_C@_0BG@PAGPAHBJ@mi_api_assembly_begin?$AA@ 0000000180027ac0     shader:shader.obj
+ 0002:00002ad8       ??_C@_0BD@HNKAJGBG@mi_api_ccmesh_bary?$AA@ 0000000180027ad8     shader:shader.obj
+ 0002:00002af0       ??_C@_0BJ@EJPEMGEK@mi_api_ccmesh_derivative?$AA@ 0000000180027af0     shader:shader.obj
+ 0002:00002b10       ??_C@_0BF@PFDKJOCH@mi_api_ccmesh_approx?$AA@ 0000000180027b10     shader:shader.obj
+ 0002:00002b28       ??_C@_0BF@CPJBPIIO@mi_api_ccmesh_crease?$AA@ 0000000180027b28     shader:shader.obj
+ 0002:00002b40       ??_C@_0BG@KABPHKKF@mi_api_ccmesh_polygon?$AA@ 0000000180027b40     shader:shader.obj
+ 0002:00002b58       ??_C@_0BC@EMCKEEE@mi_api_ccmesh_end?$AA@ 0000000180027b58     shader:shader.obj
+ 0002:00002b70       ??_C@_0BE@IBLGPBPD@mi_api_ccmesh_begin?$AA@ 0000000180027b70     shader:shader.obj
+ 0002:00002b88       ??_C@_0BL@CEHBENFG@mi_api_primlist_dimensions?$AA@ 0000000180027b88     shader:shader.obj
+ 0002:00002ba8       ??_C@_0BH@OGKGHHP@mi_api_primlist_border?$AA@ 0000000180027ba8     shader:shader.obj
+ 0002:00002bc0       ??_C@_0BE@GALBAAPB@mi_api_primlist_end?$AA@ 0000000180027bc0     shader:shader.obj
+ 0002:00002bd8       ??_C@_0BH@DFMIPLND@mi_api_primlist_approx?$AA@ 0000000180027bd8     shader:shader.obj
+ 0002:00002bf0       ??_C@_0BI@MFKLAINO@mi_api_primlist_begin_2?$AA@ 0000000180027bf0     shader:shader.obj
+ 0002:00002c08       ??_C@_0BG@MJLPKIIM@mi_api_primlist_begin?$AA@ 0000000180027c08     shader:shader.obj
+ 0002:00002c20       ??_C@_0BJ@EFPFLHJA@mi_api_primlist_topology?$AA@ 0000000180027c20     shader:shader.obj
+ 0002:00002c40       ??_C@_0BK@CAMPNJPO@mi_api_colorprofile_white?$AA@ 0000000180027c40     shader:shader.obj
+ 0002:00002c60       ??_C@_0BL@IBGIKGEF@mi_api_colorprofile_custom?$AA@ 0000000180027c60     shader:shader.obj
+ 0002:00002c80       ??_C@_0BK@NGPAHDLI@mi_api_colorprofile_gamma?$AA@ 0000000180027c80     shader:shader.obj
+ 0002:00002ca0       ??_C@_0BK@DHBDNKLB@mi_api_colorprofile_space?$AA@ 0000000180027ca0     shader:shader.obj
+ 0002:00002cc0       ??_C@_0BL@JGNKIAKB@mi_api_colorprofile_lookup?$AA@ 0000000180027cc0     shader:shader.obj
+ 0002:00002ce0       ??_C@_0CD@MODGKGCL@mi_api_colorprofile_to_renderspa@ 0000000180027ce0     shader:shader.obj
+ 0002:00002d08       ??_C@_0BI@EKPECFEL@mi_api_colorprofile_end?$AA@ 0000000180027d08     shader:shader.obj
+ 0002:00002d20       ??_C@_0BK@JMJBBALM@mi_api_colorprofile_begin?$AA@ 0000000180027d20     shader:shader.obj
+ 0002:00002d40       ??_C@_0BH@GLLFFKKL@mi_api_spectrum_lookup?$AA@ 0000000180027d40     shader:shader.obj
+ 0002:00002d58       ??_C@_0BJ@PDKBLJED@mi_api_spectrum_pair_add?$AA@ 0000000180027d58     shader:shader.obj
+ 0002:00002d78       ??_C@_0BE@FEFDPLKJ@mi_api_spectrum_end?$AA@ 0000000180027d78     shader:shader.obj
+ 0002:00002d90       ??_C@_0BG@JBLCGAKG@mi_api_spectrum_begin?$AA@ 0000000180027d90     shader:shader.obj
+ 0002:00002da8       ??_C@_0BJ@LIELJKBN@mi_api_trilist_triangles?$AA@ 0000000180027da8     shader:shader.obj
+ 0002:00002dc8       ??_C@_0BD@BGFKFCAF@mi_api_trilist_end?$AA@ 0000000180027dc8     shader:shader.obj
+ 0002:00002de0       ??_C@_0BM@PNJLGDKK@mi_api_trilist_triangle_tag?$AA@ 0000000180027de0     shader:shader.obj
+ 0002:00002e00       ??_C@_0BI@DPDDDCLB@mi_api_trilist_triangle?$AA@ 0000000180027e00     shader:shader.obj
+ 0002:00002e18       ??_C@_0BI@HPHCLMAG@mi_api_trilist_vertices?$AA@ 0000000180027e18     shader:shader.obj
+ 0002:00002e30       ??_C@_0BH@DNCAGPLI@mi_api_trilist_vectors?$AA@ 0000000180027e30     shader:shader.obj
+ 0002:00002e48       ??_C@_0BG@DIFACEIP@mi_api_trilist_approx?$AA@ 0000000180027e48     shader:shader.obj
+ 0002:00002e60       ??_C@_0BF@DMAKMKAG@mi_api_trilist_begin?$AA@ 0000000180027e60     shader:shader.obj
+ 0002:00002e78       ??_C@_0BH@JCPNJPCG@mi_api_pass_delete_def?$AA@ 0000000180027e78     shader:shader.obj
+ 0002:00002e90       ??_C@_0BG@KHKFFHBG@mi_api_pass_merge_def?$AA@ 0000000180027e90     shader:shader.obj
+ 0002:00002ea8       ??_C@_0BF@BHKPFIIN@mi_api_pass_prep_def?$AA@ 0000000180027ea8     shader:shader.obj
+ 0002:00002ec0       ??_C@_0BF@NJDLEHPL@mi_api_pass_save_def?$AA@ 0000000180027ec0     shader:shader.obj
+ 0002:00002ed8       ??_C@_0BL@MMLPEMBH@mi_api_subdivsurf_texspace?$AA@ 0000000180027ed8     shader:shader.obj
+ 0002:00002ef8       ??_C@_0BM@CONOBFA@mi_api_subdivsurf_subdivide?$AA@ 0000000180027ef8     shader:shader.obj
+ 0002:00002f18       ??_C@_0BG@GPFPANJI@mi_api_subdivsurf_pop?$AA@ 0000000180027f18     shader:shader.obj
+ 0002:00002f30       ??_C@_0BH@GOHNKMHG@mi_api_subdivsurf_push?$AA@ 0000000180027f30     shader:shader.obj
+ 0002:00002f48       ??_C@_0BL@KPAHKOEI@mi_api_subdivsurf_baseface?$AA@ 0000000180027f48     shader:shader.obj
+ 0002:00002f68       ??_C@_0BO@FJHOGIIM@mi_api_subdivsurf_crease_edge?$AA@ 0000000180027f68     shader:shader.obj
+ 0002:00002f88       ??_C@_0BN@BPHKGMDE@mi_api_subdivsurf_derivative?$AA@ 0000000180027f88     shader:shader.obj
+ 0002:00002fa8       ??_C@_0CC@CLHNMBLD@mi_api_subdivsurf_approx_displac@ 0000000180027fa8     shader:shader.obj
+ 0002:00002fd0       ??_C@_0BJ@OLAIOLMP@mi_api_subdivsurf_approx?$AA@ 0000000180027fd0     shader:shader.obj
+ 0002:00002ff0       ??_C@_0BJ@HHCEKCBG@mi_api_subdivsurf_detail?$AA@ 0000000180027ff0     shader:shader.obj
+ 0002:00003010       ??_C@_0BH@GKOMOAOM@mi_api_subdivsurf_trim?$AA@ 0000000180028010     shader:shader.obj
+ 0002:00003028       ??_C@_0BJ@DBKDINGG@mi_api_subdivsurf_crease?$AA@ 0000000180028028     shader:shader.obj
+ 0002:00003048       ??_C@_0BI@KIBBFDOO@mi_api_subdivsurf_index?$AA@ 0000000180028048     shader:shader.obj
+ 0002:00003060       ??_C@_0BK@FLMGHKMC@mi_api_subdivsurf_mtl_tag?$AA@ 0000000180028060     shader:shader.obj
+ 0002:00003080       ??_C@_0BG@DLCIJDBG@mi_api_subdivsurf_mtl?$AA@ 0000000180028080     shader:shader.obj
+ 0002:00003098       ??_C@_0BG@CHPEBHFH@mi_api_subdivsurf_end?$AA@ 0000000180028098     shader:shader.obj
+ 0002:000030b0       ??_C@_0BK@NLOCDDAO@mi_api_subdivsurf_begin_x?$AA@ 00000001800280b0     shader:shader.obj
+ 0002:000030d0       ??_C@_0BI@LCDBHBGB@mi_api_subdivsurf_begin?$AA@ 00000001800280d0     shader:shader.obj
+ 0002:000030e8       ??_C@_0BG@KKJMACDO@mi_api_spacecurve_end?$AA@ 00000001800280e8     shader:shader.obj
+ 0002:00003100       ??_C@_0BJ@NINCBEJD@mi_api_spacecurve_approx?$AA@ 0000000180028100     shader:shader.obj
+ 0002:00003120       ??_C@_0BL@NDLPMLKA@mi_api_spacecurve_curveseg?$AA@ 0000000180028120     shader:shader.obj
+ 0002:00003140       ??_C@_0BI@GLNDMIAM@mi_api_spacecurve_begin?$AA@ 0000000180028140     shader:shader.obj
+ 0002:00003158       ??_C@_0BD@JOEHBDCG@mi_api_scope_apply?$AA@ 0000000180028158     shader:shader.obj
+ 0002:00003170       ??_C@_0BB@KMJCFLIF@mi_api_scope_end?$AA@ 0000000180028170     shader:shader.obj
+ 0002:00003188       ??_C@_0BD@HOFFFACB@mi_api_scope_begin?$AA@ 0000000180028188     shader:shader.obj
+ 0002:000031a0       ??_C@_0BB@CFPFOMHA@mi_api_nodes_end?$AA@ 00000001800281a0     shader:shader.obj
+ 0002:000031b8       ??_C@_0BA@DPAJLKNJ@mi_api_node_add?$AA@ 00000001800281b8     shader:shader.obj
+ 0002:000031c8       ??_C@_0BD@ECJLOKJB@mi_api_nodes_begin?$AA@ 00000001800281c8     shader:shader.obj
+ 0002:000031e0       ??_C@_0BA@BPILMDNF@mi_api_phen_end?$AA@ 00000001800281e0     shader:shader.obj
+ 0002:000031f0       ??_C@_0BC@DKDKKFBK@mi_api_phen_begin?$AA@ 00000001800281f0     shader:shader.obj
+ 0002:00003208       ??_C@_0BH@IPHLGFIN@mi_api_variable_lookup?$AA@ 0000000180028208     shader:shader.obj
+ 0002:00003220       ??_C@_0BE@KNNOILIF@mi_api_registry_end?$AA@ 0000000180028220     shader:shader.obj
+ 0002:00003238       ??_C@_0BH@OGNEGDLN@mi_api_registry_lookup?$AA@ 0000000180028238     shader:shader.obj
+ 0002:00003250       ??_C@_0BF@MHFBDABE@mi_api_registry_eval?$AA@ 0000000180028250     shader:shader.obj
+ 0002:00003268       ??_C@_0BE@CPCLJJAE@mi_api_registry_add?$AA@ 0000000180028268     shader:shader.obj
+ 0002:00003280       ??_C@_0BG@PIIGIDLJ@mi_api_registry_begin?$AA@ 0000000180028280     shader:shader.obj
+ 0002:00003298       ??_C@_0BC@PFGJOIPE@mi_api_tag_lookup?$AA@ 0000000180028298     shader:shader.obj
+ 0002:000032b0       ??_C@_0BE@PJDCDADO@mi_api_variable_set?$AA@ 00000001800282b0     shader:shader.obj
+ 0002:000032c8       ??_C@_0O@BHOMLHEE@mi_api_rename?$AA@ 00000001800282c8     shader:shader.obj
+ 0002:000032d8       ??_C@_0N@BIEICPFB@mi_api_debug?$AA@ 00000001800282d8     shader:shader.obj
+ 0002:000032e8       ??_C@_0N@DNDJJEA@mi_api_touch?$AA@ 00000001800282e8     shader:shader.obj
+ 0002:000032f8       ??_C@_0BD@EOKLOOIM@mi_api_decl_lookup?$AA@ 00000001800282f8     shader:shader.obj
+ 0002:00003310       ??_C@_0BD@KGCPPDIH@mi_api_name_lookup?$AA@ 0000000180028310     shader:shader.obj
+ 0002:00003328       ??_C@_0BD@DHEPMEMG@mi_api_delete_tree?$AA@ 0000000180028328     shader:shader.obj
+ 0002:00003340       ??_C@_0O@PFLHECHI@mi_api_delete?$AA@ 0000000180028340     shader:shader.obj
+ 0002:00003350       ??_C@_0BL@PJENJNFC@mi_api_lightprofile_lookup?$AA@ 0000000180028350     shader:shader.obj
+ 0002:00003370       ??_C@_0BI@MEDLKMJJ@mi_api_lightprofile_end?$AA@ 0000000180028370     shader:shader.obj
+ 0002:00003388       ??_C@_0BK@LLPLACGK@mi_api_lightprofile_begin?$AA@ 0000000180028388     shader:shader.obj
+ 0002:000033a8       ??_C@_0BK@BEPAGEHK@mi_api_instgroup_register?$AA@ 00000001800283a8     shader:shader.obj
+ 0002:000033c8       ??_C@_0BF@ICGNODGP@mi_api_instgroup_end?$AA@ 00000001800283c8     shader:shader.obj
+ 0002:000033e0       ??_C@_0BH@JLFPCLLM@mi_api_instgroup_clear?$AA@ 00000001800283e0     shader:shader.obj
+ 0002:000033f8       ??_C@_0BJ@NHMKJGJF@mi_api_instgroup_delitem?$AA@ 00000001800283f8     shader:shader.obj
+ 0002:00003418       ??_C@_0BJ@NFAOBBCI@mi_api_instgroup_additem?$AA@ 0000000180028418     shader:shader.obj
+ 0002:00003438       ??_C@_0BH@BPHOFOAG@mi_api_instgroup_begin?$AA@ 0000000180028438     shader:shader.obj
+ 0002:00003450       ??_C@_0BJ@ILFDHHFI@mi_api_instance_register?$AA@ 0000000180028450     shader:shader.obj
+ 0002:00003470       ??_C@_0BH@KDJFHEEK@mi_api_instance_approx?$AA@ 0000000180028470     shader:shader.obj
+ 0002:00003488       ??_C@_0BG@JNJILPMG@mi_api_instance_begin?$AA@ 0000000180028488     shader:shader.obj
+ 0002:000034a0       ??_C@_0BE@JJANJJGN@mi_api_instance_end?$AA@ 00000001800284a0     shader:shader.obj
+ 0002:000034b8       ??_C@_0BE@FOGHCHHM@mi_api_get_typeinfo?$AA@ 00000001800284b8     shader:shader.obj
+ 0002:000034d0       ??_C@_0BP@JLMMOEIB@mi_api_parameter_offset_lookup?$AA@ 00000001800284d0     shader:shader.obj
+ 0002:000034f0       ??_C@_0BI@NIFKEOLK@mi_api_parameter_lookup?$AA@ 00000001800284f0     shader:shader.obj
+ 0002:00003508       ??_C@_0BN@PPLGABD@mi_api_parameter_path_lookup?$AA@ 0000000180028508     shader:shader.obj
+ 0002:00003528       ??_C@_0BH@DHOLBFBI@mi_api_parameter_child?$AA@ 0000000180028528     shader:shader.obj
+ 0002:00003540       ??_C@_0BI@HHLPHDJA@mi_api_parameter_append?$AA@ 0000000180028540     shader:shader.obj
+ 0002:00003558       ??_C@_0BJ@GPCJOLKI@mi_api_parameter_default?$AA@ 0000000180028558     shader:shader.obj
+ 0002:00003578       ??_C@_0BG@DECMMMLB@mi_api_parameter_decl?$AA@ 0000000180028578     shader:shader.obj
+ 0002:00003590       ??_C@_0BE@FDBFBOCG@mi_api_funcdecl_end?$AA@ 0000000180028590     shader:shader.obj
+ 0002:000035a8       ??_C@_0BG@PNMJPFJD@mi_api_funcdecl_begin?$AA@ 00000001800285a8     shader:shader.obj
+ 0002:000035c0       ??_C@_0BE@BICDFPFI@mi_api_dlist_delete?$AA@ 00000001800285c0     shader:shader.obj
+ 0002:000035d8       ??_C@_0BB@LKBNOGA@mi_api_dlist_add?$AA@ 00000001800285d8     shader:shader.obj
+ 0002:000035f0       ??_C@_0BE@EBCFKGND@mi_api_dlist_create?$AA@ 00000001800285f0     shader:shader.obj
+ 0002:00003608       ??_C@_0BD@MKEPOAMI@mi_api_data_lookup?$AA@ 0000000180028608     shader:shader.obj
+ 0002:00003620       ??_C@_0BF@LDAKDOMK@mi_api_data_callback?$AA@ 0000000180028620     shader:shader.obj
+ 0002:00003638       ??_C@_0BG@NPGCLDAP@mi_api_data_byte_copy?$AA@ 0000000180028638     shader:shader.obj
+ 0002:00003650       ??_C@_0BD@GFKKNNOC@mi_api_data_append?$AA@ 0000000180028650     shader:shader.obj
+ 0002:00003668       ??_C@_0BA@MBBHOOCM@mi_api_data_end?$AA@ 0000000180028668     shader:shader.obj
+ 0002:00003678       ??_C@_0BC@LKJLHNAH@mi_api_data_begin?$AA@ 0000000180028678     shader:shader.obj
+ 0002:00003690       ??_C@_0BJ@OIHEHKBO@mi_api_geovector_xyz_add?$AA@ 0000000180028690     shader:shader.obj
+ 0002:000036b0       ??_C@_0BG@EJDHCLAN@mi_api_vector_xyz_add?$AA@ 00000001800286b0     shader:shader.obj
+ 0002:000036c8       ??_C@_0BF@LAGFBHAB@mi_api_vector_lookup?$AA@ 00000001800286c8     shader:shader.obj
+ 0002:000036e0       ??_C@_0BH@MMECOBAI@mi_api_vertex_info_add?$AA@ 00000001800286e0     shader:shader.obj
+ 0002:000036f8       ??_C@_0BF@KFNEKMMF@mi_api_vertex_lookup?$AA@ 00000001800286f8     shader:shader.obj
+ 0002:00003710       ??_C@_0BH@OPKIHPEP@mi_api_vertex_user_add?$AA@ 0000000180028710     shader:shader.obj
+ 0002:00003728       ??_C@_0BG@GPDCNOOB@mi_api_vertex_tex_add?$AA@ 0000000180028728     shader:shader.obj
+ 0002:00003740       ??_C@_0BJ@PCMDEMBF@mi_api_vertex_motion_add?$AA@ 0000000180028740     shader:shader.obj
+ 0002:00003760       ??_C@_0BJ@GELMIKEC@mi_api_vertex_deriv2_add?$AA@ 0000000180028760     shader:shader.obj
+ 0002:00003780       ??_C@_0BI@OKGANJNN@mi_api_vertex_deriv_add?$AA@ 0000000180028780     shader:shader.obj
+ 0002:00003798       ??_C@_0BJ@IBIGIHDC@mi_api_vertex_normal_add?$AA@ 0000000180028798     shader:shader.obj
+ 0002:000037b8       ??_C@_0BC@JADILJHB@mi_api_vertex_add?$AA@ 00000001800287b8     shader:shader.obj
+ 0002:000037d0       ??_C@_0BG@JAIBLEIN@mi_api_vertex_ref_add?$AA@ 00000001800287d0     shader:shader.obj
+ 0002:000037e8       ??_C@_0BI@LAPAGDJN@mi_api_vertex_flags_add?$AA@ 00000001800287e8     shader:shader.obj
+ 0002:00003800       ??_C@_0BE@CHNILMFF@mi_api_curve_lookup?$AA@ 0000000180028800     shader:shader.obj
+ 0002:00003818       ??_C@_0BK@BKELICHD@mi_api_curve_approx_store?$AA@ 0000000180028818     shader:shader.obj
+ 0002:00003838       ??_C@_0BE@KCEGNJDD@mi_api_curve_approx?$AA@ 0000000180028838     shader:shader.obj
+ 0002:00003850       ??_C@_0BF@NEPFBIHK@mi_api_curve_specpnt?$AA@ 0000000180028850     shader:shader.obj
+ 0002:00003868       ??_C@_0BD@JFEEMAIH@mi_api_curve_begin?$AA@ 0000000180028868     shader:shader.obj
+ 0002:00003880       ??_C@_0BB@NAIIPAFG@mi_api_curve_end?$AA@ 0000000180028880     shader:shader.obj
+ 0002:00003898       ??_C@_0BA@JOAFLNDM@mi_api_poly_end?$AA@ 0000000180028898     shader:shader.obj
+ 0002:000038a8       ??_C@_0BD@DBNIFJFO@mi_api_poly_approx?$AA@ 00000001800288a8     shader:shader.obj
+ 0002:000038c0       ??_C@_0BG@IOJGHPI@mi_api_poly_index_add?$AA@ 00000001800288c0     shader:shader.obj
+ 0002:000038d8       ??_C@_0BF@EDGFJENL@mi_api_poly_hole_add?$AA@ 00000001800288d8     shader:shader.obj
+ 0002:000038f0       ??_C@_0BG@KENNLIEG@mi_api_poly_begin_tag?$AA@ 00000001800288f0     shader:shader.obj
+ 0002:00003908       ??_C@_0BC@CDLDAAK@mi_api_poly_begin?$AA@ 0000000180028908     shader:shader.obj
+ 0002:00003920       ??_C@_0BF@KMCHBNP@mi_api_map_obj_field?$AA@ 0000000180028920     shader:shader.obj
+ 0002:00003938       ??_C@_0BE@JBGBEGA@mi_api_map_obj_type?$AA@ 0000000180028938     shader:shader.obj
+ 0002:00003950       ??_C@_0BG@IIODPCIE@mi_api_map_field_decl?$AA@ 0000000180028950     shader:shader.obj
+ 0002:00003968       ??_C@_0BC@OIHDDNAC@mi_api_map_lookup?$AA@ 0000000180028968     shader:shader.obj
+ 0002:00003980       ??_C@_0BE@FJLMDANE@mi_api_map_decl_dim?$AA@ 0000000180028980     shader:shader.obj
+ 0002:00003998       ??_C@_0P@ENDKHAIK@mi_api_map_add?$AA@ 0000000180028998     shader:shader.obj
+ 0002:000039a8       ??_C@_0P@MPMPGCAL@mi_api_map_end?$AA@ 00000001800289a8     shader:shader.obj
+ 0002:000039b8       ??_C@_0BA@FLPDJKNJ@mi_api_map_file?$AA@ 00000001800289b8     shader:shader.obj
+ 0002:000039c8       ??_C@_0BH@PGGIOHOP@mi_api_map_element_end?$AA@ 00000001800289c8     shader:shader.obj
+ 0002:000039e0       ??_C@_0BF@FEAEFBOI@mi_api_map_field_end?$AA@ 00000001800289e0     shader:shader.obj
+ 0002:000039f8       ??_C@_0BG@OJMGLEME@mi_api_map_global_end?$AA@ 00000001800289f8     shader:shader.obj
+ 0002:00003a10       ??_C@_0BB@MIFOOMCC@mi_api_map_value?$AA@ 0000000180028a10     shader:shader.obj
+ 0002:00003a28       ??_C@_0BI@OLIMHGEL@mi_api_map_global_value?$AA@ 0000000180028a28     shader:shader.obj
+ 0002:00003a40       ??_C@_0BB@IEFAAOLB@mi_api_map_begin?$AA@ 0000000180028a40     shader:shader.obj
+ 0002:00003a58       ??_C@_0BE@DFINPKHN@mi_api_map_decl_end?$AA@ 0000000180028a58     shader:shader.obj
+ 0002:00003a70       ??_C@_0BG@DOBDBPF@mi_api_map_decl_begin?$AA@ 0000000180028a70     shader:shader.obj
+ 0002:00003a88       ??_C@_0BI@BEOPBAEC@mi_api_map_field_append?$AA@ 0000000180028a88     shader:shader.obj
+ 0002:00003aa0       ??_C@_0BG@IFPKLJMG@mi_api_mappath_search?$AA@ 0000000180028aa0     shader:shader.obj
+ 0002:00003ab8       ??_C@_0BI@GEFPENIK@mi_api_light_list_begin?$AA@ 0000000180028ab8     shader:shader.obj
+ 0002:00003ad0       ??_C@_0BG@FFCLIGA@mi_api_light_list_end?$AA@ 0000000180028ad0     shader:shader.obj
+ 0002:00003ae8       ??_C@_0BG@IHKHKKOB@mi_api_light_list_add?$AA@ 0000000180028ae8     shader:shader.obj
+ 0002:00003b00       ??_C@_0BK@EOPHIIJG@mi_api_surface_derivative?$AA@ 0000000180028b00     shader:shader.obj
+ 0002:00003b20       ??_C@_0BG@NMCNCDLE@mi_api_surface_lookup?$AA@ 0000000180028b20     shader:shader.obj
+ 0002:00003b38       ??_C@_0BL@EGMCPMPD@mi_api_surface_approx_trim?$AA@ 0000000180028b38     shader:shader.obj
+ 0002:00003b58       ??_C@_0BP@DCMKDPOM@mi_api_surface_approx_displace?$AA@ 0000000180028b58     shader:shader.obj
+ 0002:00003b78       ??_C@_0BG@FJLDEGNC@mi_api_surface_approx?$AA@ 0000000180028b78     shader:shader.obj
+ 0002:00003b90       ??_C@_0BN@EHOMLBOK@mi_api_surface_texture_begin?$AA@ 0000000180028b90     shader:shader.obj
+ 0002:00003bb0       ??_C@_0BG@IIIMKGCC@mi_api_surface_params?$AA@ 0000000180028bb0     shader:shader.obj
+ 0002:00003bc8       ??_C@_0BH@DADDPAL@mi_api_surface_specpnt?$AA@ 0000000180028bc8     shader:shader.obj
+ 0002:00003be0       ??_C@_0BI@LPLIAEFN@mi_api_surface_curveseg?$AA@ 0000000180028be0     shader:shader.obj
+ 0002:00003bf8       ??_C@_0BJ@FLMIOMIE@mi_api_surface_begin_tag?$AA@ 0000000180028bf8     shader:shader.obj
+ 0002:00003c18       ??_C@_0BF@LEJHEENI@mi_api_surface_begin?$AA@ 0000000180028c18     shader:shader.obj
+ 0002:00003c30       ??_C@_0BD@HNCIAIMN@mi_api_surface_end?$AA@ 0000000180028c30     shader:shader.obj
+ 0002:00003c48       ??_C@_0BE@DNKBINAN@mi_api_basis_lookup?$AA@ 0000000180028c48     shader:shader.obj
+ 0002:00003c60       ??_C@_0BI@PMCLECOL@mi_api_basis_list_clear?$AA@ 0000000180028c60     shader:shader.obj
+ 0002:00003c78       ??_C@_0BB@MECAJHKL@mi_api_basis_add?$AA@ 0000000180028c78     shader:shader.obj
+ 0002:00003c90       ??_C@_0CD@HDPMBKDG@mi_api_object_placeholder_callba@ 0000000180028c90     shader:shader.obj
+ 0002:00003cb8       ??_C@_0BH@MOHHNP@mi_api_object_callback?$AA@ 0000000180028cb8     shader:shader.obj
+ 0002:00003cd0       ??_C@_0BD@EHMGIFLH@mi_api_object_file?$AA@ 0000000180028cd0     shader:shader.obj
+ 0002:00003ce8       ??_C@_0BI@IEDNJHOB@mi_api_object_group_end?$AA@ 0000000180028ce8     shader:shader.obj
+ 0002:00003d00       ??_C@_0BP@GMGBGFGN@mi_api_object_group_connection?$AA@ 0000000180028d00     shader:shader.obj
+ 0002:00003d20       ??_C@_0BK@ONBGFILG@mi_api_object_group_begin?$AA@ 0000000180028d20     shader:shader.obj
+ 0002:00003d40       ??_C@_0BF@OFLMGOLF@mi_api_object_matrix?$AA@ 0000000180028d40     shader:shader.obj
+ 0002:00003d58       ??_C@_0BC@JGLBGOFK@mi_api_object_end?$AA@ 0000000180028d58     shader:shader.obj
+ 0002:00003d70       ??_C@_0BE@COEGHHPB@mi_api_object_begin?$AA@ 0000000180028d70     shader:shader.obj
+ 0002:00003d88       ??_C@_0P@EAIDCFLE@mi_api_taglist?$AA@ 0000000180028d88     shader:shader.obj
+ 0002:00003d98       ??_C@_0BH@FAAFAHEA@mi_api_material_lookup?$AA@ 0000000180028d98     shader:shader.obj
+ 0002:00003db0       ??_C@_0BE@OFGPKEJD@mi_api_material_end?$AA@ 0000000180028db0     shader:shader.obj
+ 0002:00003dc8       ??_C@_0BG@EPMPEDIG@mi_api_material_begin?$AA@ 0000000180028dc8     shader:shader.obj
+ 0002:00003de0       ??_C@_0BE@FEMHEGPN@mi_api_light_lookup?$AA@ 0000000180028de0     shader:shader.obj
+ 0002:00003df8       ??_C@_0BB@KAEHBDFM@mi_api_light_end?$AA@ 0000000180028df8     shader:shader.obj
+ 0002:00003e10       ??_C@_0BK@DMPKJLC@mi_api_light_shmap_camera?$AA@ 0000000180028e10     shader:shader.obj
+ 0002:00003e30       ??_C@_0BD@FGKIOLAA@mi_api_light_begin?$AA@ 0000000180028e30     shader:shader.obj
+ 0002:00003e48       ??_C@_0BI@IKJGEKEB@mi_get_shader_interface?$AA@ 0000000180028e48     shader:shader.obj
+ 0002:00003e60       ??_C@_0BA@KEGIJAAD@mi_api_hair_end?$AA@ 0000000180028e60     shader:shader.obj
+ 0002:00003e70       ??_C@_0BG@EHOEJFBA@mi_api_hair_hairs_add?$AA@ 0000000180028e70     shader:shader.obj
+ 0002:00003e88       ??_C@_0BB@LNLMHHCN@mi_api_hair_info?$AA@ 0000000180028e88     shader:shader.obj
+ 0002:00003ea0       ??_C@_0BG@MFBBIHJB@mi_api_hair_hairs_end?$AA@ 0000000180028ea0     shader:shader.obj
+ 0002:00003eb8       ??_C@_0BI@GLOLHALL@mi_api_hair_scalars_end?$AA@ 0000000180028eb8     shader:shader.obj
+ 0002:00003ed0       ??_C@_0BI@NPJOHAAI@mi_api_hair_hairs_begin?$AA@ 0000000180028ed0     shader:shader.obj
+ 0002:00003ee8       ??_C@_0BK@JDCMHFGF@mi_api_hair_scalars_begin?$AA@ 0000000180028ee8     shader:shader.obj
+ 0002:00003f08       ??_C@_0BC@BPDKHMCO@mi_api_hair_begin?$AA@ 0000000180028f08     shader:shader.obj
+ 0002:00003f20       ??_C@_0BG@PEEFGNJA@mi_api_texpath_search?$AA@ 0000000180028f20     shader:shader.obj
+ 0002:00003f38       ??_C@_0BN@NJBGNEJB@mi_api_texture_type_identify?$AA@ 0000000180028f38     shader:shader.obj
+ 0002:00003f58       ??_C@_0BG@CNKBFIBI@mi_api_texture_lookup?$AA@ 0000000180028f58     shader:shader.obj
+ 0002:00003f70       ??_C@_0CA@NBPFLOKC@mi_api_texture_set_colorprofile?$AA@ 0000000180028f70     shader:shader.obj
+ 0002:00003f90       ??_C@_0BK@JJJKJKHC@mi_api_texture_set_filter?$AA@ 0000000180028f90     shader:shader.obj
+ 0002:00003fb0       ??_C@_0BD@LAKHHBM@mi_api_texture_end?$AA@ 0000000180028fb0     shader:shader.obj
+ 0002:00003fc8       ??_C@_0BJ@JNFLLFFH@mi_api_texture_file_size?$AA@ 0000000180028fc8     shader:shader.obj
+ 0002:00003fe8       ??_C@_0BJ@DJEFGNBH@mi_api_texture_byte_copy?$AA@ 0000000180028fe8     shader:shader.obj
+ 0002:00004008       ??_C@_0BN@HOKPAAIF@mi_api_texture_array_def_end?$AA@ 0000000180029008     shader:shader.obj
+ 0002:00004028       ??_C@_0BF@OMAOKKAJ@mi_api_texture_begin?$AA@ 0000000180029028     shader:shader.obj
+ 0002:00004040       ??_C@_0BM@EELKJODE@mi_api_texture_callback_def?$AA@ 0000000180029040     shader:shader.obj
+ 0002:00004060       ??_C@_0BM@GELOMCGB@mi_api_texture_function_def?$AA@ 0000000180029060     shader:shader.obj
+ 0002:00004080       ??_C@_0BI@JGLJKGEN@mi_api_texture_file_def?$AA@ 0000000180029080     shader:shader.obj
+ 0002:00004098       ??_C@_0BL@CLJFBJDK@mi_api_texture_fileext_def?$AA@ 0000000180029098     shader:shader.obj
+ 0002:000040b8       ??_C@_0BP@ICOMAKGA@mi_api_texture_array_def_begin?$AA@ 00000001800290b8     shader:shader.obj
+ 0002:000040d8       ??_C@_0P@BBIHFODE@mi_api_private?$AA@ 00000001800290d8     shader:shader.obj
+ 0002:000040e8       ??_C@_0BF@LJGMBCOA@mi_api_taglist_reset?$AA@ 00000001800290e8     shader:shader.obj
+ 0002:00004100       ??_C@_0BF@BKDOOFFM@mi_api_version_check?$AA@ 0000000180029100     shader:shader.obj
+ 0002:00004118       ??_C@_0BF@NKBDEIGA@mi_api_render_params?$AA@ 0000000180029118     shader:shader.obj
+ 0002:00004130       ??_C@_0BD@EMIEKOCK@mi_api_incremental?$AA@ 0000000180029130     shader:shader.obj
+ 0002:00004148       ??_C@_0BC@IBEPCOAF@mi_api_camera_end?$AA@ 0000000180029148     shader:shader.obj
+ 0002:00004160       ??_C@_0O@CLKCJCFI@mi_api_render?$AA@ 0000000180029160     shader:shader.obj
+ 0002:00004170       ??_C@_0BE@GFLJGAAE@mi_api_camera_begin?$AA@ 0000000180029170     shader:shader.obj
+ 0002:00004188       ??_C@_0BD@HGBICJBA@mi_api_options_end?$AA@ 0000000180029188     shader:shader.obj
+ 0002:000041a0       ??_C@_0BF@MMGIOEOE@mi_api_options_begin?$AA@ 00000001800291a0     shader:shader.obj
+ 0002:000041b8       ??_C@_0BG@GFACLEAP@mi_api_render_release?$AA@ 00000001800291b8     shader:shader.obj
+ 0002:000041d0       ??_C@_0BG@IBHGPJGF@mi_api_view_transform?$AA@ 00000001800291d0     shader:shader.obj
+ 0002:000041e8       ??_C@_0BH@FJLIFCHL@mi_api_output_file_def?$AA@ 00000001800291e8     shader:shader.obj
+ 0002:00004200       ??_C@_0BN@GMPENLDA@mi_api_output_file_parameter?$AA@ 0000000180029200     shader:shader.obj
+ 0002:00004220       ??_C@_0BH@EKJNCKKM@mi_api_framebuffer_add?$AA@ 0000000180029220     shader:shader.obj
+ 0002:00004238       ??_C@_0BD@KLPMAFMK@mi_api_output_list?$AA@ 0000000180029238     shader:shader.obj
+ 0002:00004250       ??_C@_0BN@LNMLPKCJ@mi_api_output_imfdisp_handle?$AA@ 0000000180029250     shader:shader.obj
+ 0002:00004270       ??_C@_0BD@BMGALGO@mi_api_framebuffer?$AA@ 0000000180029270     shader:shader.obj
+ 0002:00004288       ??_C@_0BM@LDNDLJPB@mi_api_output_type_identify?$AA@ 0000000180029288     shader:shader.obj
+ 0002:000042a8       ??_C@_0BL@BBPDFAHA@mi_api_output_function_def?$AA@ 00000001800292a8     shader:shader.obj
+ 0002:000042c8       ??_C@_0BH@HOAMHMEK@mi_api_output_file_dir?$AA@ 00000001800292c8     shader:shader.obj
+ 0002:000042e0       ??_C@_0BM@NKDJLGDI@mi_api_output_file_override?$AA@ 00000001800292e0     shader:shader.obj
+ 0002:00004300       ??_C@_0BH@NOJLALMH@mi_api_function_assign?$AA@ 0000000180029300     shader:shader.obj
+ 0002:00004318       ??_C@_0BF@MNDDMJEB@mi_api_shader_call_x?$AA@ 0000000180029318     shader:shader.obj
+ 0002:00004330       ??_C@_0BD@DKMJLCJB@mi_api_shader_call?$AA@ 0000000180029330     shader:shader.obj
+ 0002:00004348       ??_C@_0BJ@HNGMKDGN@mi_api_new_array_element?$AA@ 0000000180029348     shader:shader.obj
+ 0002:00004368       ??_C@_0BF@LFBCGEJG@mi_api_parameter_pop?$AA@ 0000000180029368     shader:shader.obj
+ 0002:00004380       ??_C@_0BG@IJBPMMBI@mi_api_parameter_push?$AA@ 0000000180029380     shader:shader.obj
+ 0002:00004398       ??_C@_0BC@FMPMPCHK@mi_api_shader_add?$AA@ 0000000180029398     shader:shader.obj
+ 0002:000043b0       ??_C@_0BJ@MHNCBJBB@mi_api_function_call_end?$AA@ 00000001800293b0     shader:shader.obj
+ 0002:000043d0       ??_C@_0BL@IOBFAADP@mi_api_parameter_interface?$AA@ 00000001800293d0     shader:shader.obj
+ 0002:000043f0       ??_C@_0BI@JNIKPNOA@mi_api_parameter_shader?$AA@ 00000001800293f0     shader:shader.obj
+ 0002:00004408       ??_C@_0BO@CDOOMILN@mi_api_parameter_colorprofile?$AA@ 0000000180029408     shader:shader.obj
+ 0002:00004428       ??_C@_0BH@FENCLNMN@mi_api_parameter_value?$AA@ 0000000180029428     shader:shader.obj
+ 0002:00004440       ??_C@_0BG@CKKCNFAE@mi_api_parameter_name?$AA@ 0000000180029440     shader:shader.obj
+ 0002:00004458       ??_C@_0BF@MDIMHGJM@mi_api_function_call?$AA@ 0000000180029458     shader:shader.obj
+ 0002:00004470       ??_C@_0BH@KAEHGPAE@mi_api_function_append?$AA@ 0000000180029470     shader:shader.obj
+ 0002:00004488       ??_C@_0BH@MNOLOOP@mi_api_function_delete?$AA@ 0000000180029488     shader:shader.obj
+ 0002:000044a0       ??_C@_0BI@GAPBCNPH@mi_api_get_reload_limit?$AA@ 00000001800294a0     shader:shader.obj
+ 0002:000044b8       ??_C@_0P@JCMGJDKO@mi_api_warning?$AA@ 00000001800294b8     shader:shader.obj
+ 0002:000044c8       ??_C@_0N@HHMJCAEL@mi_api_error?$AA@ 00000001800294c8     shader:shader.obj
+ 0002:000044d8       _pRawDllMain               00000001800294d8     MSVCRT:crtdll.obj
+ 0002:000044d8       _pDefaultRawDllMain        00000001800294d8     MSVCRT:crtdll.obj
+ 0002:000044e0       ?ProcessDetach@NativeDll@<CrtImplementationDetails>@@0IB 00000001800294e0     MSVCRT:tncleanup.obj
+ 0002:000044e4       ?ProcessAttach@NativeDll@<CrtImplementationDetails>@@0IB 00000001800294e4     MSVCRT:tncleanup.obj
+ 0002:000044e8       ?ThreadAttach@NativeDll@<CrtImplementationDetails>@@0IB 00000001800294e8     MSVCRT:tncleanup.obj
+ 0002:000044ec       ?ThreadDetach@NativeDll@<CrtImplementationDetails>@@0IB 00000001800294ec     MSVCRT:tncleanup.obj
+ 0002:000044f0       ?ProcessVerifier@NativeDll@<CrtImplementationDetails>@@0IB 00000001800294f0     MSVCRT:tncleanup.obj
+ 0002:000044f8       __rtc_iaa                  00000001800294f8     MSVCRT:_initsect_.obj
+ 0002:00004500       __rtc_izz                  0000000180029500     MSVCRT:_initsect_.obj
+ 0002:00004508       __rtc_taa                  0000000180029508     MSVCRT:_initsect_.obj
+ 0002:00004510       __rtc_tzz                  0000000180029510     MSVCRT:_initsect_.obj
+ 0002:0000ca5c       __IMPORT_DESCRIPTOR_KERNEL32 0000000180031a5c     kernel32:KERNEL32.dll
+ 0002:0000ca70       __IMPORT_DESCRIPTOR_MSVCR90 0000000180031a70     MSVCRT:MSVCR90.dll
+ 0002:0000ca84       __NULL_IMPORT_DESCRIPTOR   0000000180031a84     kernel32:KERNEL32.dll
+ 0003:00000000       _fltused                   0000000180032000     MSVCRT:dllsupp.obj
+ 0003:00000004       __native_dllmain_reason    0000000180032004     MSVCRT:natstart.obj
+ 0003:00000008       __native_vcclrit_reason    0000000180032008     MSVCRT:natstart.obj
+ 0003:00000010       __security_cookie          0000000180032010     MSVCRT:gs_cookie.obj
+ 0003:00000018       __security_cookie_complement 0000000180032018     MSVCRT:gs_cookie.obj
+ 0003:00001610       ?__type_info_root_node@@3U__type_info_node@@A 0000000180033610     MSVCRT:tncleanup.obj
+ 0003:00001620       __native_startup_state     0000000180033620     <common>
+ 0003:00001628       __native_startup_lock      0000000180033628     <common>
+ 0003:00001630       __onexitend                0000000180033630     <common>
+ 0003:00001638       __onexitbegin              0000000180033638     <common>
+ 0003:00001640       __dyn_tls_init_callback    0000000180033640     <common>
+
+ entry point at        0001:000234c8
+
+ Static symbols
+
+ 0001:000230d4       pre_c_init                 00000001800240d4 f   MSVCRT:crtdll.obj
+ 0001:00023390       __DllMainCRTStartup        0000000180024390 f   MSVCRT:crtdll.obj
+ 0001:00023890       __DllMainCRTStartup$filt$0 0000000180024890 f   MSVCRT:crtdll.obj
+ 0001:000238c0       __DllMainCRTStartup$fin$1  00000001800248c0 f   MSVCRT:crtdll.obj
+ 0001:000238d9       _onexit$fin$0              00000001800248d9 f   MSVCRT:atonexit.obj
+ 0001:00023900       _IsNonwritableInCurrentImage$filt$0 0000000180024900 f   MSVCRT:pesect.obj

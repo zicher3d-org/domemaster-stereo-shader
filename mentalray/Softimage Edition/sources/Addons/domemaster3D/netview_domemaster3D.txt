@@ -1,0 +1,6 @@
+Domemaster3D Shader for Softimage - Version 1.4 B4
+This edition was released on March 23, 2014.
+
+A 2D/3D angular fisheye rendering system for planetariums and fulldome theatres. This shader is also available for 3DS Max, and Maya.
+
+The Domemaster3D shader is distributed under the GPL v3 License.

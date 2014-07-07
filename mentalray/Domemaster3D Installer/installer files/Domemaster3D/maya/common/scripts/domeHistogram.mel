@@ -1,0 +1,646 @@
+/*
+  Dome Histogram V1.5
+  2014-07-06
+  by Andrew Hazelden
+
+  The Dome Histogram tool allows you to view a histogram of the current image in the render view using the imagemagick utility.
+  
+  On Mac OS X you need to install imagemagick and add the "convert" tool to your system path by editing your ~/.bash_profile
+
+  On Windows the imagemagick tool convert.exe was renamed domeconvert.exe to avoid a name collision with an existing Windows utility of the same name.
+
+  Version History
+  ----------------
+
+  Version 1.5
+  ------------------
+  July 6, 2014
+
+  First release of the tool
+
+  To use the Histogram script run the following MEL commands:
+  source "domeHistogram.mel";
+  domeHistogram();
+
+*/
+
+
+global proc domeHistogram(){
+  //narrow and full height window
+  //global int $domeHistogramWindowHeight = 625;
+  //global int $domeHistogramWindowWidth = 595;
+
+  //exact fitting on Maya 2015 narrow and short height window
+  global int $domeHistogramWindowHeight = 300;
+  global int $domeHistogramWindowWidth = 280;
+
+  //-------------------------------------------------
+  //Get the current Maya Platform using python
+  //      The $mayaPlatform options are:
+  //          "windows", "darwin", "linux"
+  //-------------------------------------------------
+
+   //Check the operating system
+  string $mayaPlatform = getMayaPlatform();
+
+  // Check if we are running Maya 2011 or higher
+  float $mayaVersion = getMayaVersionDome();
+
+  // Write out the current Maya version number and detected operating system
+  print("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+
+  if ($mayaVersion >=2011){
+    // Remove an existing docked control window when running the domeHistogram tool for a 2nd time.
+    if (`dockControl -exists domeHistogramDockControl`){ 
+      deleteUI -control domeHistogramDockControl; 
+      print( "Removing an existing docked Dome Histogram Window\n");}
+
+    if (`window -exists domeHistogramWin`){
+      deleteUI domeHistogramWin;
+      windowPref -remove domeHistogramWin;
+      print("Reloading the Dome Histogram window elements\n");
+    }
+  }else{
+    // You are running Maya 2010 or lower - skip the dockcontrols
+    // Remove an existing window when running the domeHistogram tool for a 2nd time.
+    if (`window -exists domeHistogramWin`){
+      deleteUI domeHistogramWin;
+      windowPref -remove domeHistogramWin;
+      print("Reloading the Dome Histogram window elements\n");
+    }
+  }
+
+  string $domeHistogramWindow = `window 
+    -title "Dome Histogram" 
+    -widthHeight $domeHistogramWindowWidth $domeHistogramWindowHeight 
+    domeHistogramWin`; 
+ 
+  string $domeHistogramScrollableLayout = `scrollLayout 
+    -horizontalScrollBarThickness 18
+    -verticalScrollBarThickness   18
+    -childResizable 1
+    //-width $domeHistogramWindowWidth
+    `;
+
+  iconTextButton 
+    //-style "iconOnly"
+    //-style "iconAndTextVertical"
+    -style "iconAndTextHorizontal"
+    //-style "iconAndTextCentered"
+    -image1 "refresh.png"
+    //-align "center"
+    -align "left"
+    -font "boldLabelFont"
+    -label "Refresh the Histogram"
+    -enableBackground 1
+    //-backgroundColor 0.20 0.20 0.20 //dark grey
+    -backgroundColor 0.00 0.20 0.20   //medium teal
+    //-width 32
+    -height 32
+    -annotation "Refresh the histogram view using the latest Maya render."
+    -command "refreshHistogramMutedIcon();evalDeferred(\"refreshHistogramImagery();refreshHistogramUnMutedIcon();\");" 
+    buttonRefreshHistogram;
+
+  string $domeHistogramsTabs = `tabLayout 
+    //-innerMarginWidth 5 
+    //-innerMarginHeight 5 
+    -scrollable 1 
+    -horizontalScrollBarThickness 16 
+    -verticalScrollBarThickness 16 
+    -height 235
+    -width 230
+    -childResizable 1
+  `;
+
+  string $domeHistogramRGBTab = `columnLayout -adjustableColumn 1`;
+    //Show the histogram picture
+    string $histogramRGBImage = "histogram-rgb.png";
+    string $histogramRGBImageNameString = ( `internalVar -userTmpDir` + $histogramRGBImage );
+
+    picture
+      -image $histogramRGBImageNameString
+      //-annotation $histogramImageNameString
+      -width 256
+      -height 200
+      pictureRGBHistogramPreview;
+
+    print("RGB Histogram: " + $histogramRGBImageNameString + "\n");
+  setParent..;
+
+  string $domeHistogramLumaTab = `columnLayout -adjustableColumn 1`;
+    //Show the histogram picture
+    string $histogramLumaImage = "histogram-luma.png";
+    string $histogramLumaImageNameString = ( `internalVar -userTmpDir` + $histogramLumaImage );
+
+    picture
+      -image $histogramLumaImageNameString
+      //-annotation $histogramImageNameString
+      -width 256
+      -height 200
+      pictureLumaHistogramPreview;
+
+    print("Luma Histogram: " + $histogramLumaImageNameString + "\n");
+  setParent..;
+
+  string $domeHistogramRedTab = `columnLayout -adjustableColumn 1`;
+    //Show the histogram picture
+    string $histogramRedImage = "histogram-0.png";
+    string $histogramRedImageNameString = ( `internalVar -userTmpDir` + $histogramRedImage );
+
+    picture
+      -image $histogramRedImageNameString
+      //-annotation $histogramImageNameString
+      -width 256
+      -height 200
+      pictureRedHistogramPreview;
+
+    print("Red Histogram: " + $histogramRedImageNameString + "\n");
+  setParent..;
+
+  string $domeHistogramGreenTab = `columnLayout -adjustableColumn 1`;
+    //Show the histogram picture
+    string $histogramGreenImage = "histogram-1.png";
+    string $histogramGreenImageNameString = ( `internalVar -userTmpDir` + $histogramGreenImage );
+
+    picture
+      -image $histogramGreenImageNameString
+      //-annotation $histogramImageNameString
+      -width 256
+      -height 200
+      pictureGreenHistogramPreview;
+
+    print("Green Histogram: " + $histogramGreenImageNameString + "\n");
+  setParent..;
+
+  string $domeHistogramBlueTab = `columnLayout -adjustableColumn 1`;
+    //Show the histogram picture
+    string $histogramBlueImage = "histogram-2.png";
+    string $histogramBlueImageNameString = ( `internalVar -userTmpDir` + $histogramBlueImage );
+
+    picture
+      -image $histogramBlueImageNameString
+      //-annotation $histogramImageNameString
+      -width 256
+      -height 200
+      pictureBlueHistogramPreview;
+
+    print("Blue Histogram: " + $histogramBlueImageNameString + "\n");
+  setParent..;
+
+  tabLayout -edit
+    -tabLabel $domeHistogramRGBTab "RGB"
+    -tabLabel $domeHistogramLumaTab "Luma"
+    -tabLabel $domeHistogramRedTab "Red"
+    -tabLabel $domeHistogramGreenTab "Green"
+    -tabLabel $domeHistogramBlueTab "Blue"
+    $domeHistogramsTabs;
+
+  setParent..;
+
+  //----------------------------------------------------------------------
+  // Update the Histogram Button
+  //----------------------------------------------------------------------
+  //Alternate refresh icons:
+  //refresh.png
+  //refreshGray.png
+
+  /*
+  checkBoxGrp
+    -numberOfCheckBoxes 1
+    -label1 "Limit to Render Region"
+    -value1 false
+    -annotation "The Use Render Region option will enable render \nregion cropping as the histogram analysis zone."
+    checkGrpHistogramRenderRegion;
+
+  //Histogram limit analysis zone options
+
+  checkBoxGrp
+    -numberOfCheckBoxes 1
+    -label1 "Limit to Fulldome Sweetspot Region"
+    -value1 false
+    -annotation "The Limit to Fulldome Sweetspot Region option will show the histogram \nanalisys for the front area of the fulldome screen only."
+    checkGrpHistogramFulldomeSweetspotRegion;
+  */
+
+  //----------------------------------------------------------------------
+  //Show the Dome Histogram window
+  //On Maya 2011 and higher provide access to the dockable UI 
+  //----------------------------------------------------------------------
+
+  string $dockedArea = "";
+  int $dockedFloating = 0;
+
+  //Load the dockControl Settings
+  if ($mayaVersion >= 2011) {
+    //Is the window docked to the left or right of the screen?
+    if(`optionVar -exists "domeHistogramDockControlArea"`){
+      $dockedArea = `optionVar -query "domeHistogramDockControlArea"`;
+    } else{
+      $dockedArea = "left";
+    }
+
+    //Is the window floating or not?
+    if(`optionVar -exists "domeHistogramDockControlFloating"`){
+      $dockedFloating = `optionVar -query "domeHistogramDockControlFloating"`;
+    } else {
+      $dockedFloating = 0;
+    }
+  }
+  
+  if ( $mayaVersion == 2011 ){
+  //Make the Maya 2011 or higher window dockable
+  string $domeHistogramDockControl = `dockControl 
+        -label "Dome Histogram"
+        -area $dockedArea 
+        // -area "right" //snap to the right side of the view next to the attribute editor
+        //-area "left"     //snap to the left side of the view next to the tool settings tab
+        -content domeHistogramWin
+        -floating $dockedFloating
+        //-floating 1 //floating window
+        //-floating 0 //docked window
+        -height $domeHistogramWindowHeight
+        -width $domeHistogramWindowWidth
+        //-allowedArea "all"
+        -allowedArea "left"
+        -allowedArea "right"
+        -raise
+        // Disabled for Maya 2011 compatibility testing
+        //-floatChangeCommand "evalDeferred(\"dockControl -e -width $domeHistogramWindowWidth domeHistogramDockControl;dockControl -e -height $domeHistogramWindowHeight domeHistogramDockControl;SaveDockedDomeHistogramWindowPos();\")"
+        domeHistogramDockControl`;
+  
+  //Force the window back to the right size
+  evalDeferred("dockControl -e -width $domeHistogramWindowWidth domeHistogramDockControl;dockControl -e -height $domeHistogramWindowHeight domeHistogramDockControl;SaveDockedDomeHistogramWindowPos();");
+
+  //Get the current window size
+  print ("\nDome Histogram Window Size: " 
+            + `dockControl -q -width domeHistogramDockControl` 
+            + " width " 
+            + `dockControl -q -height domeHistogramDockControl` 
+            + " height\n");
+  }else if ( $mayaVersion >= 2012 ) {
+  //Make the Maya 2012 or higher window dockable
+  string $domeHistogramDockControl = `dockControl 
+        -label "Dome Histogram"
+        -area $dockedArea 
+        // -area "right" //snap to the right side of the view next to the attribute editor
+        //-area "left"     //snap to the left side of the view next to the tool settings tab
+        -content domeHistogramWin
+        -floating $dockedFloating
+        //-floating 1 //floating window
+        //-floating 0 //docked window
+        -height $domeHistogramWindowHeight
+        -width $domeHistogramWindowWidth
+        //-allowedArea "all"
+        -allowedArea "left"
+        -allowedArea "right"
+        -raise
+        -floatChangeCommand "evalDeferred(\"dockControl -e -width $domeHistogramWindowWidth domeHistogramDockControl;dockControl -e -height $domeHistogramWindowHeight domeHistogramDockControl;SaveDockedDomeHistogramWindowPos();\")"
+        domeHistogramDockControl`;
+  
+  //Force the window back to the right size
+  evalDeferred("dockControl -e -width $domeHistogramWindowWidth domeHistogramDockControl;dockControl -e -height $domeHistogramWindowHeight domeHistogramDockControl;SaveDockedDomeHistogramWindowPos();");
+
+  //Get the current window size
+  print ("\nDome Histogram Window Size: " 
+            + `dockControl -q -width domeHistogramDockControl` 
+            + " width " 
+            + `dockControl -q -height domeHistogramDockControl` 
+            + " height\n");
+ 
+  } else{
+    //Make the Maya 2010 or lower window a regular window type
+    //showWindow $domeHistogramWindow;
+    showWindow domeHistogramWin;
+    
+    //Get the current window size
+    print ("\nDome Histogram Window Size: "  
+             + `window -q -width domeHistogramWin` 
+             + " width " 
+             + `window -q -height domeHistogramWin` 
+             + " height\n");
+  }
+}
+
+//Show the refresh icon as dimmed
+global proc refreshHistogramMutedIcon(){
+  iconTextButton -edit -image1 "refreshGray.png" buttonRefreshHistogram;
+}
+
+//Show the bright green refresh icon
+global proc refreshHistogramUnMutedIcon(){
+  iconTextButton -edit -image1 "refresh.png" buttonRefreshHistogram;
+}
+
+//Run the imagemagick histogram function and load the result
+global proc refreshHistogramImagery(){
+
+  //iconTextButton -edit -image1 "refreshGray.png" buttonRefreshHistogram;
+
+
+  //Save the current render view image to disk
+  domeSaveRenderViewImage();
+
+  //Use domeconvert.exe (imagemagick) to generate the new histograms
+  //string $histogramScriptPath = "\"\C:\\Program Files\\Domemaster3D\\maya\\common\\scripts\\domeHistogram.bat\"";
+  //system($histogramScriptPath);
+
+  //Use domeconvert.exe (imagemagick) to generate the new histograms
+  domeComputeHistogram();
+
+  //Force the new histogram images into each of the tab image fields
+  reloadHistogramImageFields();
+
+  //iconTextButton -edit -image1 "refresh.png" buttonRefreshHistogram;
+  print("The histogram view update is complete.\n");
+}
+
+global proc domeComputeHistogram(){
+   //Check the operating system
+  string $mayaPlatform = getMayaPlatform();
+  
+  //Check if we are running Maya 2011 or higher
+  float $mayaVersion = getMayaVersionDome();
+  print("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+
+  //Send the text commands to ImageMagick
+  //Check the platform to come up with the correct syntax
+  string $changeWorkingDir = "";
+  string $imagemagickPath = "";
+
+  if ($mayaPlatform  == "windows"){
+    //Windows 32/x64
+    //Warning: The convert.exe program has the same name as a windows 7 system tool so it has been renamed domeconvert.exe
+
+    //Debug testing alternate paths
+    //$imagemagickPath = "\"C:\\Program Files\\Domemaster3D\\bin\\domeconvert.exe\"";
+    //$imagemagickPath = "\"%PROGRAMFILES%\"\\Domemaster3D\\bin\\domeconvert.exe";
+    //$imagemagickPath = " \"\"%PROGRAMFILES%\"\"\\Domemaster3D\\bin\\domeconvert.exe ";
+   
+   //Added to system path: ";C:\Program Files\Domemaster3D\bin"
+    $imagemagickPath = "domeconvert.exe";
+  }else if ($mayaPlatform  == "darwin"){
+    //Mac OS X
+    $imagemagickPath = "/opt/local/bin/convert";
+  }else {  
+    //Linux
+    //$imagemagickPath = "convert";
+    $imagemagickPath = "/usr/bin/convert";
+  }
+
+  //--------------------------------------------------------------------------------------------------
+
+  //Example: C:/Users/<User Account>/AppData/Local/Temp/
+  string $tmp_input_folder = `internalVar -userTmpDir`;
+  string $tmp_input_image = "maya_renderview_snapshot.png";
+  string $tmp_input_imagepath = $tmp_input_folder + $tmp_input_image;
+
+  string $tmp_output_folder = `internalVar -userTmpDir`;
+  string $tmp_output_image = "histogram";
+  string $tmp_output_luma_path= $tmp_output_folder + $tmp_output_image + "-luma.png";
+  string $tmp_output_rgb_path= $tmp_output_folder + $tmp_output_image + "-rgb.png";
+  string $tmp_output_separate_path=$tmp_output_folder + $tmp_output_image + "-%d.png";
+
+  //--------------------------------------------------------------------------------------------------
+
+  //Create a Luminance histogram plot
+  string $lumaHistogramString = "";
+  $lumaHistogramString += `toNativePath($tmp_input_imagepath)` + " " + "-separate -append -define histogram:unique-colors=false histogram:" + `toNativePath($tmp_output_luma_path)`;
+
+  //Create an RGB histogram plot
+  string $rgbHistogramString = "";
+  $rgbHistogramString += `toNativePath($tmp_input_imagepath)` + " " + "-define histogram:unique-colors=false histogram:" + `toNativePath($tmp_output_rgb_path)`;
+
+  //Extract the RGB colors to separate images
+  string $rgbSeparateHistogramString = "";
+  $rgbSeparateHistogramString += `toNativePath($tmp_output_rgb_path)` + " " + "-separate" + " " + `toNativePath($tmp_output_separate_path)`;
+
+  string $result = "";
+  string $systemCommandString = "";
+
+  //--------------------------------------------------------------------------------------------------
+
+  //Process the Luma Histogram
+  //Save the system console command string to a variable
+  $systemCommandString = "";
+  $systemCommandString += $imagemagickPath + " ";
+  $systemCommandString += $lumaHistogramString;
+  
+  print("Histogram Luma Processing Command: " + $systemCommandString + "\n");
+  string $result = system($systemCommandString);
+  print ("Feedback: " + $result + "\n");
+
+  //--------------------------------------------------------------------------------------------------
+
+  //Process the RGB Histogram
+  //Save the system console command string to a variable
+  $result = "";
+  $systemCommandString = "";
+  $systemCommandString += $imagemagickPath + " ";
+  $systemCommandString += $rgbHistogramString;
+  
+  print("Histogram RGB Processing Command: " + $systemCommandString + "\n");
+  string $result = system($systemCommandString);
+  print ("Feedback: " + $result + "\n");
+ 
+  //--------------------------------------------------------------------------------------------------
+
+  //Process the RGB Separate Channels Histogram
+  //Save the system console command string to a variable
+  $result = "";
+  $systemCommandString = "";
+  $systemCommandString += $imagemagickPath + " ";
+  $systemCommandString += $rgbSeparateHistogramString;
+  
+  print("Histogram RGB Separate Channel Processing Command: " + $systemCommandString + "\n");
+  string $result = system($systemCommandString);
+  print ("Feedback: " + $result + "\n");
+
+  //--------------------------------------------------------------------------------------------------
+}
+
+
+//Save the current render view image to disk
+global proc domeSaveRenderViewImage(){
+   //Save the current render settings image format selection (png/exr/jpeg/iff/etc...)
+  int $PrevousExporterImageFormat  = `getAttr "defaultRenderGlobals.imageFormat"`;
+
+  //Force the image format to PNG for the export
+  int $ExporterImageFormat = 32; //PNG=32
+  setAttr "defaultRenderGlobals.imageFormat" $ExporterImageFormat;
+
+  //Save the generated image from the Maya Render View window
+  string $filenameString = ( `internalVar -userTmpDir` + "maya_renderview_snapshot.png");
+  print("Saving an image " + $filenameString + " from the render view\n");
+
+  //Grab the name of the current render view
+  string $currentRenderView[] = `getPanel -scriptType "renderWindowPanel"`;
+  //The $currentRenderView value should typically be "renderView" or "renderView1"
+  string $editor = $currentRenderView[0];
+  //string $editor = "renderView";
+
+  //Check if the old renderview snapshot file exists and remove it first
+  string $filenameString = ( `internalVar -userTmpDir` + "maya_renderview_snapshot.png");
+  if(`filetest -f $filenameString`){
+    print("The file: " + $filenameString + " exists. It will be overwritten.\n");
+    sysFile -delete $filenameString;
+  } else {
+    print("Creating the new file: " + $filenameString + "\n");
+  }
+  
+  //Save the image with color management
+  renderWindowEditor -edit -autoResize true -writeImage $filenameString -colorManage $editor;
+
+  //Save the image without color management
+  //renderWindowEditor -edit -autoResize true -writeImage $filenameString $editor;
+
+  //Revert the render settings image format selection (png/exr/jpeg/iff/etc...)
+  setAttr "defaultRenderGlobals.imageFormat" $PrevousExporterImageFormat;
+}
+
+
+//Find out the screen coordinates of the current render region
+global proc domeGetRenderWindowRegion(){
+  //string $editor = "renderView";
+ 
+  //renderWindowEditor -query -marquee $editor;
+
+//marquee (xLow, xHigh, yLow, yHigh)
+}
+
+//Force the new histogram images into each of the tab image fields
+global proc reloadHistogramImageFields(){
+
+    string $histogramRGBImage = "histogram-rgb.png";
+    string $histogramRGBImageNameString = ( `internalVar -userTmpDir` + $histogramRGBImage );
+    picture
+      -edit
+      -image $histogramRGBImageNameString
+      //-annotation $histogramImageNameString
+      pictureRGBHistogramPreview;
+
+    //---------------------------------------------------------------------------------
+
+    string $histogramLumaImage = "histogram-luma.png";
+    string $histogramLumaImageNameString = ( `internalVar -userTmpDir` + $histogramLumaImage );
+
+    picture
+      -edit
+      -image $histogramLumaImageNameString
+      //-annotation $histogramImageNameString
+      pictureLumaHistogramPreview;
+
+    //---------------------------------------------------------------------------------
+
+    string $histogramRedImage = "histogram-0.png";
+    string $histogramRedImageNameString = ( `internalVar -userTmpDir` + $histogramRedImage );
+
+    picture
+      -edit
+      -image $histogramRedImageNameString
+      //-annotation $histogramImageNameString
+      pictureRedHistogramPreview;
+
+    //---------------------------------------------------------------------------------
+
+    string $histogramGreenImage = "histogram-1.png";
+    string $histogramGreenImageNameString = ( `internalVar -userTmpDir` + $histogramGreenImage );
+
+    picture
+      -edit
+      -image $histogramGreenImageNameString
+      //-annotation $histogramImageNameString
+      pictureGreenHistogramPreview;
+
+    //---------------------------------------------------------------------------------
+
+    string $histogramBlueImage = "histogram-2.png";
+    string $histogramBlueImageNameString = ( `internalVar -userTmpDir` + $histogramBlueImage );
+
+    picture
+      -edit
+      -image $histogramBlueImageNameString
+      //-annotation $histogramImageNameString
+      -width 256
+      -height 200
+      pictureBlueHistogramPreview;
+
+    //---------------------------------------------------------------------------------
+    print("RGB Histogram: " + $histogramRGBImageNameString + "\n");
+    print("Luma Histogram: " + $histogramLumaImageNameString + "\n");
+    print("Red Histogram: " + $histogramRedImageNameString + "\n");
+    print("Green Histogram: " + $histogramGreenImageNameString + "\n");
+    print("Blue Histogram: " + $histogramBlueImageNameString + "\n");
+}
+
+
+global proc SaveDockedDomeHistogramWindowPos(){
+  //Save the DomeHistogram dockControl State
+
+  string $dockedArea = `dockControl -query -area domeHistogramDockControl`;
+  int $dockedFloating = `dockControl -query -floating domeHistogramDockControl`;
+
+  //Save the dockControl window state - options: left,right
+  optionVar -stringValue "domeHistogramDockControlArea" $dockedArea; 
+
+  //Save the dockControl floating state - options: 0, 1
+  optionVar -intValue "domeHistogramDockControlFloating" $dockedFloating;
+
+  //DockControl Debug Info
+  if($dockedFloating == 0){
+    print("The DomeHistogram window is docked to the " + $dockedArea + " side.\n\n");
+  } else {
+    print("The DomeHistogram window is floating.\n\n");
+  }
+}
+
+
+//Check what Maya version is active
+global proc int getMayaVersionDome(){
+  // Check if we are running Maya 2011 or higher
+  float $mayaVersion = `getApplicationVersionAsFloat`;
+
+  // Test this GUI using the Maya 2010 - non-docked GUI mode
+  //float $mayaVersion = 2010;
+
+  // Write out the current Maya version number
+  //print("Maya " + $mayaVersion + " detected.\n");
+
+  return $mayaVersion;
+}
+
+
+//Check the operating system
+global proc string getMayaPlatform(){
+  //-------------------------------------------------
+  //Get the current Maya Platform using python
+  //      The $mayaPlatform options are:
+  //          "windows", "darwin", "linux"
+  //-------------------------------------------------
+
+  string $mayaPlatform = "";
+  python( "import sys" );
+
+  if( python( "sys.platform == 'win32'" ) ){
+    $mayaPlatform = "windows";
+  }else if( python( "sys.platform == 'windows'" ) ){
+    $mayaPlatform = "windows";
+  }else if( python( "sys.platform == 'darwin'" ) ){
+    $mayaPlatform = "darwin";
+  }else {
+    $mayaPlatform = "linux";
+  }
+
+  //print("Running on " + $mayaPlatform + ".\n");
+  return $mayaPlatform;
+}
+
+
+//--------------------------------------
+//Show the domeHistogram window
+//--------------------------------------
+
+//Show the histogram GUI
+//domeHistogram();
+//Update the view
+//refreshHistogramImagery();
+

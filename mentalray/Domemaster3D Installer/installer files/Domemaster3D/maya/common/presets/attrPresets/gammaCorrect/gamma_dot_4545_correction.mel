@@ -1,0 +1,17 @@
+// requires maya "2014";
+startAttrPreset( "gammaCorrect" );
+blendAttrStr "aiUserOptions" ""; 
+blendAttr "valueX" 0.5; 
+blendAttr "valueY" 0.5; 
+blendAttr "valueZ" 0.5; 
+blendAttr "gammaX" 0.4544999897; 
+blendAttr "gammaY" 0.4544999897; 
+blendAttr "gammaZ" 0.4544999897; 
+blendAttr "renderPassMode" 1; 
+blendAttr "aiValueX" 0; 
+blendAttr "aiValueY" 0; 
+blendAttr "aiValueZ" 0; 
+blendAttr "aiGammaX" 1; 
+blendAttr "aiGammaY" 1; 
+blendAttr "aiGammaZ" 1; 
+endAttrPreset();

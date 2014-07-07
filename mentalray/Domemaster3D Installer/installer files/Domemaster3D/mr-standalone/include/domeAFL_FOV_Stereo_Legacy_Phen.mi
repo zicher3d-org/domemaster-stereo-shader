@@ -1,0 +1,265 @@
+# Domemaster Stereoscopic Lens Shader Mental Ray Include File
+# Version 1.5 - Legacy Fallback NodeID Phenomenon
+#
+# This file helps you open domeAFL nodes with Legacy ID codes
+# from previous Domemaster3D releases prior to V1.5 July 2014
+# ---------------------------------------------------------------------
+# by Andrew Hazelden (andrew@andrewhazelden.com)
+# http://www.andrewhazelden.com
+# 
+#------------------------------------------
+# domeAFL_FOV_Stereo_Legacy Node
+# Required Inputs:  FOV (field-of-view) 
+# Required Inputs:  Camera
+# Required Inputs:  Dome_Radius
+# Required Inputs:  Cameras_Separation
+# Required Inputs:  Cameras_Separation_Map
+# Required Inputs:  Head_Turn_Map
+#
+# Optional Inputs:
+#     View_offset (Off-axis offset)
+#     Flip_Ray_X (Flips Ray.x direction about y-axis)
+#     Flip_Ray_Y (Flips Ray.y direction about x-axis)
+#      Dome_Tilt
+#      Head_Tilt_Map
+#      Dome_Tilt_Compensation
+#      Vertical_Mode
+#------------------------------------------
+
+declare phenomenon
+  color 
+
+  "domeAFL_FOV_Stereo_Legacy" (
+    scalar  "FOV_Angle",    
+        #: default 180.0 
+        #: min 0.1
+        #: max 360.0
+        #: shortname "fov"
+    
+    vector  "View_Offset",    
+        #: default 0.0 0.0 0.0 
+        #: min -1.0 -1.0 -1.0
+        #: max 1.0 1.0 1.0
+                  
+    boolean "Flip_Ray_X",   
+        #: default 0.0
+        #: shortname "flipx"
+    
+    boolean "Flip_Ray_Y",   
+        #: default 0.0
+        #: shortname "flipy"
+    
+    integer "Camera" default 0, 
+        #: enum "Center=0:Left=1:Right=2"
+        #: default 0
+        #: min 0 
+        #: max 2
+        #: shortname "cam"
+    
+    scalar  "Dome_Radius",    
+        #: default 360.0  
+        #: min 1.0 
+        #: max 1000000.0
+        #: shortname "dr"
+    
+    scalar  "Dome_Tilt",      
+        #: default 0.0 
+        #: min 0.0 
+        #: max 90.0
+        #: shortname "tilt"
+    
+    scalar  "Cameras_Separation", 
+        #: default 6.0 
+        #: min 0.0 
+        #: max 1000000.0
+        #: shortname "sep"
+    
+    scalar  "Cameras_Separation_Map", 
+        #: default 1.0 
+        #: min 0 
+        #: max 1.0   
+    
+    scalar  "Head_Turn_Map",  
+        #: default 1.0 
+        #: min 0 
+        #: max 1.0   
+    
+    scalar  "Head_Tilt_Map",  
+        #: default 0.5 
+        #: min 0 
+        #: max 1.0   
+    
+    boolean "Dome_Tilt_Compensation", 
+        #: default 0
+    
+    boolean "Vertical_Mode"   
+        #: default 0
+    )
+
+  shader "domeAFL_FOV_Stereo1"
+    "domeAFL_FOV_Stereo" (
+      "FOV_Angle" = interface "FOV_Angle",
+      "View_Offset" = interface "View_Offset",
+      "Flip_Ray_X" = interface "Flip_Ray_X",
+      "Flip_Ray_Y" = interface "Flip_Ray_Y",
+      "Camera" = interface "Camera",
+      "Dome_Radius" = interface "Dome_Radius",
+      "Dome_Tilt" = interface "Dome_Tilt",
+      "Cameras_Separation" = interface "Cameras_Separation",
+      "Cameras_Separation_Map" = interface "Cameras_Separation_Map",
+      "Head_Turn_Map" = interface "Head_Turn_Map",
+      "Head_Tilt_Map" = interface "Head_Tilt_Map",
+      "Dome_Tilt_Compensation" = interface "Dome_Tilt_Compensation",
+      "Vertical_Mode" = interface "Vertical_Mode"
+      )
+
+  root
+    = "domeAFL_FOV_Stereo1"
+  #: nodeid 8101  # Node ID for Maya binary
+  version 1
+  apply lens
+  scanline off
+  trace on
+end declare
+
+#------------------------------------------
+# domeAFL_FOV_Legacy Node
+# Required Inputs:  FOV (field-of-view) 
+#
+# Optional Inputs:  View_offset (Off-axis offset)
+#     Flip_Ray_X (Flips Ray.x direction about y-axis)
+#     Flip_Ray_Y (Flips Ray.y direction about x-axis)
+#------------------------------------------
+
+declare phenomenon
+  color 
+
+  "domeAFL_FOV_Legacy" (
+    scalar "FOV_Angle",
+        #: default 180.0
+        #: min 0.1
+        #: max 360.0
+    vector "View_Offset",
+        #: default 0.0 0.0 0.0
+        #: min -1.0 -1.0 -1.0
+        #: max 1.0 1.0 1.0 
+    boolean "Flip_Ray_X",
+        #: default 0 
+    boolean "Flip_Ray_Y"
+        #: default 0 
+    )
+
+  shader "domeAFL_FOV1"
+    "domeAFL_FOV" (
+      "FOV_Angle" = interface "FOV_Angle",
+      "View_Offset" = interface "View_Offset",
+      "Flip_Ray_X" = interface "Flip_Ray_X",
+      "Flip_Ray_Y" = interface "Flip_Ray_Y"
+      )
+
+  root
+    = "domeAFL_FOV1"
+  #: nodeid 8002  # Node ID for Maya binary
+  version 1
+  apply lens
+  scanline off
+  trace on
+end declare
+
+#------------------------------------------
+# domeAFL_WxH_Legacy Node
+# REQUIRED Inputs:  Diameter, Height (dimensionless) 
+#
+# OPTIONAL Inputs:  View_offset (Off-axis offset)
+#   Flip_Ray_X (Flips Ray.x direction about y-axis)
+#   Flip_Ray_Y (Flips Ray.y direction about x-axis)
+#------------------------------------------
+
+declare phenomenon
+  color 
+
+  "domeAFL_WxH_Legacy" (
+    scalar  "Diameter",   
+        #: default 1.0
+        #: min 0.0001
+        #: max 9999.0
+
+    scalar  "Height",   
+        #: default 0.5
+        #: min 0.0001
+        #: max 9999.0
+
+    vector  "View_Offset", 
+        #: default 0.0 0.0 0.0
+        #: min -1.0 -1.0 -1.0
+        #: max 1.0 1.0 1.0 
+    
+    boolean "Flip_Ray_X",
+        #: default 0 
+
+    boolean "Flip_Ray_Y"
+        #: default 0 
+    )
+
+  shader "domeAFL_WxH1"
+    "domeAFL_WxH" (
+      "Diameter" = interface "Diameter",
+      "Height" = interface "Height",
+      "View_Offset" = interface "View_Offset",
+      "Flip_Ray_X" = interface "Flip_Ray_X",
+      "Flip_Ray_Y" = interface "Flip_Ray_Y"
+      )
+
+  root
+    = "domeAFL_WxH1"
+  #: nodeid 8003  # Node ID for Maya binary
+  version 1
+  apply lens
+  scanline off
+  trace on
+end declare
+
+#------------------------------------------
+# rob_lookup_background_Legacy Node
+# Required Inputs:  tex
+#
+# Optional Inputs:
+#     zoom
+#     pan
+#     torus_u
+#     torus_v
+#------------------------------------------
+
+declare phenomenon
+  color 
+
+  "rob_lookup_background_Legacy" (
+    vector  "zoom" default 0.0 0.0 0.0,
+    vector  "pan" default 0.0 0.0 0.0,
+    boolean "torus_u" default true,
+    boolean "torus_v" default true,
+    #shader "tex"
+    scalar  "tex"
+    )
+
+  shader "rob_lookup_background1"
+    "rob_lookup_background" (
+      "zoom" = interface "zoom",
+      "pan" = interface "pan",
+      "torus_u" = interface "torus_u",
+      "torus_v" = interface "torus_v",
+      "tex" = interface "tex"
+      )
+
+  root
+    = "rob_lookup_background1"
+  #: nodeid 8102  # Node ID for Maya binary
+  version 1
+  apply lens
+  scanline off
+  trace on
+end declare
+
+
+
+

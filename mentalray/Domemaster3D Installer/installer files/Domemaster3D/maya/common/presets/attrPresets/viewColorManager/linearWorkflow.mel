@@ -1,0 +1,8 @@
+// requires maya "2015";
+startAttrPreset( "viewColorManager" );
+blendAttr "imageColorProfile" 2; 
+blendAttr "displayColorProfile" 3; 
+blendAttr "exposure" 0; 
+blendAttr "contrast" 0; 
+blendAttr "contrastPivot" 0.1800000072; 
+endAttrPreset();

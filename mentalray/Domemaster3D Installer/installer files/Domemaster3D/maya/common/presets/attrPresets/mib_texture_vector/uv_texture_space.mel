@@ -1,0 +1,7 @@
+// requires maya "2015";
+startAttrPreset( "mib_texture_vector" );
+blendAttr "select" 0; 
+blendAttr "selspace" 0; 
+blendAttr "vertex" 0; 
+blendAttr "project" 0; 
+endAttrPreset();

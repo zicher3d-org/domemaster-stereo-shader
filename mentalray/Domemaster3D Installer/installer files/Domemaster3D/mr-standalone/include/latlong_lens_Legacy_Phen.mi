@@ -1,0 +1,30 @@
+# Legacy Fallback NodeID Phenomenon
+#
+# This file helps you open latlong_lens nodes with Legacy ID codes
+# from previous Domemaster3D releases prior to V1.5 July 2014
+#
+# Updated Node IDs
+#    New Node ID = 1185224
+#    Old Node ID = 58675
+#
+
+declare phenomenon
+  color 
+
+  "latlong_lens_Legacy" (
+			boolean "flipHorizontal"          #: default 0
+    )
+
+  shader "latlong_lens1"
+    "latlong_lens" (
+      "flipHorizontal" = interface "flipHorizontal",
+      )
+
+  root
+    = "latlong_lens1"
+  #: nodeid 58675  # Node ID for Maya binary
+  version 1
+  apply lens
+  scanline off
+  trace on
+end declare

@@ -1,0 +1,10 @@
+// requires maya "2015";
+startAttrPreset( "gammaCorrect" );
+blendAttr "valueX" 0; 
+blendAttr "valueY" 0; 
+blendAttr "valueZ" 0; 
+blendAttr "gammaX" 1; 
+blendAttr "gammaY" 1; 
+blendAttr "gammaZ" 1; 
+blendAttr "renderPassMode" 1; 
+endAttrPreset();

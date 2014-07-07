@@ -1,0 +1,6 @@
+Mac OS X Installation Notes
+--------------------------------
+
+If you are running Mac OS X 10.8, 10.9, or 10.10 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run.
+
+This will allow the unsigned Domemaster3D installer to create the /Applications/Domemaster3D resource folder.

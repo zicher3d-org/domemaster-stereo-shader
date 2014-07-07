@@ -1,0 +1,261 @@
+/*
+
+  Dome Render V1.5
+  by Andrew Hazelden
+  
+  A set of pre and post render MEL scripts that set the focal length and openGL stereo3D display modes based upon the rendering or interactive use of Maya. 
+  
+  This script will change the domeAFL_FOV_Stereo node's stereo camera rig between the "render time" lens shader 3D effect and the Maya camera rig openGL realtime viewport 3D mode. Also the cameraShape node's field of view setting will be toggled between 4 mm in the viewport and 500mm at render time to fix the blurry streak artifact
+  
+  Note: You can change the default focal length values from 500mm and 4mm on the first two lines of the domeScanLensShaders() function.
+  
+  Version 1.5
+  ------------------
+  July 6, 2014
+
+  Updated the default focal length from 4 mm (160 degree FOV) to 18 mm (90 degree FOV)
+
+  Version 1.4 B5
+  -----------------
+  Oct 24, 2013
+
+  Updated PreRenderMel and PostRenderMel code for the DomeAFL_FOV_Stereo shader.
+
+  Version 1.0 Build 3
+  --------------------
+  Oct 21, 2013
+  
+  Initial Release
+  
+  ToDo:
+  Set the zero parallax radius and camera separation from the domeAFL_FOV_Stereo shader
+  
+  
+  Add the following commands to your render settings window
+  //PreRender MEL:
+  source "domeRender.mel"; domemaster3DPreRenderMEL();
+  
+  //PostRender MEL:
+  source "domeRender.mel"; domemaster3DPostRenderMEL();
+  
+  -----------------------------------------------------------------------
+  
+  Automatic MEL command to add render controls:
+  
+  //PreRender MEL:
+  setAttr -type "string" defaultRenderGlobals.preMel "source \"domeRender.mel\"; domemaster3DPreRenderMEL();";
+  
+  //PostRender MEL:
+  setAttr -type "string" defaultRenderGlobals.postMel "source \"domeRender.mel\"; domemaster3DPostRenderMEL();";
+  
+*/
+
+
+global proc domemaster3DPreRenderMEL(){
+  //Setup the domeAFL_FOV, domeAFL_FOV_Stereo, and domeAFL_WxH cameras for rendering
+  //Save the current cameraShape focalLength
+  //Set the cameraShape focal length to 500 mm 
+  //Toggle off the default Maya stereo rig controls
+  
+  //Set up the blurry line texture fix focalLength = 500
+  
+  //Set the Domemaster3D cameras to the rendering mode
+  domeScanLensShaders( true );
+}
+
+
+global proc domemaster3DPostRenderMEL(){
+  //Restore the current cameraShape focalLength
+  //Toggle on the default Maya stereo rig controls
+ 
+  //Note check for a "center" stereoRigCamera connection when scanning the domeAFL_FOV_Stereo nodes
+  
+  //Restore the settings after the blurry line texture fix focalLength = 4
+
+  // 4 mm focal length = 160 degree FOV
+  // 18 mm focal length = 90 degree FOV
+
+  //Set the Domemaster3D cameras to the non-rendering mode
+  domeScanLensShaders( false );
+}
+
+
+//List all of the lens shaders in the scene
+global proc domeScanLensShaders( string $renderMode ){
+
+  //Tracks the two focal length ranges
+  int $domeRenderTimeFocalLength = 500;
+
+  // 4 mm focal length = 160 degree FOV
+  //int $domeViewportFocalLength = 4;
+
+  // 18 mm focal length = 90 degree FOV
+  int $domeViewportFocalLength = 18;
+
+  //Scan the lens shaders in the scene
+  string $domeAFL_FOV_lenses[] = `lsType("domeAFL_FOV")`;
+  string $domeAFL_FOV_Stereo_lenses[] = `lsType("domeAFL_FOV_Stereo")`;
+  string $domeAFL_WxH_lenses[] = `lsType("domeAFL_WxH")`;
+  string $domeNodeItems = "";
+  string $cameraNodeItems = "";
+  
+  //List of all the lens shader cameras in the scene
+  string $activeDomeCameras[];
+
+  int $i = 1; //track the total number of nodes
+  
+  //--------------------------------------------------------------------------
+    
+  print("\n\nDomemaster3D Camera > Lens Shader Connections:\n");
+  
+  //Scan domeAFL_FOV Nodes
+  for ( $domeNodeItems in $domeAFL_FOV_lenses )
+  {
+     // Look for the last item <done> in the array
+     if ( $domeNodeItems != "<done>" ){
+        string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
+        $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
+        //Print out the camera and lens connections
+        for ( $cameraNodeItems in $cameras){
+          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+          $i += 1;
+        }
+     }
+  }
+
+  //Scan domeAFL_FOV_Stereo Nodes
+  for ( $domeNodeItems in $domeAFL_FOV_Stereo_lenses )
+  {
+     // Look for the last item <done> in the array
+     if ( $domeNodeItems != "<done>" ){
+        string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
+        $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
+        //Print out the camera and lens connections
+        for ( $cameraNodeItems in $cameras){
+          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+          $i += 1;
+        }
+     }
+  }
+
+  //Scan domeAFL_WxH Nodes
+  for ( $domeNodeItems in $domeAFL_WxH_lenses )
+  {
+     // Look for the last item <done> in the array
+     if ( $domeNodeItems != "<done>" ){
+        string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
+        $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
+        //Print out the camera and lens connections
+        for ( $cameraNodeItems in $cameras){
+          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+          $i += 1;
+        }
+     }
+  }
+
+  
+  print("\n\nList of Domemaster3D cameras:\n");
+  int $c = 1;
+  for ( $cameraNodeItems in $activeDomeCameras){
+    print ( "[" + $c+ "] " + $cameraNodeItems + "\n");
+    $c  += 1;
+  }
+  
+  print("\n\n");
+  print("Total Domemaster3D Cameras: " + ($c-1) + "\n\n");
+  
+  //--------------------------------------------------------------------------
+  //Change the Field of view for the cameras
+  //--------------------------------------------------------------------------
+  
+  for ( $cameraNodeItems in $activeDomeCameras){
+    if ($renderMode == 0){
+      //Rendering Started
+      //Run the PreRenderMel stuff
+      
+      //Check if the Focal Length attribute is locked - then skip the setAttr if it's locked
+      // int $isFocalLengthLocked = `getAttr -lock ($cameraNodeItems+".focalLength")`;
+      // if($isFocalLengthLocked){
+        //Set up the blurry line texture fix
+        //setAttr ($cameraNodeItems+".focalLength") 500;
+        //print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + 500 + "mm.\n");
+      // }
+      // else{
+        // print("The attribute: " + ($cameraNodeItems+".focalLength") + " is locked.\n");
+      // }
+      
+      //Check if this camera is the stereo rig
+      string $cameraShapeNode = getObjectShapeNode($cameraNodeItems);
+      if (`nodeType($cameraShapeNode)`== "stereoRigCamera"){
+        print("Adjusting the stereo settings on the " + $cameraShapeNode + " rig\n");
+        
+        //Scan the lens shader connections
+        string $activeLensShader[] = `listConnections -type "domeAFL_FOV_Stereo"  ($cameraShapeNode+".miLensShader")`;
+        print("Gathering the current zero parallax radius and camera separation values.\n");
+        
+        
+        float $domeActiveFocallength = `getAttr($activeLensShader[0]+".Dome_Radius")`;
+         float $domeActiveInteraxialSeparation = `getAttr( $activeLensShader[0]+".Cameras_Separation")`;
+         
+        //Enable the default Maya stereo rig
+        //setAttr ($cameraShapeNode+".zeroParallax") $domeActiveFocallength;
+        //setAttr ($cameraShapeNode+".interaxialSeparation") $domeActiveInteraxialSeparation;
+        setAttr ($cameraShapeNode+".stereo") 1;
+        
+        print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + $domeViewportFocalLength + "mm.\n");
+        setAttr ($cameraNodeItems+".focalLength") $domeViewportFocalLength;
+      }
+          
+    } else {
+      //Rendering Finished
+      //Run the PostRenderMel stuff
+      
+      //Check if the Focal Length attribute is locked - then skip the setAttr if it's locked
+      // int $isFocalLengthLocked = `getAttr -lock ($cameraNodeItems+".focalLength")`;
+      // if($isFocalLengthLocked){
+        //Restore the cameraShapes's default FOV
+
+        // 4 mm focal length = 160 degree FOV
+        // setAttr ($cameraNodeItems+".focalLength") 4;
+        // print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + 4 + "mm.\n");
+
+        // 18 mm focal length = 90 degree FOV
+        // setAttr ($cameraNodeItems+".focalLength") 18;
+        // print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + 18 + "mm.\n");
+      // }
+      // else{
+        // print("The attribute: " + ($cameraNodeItems+".focalLength") + " is locked.\n");
+      // }
+      
+      //Check if this camera is the stereo rig
+      string $cameraShapeNode = getObjectShapeNode($cameraNodeItems);
+      if (`nodeType($cameraShapeNode)`== "stereoRigCamera"){
+      
+        print("Adjusting the stereo settings on the " + $cameraShapeNode + " rig\n");
+        //Enable the default Maya stereo rig
+        setAttr ($cameraShapeNode+".stereo") 0;
+
+        setAttr ($cameraNodeItems+".focalLength") $domeRenderTimeFocalLength;
+        print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + $domeRenderTimeFocalLength+ "mm.\n");
+      }
+    }
+  } 
+}
+
+
+//Find the shape node
+//example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
+global proc string getObjectShapeNode ( string $object ) {
+  string $shapes[] = `listRelatives -children -shapes $object`;
+  return $shapes[0];
+}
+
+
+//Find the object's parent node
+//example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
+global proc string getObjectParentNode ( string $object ) {
+  string $shapes[] = `listRelatives -parent -shapes $object`;
+  return $shapes[0];
+}
+
+//----------------------------------------------------------------------------

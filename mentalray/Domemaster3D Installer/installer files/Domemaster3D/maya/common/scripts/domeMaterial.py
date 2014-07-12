@@ -1,6 +1,6 @@
 """
 Dome Material Script V1.5
-2014-07-11
+2014-07-12
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -18,7 +18,7 @@ Version History
 
 Version 1.5
 ----------------
-July 11, 2014
+July 12, 2014
 
 Added a remapColor node to the Starglobe MR texture shading network so you can adjust the brightness of the stars
 
@@ -626,7 +626,12 @@ def resetDomeViewerCameraAngle():
       cmds.setAttr(viewerCameraName+".tx", 0)
       cmds.setAttr(viewerCameraName+".ty", 0)
       cmds.setAttr(viewerCameraName+".tz", 0)
-
+      
+      viewerCameraShape = getObjectShapeNode(viewerCameraName)
+      
+      #Reset the DomeViewer camera's field of view to use an 18mm lens which means a 90 degree FOV
+      cmds.setAttr(viewerCameraShape[0]+".focalLength", 18)
+      
 
 #Syntax: createDomeViewerCamera( 'ViewerCamera', 'domeViewer', 'domeViewerGrid' )
 def createDomeViewerCamera( viewerCameraName, meshName, gridMeshName ):

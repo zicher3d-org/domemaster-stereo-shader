@@ -1,6 +1,6 @@
 """
 Domemaster3D Camera Setup Script V1.5
-2014-07-06 7.34pm
+2014-07-12 6.46pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -10,7 +10,7 @@ Version History
 
 Version 1.5
 ---------------
-July 6, 2014
+July 12, 2014
 
 Added a new "FulldomeIBL" tool to the Maya shelf. This allows you to use a file texture with a circular domemaster 180 degree FOV image as the image based lighting environment map in the scene, and as the source of final gather IBL, and Maya 2015 "emit light" based lighting. The fulldome texture is applied using a mentalrayTexture with an image sequence expression. The FulldomeIBL tool supports domemaster frame masking. 
 
@@ -446,8 +446,8 @@ def setDomeSamplingQuality():
   mayaVersion = getMayaVersionDome()
 
   if (mayaVersion >= 2014):
-    #Enable Unified Sampling
-    cmds.setAttr( 'miDefaultOptions.miRenderUsing', 0)
+    #Enable Unified Sampling - The forced unified sampling mode is remmed out for Maya 2015 testing
+    #cmds.setAttr( 'miDefaultOptions.miRenderUsing', 0)
 
     #Set the Unified Quality to 0.6
     cmds.setAttr( 'miDefaultOptions.miSamplesQualityR', 0.6)

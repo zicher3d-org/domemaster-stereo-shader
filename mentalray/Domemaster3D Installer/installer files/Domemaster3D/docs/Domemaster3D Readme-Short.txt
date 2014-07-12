@@ -19,7 +19,7 @@ Mac OS X:
 /Applications/Domemaster3D/
 
 Linux:
-/opt/Domemaster3D/maya
+/opt/Domemaster3D/
 
 
 Documentation and Resources

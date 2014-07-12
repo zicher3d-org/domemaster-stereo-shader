@@ -1,6 +1,6 @@
 """
 Dome Material Script V1.5
-2014-07-06
+2014-07-11
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -18,13 +18,15 @@ Version History
 
 Version 1.5
 ----------------
-July 6, 2014
+July 11, 2014
 
 Added a remapColor node to the Starglobe MR texture shading network so you can adjust the brightness of the stars
 
 Updated the DomeViewer geometry with an all quads based fulldome mesh, updated the scale of the mirrorball mesh, and the quadsphere mesh
 
 Updated DomeViewer view reset, and model scale setting
+
+Added a mental ray forced plugin loading function to the domeMaterial commands that require mental ray to work. This will load the mental ray renderer when you use a command that requires it if mental ray wasn't set to to be an autostart plugin item in the plugin manager.
 
 Added a mentalrayTexture image sequence function and shelf tool. This allows you to use image sequences with the mentalrayTexture node so you can avoid the blurry streak artifact that can occur with Maya's file texture node and mental ray lens shaders.
 
@@ -168,6 +170,16 @@ Run using the command:
 import domeMaterial as domeMaterial
 reload(domeMaterial)
 domeMaterial.createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName)
+
+------------------------------------------------------------------------------
+
+Domemaster3D Force Mental Ray to load
+A python function to make sure mental ray is active and the MR shading nodes are read to be used.
+
+Run using the command:
+import domeMaterial
+reload(domeMaterial)
+domeMaterial.forceMentalRayLoad()
 
 ------------------------------------------------------------------------------
 
@@ -916,6 +928,9 @@ def createStarglobe():
   import maya.cmds as cmds
   #import maya.mel as mel  
 
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
+
   # ---------------------------------------------------------------------
   #Set up the base folder path for the Domemaster3D textures
   # ---------------------------------------------------------------------
@@ -1114,6 +1129,9 @@ def createColorBumpMiaMaterial():
   import maya.cmds as cmds
   #import maya.mel as mel
 
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
+
   # ---------------------------------------------------------------------
   #Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
@@ -1254,6 +1272,9 @@ def createColorMiaMaterial():
   import maya.cmds as cmds
   #import maya.mel as mel  
 
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
+
   # Texture variables
   #Set the file texture variables to "" if you don't want a file to be specified
   #ColorMapFileTexture = ""
@@ -1349,6 +1370,9 @@ This is designed so image sequences can be used as file texture on fulldome rend
 def createColorImageSequenceMiaMaterial():
   import maya.cmds as cmds
   import maya.mel as mel  
+
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
 
   # Texture variables
   #Set the file texture variables to "" if you don't want a file to be specified
@@ -1762,6 +1786,31 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   mel.eval(noteCommandString) 
   #print( noteCommandString )
 
+
+
+"""
+A python function to make sure mental ray is active 
+and the MR shading nodes are read to be used.
+"""
+def forceMentalRayLoad():
+  import maya.cmds as cmds
+  import maya.mel as mel
+
+  # Make sure the mental ray plugin was loaded
+  if not (cmds.pluginInfo("Mayatomr",q=True,loaded=True)):
+    cmds.loadPlugin("Mayatomr")
+    print("The Mental Ray plugin was loaded.")
+  #else:
+  #  print("The Mental Ray plugin is already active.")
+
+  #Set the active renderer to mental ray to avoid Hypershade red node errors 
+  #mel.eval("setCurrentRenderer mentalRay")
+  #or
+  melRunString = 'import maya.mel as mel \n'
+  melRunString += 'mel.eval(\"setCurrentRenderer mentalRay\")'
+  #print("Deferred string: " + melRunString)
+  cmds.evalDeferred(melRunString)
+  
 
 #Check what version of Maya is active
 def getMayaVersionDome():

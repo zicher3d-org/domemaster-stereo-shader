@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.5 - July 6, 2014
+Version 1.5 - July 12, 2014
 
 About This Shader
 --------------------
@@ -135,10 +135,10 @@ The 4k button sets the render resolution to 4096x4096 pixels.
 The 8k button sets the render resolution to 8192x8192 pixels.
 
 Open Scenes Folder Button
-The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux)
+The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
 
 Open Images Folder Button
-The IMG button opens the images folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux)
+The IMG button opens the images folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
 
 Display Render Log Button
 The rLog button opens the current MayaRenderLog.txt file to show the render statistics.
@@ -149,7 +149,6 @@ The diagnostics output is formatted in plain text format using the "markdown" sy
 
 Upgrade Domemaster Node IDs button
 The Upgr / "Upgrade Domemaster Node IDs" button will look in your Maya Binary scenes for any legacy latlong_lens, domeAFL_FOV, domeAFL_FOV_Stereo, or domeAFL_WxH nodes and replace them with newly created nodes using the current Node ID information from the current domeFL_FOV_Stereo.mi & latlong_lens.mi mental ray include files. The domeAFL node Extra Attributes settings will be refreshed too, along with the expressions linked dome preview shape.
-Domemaster3D Menu
 
 
 3DS Max Tools
@@ -225,7 +224,7 @@ Version History
 
 Version 1.5
 --------------
-July 7, 2014
+July 12, 2014
 
 
 Maya Changes
@@ -253,6 +252,8 @@ Maya Changes
     Changed the DomeViewer file selector filter to improve QuickTime and AVI move selection.
 
     Added a DomeViewer View Navigation "Reset" button and improved the imported model's scale settings.
+
+  Added a mental ray forced plugin loading function to the domeMaterial commands that require mental ray to work. This will load the mental ray renderer when you use a command that requires it if mental ray wasn't set to to be an autostart plugin item in the plugin manager.
 
   Updated the DomeGrid Attribute Editor Window UI
     Added domeGrid controls to change number of sections and spans on the dome shape.

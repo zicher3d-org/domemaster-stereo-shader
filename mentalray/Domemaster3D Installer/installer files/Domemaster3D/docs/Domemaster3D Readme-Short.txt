@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.5 - July 6, 2014
+Version 1.5 - July 12, 2014
 
 About This Shader
 ---------------------
@@ -50,8 +50,8 @@ Project Developers
 Domemaster Stereo Shader for 3DS Max Created by Roberto Ziche
 http://www.robertoziche.com/
 
-Domemaster3D shader for Maya and Softimage and Installer Program by Andrew Hazelden
-andrew@andrewhazelden.com      
+Domemaster3D shader for Maya and Softimage, and the installer by Andrew Hazelden
+andrew@andrewhazelden.com
 http://www.andrewhazelden.com/blog
 
 Based upon Daniel Ott's DomeAFL Angular Fisheye Lens Shader

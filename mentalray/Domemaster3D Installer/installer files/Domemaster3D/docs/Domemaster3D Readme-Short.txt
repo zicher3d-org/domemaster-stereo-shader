@@ -57,3 +57,20 @@ http://www.andrewhazelden.com/blog
 Based upon Daniel Ott's DomeAFL Angular Fisheye Lens Shader
 http://www.thedott.net/shaders/domeAFL/
 
+Special Thanks
+-----------------
+Thanks to the following people for their contributions:
+
+Ralf Habel for the latlong_lens shader
+http://www.vi-motion.de/latlong_Tutorial/
+
+Aaron Bradbury for the installer imagery from his Vortex fulldome short film.
+http://www.luniere.com/project/vortex/
+
+Aaron Bradbury for the inclusion of the fulldome alignment grid:
+http://www.luniere.com/2013/03/07/hi-res-fulldome-alignment-grid/
+
+Jason Fletcher for creating a high quality equirectangular starglobe texture.
+http://thefulldomeblog.com/2013/06/22/stars-to-surround-the-scene/
+
+Martin Watt for writing the original galaxies.mel script.

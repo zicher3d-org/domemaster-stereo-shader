@@ -734,14 +734,23 @@ global proc domeOpenDiagnosticsLogFile(){
       print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
     }
   } else if(getMayaPlatform() == "darwin") {
+
     //Mac Platform
-    $editorProgram = "edit";
+    
+    //$editorProgram = "edit";
+
+
+    //Note: Mavericks uses a terminal session for edit so it needs to be avoided 
+    $editorProgram = "open";
+
+
     string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
     //Open the log file for viewing
     system($commandString);
     //print ("System Command: " + $commandString + "\r\n");
     print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
-  } else {
+  }          else {
     //Linux Platform
     //$editorProgram = "edit";
     $editorProgram = "gedit";
@@ -802,13 +811,21 @@ global proc domeOpenMayaRenderLogFile(){
       print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
     }
   } else if(getMayaPlatform() == "darwin") {
+    
     //Mac Platform
-    $editorProgram = "edit";
+    
+    //$editorProgram = "edit";
+
+
+    //Note: Mavericks uses a terminal session for edit so it needs to be avoided 
+    $editorProgram = "open";
+
 
     string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
     //Open the log file for viewing
     system($commandString);
-    //print ("System Command: " + $commandString + "\r\n");
+    print ("System Command: " + $commandString + "\r\n");
     print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
   } else {
     //Linux Platform
@@ -860,18 +877,28 @@ global proc domeOpenTextFile(string $textFilename){
       print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
     }
   } else if(getMayaPlatform() == "darwin") {
+    
     //Mac Platform
-    $editorProgram = "edit";
+    
+    //$editorProgram = "edit";
+
+
+    //Note: Mavericks uses a terminal session for edit so it needs to be avoided 
+    $editorProgram = "open";
+
 
     string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
     //Open the log file for viewing
     system($commandString);
-    //print ("System Command: " + $commandString + "\r\n");
+    print ("System Command: " + $commandString + "\r\n");
     print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  
   } else {
+
     //Linux Platform
-    //$editorProgram = "edit";
     $editorProgram = "gedit";
+    //$editorProgram = "edit";
     //$editorProgram = "vi";
     //$editorProgram = "vim";
 

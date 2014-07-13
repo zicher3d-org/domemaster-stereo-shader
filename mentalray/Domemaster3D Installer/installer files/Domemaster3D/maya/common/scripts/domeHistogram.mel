@@ -1,20 +1,23 @@
 /*
   Dome Histogram V1.5
-  2014-07-06
+  2014-07-12
   by Andrew Hazelden
 
-  The Dome Histogram tool allows you to view a histogram of the current image in the render view using the imagemagick utility.
+  The Dome Histogram tool allows you to view a histogram of the current image in the render view using the ImageMagick utility.
   
-  On Mac OS X you need to install imagemagick and add the "convert" tool to your system path by editing your ~/.bash_profile
+  On Mac OS X you need to install ImageMagick to either:
+  /opt/local/bin/convert
+  /opt/ImageMagick/bin/convert
+  or you need to add the ImageMagick "convert" tool to your system path by editing your ~/.bash_profile
 
-  On Windows the imagemagick tool convert.exe was renamed domeconvert.exe to avoid a name collision with an existing Windows utility of the same name.
+  On Windows the ImageMagick tool convert.exe was renamed domeconvert.exe to avoid a name collision with an existing Windows utility of the same name.
 
   Version History
   ----------------
 
   Version 1.5
   ------------------
-  July 6, 2014
+  July 12, 2014
 
   First release of the tool
 
@@ -380,7 +383,21 @@ global proc domeComputeHistogram(){
     $imagemagickPath = "domeconvert.exe";
   }else if ($mayaPlatform  == "darwin"){
     //Mac OS X
-    $imagemagickPath = "/opt/local/bin/convert";
+    //Check for ImageMagick installs on Mac OS X
+    string $optLocalBin = "/opt/local/bin/convert";
+    string $optImageMagickBin = "/opt/ImageMagick/bin/convert";
+
+    //Verify which ImageMagick paths exist on the system
+    if(`file -query -exists $optLocalBin`){
+      $imagemagickPath = $optLocalBin;
+      print("ImageMagick was found in " + $imagemagickPath + "\n");
+    } else if (`file -query -exists $optImageMagickBin`){
+      $imagemagickPath = $optImageMagickBin;
+      print("ImageMagick was found in " + $imagemagickPath + "\n");
+    } else {
+      $imagemagickPath = "convert";
+      print("Looking for ImageMagick in the system $PATH locations.\n");
+    }
   }else {  
     //Linux
     //$imagemagickPath = "convert";

@@ -332,75 +332,6 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Load the MentalRay Plugin" 
-        -align "center" 
-        -label "Reload MR" 
-        -labelOffset 0
-        -font "tinyBoldLabelFont" 
-        -image "mentalray_load.xpm" 
-        -image1 "mentalray_load.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()" 
-        -sourceType "python" 
-        -actionIsSubstitute 0
-        -commandRepeatable 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 34
-        -height 34
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Wiki Help" 
-        -align "center" 
-        -label "Wiki Help" 
-        -labelOffset 0
-        -font "tinyBoldLabelFont" 
-        -image "domeHelp.xpm" 
-        -image1 "domeHelp.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
-        -sourceType "python" 
-        -actionIsSubstitute 0
-        -commandRepeatable 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 34
-        -height 34
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Version Info" 
-        -align "center" 
-        -label "Version Info" 
-        -labelOffset 0
-        -font "tinyBoldLabelFont" 
-        -image "domeInfo.xpm" 
-        -image1 "domeInfo.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "source \"domeVersion.mel\";\ndomeVersion();" 
-        -sourceType "mel" 
-        -actionIsSubstitute 0
-        -commandRepeatable 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 34
-        -height 34
-        -manage 1
-        -visible 1
-        -preventOverride 0
         -annotation "Render 0.5k" 
         -align "center" 
         -label "Render 0.5k" 
@@ -617,6 +548,30 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Task Manager" 
+        -align "center" 
+        -label "Task Manager" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "Task" 
+        -image "task.xpm" 
+        -image1 "task.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\nopenTaskManager();" 
+        -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Upgrade Domemaster Node IDs" 
         -align "center" 
         -label "Upgrade" 
@@ -630,6 +585,75 @@ global proc shelf_Domemaster3D () {
         -marginHeight 1
         -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" 
         -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Load the MentalRay Plugin" 
+        -align "center" 
+        -label "Reload MR" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "mentalray_load.xpm" 
+        -image1 "mentalray_load.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Version Info" 
+        -align "center" 
+        -label "Version Info" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "domeInfo.xpm" 
+        -image1 "domeInfo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeVersion.mel\";\ndomeVersion();" 
+        -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Wiki Help" 
+        -align "center" 
+        -label "Wiki Help" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "domeHelp.xpm" 
+        -image1 "domeHelp.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
+        -sourceType "python" 
         -actionIsSubstitute 0
         -commandRepeatable 1
     ;

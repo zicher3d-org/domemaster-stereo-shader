@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.5 - July 12, 2014
+Version 1.5.0.1 - July 27, 2014
 
 About This Shader
 --------------------
@@ -118,15 +118,6 @@ The DomeViewer tool provides an immersive fulldome and panoramic image / movie v
 Histogram Button
 The Histogram tool uses ImageMagick to calculate a histogram analysis for the current image in the render view. Clicking the "Refresh the Histogram" button updates the plot.
 
-Load Mental Ray Plugin Button
-The Load MentalRay Plugin tool forces mental ray to reload. This can fix issues if Maya didn't startup correctly or the mental ray plugin isn't set to autoload.
-
-Wiki Button
-The Wiki Help tool loads the Domemaster Stereo Shader Wiki page in your web browser.
-
-Version Button
-The Version Info tool shows the current version number for the Domemaster Stereo Shader and provides links to the download page, and the NING group.
-
 Render Rez Buttons
 The 0.5k button sets the render resolution to 512x512 pixels.
 The 1k button sets the render resolution to 1024x1024 pixels.
@@ -147,8 +138,20 @@ Diagnostics Button
 The Diag button generates a Maya Diagnostics Report and saves it to your desktop. This is helpful for detecting issues with Maya and the Domemaster3D shader.
 The diagnostics output is formatted in plain text format using the "markdown" syntax and can be opened in Markdown Pad / StackEdit / Notepad++ /TextWrangler / BBedit or any other plain text editor.
 
+Task Viewer Button
+This button will open the Mac OS X Activity Monitor, or the Windows Task Manager. This is useful to check the efficiency of the renderer by inspecting the memory usage and the processor utilization.
+
 Upgrade Domemaster Node IDs button
 The Upgr / "Upgrade Domemaster Node IDs" button will look in your Maya Binary scenes for any legacy latlong_lens, domeAFL_FOV, domeAFL_FOV_Stereo, or domeAFL_WxH nodes and replace them with newly created nodes using the current Node ID information from the current domeFL_FOV_Stereo.mi & latlong_lens.mi mental ray include files. The domeAFL node Extra Attributes settings will be refreshed too, along with the expressions linked dome preview shape.
+
+Load Mental Ray Plugin Button
+The Load MentalRay Plugin tool forces mental ray to reload. This can fix issues if Maya didn't startup correctly or the mental ray plugin isn't set to autoload.
+
+Wiki Button
+The Wiki Help tool loads the Domemaster Stereo Shader Wiki page in your web browser.
+
+Version Button
+The Version Info tool shows the current version number for the Domemaster Stereo Shader and provides links to the download page, and the NING group.
 
 
 3DS Max Tools
@@ -221,6 +224,19 @@ Martin Watt for writing the original galaxies.mel script.
 
 Version History
 -----------------
+
+
+
+Version 1.5.0.1
+------------------
+July 27, 2014
+
+Maya Changes
+
+  Added a "Task" shelf tool that allows you to quickly open the Mac OS X Activity Monitor, or the Windows Task Manager
+
+  Updated the "diag" domeDiagnostics tool to profile more rendering engines, and improved the mr shader folder scanning
+
 
 Version 1.5
 --------------

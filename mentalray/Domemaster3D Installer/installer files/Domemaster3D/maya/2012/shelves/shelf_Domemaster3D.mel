@@ -462,81 +462,6 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Load the MentalRay Plugin" 
-        -enableBackground 0
-        -align "center" 
-        -label "Reload MR" 
-        -labelOffset 0
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.2 
-        -image "mentalray_load.xpm" 
-        -image1 "mentalray_load.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()" 
-        -sourceType "python" 
-        -commandRepeatable 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Wiki Help" 
-        -enableBackground 0
-        -align "center" 
-        -label "Wiki Help" 
-        -labelOffset 0
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeHelp.xpm" 
-        -image1 "domeHelp.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
-        -sourceType "python" 
-        -commandRepeatable 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Version Info" 
-        -enableBackground 0
-        -align "center" 
-        -label "Version Info" 
-        -labelOffset 0
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeInfo.xpm" 
-        -image1 "domeInfo.xpm" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "source \"domeVersion.mel\";\ndomeVersion();" 
-        -sourceType "mel" 
-        -commandRepeatable 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
         -annotation "Render 0.5k" 
         -enableBackground 0
         -align "center" 
@@ -771,6 +696,32 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Task Manager" 
+        -enableBackground 0
+        -align "center" 
+        -label "Task Manager" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Task" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "task.xpm" 
+        -image1 "task.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\nopenTaskManager();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Upgrade Domemaster Node IDs" 
         -enableBackground 0
         -align "center" 
@@ -787,6 +738,81 @@ global proc shelf_Domemaster3D () {
         -marginHeight 1
         -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" 
         -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Load the MentalRay Plugin" 
+        -enableBackground 0
+        -align "center" 
+        -label "Reload MR" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "mentalray_load.xpm" 
+        -image1 "mentalray_load.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Version Info" 
+        -enableBackground 0
+        -align "center" 
+        -label "Version Info" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeInfo.xpm" 
+        -image1 "domeInfo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeVersion.mel\";\ndomeVersion();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Wiki Help" 
+        -enableBackground 0
+        -align "center" 
+        -label "Wiki Help" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeHelp.xpm" 
+        -image1 "domeHelp.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
+        -sourceType "python" 
         -commandRepeatable 1
     ;
 

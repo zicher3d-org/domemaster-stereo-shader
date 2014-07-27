@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.5
-  2014-07-06
+  Dome Diagnostics Report Tool V1.5.0.1
+  2014-07-27
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,11 +10,22 @@
   Version History
   ----------------
 
+  Version 1.5.0.1
+  ------------------
+  July 27, 2014
+  
+  Added vray profiling support
+  Improved mental ray shader and include listing
+
   Version 1.5
   ------------------
-  July 6, 2014
+  July 12, 2014
   
   First version of the tool
+
+
+  Usage
+  -------
 
   To run the dome diagnostics script:
   source "domeDiagnostics.mel"; domeDiagnostics();
@@ -30,6 +41,9 @@
 
   To open the images folder for the current project use:
   source "domeDiagnostics.mel"; domeOpenImagesDirectory();
+
+  To open the Mac OS X Activity Monitor / Windows Task Manager use:
+  source "domeDiagnostics.mel"; openTaskManager();
 
 */
 
@@ -414,6 +428,9 @@ global proc domeDiagnostics(){
   string $pluginString = `getenv "MAYA_PLUG_IN_PATH"`;
   $domeDebugText += "### `MAYA_PLUG_IN_PATH` ###\r\n> " + $pluginString + "\r\n\r\n";
 
+  string $renderString = `getenv "MAYA_RENDER_DESC_PATH"`;
+  $domeDebugText += "### `MAYA_RENDER_DESC_PATH` ###\r\n> " + $renderString + "\r\n\r\n";
+
   //------------------------------------------------------------
 
 	//List the active Domemaster3D Maya ENV vars
@@ -471,7 +488,6 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MI_LIBRARY_PATH` ###\r\n> " + $mrCustomlibraryString + "\r\n\r\n";
 
   //Add the extra MR detail if you are running a recent version of Maya
-  //if ($mayaVersion >=2015){
   if ($rendererString == "mentalRay"){
     string $mrLocationString = `getenv "MENTALRAY_LOCATION"`;
     $domeDebugText += "### `MENTALRAY_LOCATION` ###\r\n> " + $mrLocationString + "\r\n\r\n";
@@ -498,8 +514,12 @@ global proc domeDiagnostics(){
     $emptyString = size($mrIncludeString);
     if($emptyString){
       $domeDebugText +=  "------------------------------------------------\r\n\r\n";
-      $domeDebugText += "## Mental Ray Include Directory Contents ##\r\n\r\n";
-
+      $domeDebugText += "## Mental Ray Include (*.mi) Directory Contents ##\r\n\r\n";
+      
+      //Add a trailing folder slash
+      $mrIncludeString += "/";
+      $domeDebugText += $mrIncludeString + "\r\n\r\n";
+      
       //List the Mental Ray .mi include files:
 
       //Standard MR include files in Maya 2015:
@@ -529,15 +549,8 @@ global proc domeDiagnostics(){
       // useribl.mi
       // xgenMR.mi
 
-      //Make a folder listing by adding the extra slash
-      if(getMayaPlatform() == "windows"){
-        $mrIncludeString += "/";
-      } else {
-        $mrIncludeString += "\\";
-      }
-
       string $miInlcudeList[] = `getFileList -folder $mrIncludeString -filespec "*.mi"`;
-      string $includeLine;
+      string $includeLine = "";
       for($includeLine in $miInlcudeList)
       {
         $domeDebugText += "> `"  + $includeLine + "`  \r\n";
@@ -553,17 +566,15 @@ global proc domeDiagnostics(){
     if($emptyString){
       $domeDebugText += "------------------------------------------------\r\n\r\n";
       $domeDebugText += "## Mental Ray Shader Directory Contents ##\r\n\r\n";
-
+      
+      //Add a trailing folder slash
+      $mrShaderString += "/";
+      $domeDebugText += $mrShaderString + "\r\n\r\n";
+      
       //List the Mental Ray shader files:
-      //Make a folder listing by adding the extra slash
-      if(getMayaPlatform() == "windows"){
-        $mrShaderString += "/";
-      } else {
-        $mrShaderString += "\\";
-      }
 
       string $miShaderList[] = `getFileList -folder $mrShaderString`;
-      string $shaderLine;
+      string $shaderLine = "";
       for($shaderLine in $miShaderList)
       {
         $domeDebugText += "> `"  + $shaderLine + "`  \r\n";
@@ -600,6 +611,75 @@ global proc domeDiagnostics(){
 
   string $maxwellMaterialsDBString = `getenv "MAXWELL3_MATERIALS_DATABASE"`;
   $domeDebugText += "### `MAXWELL3_MATERIALS_DATABASE` ###\r\n> " + $maxwellMaterialsDBString + "\r\n\r\n";
+
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  VRAY Environment Variables ##\r\n\r\n";
+
+  //VRAY for Maya
+  string $vrayString = `getenv "VRAY_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+  $vrayString = `getenv "VRAY_AUTH_CLIENT_FILE_PATH"`;
+  $domeDebugText += "### `VRAY_AUTH_CLIENT_FILE_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+  if ($mayaVersion == 2010){
+    $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2010_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2010_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2010_x64"`;
+  $domeDebugText += "### `VRAY_TOOLS_MAYA2010_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ } else if ($mayaVersion == 2011){
+    $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2011_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2011_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2011_x64"`;
+  $domeDebugText += "### `VRAY_TOOLS_MAYA2011_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ } else if ($mayaVersion == 2012){
+    $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2012_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2012_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2012_x64"`;
+  $domeDebugText += "### `VRAY_TOOLS_MAYA2012_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ } else if ($mayaVersion == 2013){
+    $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2013_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2013_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2013_x64"`;
+  $domeDebugText += "### `VRAY_TOOLS_MAYA2013_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ } else if ($mayaVersion == 2014){
+    $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2014_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2014_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2014_x64"`;
+  $domeDebugText += "### `VRAY_TOOLS_MAYA2014_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  } else if ($mayaVersion == 2015){
+    $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2015_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2015_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2015_x64"`;
+  $domeDebugText += "### `VRAY_TOOLS_MAYA2015_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }
+
 
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 
@@ -1136,6 +1216,14 @@ global proc string getMayaPlatform(){
   return $mayaPlatform;
 }
 
+//Show the task manager utility
+global proc openTaskManager(){
+  if (getMayaPlatform() == "windows"){
+    system("start C:\\Windows\\System32\\Taskmgr.exe");
+  } else if  (getMayaPlatform() == "darwin"){
+    system("open \"/Applications/Utilities/Activity Monitor.app\"");
+  }
+}
 
 
 //Check the operating system

@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.5.3</version>
+    <version>1.5.0.1</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -92,6 +92,12 @@
                             <origin>installer files/Domemaster3D/docs</origin>
                         </distributionDirectory>
                     </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Web Links</description>
+                    <destination>${installdir}/docs</destination>
+                    <name>links</name>
+                    <platforms>all</platforms>
                     <shortcutList>
                         <linkShortcut>
                             <comment>View the latest content on the Domemaster Stereo Shader Wiki</comment>

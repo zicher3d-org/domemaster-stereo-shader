@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.5.3</version>
+    <version>1.5.1</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -121,7 +121,6 @@
                         </linkShortcut>
                     </shortcutList>
                 </folder>
-
                 <folder>
                     <description>Max Files</description>
                     <destination>${installdir}</destination>

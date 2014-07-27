@@ -1,6 +1,6 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.5 - July 6, 2014
+Version 1.5.1 - July 24, 2014
 ------------------------------------------------------------------------------
 
 Notes:
@@ -371,25 +371,6 @@ global proc createDomemaster3DMenu() {
     -command "source \"domeHistogram.mel\";domeHistogram();";
   }
 
-  //Support Section
-  float $mayaVersion = getMayaVersionDome();
-  if ($mayaVersion >=2015){
-    menuItem -divider true -dividerLabel "Support";
-  } else {
-    menuItem -divider true;
-  }
-
-  menuItem 
-    -label "Domemaster3D Wiki Help" 
-    -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
-    -image "domeHelp.xpm" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.openDomemasterWiki()\");";
-  menuItem 
-    -label "Domemaster3D Version Info" 
-    -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."
-    -image "domeInfo.xpm"
-    -command "source \"domeVersion.mel\";domeVersion();";
-
   //Diagnostics Section
 
   float $mayaVersion = getMayaVersionDome();
@@ -463,22 +444,48 @@ global proc createDomemaster3DMenu() {
     -image "domeLog.xpm"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenMayaRenderLogFile();" ;
   menuItem 
-    -label "Reload MentalRay Plugin" 
-    -annotation "Force mental ray to reload. This can fix issues if Maya didn't startup correctly."
-    -image "mentalray_load.xpm" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\");";
-  menuItem 
     -label "Create Diagnostics Report" 
     -annotation "Generate a Maya Diagnostics Report and save it to your desktop."
     -imageOverlayLabel "DIAG"
     -image "domeLog.xpm"
     -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();";
+  menuItem
+    -label "Open Task Manager" 
+    -annotation "Open the Task Manager on Windows, or the Activity Monitor on Mac OS X."
+    -imageOverlayLabel "Task"
+    -image "task.xpm"
+    -command "source \"domeDiagnostics.mel\";\nopenTaskManager();";
   menuItem 
     -label "Upgrade Domemaster Node IDs" 
     -annotation "Look for any \"unknown\" node types that match the names of domeAFL_FOV, domeAFL_FOV_Stereo, or domeAFL_WxH nodes and replace them with newly created nodes."
     -imageOverlayLabel "Upgr"
     -image "nodeUpgrade.xpm"
     -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" ;
+  menuItem 
+    -label "Reload MentalRay Plugin" 
+    -annotation "Force mental ray to reload. This can fix issues if Maya didn't startup correctly."
+    -image "mentalray_load.xpm" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\");";
+
+  //Support Section
+  float $mayaVersion = getMayaVersionDome();
+  if ($mayaVersion >=2015){
+    menuItem -divider true -dividerLabel "Support";
+  } else {
+    menuItem -divider true;
+  }
+
+  menuItem 
+    -label "Domemaster3D Wiki Help" 
+    -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
+    -image "domeHelp.xpm" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.openDomemasterWiki()\");";
+  menuItem 
+    -label "Domemaster3D Version Info" 
+    -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."
+    -image "domeInfo.xpm"
+    -command "source \"domeVersion.mel\";domeVersion();";
+
 } 
 
 //Create the menu

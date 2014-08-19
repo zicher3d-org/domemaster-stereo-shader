@@ -1,12 +1,12 @@
 /*
-	Dome Version Checker V1.5
+	Dome Version Checker V1.5.0.2
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
-  Domemaster3D V1.5.0.1 - July 27, 2014
+  Domemaster3D V1.5.0.2 - Aug 19, 2014
   Domemaster3D V1.5 - July 12, 2014
   Domemaster3D V1.4 B10 - Dec 27, 2013
   Domemaster3D V1.4 B9 - Dec 9, 2013
@@ -69,8 +69,8 @@ global proc string getMayaPlatform(){
 //Show the version info window
 global proc domeVersion(){
   string $dialogButtonSelected = "";
-  string $domemaster3D_version = "1.5.0.1";
-  string $release_date = "July 27, 2014";
+  string $domemaster3D_version = "1.5.0.2";
+  string $release_date = "Aug 19, 2014";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Maya" + " - Version " + $domemaster3D_version + "\n";

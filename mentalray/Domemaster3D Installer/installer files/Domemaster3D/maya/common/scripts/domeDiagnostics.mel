@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.5.0.1
-  2014-07-27
+  Dome Diagnostics Report Tool V1.5.0.2
+  2014-08-19
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,12 +10,12 @@
   Version History
   ----------------
 
-  Version 1.5.0.1
+  Version 1.5.0.2
   ------------------
-  July 27, 2014
+  Aug 19, 2014
   
-  Added vray profiling support
-  Improved mental ray shader and include listing
+  Added vray diagnostics support
+  Added linux support for the "Task" shelf button. When the Task shelf tool is run on linux the /usr/bin/gnome-system-monitor program will be launched.
 
   Version 1.5
   ------------------
@@ -488,6 +488,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MI_LIBRARY_PATH` ###\r\n> " + $mrCustomlibraryString + "\r\n\r\n";
 
   //Add the extra MR detail if you are running a recent version of Maya
+  //if ($mayaVersion >=2015){
   if ($rendererString == "mentalRay"){
     string $mrLocationString = `getenv "MENTALRAY_LOCATION"`;
     $domeDebugText += "### `MENTALRAY_LOCATION` ###\r\n> " + $mrLocationString + "\r\n\r\n";
@@ -514,12 +515,8 @@ global proc domeDiagnostics(){
     $emptyString = size($mrIncludeString);
     if($emptyString){
       $domeDebugText +=  "------------------------------------------------\r\n\r\n";
-      $domeDebugText += "## Mental Ray Include (*.mi) Directory Contents ##\r\n\r\n";
-      
-      //Add a trailing folder slash
-      $mrIncludeString += "/";
-      $domeDebugText += $mrIncludeString + "\r\n\r\n";
-      
+      $domeDebugText += "## Mental Ray Include Directory Contents ##\r\n\r\n";
+
       //List the Mental Ray .mi include files:
 
       //Standard MR include files in Maya 2015:
@@ -549,8 +546,15 @@ global proc domeDiagnostics(){
       // useribl.mi
       // xgenMR.mi
 
+      //Make a folder listing by adding the extra slash
+      if(getMayaPlatform() == "windows"){
+        $mrIncludeString += "/";
+      } else {
+        $mrIncludeString += "\\";
+      }
+
       string $miInlcudeList[] = `getFileList -folder $mrIncludeString -filespec "*.mi"`;
-      string $includeLine = "";
+      string $includeLine;
       for($includeLine in $miInlcudeList)
       {
         $domeDebugText += "> `"  + $includeLine + "`  \r\n";
@@ -566,15 +570,17 @@ global proc domeDiagnostics(){
     if($emptyString){
       $domeDebugText += "------------------------------------------------\r\n\r\n";
       $domeDebugText += "## Mental Ray Shader Directory Contents ##\r\n\r\n";
-      
-      //Add a trailing folder slash
-      $mrShaderString += "/";
-      $domeDebugText += $mrShaderString + "\r\n\r\n";
-      
+
       //List the Mental Ray shader files:
+      //Make a folder listing by adding the extra slash
+      if(getMayaPlatform() == "windows"){
+        $mrShaderString += "/";
+      } else {
+        $mrShaderString += "\\";
+      }
 
       string $miShaderList[] = `getFileList -folder $mrShaderString`;
-      string $shaderLine = "";
+      string $shaderLine;
       for($shaderLine in $miShaderList)
       {
         $domeDebugText += "> `"  + $shaderLine + "`  \r\n";
@@ -623,6 +629,7 @@ global proc domeDiagnostics(){
 
   $vrayString = `getenv "VRAY_AUTH_CLIENT_FILE_PATH"`;
   $domeDebugText += "### `VRAY_AUTH_CLIENT_FILE_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
+
 
   if ($mayaVersion == 2010){
     $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_x64"`;
@@ -1219,9 +1226,14 @@ global proc string getMayaPlatform(){
 //Show the task manager utility
 global proc openTaskManager(){
   if (getMayaPlatform() == "windows"){
+    print("Opening the Windows Task Manager\n");
     system("start C:\\Windows\\System32\\Taskmgr.exe");
   } else if  (getMayaPlatform() == "darwin"){
+    print("Opening the Activity Monitor\n");
     system("open \"/Applications/Utilities/Activity Monitor.app\"");
+  } else {
+    print("Opening the Gnome System Monitor\n");
+    system("/usr/bin/gnome-system-monitor" + " &");
   }
 }
 

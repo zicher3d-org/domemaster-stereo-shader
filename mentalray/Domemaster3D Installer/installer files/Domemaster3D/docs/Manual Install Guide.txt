@@ -1,0 +1,207 @@
+# Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
+August 19, 2014
+
+## Render Farm Note ## 
+If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
+
+
+## Install Guide for Maya 2010 to 2015 on Linux ##
+
+Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
+/opt/Domemaster3D/
+
+
+Step 2. Copy the Maya.env file to the user's maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
+
+The Domemaster3D shader's Maya.env files are located in:
+/opt/Domemaster3D/maya/<Maya Version Number>/
+
+The Maya.env files for each specific Maya version are named:
+Maya.env.linux
+Maya.env.osx
+Maya.env.win
+
+To use the appropriate Maya.env file you need to select the right one
+for your platform, rename it to "Maya.env", and copy it to your user
+account's "Maya version-x64" folder:
+$HOME/maya/<Maya Version Number>/
+
+Step 3. Make sure you have ImageMagick Installed. The Domemaster3D shader uses ImageMagick to power the DomeText and Dome Histogram tools in Maya.
+
+If you don't have ImageMagick, you can install it on Redhat / CentOS / Fedora Linux using the following terminal commands:
+sudo yum update 
+sudo yum install ImageMagick
+
+If you are running Ubuntu / Debian Linux you can install ImageMagick using the following terminal commands:
+sudo apt-get update 
+sudo apt-get install imagemagick
+
+## Notes ##
+The Domemaster3D shader v1.5 was compiled using CentOS Linux 6.4. 
+
+If there are any issues with running the shader, the developer can be reached at: 
+andrew@andrewhazelden.com
+
+
+
+## Install Guide for Maya 2010 to 2015 x64 on Windows ##
+
+Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
+C:\Program Files\Domemaster3D\
+
+
+Step 2. Copy the Maya.env file to the user's maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
+
+The Domemaster3D shader's Maya.env files are located in:
+C:\Program Files\Domemaster3D\maya\<Maya Version Number>\
+
+The Maya.env files for each specific Maya version are named:
+Maya.env.linux
+Maya.env.osx
+Maya.env.win
+
+To use the appropriate Maya.env file you need to select the right one
+for your platform, rename it to "Maya.env", and copy it to your user
+account's "Maya version-x64" folder:
+C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\
+
+
+Step 3. Add the Domemaster3D "bin" folder to your Windows System path:
+C:\Program Files\Domemaster3D\bin
+
+This is done by opening the System Control panel, and selecting Advanced
+System Properties > Environment Variables and then editing the current
+"Path" system variable.
+
+
+## Install Guide for Maya 2011 to 2015 x64 on Mac OS X ##
+
+Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
+/Applications/Domemaster3D/
+
+Step 2. Copy the Maya.env file to the user's  maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
+
+The Domemaster3D shader's Maya.env files are located in:
+/Applications/Domemaster3D/<Maya Version Number>/
+
+The Maya.env files for each specific Maya version are named:
+Maya.env.linux
+Maya.env.osx
+Maya.env.win
+
+To use the appropriate Maya.env file you need to select the right one
+for your platform, rename it to "Maya.env", and copy it to your user
+account's "Maya version-x64" folder:
+~/Library/Preferences/Autodesk/maya/<Maya Version Number>-x64/Maya.env
+
+
+Step 3. If you are running Mac OS X 10.8, 10.9, and 10.10 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
+
+Step 4. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on Mac OS X, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
+
+For the technically inclined Mac user you can install ImageMagick using Xcode and the Mac Ports tool ( https://www.macports.org/ ) with the terminal command: 
+sudo ports install ImageMagick
+
+
+
+## Install Guide for 3DS Max 2009 to 2015 x64 ##
+
+Step 1.  Extract the ZIP file and copy the included "Domemaster3D" folder to:
+C:\Program Files\Domemaster3D\
+
+
+Step 2. Copy the .mi 'include' files to your 3DS Max mental ray include folder.
+
+The Domemaster3D .mi include files are stored in the folder:
+C:\Program Files\Domemaster3D\max\shaders\include\
+
+The Domemaster3D mental ray shader .mi include files should be copied in one of the following the 3DS Max folders:
+C:\Program Files\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\include
+C:\Program Files\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\include
+C:\Program Files\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\include
+C:\Program Files\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\include
+C:\Program Files\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\include
+C:\Program Files\Autodesk\3ds Max 2010\mentalray\shaders_autoload\include
+C:\Program Files\Autodesk\3ds Max 2009\mentalray\shaders_autoload\include
+
+
+Step 3. Copy the .dll 'library' files to your 3DS Max mental ray shader folder.
+
+The Domemaster3D .so shader lib files are stored in the folder:
+C:\Program Files\Domemaster3D\max\shaders\lib\
+
+The Domemaster3Dmental ray shader .dll files should be copied in one of the following the 3DS Max folders:
+C:\Program Files\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\shaders
+C:\Program Files\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\shaders
+C:\Program Files\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\shaders
+C:\Program Files\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\shaders
+C:\Program Files\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\shaders
+C:\Program Files\Autodesk\3ds Max 2010\mentalray\shaders_autoload\shaders
+C:\Program Files\Autodesk\3ds Max 2009\mentalray\shaders_autoload\shaders
+
+
+Step 4. Add the Domemaster3D "bin" folder to your Windows System path:
+C:\Program Files\Domemaster3D\bin
+
+This is done by opening the System Control panel, and selecting Advanced
+System Properties > Environment Variables and then editing the current
+"Path" system variable.
+
+
+## Install Guide for Mental Ray Standalone and Maya Satellite ##
+
+This process can be used for Mental Ray Standalone and Maya Satellite render nodes.
+
+Step 1.  Extract the ZIP file and copy the included "Domemaster3D" folder to:
+
+Linux Install Path:
+/Applications/Domemaster3D/
+
+Windows Install Path:
+C:\Program Files\Domemaster3D\
+
+Mac OS X Install Path:
+/Applications/Domemaster3D/
+
+
+Step 2. Copy the .mi 'include' files to your mental ray include folder.
+
+The Domemaster3D .mi include files are stored in the folder:
+
+Linux include Path:
+/Applications/Domemaster3D/mr-standalone/include/
+
+Windows include Path:
+C:\Program Files\Domemaster3D\mr-standalone\include\
+
+Mac OS X include Path:
+/Applications/Domemaster3D/mr-standalone/include/
+
+
+Step 3. Copy the .so / .dll / .dylib 'library' files to your mental ray shader folder.
+
+The Domemaster3D .so shader lib files are stored in the folder:
+
+Linux Shader Lib Path:
+/Applications/Domemaster3D/mr-standalone/linux-x64/
+
+Windows Shader Lib Path:
+C:\Program Files\Domemaster3D\mr-standalone\windows-x64\
+
+Mac OS X Shader Lib Path:
+/Applications/Domemaster3D/mr-standalone/mac-x64/
+
+
+
+## Domemaster3D Maya RenderFarm Notes ##
+
+The Domemaster3D shader typically uses a Pre-render and Post-render MEL scripts to control the stereoscopic settings on the domeAFL_FOV_Stereo fulldome camera rig at render time.
+
+If the Domemaster3D shader is installed on a render farm that does not allow jobs to be submitted with Pre-render and Post-render MEL scripts in the Render Settings window, render farm customers should remove any Pre-render or Post-render MEL script commands in their Maya render settings.
+
+If the render farm customer is rendering a 2D fulldome Maya scene everything is ready.
+
+If the render farm customer is rendering a 3D fulldome scene have them run the following MEL command on their personal workstation before sending you the maya scene file: 
+source "domeRender.mel"; domemaster3DPreRenderMEL();
+
+This will make sure the camera's field of view is correct and the stereo rig is ready to render.

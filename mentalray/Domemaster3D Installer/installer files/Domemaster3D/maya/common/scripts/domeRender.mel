@@ -1,6 +1,7 @@
 /*
 
-  Dome Render V1.5
+  Dome Render V1.6
+  2014-09-17 06.55 am
   by Andrew Hazelden
   
   A set of pre and post render MEL scripts that set the focal length and openGL stereo3D display modes based upon the rendering or interactive use of Maya. 
@@ -9,6 +10,12 @@
   
   Note: You can change the default focal length values from 500mm and 4mm on the first two lines of the domeScanLensShaders() function.
   
+  Version 1.6
+  ------------------
+  September 16, 2014
+
+  Added LatLong_Stereo Support
+
   Version 1.5
   ------------------
   July 6, 2014
@@ -96,6 +103,7 @@ global proc domeScanLensShaders( string $renderMode ){
   string $domeAFL_FOV_lenses[] = `lsType("domeAFL_FOV")`;
   string $domeAFL_FOV_Stereo_lenses[] = `lsType("domeAFL_FOV_Stereo")`;
   string $domeAFL_WxH_lenses[] = `lsType("domeAFL_WxH")`;
+  string $LatLong_Stereo_lenses[] = `lsType("LatLong_Stereo")`;
   string $domeNodeItems = "";
   string $cameraNodeItems = "";
   
@@ -153,6 +161,21 @@ global proc domeScanLensShaders( string $renderMode ){
      }
   }
 
+    //Scan LatLong_Stereo Nodes
+  for ( $domeNodeItems in $LatLong_Stereo_lenses )
+  {
+     // Look for the last item <done> in the array
+     if ( $domeNodeItems != "<done>" ){
+        string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
+        $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
+        //Print out the camera and lens connections
+        for ( $cameraNodeItems in $cameras){
+          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+          $i += 1;
+        }
+     }
+  }
+
   
   print("\n\nList of Domemaster3D cameras:\n");
   int $c = 1;
@@ -188,15 +211,32 @@ global proc domeScanLensShaders( string $renderMode ){
       string $cameraShapeNode = getObjectShapeNode($cameraNodeItems);
       if (`nodeType($cameraShapeNode)`== "stereoRigCamera"){
         print("Adjusting the stereo settings on the " + $cameraShapeNode + " rig\n");
-        
+
+        string $activeLensShader[];
+        float $domeActiveFocallength;
+        float $domeActiveInteraxialSeparation;
+
+
+        // LatLong Stereo
         //Scan the lens shader connections
-        string $activeLensShader[] = `listConnections -type "domeAFL_FOV_Stereo"  ($cameraShapeNode+".miLensShader")`;
-        print("Gathering the current zero parallax radius and camera separation values.\n");
+        $activeLensShader = `listConnections -type "LatLong_Stereo"  ($cameraShapeNode+".miLensShader")`;
+        if (`size($activeLensShader)`){
+        print("Gathering the LatLong_Stereo current parallax distance and camera separation values.\n");
         
-        
-        float $domeActiveFocallength = `getAttr($activeLensShader[0]+".Dome_Radius")`;
-         float $domeActiveInteraxialSeparation = `getAttr( $activeLensShader[0]+".Cameras_Separation")`;
-         
+        $domeActiveFocallength = `getAttr($activeLensShader[0]+".Parallax_Distance")`;
+        $domeActiveInteraxialSeparation = `getAttr( $activeLensShader[0]+".Cameras_Separation")`;
+        }
+
+        // Fulldome Stereo
+        //Scan the lens shader connections
+        $activeLensShader = `listConnections -type "domeAFL_FOV_Stereo"  ($cameraShapeNode+".miLensShader")`;
+        if (`size($activeLensShader)`){
+        print("Gathering the DomeAFL_FOV_Stereo current zero parallax radius and camera separation values.\n");
+
+        $domeActiveFocallength = `getAttr($activeLensShader[0]+".Dome_Radius")`;
+        $domeActiveInteraxialSeparation = `getAttr( $activeLensShader[0]+".Cameras_Separation")`;
+        }
+
         //Enable the default Maya stereo rig
         //setAttr ($cameraShapeNode+".zeroParallax") $domeActiveFocallength;
         //setAttr ($cameraShapeNode+".interaxialSeparation") $domeActiveInteraxialSeparation;
@@ -205,7 +245,7 @@ global proc domeScanLensShaders( string $renderMode ){
         print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + $domeViewportFocalLength + "mm.\n");
         setAttr ($cameraNodeItems+".focalLength") $domeViewportFocalLength;
       }
-          
+
     } else {
       //Rendering Finished
       //Run the PostRenderMel stuff

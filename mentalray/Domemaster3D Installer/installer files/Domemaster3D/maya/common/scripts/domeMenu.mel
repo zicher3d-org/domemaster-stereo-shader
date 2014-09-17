@@ -1,6 +1,6 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.5.1 - July 24, 2014
+Version 1.6 - September 16, 2014
 ------------------------------------------------------------------------------
 
 Notes:
@@ -212,6 +212,11 @@ global proc createDomemaster3DMenu() {
       menuItem 
         -label "LatLong Camera" 
         -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
+        -image "render_latlong_lens.xpm"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
+      menuItem 
+        -label "LatLong Stereo Camera" 
+        -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied."
         -image "render_latlong_lens.xpm"
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
 

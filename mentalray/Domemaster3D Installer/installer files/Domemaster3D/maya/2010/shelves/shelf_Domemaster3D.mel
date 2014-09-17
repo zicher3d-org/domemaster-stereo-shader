@@ -173,6 +173,29 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "LatLong3D" 
+        -align "center" 
+        -label "LatLong3D" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_LatLong_Stereo.xpm" 
+        -image1 "render_LatLong_Stereo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Color Material" 
         -align "center" 
         -label "Color" 

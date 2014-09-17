@@ -1,6 +1,6 @@
 """
-Domemaster3D Startup Code Version 1.5
-July 6, 2014
+Domemaster3D Startup Code Version 1.6
+2014-09-17 09.47 am
 by Andrew Hazelden
 
 """
@@ -19,6 +19,21 @@ def findDomeRig():
       
   return 0
 
+#Find the name of the stereo camera rig
+def findLatLongRig():
+  import maya.cmds as cmds
+
+  rigs = cmds.stereoRigManager(listRigs=True)
+  print ("Stereo Camera rigs:")
+  for rig in rigs:
+    defs = cmds.stereoRigManager(rigDefinition=rig)
+    print 'Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1]
+    #Check for
+    if (rig == "LatLongStereoCamera"):
+      return 1
+      
+  return 0
+
 def getMayaVersionDome():
   import maya.mel as mel
   import maya.cmds as cmds
@@ -32,6 +47,7 @@ def getMayaVersionDome():
   #Write out the current Maya version number
   print("Maya " + str(mayaVersion) + " detected.\n")
   return mayaVersion
+
 
 #Check if a DomeStereoCamera rig exists in the scene  
 def addNewDomeRig():
@@ -58,6 +74,32 @@ def addNewDomeRig():
   #else:
    # Maya 2010 or older was detected
    #print ("The Domemaster3D stereo rig feature requires Maya 2011 and newer.")
+
+#Check if a LatLongStereoCamera rig exists in the scene  
+def addNewLatLongRig():
+  import maya.mel as mel
+  import maya.cmds as cmds
+  import domeStereoRig as domeStereoRig
+  
+  if (findLatLongRig() == 0):
+    print ("A LatLongStereoCamera rig has been added to the stereoRigManager.")
+    # Register the LatLongStereoCamera rig type
+    # add[rig, language, createProcedure]
+    # cameraSetFunc=[rig,callback] 
+    # Add the custom rig
+    cmds.evalDeferred("cmds.stereoRigManager(add=['LatLongStereoCamera', 'Python', 'LatLongStereoRig.createRig'])")
+    # Add the custom callback set for Maya 2011+
+    mayaVersion = getMayaVersionDome()
+    if (mayaVersion >= 2011):
+      cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['LatLongStereoCamera','LatLongStereoRig.attachToCameraSet'] )")
+    
+    #Make the new rig the default rig
+    cmds.evalDeferred("cmds.stereoRigManager(defaultRig='LatLongStereoCamera')")
+  else:
+    print ("A LatLongStereoCamera rig already exists in the stereoRigManager.")
+  #else:
+   # Maya 2010 or older was detected
+   #print ("The LatLong_Stereo stereo rig feature requires Maya 2011 and newer.")
     
 # Load the Domemaster3D menu system in the rendering menu set    
 def addNewDomeMenu():
@@ -67,12 +109,14 @@ def addNewDomeMenu():
   mel.eval('createDomemaster3DMenu();')
 
 #----------------------------------------------------------------------------
-# Main Domemaster3D Startup function  
+# Main Domemaster3D Start up function  
 #----------------------------------------------------------------------------
 import maya.cmds as cmds
 
-# Add the Domemaster3D Stereo camera Rig
+# Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
 import domeStereoRig
+import LatLongStereoRig
+
 
 """
 Maya tip on detecting Maya Batch mode is from Michael Scarpa's blog post "MEL Sillyness":
@@ -88,6 +132,7 @@ if(isMayaInBatchMode == False):
   # Make sure the stereo plug-in is loaded
   cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
   cmds.evalDeferred("addNewDomeRig()")
+  cmds.evalDeferred("addNewLatLongRig()")
   # Load the Domemaster3D menu system in the rendering menu set
   cmds.evalDeferred("addNewDomeMenu()")
 else:

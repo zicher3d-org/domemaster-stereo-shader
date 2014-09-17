@@ -1,12 +1,18 @@
 """
-Domemaster3D Camera Setup Script V1.5
-2014-07-12 6.46pm
+Domemaster3D Camera Setup Script V1.6
+2014-09-17 06.15 am
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 1.6
+---------------
+Sept 17, 2014
+
+Added LatLong_Stereo support
 
 Version 1.5
 ---------------
@@ -153,6 +159,15 @@ Run using the command:
 import domeCamera as domeCamera
 reload(domeCamera)
 domeCamera.createLatLong_Camera():
+------------------------------------------------------------------------------
+
+Domemaster3D createLatLongStereoRig
+A python function to create a stereoscopic latitude longitude lens shader and attach it to a camera.
+
+Run using the command:
+import domeCamera as domeCamera
+reload(domeCamera)
+domeCamera.createLatLongStereoRig():
 
 ------------------------------------------------------------------------------
 
@@ -827,6 +842,106 @@ def createLatLong_Camera():
 
   # 18 mm focal length = 90 degree FOV
   cmds.setAttr( cameraShape+'.focalLength', 18 )
+
+
+"""
+Domemaster3D Fulldome Stereo Rig
+--------------------------------
+A python function to create a fulldome stereo rig in Maya.
+"""
+
+def createLatLongStereoRig():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  # ---------------------------------------------------------------------
+  # Setup the default Maya / Mental Ray Settings
+  # ---------------------------------------------------------------------
+  cmds.loadPlugin( "stereoCamera", qt=True )
+  
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
+
+  # ---------------------------------------------------------------------
+  # Create the stereo rig
+  # ---------------------------------------------------------------------
+  
+  #import maya.app.stereo.stereoCameraMenus as stereoCameraMenus
+  #stereoCameraMenus.buildCreateMenu()
+  #import maya.app.stereo.stereoCameraRig
+  #maya.app.stereo.stereoCameraRig.createStereoCameraRig()
+  
+  from maya.app.stereo import stereoCameraRig
+  rig = stereoCameraRig.createStereoCameraRig('LatLongStereoCamera')
+  #[u'LatLongCamera', u'LatLongCameraLeft', u'LatLongCameraRight']
+  
+  #Get the stereo camera rig shape nodes for the center/right/left cameras
+  rig_center_shape_name =  getObjectShapeNode(rig[0])
+  #[u'stereoCameraCenterCamShape', u'stereoCameraFrustum'] #
+
+  rig_left_shape_name =  getObjectShapeNode(rig[1])
+  # Result: [u'stereoCameraLeftShape'] #
+
+  rig_right_shape_name =  getObjectShapeNode(rig[2])
+  # Result: [u'stereoCameraRightShape'] #
+  
+  """
+  cmds.setAttr( rig[0]+'.rotateX', 90)
+  cmds.setAttr( rig[0]+'.rotateY', 0)
+  cmds.setAttr( rig[0]+'.rotateZ', 0)
+  
+  """
+  
+  # Changes the render settings to set the stereo camera to be a renderable camera
+  cmds.setAttr( rig_left_shape_name[0]+'.renderable', 1) #stereoCameraLeftShape
+  cmds.setAttr( rig_right_shape_name[0]+'.renderable', 1) #stereoCameraRightShape
+  cmds.setAttr( 'topShape.renderable', 0)
+  cmds.setAttr( 'sideShape.renderable', 0)
+  cmds.setAttr( 'frontShape.renderable', 0)
+  cmds.setAttr( 'perspShape.renderable', 0)
+
+  #Set up the default mental ray AA sampling quality
+  setDomeSamplingQuality()
+  
+  #import maya.cmds as cmds
+  #rig_center_shape_name =  getObjectShapeNode(rig[0])
+  #lensShaderName = cmds.listConnections( rig_center_shape_name[0]+'.miLensShader')
+
+  #Debugging test line
+  #lensShaderName = "center_domeAFL_FOV_Stereo";
+  #print ("Lens shader name: " + str(lensShaderName))
+  
+  # Select the center camera's domeAFL_FOV_Stereo node
+  #cmds.select(lensShaderName, replace=True)
+  
+  leftLensShader = cmds.listConnections(rig_left_shape_name[0]+'.miLensShader')
+  rightLensShader = cmds.listConnections(rig_right_shape_name[0]+'.miLensShader')
+  centerLensShader = cmds.listConnections(rig_center_shape_name[0]+'.miLensShader')
+  
+  #Select the camera's domeAFL_FOV_Stereo nodes in the attribute editor to add the Extra Attrs
+  #mel.eval ( ' showEditorExact("' + centerLensShader[0] + '") ' )
+  mel.eval ( ' showEditorExact("' + leftLensShader[0] + '") ' )
+  mel.eval ( ' showEditorExact("' + rightLensShader[0] + '") ' )
+  
+  #Finish off by reselecting the center lens shader
+  mel.eval ( ' showEditorExact("' + centerLensShader[0] + '") ' )
+  
+  #---------------------------------------------------------------------------
+  # Enable Real-time 3D in the OpenGL viewport 
+  # using a PreRender and PostRender MEL script
+  #---------------------------------------------------------------------------
+  #import maya.cmds as cmds
+
+  #PreRender MEL:
+  cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #PostRender MEL:
+  cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+
+  #enable realtime 3D
+  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
+  
+  return rig
+
 
 
 """

@@ -1,13 +1,13 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.5.0.2 - Aug 19, 2014
+Version 1.6 - September 17, 2014
 
 About This Shader
 --------------------
 The Domemaster Stereo lens shader is a custom mental ray shader that creates a stereoscopic 3D fisheye image. The lens shader provides advanced controls to optimize the viewing experience for stereoscopic dome renderings. 
 
-The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader.
+The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader, and stereoscopic LatLong_Stereo shader.
 
-Note: The Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
+Note: The previous Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
 
 Install Directory
 -----------------
@@ -81,6 +81,9 @@ The DomeAFL_WxH tool creates a 2D fulldome camera with the domeAFL_WxH lens shad
 
 LatLong Button
 The LatLong tool creates a latlong / equirectangular / spherical camera with the latlong_lens shader applied.
+
+LatLong3D Button
+The LatLong3D tool creates a stereoscopic latlong / equirectangular / spherical camera with the latlong_lens shader applied.
 
 Color Material Button
 The Color Material tool creates a mia_material_x_passes based mental ray shading network with support for color file textures.
@@ -162,6 +165,7 @@ After installing the Domemaster3D shader for 3DS Max, you will find 5 new Lens s
 -The "domeAFL_WxH"shader is used for 2D WxH fulldome rendering.
 -The "rob_lookup_background" is used to preview screen space texture maps before attaching them to the Domemaster Stereo Shader. Screen space coordinates are required when preparing turn maps, separation maps, and tilt maps.
 -The "LatLong Shader" is used to render latitude/longitude (equirectangular) images with a 360x180 degree view. These images are often rendered with a 2:1 aspect ratio.
+-The "LatLong_Stereo Shader" is used to render latitude/longitude (equirectangular) images with a 360x180 degree view. These images are often rendered with a 2:1 aspect ratio.
 
 Softimage Notes
 -------------------
@@ -191,14 +195,14 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Project Developers
 ----------------------
 
-Domemaster Stereo Shader for 3DS Max Created by Roberto Ziche
+Domemaster Stereo Shader & LatLong_Stereo shaders for 3DS Max Created by Roberto Ziche
 http://www.robertoziche.com/
 
-Domemaster3D shader for Maya and Softimage and Installer Program by Andrew Hazelden
-andrew@andrewhazelden.com      
+Domemaster3D  & LatLong_Stereo shaders for Maya and Softimage, and the installer by Andrew Hazelden
+andrew@andrewhazelden.com
 http://www.andrewhazelden.com/blog
 
-Based upon Daniel Ott's DomeAFL Angular Fisheye Lens Shader
+Domemaster Stereo Shader is Based upon Daniel Ott's DomeAFL Angular Fisheye Lens Shader
 http://www.thedott.net/shaders/domeAFL/
 
 
@@ -206,7 +210,7 @@ Special Thanks
 -----------------
 I would like to thank the following people for their contributions:
 
-Ralf Habel for the latlong_lens shader
+Ralf Habel for the 2D latlong_lens shader
 http://www.vi-motion.de/latlong_Tutorial/
 
 Aaron Bradbury for the installer imagery from his Vortex fulldome short film.
@@ -226,13 +230,17 @@ Version History
 -----------------
 
 
-Version 1.5.0.2
+Version 1.6
 ------------------
 Aug 19, 2014
 
-Maya Changes
 
-  Updated the "Task" shelf tool to add support for Linux.
+
+Version 1.5.0.2
+------------------
+September 17, 2014
+
+Initial LatLong_Stereo support added
 
 
 Version 1.5.0.1

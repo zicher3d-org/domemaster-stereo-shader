@@ -1,13 +1,13 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.5.0.2 - Aug 19, 2014
+Version 1.6 - September 17, 2014
 
 About This Shader
 ---------------------
 The Domemaster Stereo lens shader is a custom mental ray shader that creates a stereoscopic 3D fisheye image. The lens shader provides advanced controls to optimize the viewing experience for stereoscopic dome renderings. 
 
-The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader.
+The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens, and stereoscopic LatLong_Stereo shader.
 
-Note: The Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
+Note: The previous Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
 
 Install Directory
 -------------------
@@ -47,21 +47,21 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Project Developers
 ----------------------
 
-Domemaster Stereo Shader for 3DS Max Created by Roberto Ziche
+Domemaster Stereo Shader & LatLong_Stereo shaders for 3DS Max Created by Roberto Ziche
 http://www.robertoziche.com/
 
-Domemaster3D shader for Maya and Softimage, and the installer by Andrew Hazelden
+Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, and the installer by Andrew Hazelden
 andrew@andrewhazelden.com
 http://www.andrewhazelden.com/blog
 
-Based upon Daniel Ott's DomeAFL Angular Fisheye Lens Shader
+Domemaster Stereo Shader is Based upon Daniel Ott's DomeAFL Angular Fisheye Lens Shader
 http://www.thedott.net/shaders/domeAFL/
 
 Special Thanks
 -----------------
 Thanks to the following people for their contributions:
 
-Ralf Habel for the latlong_lens shader
+Ralf Habel for the 2D latlong_lens shader
 http://www.vi-motion.de/latlong_Tutorial/
 
 Aaron Bradbury for the installer imagery from his Vortex fulldome short film.

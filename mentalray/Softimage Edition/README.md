@@ -1,17 +1,17 @@
 # Domemaster3D Lens Shader for Softimage #
-**Version 1.4 Beta 4 - March 23, 2014**  
+**Version 1.6 Alpha 1 - September 17, 2014**  
 Ported by Andrew Hazelden
 
 Email: [andrewhazelden@gmail.com](mailto:andrewhazelden@gmail.com)  
 Web: [www.andrewhazelden.com](http://www.andrewhazelden.com)
 
 
-`DomeAFL_FOV_Stereo` shader created by Robert Ziche  
+`DomeAFL_FOV_Stereo` and `LatLong_Stereo` shaders created by Robert Ziche  
 [http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images](http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images)
 [http://code.google.com/p/domemaster-stereo-shader/](http://code.google.com/p/domemaster-stereo-shader/)
 
 
-Based upon Daniel Ott's "DomeAFL" Angular fisheye lens shader
+`DomeAFL_FOV_Stereo` is Based upon Daniel Ott's 2D "DomeAFL" Angular fisheye lens shader
 [http://www.thedott.net/shaders/domeAFL/](http://www.thedott.net/shaders/domeAFL/)
 
 Domemaster3D Softimage Wiki  
@@ -33,6 +33,7 @@ The Softimage Domemaster3D toolbar has buttons for the following features:
 - The **DomeAFL FOV** tool creates a standard 2D domeAFL FOV node + camera
 - The **DomeAFL WxH** tool creates a standard 2D domeAFL WxH node + camera 
 - The **LatLong tool** creates a 2D latlong_lens node + camera 
+- The **LatLong3D tool** creates a 3D LatLong_Stereo node + camera 
 - The **Starglobe tool** creates a starry background for your fulldome scenes.
 - The **DomeGrid tool** creates a hemispherical yellow wireframe reference grid. 
 - The **DomeViewer tool** creates an immersive fulldome viewer. 
@@ -90,6 +91,7 @@ You should now have the following new lens shaders:
     `domeAFL_FOV_Stereo`  
     `domeAFL_WxH`  
     `latlong_lens`  
+    `LatLong_Stereo`  
     `rob_lookup_background`  
 
 ## How to add a Lens Shader in Softimage ##

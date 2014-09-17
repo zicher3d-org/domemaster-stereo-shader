@@ -1,0 +1,94 @@
+#   TITLE: LatLong Test Declaration File
+
+#------------------------------------------
+# LatLong_Stereo
+#------------------------------------------
+
+declare shader
+	color "LatLong_Stereo" (
+		scalar	"FOV_Vert_Angle",
+		scalar	"FOV_Horiz_Angle",
+		boolean	"Flip_Ray_X",
+		boolean	"Flip_Ray_Y",
+		integer	"Camera" default 0,
+		scalar	"Parallax_Distance",
+		scalar	"Dome_Tilt",
+		scalar	"Cameras_Separation",
+		scalar	"Cameras_Separation_Map",
+		scalar	"Head_Turn_Map",
+		scalar	"Head_Tilt_Map",
+		boolean	"Dome_Tilt_Compensation",
+		boolean	"Vertical_Mode"
+	)
+	version 1
+	apply lens
+	scanline off
+	trace on
+	gui "gui_LatLong_Stereo" {
+		control "Global"  "Global" (
+			"uiName" "LatLong Stereo Shader"	#, "hidden"
+		)
+		control	"FOV_Vert_Angle" "scalar" (
+			"uiName" "Field of View (Vert)", "value" 180.0, "range" 0.0 360.0,
+			"nonConnectable"
+		)
+		control	"FOV_Horiz_Angle" "scalar" (
+			"uiName" "Field of View (Horiz)", "value" 360.0, "range" 0.0 360.0,
+			"nonConnectable"
+		)
+		control	"Flip_Ray_X" "boolean" (
+			"uiName" "Flip X", "value" 0,
+			"nonConnectable",
+			"hidden"
+		)
+		control	"Flip_Ray_Y" "boolean" (
+			"uiName" "Flip Y", "value" 0,
+			"nonConnectable",
+			"hidden"
+		)
+		control "Camera" "integer" (
+			"enum", "nonConnectable", "uiName" "Camera", "value" "0 Center, 1 Left, 2 Right", "range" 0 2,"helpText" "Center, Left, Right"
+		)
+		control	"Parallax_Distance" "scalar" (
+			"uiName" "Zero Parallax Distance", "value" 360.0, "range" 1.0 1000000.0,
+			"helpText" "Dome Radius (focus plane)",
+			"nonConnectable"	#, "hidden"
+		)
+		control	"Dome_Tilt" "scalar" (
+			"uiName" "Dome Forward Tilt", "value" 0.0, "range" 0.0 90.0,
+			"helpText" "Dome Forward Tilt",
+			"nonConnectable",
+			"hidden"
+		)
+		control	"Cameras_Separation" "scalar" (
+			"uiName" "Cameras Separation", "value" 6.0, "range" 0.0 1000000.0,
+			"nonConnectable"
+		)
+		control "Cameras_Separation_Map" "scalar" (
+			"uiName"  "Separation Multiplier", "value" 1.0, "range" 0.0 1.0,
+			"helpText" "Cameras Separation Multiplier Map"
+		)
+		control "Head_Turn_Map" "scalar" (
+			"uiName"  "Turn Multiplier", "value" 1.0, "range" 0.0 1.0,
+			"helpText" "Head Turn Multiplier Map",
+			"hidden"
+		)
+		control "Head_Tilt_Map" "scalar" (
+			"uiName"  "Head Tilt", "value" 0.5, "range" 0.0 1.0,
+			"helpText" "Head Tilt Map",
+			"hidden"
+		)
+		control "Dome_Tilt_Compensation" "boolean" (
+			"uiName" "Dome Tilt Compensation", "value" 0,
+			"helpText" "Enables Dome Tilt Compensation",
+			"nonConnectable",
+			"hidden"
+		)
+		control "Vertical_Mode" "boolean" (
+			"uiName" "Vertical Mode", "value" 0,
+			"helpText" "Enables Vertical Mode",
+			"nonConnectable",
+			"hidden"
+		)
+	}
+end declare

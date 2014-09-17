@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.6-alpha2</version>
+    <version>1.6</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -256,8 +256,8 @@
             <selected>1</selected>
             <show>1</show>
             <componentList>
-                <!-- Maya 2015 Install files -->
-                <componentGroup>
+	<!-- Maya 2015 Install files -->
+	<componentGroup>
                     <name>Maya2015</name>
                     <description>Maya 2015 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -322,8 +322,8 @@
                     </componentList>
                 </componentGroup>
 
-                <!-- Maya 2014 Install files -->
-                <componentGroup>
+	<!-- Maya 2014 Install files -->
+	<componentGroup>
                     <name>Maya2014</name>
                     <description>Maya 2014 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -400,8 +400,8 @@
                     </componentList>
                 </componentGroup>
 
-                <!-- Maya 2013.5 Install files -->
-                <componentGroup>
+	<!-- Maya 2013.5 Install files -->
+	<componentGroup>
                     <name>Maya2013_5</name>
                     <description>Maya 2013.5 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -478,8 +478,8 @@
                     </componentList>
                 </componentGroup>
 
-                <!-- Maya 2013 Install files -->
-                <componentGroup>
+	<!-- Maya 2013 Install files -->
+	<componentGroup>
                     <name>Maya2013</name>
                     <description>Maya 2013 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -556,8 +556,8 @@
                     </componentList>
                 </componentGroup>
 
-                <!-- Maya 2012 Install files -->
-                <componentGroup>
+	<!-- Maya 2012 Install files -->
+	<componentGroup>
                     <name>Maya2012</name>
                     <description>Maya 2012 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -634,8 +634,8 @@
                     </componentList>
                 </componentGroup>
 
-                <!-- Maya 2011 Install files -->
-                <componentGroup>
+	<!-- Maya 2011 Install files -->
+	<componentGroup>
                     <name>Maya2011</name>
                     <description>Maya 2011 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -712,8 +712,8 @@
                     </componentList>
                 </componentGroup>
 
-                <!-- Maya 2010 Install files -->
-                <componentGroup>
+	<!-- Maya 2010 Install files -->
+	<componentGroup>
                     <name>Maya2010</name>
                     <description>Maya 2010 Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -804,9 +804,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -834,9 +831,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -906,9 +900,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -936,9 +927,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1008,9 +996,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -1038,9 +1023,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1110,9 +1092,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -1140,9 +1119,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1212,9 +1188,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -1242,9 +1215,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1314,9 +1284,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -1344,9 +1311,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1416,9 +1380,6 @@
                                         <distributionFile>
                                             <origin>installer files/max/lib/latlong_lens.dll</origin>
                                         </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
                                     </distributionFileList>
                                 </folder>
                             </folderList>
@@ -1446,9 +1407,6 @@
                                         </distributionFile>
                                         <distributionFile>
                                             <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1502,8 +1460,8 @@
         </componentGroup>
     </componentList>
     <preInstallationActionList>
-        <!-- Windows Maya Env Backup -->
-        <createBackupFile>
+	<!-- Windows Maya Env Backup -->
+	<createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
             <path>${windows_folder_personal}/maya/2015-x64/Maya.env</path>
@@ -1588,8 +1546,8 @@
             </ruleList>
         </createBackupFile>
 
-        <!-- Mac Maya Env Backup -->
-        <createBackupFile>
+	<!-- Mac Maya Env Backup -->
+	<createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
             <path>~/Library/Preferences/Autodesk/maya/2015-x64/Maya.env</path>
@@ -1662,8 +1620,8 @@
             </ruleList>
         </createBackupFile>
 
-        <!-- Linux Maya Env Backup -->
-        <createBackupFile>
+	<!-- Linux Maya Env Backup -->
+	<createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
             <path>${windows_folder_personal}/maya/2015-x64/Maya.env</path>
@@ -1757,34 +1715,35 @@
         </removeDirectoryFromPath>
     </postUninstallationActionList>
 
-    <!-- Shows the component selection page -->
-    <allowComponentSelection>1</allowComponentSelection>
+	<!-- Shows the component selection page -->
+	<allowComponentSelection>1</allowComponentSelection>
     <defaultUnixDirectoryPermissions>777</defaultUnixDirectoryPermissions>
     <defaultUnixFilePermissions>777</defaultUnixFilePermissions>
     <description>Domemaster3D is a fulldome rendering shader for mental ray.</description>
     <enableRollback>1</enableRollback>
     <enableTimestamp>1</enableTimestamp>
     <osxApplicationBundleIdentifier>com.domemaster.appinstaller</osxApplicationBundleIdentifier>
+    <osxPlatforms>osx-intel</osxPlatforms>
     <productComments>Domemaster3D is a fulldome rendering shader for mental ray.</productComments>
     <productContact>andrew@andrewhazelden.com</productContact>
     <productUrlHelpLink>http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images</productUrlHelpLink>
     <productUrlInfoAbout>https://github.com/zicher3d-org/domemaster-stereo-shader/</productUrlInfoAbout>
 
-    <!-- Make sure the installer is run as an Admin user-->
-    <requireInstallationByRootUser>1</requireInstallationByRootUser>
+	<!-- Make sure the installer is run as an Admin user-->
+	<requireInstallationByRootUser>1</requireInstallationByRootUser>
     <saveRelativePaths>1</saveRelativePaths>
     <singleInstanceCheck>1</singleInstanceCheck>
     <slideShowLoop>0</slideShowLoop>
     <slideShowTiming>2</slideShowTiming>
 
-    <!-- Additional delay in milliseconds -->
-    <splashScreenDelay>3000</splashScreenDelay>
+	<!-- Additional delay in milliseconds -->
+	<splashScreenDelay>3000</splashScreenDelay>
     <summary>Domemaster3D is a fulldome rendering shader for mental ray.</summary>
     <unattendedModeUI>minimal</unattendedModeUI>
     <vendor>Andrew Hazelden</vendor>
 
-    <!-- This will be ignored in 32bit systems without consequences -->
-    <windows64bitMode>1</windows64bitMode>
+	<!-- This will be ignored in 32bit systems without consequences -->
+	<windows64bitMode>1</windows64bitMode>
     <parameterList>
         <directoryParameter>
             <name>installdir</name>

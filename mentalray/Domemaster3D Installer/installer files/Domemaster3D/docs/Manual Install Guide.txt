@@ -127,7 +127,7 @@ C:\Program Files\Autodesk\3ds Max 2009\mentalray\shaders_autoload\include
 
 Step 3. Copy the .dll 'library' files to your 3DS Max mental ray shader folder.
 
-The Domemaster3D .so shader lib files are stored in the folder:
+The Domemaster3D .dll shader lib files are stored in the folder:
 C:\Program Files\Domemaster3D\max\shaders\lib\
 
 The Domemaster3Dmental ray shader .dll files should be copied in one of the following the 3DS Max folders:

@@ -22,6 +22,12 @@ Linux:
 /opt/Domemaster3D/
 
 
+Windows Notes
+-------------------
+The Domemaster3D v1.6 Alpha release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+http://www.microsoft.com/en-us/download/details.aspx?id=30679
+
+
 Documentation and Resources
 -----------------------------------
 

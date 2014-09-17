@@ -24,20 +24,20 @@
 # 
 #  domeAFL_FOV_Stereo
 #    New Node ID = 1185220
-#    Current Node ID = 8101
+#    Old Node ID = 8101
 #
 #  domeAFL_FOV
 #    New Node ID = 1185221
-#    Current Node ID = 8002
+#    Old Node ID = 8002
 #
 #  domeAFL_WxH 
 #    New Node ID = 1185222
-#    Current Node ID = 8003
+#    Old Node ID = 8003
 #
 #  rob_lookup_background
 #    New Node ID = 1185223
-#    Current Node ID = 8102
-
+#    Old Node ID = 8102
+#
 #------------------------------------------
 # domeAFL_FOV_Stereo Node
 # Required Inputs:  FOV (field-of-view) 
@@ -219,7 +219,7 @@ declare shader
     boolean "Flip_Ray_Y"
         #: default 0 
   )
-  #: nodeid 8002  # Node ID for Maya binary
+  #: nodeid 1185221  # Node ID for Maya binary
   version 1
   apply lens
   scanline off
@@ -257,7 +257,7 @@ declare shader
     boolean "Flip_Ray_Y"
         #: default 0 
   )
-  #: nodeid 8003  # Node ID for Maya binary
+  #: nodeid 1185222  # Node ID for Maya binary
   version 1
   apply lens
   scanline off
@@ -284,7 +284,7 @@ declare shader
     #shader "tex"
     scalar  "tex"
   )
-  #: nodeid 8102  # Node ID for Maya binary
+  #: nodeid 1185223  # Node ID for Maya binary
   version 1
   apply lens
   scanline off

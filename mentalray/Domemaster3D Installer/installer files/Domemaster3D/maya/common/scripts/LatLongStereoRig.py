@@ -1,6 +1,6 @@
 """
  LatLong_Stereo Camera Rig V1.6
- Updated September 16, 2014 7.55am
+ Updated September 26, 2014 9.22am
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -111,7 +111,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
   # ---------------------------------------------------------------------
   
   #Variables
-  # separationMapFileTexture = getSourceImagesPath("latlong_separation_map.png") 
+  separationMapFileTexture = getSourceImagesPath("latlong_separation_map.png") 
   # turnMapFileTexture = getSourceImagesPath("latlong_turn_map.png")
   # tiltMapFileTexture = getSourceImagesPath("latlong_head_tilt_map.png")
 
@@ -234,23 +234,23 @@ def createLensShaders(centerCam, leftCam, rightCam):
   # ---------------------------------------------------------------------
   
   # Create the nodes
-  #separation_map_tex_filter = cmds.shadingNode( 'mib_texture_filter_lookup', n='separation_map_mib_texture_filter_lookup1', asTexture=True) 
+  separation_map_tex_filter = cmds.shadingNode( 'mib_texture_filter_lookup', n='separation_map_mib_texture_filter_lookup1', asTexture=True) 
   # turn_map_tex_filter =cmds.shadingNode( 'mib_texture_filter_lookup', n='turn_map_mib_texture_filter_lookup1', asTexture=True )
   # tilt_map_tex_filter =cmds.shadingNode( 'mib_texture_filter_lookup', n='tilt_map_mib_texture_filter_lookup1', asTexture=True )
   
-  # dome_tex_vector = cmds.shadingNode( 'mib_texture_vector', n='latlong_mib_texture_vector1', asUtility=True )
-  # dome_tex_remap = cmds.shadingNode( 'mib_texture_remap', n='latlong_mib_texture_remap1',  asUtility=True)
+  latlong_tex_vector = cmds.shadingNode( 'mib_texture_vector', n='latlong_mib_texture_vector1', asUtility=True )
+  latlong_tex_remap = cmds.shadingNode( 'mib_texture_remap', n='latlong_mib_texture_remap1',  asUtility=True)
   
-  #separation_map_mr_tex = cmds.shadingNode( 'mentalrayTexture', n='separation_map_mentalrayTexture1', asTexture=True)
+  separation_map_mr_tex = cmds.shadingNode( 'mentalrayTexture', n='separation_map_mentalrayTexture1', asTexture=True)
   # turn_map_mr_tex = cmds.shadingNode( 'mentalrayTexture', n='turn_map_mentalrayTexture1', asTexture=True )
   # tilt_map_mr_tex = cmds.shadingNode( 'mentalrayTexture', n='tilt_map_mentalrayTexture1', asTexture=True )
   
   # Set the node to use mode (4) which is screen space
-  # cmds.setAttr( dome_tex_vector+'.selspace', 4)
+  cmds.setAttr( latlong_tex_vector+'.selspace', 4)
   
   # Connect the nodes
-  #cmds.connectAttr( separation_map_tex_filter+'.outValueR', centerCamLens+'.Cameras_Separation_Map', force=True )
-  #cmds.connectAttr( separation_map_mr_tex+'.message', separation_map_tex_filter+'.tex', force=True )
+  cmds.connectAttr( separation_map_tex_filter+'.outValueR', centerCamLens+'.Cameras_Separation_Map', force=True )
+  cmds.connectAttr( separation_map_mr_tex+'.message', separation_map_tex_filter+'.tex', force=True )
   
   # cmds.connectAttr( turn_map_tex_filter+'.outValueR', centerCamLens+'.Head_Turn_Map', force=True )
   # cmds.connectAttr( turn_map_mr_tex+'.message', turn_map_tex_filter+'.tex', force=True )
@@ -258,31 +258,31 @@ def createLensShaders(centerCam, leftCam, rightCam):
   # cmds.connectAttr( tilt_map_tex_filter+'.outValueR', centerCamLens+'.Head_Tilt_Map', force=True )
   # cmds.connectAttr( tilt_map_mr_tex+'.message', tilt_map_tex_filter+'.tex', force=True )
 
-  # cmds.connectAttr( dome_tex_vector+'.outValue', dome_tex_remap+'.input', force=True )
+  cmds.connectAttr( latlong_tex_vector+'.outValue', latlong_tex_remap+'.input', force=True )
 
-  #cmds.connectAttr( dome_tex_remap+'.outValue', separation_map_tex_filter+'.coord', force=True )
-  # cmds.connectAttr( dome_tex_remap+'.outValue', turn_map_tex_filter+'.coord', force=True )
-  # cmds.connectAttr( dome_tex_remap+'.outValue', tilt_map_tex_filter+'.coord', force=True )
+  cmds.connectAttr( latlong_tex_remap+'.outValue', separation_map_tex_filter+'.coord', force=True )
+  # cmds.connectAttr( latlong_tex_remap+'.outValue', turn_map_tex_filter+'.coord', force=True )
+  # cmds.connectAttr( latlong_tex_remap+'.outValue', tilt_map_tex_filter+'.coord', force=True )
 
-  #cmds.setAttr( separation_map_mr_tex+'.fileTextureName', separationMapFileTexture , type="string")
+  cmds.setAttr( separation_map_mr_tex+'.fileTextureName', separationMapFileTexture , type="string")
   # cmds.setAttr( turn_map_mr_tex+'.fileTextureName', turnMapFileTexture, type="string")
   # cmds.setAttr( tilt_map_mr_tex+'.fileTextureName', tiltMapFileTexture, type="string")
 
   # ---------------------------------------------------------------------
   #Set up the stereo camera rig's preview shape settings
   # ---------------------------------------------------------------------
-  #import maya.mel as mel
+  # import maya.mel as mel
   
   # Select the center camera LatLong_Stereo node
-  #cmds.select(centerCamLens, replace=True)
+  # cmds.select(centerCamLens, replace=True)
   
   # Select the center camera LatLong_Stereo node in the attribute editor
-  #centerCamLens = "center_LatLong_Stereo"
-  #mel.eval ( ' showEditorExact(" ' + centerCamLens + ' ") ' )
-  #mel.eval ( ' showEditorExact(" ' + leftCamLens + ' ") ' )
-  #mel.eval ( ' showEditorExact(" ' + rightCamLens + ' ") ' )
+  # centerCamLens = "center_LatLong_Stereo"
+  # mel.eval ( ' showEditorExact(" ' + centerCamLens + ' ") ' )
+  # mel.eval ( ' showEditorExact(" ' + leftCamLens + ' ") ' )
+  # mel.eval ( ' showEditorExact(" ' + rightCamLens + ' ") ' )
 
-  #mel.eval ( ' showEditorExact(" ' + centerCamLens + ' ") ' )
+  # mel.eval ( ' showEditorExact(" ' + centerCamLens + ' ") ' )
   
   # ---------------------------------------------------------------------
   # Link the center camera lens shader to the Maya camera rig stereo3d settings

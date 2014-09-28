@@ -1,6 +1,6 @@
 # Domemaster3D Lens Shader for Softimage #
-**Version 1.6 Alpha 1 - September 17, 2014**  
-Ported by Andrew Hazelden
+**Version 1.6 Alpha 2 - September 27, 2014**  
+Ported to Softimage by Andrew Hazelden
 
 Email: [andrewhazelden@gmail.com](mailto:andrewhazelden@gmail.com)  
 Web: [www.andrewhazelden.com](http://www.andrewhazelden.com)
@@ -8,20 +8,20 @@ Web: [www.andrewhazelden.com](http://www.andrewhazelden.com)
 
 `DomeAFL_FOV_Stereo` and `LatLong_Stereo` shaders created by Robert Ziche  
 [http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images](http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images)
-[http://code.google.com/p/domemaster-stereo-shader/](http://code.google.com/p/domemaster-stereo-shader/)
+[https://github.com/zicher3d-org/domemaster-stereo-shader/](https://github.com/zicher3d-org/domemaster-stereo-shader/)
 
 
-`DomeAFL_FOV_Stereo` is Based upon Daniel Ott's 2D "DomeAFL" Angular fisheye lens shader
+`DomeAFL_FOV_Stereo` is Based upon Daniel Ott's 2D "DomeAFL" Angular fisheye lens shaders
 [http://www.thedott.net/shaders/domeAFL/](http://www.thedott.net/shaders/domeAFL/)
 
 Domemaster3D Softimage Wiki  
-[https://code.google.com/p/domemaster-stereo-shader/wiki/SoftimageDomemasterInstall](https://code.google.com/p/domemaster-stereo-shader/wiki/SoftimageDomemasterInstall)
+[https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Softimage-Domemaster3D-Install](https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Softimage-Domemaster3D-Install)
 
 ## About This Shader ##
 
 The Domemaster Stereo lens shader is a custom mental ray shader that creates a stereoscopic 3D fisheye image. The lens shader provides advanced controls to optimize the viewing experience for stereoscopic dome renderings.
 
-The Domemaster3D shader for softimage includes a new toolbar which automates the most common tasks.
+The Domemaster3D shader for Softimage includes a new toolbar which automates the most common tasks.
 
 ![Domemaster3D Softimage Toolbar](screenshots/domemaster-toolbar.png)
 
@@ -37,6 +37,7 @@ The Softimage Domemaster3D toolbar has buttons for the following features:
 - The **Starglobe tool** creates a starry background for your fulldome scenes.
 - The **DomeGrid tool** creates a hemispherical yellow wireframe reference grid. 
 - The **DomeViewer tool** creates an immersive fulldome viewer. 
+- The **S3D View tool** creates a Softimage Fx Tree node graph that performs red/cyan anaglyph stereo merging of your left and right render passes.
 - The **Wiki Help** tool loads the Domemaster Stereo Shader Wiki page in your web browser. 
 - The **Version Info** tool shows the current version number for the Domemaster Stereo Shader. 
 - The **0.5k** button sets the render resolution to 512x512 pixels.
@@ -63,7 +64,14 @@ The DomeViewer tool allows you to preview a fulldome angular fisheye image in So
 
 ![Domemaster3D DomeViewer Tool](screenshots/domeviewer_xsi.png)
 
-domeviewer_xsi.png
+## LatLong_Stereo Screenshot ##
+
+The Domemaster3D v1.6 release has added a new `LatLong_Stereo` node that makes it easy to render spherical stereoscopic images. 
+
+You can access the controls by expanding the `LatLongStereoCamera_Root` object in the Explorer window, and double clicking on the `LatLong_Camera_Controls` object.
+
+![Domemaster3D LatLong_Stereo Controls](screenshots/latlong_camera_controls.png)
+
 ## Installing the Shader ##
 
 Open Softimage.
@@ -76,11 +84,7 @@ In the file dialogue select the file `domemaster3D.xsiaddon`. This is the add-on
 
 The files that are contained in the `domemaster3D.xsiaddon` package will be listed in the Install Add-On window. Click the "Install" button to load the Domemaster3D files. By default the files will be copied into the Softimage Addons folder:
 
-Softimage 2013
-`C:\Users\<your user id>\Autodesk\Softimage_2013\Addons\domemaster3D`
-
-Softimage 2014
-`C:\Users\<your user id>\Autodesk\Softimage_2014\Addons\domemaster3D`
+`C:\Users\<your user id>\Autodesk\Softimage_<Version Number>\Addons\domemaster3D`
 
 Quit Softimage.
 
@@ -115,28 +119,27 @@ Pick one of the lens shaders from the pop-up menu such as `domeAFL_FOV_Stereo`.
 
 ## Domemaster3D Lens Shader Controls ##
 
-Field of View: The field of view for the rendered fisheye image.
+**Field of View**: The field of view for the rendered fisheye image.
 
-Camera: Choices are Center/Left/Right. Selects the camera to use for rendering. Center skips 90% of the calculations and gives you a highly optimized standard angular fisheye shader.
+**Camera**: Choices are Center/Left/Right. Selects the camera to use for rendering. Center skips 90% of the calculations and gives you a highly optimized standard angular fisheye shader.
 
-Dome Radius: (focus plane) This is actually the distance at which the cameras line of sights converge, so it's not really the dome size. 
+**Dome Radius** (focus plane): This is actually the distance at which the camera's line of sight converges. This is also known as the zero parallax distance so the control isn't really the dome size.
 
-Dome Forward Tilt: Dome tilt in degrees. Note that this value is not used unless you enable Dome Tilt Compensation.
+**Dome Forward Tilt**: Dome tilt in degrees. Note that this value is not used unless you enable Dome Tilt Compensation.
 
-Cameras Separation: The initial separation of the L/R cameras.
+**Camera Separation**: The initial separation of the left and right cameras.
 
-Separation Multiplier: A value between 0-1 that multiples the Camera Separation. This attribute is meant to be used with a grayscale texture mapped to the screen space using the right button. It's used to control the amount of 3D effect, and eliminate it where desired.
+**Separation Multiplier**: A value between 0-1 that multiples the Camera Separation. This attribute is meant to be used with a grayscale texture mapped to the screen space using the right button. It's used to control the amount of 3D effect, and eliminate it where desired.
 
-Turn Multiplier: A value 0-1 that controls the amount tof the head turn. To be used with a grayscale texture. Typical use, keep the head straight while looking at the top of the dome.
+**Turn Multiplier**: A value 0-1 that controls the amount of the head turn. To be used with a grayscale texture. Typical use, keep the head straight while looking at the top of the dome.
 
-Head Tilt: A value 0-1 (with 0.5 being the "neutral" value) that tilts the cameras (or head) left/right. 0 means 90 degrees to the left, 1 means 90 degrees to the right (if I remember correctly).
+**Head Tilt**: A value 0-1 (with 0.5 being the "neutral" value) that tilts the cameras (or head) left/right. 0 means 90 degrees to the left, 1 means 90 degrees to the right (if I remember correctly).
 
-Dome Tilt Compensation: Enabling this option, shifts all the calculations by the # of degrees specified in Dome Forward Tilt. (Basically, it keeps the cameras/head vertical while the dome rotates forward.)
+**Dome Tilt Compensation**: Enabling this option, shifts all the calculations by the # of degrees specified in Dome Forward Tilt. (Basically, it keeps the fulldome cameras / viewer's head vertical while the dome rotates forward.)
 
 Maps used for the various multipliers and tilt settings will have to be custom made for the proper dome tilt.
 
-Vertical Mode: Enable the vertical dome mode, which automatically adjust the head turn and adds a turn compensation for the upper and lower part of the dome. It's a simplified and optimized version of the Dome Tilt Compensation with a 90 degrees tilt. It is faster and easier to use.
-
+**Vertical Mode**: Enables the vertical dome mode which automatically adjusts the head turn setting and adds a turn compensation for the upper and lower part of the dome. It's a simplified and optimized version of the Dome Tilt Compensation with a 90 degree tilt angle. It is faster and easier to use.
 
 ![A screenshot of the Domemaster3D Softimage GUI](screenshots/domemaster3D_xsi_lens_shader.png)
 
@@ -202,5 +205,4 @@ Connect the `mib_texture_remap.out` to the `mib_texture_filter_lookup.coord`.
 Deselect all of the nodes in the render tree. From the Tools menu in the Render Tree window select Rearrange (Ctrl-R) to cleanup the work area.
 
 To see the results of the `rob_lookup_background` shader you need to click the 'preview' or 'render' buttons.
-
 

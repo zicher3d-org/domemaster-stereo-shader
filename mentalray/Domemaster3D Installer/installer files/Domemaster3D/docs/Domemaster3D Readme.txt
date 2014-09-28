@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 - September 17, 2014
+Version 1.6 Alpha 2 - September 27, 2014
 
 About This Shader
 --------------------
@@ -109,7 +109,7 @@ The FulldomeIBL tool creates a custom mentalrayTexture based shading network tha
 Note: The FulldomeIBL image sequence mode requires your batch rendering software to distribute the rendering job using 1 frame per packet / render slice so a new image is loaded for each frame of the sequence. The FulldomeIBL tool works with Maya 2015's newly improved "emit light" IBL lighting system
 
 HemirectIBL Button
-The HemirectIBL tool creates a custom mentalrayTexture based shading network that lets you feed in an image with the top half of an equirectangular panorama into mentalray IBL's spherical texture input. The word Hemirect is short for hemi-equirectangular which is a new panoramic format based upon using the top 90 degree field of view zone of an equirectangular image which gives a 360° horizontal by 90° vertical part of the "all sky" region that matches the coverage area of a regular fulldome image.
+The HemirectIBL tool creates a custom mentalrayTexture based shading network that lets you feed in an image with the top half of an equirectangular panorama into mental ray IBL's spherical texture input. The word Hemirect is short for hemi-equirectangular which is a new panoramic format based upon using the top 90 degree field of view zone of an equirectangular image which gives a 360° horizontal by 90° vertical part of the "all sky" region that matches the coverage area of a regular fulldome image.
 Note: The HemirectIBL image sequence mode requires your batch rendering software to distribute the rendering job using 1 frame per packet / render slice so a new image is loaded for each frame of the sequence. The HemirectIBL tool works with Maya 2015's newly improved "emit light" IBL lighting system.
 
 DomeGrid Button

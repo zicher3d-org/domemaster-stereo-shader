@@ -905,7 +905,7 @@ createLatLong_Camera()]]&gt;</scripttext>
             <item type="scriptbutton" label="Lat3D Camera" bitmap="render_LatLong_Stereo.bmp" scriptengine="XSI.SIPython.1" tooltip="LatLong3D">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 LatLong_Stereo Camera Setup Script
-Version 1.6 Alpha 1 - 2014-09-17 4.58pm
+Version 1.6 Alpha 2 - 2014-09-27 8.23pm
 ---------------------------------------------
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 Based upon the Softimage scripting work of Max Crow
@@ -982,9 +982,9 @@ def createLatLongStereoRig():
 
   #Setup the base folder path for the Domemaster3D control maps
   #Variables
-  #separationMapFileTexture = &quot;C:\\Program Files\\Domemaster3D\\sourceimages\\separation_map.png&quot;
-  separationMapFileTexture = getSourceImagesPath(&quot;separation_map.png&quot;)
-  turnMapFileTexture = getSourceImagesPath(&quot;turn_map.png&quot;)
+  #separationMapFileTexture = &quot;C:\\Program Files\\Domemaster3D\\sourceimages\\latlong_separation_map.png&quot;
+  separationMapFileTexture = getSourceImagesPath(&quot;latlong_separation_map.png&quot;)
+  turnMapFileTexture = getSourceImagesPath(&quot;latlong_turn_map.png&quot;)
 
   # Add a stereo camera named &quot;LatLongStereoCamera&quot;
   rigName = &quot;LatLongStereoCamera&quot;
@@ -1110,8 +1110,6 @@ def createLatLongStereoRig():
   # Create the LatLong_Stereo control texture maps
   #baseRig = &quot;LatLong_Stereo&quot;
 
-  &quot;&quot;&quot;
-
   # Add the separation map to the left and right cameras
   right_separation_map_color_to_scalar_node  = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  rightRig+&quot;.camera.LatLong_Stereo.Cameras_Separation_Map&quot;, &quot;right_separation_map_color_to_scalar&quot;, &quot;&quot;))
   left_separation_map_color_to_scalar_node  =  str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;,  leftRig+&quot;.camera.LatLong_Stereo.Cameras_Separation_Map&quot;, &quot;left_separation_map_color_to_scalar&quot;, &quot;&quot;))
@@ -1121,7 +1119,7 @@ def createLatLongStereoRig():
   Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, right_separation_map_color_to_scalar_node+&quot;.input&quot;, False)
   Application.SIConnectShaderToCnxPoint(separation_mib_texture_filter_lookup_node+&quot;.out&quot;, left_separation_map_color_to_scalar_node+&quot;.input&quot;, False)
   separationMapFileTexture_node = str(Application.SICreateImageClip(separationMapFileTexture, &quot;&quot;, &quot;&quot;))
-  Application.SIConnectShaderToCnxPoint(&quot;Clips.separation_map_png&quot;, separation_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
+  Application.SIConnectShaderToCnxPoint(&quot;Clips.latlong_separation_map_png&quot;, separation_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
   separation_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_vector&quot;))
   separation_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;separation_mib_texture_remap&quot;))
   Application.SetValue(separation_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
@@ -1129,7 +1127,7 @@ def createLatLongStereoRig():
   Application.SIConnectShaderToCnxPoint(separation_mib_texture_remap_node+&quot;.out&quot;, separation_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
 
   # -----------------------------------------------
-
+  &quot;&quot;&quot;
   # Add the turn map to the left and right cameras
   right_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, rightRig+&quot;.camera.LatLong_Stereo.Head_Turn_Map&quot;, &quot;right_turn_map_color_to_scalar&quot;, &quot;&quot;))
   left_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, leftRig+&quot;.camera.LatLong_Stereo.Head_Turn_Map&quot;, &quot;left_turn_map_color_to_scalar&quot;, &quot;&quot;))
@@ -1596,8 +1594,11 @@ createDomeGrid()]]&gt;</scripttext>
             </item>
             <item type="scriptbutton" label="Dome Viewer" bitmap="domeViewer" scriptengine="XSI.SIPython.1" tooltip="Dome Viewer">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
-Dome Viewer Python Script 1.4B5
-2014-04-18
+Dome Viewer Python Script 1.6 Alpha 2
+2014-09-27
+
+Changes:
+New in version 1.6B2 is the &quot;all quads&quot; based dome viewer mesh geometry.
 
 Notes:
 A constant shading material node is used on the Dome Viewer surface so the object is self-illuminated
@@ -1719,8 +1720,13 @@ def createDomeViewer():
     domeviewer_material_name = &quot;domeviewer_constant_material&quot;
 
     # Get the Domemaster3D Addons path for the obj mesh
+    
+    #This mesh has a standard pinch pole zone at the zenith
+    #domeViewerModelFile = getSourceImagesPath(&quot;fulldome_triangle_polar_mesh.obj&quot;)
+    #domeViewerModelFile = getModelsPath(&quot;fulldome_triangle_polar_mesh.obj&quot;)
+
+    #This mesh has an all quads based geometry and avoids issues at the zenith
     domeViewerModelFile = getSourceImagesPath(&quot;fulldome_mesh.obj&quot;)
-    #domeViewerModelFile = getModelsPath(&quot;fulldome_mesh.obj&quot;)
 
     # Load the fulldome preview shape model
     domeviewer_mesh_file = str(Application.ObjImport(domeViewerModelFile, 1, 0, False, True, False, True))
@@ -1900,8 +1906,7 @@ Application.NewScene(&quot;&quot;, &quot;&quot;)
 createDomeViewer()
 
 # Create the DomeViewer camera
-createDomeViewerCamera()
-]]&gt;</scripttext>
+createDomeViewerCamera()]]&gt;</scripttext>
             </item>
             <item type="scriptbutton" label="Stereo View" bitmap="stereoView" scriptengine="XSI.SIPython.1" tooltip="Stereo View">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;

@@ -3,15 +3,21 @@
 
   Procedure Name:
   AELatLong_StereoTemplate
-
+  
   Description:
   Creates the attribute editor controls for the LatLong_Stereo shader
-
+  
   Version History
   -----------------
 
-  Version 1.6
-  ------------------
+  Version 1.6 Alpha 2
+  ----------------------
+  2014-09-19 03.14 pm
+
+  UI Tweak
+
+  Version 1.6 Alpha 1
+  -----------------------
   2014-09-17 07.40 am
   Initial Release
 
@@ -26,31 +32,31 @@
 //This creates the Parallax_Distance non mappable sliders in the attribute editor
 global proc AELatLong_Stereo_Parallax_DistanceNew( string $attrName )
 {
-    floatSliderGrp 
-      -label "Zero Parallax Distance" 
-      -annotation "Zero Parallax Distance (focus plane)" 
-      -field true 
-      -maxValue 10000.0 
-      -minValue 0.1 
+    floatSliderGrp
+      -label "Zero Parallax Distance"
+      -annotation "Zero Parallax Distance (focus plane)"
+      -field true
+      -maxValue 10000.0
+      -minValue 0.1
       -value 360.0
-      -fieldMinValue 0.1 
-      -fieldMaxValue 1000000.0 
-      LatLong_Stereo_Parallax_Distance; 
+      -fieldMinValue 0.1
+      -fieldMaxValue 1000000.0
+      LatLong_Stereo_Parallax_Distance;
 	
-	connectControl LatLong_Stereo_Parallax_Distance $attrName;	
+	connectControl LatLong_Stereo_Parallax_Distance $attrName;
 }
 
 
 //This creates the Dome_Tilt non mappable sliders in the attribute editor
 global proc AELatLong_Stereo_TiltNew( string $attrName )
 {
-	floatSliderGrp 
-    -label "Dome Forward Tilt" 
-    -annotation "Dome Forward Tilt" 
-    -field true 
-    -maxValue 90.0 
-    -minValue 0.0 
-    -value 0.0 
+	floatSliderGrp
+    -label "Dome Forward Tilt"
+    -annotation "Dome Forward Tilt"
+    -field true
+    -maxValue 90.0
+    -minValue 0.0
+    -value 0.0
     -fieldMinValue 0.0
     -fieldMaxValue 90.0
     -sliderStep 5
@@ -69,7 +75,7 @@ global proc AELatLong_Stereo_SeparationNew( string $attrName )
     -field true 
     -maxValue 100.0 
     -minValue 0.0 
-    -value 6.0 
+    -value 6.5 
     -fieldMinValue 0
     -fieldMaxValue 1000000.0 
     LatLong_Stereo_Cameras_Separation;
@@ -464,9 +470,9 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       
       editorTemplate -label "Separation Multiplier" -annotation "Cameras Separation Multiplier Map" -addControl "Cameras_Separation_Map"; 
       
-      editorTemplate -label "Turn Multiplier" -annotation "Head Turn Multiplier Map" -addControl "Head_Turn_Map";
+      //editorTemplate -label "Turn Multiplier" -annotation "Head Turn Multiplier Map" -addControl "Head_Turn_Map";
       
-      editorTemplate -label "Head Tilt" -annotation "Head Tilt Map" -addControl "Head_Tilt_Map";
+      //editorTemplate -label "Head Tilt" -annotation "Head Tilt Map" -addControl "Head_Tilt_Map";
     
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
@@ -488,6 +494,9 @@ global proc AELatLong_StereoTemplate( string $nodeName )
     editorTemplate -suppress "nodeState";
     editorTemplate -suppress "FOV_Vert_Angle";
     editorTemplate -suppress "FOV_Horiz_Angle";
+
+    editorTemplate -suppress "Head_Turn_Map";
+    editorTemplate -suppress "Head_Tilt_Map";
     //editorTemplate -suppress "domeVersion";
 
      //Add any new controls that aren't listed above to the bottom of the attribute editor window 

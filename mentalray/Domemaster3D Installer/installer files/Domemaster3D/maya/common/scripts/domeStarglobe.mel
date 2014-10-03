@@ -1,11 +1,17 @@
 /*
-  Dome Starglobe GUIV1.5
+  Dome Starglobe GUI V1.6
   by Andrew Hazelden
 
   This is a Maya GUI for the starglobe tool.
 
   Version History
   ----------------
+  
+  Version 1.6
+  ---------------
+  Oct 3, 2014
+  
+  Updated the sourceimages path code to allow the installation of the Domemaster3D shader to a folder other than the default path.
   
   Version 1.5 - July 6, 2014
   ------------------------------------

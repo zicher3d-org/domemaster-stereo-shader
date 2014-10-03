@@ -1,13 +1,13 @@
 """
-Dome Material Script V1.5
-2014-07-12
+Dome Material Script V1.6
+2014-10-03 05.09 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
 
 This is a set of python functions for Maya that create domeAFL shader compatible surface materials.
 
-The textures are loaded as mentalray textures and connected to a standard mia_material.
+The textures are loaded as mental ray textures and connected to a standard mia_material.
 
 You can set the file textures to an empty path if you don't want a default texture applied to the mentalrayTexture nodes. On my system I get an error if I try and render a scene with an empty mentalrayTexture node. 
 
@@ -15,6 +15,12 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+Version 1.6 
+---------------
+Oct 3, 2014
+
+Updating the sourceimages path code
 
 Version 1.5
 ----------------
@@ -215,6 +221,9 @@ A python function to check the operating system platform and the source images f
 
 """
 def getSourceImagesPath(imageFileName):
+  import os
+  import maya.cmds as cmds
+  import maya.mel as mel
   # ---------------------------------------------------------------------
   #Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
@@ -224,25 +233,31 @@ def getSourceImagesPath(imageFileName):
 
   #This is the base path for the images folder
   baseImagesFolder = ""
-
-  if platform.system()=='Windows':
-    #Check if the program is running on Windows 
-    baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
-  elif platform.system()== 'win32':
-    #Check if the program is running on Windows 32
-    baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Darwin':
-    #Check if the program is running on Mac OS X
-    baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux':
-    #Check if the program is running on Linux
-    baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux2':
-    #Check if the program is running on Linux
-    baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
-  else:
-    # Create the empty variable as a fallback mode
-    baseImagesFolder = ""
+  
+  # Try and read the value from the current Maya.env file's environment variables
+  baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
+  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  
+  # Use a fixed value if the env var is empty
+  if baseImagesFolder == None:
+    if platform.system()=='Windows':
+      #Check if the program is running on Windows 
+      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+    elif platform.system()== 'win32':
+      #Check if the program is running on Windows 32
+      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Darwin':
+      #Check if the program is running on Mac OS X
+      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux':
+      #Check if the program is running on Linux
+      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux2':
+      #Check if the program is running on Linux
+      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+    else:
+      # Create the empty variable as a fallback mode
+      baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
@@ -259,6 +274,9 @@ A python function to check the operating system platform and the models folder.
 
 """
 def getModelsPath(modelFileName):
+  import os
+  import maya.cmds as cmds
+  import maya.mel as mel
   # ---------------------------------------------------------------------
   #Set up the base folder path for the Domemaster3D models
   # ---------------------------------------------------------------------
@@ -268,25 +286,31 @@ def getModelsPath(modelFileName):
 
   #This is the base path for the images folder
   baseModelsFolder = ""
-
-  if platform.system()=='Windows':
-    #Check if the program is running on Windows 
-    baseModelsFolder = "C:/Program Files/Domemaster3D/sourceimages/"
-  elif platform.system()== 'win32':
-    #Check if the program is running on Windows 32
-    baseModelsFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Darwin':
-    #Check if the program is running on Mac OS X
-    baseModelsFolder = "/Applications/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux':
-    #Check if the program is running on Linux
-    baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux2':
-    #Check if the program is running on Linux
-    baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
-  else:
-    # Create the empty variable as a fallback mode
-    baseModelsFolder = ""
+  
+  # Try and read the value from the current Maya.env file's environment variables
+  baseModelsFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
+  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  
+  # Use a fixed value if the env var is empty
+  if baseModelsFolder == None:
+    if platform.system()=='Windows':
+      #Check if the program is running on Windows 
+      baseModelsFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+    elif platform.system()== 'win32':
+      #Check if the program is running on Windows 32
+      baseModelsFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Darwin':
+      #Check if the program is running on Mac OS X
+      baseModelsFolder = "/Applications/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux':
+      #Check if the program is running on Linux
+      baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux2':
+      #Check if the program is running on Linux
+      baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
+    else:
+      # Create the empty variable as a fallback mode
+      baseModelsFolder = ""
 
   combinedFileAndModelPath = baseModelsFolder + modelFileName
 
@@ -1105,6 +1129,10 @@ def createStarglobe():
 
   #Select the surface material
   #cmds.select(starglobe_mia_shader_name, r=True)
+  
+  #Turn on hardware texturing and shading
+  cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
 
   #Select the original objects
   if object_selection:

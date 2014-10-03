@@ -368,9 +368,11 @@ A python function to check the operating system platform and the source images f
 
 """
 def getSourceImagesPath(imageFileName):
-
+  import os
+  import maya.cmds as cmds
+  import maya.mel as mel
   # ---------------------------------------------------------------------
-  #Setup the base folder path for the Domemaster3D control maps
+  #Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
 
   #Check OS platform for Windows/Mac/Linux Paths
@@ -378,25 +380,31 @@ def getSourceImagesPath(imageFileName):
 
   #This is the base path for the images folder
   baseImagesFolder = ""
-
-  if platform.system()=='Windows':
-    #Check if the program is running on Windows 
-    baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
-  elif platform.system()== 'win32':
-    #Check if the program is running on Windows 32
-    baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Darwin':
-    #Check if the program is running on Mac OS X
-    baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux':
-    #Check if the program is running on Linux
-    baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux2':
-    #Check if the program is running on Linux
-    baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
-  else:
-    # Create the empty variable as a fallback mode
-    baseImagesFolder = ""
+  
+  # Try and read the value from the current Maya.env file's environment variables
+  baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
+  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  
+  # Use a fixed value if the env var is empty
+  if baseImagesFolder == None:
+    if platform.system()=='Windows':
+      #Check if the program is running on Windows 
+      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+    elif platform.system()== 'win32':
+      #Check if the program is running on Windows 32
+      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Darwin':
+      #Check if the program is running on Mac OS X
+      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux':
+      #Check if the program is running on Linux
+      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux2':
+      #Check if the program is running on Linux
+      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+    else:
+      # Create the empty variable as a fallback mode
+      baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 

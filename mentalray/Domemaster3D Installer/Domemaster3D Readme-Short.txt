@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 Alpha 3 - September 28, 2014
+Version 1.6 Alpha 4 - October 3, 2014
 
 About This Shader
 ---------------------
@@ -76,9 +76,10 @@ http://www.luniere.com/project/vortex/
 Aaron Bradbury for the inclusion of the fulldome alignment grid:
 http://www.luniere.com/2013/03/07/hi-res-fulldome-alignment-grid/
 
-Jason Fletcher for creating a high quality equirectangular starglobe texture, the Starfield Maya example, and the Maya Fluid FX based Sun example.
+Jason Fletcher for creating a high quality equirectangular starglobe texture, and the starfield, sun, and nebula example scenes:
 http://thefulldomeblog.com/2013/06/22/stars-to-surround-the-scene/
 http://thefulldomeblog.com/2013/07/30/customizing-a-close-up-sun/
 http://thefulldomeblog.com/2013/07/03/creating-a-star-field/
+http://thefulldomeblog.com/2013/08/20/the-nebula-challenge/
 
 Martin Watt for writing the original galaxies.mel script.

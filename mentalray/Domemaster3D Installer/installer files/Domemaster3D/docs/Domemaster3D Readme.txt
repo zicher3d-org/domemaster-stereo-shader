@@ -1,8 +1,8 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 Alpha 3 - September 28, 2014
+Version 1.6 Alpha 4 - October 3, 2014
 
 About This Shader
---------------------
+---------------------
 The Domemaster Stereo lens shader is a custom mental ray shader that creates a stereoscopic 3D fisheye image. The lens shader provides advanced controls to optimize the viewing experience for stereoscopic dome renderings. 
 
 The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader, and the stereoscopic LatLong_Stereo shader.
@@ -10,7 +10,7 @@ The shader collection also supports fulldome 2D rendering using either the DomeA
 Note: The previous Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
 
 Install Directory
------------------
+-------------------
 The Domemaster3D shader is installed to the following paths:
 Windows:
 C:\Program Files\Domemaster3D\
@@ -225,10 +225,12 @@ http://www.luniere.com/project/vortex/
 Aaron Bradbury for the inclusion of the fulldome alignment grid:
 http://www.luniere.com/2013/03/07/hi-res-fulldome-alignment-grid/
 
-Jason Fletcher for creating a high quality equirectangular starglobe texture, the Starfield Maya example, and the Maya Fluid FX based Sun example.
+Jason Fletcher for creating a high quality equirectangular starglobe texture, and the starfield, sun, and nebula example scenes:
 http://thefulldomeblog.com/2013/06/22/stars-to-surround-the-scene/
 http://thefulldomeblog.com/2013/07/30/customizing-a-close-up-sun/
 http://thefulldomeblog.com/2013/07/03/creating-a-star-field/
+http://thefulldomeblog.com/2013/08/20/the-nebula-challenge/
+
 
 Martin Watt for writing the original galaxies.mel script.
 
@@ -240,16 +242,17 @@ Version History
 
 Version 1.6
 ------------------
-Aug 19, 2014
+September - October, 2014
 
-
+Initial LatLong_Stereo support added
+Updated Maya.env file to add a sourceimages path line
+Updated Maya scripts so the Domemaster3D shader can be installed to any folder location by updating the Maya.env file
 
 Version 1.5.0.2
 ------------------
-September 17, 2014
+Aug 19, 2014
 
-Initial LatLong_Stereo support added
-
+Updated Task button for Linux Support.
 
 Version 1.5.0.1
 ------------------

@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-September 28, 2014
+Version 1.6 Alpha 4 - October 3, 2014
 
 ## Render Farm Note ## 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
@@ -130,7 +130,7 @@ Step 3. Copy the .dll 'library' files to your 3DS Max mental ray shader folder.
 The Domemaster3D .dll shader lib files are stored in the folder:
 C:\Program Files\Domemaster3D\max\shaders\lib\
 
-The Domemaster3Dmental ray shader .dll files should be copied in one of the following the 3DS Max folders:
+The Domemaster3D mental ray shader .dll files should be copied in one of the following the 3DS Max folders:
 C:\Program Files\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\shaders
 C:\Program Files\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\shaders
 C:\Program Files\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\shaders
@@ -193,7 +193,7 @@ Mac OS X Shader Lib Path:
 
 
 
-## Domemaster3D Maya RenderFarm Notes ##
+## Domemaster3D & LatLong Stereo Maya RenderFarm Notes ##
 
 The Domemaster3D shader typically uses a Pre-render and Post-render MEL scripts to control the stereoscopic settings on the domeAFL_FOV_Stereo fulldome camera rig at render time.
 

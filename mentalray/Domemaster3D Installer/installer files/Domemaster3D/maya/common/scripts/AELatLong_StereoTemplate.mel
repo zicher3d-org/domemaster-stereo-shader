@@ -10,6 +10,12 @@
   Version History
   -----------------
 
+  Version 1.6 Alpha 4
+  ----------------------
+  2014-10-01 01.19 pm
+
+  Adding dynamic attributes and a help link
+  
   Version 1.6 Alpha 2
   ----------------------
   2014-09-19 03.14 pm
@@ -317,11 +323,11 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
   */
   
   //Zero Parallax Display Mode
-  string $attrName ="zeroParallaxDisplayMode";
-  if (!`attributeExists $attrName $baseNodeName`) {
-    addAttr -ln $attrName  -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -defaultValue 1 -keyable true $baseNodeName;
-    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
-  }
+  // string $attrName ="zeroParallaxDisplayMode";
+  // if (!`attributeExists $attrName $baseNodeName`) {
+    // addAttr -ln $attrName  -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -defaultValue 1 -keyable true $baseNodeName;
+    // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  // }
   
   //Zero Parallax Color
   $attrName ="zeroParallaxColor";
@@ -347,51 +353,51 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
   
 
    //Double Sided Rendering
-  $attrName ="doubleSidedShading";
-  if (!`attributeExists $attrName $baseNodeName`) {
-    addAttr -ln $attrName  -nn "Double Sided Shading" -at "enum" -en "Double Sided:Show Frontfaces:Show Backfaces" -min 0 -defaultValue 2 -keyable true $baseNodeName;
-    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
-  }
+  // $attrName ="doubleSidedShading";
+  // if (!`attributeExists $attrName $baseNodeName`) {
+    // addAttr -ln $attrName  -nn "Double Sided Shading" -at "enum" -en "Double Sided:Show Frontfaces:Show Backfaces" -min 0 -defaultValue 2 -keyable true $baseNodeName;
+    // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  // }
   
   //---------------------------------------------------------------------
   //Add Save Viewing Controls
   //---------------------------------------------------------------------
   
   //Safe Viewing Display Mode
-  $attrName ="safeViewingDisplayMode";
-   if (!`attributeExists $attrName $baseNodeName`) {
-    addAttr -ln $attrName -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -keyable true $baseNodeName;
-    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
-  }
+  // $attrName ="safeViewingDisplayMode";
+   // if (!`attributeExists $attrName $baseNodeName`) {
+    // addAttr -ln $attrName -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -keyable true $baseNodeName;
+    // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  // }
   
   //Safe Viewing Color
-  $attrName ="safeViewingColor";
-  $attrRName = "safeViewingColorR";
-  $attrGName = "safeViewingColorG";
-  $attrBName = "safeViewingColorB";
+  // $attrName ="safeViewingColor";
+  // $attrRName = "safeViewingColorR";
+  // $attrGName = "safeViewingColorG";
+  // $attrBName = "safeViewingColorB";
 
-  if (!`attributeExists $attrName $baseNodeName`) {
-    addAttr -ln $attrName -at float3 -uac -keyable true $baseNodeName;
-    addAttr -ln $attrRName -at "float" -p $attrName -keyable true $baseNodeName;
-    addAttr -ln $attrGName -at "float" -p $attrName -keyable true $baseNodeName;
-    addAttr -ln $attrBName -at "float" -p $attrName -keyable true $baseNodeName;
-    setAttr -type float3 ($baseNodeName+"."+$attrName) 0.236 0.8080 1.0;
-    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
-  }
+  // if (!`attributeExists $attrName $baseNodeName`) {
+    // addAttr -ln $attrName -at float3 -uac -keyable true $baseNodeName;
+    // addAttr -ln $attrRName -at "float" -p $attrName -keyable true $baseNodeName;
+    // addAttr -ln $attrGName -at "float" -p $attrName -keyable true $baseNodeName;
+    // addAttr -ln $attrBName -at "float" -p $attrName -keyable true $baseNodeName;
+    // setAttr -type float3 ($baseNodeName+"."+$attrName) 0.236 0.8080 1.0;
+    // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  // }
   
   //Safe Viewing Transparency
-  $attrName ="safeViewingTransparency";
-  if (!`attributeExists $attrName $baseNodeName`) {
-  addAttr -ln "safeViewingTransparency"  -at double  -min 0 -max 1 -dv 0.25 -keyable true $baseNodeName;
-  print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
-  }
+  // $attrName ="safeViewingTransparency";
+  // if (!`attributeExists $attrName $baseNodeName`) {
+  // addAttr -ln "safeViewingTransparency"  -at double  -min 0 -max 1 -dv 0.25 -keyable true $baseNodeName;
+  // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  // }
 
   //Safe Stereo Mode
-  $attrName ="safeStereo";
-  if (!`attributeExists $attrName $baseNodeName`) {
-    addAttr -ln $attrName -nn "Safe Stereo" -at bool -keyable true $baseNodeName;
-    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
-  }
+  // $attrName ="safeStereo";
+  // if (!`attributeExists $attrName $baseNodeName`) {
+    // addAttr -ln $attrName -nn "Safe Stereo" -at bool -keyable true $baseNodeName;
+    // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  // }
   
   if($NewDomeSetup){
     //Add the dome preview shape to the camera via the connected lens shader
@@ -432,20 +438,20 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
-       
+    
     //Define the Stereo Display Controls
     //editorTemplate -beginLayout "Stereo Display Controls" -collapse 0;
     editorTemplate -beginLayout "Stereo Display Controls" -collapse 1;
     editorTemplate 	-beginNoOptimize;
     
       //Add the custom dynamic attributes to the node
-      // editorTemplate -callCustom "LatLong_Stereo_AddDynamicAttrs" "LatLong_Stereo_AddDynamicAttrs" "zeroParallaxColor";  
+      editorTemplate -callCustom "LatLong_Stereo_AddDynamicAttrs" "LatLong_Stereo_AddDynamicAttrs" "zeroParallaxColor";  
     
-      // editorTemplate -callCustom "LatLong_Stereo_ZeroParallaxDisplayModeNew" "LatLong_Stereo_ZeroParallaxDisplayModeReplace" "zeroParallaxDisplayMode"; 
+      //editorTemplate -callCustom "LatLong_Stereo_ZeroParallaxDisplayModeNew" "LatLong_Stereo_ZeroParallaxDisplayModeReplace" "zeroParallaxDisplayMode"; 
       
-      // editorTemplate -label "Parallax Distance Color" -annotation  "This color picker controls the color of the \"Parallax Distance\" geometry." -addDynamicControl "zeroParallaxColor";
+      editorTemplate -label "Parallax Distance Color" -annotation  "This color picker controls the color of the \"Parallax Distance\" geometry." -addDynamicControl "zeroParallaxColor";
       
-      // editorTemplate -label "Parallax Distance Transparency" -annotation  "Controls the transparency of the \"Parallax Distance\" geometry" -addDynamicControl "zeroParallaxTransparency";
+      editorTemplate -label "Parallax Distance Transp" -annotation  "Controls the transparency of the \"Parallax Distance\" geometry" -addDynamicControl "zeroParallaxTransparency";
 
       // editorTemplate -callCustom "LatLong_Stereo_DoubleSidedPreviewShapeNew" "LatLong_Stereo_DoubleSidedPreviewShapeReplace" "doubleSidedShading"; 
       

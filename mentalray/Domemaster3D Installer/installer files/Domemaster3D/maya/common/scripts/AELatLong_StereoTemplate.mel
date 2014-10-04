@@ -12,9 +12,10 @@
 
   Version 1.6 Alpha 4
   ----------------------
-  2014-10-01 01.19 pm
-
+  2014-10-03 09.29 pm
+  
   Adding dynamic attributes and a help link
+  Hiding Dome_Tilt_Compensation and Vertical_Mode attributes
   
   Version 1.6 Alpha 2
   ----------------------
@@ -426,15 +427,15 @@ global proc AELatLong_StereoTemplate( string $nodeName )
        // Define custom non-mappable slider controls
       editorTemplate -callCustom 	"AELatLong_Stereo_Parallax_DistanceNew" "AELatLong_Stereo_Parallax_DistanceReplace" "Parallax_Distance";   
       
-      editorTemplate -callCustom 	"AELatLong_Stereo_TiltNew" "AELatLong_Stereo_TiltReplace" "Dome_Tilt";
+      //editorTemplate -callCustom 	"AELatLong_Stereo_TiltNew" "AELatLong_Stereo_TiltReplace" "Dome_Tilt";
       
       editorTemplate -callCustom 	"AELatLong_Stereo_SeparationNew" "AELatLong_Stereo_SeparationReplace" "Cameras_Separation";    
       
-      editorTemplate -addSeparator;
+      //editorTemplate -addSeparator;
       
-      editorTemplate -label "Dome Tilt Compensation" -annotation "Enables Dome Tilt Compensation" -addControl "Dome_Tilt_Compensation";     
+      //editorTemplate -label "Dome Tilt Compensation" -annotation "Enables Dome Tilt Compensation" -addControl "Dome_Tilt_Compensation";     
       
-      editorTemplate -label "Vertical Mode" -annotation "Enables Vertical Mode" -addControl "Vertical_Mode";
+      //editorTemplate -label "Vertical Mode" -annotation "Enables Vertical Mode" -addControl "Vertical_Mode";
       
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
@@ -503,10 +504,14 @@ global proc AELatLong_StereoTemplate( string $nodeName )
 
     editorTemplate -suppress "Head_Turn_Map";
     editorTemplate -suppress "Head_Tilt_Map";
+    
+    editorTemplate -suppress "Dome_Tilt";
+    editorTemplate -suppress "Dome_Tilt_Compensation";
+    editorTemplate -suppress "Vertical_Mode";
     //editorTemplate -suppress "domeVersion";
 
-     //Add any new controls that aren't listed above to the bottom of the attribute editor window 
+    //Add any new controls that aren't listed above to the bottom of the attribute editor window 
     editorTemplate -addExtraControls;
-    
+
   editorTemplate -endScrollLayout;
 }

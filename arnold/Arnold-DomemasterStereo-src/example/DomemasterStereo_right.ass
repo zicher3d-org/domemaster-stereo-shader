@@ -1,0 +1,1959 @@
+### exported: Fri Sep 05 19:00:21 2014
+### from:     Arnold 4.2.0.6 windows icc-14.0.2 oiio-1.2.2 rlm-10.1.2 2014/07/16 13:10:09
+### host app: MtoA 1.1.0.4 ada1eb56ff99 (Master) MtoA-1.1.0.4 Maya 2014
+
+
+
+options
+{
+ name options
+ AA_samples 3
+ AA_seed 1
+ AA_sample_clamp_affects_aovs off
+ abort_on_error on
+ abort_on_license_fail off
+ skip_license_check off
+ error_color_bad_texture 1 0 0
+ error_color_bad_pixel 0 0 1
+ outputs 
+  "RGBA RGBA defaultArnoldFilter@gaussian_filter defaultArnoldDriver@driver_exr.RGBA"
+ xres 1024
+ yres 1024
+ region_min_x -1
+ region_min_y -1
+ region_max_x -1
+ region_max_y -1
+ aspect_ratio 1
+ bucket_size 64
+ bucket_scanning "spiral"
+ ignore_textures off
+ ignore_shaders off
+ ignore_atmosphere off
+ ignore_lights off
+ ignore_shadows off
+ ignore_subdivision off
+ ignore_displacement off
+ ignore_bump off
+ ignore_motion_blur off
+ ignore_dof off
+ ignore_smoothing off
+ ignore_sss off
+ auto_transparency_depth 10
+ auto_transparency_threshold 0.99000001
+ texture_max_open_files 100
+ texture_max_memory_MB 1024
+ texture_per_file_stats on
+ texture_searchpath ""
+ texture_automip on
+ texture_autotile 64
+ texture_accept_untiled on
+ texture_accept_unmipped on
+ texture_conservative_lookups on
+ texture_glossy_blur 0
+ texture_diffuse_blur 0.03125
+ texture_max_sharpen 1.5
+ camera "stereoCameraRightShape"
+ background "aiSky"
+ atmosphere NULL
+ low_light_threshold 0.00100000005
+ shadow_terminator_fix on
+ sss_bssrdf_samples 3
+ sss_use_autobump off
+ volume_indirect_samples 0
+ reference_time 0
+ shader_nan_checks off
+ max_subdivisions 999
+ procedural_searchpath ""
+ shader_searchpath ""
+ preserve_scene_data off
+ texture_gamma 2.20000005
+ light_gamma 2.20000005
+ shader_gamma 2.20000005
+ GI_diffuse_depth 3
+ GI_glossy_depth 1
+ GI_reflection_depth 2
+ GI_refraction_depth 2
+ GI_total_depth 10
+ GI_diffuse_samples 6
+ GI_glossy_samples 2
+ GI_refraction_samples 2
+ enable_aov_composition on
+ declare frame constant FLOAT
+ frame 1
+ declare render_layer constant STRING
+ render_layer "defaultRenderLayer"
+ declare fps constant FLOAT
+ fps 30
+}
+
+persp_camera
+{
+ name perspShape
+ fov 140.000061
+ focus_distance 1
+ aperture_size 0
+ aperture_blades 0
+ aperture_rotation 0
+ aperture_blade_curvature 0
+ aperture_aspect_ratio 1
+ uv_remap 0 0 0 0
+ matrix
+ 0.790154994 0 -0.612907052 0
+ 0.541474104 0.468521297 0.698064208 0
+ 0.287160009 -0.883452237 0.370204449 0
+ 13.6724043 2.34380317 16.0982265 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ screen_window_min -1 -1
+ screen_window_max 1 1
+ exposure 0
+}
+
+ortho_camera
+{
+ name topShape
+ matrix
+ 1 0 -0 0
+ -0 2.22044605e-016 -1 0
+ 0 1 2.22044605e-016 0
+ 0 100.099998 0 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ screen_window_min -15 -15
+ screen_window_max 15 15
+ exposure 0
+}
+
+ortho_camera
+{
+ name frontShape
+ matrix
+ 1 0 0 0
+ 0 1 0 0
+ 0 0 1 0
+ 0 0 100.099998 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ screen_window_min -15 -15
+ screen_window_max 15 15
+ exposure 0
+}
+
+ortho_camera
+{
+ name sideShape
+ matrix
+ 2.22044605e-016 0 -1 0
+ 0 1 0 0
+ 1 0 2.22044605e-016 0
+ 100.099998 0 0 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ screen_window_min -15 -15
+ screen_window_max 15 15
+ exposure 0
+}
+
+persp_camera
+{
+ name stereoCameraCenterCamShape
+ fov 140.000061
+ focus_distance 1
+ aperture_size 0
+ aperture_blades 0
+ aperture_rotation 0
+ aperture_blade_curvature 0
+ aperture_aspect_ratio 1
+ uv_remap 0 0 0 0
+ matrix
+ 0.43523109 0 0.900318742 0
+ -0.662722051 0.676875949 0.320372343 0
+ -0.609404147 -0.736097097 0.294597477 0
+ -11.9114752 1.05910397 9.9407053 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ screen_window_min -1 -1
+ screen_window_max 1 1
+ exposure 0
+}
+
+DomemasterStereo
+{
+ name stereoCameraLeftShape
+ camera 2
+ fov 180
+ separation 0.3
+ zero_parallax_sphere 10.0
+ forward_tilt 0.0
+ separation_map 1.0
+ head_turn_map 1.0
+ head_roll_map 0.5
+ matrix
+ 0.43523109 0 0.900318742 0
+ -0.662722051 0.676875949 0.320372343 0
+ -0.609404147 -0.736097097 0.294597477 0
+ -11.9114752 1.05910397 9.9407053 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ handedness "right"
+ screen_window_min -1 -1
+ screen_window_max 1 1
+ exposure 0
+}
+
+DomemasterStereo
+{
+ name stereoCameraRightShape
+ camera 1
+ fov 180
+ separation 0.3
+ zero_parallax_sphere 10.0
+ separation_map 1.0
+ head_turn_map 1.0
+ head_roll_map 0.5
+ matrix
+ 0.43523109 0 0.900318742 0
+ -0.662722051 0.676875949 0.320372343 0
+ -0.609404147 -0.736097097 0.294597477 0
+ -11.9114752 1.05910397 9.9407053 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ handedness "right"
+ screen_window_min -1 -1
+ screen_window_max 1 1
+ exposure 0
+}
+
+persp_camera
+{
+ name perspShape2
+ fov 54.4322243
+ focus_distance 1
+ aperture_size 0
+ aperture_blades 0
+ aperture_rotation 0
+ aperture_blade_curvature 0
+ aperture_aspect_ratio 1
+ uv_remap 0 0 0 0
+ matrix
+ 0.958322585 -1.38777878e-017 0.28568837 0
+ 0.141712859 0.868299663 -0.475366324 0
+ -0.248063117 0.496040016 0.83211118 0
+ 6.8439908 9.90037346 29.0634689 1
+ near_clip 0.100000001
+ far_clip 10000
+ shutter_start 0
+ shutter_end 1
+ shutter_type "box"
+ rolling_shutter "off"
+ rolling_shutter_duration 0
+ screen_window_min -1 -1
+ screen_window_max 1 1
+ exposure 0
+}
+
+skydome_light
+{
+ name aiSkyDomeLightShape1
+ resolution 1000
+ format "latlong"
+ matrix
+ 1 0 0 0
+ 0 1 0 0
+ 0 0 1 0
+ 0 0 0 1
+ color hdr_sky_filetexture
+ intensity 1
+ exposure 3
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ shadow_color 0 0 0
+ samples 6
+ normalize on
+ affect_diffuse on
+ affect_specular on
+ affect_volumetrics on
+ diffuse 1
+ specular 1
+ sss 1
+ indirect 1
+ max_bounces 999
+ volume_samples 2
+}
+
+sky
+{
+ name aiSky
+ color hdr_sky_filetexture
+ intensity 1
+ visibility 147
+ opaque_alpha on
+ format "latlong"
+ X_angle -0
+ Y_angle -0
+ Z_angle -0
+ X 1 0 0
+ Y 0 1 0
+ Z 0 0 1
+}
+
+polymesh
+{
+ name pPlaneShape1
+ nsides 100 1 b85UINT
+B!%<_l4$$$$=
+ vidxs 400 1 b85UINT
+B'Rg(<'n6:@(4ZLD(P)^H(kMpL)1r-P)MA?T)heQX*/4c\*JXu`+,LDh+GpVl+c?hp,)d%t,E37x,`WJ'-'&\+-BJn/-]o+3.$>=7.[1a?.vUsC/=%0G/XIBK/smTO0:<fS0U`xW0q05[17TG_1RxYc24l(k2P;:o2k_Ls32.^w3MRq&3hw.*4/F@.4JjR24f9d65,]v:5cQEB6)uWF6EDiJ6`i&N7'88R7B\JV7^+\Z8$On^8?t+b8[C=f9=6an9XZsr9t*0v::NC%:UrU):qAg-;7f$1;S565;nYH9<5(Z=<kq)E=2@;I=MdMM=i3_Q>/WqU>K'.Y>fK@]?,oRa?H>de?cbvi@EVEq@a%WuA'Ij$ABn'(A^=9,B$aK0B@0]4B[To8Bw$,<C=H>@Ct;bHD:_tLDV/1PDqSCTE7wUXESFg\Enk$`F5:6dFP^HhFl-ZlGMv)tGiE;xH/iN'HK8`+Hf\r/I-,/3IHPA7IctS;J*Ce?JEgwC
+ nidxs 400 1 b85UINT
+B$v2N*$[2`0%XA8:&:4\B&q(+J'RpOR(4csZ(kWBb)MJfj*/>5r+G^)V+,U5Y+c?Sa,)chg,E3(m,`W=s-'&S$-BJh*-]o(0.$>=6.vCa?.[:jA/=%0G/XIBK/smTO0:<fS0U`xW0q05[17TG_1RxYc2P)(k24u1m2k_Ls32.^w3MRq&3hw.*4/F@.4JjR24f9d65,]v:6)cEB5cZND6EDiJ6`i&N7'88R7B\JV7^+\Z8$On^8?t+b8[C=f9XHan9=?jp9t*0v::NC%:UrU):qAg-;7f$1;S565;nYH9<5(Z==2.)E<l%2G=MdMM=i3_Q>/WqU>K'.Y>fK@]?,oRa?H>de?cbvi@`hEq@E_NsA'Ij$ABn'(A^=9,B$aK0B@0]4B[To8Bw$,<C=H>@D:MbHCtDkJDV/1PDqSCTE7wUXESFg\Enk$`F5:6dFP^HhFl-ZlGi3)tGN*2vH/iN'HK8`+Hf\r/I-,/3IHPA7IctS;J*Ce?JEgwC
+ uvidxs 400 1 b85UINT
+B'Rg(<'n6:@(4ZLD(P)^H(kMpL)1r-P)MA?T)heQX*/4c\*JXu`+,LDh+GpVl+c?hp,)d%t,E37x,`WJ'-'&\+-BJn/-]o+3.$>=7.[1a?.vUsC/=%0G/XIBK/smTO0:<fS0U`xW0q05[17TG_1RxYc24l(k2P;:o2k_Ls32.^w3MRq&3hw.*4/F@.4JjR24f9d65,]v:5cQEB6)uWF6EDiJ6`i&N7'88R7B\JV7^+\Z8$On^8?t+b8[C=f9=6an9XZsr9t*0v::NC%:UrU):qAg-;7f$1;S565;nYH9<5(Z=<kq)E=2@;I=MdMM=i3_Q>/WqU>K'.Y>fK@]?,oRa?H>de?cbvi@EVEq@a%WuA'Ij$ABn'(A^=9,B$aK0B@0]4B[To8Bw$,<C=H>@Ct;bHD:_tLDV/1PDqSCTE7wUXESFg\Enk$`F5:6dFP^HhFl-ZlGMv)tGiE;xH/iN'HK8`+Hf\r/I-,/3IHPA7IctS;J*Ce?JEgwC
+ vlist 121 1 b85POINT
+aDq99Y&XMt89+]ca?IjJY&XMt89+]ca9wF[Y&XMt89+]ca1fesY&XMt89+]ca$.aHY&XMt89+]czY&XMt89+]c7m>0vY&XMt89+]c8%v5HY&XMt89+]c8.1k0Y&XMt89+]c83Y9uY&XMt89+]c89+]cY&XMt89+]caDq99Xv1*083Y9ta?IjJXv1*083Y9ta9wF[Xv1*083Y9ta1fesXv1*083Y9ta$.aHXv1*083Y9tzXv1*083Y9t7m>0vXv1*083Y9t8%v5HXv1*083Y9t8.1k0Xv1*083Y9t83Y9uXv1*083Y9t89+]cXv1*083Y9taDq99Xp^[A8.1k0a?IjJXp^[A8.1k0a9wF[Xp^[A8.1k0a1fesXp^[A8.1k0a$.aHXp^[A8.1k0zXp^[A8.1k07m>0vXp^[A8.1k08%v5HXp^[A8.1k08.1k0Xp^[A8.1k083Y9uXp^[A8.1k089+]cXp^[A8.1k0aDq99XhN%Y8%v5Ha?IjJXhN%Y8%v5Ha9wF[XhN%Y8%v5Ha1fesXhN%Y8%v5Ha$.aHXhN%Y8%v5HzXhN%Y8%v5H7m>0vXhN%Y8%v5H8%v5HXhN%Y8%v5H8.1k0XhN%Y8%v5H83Y9uXhN%Y8%v5H89+]cXhN%Y8%v5HaDq99XZjv.7m>0ra?IjJXZjv.7m>0ra9wF[XZjv.7m>0ra1fesXZjv.7m>0ra$.aHXZjv.7m>0rzXZjv.7m>0r7m>0vXZjv.7m>0r8%v5HXZjv.7m>0r8.1k0XZjv.7m>0r83Y9uXZjv.7m>0r89+]cXZjv.7m>0raDq99zza?IjJzza9wF[zza1feszza$.aH!$$$$$$$$$)7m>0vzz8%v5Hzz8.1k0zz83Y9uzz89+]czzaDq99/O%E\a$.aLa?IjJ/O%E\a$.aLa9wF[/O%E\a$.aLa1fes/O%E\a$.aLa$.aH/O%E\a$.aLz/O%E\a$.aL7m>0v/O%E\a$.aL8%v5H/O%E\a$.aL8.1k0/O%E\a$.aL83Y9u/O%E\a$.aL89+]c/O%E\a$.aLaDq99/\]J.a1fesa?IjJ/\]J.a1fesa9wF[/\]J.a1fesa1fes/\]J.a1fesa$.aH/\]J.a1fesz/\]J.a1fes7m>0v/\]J.a1fes8%v5H/\]J.a1fes8.1k0/\]J.a1fes83Y9u/\]J.a1fes89+]c/\]J.a1fesaDq99/dn*ka9wF[a?IjJ/dn*ka9wF[a9wF[/dn*ka9wF[a1fes/dn*ka9wF[a$.aH/dn*ka9wF[z/dn*ka9wF[7m>0v/dn*ka9wF[8%v5H/dn*ka9wF[8.1k0/dn*ka9wF[83Y9u/dn*ka9wF[89+]c/dn*ka9wF[aDq99/j@N[a?IjKa?IjJ/j@N[a?IjKa9wF[/j@N[a?IjKa1fes/j@N[a?IjKa$.aH/j@N[a?IjKz/j@N[a?IjK7m>0v/j@N[a?IjK8%v5H/j@N[a?IjK8.1k0/j@N[a?IjK83Y9u/j@N[a?IjK89+]c/j@N[a?IjKaDq99/ogrIaDq99a?IjJ/ogrIaDq99a9wF[/ogrIaDq99a1fes/ogrIaDq99a$.aH/ogrIaDq99z/ogrIaDq997m>0v/ogrIaDq998%v5H/ogrIaDq998.1k0/ogrIaDq9983Y9u/ogrIaDq9989+]c/ogrIaDq99
+ nlist 121 1 b85VECTOR
+zy0(Jvtzy0(Jvrzy0(Jvtzy0(Jvuzy0(Jvqzy0(Jvqzy0(Jvszy0(Jvtzy0(Jvrzy0(Jvtzy0(Jvszy0(Jvszy0(Jvrzy0(Jvtzy0(Jvrzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvrzy0(Jvtzy0(Jvtzy0(Jvvzy0(Jvuzy0(Jvvzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvqzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvvzy0(Jvtzy0(Jvuzy0(Jvrzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvuzy0(Jvrzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvrzy0(Jvuzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvrzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvtzy0(Jvpzy0(Jvtzy0(Jvrzy0(Jvtzy0(Jvrzy0(Jvtzy0(Jvtzy0(Jvuzy0(Jvtzy0(Jvtzy0(Jvt
+ uvlist 121 1 b85POINT2
+zz7m>0sz8%v5Iz8.1k0z83Y9tz89+]cz8;io[z8>S,Rz8A<>Jz8D%PBzyzz!7m>0s$$$$'8%v5I7m>0s8.1k07m>0s83Y9t7m>0s89+]c7m>0s8;io[7m>0s8>S,R7m>0s8A<>J7m>0s8D%PB7m>0sy7m>0sz8%v5I7m>0s!8%v5I$$$$'8.1k08%v5I83Y9t8%v5I89+]c8%v5I8;io[8%v5I8>S,R8%v5I8A<>J8%v5I8D%PB8%v5Iy8%v5Iz8.1k07m>0s8.1k08%v5I!8.1k0$$$$'83Y9t8.1k089+]c8.1k08;io[8.1k08>S,R8.1k08A<>J8.1k08D%PB8.1k0y8.1k0z83Y9t7m>0s83Y9t8%v5I83Y9t8.1k0!83Y9t$$$$'89+]c83Y9t8;io[83Y9t8>S,R83Y9t8A<>J83Y9t8D%PB83Y9ty83Y9tz89+]c7m>0s89+]c8%v5I89+]c8.1k089+]c83Y9t89+]c89+]c89+]c8;io[89+]c8>S,R89+]c8A<>J89+]c8D%PB89+]cy89+]cz8;io[7m>0s8;io[8%v5I8;io[8.1k08;io[83Y9t8;io[89+]c!8;io[$$$$'8>S,R8;io[8A<>J8;io[8D%PB8;io[y8;io[z8>S,R7m>0s8>S,R8%v5I8>S,R8.1k08>S,R83Y9t8>S,R89+]c8>S,R8;io[!8>S,R$$$$'8A<>J8>S,R8D%PB8>S,Ry8>S,Rz8A<>J7m>0s8A<>J8%v5I8A<>J8.1k08A<>J83Y9t8A<>J89+]c8A<>J8;io[8A<>J8>S,R!8A<>J$$$$'8D%PB8A<>Jy8A<>Jz8D%PB7m>0s8D%PB8%v5I8D%PB8.1k08D%PB83Y9t8D%PB89+]c8D%PB8;io[8D%PB8>S,R8D%PB8A<>J!8D%PB$$$$'y8D%PBzy7m>0sy8%v5Iy8.1k0y83Y9ty89+]cy8;io[y8>S,Ry8A<>Jy8D%PB!8Fcb9$$$$'
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 2000 0 0 0
+ 0 2000 0 0
+ 0 0 2000 0
+ 0 0 0 1
+ shader "initialShadingGroup"
+ opaque on
+ id -203359641
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape1
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 9.92307377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108022
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape2
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 7.5689764 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108023
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape3
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 5.21487808 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108024
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape4
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 2.86078024 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108025
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape5
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 0.506682277 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108026
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape6
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 -1.8474158 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108027
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape7
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 -4.20151377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108028
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape8
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 -6.55561161 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108029
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape9
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -7.73678875 3.1001966 -8.90970993 1
+ shader "initialShadingGroup"
+ opaque on
+ id 683108030
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape10
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 9.92307377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728294
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape11
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 7.5689764 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728295
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape12
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 5.21487808 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728296
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape13
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 2.86078024 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728297
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape14
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 0.506682277 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728298
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape15
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 -1.8474158 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728299
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape16
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 -4.20151377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728300
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape17
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 -6.55561161 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728301
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape18
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ -3.5942297 3.1001966 -8.90970993 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728302
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape19
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 9.92307377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728303
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape20
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 7.5689764 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728327
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape21
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 5.21487808 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728328
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape22
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 2.86078024 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728329
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape23
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 0.506682277 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728330
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape24
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 -1.8474158 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728331
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape25
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 -4.20151377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728332
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape26
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 -6.55561161 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728333
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape27
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 0.548329651 3.1001966 -8.90970993 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728334
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape28
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 9.92307377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728335
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape29
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 7.5689764 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728336
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape30
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 5.21487808 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728360
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape31
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 2.86078024 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728361
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape32
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 0.506682277 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728362
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape33
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 -1.8474158 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728363
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape34
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 -4.20151377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728364
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape35
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 -6.55561161 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728365
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape36
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 4.69088888 3.1001966 -8.90970993 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728366
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape37
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 9.92307377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728367
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape38
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 7.5689764 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728368
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape39
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 5.21487808 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728369
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape40
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 2.86078024 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728393
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape41
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 0.506682277 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728394
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape42
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 -1.8474158 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728395
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape43
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 -4.20151377 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728396
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape44
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 -6.55561161 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728397
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+polymesh
+{
+ name pCubeShape45
+ nsides 6 1 UINT
+4 4 4 4 4 4
+ vidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:$$-?2$vMr4%<MT0
+ nidxs 24 1 b85UINT
+B$v2N*&9nA:'RU4J(k<'Z*.woj+G^c%
+ uvidxs 24 1 b85UINT
+B$ZuK*%<ho2%s\>:&UObB$w/J=(3BP?
+ vlist 8 1 b85POINT
+aDq99aDq9989+]c89+]caDq9989+]caDq99!89+]c$$$$)aDq9989+]caDq9989+]c89+]c!aDq99$$$$(89+]caDq99aDq99
+ nlist 24 1 b85VECTOR
+zzyzzyzzyzzyzyzzyzzyzzy!$$$$$$$$$'aRT=dzzaRT=dzzaRT=dzzaRT=dzaRT=dzzaRT=dzzaRT=dzzaRT=dzyzzyzzyzzyzzaRT=dzzaRT=dzzaRT=dzzaRT=dzz
+ uvlist 14 1 b85POINT2
+82:0xz8<Nt.z82:0x8+HY88<Nt.8+HY882:0x89+]c8<Nt.89+]c82:0x8?r5N8<Nt.8?r5N82:0xy8<Nt.y8C@Knz8C@Kn8+HY87reTbz7reTb8+HY8
+ smoothing on
+ visibility 255
+ sidedness 255
+ receive_shadows on
+ self_shadows on
+ matrix
+ 1 0 0 0
+ 0 6.2003932 0 0
+ 0 0 1 0
+ 8.83344841 3.1001966 -8.90970993 1
+ shader "initialShadingGroup"
+ opaque on
+ id 1067728398
+ declare mtoa_shading_groups constant ARRAY NODE
+ mtoa_shading_groups "initialShadingGroup"
+}
+
+gaussian_filter
+{
+ name defaultArnoldFilter@gaussian_filter
+ width 2
+}
+
+driver_exr
+{
+ name defaultArnoldDriver@driver_exr.RGBA
+ filename "DomemasterStereo_right.exr"
+ compression "zips"
+ half_precision on
+ tiled off
+ preserve_layer_name off
+ autocrop off
+ append off
+}
+
+MayaFile
+{
+ name hdr_sky_filetexture
+ coverage 1 1
+ translateFrame 0 0
+ rotateFrame 0
+ mirrorU off
+ mirrorV off
+ wrapU on
+ wrapV on
+ stagger off
+ repeatUV 1 1
+ offsetUV 0 0
+ rotateUV 0
+ filename "starry_sunset_sky_hdr.exr"
+ noiseUV 0 0
+ mipBias 0
+ filter "smart_bicubic"
+ useDefaultColor on
+ defaultColor 0.5 0.5 0.5
+ colorGain 1 1 1
+ colorOffset 0 0 0
+ alphaGain 1
+ alphaOffset 0
+ alphaIsLuminance off
+ invert off
+}
+
+MayaShadingEngine
+{
+ name initialShadingGroup
+ beauty lambert1
+}
+
+lambert
+{
+ name lambert1
+ Kd 0.800000012
+ Kd_color 0.5 0.5 0.5
+ opacity 1 1 1
+}
+

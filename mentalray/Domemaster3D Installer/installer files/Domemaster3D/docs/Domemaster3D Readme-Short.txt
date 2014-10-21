@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 Alpha 4 - October 3, 2014
+Version 1.6 alpha 5 - October 21, 2014
 
 About This Shader
 ---------------------
@@ -24,7 +24,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v1.6 Alpha release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v1.6 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 

@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 Alpha 4 - October 3, 2014
+Version 1.6 alpha 5 - October 21, 2014
 
 About This Shader
 ---------------------
@@ -24,7 +24,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v1.6 Alpha release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v1.6 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
@@ -133,6 +133,9 @@ The 1k button sets the render resolution to 1024x1024 pixels.
 The 2k button sets the render resolution to 2048x2048 pixels.
 The 4k button sets the render resolution to 4096x4096 pixels.
 The 8k button sets the render resolution to 8192x8192 pixels.
+The 2x1k button sets the render resolution to 2048x1024 pixels.
+The 4x2k button sets the render resolution to 4096x2048 pixels.
+The 8x4k button sets the render resolution to 8192x4096 pixels.
 
 Open Scenes Folder Button
 The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
@@ -239,10 +242,20 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 1.6 Alpha 5
+---------------------
+October 21, 2014
 
-Version 1.6
-------------------
-September - October, 2014
+Updated LatLong_Stereo source code for a horizontal orientation
+Updated domeAFL_FOV_Stereo code to fix a bug in the Flip X/Y code
+Updated Makefiles for all platforms
+Recompliled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
+Updated Maya Domemaster3D shelf - Added a set of wide aspect ratio render resolution buttons
+Updated Maya AE Template/LatLongStereoRig.py files
+
+Version 1.6  Alpha 1
+----------------------
+September 17, 2014
 
 Initial LatLong_Stereo support added
 Updated Maya.env file to add a sourceimages path line

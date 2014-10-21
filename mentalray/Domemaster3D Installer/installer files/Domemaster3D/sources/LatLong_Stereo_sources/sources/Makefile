@@ -9,6 +9,9 @@ CC = gcc
 #MAYA_DIR=/usr/autodesk/maya2012-x64
 #MAYA_DIR=/usr/autodesk/maya2013-x64
 MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
+#MAYA_DIR=/usr/autodesk/mentalrayForMaya2015
+
+DOMEMASTER_DIR = /opt/Domemaster3D/maya/shaders
 
 #INC = -I$(MAYA_DIR)/devkit/mentalray/include
 INC = -I$(MAYA_DIR)/devkit/include
@@ -17,23 +20,35 @@ LIB_STATIC =
 CFLAGS = -c -O3 -fPIC -Bsymbolic -DBIT64
 LIBTOOL = ld
 
-OBJS = LatLong_Stereo.o
-SRCS = LatLong_Stereo.c
+OBJS = latlong_stereo.o
+SRCS = latlong_stereo.c
 
-all: LatLong_Stereo.so
+all: latlong_stereo.so
 
 $(OBJS): 
 	$(CC) $(CFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
 
-LatLong_Stereo.so : $(OBJS) 
-	$(LIBTOOL) -export-dynamic -shared -o LatLong_Stereo.so $(OBJS)
+latlong_stereo.so : $(OBJS) 
+	$(LIBTOOL) -export-dynamic -shared -o latlong_stereo.so $(OBJS)
 
 clean: 
 	rm -f $(OBJS) 
-	rm -f LatLong_Stereo.so
+	rm -f latlong_stereo.so
 
 install:
+#Rename the file to have proper capitalization
+	mv latlong_stereo.so LatLong_Stereo.so
+
+# Maya 2013 and Earlier MR Shaders
 #	cp LatLong_Stereo.so $(MAYA_DIR)/mentalray/lib
 #	cp LatLong_Stereo.mi $(MAYA_DIR)/mentalray/include
-	cp LatLong_Stereo.so $(MAYA_DIR)/shaders
-	cp LatLong_Stereo.mi $(MAYA_DIR)/shaders/include
+
+# Maya 2014+ MR Shaders
+#	cp LatLong_Stereo.so $(MAYA_DIR)/shaders
+#	cp LatLong_Stereo.mi $(MAYA_DIR)/shaders/include
+
+# Domemaster3D MR Shaders
+	cp LatLong_Stereo.so $(DOMEMASTER_DIR)
+	cp LatLong_Stereo.mi $(DOMEMASTER_DIR)/include
+
+go: clean all install

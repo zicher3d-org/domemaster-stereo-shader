@@ -3,27 +3,29 @@
 # http://www.andrewhazelden.com
 
 # You can compile this file from the command line using:
-# Make -f Makefile.osx
+# make -f Makefile.osx
 
 # You can install the files using the command
-# sudo Make -f Makefile.osx install
+# sudo make -f Makefile.osx install
 
 CC = gcc
 
-#MAYA_DIR = /Applications/Autodesk/maya2011
-#MAYA_DIR = /Applications/Autodesk/maya2012
-#MAYA_DIR = /Applications/Autodesk/maya2013
-MAYA_DIR = /Applications/Autodesk/mentalrayForMaya2014
+#MAYA_DIR=/Applications/Autodesk/maya2011
+#MAYA_DIR=/Applications/Autodesk/maya2012
+#MAYA_DIR=/Applications/Autodesk/maya2013
+#MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2014
+MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
 
+DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
 
 # Maya 2012's mental ray directory:
-#MENTALRAY_DEV_DIR = /devkit/mentalray/include
+#MENTALRAY_DEV_DIR=/devkit/mentalray/include
 
 # Maya 2013's mental ray directory:
-#MENTALRAY_DEV_DIR = /mentalray/devkit/include
+#MENTALRAY_DEV_DIR=/mentalray/devkit/include
 
-# Maya 2014-2015's mental ray directory:
-MENTALRAY_DEV_DIR = /devkit/include
+# Maya 2014/2015's mental ray devkit directory:
+MENTALRAY_DEV_DIR=/devkit/include
 
 INC = -I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
 LIB = 
@@ -48,7 +50,13 @@ clean:
 	rm -rf LatLong_Stereo.dylib
 
 install:	
+	# MR Shaders Folder
 	cp ./LatLong_Stereo.dylib $(MAYA_DIR)/mentalray/shaders
 	cp ./LatLong_Stereo.mi $(MAYA_DIR)/mentalray/shaders/include
+  
+  # Domemaster3D Shaders Folder
+	cp ./LatLong_Stereo.dylib $(DOMEMASTER_DIR)
+	cp ./LatLong_Stereo.mi $(DOMEMASTER_DIR )/include
+
 
 go: clean all install

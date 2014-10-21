@@ -3,29 +3,37 @@
 # http://www.andrewhazelden.com
 
 # You can compile this file from the command line using:
-# Make -f Makefile.osx
+# make -f Makefile.osx
 
 # You can install the files using the command
-# sudo Make -f Makefile.osx install
+# sudo make -f Makefile.osx install
 
 CC = gcc
 
-#MAYA_DIR = /Applications/Autodesk/maya2011
-#MAYA_DIR = /Applications/Autodesk/maya2012
-MAYA_DIR = /Applications/Autodesk/maya2013
+#MAYA_DIR=/Applications/Autodesk/maya2011
+#MAYA_DIR=/Applications/Autodesk/maya2012
+#MAYA_DIR=/Applications/Autodesk/maya2013
+#MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2014
+MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
 
+DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
 
 # Maya 2012's mental ray directory:
-#MENTALRAY_DEV_DIR = /devkit/mentalray/include
+#MENTALRAY_DEV_DIR=/devkit/mentalray/include
 
 # Maya 2013's mental ray directory:
-MENTALRAY_DEV_DIR = /mentalray/devkit/include
+#MENTALRAY_DEV_DIR=/mentalray/devkit/include
 
-INC = -I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
-LIB = 
+# Maya 2014/2015's mental ray devkit directory:
+MENTALRAY_DEV_DIR=/devkit/include
+
+
+INC=-I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
+LIB= 
 LIB_STATIC = 
 CFLAGS = -c -O3 -fPIC -DBIT64 -dynamic -fno-common
 LIBTOOL = libtool
+LDEXECFLAGS=-macosx_version_min 10.6
 
 OBJS = domeAFL_FOV_Stereo.o domeAFL_FOV.o domeAFL_WxH.o test_texture.o
 SRCS = domeAFL_FOV_Stereo.c domeAFL_FOV.c domeAFL_WxH.c test_texture.c
@@ -36,14 +44,20 @@ $(OBJS):
 	$(CC) $(CFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
 
 domeAFL_FOV_Stereo.dylib : $(OBJS) 
-	$(LIBTOOL) -flat_namespace -undefined suppress -dynamic -o domeAFL_FOV_Stereo.dylib  $(OBJS)
+	$(LIBTOOL) -flat_namespace -undefined suppress -dynamic $(LDEXECFLAGS) -o domeAFL_FOV_Stereo.dylib  $(OBJS)
 
 clean: 
 	rm -rf $(OBJS) 
 	rm -rf domeAFL_FOV_Stereo.dylib
 
 install:	
-	cp ./domeAFL_FOV_Stereo.dylib $(MAYA_DIR)/mentalray/shaders
-	cp ./domeAFL_FOV_Stereo.mi $(MAYA_DIR)/mentalray/shaders/include
+	# MR Shaders Folder
+	#cp ./domeAFL_FOV_Stereo.dylib $(MAYA_DIR)/mentalray/shaders
+	#cp ./domeAFL_FOV_Stereo.mi $(MAYA_DIR)/mentalray/shaders/include
+
+	# Domemaster3D Shaders Folder
+	cp ./domeAFL_FOV_Stereo.dylib $(DOMEMASTER_DIR)
+	cp ./domeAFL_FOV_Stereo.mi $(DOMEMASTER_DIR )/include
+
 
 go: clean all install

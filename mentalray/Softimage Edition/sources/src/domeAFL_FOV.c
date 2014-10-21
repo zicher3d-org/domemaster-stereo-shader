@@ -13,7 +13,10 @@
  * 08.23.2004 - Added an EPSILON test for the radius and corrected phi, 
  *              which should be 0 when the radius is 0.
  * 
- * 07.06.2010 - [Roberto Ziche]Changed phi calculation to use atan2
+ * 07.06.2010 - [Roberto Ziche] Changed phi calculation to use atan2
+ *
+ * 11.04.2012 - [Andrew Hazelden] Added view rotation code to correct
+ *              for atan2 changes
  *
  * Description:
  *	This shader uses the angular fisheye method discussed in Paul Bourke's   
@@ -58,9 +61,10 @@ DLLEXPORT miBoolean domeAFL_FOV(
 	miGeoScalar x, y, r, phi, theta;
 
    	/* normalize image coordinates btwn [-1,1]... */
-	x = (2.0 * state->raster_x) / state->camera->x_resolution - 1.0;
-	y = (2.0 * state->raster_y) / state->camera->y_resolution - 1.0;
-
+	/* [ah] Rotate the cartesian axis 90 deg CW   */
+	x = -2.0*state->raster_y/state->camera->y_resolution+1.0;
+	y = 2.0*state->raster_x/state->camera->x_resolution-1.0;
+	
 	/* Calcaulate the radius value */
 	r = MI_SQRT( ( x * x ) + ( y * y ) );
 

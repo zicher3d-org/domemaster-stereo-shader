@@ -26,15 +26,15 @@ MTOA_API_VERSION=4.2.0.6
 MTOA_DEV_DIR=/opt/solidangle/Arnold-$(MTOA_API_VERSION)-linux
 MTOA_INCLUDE_DIR=$(MTOA_DEV_DIR)/include
 
-INC = -I$(MTOA_INCLUDE_DIR)/
-LIB =
-LIB_STATIC = 
-CFLAGS = -c -O3 -fPIC -Bsymbolic -DBIT64
-LIBTOOL = ld
+INC=-I$(MTOA_INCLUDE_DIR)/
+LIB=
+LIB_STATIC= 
+CFLAGS=-c -O3 -fPIC -Bsymbolic -DBIT64
+LIBTOOL=ld
 LDEXECFLAGS=
 
-OBJS = DomemasterStereo.o
-SRCS = DomemasterStereo.cpp
+OBJS=DomemasterStereo.o
+SRCS=DomemasterStereo.cpp
 
 all: DomemasterStereo.so
 

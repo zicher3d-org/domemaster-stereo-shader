@@ -1,14 +1,13 @@
 """
  LatLong_Stereo Camera Rig V1.6
- Updated September 26, 2014 9.22am
+ Updated 2014-10-21 05.58 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
  
  New in Version 1.6
- ------------------------
-
+ ---------------------
  Initial LatLong_Stereo support
 
  Changed the openGL viewport default focal length from 4 mm (160 degree FOV) to 18 mm (90 degree FOV)
@@ -17,7 +16,7 @@
 
  Modified the stereo camera name to have a random uppercase letter addon so each camera rig name is unique:
  This turns: DomeStereoCamera into DomeStereoCameraX
-
+ 
  Stereo Rig Script Notes
  --------------------------
  This rig is based upon the example file: stereoCameraDefaultRig.py
@@ -141,13 +140,10 @@ def createLensShaders(centerCam, leftCam, rightCam):
   cmds.connectAttr( centerCamLens+'.FOV_Vert_Angle', rightCamLens+'.FOV_Vert_Angle', force=True )
   cmds.connectAttr( centerCamLens+'.FOV_Horiz_Angle', rightCamLens+'.FOV_Horiz_Angle', force=True )
   cmds.connectAttr( centerCamLens+'.Parallax_Distance', rightCamLens+'.Parallax_Distance', force=True )
-  cmds.connectAttr( centerCamLens+'.Dome_Tilt', rightCamLens+'.Dome_Tilt', force=True )
-  cmds.connectAttr( centerCamLens+'.Dome_Tilt_Compensation', rightCamLens+'.Dome_Tilt_Compensation', force=True )
   cmds.connectAttr( centerCamLens+'.Cameras_Separation', rightCamLens+'.Cameras_Separation', force=True )
-  cmds.connectAttr( centerCamLens+'.Vertical_Mode',  rightCamLens+'.Vertical_Mode' , force=True )
   cmds.connectAttr( centerCamLens+'.Cameras_Separation_Map', rightCamLens+'.Cameras_Separation_Map', force=True )
-  cmds.connectAttr( centerCamLens+'.Head_Turn_Map', rightCamLens+'.Head_Turn_Map' , force=True)
   cmds.connectAttr( centerCamLens+'.Head_Tilt_Map', rightCamLens+'.Head_Tilt_Map', force=True )
+  cmds.connectAttr( centerCamLens+'.Zenith_Mode', rightCamLens+'.Zenith_Mode', force=True )
   cmds.connectAttr( centerCamLens+'.Flip_Ray_X', rightCamLens+'.Flip_Ray_X', force=True )
   cmds.connectAttr( centerCamLens+'.Flip_Ray_Y', rightCamLens+'.Flip_Ray_Y', force=True )
   
@@ -155,13 +151,10 @@ def createLensShaders(centerCam, leftCam, rightCam):
   cmds.connectAttr( centerCamLens+'.FOV_Vert_Angle', leftCamLens+'.FOV_Vert_Angle', force=True )
   cmds.connectAttr( centerCamLens+'.FOV_Horiz_Angle', leftCamLens+'.FOV_Horiz_Angle', force=True )
   cmds.connectAttr( centerCamLens+'.Parallax_Distance', leftCamLens+'.Parallax_Distance', force=True )
-  cmds.connectAttr( centerCamLens+'.Dome_Tilt', leftCamLens+'.Dome_Tilt', force=True )
-  cmds.connectAttr( centerCamLens+'.Dome_Tilt_Compensation', leftCamLens+'.Dome_Tilt_Compensation', force=True )
   cmds.connectAttr( centerCamLens+'.Cameras_Separation', leftCamLens+'.Cameras_Separation', force=True )
-  cmds.connectAttr( centerCamLens+'.Vertical_Mode',  leftCamLens+'.Vertical_Mode', force=True )
   cmds.connectAttr( centerCamLens+'.Cameras_Separation_Map', leftCamLens+'.Cameras_Separation_Map', force=True )
-  cmds.connectAttr( centerCamLens+'.Head_Turn_Map', leftCamLens+'.Head_Turn_Map', force=True )
   cmds.connectAttr( centerCamLens+'.Head_Tilt_Map', leftCamLens+'.Head_Tilt_Map', force=True )
+  cmds.connectAttr( centerCamLens+'.Zenith_Mode', leftCamLens+'.Zenith_Mode', force=True )
   cmds.connectAttr( centerCamLens+'.Flip_Ray_X', leftCamLens+'.Flip_Ray_X', force=True )
   cmds.connectAttr( centerCamLens+'.Flip_Ray_Y', leftCamLens+'.Flip_Ray_Y', force=True )
   
@@ -470,7 +463,8 @@ def createRig(unusedBasename='LatLongStereoCamera'):
   createLensShaders(centerCam, leftCam, rightCam)
   
   #Align the base camera to point upwards
-  cmds.setAttr( root+'.rotateX', 90)
+  #cmds.setAttr( root+'.rotateX', 90)
+  cmds.setAttr( root+'.rotateX', 0)
   cmds.setAttr( root+'.rotateY', 0)
   cmds.setAttr( root+'.rotateZ', 0)
   

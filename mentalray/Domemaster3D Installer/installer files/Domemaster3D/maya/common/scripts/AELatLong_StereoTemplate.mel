@@ -9,7 +9,13 @@
   
   Version History
   -----------------
-
+  
+  Version 1.6
+  ----------------------
+  2014-10-21 03.37 pm
+  
+  Updated AE template to match mr include file
+  
   Version 1.6 Alpha 4
   ----------------------
   2014-10-03 09.29 pm
@@ -427,15 +433,11 @@ global proc AELatLong_StereoTemplate( string $nodeName )
        // Define custom non-mappable slider controls
       editorTemplate -callCustom 	"AELatLong_Stereo_Parallax_DistanceNew" "AELatLong_Stereo_Parallax_DistanceReplace" "Parallax_Distance";   
       
-      //editorTemplate -callCustom 	"AELatLong_Stereo_TiltNew" "AELatLong_Stereo_TiltReplace" "Dome_Tilt";
-      
       editorTemplate -callCustom 	"AELatLong_Stereo_SeparationNew" "AELatLong_Stereo_SeparationReplace" "Cameras_Separation";    
       
       //editorTemplate -addSeparator;
-      
-      //editorTemplate -label "Dome Tilt Compensation" -annotation "Enables Dome Tilt Compensation" -addControl "Dome_Tilt_Compensation";     
-      
-      //editorTemplate -label "Vertical Mode" -annotation "Enables Vertical Mode" -addControl "Vertical_Mode";
+       
+      editorTemplate -label "Zenith Mode" -annotation "Switch the camera orientation from a horizontal to vertical mode." -addControl "Zenith_Mode";
       
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
@@ -477,8 +479,6 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       
       editorTemplate -label "Separation Multiplier" -annotation "Cameras Separation Multiplier Map" -addControl "Cameras_Separation_Map"; 
       
-      //editorTemplate -label "Turn Multiplier" -annotation "Head Turn Multiplier Map" -addControl "Head_Turn_Map";
-      
       //editorTemplate -label "Head Tilt" -annotation "Head Tilt Map" -addControl "Head_Tilt_Map";
     
       editorTemplate -endNoOptimize;
@@ -501,13 +501,7 @@ global proc AELatLong_StereoTemplate( string $nodeName )
     editorTemplate -suppress "nodeState";
     editorTemplate -suppress "FOV_Vert_Angle";
     editorTemplate -suppress "FOV_Horiz_Angle";
-
-    editorTemplate -suppress "Head_Turn_Map";
     editorTemplate -suppress "Head_Tilt_Map";
-    
-    editorTemplate -suppress "Dome_Tilt";
-    editorTemplate -suppress "Dome_Tilt_Compensation";
-    editorTemplate -suppress "Vertical_Mode";
     //editorTemplate -suppress "domeVersion";
 
     //Add any new controls that aren't listed above to the bottom of the attribute editor window 

@@ -4,9 +4,9 @@
  *	
  *	
  *	Versions:
- *	0.1.0	First version for test only.
- *  0.1.1	Added horizontal/Zenith orientation option
- *          Cleaned code
+ *  0.1.0	First version for test only - 2014-09-16
+ *  0.1.1	Added horizontal/Zenith orientation option - 2014-10-21 
+ *           Cleaned code
  *
  *****************************************************************************/
 

@@ -8,7 +8,10 @@ CC = gcc
 #MAYA_DIR=/usr/autodesk/maya2011-x64
 #MAYA_DIR=/usr/autodesk/maya2012-x64
 #MAYA_DIR=/usr/autodesk/maya2013-x64
-MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
+#MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
+MAYA_DIR=/usr/autodesk/mentalrayForMaya2015
+
+DOMEMASTER_DIR = /opt/Domemaster3D/maya/shaders
 
 #INC = -I$(MAYA_DIR)/devkit/mentalray/include
 INC = -I$(MAYA_DIR)/devkit/include
@@ -33,7 +36,16 @@ clean:
 	rm -f domeAFL_FOV_Stereo.so
 
 install:
+# Maya 2013 and Earlier MR Shaders
 #	cp domeAFL_FOV_Stereo.so $(MAYA_DIR)/mentalray/lib
 #	cp domeAFL_FOV_Stereo.mi $(MAYA_DIR)/mentalray/include
-	cp domeAFL_FOV_Stereo.so $(MAYA_DIR)/shaders
-	cp domeAFL_FOV_Stereo.mi $(MAYA_DIR)/shaders/include
+
+# Maya 2014+ MR Shaders
+#	cp domeAFL_FOV_Stereo.so $(MAYA_DIR)/shaders
+#	cp domeAFL_FOV_Stereo.mi $(MAYA_DIR)/shaders/include
+
+# Domemaster3D MR Shaders
+	cp domeAFL_FOV_Stereo.so $(DOMEMASTER_DIR)
+	cp domeAFL_FOV_Stereo.mi $(DOMEMASTER_DIR)/include
+
+go: clean all install

@@ -6,8 +6,8 @@
  *	Versions:
  *	0.1.0	First version released to public. No Offset and Flip options.
  * 
- *  0.1.1 [Andrew Hazelden] modification adding flip controls. Aug 4, 2012
- *  0.1.2 [Roberto Ziche] Fixed Flip X/Y and ray conversion order
+ *  0.1.1 [Andrew Hazelden] modification adding flip controls - Aug 4, 2012
+ *  0.1.2 [Roberto Ziche] Fixed Flip X/Y and ray conversion order - Oct 21, 2014
  *  
  *****************************************************************************/
 

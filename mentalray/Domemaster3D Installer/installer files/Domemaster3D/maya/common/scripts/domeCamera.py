@@ -1,6 +1,6 @@
 """
 Domemaster3D Camera Setup Script V1.6
-2014-09-26 9 am
+2014-10-21 04.42 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -530,6 +530,36 @@ def changeRenderRes( renderSizePx ):
   cmds.setAttr( 'defaultResolution.pixelAspect', 1)
 
   print ("Changed the render settings to output a " + str(renderSizePx) + "x" + str(renderSizePx) + " image.")
+
+  
+"""
+Domemaster3D changeRenderResWH
+----------------------
+A python function to change the basic mental ray resolution render settings. 
+
+"""
+
+def changeRenderResWH( renderSizeW,  renderSizeH):
+  import maya.mel as mel
+  import maya.cmds as cmds
+
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
+  
+  domeRenderWidth = renderSizeW
+  domeRenderHeight = renderSizeH
+  domeDeviceAspectRatio=domeRenderWidth/domeRenderHeight
+  
+  #---------------------------------------------------------------------
+  # Setup the default render settings for a square domemaster image output
+  # ---------------------------------------------------------------------
+  cmds.setAttr( 'defaultResolution.width', domeRenderWidth )
+  cmds.setAttr( 'defaultResolution.height', domeRenderHeight )
+  cmds.setAttr( 'defaultResolution.deviceAspectRatio', domeDeviceAspectRatio)
+  cmds.setAttr( 'defaultResolution.pixelAspect', 1)
+
+  print ("Changed the render settings to output a " + str(renderSizeW) + "x" + str(renderSizeW) + " image.")
+
 
 
 """

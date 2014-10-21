@@ -1,5 +1,5 @@
 # LatLong_Stereo Lens Shader Mental Ray Include File
-# Version 1.6 Alpha - 2014-09-16 
+# Version 1.6 - 2014-10-21 
 # -------------------------------------------------------------------
 # LatLong Stereo Shader by Roberto Ziche (http://www.robertoziche.com/)
 # Maya Support by Andrew Hazelden (andrew@andrewhazelden.com)
@@ -26,9 +26,9 @@ declare shader
             #: min 0.1
             #: max 360.0
 		boolean	"Flip_Ray_X",
-            #: default 0.0
+            #: default 0
 		boolean	"Flip_Ray_Y",
-            #: default 0.0
+            #: default 0
 		integer	"Camera" default 0,
             #: enum "Center=0:Left=1:Right=2"
             #: default 0
@@ -39,11 +39,6 @@ declare shader
             #: default 360.0  
             #: min 1.0 
             #: max 1000000.0
-		scalar	"Dome_Tilt",
-            #: default 0.0 
-            #: min 0.0 
-            #: max 90.0
-            #: shortname "tilt"
 		scalar	"Cameras_Separation",
             #: default 6.0 
             #: min 0.0 
@@ -53,20 +48,15 @@ declare shader
             #: default 1.0 
             #: min 0 
             #: max 1.0   
-		scalar	"Head_Turn_Map",
-            #: default 1.0 
-            #: min 0 
-            #: max 1.0   
 		scalar	"Head_Tilt_Map",
-            #: default 0.5 
+	        #: default 0.5 
             #: min 0 
             #: max 1.0   
-		boolean	"Dome_Tilt_Compensation",
-            #: default 0
-		boolean	"Vertical_Mode"
-        #: default 0
+		boolean	"Zenith_Mode"
+		    #: default 0
 	)
     #: nodeid 1185225  # Node ID for Maya binary
+
 	version 1
 	apply lens
 	scanline off
@@ -76,7 +66,7 @@ declare shader
 			"uiName" "LatLong Stereo Shader"	#, "hidden"
 		)
 		control	"FOV_Vert_Angle" "scalar" (
-			"uiName" "Field of View (Vert)", "value" 180.0, "range" 0.0 360.0,
+			"uiName" "Field of View (Vert)", "value" 180.0, "range" 0.0 180.0,
 			"nonConnectable"
 		)
 		control	"FOV_Horiz_Angle" "scalar" (
@@ -85,13 +75,11 @@ declare shader
 		)
 		control	"Flip_Ray_X" "boolean" (
 			"uiName" "Flip X", "value" 0,
-			"nonConnectable",
-			"hidden"
+			"nonConnectable"
 		)
 		control	"Flip_Ray_Y" "boolean" (
 			"uiName" "Flip Y", "value" 0,
-			"nonConnectable",
-			"hidden"
+			"nonConnectable"
 		)
 		control "Camera" "integer" (
 			"enum", "nonConnectable", "uiName" "Camera", "value" "0 Center, 1 Left, 2 Right", "range" 0 2,"helpText" "Center, Left, Right"
@@ -101,12 +89,6 @@ declare shader
 			"helpText" "Dome Radius (focus plane)",
 			"nonConnectable"	#, "hidden"
 		)
-		control	"Dome_Tilt" "scalar" (
-			"uiName" "Dome Forward Tilt", "value" 0.0, "range" 0.0 90.0,
-			"helpText" "Dome Forward Tilt",
-			"nonConnectable",
-			"hidden"
-		)
 		control	"Cameras_Separation" "scalar" (
 			"uiName" "Cameras Separation", "value" 6.0, "range" 0.0 1000000.0,
 			"nonConnectable"
@@ -115,27 +97,14 @@ declare shader
 			"uiName"  "Separation Multiplier", "value" 1.0, "range" 0.0 1.0,
 			"helpText" "Cameras Separation Multiplier Map"
 		)
-		control "Head_Turn_Map" "scalar" (
-			"uiName"  "Turn Multiplier", "value" 1.0, "range" 0.0 1.0,
-			"helpText" "Head Turn Multiplier Map",
-			"hidden"
-		)
 		control "Head_Tilt_Map" "scalar" (
 			"uiName"  "Head Tilt", "value" 0.5, "range" 0.0 1.0,
 			"helpText" "Head Tilt Map",
 			"hidden"
 		)
-		control "Dome_Tilt_Compensation" "boolean" (
-			"uiName" "Dome Tilt Compensation", "value" 0,
-			"helpText" "Enables Dome Tilt Compensation",
-			"nonConnectable",
-			"hidden"
-		)
-		control "Vertical_Mode" "boolean" (
-			"uiName" "Vertical Mode", "value" 0,
-			"helpText" "Enables Vertical Mode",
-			"nonConnectable",
-			"hidden"
+		control	"Zenith_Mode" "boolean" (
+			"uiName" "Zenith Mode", "value" 0,
+			"nonConnectable"
 		)
 	}
 end declare

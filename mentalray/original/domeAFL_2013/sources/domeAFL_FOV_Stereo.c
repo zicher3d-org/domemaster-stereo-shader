@@ -7,6 +7,7 @@
  *	0.1.0	First version released to public. No Offset and Flip options.
  * 
  *  0.1.1 [Andrew Hazelden] modification adding flip controls. Aug 4, 2012
+ *  0.1.2 [Roberto Ziche] Fixed Flip X/Y and ray conversion order
  *  
  *****************************************************************************/
 
@@ -14,7 +15,7 @@
 #include <math.h>
 #include "shader.h"
 
-#define _VER_	"domeAFL_FOV_Stereo ver: 0.1.1"
+#define _VER_	"domeAFL_FOV_Stereo ver: 0.1.2"
 
 #define	CENTERCAM	0
 #define	LEFTCAM		1
@@ -225,13 +226,6 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 		//mi_debug("II->,Phi=%f,Theta=%f,rot=%f,camx=%f,camy=%f", (miScalar)phi, (miScalar)theta, (miScalar)rot, (miScalar)org.x, (miScalar)org.y);
 		
 
-		// Convert ray from camera space
-		mi_vector_from_camera(state, &ray, &ray);
-		
-		// Convert ray from camera space
-		mi_point_from_camera(state, &org, &org);
-		
-
 		// Flip the X ray direction about the Y-axis
 		if(*mi_eval_boolean(&params->Flip_Ray_X)) { 
 			org.x = (-org.x);
@@ -242,7 +236,11 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 			org.z = (-org.z);
 			ray.z = (-ray.z);
 		}
-		
+
+		// Convert ray from camera space
+		mi_vector_from_camera(state, &ray, &ray);
+		mi_point_from_camera(state, &org, &org);
+
 		// Trace new ray...
 		return(mi_trace_eye(result, state, &org, &ray));
 		

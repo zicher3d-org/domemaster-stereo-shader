@@ -5,6 +5,8 @@
  *	
  *	Versions:
  *	0.1.0	First version for test only.
+ *  0.1.1	Added horizontal/Zenith orientation option
+ *          Cleaned code
  *
  *****************************************************************************/
 
@@ -12,7 +14,7 @@
 #include <math.h>
 #include "shader.h"
 
-#define _VER_	"LatLong_Stereo ver: 0.1.0"
+#define _VER_	"LatLong_Stereo ver: 0.1.1"
 
 #define	CENTERCAM	0
 #define	LEFTCAM		1
@@ -24,27 +26,22 @@
 static	miScalar	fov_vert_angle, fov_horiz_angle;
 static	miInteger	camera;
 static	miScalar	parallax_distance;
-static	miScalar	dome_tilt;
 static	miScalar	cameras_separation;
-static	miBoolean	dome_tilt_compensation;
-static	miBoolean	vertical_mode;
 
 // Parameters data structure
 struct dsLatLong_Stereo {
-	miScalar	FOV_Vert_Angle;		/* Fisheye vertical FOV angle in degrees */
-	miScalar	FOV_Horiz_Angle;	/* Fisheye horizontal FOV angle in degrees */
-	miBoolean	Flip_Ray_X;		/* Flag for flipping image about the x-axis */
-	miBoolean	Flip_Ray_Y;		/* Flag for flipping image about the y-axis */
+	miScalar	FOV_Vert_Angle;		// Fisheye vertical FOV angle in degrees
+	miScalar	FOV_Horiz_Angle;	// Fisheye horizontal FOV angle in degrees
+	miBoolean	Flip_Ray_X;			// Flag for flipping image about the x-axis
+	miBoolean	Flip_Ray_Y;			// Flag for flipping image about the y-axis
 
-	miInteger	Camera;			// 0=center, 1=Left, 2=Right
+	miInteger	Camera;				// 0=center, 1=Left, 2=Right
 	miScalar	Parallax_Distance;
-	miScalar	Dome_Tilt;
 	miScalar	Cameras_Separation;
 	miScalar	Cameras_Separation_Map;
-	miScalar	Head_Turn_Map;
 	miScalar	Head_Tilt_Map;
-	miBoolean	Dome_Tilt_Compensation;
-	miBoolean	Vertical_Mode;
+
+	miBoolean	Zenith_Mode;		// Flag for orientation compatibility with Domemaster camera
 };
 
 DLLEXPORT int LatLong_Stereo_version(void) {return(1);}
@@ -55,25 +52,25 @@ DLLEXPORT miBoolean LatLong_Stereo(
 	struct dsLatLong_Stereo *params)
 {
 	miScalar	cameras_separation_multiplier = *mi_eval_scalar(&params->Cameras_Separation_Map);
-	miScalar	head_turn_multiplier = *mi_eval_scalar(&params->Head_Turn_Map);
 	miScalar	head_tilt = *mi_eval_scalar(&params->Head_Tilt_Map);
 
 	miVector	org, ray, target, htarget;
 	miMatrix	tilt;
-	double		x, y, r, phi, theta, rot, tmp, tmpY, tmpZ;
-	double		sinP, cosP, sinT, cosT, sinR, cosR;
+	double		x, y, phi, theta, tmp;
+	double		sinP, cosP, sinT, cosT;
+
+	miBoolean	zenithMode = *mi_eval_boolean(&params->Zenith_Mode);
 
    	// normalize image coordinates btwn [-1,-1] and [1,1]...
 	x = 2.0*state->raster_x/state->camera->x_resolution-1.0;
 	y = 2.0*state->raster_y/state->camera->y_resolution-1.0;
 
 	// Calculate phi and theta...
-	// horizontal method
 	phi = x*(fov_horiz_angle/2.0);
-	theta = M_PI_2-y*(fov_vert_angle/2.0);
-	// vertical method
-	//phi = M_PI_2-y*(fov_vert_angle/2.0);
-	//theta = x*(fov_horiz_angle/2.0);
+	if (zenithMode)
+		theta = M_PI_2-y*(fov_vert_angle/2.0);
+	else
+		theta = y*(fov_vert_angle/2.0);
 
 	// start by matching camera (center camera)
 	// mi_point_to_camera(state, &org, &state->org);
@@ -84,9 +81,15 @@ DLLEXPORT miBoolean LatLong_Stereo(
 	sinT = sin(theta); cosT = cos(theta);
 
 	// center camera target vector (normalized)
-	target.x = (miScalar)(sinP*sinT);
-	target.y = (miScalar)(-cosP*sinT);
-	target.z = (miScalar)(-cosT);
+	if (zenithMode) {
+		target.x = (miScalar)(sinP*sinT);
+		target.y = (miScalar)(-cosP*sinT);
+		target.z = (miScalar)(-cosT);
+	} else {
+		target.x = (miScalar)(sinP*cosT);
+		target.y = (miScalar)(sinT);
+		target.z = (miScalar)(-cosP*cosT);
+	}
 
 	if (camera != CENTERCAM) {
 		// camera selection and initial position
@@ -96,78 +99,23 @@ DLLEXPORT miBoolean LatLong_Stereo(
 			org.x = (miScalar)(cameras_separation*cameras_separation_multiplier/2);
 		}
 
-		if (dome_tilt_compensation) {		// tilted dome mode
 
-			// head rotation
-			// @@@ need to check atan2 params for 0 values?
-			// @@@ save values of sin/cos
-			tmpY = target.y*cos(-dome_tilt)-target.z*sin(-dome_tilt);
-			tmpZ = target.z*cos(-dome_tilt)+target.y*sin(-dome_tilt);
-			rot = atan2(target.x,-tmpY)*head_turn_multiplier;
-			if (vertical_mode)
-				rot *= fabs(sinP);
-			sinR = sin(rot); cosR = cos(rot);
-
-			// rotate camera
-			tmp = org.x*cosR-org.y*sinR;
-			org.y = (miScalar)(org.y*cosR+org.x*sinR);
+		// head rotation = phi
+		// rotate camera
+		if (zenithMode) {
+			tmp = org.x*cosP-org.y*sinP;
+			org.y = (miScalar)(org.y*cosP+org.x*sinP);
 			org.x = (miScalar)tmp;
-
-			// compensate for dome tilt
-			// @@@ save values of sin/cos
-			tmp = org.y*cos(dome_tilt)-org.z*sin(dome_tilt);
-			org.z = (miScalar)(org.z*cos(dome_tilt)+org.y*sin(dome_tilt));
-			org.y = (miScalar)tmp;
-
-			// calculate head target
-			tmp = sqrt(target.x*target.x+tmpY*tmpY);
-			htarget.x = (miScalar)(sin(rot)*tmp);
-			htarget.y = (miScalar)(-cos(rot)*tmp);
-			htarget.z = (miScalar)tmpZ;
-
-			// dome rotation again on head target
-			tmp = htarget.y*cos(dome_tilt)-htarget.z*sin(dome_tilt);
-			htarget.z = (miScalar)(htarget.z*cos(dome_tilt)+htarget.y*sin(dome_tilt));
-			htarget.y = (miScalar)tmp;
-
 		} else {
-
-			if (vertical_mode) {			// vertical mode
-
-				// head rotation
-				// @@@ need to check atan2 params for 0 values?
-				rot = atan2(target.x,-target.z)*head_turn_multiplier*fabs(sinP);
-				sinR = sin(rot); cosR = cos(rot);
-
-				// rotate camera
-				tmp = org.x*cosR-org.z*sinR;
-				org.z = (miScalar)(org.z*cosR+org.x*sinR);
-				org.x = (miScalar)tmp;
-
-				// calculate head target
-				tmp = sqrt(target.x*target.x+target.z*target.z);
-				htarget.x = (miScalar)(sin(rot)*tmp);
-				htarget.y = (miScalar)target.y;
-				htarget.z = (miScalar)(-cos(rot)*tmp);
-
-			} else {						// horizontal mode
-
-				// head rotation
-				rot = phi*head_turn_multiplier;
-				sinR = sin(rot); cosR = cos(rot);
-
-				// rotate camera
-				tmp = org.x*cosR-org.y*sinR;
-				org.y = (miScalar)(org.y*cosR+org.x*sinR);
-				org.x = (miScalar)tmp;
-
-				// calculate head target
-				htarget.x = (miScalar)(sin(rot)*sinT);
-				htarget.y = (miScalar)(-cos(rot)*sinT);
-				htarget.z = (miScalar)target.z;
-
-			}
+			tmp = org.x*cosP-org.z*sinP;
+			org.z = (miScalar)(org.z*cosP+org.x*sinP);
+			org.x = (miScalar)tmp;
 		}
+
+		// calculate head target
+		htarget.x = (miScalar)(sinP*sinT);
+		htarget.y = (miScalar)(-cosP*sinT);
+		htarget.z = (miScalar)target.z;
 
 		// head tilt
 		head_tilt = (miScalar)((head_tilt-0.5)*M_PI);
@@ -192,15 +140,21 @@ DLLEXPORT miBoolean LatLong_Stereo(
 
 //mi_debug("II->,Phi=%f,Theta=%f,rot=%f,camx=%f,camy=%f", (miScalar)phi, (miScalar)theta, (miScalar)rot, (miScalar)org.x, (miScalar)org.y);
 
-	// Flip the ray direction about the y-axis
-	// @@@ if(*mi_eval_boolean(&params->Flip_Ray_X)) { 
-	// @@@ 	ray.x = (-ray.x);
-	// @@@ }
-    // Flip the ray direction about the x-axis
-	// @@@ if(*mi_eval_boolean(&params->Flip_Ray_Y)) {
-	// @@@ 	ray.y = (-ray.y);		
-	// @@@ }
-
+	// Flip the X ray direction about the Y-axis
+	if(*mi_eval_boolean(&params->Flip_Ray_X)) { 
+		org.x = (-org.x);
+		ray.x = (-ray.x);
+	}
+	// Flip the Y ray direction about the X-axis
+	if(*mi_eval_boolean(&params->Flip_Ray_Y)) {
+		if (zenithMode) {
+			org.z = (-org.z);
+			ray.z = (-ray.z);
+		} else {
+			org.y = (-org.y);
+			ray.y = (-ray.y);
+		}
+	}
 
 	// Convert ray from camera space
 	mi_vector_from_camera(state, &ray, &ray);
@@ -225,16 +179,12 @@ DLLEXPORT void LatLong_Stereo_init(
 		fov_horiz_angle = *mi_eval_scalar(&params->FOV_Horiz_Angle);
 		camera = *mi_eval_integer(&params->Camera);
 		parallax_distance = *mi_eval_scalar(&params->Parallax_Distance);
-		dome_tilt = *mi_eval_scalar(&params->Dome_Tilt);
 		cameras_separation = *mi_eval_scalar(&params->Cameras_Separation);
-		dome_tilt_compensation = *mi_eval_boolean(&params->Dome_Tilt_Compensation);
-		vertical_mode = *mi_eval_boolean(&params->Vertical_Mode);
-//mi_info("II-> fovV=%f,fovH=%f,cam=%i,rad=%f,tilt=%f,sep=%f,comp=%i,vert=%i",fov_vert_angle,fov_horiz_angle,camera,parallax_distance,dome_tilt,cameras_separation,dome_tilt_compensation,vertical_mode);
+//mi_info("II-> fovV=%f,fovH=%f,cam=%i,rad=%f,sep=%f",fov_vert_angle,fov_horiz_angle,camera,parallax_distance,cameras_separation);
 
 		// Convert input angles from degrees to radians...
 		fov_vert_angle = (miScalar)(fov_vert_angle*M_PI/180.0);
 		fov_horiz_angle = (miScalar)(fov_horiz_angle*M_PI/180.0);
-		dome_tilt = (miScalar)(dome_tilt*M_PI/180.0);
 	}
 }
 

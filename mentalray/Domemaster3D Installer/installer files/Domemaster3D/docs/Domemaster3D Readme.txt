@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 5 - October 21, 2014
+Version 1.6 alpha 5 - October 24, 2014
 
 About This Shader
 ---------------------
@@ -89,7 +89,7 @@ LatLong Button
 The LatLong tool creates a latlong / equirectangular / spherical camera with the latlong_lens shader applied.
 
 LatLong3D Button
-The LatLong3D tool creates a stereoscopic latlong / equirectangular / spherical camera with the latlong_lens shader applied.
+The LatLong3D tool creates a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied.
 
 Color Material Button
 The Color Material tool creates a mia_material_x_passes based mental ray shading network with support for color file textures.
@@ -174,7 +174,7 @@ After installing the Domemaster3D shader for 3DS Max, you will find 5 new Lens s
 -The "domeAFL_WxH"shader is used for 2D WxH fulldome rendering.
 -The "rob_lookup_background" is used to preview screen space texture maps before attaching them to the Domemaster Stereo Shader. Screen space coordinates are required when preparing turn maps, separation maps, and tilt maps.
 -The "LatLong Shader" is used to render latitude/longitude (equirectangular) images with a 360x180 degree view. These images are often rendered with a 2:1 aspect ratio.
--The "LatLong_Stereo Shader" is used to render latitude/longitude (equirectangular) images with a 360x180 degree view. These images are often rendered with a 2:1 aspect ratio.
+-The "LatLong_Stereo Shader" is used to render stereoscopic 3D latitude/longitude (equirectangular) images with a 360x180 degree view. These images are often rendered with a 2:1 aspect ratio.
 
 Softimage Notes
 -------------------
@@ -244,14 +244,25 @@ Version History
 
 Version 1.6 Alpha 5
 ---------------------
-October 21, 2014
+October 24, 2014
 
 Updated LatLong_Stereo source code for a horizontal orientation
 Updated domeAFL_FOV_Stereo code to fix a bug in the Flip X/Y code
 Updated Makefiles for all platforms
 Recompliled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
-Updated Maya Domemaster3D shelf - Added a set of wide aspect ratio render resolution buttons
-Updated Maya AE Template/LatLongStereoRig.py files
+
+3DS Max Changes
+  Updated 3DS Max LatLong_Stereo .dll shader file and mental ray include file
+
+Maya Changes
+  Updated the Maya.env file and MEL scripts so you can move the Domemaster3D shader for Maya to any folder location on your system including network volumes, or a non-adminstrative user's home folder.
+  Updated Maya Domemaster3D shelf - Added a set of wide aspect ratio render resolution buttons
+  Updated Maya AE Template/LatLongStereoRig.py file
+  Updated DomeRender.mel script to improve PreRenderMEL & PostRenderMEL field of view scripting
+  Updated the Maya Visor Example files and relinked the scene textures to use the sourceimages folder:
+  C:\Program Files\Domemaster3D\sourceimages
+  Added a new Maya rampShader attribute preset named "copperRampShader"
+
 
 Version 1.6  Alpha 1
 ----------------------

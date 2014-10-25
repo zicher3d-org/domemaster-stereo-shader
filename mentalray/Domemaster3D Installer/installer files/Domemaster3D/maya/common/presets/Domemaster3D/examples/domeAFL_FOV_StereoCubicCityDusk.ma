@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: domeAFL_FOV_StereoCubicCityDusk.ma
-//Last modified: Mon, Sep 29, 2014 07:00:48 AM
+//Last modified: Mon, Sep 29, 2014 06:58:56 AM
 //Codeset: 1252
 requires maya "2012";
 requires "Mayatomr" "2012.0m - 3.9.1.47 ";
@@ -10146,7 +10146,7 @@ createNode mib_bump_basis -n "mib_bump_basis1";
 createNode mib_passthrough_bump_map -n "mib_passthrough_bump_map1";
 	setAttr ".S03" -type "float3" 0 0 0 ;
 createNode mentalrayTexture -n "bump_mentalrayTexture2";
-	setAttr ".ftn" -type "string" "C:/Program Files/Domemaster3D/maya/common/presets/Domemaster3D/examples/sourceimages/city_window_gridlines_thick_blurred.png";
+	setAttr ".ftn" -type "string" "C:/Program Files/Domemaster3D/sourceimages/examples/city_window_gridlines_thick_blurred.png";
 createNode cameraView -n "cameraView7";
 	setAttr ".e" -type "double3" 240.04433980392758 47.944985159689061 -237.33606658849379 ;
 	setAttr ".coi" -type "double3" 282.04872320122911 98.115670089681743 -318.35485699394155 ;

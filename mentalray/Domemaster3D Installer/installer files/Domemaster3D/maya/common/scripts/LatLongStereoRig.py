@@ -1,6 +1,6 @@
 """
  LatLong_Stereo Camera Rig V1.6
- Updated 2014-10-21 05.58 pm
+ Updated 2014-10-24 09.21 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 

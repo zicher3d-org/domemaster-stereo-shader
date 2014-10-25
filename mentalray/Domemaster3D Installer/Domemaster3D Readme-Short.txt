@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 5 - October 21, 2014
+Version 1.6 alpha 5 - October 24, 2014
 
 About This Shader
 ---------------------
@@ -48,6 +48,27 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/issues
 
 Source Code:
 https://github.com/zicher3d-org/domemaster-stereo-shader/
+
+Changes in Version 1.6 Alpha 5
+-------------------------------------
+October 24, 2014
+
+Updated LatLong_Stereo source code for a horizontal orientation
+Updated domeAFL_FOV_Stereo code to fix a bug in the Flip X/Y code
+Updated Makefiles for all platforms
+Recompliled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
+
+3DS Max Changes
+  Updated 3DS Max LatLong_Stereo .dll shader file and mental ray include file
+
+Maya Changes
+  Updated the Maya.env file and MEL scripts so you can move the Domemaster3D shader for Maya to any folder location on your system including network volumes, or a non-adminstrative user's home folder.
+  Updated Maya Domemaster3D shelf - Added a set of wide aspect ratio render resolution buttons
+  Updated Maya AE Template/LatLongStereoRig.py file
+  Updated DomeRender.mel script to improve PreRenderMEL & PostRenderMEL field of view scripting
+  Updated the Maya Visor Example files and relinked the scene textures to use the sourceimages folder:
+  C:\Program Files\Domemaster3D\sourceimages
+  Added a new Maya rampShader attribute preset named "copperRampShader"
 
 
 Project Developers

@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
-//Name: PowerPoint Dome Template.ma
-//Last modified: Sun, Sep 28, 2014 09:00:36 AM
+//Name: DomeViewerPowerPointDomeTemplate.ma
+//Last modified: Sun, Sep 28, 2014 08:54:25 PM
 //Codeset: 1252
 requires maya "2012";
 requires "Mayatomr" "2012.0m - 3.9.1.47 ";
@@ -14,7 +14,7 @@ fileInfo "osv" "Microsoft Windows 7 Business Edition, 64-bit Windows 7 Service P
 createNode transform -s -n "persp";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" -1107.8710256956858 -73.522989373327775 232.86040983143229 ;
-	setAttr ".r" -type "double3" 9.6000000000000778 -77.200000000000557 -7.1780100421321436e-015 ;
+	setAttr ".r" -type "double3" 9.6000000000000796 -77.200000000000557 -7.1780100421321436e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999986;
@@ -1103,7 +1103,7 @@ createNode script -n "sceneConfigurationScriptNode";
 	setAttr ".b" -type "string" "playbackOptions -min 1 -max 9 -ast 1 -aet 9 ";
 	setAttr ".st" 6;
 createNode file -n "domeViewer_FileTexture";
-	setAttr ".ftn" -type "string" "C:/Program Files/Domemaster3D/maya/common/presets/Domemaster3D/examples/sourceimages/PowerPoint_Dome_Template/Dome Presentation Slides_Page_1.jpg";
+	setAttr ".ftn" -type "string" "C:/Program Files/Domemaster3D/sourceimages/examples/PowerPoint_Dome_Template/Dome Presentation Slides_Page_1.jpg";
 	setAttr ".ufe" yes;
 	setAttr ".uhc" yes;
 	setAttr ".ece" 9;
@@ -1506,4 +1506,4 @@ connectAttr "domeViewer_preview_material.msg" ":defaultShaderList1.s" -na;
 connectAttr "domeViewer_FileTexture.msg" ":defaultTextureList1.tx" -na;
 connectAttr "domeViewer_place2dTexture.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
-// End of PowerPoint Dome Template.ma
+// End of DomeViewerPowerPointDomeTemplate.ma

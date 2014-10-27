@@ -1,6 +1,6 @@
 #   TITLE: Angular Fisheye Lenses (AFL) Softimage SPDL File
-#  AUTHOR: Andrew Hazelden (andrewhazelden@gmail.com)
-#    DATE: March 2, 2014
+#  AUTHOR: Andrew Hazelden (andrew@andrewhazelden.com)
+#    DATE: 2014-10-27 11.50 am
 # PURPOSE: To simulate a Virtual Angular Fisheye Lens (AFL) for 
 #          the Production of Full-Dome Stereo Animations
 #
@@ -19,9 +19,9 @@ PropertySet "domeAFL_FOV_Stereo_pset"
   {
     GUID = "{6E896C64-8200-43AD-B153-719726BD23A1}";
     Type = scalar;
-    Value = 180.0;
     Value Minimum = 0.0;
     Value Maximum = 360.0;
+	Value = 180.0;
   }
   Parameter "View_Offset" input
   {
@@ -104,14 +104,14 @@ PropertySet "domeAFL_FOV_Stereo_pset"
   Parameter "Dome_Tilt_Compensation" input
   {
     GUID = "{409F6F3A-51B3-45BA-B3B9-537B57F2D901}";
-    Type = scalar;
-    Value = 0.0;
+    Type = boolean;
+    Value = off;
   }
   Parameter "Vertical_Mode" input
   {
     GUID = "{2BF969FC-3C72-450F-B060-B074900B0E83}";
-    Type = scalar;
-    Value = 0.0;
+    Type = boolean;
+    Value = off;
   }
 }
 
@@ -144,11 +144,11 @@ Defaults
   }
   Flip_Ray_X
   {
-    Name = "Flip_Ray_X";  
+    Name = "Flip X";  
   }
   Flip_Ray_Y
   {
-    Name = "Flip_Ray_Y";
+    Name = "Flip Y";
   }
   Camera
   {
@@ -215,6 +215,11 @@ Layout "Default"
     Cameras_Separation_Map;
     Head_Turn_Map;
     Head_Tilt_Map;
+  }
+  Group "Image Orientation"
+   {
+    Flip_Ray_X;
+    Flip_Ray_Y;
   }
 }
 

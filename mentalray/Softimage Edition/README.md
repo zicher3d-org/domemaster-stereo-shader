@@ -1,5 +1,5 @@
 # Domemaster3D Lens Shader for Softimage #
-**Version 1.6 Alpha 2 - September 27, 2014**  
+**Version 1.6 Alpha 5 - October 27, 2014**  
 Ported to Softimage by Andrew Hazelden
 
 Email: [andrewhazelden@gmail.com](mailto:andrewhazelden@gmail.com)  
@@ -70,7 +70,7 @@ The Domemaster3D v1.6 release has added a new `LatLong_Stereo` node that makes i
 
 You can access the controls by expanding the `LatLongStereoCamera_Root` object in the Explorer window, and double clicking on the `LatLong_Camera_Controls` object.
 
-![Domemaster3D LatLong_Stereo Controls](screenshots/latlong_camera_controls.png)
+![Domemaster3D LatLong_Stereo Controls](screenshots/latlong_stereo_controls.png)
 
 ## Installing the Shader ##
 
@@ -141,7 +141,7 @@ Maps used for the various multipliers and tilt settings will have to be custom m
 
 **Vertical Mode**: Enables the vertical dome mode which automatically adjusts the head turn setting and adds a turn compensation for the upper and lower part of the dome. It's a simplified and optimized version of the Dome Tilt Compensation with a 90 degree tilt angle. It is faster and easier to use.
 
-![A screenshot of the Domemaster3D Softimage GUI](screenshots/domemaster3D_xsi_lens_shader.png)
+![A screenshot of the Domemaster3D Softimage GUI](screenshots/domemaster3d_controls.png)
 
 
 ## Node connections ##

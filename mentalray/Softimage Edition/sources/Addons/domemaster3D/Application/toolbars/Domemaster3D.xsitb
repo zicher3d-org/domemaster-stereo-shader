@@ -12,6 +12,9 @@
             <item type="separator" mode="group_header" group_name="Tools"></item>
             <item type="scriptbutton" label="AutoMagic" bitmap="render_magicDome" scriptengine="XSI.SIPython.1" tooltip="AutoMagic Fulldome 3D Scene">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Automagic Setup Script 
+Version 1.6 2014-10-27 01.42 pm
+ ---------------------------------------------------------------------            
 Domemaster3D Camera Setup Script
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 Based upon the Softimage scripting work of Max Crow
@@ -163,9 +166,9 @@ def createFulldomeStereoRig():
 
   Application.SIAddCustomParameter(rigControls, &quot;Dome Tilt&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 90, &quot;&quot;, 2053, &quot;&quot;, 90, &quot;&quot;, &quot;&quot;)
 
-  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siBool&quot;, 0, &quot;&quot;, 1, &quot;&quot;, 2053, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;)
 
-  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siBool&quot;, 0, &quot;&quot;, 1, &quot;&quot;, 2053, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;)
 
   Application.SIAddCustomParameter(rigControls, &quot;Separation Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
 
@@ -251,20 +254,12 @@ def createFulldomeStereoRig():
   Application.SetValue(&quot;Passes.Pass.Name&quot;, leftPass, &quot;&quot;)
   Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Camera&quot;, leftRig, &quot;&quot;)
   Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Main.Filename&quot;, &quot;LeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
-  # Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.Pass.Name&quot;, leftRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Camera&quot;, leftRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Main.Filename&quot;, &quot;DomeLeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
 
-  leftPass = &quot;StereoCamera_Right&quot;
+  rightPass = &quot;StereoCamera_Right&quot;
   Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  Application.SetValue(&quot;Passes.Pass.Name&quot;, leftPass, &quot;&quot;)
-  Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Camera&quot;, rightRig, &quot;&quot;)
-  Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
-  # Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.Pass.Name&quot;, rightRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Camera&quot;, rightRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Main.Filename&quot;, &quot;DomeRightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, rightPass, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightPass+&quot;.Camera&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightPass+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
 
   # Enable textured shading in the fulldome camera
   Application.SetDisplayMode(baseRig, &quot;textured&quot;)
@@ -288,14 +283,217 @@ def closeExprWindow():
       x.State = siClosed
       print(&quot;The &quot;+str(x)+&quot; window has been closed&quot;)
 
+      
+
+&quot;&quot;&quot;
+Domemaster3D createTestShapes
+----------------------
+A python function to create a test sphere and cube. 
+&quot;&quot;&quot;
+
+def createTestShapes():
+  # Add a NURBS sphere test shape
+  test_sphere_name = str(Application.CreatePrim(&quot;Sphere&quot;, &quot;NurbsSurface&quot;, &quot;nurbsTestSphere&quot;, &quot;&quot;))
+  # Set the sphere to a 24 cm radius
+  Application.SetValue(test_sphere_name+&quot;.surfmsh.geom.sphere.radius&quot;, 24, &quot;&quot;)
+  #Move the sphere in place
+  Application.SetValue(test_sphere_name+&quot;.kine.global.posx&quot;, 80, &quot;&quot;)
+  Application.SetValue(test_sphere_name+&quot;.kine.global.posy&quot;, 75, &quot;&quot;)
+  Application.SetValue(test_sphere_name+&quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+
+  # Add a NURBS cube test shape
+  test_cube_name = str(Application.CreatePrim(&quot;Cube&quot;, &quot;NurbsSurface&quot;, &quot;nurbsTestCube&quot;, &quot;&quot;))
+  # Set the cube to a 40 cm length
+  Application.SetValue(test_cube_name+&quot;.surfmsh.geom.cube.length&quot;, 40, &quot;&quot;)
+  #Move the cube in place
+  Application.SetValue(test_cube_name+&quot;.kine.global.posx&quot;, 0, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.posy&quot;, 75, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.posz&quot;, -80, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.rotx&quot;, 88, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.roty&quot;, 0, &quot;&quot;)
+  Application.SetValue(test_cube_name+&quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+
+  # Add a directional light
+  dome_light_shape_name = str(Application.GetPrimLight(&quot;Infinite.Preset&quot;, &quot;Infinite&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;))
+  # Move the light -32 on the X axis
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.posx&quot;, -32, &quot;&quot;)
+  # Point the directional light upwards
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.rotx&quot;, 38, &quot;&quot;)
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.roty&quot;, 47, &quot;&quot;)
+  Application.SetValue(dome_light_shape_name+&quot;.kine.global.rotz&quot;, -62, &quot;&quot;)
+
+
+
+&quot;&quot;&quot;
+Remove the Old DomeGrid Mesh
+---------------------------
+A python function to remove the old DomeGrid when the tool is run a 2nd time.
+&quot;&quot;&quot;
+def cleanDomeGrid():
+  # This polygon mesh selection code is based upon the blog post:
+  # https://codingforxsi.wordpress.com/2012/07/19/plugins-that-take-input-and-give-output/
+
+  # Find all the domeGrid meshes in the scene and store them in a python list.
+  polymesh_lst = list(Application.ActiveSceneRoot.FindChildren(&quot;*&quot;, &quot;polymsh&quot;))
+
+  # Create a list to store the meshes names in
+  polymeshName_lst= []
+  # Loop through the mesh objects and store their names
+  for polymesh in polymesh_lst:
+    # Add the meshes name to the mesh name list
+    polymeshName_lst.append(polymesh.FullName)
+
+  # Join the names in the list into a string and separate each name by a comma. eg &quot;sphere, cone, cube, domeGrid&quot;
+  polymeshSel_str = &quot;, &quot;.join(polymeshName_lst)
+
+  print (polymeshSel_str)
+  # domeGrid, starglobe_mesh_starglobe_mesh_polyStarglobe
+
+  for polymesh in polymesh_lst:
+    # Check if the polymesh's name is domeGrid
+    if polymesh.name == &quot;domeGrid&quot;:
+      # If it is, remove it from the selection
+      #Application.Selection.Remove(polymesh)
+      Application.DeleteObj(polymesh)
+      print(&quot;Removing the old domeGrid mesh.&quot;)
+ 
+
+
+&quot;&quot;&quot;
+Domemaster3D DomeGrid test background 
+--------------------------------------
+A python function to create a hemispherical yellow test grid. 
+
+&quot;&quot;&quot;
+def createDomeGrid():
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    import os
+
+    #Remove the Old Starglobe Mesh
+    cleanDomeGrid()
+
+    #---------------------------------------------------------------------------
+    # Variables
+    #---------------------------------------------------------------------------
+    
+    grid_material_name = &quot;yellow_constant_grid_material&quot;
+
+    # Get the Domemaster3D Addons path for the obj mesh
+    gridModelFile = getSourceImagesPath(&quot;grid_mesh.obj&quot;)
+
+    # Remove the old grid model and texture
+    #Application.DeleteObj(&quot;grid_mesh_grid_mesh_polygrid.Scene_Material.grid_material&quot;)
+
+    # Load the quads based grid sphere model
+    grid_mesh_file = str(Application.ObjImport(gridModelFile, 1, 0, False, True, False, True))
+    # grid_mesh_grid_mesh_polygrid1
+    print(&quot;grid Mesh: &quot; + grid_mesh_file)
+
+    # Scale the grid model to 25 units
+    #Application.Scale(grid_mesh_file, 25, 25, 25, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+   
+    #Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, &quot;&quot;, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+
+    # Select the grid mesh
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, True)
+
+    # Create a new material library named StarglobeLib
+    material_library_name = &quot;StarglobeLib&quot;
+    material_library = Application.CreateLibrary(material_library_name, 1, &quot;&quot;)(0)
+    Application.SetCurrentMaterialLibrary(material_library)
+    material_library_name = str(material_library)
+    # Creating a material library named: Sources.Materials.StarglobeLib
+    print(&quot;Creating a material library named: &quot; + material_library_name)
+
+    # Apply the constant shading surface material
+    Application.ApplyShader(&quot;$XSI_DSPRESETS\\Shaders\\Material\\Constant.Preset&quot;, &quot;&quot;, grid_material_name, &quot;siUnspecified&quot;, &quot;siLetLocalMaterialsOverlap&quot;)
+    print(&quot;grid material: &quot; + grid_material_name)
+
+    # Apply a yellow color to the grid
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.blue&quot;, 0, &quot;&quot;)
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.green&quot;, 1, &quot;&quot;)
+    Application.SetValue(material_library_name+&quot;.Material.&quot;+grid_material_name+&quot;.color.red&quot;, 1, &quot;&quot;)
+
+    # Set the views to textured
+    Application.SetDisplayMode(&quot;Camera&quot;, &quot;textured&quot;)
+
+    # Rename the grid mesh to a friendlier name
+    #grid_mesh_file = &quot;grid_mesh_grid_mesh_polygrid&quot; 
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, &quot;&quot;)
+    grid_mesh_file = str(Application.SetValue(grid_mesh_file+&quot;.Name&quot;, &quot;domeGrid&quot;, &quot;&quot;))
+
+    # Select the renamed grid mesh object
+    Application.SelectObj(grid_mesh_file, &quot;&quot;, &quot;&quot;)
+
+    # Turn off shadow catching and receiving on the grid mesh so lights outside the grid can reach objects inside the grid
+    Application.SetValue(grid_mesh_file+&quot;.visibility.shdwcast&quot;, False, &quot;&quot;)
+    Application.SetValue(grid_mesh_file+&quot;.visibility.shdwrecv&quot;, False, &quot;&quot;)
+
+    # Turn off the primary and secondary rays on the grid
+    #Application.SetValue(grid_mesh_file+&quot;.visibility.primray&quot;, False, &quot;&quot;)
+    #Application.SetValue(grid_mesh_file+&quot;.visibility.scndray&quot;, False, &quot;&quot;)
+
+    # Rename the base grid material
+    #Application.SetValue(grid_mesh_file+&quot;.Material.Name&quot;, &quot;grid_material&quot;, &quot;&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()
+
+def changeRenderRes( width, height, aspectRatio ):
+  
+  try:
+    # Set the start of the undo checkpoint
+    Application.BeginUndo()
+
+    fulldomeRenderWidth = width
+    fulldomeRenderHeight = height
+    
+    #---------------------------------------------------------------------
+    # Setup the default render settings for the image output
+    # ---------------------------------------------------------------------
+    Application.SetValue(&quot;Passes.RenderOptions.ImageFormatPreset&quot;, 0, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, False, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageWidth&quot;, fulldomeRenderWidth, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageHeight&quot;, fulldomeRenderHeight, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageAspectRatio&quot;, aspectRatio, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImagePixelRatio&quot;, 1, &quot;&quot;)
+    Application.SetValue(&quot;Passes.RenderOptions.ImageLockAspectRatio&quot;, True, &quot;&quot;)
+
+    print (&quot;Changed the render settings to output a &quot; + str(fulldomeRenderWidth) + &quot;x&quot; + str(fulldomeRenderHeight) + &quot; image.&quot;)
+
+  finally:
+    # Set the end of the undo checkpoint
+    Application.EndUndo()    
+    
 # Stop the PPG Windows from opening
 Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
+
+# Run the AutoMagic Fulldome 3D Scene tool
+Application.NewScene(&quot;&quot;, &quot;&quot;)
+
+# Change the output resolution 
+# example: changeRenderRes( width, height, aspectRatio)
+changeRenderRes( 1024, 1024, 1)
+
+# Add a few test models to the scene
+createTestShapes()
+
+# Create a grid
+createDomeGrid()
 
 # Create the fulldome stereo camera
 createFulldomeStereoRig()
 
 # Close the Expression Editor window
-closeExprWindow()]]&gt;</scripttext>
+closeExprWindow()
+
+# Start rendering a preview in mental ray
+Application.OpenView(&quot;Render Preview&quot;, &quot;&quot;)
+]]&gt;</scripttext>
             </item>
             <item type="scriptbutton" label="Stereo Rig" bitmap="render_domeAFL_FOV_Stereo" scriptengine="XSI.SIPython.1" tooltip="Fulldome Stereo Rig">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
@@ -450,9 +648,9 @@ def createFulldomeStereoRig():
 
   Application.SIAddCustomParameter(rigControls, &quot;Dome Tilt&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 90, &quot;&quot;, 2053, &quot;&quot;, 90, &quot;&quot;, &quot;&quot;)
 
-  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siBool&quot;, 0, &quot;&quot;, 1, &quot;&quot;, 2053, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;)
 
-  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
+  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siBool&quot;, 0, &quot;&quot;, 1, &quot;&quot;, 2053, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;)
 
   Application.SIAddCustomParameter(rigControls, &quot;Separation Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
 
@@ -538,20 +736,12 @@ def createFulldomeStereoRig():
   Application.SetValue(&quot;Passes.Pass.Name&quot;, leftPass, &quot;&quot;)
   Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Camera&quot;, leftRig, &quot;&quot;)
   Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Main.Filename&quot;, &quot;LeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
-  # Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.Pass.Name&quot;, leftRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Camera&quot;, leftRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Main.Filename&quot;, &quot;DomeLeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
 
-  leftPass = &quot;StereoCamera_Right&quot;
+  rightPass = &quot;StereoCamera_Right&quot;
   Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  Application.SetValue(&quot;Passes.Pass.Name&quot;, leftPass, &quot;&quot;)
-  Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Camera&quot;, rightRig, &quot;&quot;)
-  Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
-  # Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.Pass.Name&quot;, rightRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Camera&quot;, rightRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Main.Filename&quot;, &quot;DomeRightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, rightPass, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightPass+&quot;.Camera&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightPass+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
 
   # Enable textured shading in the fulldome camera
   Application.SetDisplayMode(baseRig, &quot;textured&quot;)
@@ -905,7 +1095,7 @@ createLatLong_Camera()]]&gt;</scripttext>
             <item type="scriptbutton" label="Lat3D Camera" bitmap="render_LatLong_Stereo.bmp" scriptengine="XSI.SIPython.1" tooltip="LatLong3D">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 LatLong_Stereo Camera Setup Script
-Version 1.6 Alpha 2 - 2014-09-27 8.23pm
+Version 1.6 Alpha 5 - 2014-10-27 12.58 pm
 ---------------------------------------------
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 Based upon the Softimage scripting work of Max Crow
@@ -984,7 +1174,7 @@ def createLatLongStereoRig():
   #Variables
   #separationMapFileTexture = &quot;C:\\Program Files\\Domemaster3D\\sourceimages\\latlong_separation_map.png&quot;
   separationMapFileTexture = getSourceImagesPath(&quot;latlong_separation_map.png&quot;)
-  turnMapFileTexture = getSourceImagesPath(&quot;latlong_turn_map.png&quot;)
+  #turnMapFileTexture = getSourceImagesPath(&quot;latlong_turn_map.png&quot;)
 
   # Add a stereo camera named &quot;LatLongStereoCamera&quot;
   rigName = &quot;LatLongStereoCamera&quot;
@@ -1006,7 +1196,8 @@ def createLatLongStereoRig():
   # LatLong_Stereo_Root1.Domemaster_camera_controls
 
   # Rotate the camera rig upright
-  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  #Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
+  Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
 
@@ -1022,22 +1213,21 @@ def createLatLongStereoRig():
   # Wide angle camera set up with a 4 mm focal length = 154.94 degree field of view
   #Application.SetValue(baseRig+&quot;.camera.fov&quot;, 154.94, &quot;&quot;)
 
-  # Move the center of interest upwards above the origin
-  Application.Translate(interestRig, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
-  #Application.Translate(&quot;LatLong_Stereo_Interest&quot;, 0, 10, 0, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siY&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
+  # Move the center of interest to 10 units on the Z axis from origin
+  Application.Translate(interestRig, 0, 0, 10, &quot;siAbsolute&quot;, &quot;siPivot&quot;, &quot;siObj&quot;, &quot;siXYZ&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;)
 
   # Turn off the default Softimage stereo controls
   Application.SetValue(rig+&quot;.Stereo.StereoType&quot;, 0, &quot;&quot;)
 
   # Add the LatLong_Stereo lens shader to the camera rig
   Application.SIAddArrayElement(leftRig+&quot;.camera.lensshader&quot;)
-  Application.SIApplyShaderToCnxPoint2(&quot;mentalray.LatLong_Stereo.1.0&quot;, leftRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
-  #Application.SIApplyShaderToCnxPoint2(&quot;Softimage.LatLong_Stereo.1.0&quot;, leftRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  #Application.SIApplyShaderToCnxPoint2(&quot;mentalray.LatLong_Stereo.1.0&quot;, leftRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.LatLong_Stereo.1.0&quot;, leftRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
   Application.SetValue(leftRig+&quot;.camera.LatLong_Stereo.Camera&quot;, 1, &quot;&quot;)
 
   Application.SIAddArrayElement(rightRig+&quot;.camera.lensshader&quot;)
-  Application.SIApplyShaderToCnxPoint2(&quot;mentalray.LatLong_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
-  #Application.SIApplyShaderToCnxPoint2(&quot;Softimage.LatLong_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  #Application.SIApplyShaderToCnxPoint2(&quot;mentalray.LatLong_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
+  Application.SIApplyShaderToCnxPoint2(&quot;Softimage.LatLong_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
   Application.SetValue(rightRig+&quot;.camera.LatLong_Stereo.Camera&quot;, 2, &quot;&quot;)
 
 
@@ -1050,60 +1240,37 @@ def createLatLongStereoRig():
   Application.SelectObj(rigControls, &quot;&quot;, &quot;&quot;)
 
   # Set the camera separation control to have a 6.5 cm default value
-  Application.SIAddCustomParameter(rigControls, &quot;Separation&quot;, &quot;siDouble&quot;, 6.5, &quot;&quot;, 1000000, &quot;&quot;, 2053, &quot;&quot;, 1000000, &quot;&quot;, &quot;&quot;)
 
   Application.SIAddCustomParameter(rigControls, &quot;Field Of View Vertical&quot;, &quot;siDouble&quot;, 180, &quot;&quot;, 180, &quot;&quot;, 2053, &quot;&quot;, 360, &quot;&quot;, &quot;&quot;)
 
   Application.SIAddCustomParameter(rigControls, &quot;Field Of View Horizontal&quot;, &quot;siDouble&quot;, 360, &quot;&quot;, 360, &quot;&quot;, 2053, &quot;&quot;, 360, &quot;&quot;, &quot;&quot;)
 
+  Application.SIAddCustomParameter(rigControls, &quot;Separation&quot;, &quot;siDouble&quot;, 6.5, &quot;&quot;, 1000000, &quot;&quot;, 2053, &quot;&quot;, 1000000, &quot;&quot;, &quot;&quot;)
+
   # Set the dome radius control to have a 10 meter default value
-  Application.SIAddCustomParameter(rigControls, &quot;Zero Parallax Distance&quot;, &quot;siDouble&quot;, 1000, 1, 1000000, &quot;&quot;, 2053, 1, 1000000, &quot;&quot;, &quot;&quot;)
+  Application.SIAddCustomParameter(rigControls, &quot;Parallax Distance&quot;, &quot;siDouble&quot;, 924, 1, 1000000, &quot;&quot;, 2053, 1, 1000000, &quot;&quot;, &quot;&quot;)
 
-  Application.SIAddCustomParameter(rigControls, &quot;Dome Tilt&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 90, &quot;&quot;, 2053, &quot;&quot;, 90, &quot;&quot;, &quot;&quot;)
+  Application.SIAddCustomParameter(rigControls, &quot;Zenith Mode&quot;, &quot;siBool&quot;, 0, &quot;&quot;, 1, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
 
-  Application.SIAddCustomParameter(rigControls, &quot;Tilt Compensation&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
-
-  Application.SIAddCustomParameter(rigControls, &quot;Vertical Mode&quot;, &quot;siDouble&quot;, 0, &quot;&quot;, 100, &quot;&quot;, 2053, &quot;&quot;, 100, &quot;&quot;, &quot;&quot;)
-
-  Application.SIAddCustomParameter(rigControls, &quot;Separation Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
-
-  Application.SIAddCustomParameter(rigControls, &quot;Turn Multiplier&quot;, &quot;siDouble&quot;, 1, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
-
-  Application.SIAddCustomParameter(rigControls, &quot;Head Tilt&quot;, &quot;siDouble&quot;, 0.5, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2053, &quot;&quot;, 1, &quot;&quot;, &quot;&quot;)
 
   # Stop the PPG Windows from opening
   Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, False, &quot;&quot;)
 
   # Link the stereo user interface elements
-  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Cameras_Separation&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Cameras_Separation&quot;, 1)
-
   Application.CopyPaste(rigControls+&quot;.Field_Of_View_Vertical&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.FOV_Vert_Angle&quot;, 1)
   Application.CopyPaste(rigControls+&quot;.Field_Of_View_Vertical&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.FOV_Vert_Angle&quot;, 1)
 
   Application.CopyPaste(rigControls+&quot;.Field_Of_View_Horizontal&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.FOV_Horiz_Angle&quot;, 1)
   Application.CopyPaste(rigControls+&quot;.Field_Of_View_Horizontal&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.FOV_Horiz_Angle&quot;, 1)
 
-  Application.CopyPaste(rigControls+&quot;.Zero_Parallax_Distance&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Parallax_Distance&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Zero_Parallax_Distance&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Parallax_Distance&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Cameras_Separation&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Separation&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Cameras_Separation&quot;, 1)
+  
+  Application.CopyPaste(rigControls+&quot;.Parallax_Distance&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Parallax_Distance&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Parallax_Distance&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Parallax_Distance&quot;, 1)
 
-  Application.CopyPaste(rigControls+&quot;.Dome_Tilt&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Dome_Tilt&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Dome_Tilt&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Dome_Tilt&quot;, 1)
-
-  Application.CopyPaste(rigControls+&quot;.Tilt_Compensation&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Dome_Tilt_Compensation&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Tilt_Compensation&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Dome_Tilt_Compensation&quot;, 1)
-
-  Application.CopyPaste(rigControls+&quot;.Vertical_Mode&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Vertical_Mode&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Vertical_Mode&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Vertical_Mode&quot;, 1)
-
-  Application.CopyPaste(rigControls+&quot;.Separation_Multiplier&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Cameras_Separation_Map&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Separation_Multiplier&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Cameras_Separation_Map&quot;, 1)
-
-  Application.CopyPaste(rigControls+&quot;.Turn_Multiplier&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Head_Turn_Map&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Turn_Multiplier&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Head_Turn_Map&quot;, 1)
-
-  Application.CopyPaste(rigControls+&quot;.Head_Tilt&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Head_Tilt_Map&quot;, 1)
-  Application.CopyPaste(rigControls+&quot;.Head_Tilt&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Head_Tilt_Map&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Zenith_Mode&quot;, &quot;&quot;, leftRig+&quot;.camera.LatLong_Stereo.Zenith_Mode&quot;, 1)
+  Application.CopyPaste(rigControls+&quot;.Zenith_Mode&quot;, &quot;&quot;, rightRig+&quot;.camera.LatLong_Stereo.Zenith_Mode&quot;, 1)
 
   # -----------------------------------------------
 
@@ -1127,25 +1294,6 @@ def createLatLongStereoRig():
   Application.SIConnectShaderToCnxPoint(separation_mib_texture_remap_node+&quot;.out&quot;, separation_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
 
   # -----------------------------------------------
-  &quot;&quot;&quot;
-  # Add the turn map to the left and right cameras
-  right_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, rightRig+&quot;.camera.LatLong_Stereo.Head_Turn_Map&quot;, &quot;right_turn_map_color_to_scalar&quot;, &quot;&quot;))
-  left_turn_map_color_to_scalar_node = str(Application.SIApplyShaderToCnxPoint(&quot;Conversion\\Color_to_Scalar&quot;, leftRig+&quot;.camera.LatLong_Stereo.Head_Turn_Map&quot;, &quot;left_turn_map_color_to_scalar&quot;, &quot;&quot;))
-
-  #baseRig = &quot;LatLong_Stereo&quot;
-  turn_mib_texture_filter_lookup_node = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_filter_lookup.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_filter_lookup&quot;))
-  Application.SIConnectShaderToCnxPoint(turn_mib_texture_filter_lookup_node+&quot;.out&quot;, right_turn_map_color_to_scalar_node+&quot;.input&quot;, False)
-  Application.SIConnectShaderToCnxPoint(turn_mib_texture_filter_lookup_node+&quot;.out&quot;, left_turn_map_color_to_scalar_node+&quot;.input&quot;, False)
-  turnMapFileTexture_node = str(Application.SICreateImageClip(turnMapFileTexture, &quot;&quot;, &quot;&quot;))
-  Application.SIConnectShaderToCnxPoint(&quot;Clips.turn_map_png&quot;, turn_mib_texture_filter_lookup_node+&quot;.tex&quot;, False)
-  turn_mib_texture_vector_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_vector.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_vector&quot;))
-  turn_mib_texture_remap_node  = str(Application.CreateShaderFromProgID(&quot;mentalray.mib_texture_remap.1.0&quot;, rightRig+&quot;.camera&quot;, &quot;turn_mib_texture_remap&quot;))
-  Application.SetValue(turn_mib_texture_vector_node+&quot;.selspace&quot;, 4, &quot;&quot;)
-  Application.SIConnectShaderToCnxPoint(turn_mib_texture_vector_node+&quot;.out&quot;, turn_mib_texture_remap_node+&quot;.input&quot;, False)
-  Application.SIConnectShaderToCnxPoint(turn_mib_texture_remap_node+&quot;.out&quot;, turn_mib_texture_filter_lookup_node+&quot;.coord&quot;, False)
-
-  &quot;&quot;&quot;
-  # -----------------------------------------------
 
   # Create and assign render passes for the left and right cameras
   leftPass = &quot;StereoCamera_Left&quot;
@@ -1153,20 +1301,12 @@ def createLatLongStereoRig():
   Application.SetValue(&quot;Passes.Pass.Name&quot;, leftPass, &quot;&quot;)
   Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Camera&quot;, leftRig, &quot;&quot;)
   Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Main.Filename&quot;, &quot;LeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
-  # Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.Pass.Name&quot;, leftRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Camera&quot;, leftRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+leftRig+&quot;.Main.Filename&quot;, &quot;LeftCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
 
-  leftPass = &quot;StereoCamera_Right&quot;
+  rightPass = &quot;StereoCamera_Right&quot;
   Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  Application.SetValue(&quot;Passes.Pass.Name&quot;, leftPass, &quot;&quot;)
-  Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Camera&quot;, rightRig, &quot;&quot;)
-  Application.SetValue(&quot;Passes.&quot;+leftPass+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
-  # Application.CreatePass(&quot;&quot;, &quot;&quot;, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.Pass.Name&quot;, rightRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Camera&quot;, rightRig, &quot;&quot;)
-  # Application.SetValue(&quot;Passes.&quot;+rightRig+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
+  Application.SetValue(&quot;Passes.Pass.Name&quot;, rightPass, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightPass+&quot;.Camera&quot;, rightRig, &quot;&quot;)
+  Application.SetValue(&quot;Passes.&quot;+rightPass+&quot;.Main.Filename&quot;, &quot;RightCam\\[Pass]_[Framebuffer]&quot;, &quot;&quot;)
 
   # Enable textured shading in the fulldome camera
   Application.SetDisplayMode(baseRig, &quot;textured&quot;)
@@ -2407,7 +2547,7 @@ createAnaglyphComp()
   import webbrowser
 
   # Domemaster Stereo Shader - Wiki Page
-  url = 'https://code.google.com/p/domemaster-stereo-shader/w/list'
+  url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages'
 
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
@@ -2432,8 +2572,8 @@ openDomemasterWiki()
 &quot;&quot;&quot;
 
 domemaster3D_title = &quot;About Domemaster3D for Softimage&quot;;
-domemaster3D_version = &quot;1.4 B3&quot;;
-release_date = &quot;March 4, 2014&quot;;
+domemaster3D_version = &quot;1.6 Alpha 5&quot;;
+release_date = &quot;October 27, 2014&quot;;
 
 domeDialgueString = &quot;Domemaster3D Shader for Softimage&quot; + &quot; - Version &quot; + domemaster3D_version + &quot;\n&quot;
 domeDialgueString += &quot;This edition was released on &quot; + release_date + &quot;.\n&quot;

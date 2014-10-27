@@ -56,13 +56,13 @@ October 24, 2014
 Updated LatLong_Stereo source code for a horizontal orientation
 Updated domeAFL_FOV_Stereo code to fix a bug in the Flip X/Y code
 Updated Makefiles for all platforms
-Recompliled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
+Recompiled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
 
 3DS Max Changes
   Updated 3DS Max LatLong_Stereo .dll shader file and mental ray include file
 
 Maya Changes
-  Updated the Maya.env file and MEL scripts so you can move the Domemaster3D shader for Maya to any folder location on your system including network volumes, or a non-adminstrative user's home folder.
+  Updated the Maya.env file and MEL scripts so you can move the Domemaster3D shader for Maya to any folder location on your system including network volumes, or a non-administrative user's home folder.
   Updated Maya Domemaster3D shelf - Added a set of wide aspect ratio render resolution buttons
   Updated Maya AE Template/LatLongStereoRig.py file
   Updated DomeRender.mel script to improve PreRenderMEL & PostRenderMEL field of view scripting

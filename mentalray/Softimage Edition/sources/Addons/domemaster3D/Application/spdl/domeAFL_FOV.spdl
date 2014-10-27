@@ -64,19 +64,19 @@ Defaults
 {
   FOV_Angle
   {
-    Name = "FOV_Angle";
+    Name = "Field of View";
   }
   Flip_Ray_X
   {
-    Name = "Flip_Ray_X";
+    Name = "Flip X";
   }
   Flip_Ray_Y
   {
-    Name = "Flip_Ray_Y";
+    Name = "Flip Y";
   }
   View_Offset
   {
-    Name = "View_Offset";
+    Name = "View Offset";
   }
 }
 

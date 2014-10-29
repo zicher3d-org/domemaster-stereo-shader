@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 5.1 - October 27, 2014
+Version 1.6 alpha 6 - October 28, 2014
 
 About This Shader
 ---------------------
@@ -48,6 +48,14 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/issues
 
 Source Code:
 https://github.com/zicher3d-org/domemaster-stereo-shader/
+
+
+Changes in Version 1.6 Alpha 6
+-------------------------------------
+October 28, 2014
+
+Rebuilt the DomeAFL_FOV_Stereo.dll shader.
+
 
 Changes in Version 1.6 Alpha 5
 -------------------------------------

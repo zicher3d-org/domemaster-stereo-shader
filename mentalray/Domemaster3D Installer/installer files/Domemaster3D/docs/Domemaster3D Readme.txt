@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 5.1 - October 27, 2014
+Version 1.6 alpha 6 - October 28, 2014
 
 About This Shader
 ---------------------
@@ -220,7 +220,7 @@ Special Thanks
 I would like to thank the following people for their contributions:
 
 Ralf Habel for the 2D latlong_lens shader
-http://www.vi-motion.de/latlong_Tutorial/
+http://www.vi-motion.de/latlong_Tutorial/ (Link Broken)
 
 Aaron Bradbury for the installer imagery from his Vortex fulldome short film.
 http://www.luniere.com/project/vortex/
@@ -241,6 +241,12 @@ Martin Watt for writing the original galaxies.mel script.
 
 Version History
 -----------------
+
+Version 1.6 Alpha 6
+-----------------------
+October 28, 2014
+
+Rebuilt the DomeAFL_FOV_Stereo.dll shader.
 
 Version 1.6 Alpha 5
 ---------------------

@@ -3,10 +3,10 @@ latlong_lens for Mental Ray Version 2.0
 
 Created by Ralf Habel
 ralf.habel@vi-motion.de
-http://www.vi-motion.de/latlong_Tutorial/
+http://www.vi-motion.de/latlong_Tutorial/  (Link Broken)
 
 Updated by Andrew Hazelden
-Added a Windows/Mac 64-bit compiles, larger Maya icons, and 3DS Max + Softimage Support
+Added Windows/Mac/Linux 64-bit compiles, larger Maya icons, and 3DS Max + Softimage Support
 andrew@andrewhazelden.com
 http://www.andrewhazelden.com/blog
 
@@ -22,8 +22,8 @@ LatLong Lens Shader Installation
 
 Maya Installation
 ---------------------
-On Windows the Microsoft Visual C++ 2010 Redistributable Package (x64) is required:
-http://bit.ly/VisualC_2010_Redistributable_x64
+The LatLong Lens release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 Step 1. Unzip the latlong_lens shader's zip archive. (done)
 
@@ -89,8 +89,8 @@ Note: There appears to be a compatibility issue with the latlong_lens shader and
 3DS Max Installation
 -------------------------
 
-On Windows the Microsoft Visual C++ 2010 Redistributable Package (x64) is required:
-http://bit.ly/VisualC_2010_Redistributable_x64
+The LatLong Lens release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 Step 1. Unzip the latlong_lens shader's zip archive. (done)
 
@@ -139,4 +139,4 @@ For mental ray standalone use:
 
 A tutorial on how to use the shader can be found at:
 
-  http://www.vi-motion.de/latlong_Tutorial/
+  http://www.vi-motion.de/latlong_Tutorial/  (Link Broken)

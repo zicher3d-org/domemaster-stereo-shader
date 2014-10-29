@@ -1,5 +1,5 @@
-Domemaster3D Shader for Softimage - Version 1.6 Alpha 5
-This edition was released on October 27, 2014.
+Domemaster3D Shader for Softimage - Version 1.6 Alpha 6
+This edition was released on October 28, 2014.
 
 A 2D/3D angular fisheye and latlong rendering system for planetariums and fulldome theatres. This shader is also available for 3DS Max, and Maya.
 

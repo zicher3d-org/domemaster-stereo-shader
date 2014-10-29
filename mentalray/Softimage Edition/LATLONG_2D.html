@@ -1,12 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<title>LATLONG</title>
+<title>LATLONG_2D</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
 /* Author: Nicolas Hery - http://nicolashery.com */
-/* Version: 29d1c5bc36da364ad5aa86946d420b7bbc54a253 */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
 /* Source: https://github.com/nicolahery/markdownpad-github */
 
 /* RESET
@@ -212,6 +212,24 @@ pre code, pre tt {
   border: none;
 }
 
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
 /* QUOTES
 =============================================================================*/
 
@@ -274,7 +292,7 @@ img {
 </head>
 <body>
 <h1><code>LatLong_lens</code> shader for Softimage x64</h1>
-<p><strong>Jan 12, 2014 - Version 2.1</strong></p>
+<p><strong>October 28, 2014 - Version 2.1</strong></p>
 <p>The original <code>latlong_lens</code> shader was written by Ralf Habel<br />
 <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;o&#x3a;&#x72;&#x61;&#108;f.&#x68;&#97;&#98;&#101;&#108;&#64;&#118;&#105;-&#109;&#x6f;&#x74;&#105;&#111;&#110;&#x2e;&#x64;&#x65;">&#x72;&#97;&#x6c;&#102;&#x2e;&#x68;&#x61;&#x62;&#x65;&#108;&#x40;&#x76;i&#x2d;&#109;&#x6f;&#116;&#105;&#x6f;&#110;&#x2e;&#x64;&#x65;</a></p>
 <p>Softimage port by Andrew Hazelden<br />
@@ -285,8 +303,8 @@ img {
 <h2>Installation</h2>
 <p>The latlong_lens shader is included in the Domemaster3D Softimage Addon.</p>
 <p>After you install the shader you need to restart Softimage so the shader is loaded into mental ray. If you don't restart Softimage after installing the shader you will get a &quot;shader not found error&quot;.</p>
-<p>On Windows the Microsoft Visual C++ 2010 Redistributable Package (x64) is required. If you don't have the Microsoft Visual C+ 2010 library installed on your computer Softimage will render a black frame or crash when you click render.</p>
-<p><a href="http://bit.ly/VisualC_2010_Redistributable_x64"><code>http://bit.ly/VisualC_2010_Redistributable_x64</code></a></p>
+<p>The <code>latlong_lens</code> shader for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+<a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">http://www.microsoft.com/en-us/download/details.aspx?id=30679</a></p>
 <h2>Shader Usage</h2>
 <p>To use the <code>latlong_lens</code> shader, open your the camera's property window. Click on the &quot;Lens Shaders&quot; tab and click the &quot;Add&quot; button to create a new lens shader. In the pop-menu select <code>&quot;latlong_lens&quot;</code>. </p>
 <p>It is possible to mirror the rendering by enabling the lens shader's flipHorizontal attribute.</p>
@@ -294,8 +312,8 @@ img {
 <h2>Rendering Tip</h2>
 <p>The best equirectangular image output is from rendering with a 2:1 aspect ratio. (Like a 2048x1024 pixel or 4096x2048 pixel output)</p>
 <h2>Sample Softimage Project</h2>
-<p>A sample softimage 2014 project file is included. This scene can be used to test the <code>latlong_lens</code> shader installation.</p>
-<p><img src="screenshots/Softimage_2014SP1_latlong_project_rendering.png" alt="Adding a lens shader" /></p>
+<p>A sample softimage 2014 project file is included. </p>
+<p>The <code>latlong_project_softimage_2014sp1.zip</code> scene can be used to test the <code>latlong_lens</code> shader installation.</p>
 <h2>Links</h2>
 <p>For more information about the x64 builds of the <code>latlong_lens</code> shader check out the blog page:  </p>
 <p><a href="http://www.andrewhazelden.com/blog/2011/01/latlong_lens-and-cubemap_lens-mental-ray-shaders-compiled-for-maya-2011-x64-on-windows/" title="latlong_lens for Windows X64">latlong_lens for Windows x64 Blog</a></p>

@@ -1,5 +1,5 @@
 # Domemaster3D Lens Shader for Softimage #
-**Version 1.6 Alpha 5 - October 27, 2014**  
+**Version 1.6 Alpha 6 - October 28, 2014**  
 Ported to Softimage by Andrew Hazelden
 
 Email: [andrewhazelden@gmail.com](mailto:andrewhazelden@gmail.com)  
@@ -52,6 +52,13 @@ The Softimage Domemaster3D toolbar has buttons for the following features:
 - The **8x4K** button sets the render resolution to a latlong optimized 8192x4096 pixels. 
 - The **16x8K** button sets the render resolution to a latlong optimized 16384x8192 pixels. 
 
+
+# Windows VC++ Runtime Library #
+
+The Domemaster3D v1.6 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+[http://www.microsoft.com/en-us/download/details.aspx?id=30679](http://www.microsoft.com/en-us/download/details.aspx?id=30679)
+
+
 ## Starglobe Screenshot ##
 
 The starglobe tool for Softimage makes it easy to add a starry night backdrop to your fulldome renderings. You can access the tool by opening the Domemaster3D toolbar.
@@ -64,13 +71,6 @@ The DomeViewer tool allows you to preview a fulldome angular fisheye image in So
 
 ![Domemaster3D DomeViewer Tool](screenshots/domeviewer_xsi.png)
 
-## LatLong_Stereo Screenshot ##
-
-The Domemaster3D v1.6 release has added a new `LatLong_Stereo` node that makes it easy to render spherical stereoscopic images. 
-
-You can access the controls by expanding the `LatLongStereoCamera_Root` object in the Explorer window, and double clicking on the `LatLong_Camera_Controls` object.
-
-![Domemaster3D LatLong_Stereo Controls](screenshots/latlong_stereo_controls.png)
 
 ## Installing the Shader ##
 
@@ -117,31 +117,61 @@ Let's attach a new lens shader to the current camera. In the "Lens Shaders" tab 
 Pick one of the lens shaders from the pop-up menu such as `domeAFL_FOV_Stereo`.
 
 
-## Domemaster3D Lens Shader Controls ##
+## LatLong Stereo Shader Controls ##
 
-**Field of View**: The field of view for the rendered fisheye image.
+The Domemaster3D v1.6 release has added a new `LatLong_Stereo` node that makes it easy to render spherical stereoscopic images. 
 
-**Camera**: Choices are Center/Left/Right. Selects the camera to use for rendering. Center skips 90% of the calculations and gives you a highly optimized standard angular fisheye shader.
+You can access the controls by expanding the `LatLongStereoCamera_Root` object in the Explorer window, and double clicking on the `LatLong_Camera_Controls` object.
 
-**Dome Radius** (focus plane): This is actually the distance at which the camera's line of sight converges. This is also known as the zero parallax distance so the control isn't really the dome size.
+![Domemaster3D LatLong_Stereo Controls](screenshots/latlong_stereo_controls.png)
 
-**Dome Forward Tilt**: Dome tilt in degrees. Note that this value is not used unless you enable Dome Tilt Compensation.
+**Field of View Vertical**: Controls the vertical FOV angle (in degrees) of the rendered Latitude/Longitude image.
+
+**Field of View Horizontal**: Controls the horizontal FOV angle (in degrees) of the rendered Latitude/Longitude image.
+
+**Flip X**: Flips the view horizontally
+
+**Flip Y**: Flips the view vertically
+
+**Camera**: Choices are **Center**/**Left**/**Right**. Selects the camera to use for rendering. **Center** skips 90% of the calculations and gives you a highly optimized standard latlong image.
+
+**Parallax Distance** (focus plane): This is the distance at which the camera's line of sight converges. This is also known as the zero parallax distance.
 
 **Camera Separation**: The initial separation of the left and right cameras.
 
-**Separation Multiplier**: A value between 0-1 that multiples the Camera Separation. This attribute is meant to be used with a grayscale texture mapped to the screen space using the right button. It's used to control the amount of 3D effect, and eliminate it where desired.
+**Separation Multiplier**: A value between 0-1 that multiples the **Camera Separation**. This attribute is meant to be used with a grayscale texture mapped to the screen space. It's used to control the amount of 3D effect, and eliminate it where desired.
 
-**Turn Multiplier**: A value 0-1 that controls the amount of the head turn. To be used with a grayscale texture. Typical use, keep the head straight while looking at the top of the dome.
+**Zenith Mode**: This attribute allows you to adjust the `LatLong Stereo` lens shader to work with either a horizontal orientation (Zenith Mode Off), or an upwards / vertical orientation (Zenith Mode ON) that lines up with the upright view orientation of the DomeAFL_FOV / Domemaster Stereo shaders.
 
-**Head Tilt**: A value 0-1 (with 0.5 being the "neutral" value) that tilts the cameras (or head) left/right. 0 means 90 degrees to the left, 1 means 90 degrees to the right (if I remember correctly).
+## Domemaster3D Lens Shader Controls ##
+
+![A screenshot of the Domemaster3D Softimage GUI](screenshots/domemaster3d_controls.png)
+
+**Field of View**: Controls the field of view for the rendered angular fisheye image. A "Domemaster" formatted image has a 180 degree field of view, and a "light probe" style angular image has a 360 degree field of view.
+
+**Flip X**: Flips the view horizontally
+
+**Flip Y**: Flips the view vertically
+
+**Camera**: Choices are **Center**/**Left**/**Right**. Selects the camera to use for rendering. **Center** skips 90% of the calculations and gives you a highly optimized standard angular fisheye shader.
+
+**Dome Radius** (focus plane): This is actually the distance at which the camera's line of sight converges. This is also known as the zero parallax distance so the control isn't really the dome size.
+
+**Dome Forward Tilt**: Dome tilt in degrees. Note that this value is not used unless you enable **Dome Tilt Compensation**.
+
+**Camera Separation**: The initial separation of the left and right cameras.
+
+**Separation Multiplier**: A value between 0-1 that multiples the **Camera Separation**. This attribute is meant to be used with a grayscale texture mapped to the screen space. It's used to control the amount of 3D effect, and eliminate it where desired.
+
+**Turn Multiplier**: A value 0-1 that controls the amount of the head turn. This attribute is meant to be used with a grayscale texture mapped using the screen space. Typical use, keep the head straight while looking at the top of the dome.
+
+**Head Tilt**: A value 0-1 (with 0.5 being the "neutral" value) that tilts the cameras (or head) left/right. This attribute is meant to be used with a grayscale texture mapped using the screen space. 0 means 90 degrees to the left, 1 means 90 degrees to the right.
 
 **Dome Tilt Compensation**: Enabling this option, shifts all the calculations by the # of degrees specified in Dome Forward Tilt. (Basically, it keeps the fulldome cameras / viewer's head vertical while the dome rotates forward.)
 
 Maps used for the various multipliers and tilt settings will have to be custom made for the proper dome tilt.
 
-**Vertical Mode**: Enables the vertical dome mode which automatically adjusts the head turn setting and adds a turn compensation for the upper and lower part of the dome. It's a simplified and optimized version of the Dome Tilt Compensation with a 90 degree tilt angle. It is faster and easier to use.
-
-![A screenshot of the Domemaster3D Softimage GUI](screenshots/domemaster3d_controls.png)
+**Vertical Mode**: Enables the vertical dome mode which automatically adjusts the head turn setting and adds a turn compensation for the upper and lower part of the dome. It's a simplified and optimized version of the Dome Tilt Compensation with a 90 degree tilt angle, but with a different automatic handling of the top and bottom pinch correction. It is faster and easier to use.
 
 
 ## Node connections ##

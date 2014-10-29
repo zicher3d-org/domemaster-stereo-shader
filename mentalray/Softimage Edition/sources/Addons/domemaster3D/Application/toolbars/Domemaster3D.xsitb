@@ -2572,8 +2572,8 @@ openDomemasterWiki()
 &quot;&quot;&quot;
 
 domemaster3D_title = &quot;About Domemaster3D for Softimage&quot;;
-domemaster3D_version = &quot;1.6 Alpha 5&quot;;
-release_date = &quot;October 27, 2014&quot;;
+domemaster3D_version = &quot;1.6 Alpha 6&quot;;
+release_date = &quot;October 28, 2014&quot;;
 
 domeDialgueString = &quot;Domemaster3D Shader for Softimage&quot; + &quot; - Version &quot; + domemaster3D_version + &quot;\n&quot;
 domeDialgueString += &quot;This edition was released on &quot; + release_date + &quot;.\n&quot;

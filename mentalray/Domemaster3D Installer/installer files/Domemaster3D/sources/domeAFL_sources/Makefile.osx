@@ -10,27 +10,26 @@
 
 CC = gcc
 
-#MAYA_DIR = /Applications/Autodesk/maya2011
-#MAYA_DIR = /Applications/Autodesk/maya2012
-#MAYA_DIR = /Applications/Autodesk/maya2013
-#MAYA_DIR = /Applications/Autodesk/mentalrayForMaya2014
-MAYA_DIR = /Applications/Autodesk/mentalrayForMaya2015
+#MAYA_DIR=/Applications/Autodesk/maya2011
+#MAYA_DIR=/Applications/Autodesk/maya2012
+#MAYA_DIR=/Applications/Autodesk/maya2013
+#MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2014
+MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
 
-DOMEMASTER_DIR = /Applications/Domemaster3D/maya/shaders
+DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
 
+# Maya 2012's mental ray directory:
+#MENTALRAY_DEV_DIR=/devkit/mentalray/include
 
-# Maya 2012's mental ray devkit directory:
-#MENTALRAY_DEV_DIR = /devkit/mentalray/include
-
-# Maya 2013's mental ray devkit directory:
-#MENTALRAY_DEV_DIR = /mentalray/devkit/include
+# Maya 2013's mental ray directory:
+#MENTALRAY_DEV_DIR=/mentalray/devkit/include
 
 # Maya 2014/2015's mental ray devkit directory:
-MENTALRAY_DEV_DIR = /devkit/include
+MENTALRAY_DEV_DIR=/devkit/include
 
 
-INC = -I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
-LIB = 
+INC=-I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
+LIB= 
 LIB_STATIC = 
 CFLAGS = -c -O3 -fPIC -DBIT64 -dynamic -fno-common
 LIBTOOL = libtool

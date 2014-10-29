@@ -1,5 +1,5 @@
 # `LatLong_lens` shader for Softimage x64 #
-**Jan 12, 2014 - Version 2.1**
+**October 28, 2014 - Version 2.1**
 
 The original `latlong_lens` shader was written by Ralf Habel  
 [ralf.habel@vi-motion.de](mailto:ralf.habel@vi-motion.de)
@@ -18,9 +18,9 @@ The latlong_lens shader is included in the Domemaster3D Softimage Addon.
 
 After you install the shader you need to restart Softimage so the shader is loaded into mental ray. If you don't restart Softimage after installing the shader you will get a "shader not found error".
 
-On Windows the Microsoft Visual C++ 2010 Redistributable Package (x64) is required. If you don't have the Microsoft Visual C+ 2010 library installed on your computer Softimage will render a black frame or crash when you click render.
+The `latlong_lens` shader for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+[http://www.microsoft.com/en-us/download/details.aspx?id=30679](http://www.microsoft.com/en-us/download/details.aspx?id=30679)
 
-[`http://bit.ly/VisualC_2010_Redistributable_x64`](http://bit.ly/VisualC_2010_Redistributable_x64)
 
 ## Shader Usage ##
 To use the `latlong_lens` shader, open your the camera's property window. Click on the "Lens Shaders" tab and click the "Add" button to create a new lens shader. In the pop-menu select `"latlong_lens"`. 
@@ -34,9 +34,9 @@ The best equirectangular image output is from rendering with a 2:1 aspect ratio.
 
 ## Sample Softimage Project ##
 
-A sample softimage 2014 project file is included. This scene can be used to test the `latlong_lens` shader installation.
+A sample softimage 2014 project file is included. 
 
-![Adding a lens shader](screenshots/Softimage_2014SP1_latlong_project_rendering.png)
+The `latlong_project_softimage_2014sp1.zip` scene can be used to test the `latlong_lens` shader installation.
 
 ## Links ##
 For more information about the x64 builds of the `latlong_lens` shader check out the blog page:  

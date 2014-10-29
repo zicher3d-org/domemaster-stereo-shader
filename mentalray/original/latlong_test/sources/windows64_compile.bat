@@ -1,3 +1,4 @@
+@ECHO OFF
 REM Andrew's Mental Ray Shader Compile Script 
 REM Version 1.1
 

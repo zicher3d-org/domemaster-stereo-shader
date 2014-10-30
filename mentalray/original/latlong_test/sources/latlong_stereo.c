@@ -6,7 +6,7 @@
  *	Versions:
  *  0.1.0	First version for test only - 2014-09-16
  *  0.1.1	Added horizontal/Zenith orientation option - 2014-10-21 
- *           Cleaned code
+ *          Cleaned code
  *
  *****************************************************************************/
 
@@ -61,7 +61,7 @@ DLLEXPORT miBoolean LatLong_Stereo(
 
 	miBoolean	zenithMode = *mi_eval_boolean(&params->Zenith_Mode);
 
-   	// normalize image coordinates btwn [-1,-1] and [1,1]...
+	// normalize image coordinates btwn [-1,-1] and [1,1]...
 	x = 2.0*state->raster_x/state->camera->x_resolution-1.0;
 	y = 2.0*state->raster_y/state->camera->y_resolution-1.0;
 

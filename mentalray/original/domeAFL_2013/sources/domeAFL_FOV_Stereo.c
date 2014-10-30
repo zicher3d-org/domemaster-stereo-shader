@@ -54,9 +54,9 @@ struct dsDomeAFL_FOV_Stereo {
 DLLEXPORT int domeAFL_FOV_Stereo_version(void) {return(1);}
 
 DLLEXPORT miBoolean domeAFL_FOV_Stereo(
-									   miColor	*result,
-									   miState	*state,
-									   struct dsDomeAFL_FOV_Stereo *params)
+									miColor	*result,
+									miState	*state,
+									struct dsDomeAFL_FOV_Stereo *params)
 {
 	miScalar	cameras_separation_multiplier = *mi_eval_scalar(&params->Cameras_Separation_Map);
 	miScalar	head_turn_multiplier = *mi_eval_scalar(&params->Head_Turn_Map);
@@ -65,9 +65,9 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 	miVector	org, ray, target, htarget;
 	miMatrix	tilt;
 	double		x, y, r, phi, theta, rot, tmp, tmpY, tmpZ;
-	double		sinP, cosP, sinT, cosT, sinR, cosR;
+	double		sinP, cosP, sinT, cosT, sinR, cosR, sinD, cosD;
 	
-   	// normalize image coordinates btwn [-1,1]...
+	// normalize image coordinates btwn [-1,1]...
 	// [rz] swap X-Y to match camera view and apply a vertical symmetry
 	// [rz] basically, we rotate the cartesian axis 90deg CW
 	x = -2.0*state->raster_y/state->camera->y_resolution+1.0;
@@ -127,13 +127,13 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 				
 				// head rotation
 				// @@@ need to check atan2 params for 0 values?
-				// @@@ save values of sin/cos
 				tmpY = target.y*cos(-dome_tilt)-target.z*sin(-dome_tilt);
 				tmpZ = target.z*cos(-dome_tilt)+target.y*sin(-dome_tilt);
 				rot = atan2(target.x,-tmpY)*head_turn_multiplier;
 				if (vertical_mode)
 					rot *= fabs(sinP);
 				sinR = sin(rot); cosR = cos(rot);
+				sinD = sin(dome_tilt); cosD = cos(dome_tilt);
 				
 				// rotate camera
 				tmp = org.x*cosR-org.y*sinR;
@@ -141,20 +141,19 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 				org.x = (miScalar)tmp;
 				
 				// compensate for dome tilt
-				// @@@ save values of sin/cos
-				tmp = org.y*cos(dome_tilt)-org.z*sin(dome_tilt);
-				org.z = (miScalar)(org.z*cos(dome_tilt)+org.y*sin(dome_tilt));
+				tmp = org.y*cosD-org.z*sinD;
+				org.z = (miScalar)(org.z*cosD+org.y*sinD);
 				org.y = (miScalar)tmp;
 				
 				// calculate head target
 				tmp = sqrt(target.x*target.x+tmpY*tmpY);
-				htarget.x = (miScalar)(sin(rot)*tmp);
-				htarget.y = (miScalar)(-cos(rot)*tmp);
+				htarget.x = (miScalar)(sinR*tmp);
+				htarget.y = (miScalar)(-cosR*tmp);
 				htarget.z = (miScalar)tmpZ;
 				
 				// dome rotation again on head target
-				tmp = htarget.y*cos(dome_tilt)-htarget.z*sin(dome_tilt);
-				htarget.z = (miScalar)(htarget.z*cos(dome_tilt)+htarget.y*sin(dome_tilt));
+				tmp = htarget.y*cosD-htarget.z*sinD;
+				htarget.z = (miScalar)(htarget.z*cosD+htarget.y*sinD);
 				htarget.y = (miScalar)tmp;
 				
 			} else {
@@ -173,9 +172,9 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 					
 					// calculate head target
 					tmp = sqrt(target.x*target.x+target.z*target.z);
-					htarget.x = (miScalar)(sin(rot)*tmp);
+					htarget.x = (miScalar)(sinR*tmp);
 					htarget.y = (miScalar)target.y;
-					htarget.z = (miScalar)(-cos(rot)*tmp);
+					htarget.z = (miScalar)(-cosR*tmp);
 					
 				} else {						// horizontal mode
 					
@@ -189,8 +188,8 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 					org.x = (miScalar)tmp;
 					
 					// calculate head target
-					htarget.x = (miScalar)(sin(rot)*sinT);
-					htarget.y = (miScalar)(-cos(rot)*sinT);
+					htarget.x = (miScalar)(sinR*sinT);
+					htarget.y = (miScalar)(-cosR*sinT);
 					htarget.z = (miScalar)target.z;
 					
 				}
@@ -218,7 +217,7 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 		
 		
 		// Account for view offset...
-   		// Offset is added to y & z components because they are negative values...
+		// Offset is added to y & z components because they are negative values...
 		// @@@ ray.x = ray.x - viewport_offset.x;
 		// @@@ ray.y = ray.y + viewport_offset.y;
 		// @@@ ray.z = ray.z + viewport_offset.z;
@@ -254,9 +253,9 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
 }
 
 DLLEXPORT void domeAFL_FOV_Stereo_init(
-									   miState	*state,
-									   struct dsDomeAFL_FOV_Stereo *params,
-									   miBoolean *inst_init_req)
+									miState	*state,
+									struct dsDomeAFL_FOV_Stereo *params,
+									miBoolean *inst_init_req)
 {
 	if (!params) {
 		// version output
@@ -280,7 +279,7 @@ DLLEXPORT void domeAFL_FOV_Stereo_init(
 }
 
 DLLEXPORT void domeAFL_FOV_Stereo_exit(
-									   miState	*state,
-									   void *params)
+									miState	*state,
+									void *params)
 {
 }

@@ -21,7 +21,7 @@
 # Version 1.5 - July 3, 2014 
 # Update by Andrew Hazelden
 # ------------------------------------------------------
-# The Maya Node IDs are being updated  to use the newly 
+# The Maya Node IDs are being updated to use the newly 
 # registered robertoZiche block range. The shader order has 
 # been changed to match the Maya Node ID Sequence Numbering.
 # 

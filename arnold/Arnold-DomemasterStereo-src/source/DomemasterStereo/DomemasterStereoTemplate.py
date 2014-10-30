@@ -1,10 +1,10 @@
 # Domemaster Stereo Shader Template File
-# 2014-09-07 08:42 am 
+# 2014-10-29 10.49 pm
 
 import pymel.core as pm
 import maya.cmds as cmds
 import mtoa.ui.ae.templates as templates
-from mtoa.ui.ae.customShapeAttributes import CameraTemplate as CameraTemplate
+#from mtoa.ui.ae.customShapeAttributes import CameraTemplate as CameraTemplate
 
 def DomemasterStereoCreateCameraMode(attr):
     cmds.setUITemplate('attributeEditorPresetsTemplate', pushTemplate=True)
@@ -14,21 +14,21 @@ def DomemasterStereoCreateCameraMode(attr):
 def DomemasterStereoSetCameraMode(attr):
     cmds.attrEnumOptionMenuGrp('DomemasterStereoCameraMode', edit=True, attribute=attr)
 
-class DomemasterStereoTemplate(CameraTemplate):
+#class DomemasterStereoTemplate(CameraTemplate):
+class DomemasterStereoTemplate(templates.AttributeTemplate):
   def setup(self):
     self.beginLayout("Domemaster Stereo Shader", collapse=False)
     # Create the Cameras option menu with the Center, Left, and Right views
     self.addCustom('aiCamera', DomemasterStereoCreateCameraMode, DomemasterStereoSetCameraMode)
-    # Show the Camera as a numerical value where: Center=0, Left=1, and Right=2
-    #self.addControl("aiCamera", label="Camera")
-    self.addControl("aiFov", label="Field of View")
+    self.addControl("aiFovAngle", label="Field of View")
     self.addSeparator()
-    self.addControl("aiSeparation", label="Camera Separation")
     self.addControl("aiZeroParallaxSphere", label="Zero Parallax Sphere")
-    self.addControl("aiForwardTilt", label="Forward Tilt")
+    self.addControl("aiSeparation", label="Camera Separation")
+    self.addControl("aiForwardTilt", label="Dome Forward Tilt")
     self.addSeparator()
-    self.addControl("aiExposure", label="Exposure")
-    self.endLayout()
+    self.addControl("aiTiltCompensation", label="Dome Tilt Compensation")
+    self.addControl("aiVerticalMode", label="Vertical Mode")
+    #self.endLayout()
 
     self.beginLayout("Stereo Display Controls", collapse=True)
     self.endLayout()
@@ -36,19 +36,32 @@ class DomemasterStereoTemplate(CameraTemplate):
     self.beginLayout("Custom maps", collapse=False)
     self.addControl("aiSeparationMap",  label="Separation Map")
     self.addControl("aiHeadTurnMap",  label="Head Turn Map")
-    self.addControl("aiHeadRollMap",  label="Head Roll Map")
+    self.addControl("aiHeadTiltMap",  label="Head Tilt Map")
     self.endLayout()
 
     self.beginLayout("Image Orientation", collapse=True)
     self.beginNoOptimize()
+    self.addControl("aiFlipRayX", label="Flip X")
+    self.addControl("aiFlipRayY", label="Flip Y")
     self.endNoOptimize()
     self.endLayout()
 
     self.beginLayout( "Options", collapse=True )
-    #self.addCommonAttributes()
-    #self.addSeparator()
+    self.endLayout()
+    
+    self.addControl("aiExposure", label="Exposure")
+    self.addControl("aiFocusDistance", label="Focal Distance")
+    self.addControl("aiApertureSize", label="Aperture Size")
+    self.addControl("aiApertureBlades", label="Aperture Blades")
+    self.addControl("aiApertureBladeCurvature", label="Aperture Blade Curvature")
+    self.addControl("aiApertureRotation", label="Aperture Rotation")
+    self.addControl("aiApertureAspectRatio", label="Aperture Aspect Ratio")
+    self.addControl("aiShutterStart", label="Shutter Start")
+    self.addControl("aiShutterEnd", label="Shutter End")
+    self.addControl("aiRollingShutterDuration", label="Rolling Shutter Duration")
     self.addControl("aiUserOptions", label="User Options")
+
     self.endLayout()
 
 templates.registerTranslatorUI(DomemasterStereoTemplate, "camera", "DomemasterStereo")
-templates.registerTranslatorUI(DomemasterStereoTemplate, "stereoRigCamera", "DomemasterStereo")
+#templates.registerTranslatorUI(DomemasterStereoTemplate, "stereoRigCamera", "DomemasterStereo")

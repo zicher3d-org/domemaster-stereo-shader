@@ -4,7 +4,7 @@
 # the Production of immersive spherical animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2014-10-25 01.53 pm
+# 2014-10-29 11.08 pm
 
 [node LatLongStereo]
     desc                          STRING  "LatLong Stereo Shader"
@@ -72,49 +72,50 @@
     [attr flip_ray_y]
       label                       STRING "Flip Y"
       default                    BOOL   False
-    [attr exposure]
-      min                        FLOAT   -100.0
-      max                       FLOAT   100.0
+     [attr exposure]
+      min                       FLOAT   -100.0
+      max                      FLOAT   100.0
       softmin                  FLOAT   -5.0
-      softmax                  FLOAT   5.0
+      softmax                 FLOAT   5.0
     [attr focus_distance]
-      min                   FLOAT   0.0
-      max                  FLOAT   1000000000.0
-      softmin              FLOAT   0.0
-      softmax             FLOAT   200.0
-      animatable         BOOL    True
+      min                       FLOAT   0.0
+      max                      FLOAT   1000000000.0
+      softmin                  FLOAT   0.0
+      softmax                 FLOAT   200.0
+      animatable             BOOL    True
     [attr aperture_size]
-      min                 FLOAT   0.0
-      max                 FLOAT   20.0
-      softmin             FLOAT   0.0
-      softmax             FLOAT   1.0
-      animatable          BOOL    True
+      min                      FLOAT   0.0
+      max                     FLOAT   20.0
+      softmin                 FLOAT   0.0
+      softmax                FLOAT   1.0
+      animatable            BOOL    True
     [attr aperture_blades]
-      min                 INT     0
-      max                 INT     40
-      default             INT     0
+      min                      INT     0
+      max                     INT     40
+      default                  INT     0
     [attr aperture_blade_curvature]
-      min                 FLOAT   -20.0
-      max                 FLOAT   20.0
-      softmin             FLOAT   0.0
-      softmax             FLOAT   1.0
+      min                      FLOAT   -20.0
+      max                     FLOAT   20.0
+      softmin                 FLOAT   0.0
+      softmax                FLOAT   1.0
     [attr aperture_rotation]
-      min                 FLOAT   0.0
-      max                 FLOAT   360.0
-      softmin             FLOAT   0.0
-      softmax             FLOAT   50.0
+      min                      FLOAT   0.0
+      max                     FLOAT   360.0
+      softmin                 FLOAT   0.0
+      softmax                FLOAT   50.0
     [attr aperture_aspect_ratio]
-      min                 FLOAT   0.0
-      softmin             FLOAT   0.0
-      softmax             FLOAT   1.0
+      min                      FLOAT   0.0
+      softmin                 FLOAT   0.0
+      softmax                FLOAT   1.0
     [attr shutter_start]
-      min                 FLOAT     0.0
-      max                 FLOAT     1.0
-      default             FLOAT     0.0
+      min                     FLOAT     0.0
+      max                    FLOAT     1.0
+      default                FLOAT     0.0
     [attr shutter_end]
-      min                 FLOAT     0.0
-      max                 FLOAT     1.0
-      default             FLOAT     1.0
+      min                     FLOAT     0.0
+      max                    FLOAT     1.0
+      default                FLOAT     1.0
     [attr rolling_shutter_duration]
-      min                 FLOAT     0.0
-      max                 FLOAT     1.0
+      min                     FLOAT     0.0
+      max                    FLOAT     1.0
+      

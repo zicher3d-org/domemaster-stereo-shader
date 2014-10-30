@@ -1,5 +1,9 @@
 // LatLongStereo Arnold Shader
-// 2014-10-25 04.38 pm
+// 2014-10-29 10.53 pm
+// ---------------------------------
+// Ported to Arnold by Andrew Hazelden
+// Based upon the mental ray shader LatLong_Stereo  
+// by Roberto Ziche
 
 #include <stdio.h>
 #include <math.h>
@@ -14,24 +18,23 @@
 
 AI_CAMERA_NODE_EXPORT_METHODS(LatLongStereo_Methods);
 
-#define camera				(params[0].INT)
-#define fovVertDegrees		(params[1].FLT)
-#define fovHorizDegrees		(params[2].FLT)
-#define ParallaxDistance		(params[3].FLT)
-#define separation		(params[4].FLT)
-#define zenithMode		(params[5].FLT)
-#define separationMap	(params[6].FLT)
-#define headTiltMap	(params[7].FLT)
-#define flipRayX		(params[8].FLT)
-#define flipRayY		(params[9].FLT)
+#define camera                 (params[0].INT)
+#define fovVertDegrees      (params[1].FLT)
+#define fovHorizDegrees     (params[2].FLT)
+#define ParallaxDistance     (params[3].FLT)
+#define separation             (params[4].FLT)
+#define zenithMode            (params[5].FLT)
+#define separationMap        (params[6].FLT)
+#define headTiltMap           (params[7].FLT)
+#define flipRayX                (params[8].FLT)
+#define flipRayY                (params[9].FLT)
 
-#define	CENTERCAM	0
-#define	LEFTCAM		1
-#define	RIGHTCAM	2
+#define CENTERCAM  0
+#define LEFTCAM       1
+#define RIGHTCAM     2
 
 // Link to the external (Softimage SPDL / Maya + Houdini Metadata GUI) parameters
-node_parameters
-{
+node_parameters {
   AiParameterInt("camera", 0);
   AiParameterFlt("fov_vert_angle", 180.f);
   AiParameterFlt("fov_horiz_angle", 360.f);
@@ -44,23 +47,19 @@ node_parameters
   AiParameterBool("flip_ray_y", false);
 }
 
-node_initialize
-{
+node_initialize {
   AiCameraInitialize(node, NULL);
 }
 
-node_update
-{
+node_update {
   AiCameraUpdate(node, false);
 }
 
-node_finish
-{
+node_finish {
   AiCameraDestroy(node);
 }
 
-camera_create_ray
-{
+camera_create_ray {
   double x, y, phi, theta, tmp;
   double sinP, cosP, sinT, cosT;
   //double head_tilt;
@@ -68,13 +67,13 @@ camera_create_ray
   //AtMatrix tilt;
   
   // Get camera parameters
-  const AtParamValue* params = AiNodeGetParams(node);	
+  const AtParamValue* params = AiNodeGetParams(node); 
   
   //head_tilt = headTiltMap;
   
   // Convert FOV from degrees to radians
-  double fovVert = fovVertDegrees * AI_DTOR;	
-  double fovHoriz = fovHorizDegrees * AI_DTOR;	
+  double fovVert = fovVertDegrees * AI_DTOR;  
+  double fovHoriz = fovHorizDegrees * AI_DTOR;  
   
   // Get the image coordinates
   x = input->sx;
@@ -88,13 +87,13 @@ camera_create_ray
     // theta = y*(fovVert/2.0);
   // }  
   
+  // Calculate phi and theta...
   phi = x*( fovHoriz/2.0);
-  if(zenithMode){
+  if(zenithMode) {
     theta = AI_PIOVER2-y*(fovVert);
   } else {
     theta = y*(fovVert);
   }  
-  
   
   // Start by matching camera (center camera)
   org = 0.0;
@@ -106,7 +105,7 @@ camera_create_ray
   cosT = cos(theta);
   
   // Center camera target vector (normalized)
-  if(zenithMode){
+  if(zenithMode) {
     target.x = (float)(sinP * sinT);
     target.y = (float)(-cosP * sinT);
     target.z = (float)(-cosT);
@@ -129,7 +128,7 @@ camera_create_ray
     
     // head rotation = phi
     // rotate camera
-    if(zenithMode){
+    if(zenithMode) {
       tmp = (float)((org.x * cosP) - (org.y * sinP));
       org.y = (float)((org.y * cosP) + (org.x * sinP));
       org.x = (float)tmp;
@@ -164,7 +163,7 @@ camera_create_ray
   }
   
   // Flip the X ray direction about the Y-axis
-  if(flipRayX){
+  if(flipRayX) {
     org.x = (-org.x);
     ray.x = (-ray.x);
   }
@@ -182,8 +181,8 @@ camera_create_ray
   
   // Convert ray from camera space
   // TODO: adapt mental ray code snippet
-	//mi_vector_from_camera(state, &ray, &ray);
-	//mi_point_from_camera(state, &org, &org);
+  //mi_vector_from_camera(state, &ray, &ray);
+  //mi_point_from_camera(state, &org, &org);
   
   // output
   output->origin = org;
@@ -191,16 +190,19 @@ camera_create_ray
   output->weight = 1.0;
 }
 
-node_loader
-{
+node_loader {
   if (i > 0) return false;
-  node->methods     = LatLongStereo_Methods;
-  node->output_type = AI_TYPE_NONE;
-  node->name        = "LatLongStereo";
-  node->node_type   = AI_NODE_CAMERA;
+  node->methods       = LatLongStereo_Methods;
+  node->output_type  = AI_TYPE_NONE;
+  node->name           = "LatLongStereo";
+  node->node_type    = AI_NODE_CAMERA;
   
-  //Note: Visual Studio prefers strcpy_s to reduce warning messages
+  // Note: Visual Studio prefers strcpy_s which will remove the compiler warning message
+  #if defined _WIN32 || defined _WIN64
   strcpy_s(node->version, AI_VERSION);
-  //strcpy(node->version, AI_VERSION);
+  #else
+  strcpy(node->version, AI_VERSION);
+  #endif
+  
   return true;
 }

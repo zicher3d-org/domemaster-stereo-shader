@@ -21,7 +21,7 @@ PropertySet "domeAFL_FOV_Stereo_pset"
     Type = scalar;
     Value Minimum = 0.0;
     Value Maximum = 360.0;
-	Value = 180.0;
+	  Value = 180.0;
   }
   Parameter "View_Offset" input
   {

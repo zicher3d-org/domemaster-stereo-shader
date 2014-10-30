@@ -205,14 +205,14 @@ persp_camera
 DomemasterStereo
 {
  name stereoCameraLeftShape
- camera 2
+ camera 1
  fov 180
  separation 0.3
  zero_parallax_sphere 10.0
  forward_tilt 0.0
  separation_map 1.0
  head_turn_map 1.0
- head_roll_map 0.5
+ head_tilt_map 0.5
  matrix
  0.43523109 0 0.900318742 0
  -0.662722051 0.676875949 0.320372343 0
@@ -234,13 +234,13 @@ DomemasterStereo
 DomemasterStereo
 {
  name stereoCameraRightShape
- camera 1
+ camera 2
  fov 180
  separation 0.3
  zero_parallax_sphere 10.0
  separation_map 1.0
  head_turn_map 1.0
- head_roll_map 0.5
+ head_tilt_map 0.5
  matrix
  0.43523109 0 0.900318742 0
  -0.662722051 0.676875949 0.320372343 0

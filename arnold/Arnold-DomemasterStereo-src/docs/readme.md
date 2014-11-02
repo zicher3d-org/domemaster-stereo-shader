@@ -78,9 +78,9 @@ Copy the .dylib and .mtd files to the Arnold shaders directory:
 
 Maya Shader Files:
 
-    DomemasterStereo.dll
+    DomemasterStereo.dylib
     DomemasterStereo.mtd
-	LatLongStereo.dll
+	LatLongStereo.dylib
 	LatLongStereo.mtd
 
 **Step 2.**

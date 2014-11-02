@@ -23,3 +23,4 @@ copy LatLongStereoTemplate.py C:\solidangle\mtoadeploy\2014\scripts\mtoa\ui\ae
 ECHO. 
 ECHO Installation Complete.
 ECHO. 
+PAUSE

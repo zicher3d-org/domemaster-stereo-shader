@@ -1,5 +1,5 @@
 // DomemasterStereo Arnold Shader
-// 2014-10-29 11.21 pm
+// 2014-10-31 4.31 pm
 // --------------------------------------
 // Ported to Arnold by Andrew Hazelden and Luis Silva
 // Based upon the mental ray shader domeAFL_FOV_Stereo  
@@ -18,22 +18,22 @@
 
 AI_CAMERA_NODE_EXPORT_METHODS(DomemasterStereo_Methods);
 
-#define camera                      (params[0].INT)
-#define fovDegrees                (params[1].FLT)
-#define zeroParallaxSphere    (params[2].FLT)
+#define camera                     (params[0].INT)
+#define fovDegrees                 (params[1].FLT)
+#define zeroParallaxSphere         (params[2].FLT)
 #define separation                 (params[3].FLT)
-#define forwardTilt                 (params[4].FLT)
-#define tiltCompensation        (params[5].FLT)
-#define verticalMode              (params[6].FLT)
-#define separationMap           (params[7].FLT)
-#define headTurnMap             (params[8].FLT)
-#define headTiltMap               (params[9].FLT)
-#define flipRayX                    (params[10].FLT)
-#define flipRayY                    (params[11].FLT)
+#define forwardTilt                (params[4].FLT)
+#define tiltCompensation           (params[5].FLT)
+#define verticalMode               (params[6].FLT)
+#define separationMap              (params[7].FLT)
+#define headTurnMap                (params[8].FLT)
+#define headTiltMap                (params[9].FLT)
+#define flipRayX                   (params[10].FLT)
+#define flipRayY                   (params[11].FLT)
 
-#define CENTERCAM  0
-#define LEFTCAM       1
-#define RIGHTCAM    2
+#define CENTERCAM    0
+#define LEFTCAM      1
+#define RIGHTCAM     2
 
 // Link to the external (Softimage SPDL / Maya + Houdini Metadata GUI) parameters
 node_parameters {
@@ -66,7 +66,7 @@ node_finish {
 camera_create_ray {
   double x, y, r, phi, theta, rot, tmp, tmpY, tmpZ;
   //double offset;
-  double sinP, cosP, sinT, cosT, sinR, cosR;
+  double sinP, cosP, sinT, cosT, sinR, cosR, sinD, cosD;
   //double headTiltMap;
   AtVector org, ray, target, htarget;
   //AtMatrix tilt;
@@ -98,7 +98,7 @@ camera_create_ray {
     }
     
     // Compute theta angle
-    theta = r*(fov_angle/2.0);
+    theta = r * (fov_angle / 2.0);
     
     // Todo: Port this MR code
     // Start by matching the camera (center camera)
@@ -115,8 +115,8 @@ camera_create_ray {
     cosT = cos(theta);
     
     // Center camera target vector (normalized)
-    target.x = (float)(sinP*sinT);
-    target.y = (float)(-cosP*sinT);
+    target.x = (float)(sinP * sinT);
+    target.y = (float)(-cosP * sinT);
     target.z = (float)(-cosT);
     
     // Camera selection and initial position
@@ -127,11 +127,11 @@ camera_create_ray {
       break;
       
     case LEFTCAM:
-      org.x = (float)(-separation*separationMap/2.0);
+      org.x = (float)(-separation * separationMap / 2.0);
       break;
       
     case RIGHTCAM:
-      org.x = (float)(separation*separationMap/2.0);
+      org.x = (float)(separation * separationMap / 2.0);
       break;
       
     default:
@@ -146,34 +146,38 @@ camera_create_ray {
       if(tiltCompensation) {
         
         // head rotation
-        tmpY = target.y*cos(-dome_tilt)-target.z*sin(-dome_tilt);
-        tmpZ = target.z*cos(-dome_tilt)+target.y*sin(-dome_tilt);
-        rot = atan2(target.x,-tmpY)*headTurnMap;
+        tmpY = target.y * cos(-dome_tilt) - target.z * sin(-dome_tilt);
+        tmpZ = target.z * cos(-dome_tilt) + target.y * sin(-dome_tilt);
+        rot = atan2(target.x,-tmpY) * headTurnMap;
+        
         if (verticalMode) {
           rot *= fabs(sinP);
         }
+        
         sinR = sin(rot); 
         cosR = cos(rot);
+        sinD = sin(dome_tilt);
+        cosD = cos(dome_tilt);
         
         // rotate camera
-        tmp = org.x*cosR-org.y*sinR;
-        org.y = (float)(org.y*cosR+org.x*sinR);
+        tmp = org.x * cosR - org.y * sinR;
+        org.y = (float)(org.y * cosR + org.x * sinR);
         org.x = (float)tmp;
         
         // compensate for dome tilt
-        tmp = org.y*cos(dome_tilt)-org.z*sin(dome_tilt);
-        org.z = (float)(org.z*cos(dome_tilt)+org.y*sin(dome_tilt));
+        tmp = org.y * cosD - org.z * sinD;
+        org.z = (float)(org.z * cosD + org.y * sinD);
         org.y = (float)tmp;
 
         // calculate head target
-        tmp = sqrt(target.x*target.x+tmpY*tmpY);
-        htarget.x = (float)(sin(rot)*tmp);
-        htarget.y = (float)(-cos(rot)*tmp);
+        tmp = sqrt(target.x * target.x + tmpY * tmpY);
+        htarget.x = (float)(sinR * tmp);
+        htarget.y = (float)(-cosR * tmp);
         htarget.z = (float)tmpZ;
         
         // dome rotation again on head target
-        tmp = htarget.y*cos(dome_tilt)-htarget.z*sin(dome_tilt);
-        htarget.z = (float)(htarget.z*cos(dome_tilt)+htarget.y*sin(dome_tilt));
+        tmp = htarget.y * cosD - htarget.z * sinD;
+        htarget.z = (float)(htarget.z * cosD + htarget.y * sinD);
         htarget.y = (float)tmp;
         
       } else {
@@ -183,20 +187,20 @@ camera_create_ray {
         if (verticalMode) {
           
           // head rotation
-          rot = atan2(target.x,-target.z)*headTurnMap*fabs(sinP);
+          rot = atan2(target.x,-target.z) * headTurnMap * fabs(sinP);
           sinR = sin(rot);
           cosR = cos(rot);
           
           // rotate camera
-          tmp = org.x*cosR-org.z*sinR;
-          org.z = (float)(org.z*cosR+org.x*sinR);
+          tmp = org.x * cosR - org.z * sinR;
+          org.z = (float)(org.z * cosR + org.x * sinR);
           org.x = (float)tmp;
           
           // calculate head target
-          tmp = sqrt(target.x*target.x+target.z*target.z);
-          htarget.x = (float)(sin(rot)*tmp);
+          tmp = sqrt(target.x * target.x + target.z * target.z);
+          htarget.x = (float)(sinR * tmp);
           htarget.y = (float)target.y;
-          htarget.z = (float)(-cos(rot)*tmp);
+          htarget.z = (float)(-cosR * tmp);
           
         } else {            
           // Vertical Mode OFF  (horizontal dome mode)
@@ -212,14 +216,14 @@ camera_create_ray {
           org.x = (float)tmp;
           
           // calculate head target
-          htarget.x = (float)(sin(rot)*sinT);
-          htarget.y = (float)(-cos(rot)*sinT);
+          htarget.x = (float)(sinR * sinT);
+          htarget.y = (float)(-cosR * sinT);
           htarget.z = (float)target.z;
         }
       }
       
       // head tilt
-      //headTiltMap = (double)((headTiltMap-0.5)*AI_PI);
+      //headTiltMap = (double)((headTiltMap - 0.5) * AI_PI);
       
       // Rotate vector
       //AiM4Identity(tilt);

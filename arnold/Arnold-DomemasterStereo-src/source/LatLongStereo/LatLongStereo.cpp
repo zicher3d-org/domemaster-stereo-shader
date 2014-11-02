@@ -1,5 +1,5 @@
 // LatLongStereo Arnold Shader
-// 2014-10-29 10.53 pm
+// 2014-10-31 4.23 pm
 // ---------------------------------
 // Ported to Arnold by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
@@ -18,19 +18,19 @@
 
 AI_CAMERA_NODE_EXPORT_METHODS(LatLongStereo_Methods);
 
-#define camera                 (params[0].INT)
-#define fovVertDegrees      (params[1].FLT)
-#define fovHorizDegrees     (params[2].FLT)
-#define ParallaxDistance     (params[3].FLT)
-#define separation             (params[4].FLT)
-#define zenithMode            (params[5].FLT)
-#define separationMap        (params[6].FLT)
-#define headTiltMap           (params[7].FLT)
-#define flipRayX                (params[8].FLT)
-#define flipRayY                (params[9].FLT)
+#define camera                     (params[0].INT)
+#define fovVertDegrees             (params[1].FLT)
+#define fovHorizDegrees            (params[2].FLT)
+#define ParallaxDistance           (params[3].FLT)
+#define separation                 (params[4].FLT)
+#define zenithMode                 (params[5].FLT)
+#define separationMap              (params[6].FLT)
+#define headTiltMap                (params[7].FLT)
+#define flipRayX                   (params[8].FLT)
+#define flipRayY                   (params[9].FLT)
 
-#define CENTERCAM  0
-#define LEFTCAM       1
+#define CENTERCAM    0
+#define LEFTCAM      1
 #define RIGHTCAM     2
 
 // Link to the external (Softimage SPDL / Maya + Houdini Metadata GUI) parameters
@@ -80,19 +80,19 @@ camera_create_ray {
   y = input->sy;
 
   // Calculate phi and theta...
-  // phi = x*( fovHoriz/2.0);
+  // phi = x * (fovHoriz / 2.0);
   // if(zenithMode){
-    // theta = AI_PIOVER2-y*(fovVert/2.0);
+    // theta = AI_PIOVER2 - y * (fovVert / 2.0);
   // } else {
-    // theta = y*(fovVert/2.0);
+    // theta = y * (fovVert / 2.0);
   // }  
   
   // Calculate phi and theta...
-  phi = x*( fovHoriz/2.0);
+  phi = x * (fovHoriz / 2.0);
   if(zenithMode) {
-    theta = AI_PIOVER2-y*(fovVert);
+    theta = AI_PIOVER2 - y * (fovVert);
   } else {
-    theta = y*(fovVert);
+    theta = y * (fovVert);
   }  
   
   // Start by matching camera (center camera)
@@ -112,7 +112,7 @@ camera_create_ray {
   } else {
     target.x = (float)(sinP * cosT);
     target.y = (float)(sinT);
-    target.z = (float)(-cosP*cosT);
+    target.z = (float)(-cosP * cosT);
   }
   
   
@@ -139,12 +139,12 @@ camera_create_ray {
     }
     
     // calculate head target
-    htarget.x = (float)(sinP*sinT);
-    htarget.y = (float)(-cosP*sinT);
+    htarget.x = (float)(sinP * sinT);
+    htarget.y = (float)(-cosP * sinT);
     htarget.z = (float)target.z;
     
     // head tilt
-    //head_tilt = (double)((head_tilt-0.5)*AI_PI);
+    //head_tilt = (double)((head_tilt - 0.5) * AI_PI);
     
     // Rotate vector
     //AiM4Identity(tilt);

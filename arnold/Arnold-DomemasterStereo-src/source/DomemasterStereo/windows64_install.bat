@@ -23,3 +23,4 @@ copy DomemasterStereoTemplate.py C:\solidangle\mtoadeploy\2014\scripts\mtoa\ui\a
 ECHO. 
 ECHO Installation Complete.
 ECHO. 
+PAUSE

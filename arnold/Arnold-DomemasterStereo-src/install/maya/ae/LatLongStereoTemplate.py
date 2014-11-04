@@ -19,7 +19,7 @@ class LatLongStereoTemplate(templates.AttributeTemplate):
   def setup(self):
     self.beginLayout("LatLong Stereo Shader", collapse=False)
     # Create the Cameras option menu with the Center, Left, and Right views
-    self.addCustom('aiCamera', LatLongStereoCreateCameraMode, LatLongStereoSetCameraMode)
+    self.addCustom("aiCamera", LatLongStereoCreateCameraMode, LatLongStereoSetCameraMode)
     self.addControl("aiFovVertAngle", label="Field of View Vertical")
     self.addControl("aiFovHorizAngle", label="Field of View Horizontal")
     self.addSeparator()

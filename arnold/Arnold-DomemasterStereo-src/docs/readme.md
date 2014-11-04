@@ -1,6 +1,6 @@
 # Arnold Domemaster Stereo Guide #
 -------------------------
-2014-11-01 10.57 pm
+2014-11-03 09.57 pm
 ![Maya DomemasterStereo for Arnold Screenshot](images\mtoa_domemasterstereo.png)
 
 ## Overview ##
@@ -9,8 +9,7 @@ The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo prod
 
 This guide covers the Arnold version of the Domemaster Stereo Shader.
 
-**Tip:** After you use the Maya shelf tools to add a fulldome or latlong stereo camera rig to your scene, you need to adjust the left camera in the stereo rig to change the "linked" lens shader attributes for the **LatLongStereo** or **DomemasterStereo** rigs.
-
+**Tip:** After you use the Maya shelf tools to add a fulldome or latlong stereo camera rig to your scene, you need to adjust the left camera in the stereo rig to change both of the "linked" lens shader attributes for the **LatLongStereo** or **DomemasterStereo** rigs.
 
 ## Shader Screenshots ##
 
@@ -44,8 +43,8 @@ Maya Shader Files:
 
     DomemasterStereo.dll
     DomemasterStereo.mtd
-	LatLongStereo.dll
-	LatLongStereo.mtd
+    LatLongStereo.dll
+    LatLongStereo.mtd
 
 **Step 3.**
 Copy the Arnold AE Template File "DomeStereoTemplate.py"  and "LatLongStereoTemplate.py" to the Arnold AE folder:  
@@ -63,6 +62,9 @@ Copy the Maya scripts from `Arnold-DomemasterStereo-src\install\maya\scripts` to
 Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelf` to your user account's Maya shelves folder.
 
 **Step 6.**
+Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` folder to your user account's Maya icons folder.
+
+**Step 7.**
 Edit your Windows Environment variables using the System Control Panel to include Arnold's env vars and path:  
 
     PATH="C:\solidangle\mtoadeploy\2014\bin\"
@@ -80,8 +82,8 @@ Maya Shader Files:
 
     DomemasterStereo.dylib
     DomemasterStereo.mtd
-	LatLongStereo.dylib
-	LatLongStereo.mtd
+    LatLongStereo.dylib
+    LatLongStereo.mtd
 
 **Step 2.**
 Copy the Arnold AE Template File "DomeStereoTemplate.py"  and "LatLongStereoTemplate.py" to the Arnold AE folder:  
@@ -98,6 +100,9 @@ Copy the Maya scripts from `Arnold-DomemasterStereo-src\install\maya\scripts` to
 Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelf` to your user account's Maya shelves folder.
 
 **Step 5.**
+Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` folder to your user account's Maya icons folder.
+
+**Step 6.**
 Edit your `.bash_profile` to include Arnold's env vars and path:
 
     # Arnold Settings
@@ -116,8 +121,8 @@ Maya Shader Files:
 
     DomemasterStereo.so
     DomemasterStereo.mtd
-	LatLongStereo.so
-	LatLongStereo.mtd
+    LatLongStereo.so
+    LatLongStereo.mtd
 
 **Step 2.**
 Copy the Arnold AE Template File "DomeStereoTemplate.py"  and "LatLongStereoTemplate.py" to the Arnold AE folder: 
@@ -134,6 +139,9 @@ Copy the Maya scripts from `Arnold-DomemasterStereo-src\install\maya\scripts` to
 Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelf` to your user account's Maya shelves folder.
 
 **Step 5.**
+Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` folder to your user account's Maya icons folder.
+
+**Step 6.**
 Edit your .bash_profile to include Arnold's env vars and path:
 
     # Arnold Settings

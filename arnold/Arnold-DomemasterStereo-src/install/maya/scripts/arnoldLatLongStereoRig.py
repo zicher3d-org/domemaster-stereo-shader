@@ -1,6 +1,6 @@
 """
  LatLong_Stereo Camera Rig V1.6
- 2014-11-01 10.17 pm
+ 2014-11-01 07.38 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -8,7 +8,7 @@
  
  Version 1.6
  ---------------
- 2014-11-01 
+ 2014-10-31
 
  Adapted the mental ray script to support Arnold latlong_stereo rendering
 
@@ -127,30 +127,31 @@ def createLensShaders(centerCam, leftCam, rightCam):
   if (cmds.pluginInfo("mtoa",q=True,loaded=True)):
     # Switch the active camera type
     #cmds.setAttr( centerCam+'.ai_translator', cameraType, type='string')
-    cmds.setAttr(leftCam+'.ai_translator', cameraType, type='string')
-    cmds.setAttr(rightCam+'.ai_translator', cameraType, type='string')
+    cmds.setAttr( leftCam+'.ai_translator', cameraType, type='string')
+    cmds.setAttr( rightCam+'.ai_translator', cameraType, type='string')
     
     # ---------------------------------------------------------------------
     # Create the fulldome nodes for the rig
     # ---------------------------------------------------------------------
     #cmds.setAttr( centerCam+'.aiCamera', 0 ) #Set the view to center
-    cmds.setAttr(leftCam+'.aiCamera', 1) #Set the view to left
-    cmds.setAttr(rightCam+'.aiCamera', 2) #Set the view to right
+    
+    cmds.setAttr( leftCam+'.aiCamera', 1 ) #Set the view to left
+    cmds.setAttr( rightCam+'.aiCamera', 2 ) #Set the view to right
 
     # ---------------------------------------------------------------------
     # Link the common left and right camera attributes to the center camera
     # ---------------------------------------------------------------------
     # Link the right camera attributes
-    cmds.connectAttr(leftCam+'.aiFovVertAngle', rightCam+'.aiFovVertAngle', force=True)
-    cmds.connectAttr(leftCam+'.aiFovHorizAngle', rightCam+'.aiFovHorizAngle', force=True)
-    cmds.connectAttr(leftCam+'.aiParallaxDistance', rightCam+'.aiParallaxDistance', force=True)
-    cmds.connectAttr(leftCam+'.aiSeparation', rightCam+'.aiSeparation', force=True)
-    cmds.connectAttr(leftCam+'.aiZenithMode', rightCam+'.aiZenithMode', force=True)
+    cmds.connectAttr( leftCam+'.aiFovVertAngle', rightCam+'.aiFovVertAngle', force=True )
+    cmds.connectAttr( leftCam+'.aiFovHorizAngle', rightCam+'.aiFovHorizAngle', force=True )
+    cmds.connectAttr( leftCam+'.aiParallaxDistance', rightCam+'.aiParallaxDistance', force=True )
+    cmds.connectAttr( leftCam+'.aiSeparation', rightCam+'.aiSeparation', force=True )
+    cmds.connectAttr( leftCam+'.aiZenithMode', rightCam+'.aiZenithMode', force=True )
     
-    cmds.connectAttr(leftCam+'.aiSeparationMap', rightCam+'.aiSeparationMap', force=True)
+    cmds.connectAttr( leftCam+'.aiSeparationMap', rightCam+'.aiSeparationMap', force=True )
     
-    cmds.connectAttr(leftCam+'.aiFlipRayX', rightCam+'.aiFlipRayX', force=True)
-    cmds.connectAttr(leftCam+'.aiFlipRayY', rightCam+'.aiFlipRayY', force=True)
+    cmds.connectAttr( leftCam+'.aiFlipRayX', rightCam+'.aiFlipRayX', force=True )
+    cmds.connectAttr( leftCam+'.aiFlipRayY', rightCam+'.aiFlipRayY', force=True )
     
     # ---------------------------------------------------------------------
     # Create the custom Domemaster3D shading networks
@@ -165,12 +166,9 @@ def createLensShaders(centerCam, leftCam, rightCam):
     cmds.connectAttr( leftCam+'.aiParallaxDistance', centerCam+'.zeroParallax', force=True )
     cmds.connectAttr( leftCam+'.aiSeparation', centerCam+'.interaxialSeparation', force=True )
 
-  #Turn on Stereo 3D support for the Domemaster3D Maya camera rig
-  #cmds.setAttr( centerCam+'.stereo',  1)
   
-  # Disable the in-scene Stereo 3D effect on the Maya camera rig. 
-  # This skips the need for a pre-render and post-render mel script.
-  cmds.setAttr( centerCam+'.stereo',  0)
+  #Turn on Stereo 3D support for the Domemaster3D Maya camera rig
+  cmds.setAttr( centerCam+'.stereo',  1)
   
 """
 This module defines a Stereo Camera rig.

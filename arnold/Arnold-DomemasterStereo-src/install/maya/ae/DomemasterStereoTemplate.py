@@ -19,7 +19,7 @@ class DomemasterStereoTemplate(templates.AttributeTemplate):
   def setup(self):
     self.beginLayout("Domemaster Stereo Shader", collapse=False)
     # Create the Cameras option menu with the Center, Left, and Right views
-    self.addCustom('aiCamera', DomemasterStereoCreateCameraMode, DomemasterStereoSetCameraMode)
+    self.addCustom("aiCamera", DomemasterStereoCreateCameraMode, DomemasterStereoSetCameraMode)
     self.addControl("aiFovAngle", label="Field of View")
     self.addSeparator()
     self.addControl("aiZeroParallaxSphere", label="Zero Parallax Sphere")
@@ -45,7 +45,7 @@ class DomemasterStereoTemplate(templates.AttributeTemplate):
     self.endNoOptimize()
     self.endLayout()
     
-    self.beginLayout( "Options", collapse=False)
+    self.beginLayout("Options", collapse=False)
     self.addControl("aiExposure", label="Exposure")
     self.addControl("aiFocusDistance", label="Focal Distance")
     self.addControl("aiApertureSize", label="Aperture Size")

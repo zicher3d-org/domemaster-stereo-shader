@@ -1,6 +1,6 @@
 """
 Arnold Domemaster3D Camera Setup Script V1.6
-2014-11-01 10.37 pm
+2014-11-03 09.26 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -10,7 +10,7 @@ Version History
 
 Version 1.6
 ---------------
-2014-11-01 
+2014-10-31
 
 Adapted the mental ray script to work with Arnold
 
@@ -94,7 +94,7 @@ def openDomemasterWiki():
   webbrowser.open_new(url)
   
   
-def openDomemasterNing():
+def openArnoldDomemasterNing():
   import webbrowser
   
   # Domemaster NING Group
@@ -104,7 +104,7 @@ def openDomemasterNing():
   webbrowser.open_new(url)
 
 
-def openDomemasterDownloads():
+def openArnoldDomemasterDownloads():
   import webbrowser
   
   # Domemaster Stereo Shader - Download Page
@@ -113,7 +113,7 @@ def openDomemasterDownloads():
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
   
-def openDomemasterBugReport():
+def openArnoldDomemasterBugReport():
   import webbrowser
   
   # Domemaster Stereo Shader - Bug Report Page
@@ -183,7 +183,7 @@ Domemaster3D AutoSetup
 A python function to create a fulldome stereo rig and test grid in Maya. 
 
 """
-def autosetup():
+def Autosetup():
   setRenderRes()
   setDomeSamplingQuality()
   createArnoldFulldomeStereoRig()
@@ -217,10 +217,13 @@ A python function to setup the basic 2K x 2K square render settings.
 def setRenderRes():
   import maya.cmds as cmds
   import maya.mel as mel
-
-  # Make sure the Arnold plugin was loaded
-  forceArnoldLoad()
   
+  # Make sure the Arnold plugin was loaded
+  #forceArnoldLoad()
+  
+  #mel.eval('unifiedRenderGlobalsWindow;')
+
+
   fulldomeRenderWidth = 2048
   fulldomeRenderHeight = 2048
   
@@ -244,10 +247,12 @@ A python function to change the basic resolution square render settings.
 def changeRenderRes( renderSizePx ):
   import maya.mel as mel
   import maya.cmds as cmds
-
-  # Make sure the Arnold plugin was loaded
-  forceArnoldLoad()
   
+  # Make sure the Arnold plugin was loaded
+  #forceArnoldLoad()
+  
+  #mel.eval('unifiedRenderGlobalsWindow;')
+
   fulldomeRenderWidth = renderSizePx
   fulldomeRenderHeight = renderSizePx
   
@@ -274,8 +279,10 @@ def changeRenderResWH( renderSizeW,  renderSizeH):
   import maya.cmds as cmds
 
   # Make sure the Arnold plugin was loaded
-  forceArnoldLoad()
+  #forceArnoldLoad()
   
+  #mel.eval('unifiedRenderGlobalsWindow;')
+
   domeRenderWidth = renderSizeW
   domeRenderHeight = renderSizeH
   domeDeviceAspectRatio=domeRenderWidth/domeRenderHeight
@@ -359,9 +366,9 @@ def createArnoldFulldomeStereoRig():
   #import maya.cmds as cmds
 
   #PreRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
   #PostRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
 
   #enable realtime 3D
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
@@ -435,9 +442,9 @@ def createArnoldLatLongStereoRig():
   #import maya.cmds as cmds
 
   #PreRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
   #PostRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
 
   #enable realtime 3D
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
@@ -532,7 +539,7 @@ def createDomeGrid():
     cmds.delete()
   
   #--------------------------------------------------------------------------
-  #Protect any existing surface shaders from the paint effects node
+  #Protect any existing surface shaders from the painf effects node
   #---------------------------------------------------------------------------
     
   if cmds.objExists('surfaceShader1SG'): 
@@ -689,8 +696,7 @@ def createDomeGrid():
   #cmds.setAttr( 'surfaceShader1.outColor', 1, 1, 0, type='double3')
   
   #Super Bright Yellow Color for Physical Sky Compatibility
-  #cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
-  cmds.setAttr(domeGridlineMaterial+'.outColor', 1, 1, 0, type='double3')
+  cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
   
   #---------------------------------------------------------------------------
   #Adjust the grid surface shader
@@ -829,15 +835,8 @@ def createDomeGrid():
   attrBName = "gridLineColorB";
   #if(mel.attributeExists(attrName, baseNodeName) == 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="float3", usedAsColor=True, keyable=True)
-  
-  # Super Bright Yellow Color
-  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=15)
-  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=15)
-  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
-
-  #Normal Yellow Color
-  cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=1)
-  cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=1)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=15)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=15)
   cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   

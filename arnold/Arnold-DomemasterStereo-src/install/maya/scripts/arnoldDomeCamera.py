@@ -1,6 +1,6 @@
 """
 Arnold Domemaster3D Camera Setup Script V1.6
-2014-11-03 09.26 pm
+2014-11-05 04.20 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -366,9 +366,9 @@ def createArnoldFulldomeStereoRig():
   #import maya.cmds as cmds
 
   #PreRender MEL:
-  cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
   #PostRender MEL:
-  cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  #cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
 
   #enable realtime 3D
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
@@ -442,9 +442,9 @@ def createArnoldLatLongStereoRig():
   #import maya.cmds as cmds
 
   #PreRender MEL:
-  cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
   #PostRender MEL:
-  cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  #cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
 
   #enable realtime 3D
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");

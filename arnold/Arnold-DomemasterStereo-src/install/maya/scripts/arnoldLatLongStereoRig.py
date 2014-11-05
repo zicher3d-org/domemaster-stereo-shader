@@ -1,6 +1,6 @@
 """
- LatLong_Stereo Camera Rig V1.6
- 2014-11-01 07.38 pm
+ Arnold LatLong_Stereo Camera Rig V1.6
+ 2014-11-05 05.57 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -166,9 +166,10 @@ def createLensShaders(centerCam, leftCam, rightCam):
     cmds.connectAttr( leftCam+'.aiParallaxDistance', centerCam+'.zeroParallax', force=True )
     cmds.connectAttr( leftCam+'.aiSeparation', centerCam+'.interaxialSeparation', force=True )
 
+    #Turn off the Stereo 3D effect on the native Maya camera rig
+    # This skips the need for a pre-render and post-render mel script.
+    cmds.setAttr( centerCam+'.stereo',  0 )
   
-  #Turn on Stereo 3D support for the Domemaster3D Maya camera rig
-  cmds.setAttr( centerCam+'.stereo',  1)
   
 """
 This module defines a Stereo Camera rig.

@@ -1,6 +1,6 @@
 """
  Arnold Domemaster3D Fulldome Stereo Rig V1.6
- 2014-11-01 07.38 pm
+ 2014-11-05 05.57 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -121,53 +121,56 @@ def createLensShaders(centerCam, leftCam, rightCam):
 
   # Arnold camera type
   cameraType = 'DomemasterStereo'
+  
+  # Check if Arnold is loaded before linking the attributes
+  if (cmds.pluginInfo("mtoa",q=True,loaded=True)):
+    # Switch the active camera type
+    #cmds.setAttr( centerCam+'.ai_translator', cameraType, type='string')
+    cmds.setAttr( leftCam+'.ai_translator', cameraType, type='string')
+    cmds.setAttr( rightCam+'.ai_translator', cameraType, type='string')
+    
+    # ---------------------------------------------------------------------
+    # Create the fulldome nodes for the rig
+    # ---------------------------------------------------------------------
+    #cmds.setAttr( centerCam+'.aiCamera', 0 ) #Set the view to center
+    
+    cmds.setAttr( leftCam+'.aiCamera', 1 ) #Set the view to left
+    cmds.setAttr( rightCam+'.aiCamera', 2 ) #Set the view to right
 
-  # Switch the active camera type
-  #cmds.setAttr( centerCam+'.ai_translator', cameraType, type='string')
-  cmds.setAttr( leftCam+'.ai_translator', cameraType, type='string')
-  cmds.setAttr( rightCam+'.ai_translator', cameraType, type='string')
-  
-  # ---------------------------------------------------------------------
-  # Create the fulldome nodes for the rig
-  # ---------------------------------------------------------------------
-  #cmds.setAttr( centerCam+'.aiCamera', 0 ) #Set the view to center
-  
-  cmds.setAttr( leftCam+'.aiCamera', 1 ) #Set the view to left
-  cmds.setAttr( rightCam+'.aiCamera', 2 ) #Set the view to right
+    # ---------------------------------------------------------------------
+    # Link the common left and right camera attributes to the center camera
+    # ---------------------------------------------------------------------
+    # Link the right camera attributes
+    cmds.connectAttr( leftCam+'.aiFovAngle', rightCam+'.aiFovAngle', force=True )
+    cmds.connectAttr( leftCam+'.aiZeroParallaxSphere', rightCam+'.aiZeroParallaxSphere', force=True )
+    cmds.connectAttr( leftCam+'.aiSeparation', rightCam+'.aiSeparation', force=True )
+    cmds.connectAttr( leftCam+'.aiForwardTilt', rightCam+'.aiForwardTilt', force=True )
+    cmds.connectAttr( leftCam+'.aiTiltCompensation', rightCam+'.aiTiltCompensation', force=True )
+    cmds.connectAttr( leftCam+'.aiVerticalMode',  rightCam+'.aiVerticalMode' , force=True )
+    
+    cmds.connectAttr( leftCam+'.aiSeparationMap', rightCam+'.aiSeparationMap', force=True )
+    cmds.connectAttr( leftCam+'.aiHeadTurnMap', rightCam+'.aiHeadTurnMap' , force=True)
+    cmds.connectAttr( leftCam+'.aiHeadTiltMap', rightCam+'.aiHeadTiltMap', force=True )
+    
+    cmds.connectAttr( leftCam+'.aiFlipRayX', rightCam+'.aiFlipRayX', force=True )
+    cmds.connectAttr( leftCam+'.aiFlipRayY', rightCam+'.aiFlipRayY', force=True )
+    
+    # ---------------------------------------------------------------------
+    # Create the custom Domemaster3D shading networks
+    # ---------------------------------------------------------------------
+    
+    # Create the nodes
 
-  # ---------------------------------------------------------------------
-  # Link the common left and right camera attributes to the center camera
-  # ---------------------------------------------------------------------
-  # Link the right camera attributes
-  cmds.connectAttr( leftCam+'.aiFovAngle', rightCam+'.aiFovAngle', force=True )
-  cmds.connectAttr( leftCam+'.aiZeroParallaxSphere', rightCam+'.aiZeroParallaxSphere', force=True )
-  cmds.connectAttr( leftCam+'.aiSeparation', rightCam+'.aiSeparation', force=True )
-  cmds.connectAttr( leftCam+'.aiForwardTilt', rightCam+'.aiForwardTilt', force=True )
-  cmds.connectAttr( leftCam+'.aiTiltCompensation', rightCam+'.aiTiltCompensation', force=True )
-  cmds.connectAttr( leftCam+'.aiVerticalMode',  rightCam+'.aiVerticalMode' , force=True )
-  
-  cmds.connectAttr( leftCam+'.aiSeparationMap', rightCam+'.aiSeparationMap', force=True )
-  cmds.connectAttr( leftCam+'.aiHeadTurnMap', rightCam+'.aiHeadTurnMap' , force=True)
-  cmds.connectAttr( leftCam+'.aiHeadTiltMap', rightCam+'.aiHeadTiltMap', force=True )
-  
-  cmds.connectAttr( leftCam+'.aiFlipRayX', rightCam+'.aiFlipRayX', force=True )
-  cmds.connectAttr( leftCam+'.aiFlipRayY', rightCam+'.aiFlipRayY', force=True )
-  
-  # ---------------------------------------------------------------------
-  # Create the custom Domemaster3D shading networks
-  # ---------------------------------------------------------------------
-  
-  # Create the nodes
-
-  # ---------------------------------------------------------------------
-  # Link the center camera lens shader to the Maya camera rig stereo3d settings
-  # This enables real-time 3D previews in the viewport
-  # ---------------------------------------------------------------------
-  cmds.connectAttr( leftCam+'.aiZeroParallaxSphere', centerCam+'.zeroParallax', force=True )
-  cmds.connectAttr( leftCam+'.aiSeparation', centerCam+'.interaxialSeparation', force=True )
-  
-  #Turn on Stereo 3D support for the Domemaster3D Maya camera rig
-  cmds.setAttr( centerCam+'.stereo',  1)
+    # ---------------------------------------------------------------------
+    # Link the center camera lens shader to the Maya camera rig stereo3d settings
+    # This enables real-time 3D previews in the viewport
+    # ---------------------------------------------------------------------
+    cmds.connectAttr( leftCam+'.aiZeroParallaxSphere', centerCam+'.zeroParallax', force=True )
+    cmds.connectAttr( leftCam+'.aiSeparation', centerCam+'.interaxialSeparation', force=True )
+    
+    #Turn off the Stereo 3D effect on the native Maya camera rig
+    # This skips the need for a pre-render and post-render mel script.
+    cmds.setAttr( centerCam+'.stereo',  0 )
   
 """
 This module defines a Stereo Camera rig.

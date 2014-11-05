@@ -10,7 +10,7 @@ Version History
 
 Version 1.6
 ---------------
-2014-10-31
+2014-11-05
 
 Adapted the mental ray script to work with Arnold
 
@@ -539,7 +539,7 @@ def createDomeGrid():
     cmds.delete()
   
   #--------------------------------------------------------------------------
-  #Protect any existing surface shaders from the painf effects node
+  #Protect any existing surface shaders from the paint effects node
   #---------------------------------------------------------------------------
     
   if cmds.objExists('surfaceShader1SG'): 
@@ -696,7 +696,9 @@ def createDomeGrid():
   #cmds.setAttr( 'surfaceShader1.outColor', 1, 1, 0, type='double3')
   
   #Super Bright Yellow Color for Physical Sky Compatibility
-  cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
+  #cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
+  cmds.setAttr(domeGridlineMaterial+'.outColor', 1, 1, 0, type='double3')
+  
   
   #---------------------------------------------------------------------------
   #Adjust the grid surface shader
@@ -835,8 +837,15 @@ def createDomeGrid():
   attrBName = "gridLineColorB";
   #if(mel.attributeExists(attrName, baseNodeName) == 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="float3", usedAsColor=True, keyable=True)
-  cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=15)
-  cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=15)
+  
+  # Super Bright Yellow Color
+  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=15)
+  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=15)
+  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
+
+  #Normal Yellow Color
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=1)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=1)
   cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   

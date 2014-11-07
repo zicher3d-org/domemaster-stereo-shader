@@ -46,8 +46,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnoldMagicDome.xpm" 
-        -image1 "renderArnoldMagicDome.xpm" 
+        -image "renderArnold_magicdome.xpm" 
+        -image1 "renderArnold_magicdome.xpm" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -116,6 +116,32 @@ global proc shelf_ArnoldDomemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "DomemasterWxH" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomemasterWxH" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "renderArnold_domemasterWxH.xpm" 
+        -image1 "renderArnold_domemasterWxH.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createDomemasterWxH_Camera()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Reference Grid" 
         -enableBackground 0
         -align "center" 
@@ -124,8 +150,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "dome_arnoldGrid.xpm" 
-        -image1 "dome_arnoldGrid.xpm" 
+        -image "domeArnold_grid.xpm" 
+        -image1 "domeArnold_grid.xpm" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -392,8 +418,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnoldInfo.xpm" 
-        -image1 "domeArnoldInfo.xpm" 
+        -image "domeArnold_info.xpm" 
+        -image1 "domeArnold_info.xpm" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -418,8 +444,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnoldHelp.xpm" 
-        -image1 "domeArnoldHelp.xpm" 
+        -image "domeArnold_help.xpm" 
+        -image1 "domeArnold_help.xpm" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1

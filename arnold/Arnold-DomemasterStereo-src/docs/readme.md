@@ -1,6 +1,6 @@
-# Arnold Domemaster Stereo Guide #
+# Arnold Domemaster3D Guide #
 -------------------------
-2014-11-03 09.57 pm
+2014-11-06 10.04 pm
 ![Maya DomemasterStereo for Arnold Screenshot](images\mtoa_domemasterstereo.png)
 
 ## Overview ##
@@ -13,7 +13,7 @@ This guide covers the Arnold version of the Domemaster Stereo Shader.
 
 ## Shader Screenshots ##
 
-Here are a few screenshots of the Maya Shelf tools and the Arnold based **DomemasterStereo** Shader and the **LatLongStereo** Shader GUIs for Maya.
+Here are a few screenshots of the Maya Shelf tools and the Arnold based **DomemasterStereo**, **DomemasterWxH**, and **LatLongStereo** shader GUIs for Maya.
 
 ### Maya Shelf ###
 ![Maya Shelf Icons](images\arnold-domemaster3d-shelf.png)
@@ -22,8 +22,10 @@ Here are a few screenshots of the Maya Shelf tools and the Arnold based **Domema
 ### DomemasterStereo Shader ###
 ![DomemasterStereo shader for Maya](images\domemasterstereo_attributes.png)
 
+### DomemasterWxH Shader ###
+![DomemasterWxH shader for Maya](images\domemasterwxh_attributes.png)
 
-### LatLong Shader ###
+### LatLongStereo Shader ###
 ![LatLongStereo shader for Maya](images\latlongstereo_attributes.png)
 
 ## Maya Shader Installation ##
@@ -43,11 +45,13 @@ Maya Shader Files:
 
     DomemasterStereo.dll
     DomemasterStereo.mtd
+    DomemasterWxH.dll
+    DomemasterWxH.mtd
     LatLongStereo.dll
     LatLongStereo.mtd
 
 **Step 3.**
-Copy the Arnold AE Template File "DomeStereoTemplate.py"  and "LatLongStereoTemplate.py" to the Arnold AE folder:  
+Copy the Maya AE template files to the Arnold AE folder:  
 
 `C:\solidangle\mtoadeploy\<Version>\scripts\mtoa\ui\ae`
 
@@ -59,7 +63,7 @@ Note: The Maya AE Template path can be found using the following environment var
 Copy the Maya scripts from `Arnold-DomemasterStereo-src\install\maya\scripts` to your user account's Maya scripts folder.
 
 **Step 5.**
-Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelf` to your user account's Maya shelves folder.
+Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelves` to your user account's Maya shelves folder.
 
 **Step 6.**
 Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` folder to your user account's Maya icons folder.
@@ -82,11 +86,13 @@ Maya Shader Files:
 
     DomemasterStereo.dylib
     DomemasterStereo.mtd
+    DomemasterWxH.dylib
+    DomemasterWxH.mtd
     LatLongStereo.dylib
     LatLongStereo.mtd
 
 **Step 2.**
-Copy the Arnold AE Template File "DomeStereoTemplate.py"  and "LatLongStereoTemplate.py" to the Arnold AE folder:  
+Copy the Maya AE template files to the Arnold AE folder:  
 
 `~/solidangle/mtoa/<Version>/scripts/mtoa/ui/ae/`
 
@@ -97,7 +103,7 @@ Note: The Maya AE Template path can be found using the following environment var
 Copy the Maya scripts from `Arnold-DomemasterStereo-src\install\maya\scripts` to your user account's Maya scripts folder.
 
 **Step 4.**
-Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelf` to your user account's Maya shelves folder.
+Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelves` to your user account's Maya shelves folder.
 
 **Step 5.**
 Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` folder to your user account's Maya icons folder.
@@ -121,11 +127,13 @@ Maya Shader Files:
 
     DomemasterStereo.so
     DomemasterStereo.mtd
+    DomemasterWxH.so
+    DomemasterWxH.mtd
     LatLongStereo.so
     LatLongStereo.mtd
 
 **Step 2.**
-Copy the Arnold AE Template File "DomeStereoTemplate.py"  and "LatLongStereoTemplate.py" to the Arnold AE folder: 
+Copy the Maya AE template files to the Arnold AE folder:  
 
 `/opt/solidangle/mtoa/<Version>/scripts/mtoa/ui/ae/`
 
@@ -136,7 +144,7 @@ Note: The Maya AE Template path can be found using the following environment var
 Copy the Maya scripts from `Arnold-DomemasterStereo-src\install\maya\scripts` to your user account's Maya scripts folder.
 
 **Step 4.**
-Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelf` to your user account's Maya shelves folder.
+Copy the Maya shelf file from `Arnold-DomemasterStereo-src\install\maya\shelves` to your user account's Maya shelves folder.
 
 **Step 5.**
 Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` folder to your user account's Maya icons folder.
@@ -221,6 +229,7 @@ Assuming Arnold's kick tool is in your system PATH variable, you can check if th
 #### Windows Parameters ####
 
 `kick.exe -info DomemasterStereo`
+`kick.exe -info DomemasterWxH`
 `kick.exe -info LatLongStereo`
 
 or 
@@ -229,11 +238,14 @@ you can check if the shader is installed and define a custom library search path
 
 `kick -l C:\solidangle\mtoadeploy\<Version>\shaders\DomemasterStereo.dll -info DomemasterStereo`
 
+`kick -l C:\solidangle\mtoadeploy\<Version>\shaders\DomemasterWxH.dll -info DomemasterWxH`
+
 `kick -l C:\solidangle\mtoadeploy\<Version>\shaders\LatLongStereo.dll -info LatLongStereo`
 
 #### Mac Parameters ####
 
 `kick -info DomemasterStereo`
+`kick -info DomemasterWxH`
 `kick -info LatLongStereo`
 
 or 
@@ -242,11 +254,14 @@ you can check if the shader is installed and define a custom library search path
 
 `kick -l ~/solidangle/mtoa/<Version>/shaders/DomemasterStereo.dylib -info DomemasterStereo`
 
+`kick -l ~/solidangle/mtoa/<Version>/shaders/DomemasterWxH.dylib -info DomemasterWxH`
+
 `kick -l ~/solidangle/mtoa/<Version>/shaders/LatLongStereo.dylib -info LatLongStereo`
 
 #### Linux Parameters ####
 
 `kick -info DomemasterStereo`
+`kick -info DomemasterWxH`
 `kick -info LatLongStereo`
 
 or 
@@ -254,6 +269,8 @@ or
 you can check if the shader is installed and define a custom library search path at the same time:
 
 `kick -l /opt/solidangle/mtoa/<Version>/shaders/DomemasterStereo.so -info DomemasterStereo`
+
+`kick -l /opt/solidangle/mtoa/<Version>/shaders/DomemasterWxH.so -info DomemasterWxH`
 
 `kick -l /opt/solidangle/mtoa/<Version>/shaders/LatLongStereo.so -info LatLongStereo`
 
@@ -322,7 +339,7 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 - Roberto Ziche created the original domeAFL_FOV_Stereo shader for 3DS Max.
 - Luis Silva created the initial Arnold lens shader port for Softimage.
 - Andrew Hazelden finished porting the DomemasterStereo lens shader for Arnold on Maya/Softimage/Houdini.
-- Daniel Ott created the original 2D domeAFL_FOV lens shader for mental ray.
+- Daniel Ott created the original 2D domeAFL_FOV, and domeAFL_WxH lens shaders for mental ray.
 
 ## Version History ##
 
@@ -330,7 +347,7 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 
 Initial Arnold support for Maya/Softimage/Houdini.
 
-Created DomemasterStereo.mtd and LatLongStereo.mtd documents for Maya and Houdini users.
+Created DomemasterStereo.mtd, DomemasterWxH, and LatLongStereo.mtd documents for Maya and Houdini users.
 
 Created Maya stereo rig scripts for the LatLongStereo and DomemasterStereo lens shaders.
 

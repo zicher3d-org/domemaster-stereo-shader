@@ -80,20 +80,20 @@ camera_create_ray {
   y = input->sy;
 
   // Calculate phi and theta...
-  // phi = x * (fovHoriz / 2.0);
-  // if(zenithMode){
-    // theta = AI_PIOVER2 - y * (fovVert / 2.0);
-  // } else {
-    // theta = y * (fovVert / 2.0);
-  // }  
+  phi = x * (fovHoriz / 2.0);
+  if(zenithMode){
+    theta = AI_PIOVER2 - y * (fovVert / 2.0);
+  } else {
+   theta = y * (fovVert / 2.0);
+  }  
   
   // Calculate phi and theta...
-  phi = x * (fovHoriz / 2.0);
-  if(zenithMode) {
-    theta = AI_PIOVER2 - y * (fovVert);
-  } else {
-    theta = y * (fovVert);
-  }  
+  //phi = x * (fovHoriz / 2.0);
+  //if(zenithMode) {
+  //  theta = AI_PIOVER2 - y * (fovVert);
+  //} else {
+  //  theta = y * (fovVert);
+  //}  
   
   // Start by matching camera (center camera)
   org = 0.0;
@@ -163,21 +163,21 @@ camera_create_ray {
   }
   
   // Flip the X ray direction about the Y-axis
-  if(flipRayX) {
-    org.x = (-org.x);
-    ray.x = (-ray.x);
-  }
+  // if(flipRayX) {
+    // org.x = (-org.x);
+    // ray.x = (-ray.x);
+  // }
   
   // Flip the Y ray direction about the X-axis
-  if(flipRayY) {
-    if (zenithMode) {
-      org.z = (-org.z);
-      ray.z = (-ray.z);
-    } else {
-      org.y = (-org.y);
-      ray.y = (-ray.y);
-    }
-  }
+  // if(flipRayY) {
+    // if (zenithMode) {
+      // org.z = (-org.z);
+      // ray.z = (-ray.z);
+    // } else {
+      // org.y = (-org.y);
+      // ray.y = (-ray.y);
+    // }
+  // }
   
   // Convert ray from camera space
   // TODO: adapt mental ray code snippet

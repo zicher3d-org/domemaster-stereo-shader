@@ -1,6 +1,6 @@
 """
 Arnold Domemaster3D Camera Setup Script V1.6
-2014-11-05 04.20 pm
+2014-11-06 9.51 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -191,8 +191,6 @@ def Autosetup():
   createTestShapes()
 
 
-
-
 """
 Domemaster3D setDomeSamplingQuality
 ----------------------
@@ -331,13 +329,13 @@ def createArnoldFulldomeStereoRig():
   #[u'ArnoldDomeStereoCamera', u'ArnoldDomeStereoCameraLeft', u'ArnoldDomeStereoCameraRight']
   
   #Get the stereo camera rig shape nodes for the center/right/left cameras
-  rig_center_shape_name =  getObjectShapeNode(rig[0])
+  rig_center_shape_name = getObjectShapeNode(rig[0])
   #[u'stereoCameraCenterCamShape', u'stereoCameraFrustum'] #
 
-  rig_left_shape_name =  getObjectShapeNode(rig[1])
+  rig_left_shape_name = getObjectShapeNode(rig[1])
   # Result: [u'stereoCameraLeftShape'] #
 
-  rig_right_shape_name =  getObjectShapeNode(rig[2])
+  rig_right_shape_name = getObjectShapeNode(rig[2])
   # Result: [u'stereoCameraRightShape'] #
   
   """
@@ -408,13 +406,13 @@ def createArnoldLatLongStereoRig():
   #[u'ArnoldLatLongCamera', u'ArnoldLatLongCameraLeft', u'ArnoldLatLongCameraRight']
   
   #Get the stereo camera rig shape nodes for the center/right/left cameras
-  rig_center_shape_name =  getObjectShapeNode(rig[0])
+  rig_center_shape_name = getObjectShapeNode(rig[0])
   #[u'stereoCameraCenterCamShape', u'stereoCameraFrustum'] #
 
-  rig_left_shape_name =  getObjectShapeNode(rig[1])
+  rig_left_shape_name = getObjectShapeNode(rig[1])
   # Result: [u'stereoCameraLeftShape'] #
 
-  rig_right_shape_name =  getObjectShapeNode(rig[2])
+  rig_right_shape_name = getObjectShapeNode(rig[2])
   # Result: [u'stereoCameraRightShape'] #
   
   """
@@ -451,6 +449,71 @@ def createArnoldLatLongStereoRig():
   
   return rig
 
+
+"""
+Domemaster3D createDomemasterWxH_Camera
+----------------------
+A python function to set up an arnold DomemasterWxH based camera.
+"""
+def createDomemasterWxH_Camera():
+  import maya.cmds as cmds
+  #import maya.mel as mel 
+  
+  # Make sure the Arnold plugin was loaded
+  forceArnoldLoad()
+
+  # ---------------------------------------------------------------------
+  # Variables
+  # ---------------------------------------------------------------------
+  
+  # Arnold camera type
+  cameraType = 'DomemasterWxH'
+  
+  # ---------------------------------------------------------------------
+  # Create the stereo rig
+  # ---------------------------------------------------------------------
+
+  # Create a camera and get the shape name.
+  cameraName = cmds.camera(name='domemasterWxH_Camera')
+  cameraShape = cameraName[1]
+
+  # ---------------------------------------------------------------------
+  # Assign the Arnold domemasterWxH camera type
+  # ---------------------------------------------------------------------
+  cmds.setAttr( cameraShape+'.ai_translator', cameraType, type='string')
+  
+
+  # Scale the stereo camera rig locator larger 
+  #cmds.setAttr(cameraShape+'.locatorScale', 1) #Scale Camera icon
+
+  # Link the new attribute 'Cam Locator Scale' to the dome camera's locator size control
+  cmds.addAttr( cameraName[0], longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.001)
+  cmds.setAttr( cameraName[0]+'.Cam_Locator_Scale', keyable=False, channelBox=True)
+  cmds.connectAttr ( cameraName[0]+'.Cam_Locator_Scale', cameraShape+'.locatorScale', force=True)
+
+
+  cmds.setAttr( cameraName[0]+'.rotateX', 90)
+  cmds.setAttr( cameraName[0]+'.rotateY', 0)
+  cmds.setAttr( cameraName[0]+'.rotateZ', 0)
+
+  # Changes the render settings to set the stereo camera to be a renderable camera
+  cmds.setAttr( cameraShape+'.renderable', 1) #domeAFL_WxH_CameraShape
+  cmds.setAttr( 'topShape.renderable', 0)
+  cmds.setAttr( 'sideShape.renderable', 0)
+  cmds.setAttr( 'frontShape.renderable', 0)
+  cmds.setAttr( 'perspShape.renderable', 0)
+
+  #Set up the default mental ray AA sampling quality
+  #setDomeSamplingQuality()
+
+  # ---------------------------------------------------------------------
+  # Setup the stereo rig camera attributes
+  # ---------------------------------------------------------------------
+  # 4 mm focal length = 160 degree FOV
+  #cmds.setAttr( cameraShape+'.focalLength', 4 )
+
+  # 18 mm focal length = 90 degree FOV
+  cmds.setAttr( cameraShape+'.focalLength', 18 )
 
 
 """

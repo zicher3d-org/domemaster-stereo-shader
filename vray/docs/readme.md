@@ -11,11 +11,11 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Vray Standalone ##
 
-Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone 2.0 using the vray.exe command line program.
+Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone 2.0 using the `vray.exe` command line program.
 
 ### DomemasterStereo in a VRSCENE File ###
 
-![DomemasterStereo Renderings](images\vray_standalone_domemasterStereo_render.png)
+![DomemasterStereo Renderings](images/vray_standalone_domemasterStereo_render.png)
 
 You can upgrade a regular Vray camera (in this case named RenderCamShape) to a DomemasterStereo camera by by pasting the following text in a .vrscene file:
 	
@@ -40,7 +40,7 @@ You can test this code out using the included vray example scene "vray 2 Domemas
 
 ### LatLongStereo in a VRSCENE File ###
 
-![LatLongStereo Renderings](images\vray_standalone_LatLongStereo_render.png)
+![LatLongStereo Renderings](images/vray_standalone_LatLongStereo_render.png)
 
 You can upgrade a regular Vray camera (in this case named RenderCamShape) to a LatLongStereo camera by by pasting the following text in a .vrscene file:
 
@@ -58,9 +58,9 @@ You can test this code out using the included vray example scene "vray 2 LatLong
       
     vray.exe -sceneFile="vray 2 LatLongStereo.vrscene" 
 
-## Vray Shader Parameter Screenshot ##
+## Vray Shader Parameters Screenshot ##
 
-![Plgparams Listing the Shader Parameters](images\vray_plugin_parameters.png)
+![Plgparams Listing the Shader Parameters](images/vray_plugin_parameters.png)
 
 
 ## Adding a Vray Lens Shader #
@@ -73,17 +73,17 @@ To turn on the lens shader scroll down to the bottom of the Attribute Editor and
 
 ### VRay DomemasterStereo Camera ###
 
-![VRay DomemasterStereo Camera](images\vray_DomemasterStereoCamera.png)
+![VRay DomemasterStereo Camera](images/vray_DomemasterStereoCamera.png)
 
 ### VRay LatLongStereo Camera ###
 
-![VRay LatLongStereo Camera](images\vray_LatLongStereoCamera.png)
+![VRay LatLongStereo Camera](images/vray_LatLongStereoCamera.png)
 
 ### Removing a Lens Shader ###
 
 You can remove a vray lens shader from a camera by opening the `Attributes > VRay` menu and unchecking the specific lens shader. This will remove the lens shader's attributes that are listed in the `Extra VRay Attributes` section.
 
-![Adding Extra Attributes](images\vray-extra-attributes.png)
+![Adding Extra Attributes](images/vray-extra-attributes.png)
 
 ## Maya Shader Installation ##
 
@@ -197,6 +197,38 @@ You can list all of the active Vray Shader nodes using the plugin parameters too
 ### DomemasterStereo Node Parameters ###
 
 If you run the plgparams with the shader name listed you can see the individual node parameters. If you get a plgparams error asking for the -plugindir that means you are missing the vray plugins environment variable such as `VRAY_PLUGINS_x64` or `VRAY_PLUGINS_x86`.
+	
+#### plgparams.exe DomemasterStereo ####
+
+	Parameters for plugin 'DomemasterStereo'
+	  camera: integer = 0, Center, Left, Right Camera Views
+	  fov_angle: float = 180, Field of View
+	  zero_parallax_sphere: float = 360, Zero Parallax Sphere
+	  separation: float = 6.5, Camera Separation Distance
+	  forward_tilt: float = 0, Forward Tilt
+	  tilt_compensation: bool = false, Tilt Compensation Mode
+	  vertical_mode: bool = false, Vertical Mode
+	  separation_map: float = 1, Separation Map
+	  head_turn_map: float = 1, Head Turn Map
+	  head_tilt_map: float = 0.5, Head Tilt map
+	  flip_x: bool = false, Flip X
+	  flip_y: bool = false, Flip Y
+
+
+
+#### plgparams.exe LatLongStereo ####
+
+	Parameters for plugin 'LatLongStereo'
+	  camera: integer = 0, Center, Left, Right Camera Views
+	  fov_vert_angle: float = 180, Field of View Vertical
+	  fov_horiz_angle: float = 360, Field of View Horizontal
+	  parallax_distance: float = 360, Zero Parallax Distance
+	  separation: float = 6.5, Camera Separation
+	  zenith_mode: bool = false, Zenith Mode
+	  separation_map: float = 1, Separation Map
+	  head_tilt_map: float = 1, Head Tilt map
+	  flip_x: bool = false, Flip X
+	  flip_y: bool = false, Flip Y
 
 **Note:** If you receive the following error message it means you have tried to load a vray 2 shader in vray 3:  
 

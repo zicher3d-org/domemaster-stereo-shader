@@ -1,0 +1,935 @@
+// Andrew Hazelden LatLongStereo + DomemasterStereo Edited File
+// 2014-11-14 02.59 pm
+
+proc string tokenizeWidget(string $widget) {
+	string $tokens[];
+	string $layoutFromWidget;  // To determine sibling widgets names.
+
+	int $numTokens = tokenize($widget, "|", $tokens);
+	for ($i = 0; $i < $numTokens-1; $i++) {
+		if ($i > 0) $layoutFromWidget += "|";
+		$layoutFromWidget += $tokens[$i];
+	}
+	return $layoutFromWidget + "|";
+}
+
+proc vrayDimAllControls(string $node, string $attrNames[], string $widgetName, int $dim, string $suff) {
+	for ($j = 0; $j < size($attrNames); $j++) {
+		// This is needed to disable/enable the control next time it is created in vrayAddControl()
+		string $attrName = $attrNames[$j];
+		if (`objExists ($node+"."+$attrName)`) {
+			// referenced nodes can't be locked/unlocked
+			// that code is needed for the old scenes that have locked attributes
+			// unfortunatelly we can't unlock the attributes from a referenced scene, they have to be unlocked in the original scene
+			if ((`getAttr -lock ($node+"."+$attrName)`) && (!`referenceQuery -isNodeReferenced $node`)) {
+				setAttr -lock $dim ($node+"."+$attrName); 
+			}
+
+			string $controlName = $widgetName + $attrName + "_" + (`nodeType $node`) + $suff;
+			if (`control -exists $controlName`)
+				disable -v $dim $controlName;
+			else {
+				// test if this is valid layout
+				$layoutName = $controlName + "_row";
+				if (`layout -exists $layoutName`)
+					layout -e -enable (!$dim) $layoutName;
+			}
+		}
+	}	
+}
+
+// Helper function to dim a list of attributes for a specific node
+proc vrayDimControls(string $node, string $attrNames[], string $widget, int $dim) {
+	string $widgetBase;
+	global int $gVRayFrameArrSize;
+	global string $gVRayFrameNames[];
+	global int $gGeomObjNumIdx[];
+	global int $gVRayFrameSuff[];
+	global string $gVRayFullFrameNames[]; 
+	global string $gBasicFormsNames[];
+	global string $gCurrBasicFormName;
+	global int $gBaseFormNeedUpdate;
+
+	int $curNodeIdx = getGeomObjNum($node);
+	int $i, $j;
+
+	$widgetBase = tokenizeWidget($widget);
+
+	int $objIdx = getGeomObjNum($node);
+	if (($gBaseFormNeedUpdate == 1) && ($objIdx > -1)) {
+		$gBasicFormsNames[$objIdx] = tokenizeWidget($gCurrBasicFormName);
+		$gNewObjAdded = 0;
+	}
+
+	// full name of the dynamically created CopyTab form
+	for ($i = 0; $i < $gVRayFrameArrSize; $i++) {
+		if (($gVRayFrameNames[$i] != "") && (startString($widgetBase, size($gVRayFrameNames[$i])) == $gVRayFrameNames[$i])) {
+			$gVRayFullFrameNames[$i] = $widgetBase;
+			break;
+		}
+	}
+
+	for ($i = 0; $i < $gVRayFrameArrSize; $i++) {
+		// update forms only for $node
+		if (getGeomObjNum($node) != $gGeomObjNumIdx[$i]) continue;
+		vrayDimAllControls($node, $attrNames, $gVRayFullFrameNames[$i], $dim, $gVRayFrameSuff[$i]);		
+	}
+
+	string $baseForm;
+	if ($objIdx >= 0)	$baseForm = $gBasicFormsNames[$objIdx];
+	else $baseForm = $widgetBase;
+	vrayDimAllControls($node, $attrNames, $baseForm, $dim, "");
+}
+
+
+// These are used just to suppress the map buttons in editorTemplate calls
+global proc string makeControlName(string $attrName) {
+	string $tokens[];
+	string $controlName = ($attrName+"Grp");
+	if (tokenize($controlName, "\.", $tokens) == 2) $controlName = $tokens[1];
+	$controlName=substitute("\\[", $controlName, "_");
+	$controlName=substitute("\\]", $controlName, "_");
+	return $controlName;
+}
+
+// For numbers.
+global proc floatTexNoMapNew( string $attrLabel, string $attrName )
+{	attrFieldSliderGrp -attribute $attrName -label $attrLabel -hideMapButton true `makeControlName($attrName)`;
+	floatTexNoMapReplace($attrLabel, $attrName);}
+global proc floatTexNoMapReplace( string $attrLabel, string $attrName )
+{	attrFieldSliderGrp -e -attribute $attrName `makeControlName($attrName)`;}
+global proc editorTemplateFloatNoMap( string $attrName, string $attrLabel, int $hmb )
+{	editorTemplate -callCustom ("floatTexNoMapNew \""+$attrLabel+"\" ") ("floatTexNoMapReplace \""+$attrLabel+"\" ") $attrName;
+	editorTemplate -suppress $attrName;}
+
+global proc floatTexNoMapNewCmd( string $attrLabel, string $command, string $attrName ){
+	string $buffer[];
+	tokenize($attrName, ".", $buffer);
+	attrFieldSliderGrp -attribute $attrName -label $attrLabel -hideMapButton true -changeCommand($command + "\"" + $buffer[0] + "\"") `makeControlName($attrName)`;
+}
+global proc floatTexNoMapReplaceCmd( string $attrLabel, string $command, string $attrName ){
+	string $buffer[];
+	tokenize($attrName, ".", $buffer);
+	attrFieldSliderGrp -e -attribute $attrName -changeCommand($command + "\"" + $buffer[0] + "\"") `makeControlName($attrName)`;
+}
+global proc editorTemplateFloatNoMapCmd( string $attrName, string $attrLabel, string $command ){
+	editorTemplate -callCustom	("floatTexNoMapNewCmd \""    +$attrLabel+"\" \""+$command+"\" ") 
+								("floatTexNoMapReplaceCmd \""+$attrLabel+"\" \""+$command+"\" ") $attrName;
+	editorTemplate -suppress $attrName;
+}
+
+// For colors.
+global proc colorTexNoMapNew( string $attrLabel, string $attrName )
+{	attrColorSliderGrp -attribute $attrName -label $attrLabel -showButton false `makeControlName($attrName)`;
+	colorTexNoMapReplace($attrLabel, $attrName);}
+global proc colorTexNoMapReplace( string $attrLabel, string $attrName )
+{	attrColorSliderGrp -e -attribute $attrName `makeControlName($attrName)`;}
+global proc editorTemplateColorNoMap( string $attrName, string $attrLabel, int $hmb )
+{	editorTemplate -callCustom ("colorTexNoMapNew \""+$attrLabel+"\" ") ("colorTexNoMapReplace \""+$attrLabel+"\" ") $attrName;
+	editorTemplate -suppress $attrName;}
+
+// For textures without a color selector
+global proc vrayTextureNoColorNew(string $attrLabel, string $attrName) {
+  string $navigationCmd = "defaultNavigation -force true -connectToExisting -source %node -destination ";
+  string $createCmdTex = "createRenderNode -textures \"" + $navigationCmd + $attrName + "\" \"\"";
+  attrNavigationControlGrp -attribute $attrName -label $attrLabel
+    -createNew $createCmdTex `makeControlName($attrName)`;
+}
+global proc vrayTextureNoColorReplace(string $attrLabel, string $attrName) {
+  string $navigationCmd = "defaultNavigation -force true -connectToExisting -source %node -destination ";
+  string $createCmdTex = "createRenderNode -textures \"" + $navigationCmd + $attrName + "\" \"\"";
+  attrNavigationControlGrp -edit -attribute $attrName
+    -createNew $createCmdTex `makeControlName($attrName)`;
+}
+global proc vrayEditorTemplateTextureNoColor(string $attrName, string $attrLabel) {
+  editorTemplate -callCustom ("vrayTextureNoColorNew \""+$attrLabel+"\" ") ("vrayTextureNoColorReplace \""+$attrLabel+"\" ") $attrName;
+  editorTemplate -suppress $attrName;
+}
+
+global proc string vrayShaderConnectionDefaultTraversal(string $attrName) {
+	string $connectedNodes[] = `listConnections -source true -destination false $attrName`;
+	if (size($connectedNodes)==0) return "";
+	string $connectedNode = $connectedNodes[0]; // we expect only one input connection
+	if (`nodeType $connectedNode` != "VRayMeshShadingGroup") return $connectedNode;
+
+	// Request the input connections again, but this time ask for the whole plug, with the -plugs flag
+	string $connectedPlugs[] = `listConnections -source true -destination false -plugs true $attrName`;
+	string $connectedPlug = $connectedPlugs[0]; // we expect only one output connection
+	string $shaderPlug = substitute(".mesh_connections", $connectedPlug, ".shader_connections");
+
+	string $shader[] = `listConnections -source false -destination true $shaderPlug`;
+	if (size($shader)==0) return "";
+	return $shader[0]; // we expect only one output connection
+}
+
+global proc string vrayCallCreateShaderNode(string $cmd) {
+	global float $g_mayaVersion;
+	if ($g_mayaVersion >= 2011)
+		return "createRenderNode -allWithShadersUp \"" + $cmd + "\" \"\"";
+	else
+		return "createRenderNode -shaders \"" + $cmd + "\" \"\"";
+}
+
+// For shaders
+global proc vrayShaderConnectionNew(string $attrLabel, string $typeName, string $attrName) {
+  string $navigationCmd = "defaultNavigation -force true -connectToExisting -source %node -destination ";
+  string $createCmdShader = vrayCallCreateShaderNode($navigationCmd + $attrName);
+  string $ctrlName = $typeName + makeControlName($attrName);
+  attrNavigationControlGrp 
+	-attribute $attrName 
+	-label $attrLabel 
+	-createNew $createCmdShader 
+	-defaultTraversal ("vrayShaderConnectionDefaultTraversal " + $attrName)
+	$ctrlName;
+}
+global proc vrayShaderConnectionReplace(string $attrLabel, string $typeName, string $attrName) {
+  string $navigationCmd = "defaultNavigation -force true -connectToExisting -source %node -destination ";
+  string $createCmdShader = vrayCallCreateShaderNode($navigationCmd + $attrName);
+  
+  string $ctrlName = $typeName + makeControlName($attrName);
+  attrNavigationControlGrp -edit -defaultTraversal ("vrayShaderConnectionDefaultTraversal " + $attrName) $ctrlName;
+  attrNavigationControlGrp -edit 
+	-attribute $attrName 
+	-label $attrLabel 
+	-createNew $createCmdShader 
+	$ctrlName;
+}
+global proc vrayEditorTemplateShaderConnection(string $attrName, string $attrLabel) {
+  editorTemplate -callCustom ("vrayShaderConnectionNew \""+$attrLabel+"\" \"\" ") ("vrayShaderConnectionReplace \""+$attrLabel+"\" \"\" ") $attrName;
+  editorTemplate -suppress $attrName;
+}
+
+// For textures
+global proc vrayTextureConnectionNew(string $attrLabel, string $typeName, string $attrName) {
+  string $navigationCmd = "defaultNavigation -force true -connectToExisting -source %node -destination ";
+  string $createCmdTexture = "createRenderNode -textures \"" + $navigationCmd + $attrName + "\" \"\"";
+  string $ctrlName = $typeName + makeControlName($attrName);
+  attrNavigationControlGrp 
+	-attribute $attrName 
+	-label $attrLabel 
+	-createNew $createCmdTexture 
+	$ctrlName;
+}
+global proc vrayTextureConnectionReplace(string $attrLabel, string $typeName, string $attrName) {
+  string $navigationCmd = "defaultNavigation -force true -connectToExisting -source %node -destination ";
+  string $createCmdTexture = "createRenderNode -textures \"" + $navigationCmd + $attrName + "\" \"\"";
+  
+  string $ctrlName = $typeName + makeControlName($attrName);
+  attrNavigationControlGrp -edit 
+	-attribute $attrName 
+	-label $attrLabel 
+	-createNew $createCmdTexture 
+	$ctrlName;
+}
+global proc vrayEditorTemplateTextureConnection(string $attrName, string $attrLabel) {
+  editorTemplate -callCustom ("vrayTextureConnectionNew \""+$attrLabel+"\" \"\" ") ("vrayTextureConnectionReplace \""+$attrLabel+"\" \"\" ") $attrName;
+  editorTemplate -suppress $attrName;
+}
+
+// For filenames with browser buttons
+// The file browsing functions are based on AEfileTemplate.mel.
+global proc AE_VRAY_fileNameNew(string $label, string $ext, string $fileAttribute) {
+	setUITemplate -pst attributeEditorTemplate;
+		rowLayout -nc 3 fileNameLayout;
+		text -l $label;
+		textField txtField;
+		symbolButton -image "navButtonBrowse.xpm" browser;
+		setParent ..;
+		setUITemplate -ppt;
+	AE_VRAY_fileNameReplace($label, $ext, $fileAttribute);
+}
+global proc AE_VRAY_fileNameReplace(string $label, string $ext, string $fileAttribute) {
+  connectControl -fileName txtField $fileAttribute;
+  button -e -c ("AE_VRAY_fileBrowser \"" + $fileAttribute + "\" \"" + $ext + "\"") browser;
+}
+global proc AE_VRAY_fileBrowser(string $fileAttribute, string $ext) {
+  global float $g_mayaVersion;
+  string $rootDir = `workspace -q -rootDirectory`;
+  workspace -directory $rootDir;
+  string $filename;
+  if ($g_mayaVersion >= 8.0)  $filename = `fileDialog -mode 0 -directoryMask $ext`;
+  else                        $filename = `fileDialog -directoryMask $ext`;
+  if ($filename != "") setAttr $fileAttribute -type "string" $filename;
+}
+global proc vrayEditorTemplateFileBrowser(string $attrLabel, string $attrName, string $ext) {
+	editorTemplate -callCustom ("AE_VRAY_fileNameNew \""+$attrLabel+"\" \"" + $ext + "\" ") ("AE_VRAY_fileNameReplace \""+$attrLabel+"\" \"" + $ext + "\" ") $attrName;
+	editorTemplate -suppress $attrName;
+}
+
+global proc int vrayAttributeExists(string $node, string $attrName) {
+  return `attributeQuery -exists -node $node $attrName`;
+}
+
+global proc vrayOnSubdivOverrideEnable(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayOverrideGlobalSubQual"`) {
+		int $dim = (! `getAttr ($node + ".vrayOverrideGlobalSubQual")`);
+
+		string $attrNames[] = {"vrayViewDep", "vrayEdgeLength", "vrayMaxSubdivs"};
+
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnSubdivUVs(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vraySubdivUVs"`) {
+		int $dim = (! `getAttr ($node + ".vraySubdivUVs")`);
+		$dim += (! `getAttr ($node + ".vraySubdivEnable")`);
+
+		string $attrNames[] = {"vraySubdivUVsAtBorders"};
+
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnSubdivEnable(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vraySubdivEnable"`) {
+		int $dim = (! `getAttr ($node + ".vraySubdivEnable")`);
+
+		string $attrNames[] = {"vraySubdivUVsAtBorders", "vraySubdivUVs", "vrayStaticSubdiv" };
+
+		vrayDimControls($node, $attrNames, $widget, $dim);
+		if(!$dim) vrayOnSubdivUVs($node, $attrName, $widget);
+	}
+}
+
+global proc vrayOnEnableDisplacementNone (string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayDisplacementNone"`) {
+		int $dim = (`getAttr ($node + ".vrayDisplacementNone")`);
+
+		string $attrNames[] = {"vrayDisplacementType", "vrayDisplacementAmount", "vrayDisplacementShift", "vrayDisplacementKeepContinuity", "vrayEnableWaterLevel", "vrayWaterLevel", "vray2dDisplacementResolution", "vray2dDisplacementPrecision", "vray2dDisplacementTightBounds", "vray2dDisplacementFilterTexture", "vray2dDisplacementFilterBlur", "vrayDisplacementUseBounds", "vrayDisplacementMinValue", "vrayDisplacementMaxValue"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+
+	if (!$dim) {
+		vrayOnDisplacementType($node, $attrName, $widget);
+		vrayOnEnableWaterLevel($node, $attrName, $widget);
+		vrayOnDisplacementUseBounds($node, $attrName, $widget);
+		vrayOnDisplacementFilterBlur($node, $attrName, $widget);
+		}
+	}
+}
+
+proc int vrayGetDisplacementNone(string $node) {
+	int $none=0;
+	if (vrayAttributeExists($node, "vrayDisplacementNone"))
+		$none=(`getAttr ($node + ".vrayDisplacementNone")`)!=0;
+	return $none;
+}
+
+global proc vrayOnDisplacementType(string $node, string $attrName, string $widget) {
+  if (vrayAttributeExists($node, "vrayDisplacementType")) {
+    int $dim1 = (`getAttr ($node+".vrayDisplacementType")`!=0);
+    int $none=vrayGetDisplacementNone($node);
+    
+    $dim1 +=$none;
+    int $dim2 = (`getAttr ($node+".vrayDisplacementType")`==0);
+    $dim2 += !$none;
+
+    if (vrayAttributeExists($node, "vray2dDisplacementResolution")) {
+      string $attrNames[] = {"vray2dDisplacementResolution", "vray2dDisplacementPrecision", "vray2dDisplacementTightBounds"};
+      vrayDimControls($node, $attrNames, $widget, $dim1);
+    }
+
+    if (vrayAttributeExists($node, "vrayDisplacementKeepContinuity")) {
+      string $attrNames2[] = {"vrayDisplacementKeepContinuity"};
+      vrayDimControls($node, $attrNames2, $widget, !$dim2);
+    }
+   
+  }
+
+  vrayOnDisplacementUseBounds($node, $attrName, $widget);
+}
+
+global proc vrayOnDisplacementFilterBlur(string $node, string $attrName, string $widget) {
+  if (vrayAttributeExists($node, "vray2dDisplacementFilterTexture"))
+  {
+    int $dimBlur = (!`getAttr ($node+".vray2dDisplacementFilterTexture")`);
+    $dimBlur += vrayGetDisplacementNone($node);
+    string $attrNames[] = {"vray2dDisplacementFilterBlur"};
+    vrayDimControls($node, $attrNames, $widget, $dimBlur);
+  }
+}
+
+global proc vrayOnEnableWaterLevel(string $node, string $attrName, string $widget) {
+  if (`attributeQuery -exists -node $node "vrayEnableWaterLevel"`) {
+		int $dim = (! `getAttr ($node + ".vrayEnableWaterLevel")`);
+		$dim += vrayGetDisplacementNone($node);
+
+		string $attrNames[] = {"vrayWaterLevel"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnDisplacementUseBounds(string $node, string $attrName, string $widget) {
+  if (vrayAttributeExists($node, "vrayDisplacementType") && vrayAttributeExists($node, "vrayDisplacementUseBounds")) {
+    int $dim = (! `getAttr ($node + ".vrayDisplacementUseBounds")`);
+    int $dimType = (`getAttr ($node+".vrayDisplacementType")`==0);
+    $dimType += vrayGetDisplacementNone($node);;
+
+    string $attrNames[] = { "vrayDisplacementUseBounds" };
+    vrayDimControls($node, $attrNames, $widget, $dimType);
+
+    string $attrNames2[] = { "vrayDisplacementMinValue", "vrayDisplacementMaxValue" };
+    vrayDimControls($node, $attrNames2, $widget, $dim || $dimType);
+  }
+}
+
+global proc vrayOnEnableRoundEdges(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayRoundEdges"`) {
+		int $dim = (! `getAttr ($node + ".vrayRoundEdges")`);
+		string $attrNames[] = {"vrayRoundEdgesRadius"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnOverrideGlossiness(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayOverride"`) {
+		int $dim = (! `getAttr ($node + ".vrayOverride")`);
+
+		string $attrNames[] = {"vrayHilightGlossiness", "vrayReflectionGlossiness"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnCameraDomeOn(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraDomeOn"`) {
+		int $dim = (! `getAttr ($node + ".vrayCameraDomeOn")`);
+		if ($dim == 0) {
+			// disable the physical camera
+			if (`attributeQuery -exists -node $node "vrayCameraPhysicalOn"` && `getAttr ($node + ".vrayCameraPhysicalOn")`) {
+				setAttr ($node + ".vrayCameraPhysicalOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnCameraPhysicalOn($node, $attrName, $tmpWidget + "vray_cameraPhysical_camera|dummy");
+			}
+      // disable the DomemasterStereo camera
+			if (`attributeQuery -exists -node $node "vrayDomemasterStereoOn"` && `getAttr ($node + ".vrayDomemasterStereoOn")`) {
+				setAttr ($node + ".vrayDomemasterStereoOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnLatLongStereoOn($node, $attrName, $tmpWidget + "vray_DomemasterStereo_camera|dummy");
+			}
+      // disable the LatlongStereo camera
+			if (`attributeQuery -exists -node $node "vrayLatLongStereoOn"` && `getAttr ($node + ".vrayLatLongStereoOn")`) {
+				setAttr ($node + ".vrayLatLongStereoOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnLatLongStereoOn($node, $attrName, $tmpWidget + "vray_LatLongStereo_camera|dummy");
+			}
+		}
+		string $attrNames[] = {"vrayCameraDomeFlipX", "vrayCameraDomeFlipY", "vrayCameraDomeFov" };
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnCameraPhysicalOn(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalOn"`) {
+		int $dim = (! `getAttr ($node + ".vrayCameraPhysicalOn")`);
+		string $attrNames[] = {"vrayCameraPhysicalType", "vrayCameraPhysicalFilmWidth", "vrayCameraPhysicalFocalLength", 
+								"vrayCameraPhysicalZoomFactor", "vrayCameraPhysicalDistortionType", "vrayCameraPhysicalDistortion", 
+								"vrayCameraPhysicalLensFile", "vrayCameraPhysicalDistortionMap", "vrayCameraPhysicalFNumber", "vrayCameraPhysicalLensShift", 
+								"vrayCameraPhysicalShutterSpeed", "vrayCameraPhysicalShutterAngle", "vrayCameraPhysicalShutterOffset", 
+								"vrayCameraPhysicalLatency", "vrayCameraPhysicalISO", "vrayCameraPhysicalSpecifyFocus", "vrayCameraPhysicalFocusDistance", 
+								"vrayCameraPhysicalExposure", "vrayCameraPhysicalWhiteBalance", "vrayCameraPhysicalVignetting", 
+								"vrayCameraPhysicalVignettingAmount", "vrayCameraPhysicalBladesEnable", "vrayCameraPhysicalBladesNum", 
+								"vrayCameraPhysicalBladesRotation", "vrayCameraPhysicalCenterBias", "vrayCameraPhysicalAnisotropy", 
+								"vrayCameraPhysicalUseDof", "vrayCameraPhysicalUseMoBlur", "vrayCameraPhysicalSubdivs",
+								"vrayCameraPhysicalSpecifyFOV", "vrayCameraPhysicalFOV"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+		if ($dim == 0) {
+			// Here $widget is not the one corresponding to the attribute, but they have the same parent, which is enough.
+			vrayOnCameraPhysicalType($node, $attrName, $widget);
+			vrayOnCameraPhysicalSpecifyFocus($node, $attrName, $widget);
+			vrayOnCameraPhysicalBladesEnable($node, $attrName, $widget);
+			vrayOnCameraPhysicalDistortionType($node, $attrName, $widget);
+			vrayOnCameraPhysicalSpecifyFOV($node, $attrName, $widget);
+			
+			// disable the dome camera
+			if (`attributeQuery -exists -node $node "vrayCameraDomeOn"` && `getAttr ($node + ".vrayCameraDomeOn")`) {
+				setAttr ($node + ".vrayCameraDomeOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnCameraDomeOn($node, $attrName, $tmpWidget + "vray_cameraDome_camera|dummy");
+			}
+      // disable the DomemasterStereo camera
+			if (`attributeQuery -exists -node $node "vrayDomemasterStereoOn"` && `getAttr ($node + ".vrayDomemasterStereoOn")`) {
+				setAttr ($node + ".vrayDomemasterStereoOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnLatLongStereoOn($node, $attrName, $tmpWidget + "vray_DomemasterStereo_camera|dummy");
+			}
+      // disable the LatlongStereo camera
+			if (`attributeQuery -exists -node $node "vrayLatLongStereoOn"` && `getAttr ($node + ".vrayLatLongStereoOn")`) {
+				setAttr ($node + ".vrayLatLongStereoOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnLatLongStereoOn($node, $attrName, $tmpWidget + "vray_LatLongStereo_camera|dummy");
+			}
+		}
+		if (`connectionInfo -isDestination ($node + ".focalLength")`) {
+			string $attrNames2[] = {"vrayCameraPhysicalFilmWidth", "vrayCameraPhysicalFocalLength", "vrayCameraPhysicalSpecifyFOV", "vrayCameraPhysicalFOV" };
+			vrayDimControls($node, $attrNames2, $widget, 1);
+		}
+	}
+}
+
+global proc vrayOnCameraPhysicalType(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalOn"` && `getAttr ($node + ".vrayCameraPhysicalOn")` &&
+	`attributeQuery -exists -node $node "vrayCameraPhysicalType"`) 	{
+		int $cameraType = `getAttr ($node + ".vrayCameraPhysicalType")`; 
+		vrayDimControls($node, {"vrayCameraPhysicalShutterSpeed"}, $widget, $cameraType != 0);
+		vrayDimControls($node, {"vrayCameraPhysicalShutterAngle", "vrayCameraPhysicalShutterOffset"}, $widget, $cameraType != 1);
+		vrayDimControls($node, {"vrayCameraPhysicalLatency"}, $widget, $cameraType != 2);
+	}
+}
+
+global proc vrayOnCameraPhysicalDistortionType(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalOn"` && `getAttr ($node + ".vrayCameraPhysicalOn")` &&
+	     `attributeQuery -exists -node $node "vrayCameraPhysicalDistortionType"`) {
+		int $distortionType = `getAttr ($node + ".vrayCameraPhysicalDistortionType")`;
+		vrayDimControls($node, {"vrayCameraPhysicalDistortion"}, $widget, $distortionType != 0 && $distortionType != 1);
+		vrayDimControls($node, {"vrayCameraPhysicalLensFile"}, $widget, $distortionType != 2);
+		vrayDimControls($node, {"vrayCameraPhysicalDistortionMap"}, $widget, $distortionType != 3);
+	}
+}
+
+global proc vrayOnCameraPhysicalSpecifyFocus(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalSpecifyFocus"`) {
+		int $dim = (! `getAttr ($node + ".vrayCameraPhysicalSpecifyFocus")`);
+		$dim += (! `getAttr ($node + ".vrayCameraPhysicalOn")`);
+
+		string $attrNames[] = {"vrayCameraPhysicalFocusDistance"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnCameraPhysicalSpecifyFOV(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalSpecifyFOV"`) {
+		if (!`connectionInfo -isDestination ($node + ".focalLength")`) {
+			int $camPhysicalOn = (`getAttr ($node + ".vrayCameraPhysicalOn")`);
+			int $FOVType = (`getAttr ($node + ".vrayCameraPhysicalSpecifyFOV")`);
+			vrayDimControls($node, {"vrayCameraPhysicalFOV"}, $widget, !($FOVType == 1 && $camPhysicalOn));
+			vrayDimControls($node, {"vrayCameraPhysicalFocalLength"}, $widget, !($FOVType == 0 && $camPhysicalOn));
+		} else {
+			vrayDimControls($node, {"vrayCameraPhysicalFOV"}, $widget, 1);
+			vrayDimControls($node, {"vrayCameraPhysicalFocalLength"}, $widget, 1);
+		}
+	}
+}
+
+global proc vrayOnCameraPhysicalVignetting(string $node, string $attrName, string $widget) {
+  if (`attributeQuery -exists -node $node "vrayCameraPhysicalVignetting"` && `getAttr ($node + ".vrayCameraPhysicalOn")`) {
+    int $dim = (! `getAttr ($node + ".vrayCameraPhysicalVignetting")`);
+    string $attrNames[] = {"vrayCameraPhysicalVignettingAmount"};
+    vrayDimControls($node, $attrNames, $widget, $dim);
+  }
+}
+
+global proc vrayOnCameraPhysicalExposure(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalExposure"`) {
+		int $dim = (! `getAttr ($node + ".vrayCameraPhysicalExposure")`);
+		$dim += (! `getAttr ($node + ".vrayCameraPhysicalOn")`);
+
+		string $attrNames[] = {"vrayCameraPhysicalWhiteBalance"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnCameraPhysicalBladesEnable(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayCameraPhysicalBladesEnable"`) {
+		int $dim = (! `getAttr ($node + ".vrayCameraPhysicalBladesEnable")`);
+		$dim += (! `getAttr ($node + ".vrayCameraPhysicalOn")`);
+
+		string $attrNames[] = {"vrayCameraPhysicalBladesNum", "vrayCameraPhysicalBladesRotation"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnCameraOverridesOn(string $node, string $attrName, string $widget) {
+  int $off = !(`getAttr ($node + ".vrayCameraOverridesOn")`);
+  string $attrNamesList[] = {"vrayCameraType", "vrayCameraOverrideFOV", "vrayCameraFOV", 
+    "vrayCameraHeight", "vrayCameraAutoFit", "vrayCameraDist", "vrayCameraCurve"};
+  vrayDimControls($node, $attrNamesList, $widget, $off);
+  if (!$off) {
+    vrayOnCameraType($node, $attrName, $widget);
+    vrayOnCameraOverrideFOV($node, $attrName, $widget);
+  }
+}
+
+global proc vrayOnCameraType(string $node, string $attrName, string $widget) {
+  if (`attributeQuery -exists -node $node "vrayCameraType"`) {
+    int $type = `getAttr ($node + ".vrayCameraType")`;
+
+    int $dimHeight = !($type == 3);
+    string $attrNamesHeight[] = {"vrayCameraHeight"};
+    vrayDimControls($node, $attrNamesHeight, $widget, $dimHeight);
+    
+    int $dimFish = !($type == 5 || $type == 6);
+    $dimFish += !(`getAttr ($node + ".vrayCameraOverridesOn")`);
+    string $attrNamesFish[] = {"vrayCameraAutoFit", "vrayCameraCurve"};
+    vrayDimControls($node, $attrNamesFish, $widget, $dimFish);
+    
+    int $dimDist = ($dimFish || (`getAttr ($node + ".vrayCameraAutoFit")`));
+    $dimDist += !(`getAttr ($node + ".vrayCameraOverridesOn")`);
+
+    string $attrNamesDist[] = {"vrayCameraDist"};
+    vrayDimControls($node, $attrNamesDist, $widget, $dimDist);
+  }
+}
+
+global proc vrayOnCameraOverrideFOV(string $node, string $attrName, string $widget) {
+  if (`attributeQuery -exists -node $node "vrayCameraOverrideFOV"`) {
+    int $dim = !(`getAttr ($node + ".vrayCameraOverrideFOV")`);
+    $dim += !(`getAttr ($node + ".vrayCameraOverridesOn")`);
+    string $attrNames[] = {"vrayCameraFOV"};
+    vrayDimControls($node, $attrNames, $widget, $dim);
+  }
+}
+
+global proc vrayOnDepthFromCameraZDepthRE(string $node, string $attrName, string $widget) {
+  if (`attributeQuery -exists -node $node "vray_depthFromCamera_zdepth"`) {
+    int $dim = `getAttr ($node + ".vray_depthFromCamera_zdepth")`;
+    string $attrNames[] = { "vray_depthBlack", "vray_depthWhite" };
+    vrayDimControls($node, $attrNames, $widget, $dim);
+  }
+}
+
+global proc vrayOnLightOverrideMBSamples(string $node, string $attrName, string $widget) {
+  if (`attributeQuery -exists -node $node "vrayOverrideMBSamples"`) {
+    int $dim = !(`getAttr ($node + ".vrayOverrideMBSamples")`);
+    string $attrNames[] = {"vrayMBSamples"};
+    vrayDimControls($node, $attrNames, $widget, $dim);
+  }
+}
+
+global proc vrayOnFileGammaEnable(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayFileGammaEnable"`) {
+		int $dim = !(`getAttr ($node + ".vrayFileGammaEnable")`);
+		string $attrNames[] = {"vrayFileGammaValue"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnFileColorSpace(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayFileGammaEnable"` && `attributeQuery -exists -node $node "vrayFileColorSpace"`) {
+		int $dim = !getAttr ($node + ".vrayFileGammaEnable") || getAttr ($node + ".vrayFileColorSpace") != 1;
+		string $attrNames[] = {"vrayFileGammaValue"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnOverrideTextureFilter(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayOverrideTextureFilter"`) {
+		int $dim = !(`getAttr ($node + ".vrayOverrideTextureFilter")`);
+		string $attrNames[] = { "vrayTextureFilter", "vrayTextureSmoothType" };
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnOverrideTextureFormat(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayOverrideTextureFormat"`) {
+		int $dim = !(`getAttr ($node + ".vrayOverrideTextureFormat")`);
+		string $attrNames[] = {"vrayTextureFormat"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnEnableAllOverrides(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableAllOverrides"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vrayEnableSpecificSurfaceShader", "vraySpecificSurfaceShader", "vrayEnableGIMaterial", "vrayGIMaterial", "vrayEnableReflectMaterial", "vrayReflectMaterial", "vrayEnableRefractMaterial", "vrayRefractMaterial", "vrayEnableShadowMaterial", "vrayShadowMaterial", "vrayEnableEnvironmentOverride", "vrayMtlEnvironmentOverride", "vrayMtlEnvironmentPriority"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+
+		if ($dim == 0) {
+			vrayOnEnableSpecificSurfaceShader($node, $attrName, $widget);
+			vrayOnEnableGIMaterial($node, $attrName, $widget);
+			vrayOnEnableReflectMaterial($node, $attrName, $widget);
+			vrayOnEnableRefractMaterial($node, $attrName, $widget);
+			vrayOnEnableShadowMaterial($node, $attrName, $widget);
+			vrayOnEnableEnvironmentOverride($node, $attrName, $widget);
+		}
+	}
+}
+
+global proc vrayOnEnableSpecificSurfaceShader(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableSpecificSurfaceShader"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableSpecificSurfaceShader")`);
+		$dim += (! `getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vraySpecificSurfaceShader"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnEnableGIMaterial(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableGIMaterial"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableGIMaterial")`);
+		$dim += (! `getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vrayGIMaterial"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnEnableReflectMaterial(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableReflectMaterial"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableReflectMaterial")`);
+		$dim += (! `getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vrayReflectMaterial"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnEnableRefractMaterial(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableRefractMaterial"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableRefractMaterial")`);
+		$dim += (! `getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vrayRefractMaterial"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnEnableShadowMaterial(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableShadowMaterial"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableShadowMaterial")`);
+		$dim += (! `getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vrayShadowMaterial"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnEnableEnvironmentOverride(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayEnableEnvironmentOverride"`) {
+		int $dim = !(`getAttr ($node + ".vrayEnableEnvironmentOverride")`);
+		$dim += (! `getAttr ($node + ".vrayEnableAllOverrides")`);
+
+		string $attrNames[] = {"vrayMtlEnvironmentOverride", "vrayMtlEnvironmentPriority"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnNurbsCurveLockEndWidth(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayNurbsCurveRenderable"` && `attributeQuery -exists -node $node "vrayNurbsCurveLockEndWidth"`) {
+		int $dim = (! `getAttr ($node + ".vrayNurbsCurveRenderable")`) || (`getAttr ($node + ".vrayNurbsCurveLockEndWidth")`);
+		string $attrNames[] = {"vrayNurbsCurveEndWidth"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnNurbsCurveRenderable(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayNurbsCurveRenderable"`) {
+		int $dim = (! `getAttr ($node + ".vrayNurbsCurveRenderable")`);
+
+		string $attrNames[] = {"vrayNurbsCurveMaterial", "vrayNurbsCurveTesselation", "vrayNurbsCurveStartWidth", "vrayNurbsCurveEndWidth", "vrayNurbsCurveLockEndWidth"};
+		vrayDimControls($node, $attrNames, $widget, $dim);
+		
+		if (!$dim)
+			vrayOnNurbsCurveLockEndWidth($node, $attrName, $widget);
+	}
+}
+
+global proc vrayOnFluidShaderChanged(string $node, string $attrName, string $widget) {
+}
+
+// End of procedures for enable/disable of dynamic Vray Attributes
+//---------------------------------------------------------
+
+
+global proc suppressAttributesForVRayObjects() {
+	editorTemplate -suppress "resolution";
+	editorTemplate -suppress "normalCamera";
+	editorTemplate -suppress "objectType";
+	editorTemplate -suppress "nodeState";
+	editorTemplate -suppress "caching";
+	editorTemplate -suppress "intermediateObject";
+	editorTemplate -suppress "ghosting";
+	editorTemplate -suppress "ghostingControl";
+	editorTemplate -suppress "ghostPreSteps";
+	editorTemplate -suppress "ghostPostSteps";
+	editorTemplate -suppress "ghostStepSize";
+	editorTemplate -suppress "ghostFrames";
+	editorTemplate -suppress "ghostRangeStart";
+	editorTemplate -suppress "ghostRangeEnd";
+	editorTemplate -suppress "ghostDriver";
+	editorTemplate -suppress "ghostCustomSteps";
+	editorTemplate -suppress "boundingBox";
+	editorTemplate -suppress "castsShadows";
+	editorTemplate -suppress "receiveShadows";
+	editorTemplate -suppress "motionBlur";
+	editorTemplate -suppress "visibleInReflections";
+	editorTemplate -suppress "visibleInRefractions";
+	editorTemplate -suppress "depthJitter";
+	editorTemplate -suppress "maxVisibilitySamplesOverride";
+	editorTemplate -suppress "maxVisibilitySamples";
+	editorTemplate -suppress "geometryAntialiasingOverride";
+	editorTemplate -suppress "antialiasingLevel";
+	editorTemplate -suppress "shadingSamplesOverride";
+	editorTemplate -suppress "shadingSamples";
+	editorTemplate -suppress "maxShadingSamples";
+	editorTemplate -suppress "volumeSamplesOverride";
+	editorTemplate -suppress "volumeSamples";
+
+	editorTemplate -suppress "visibility";
+	editorTemplate -suppress "template";
+	editorTemplate -suppress "useObjectColor";
+	editorTemplate -suppress "objectColor";
+	editorTemplate -suppress "drawOverride";
+	editorTemplate -suppress "overrideDisplayType";
+	editorTemplate -suppress "overrideLevelOfDetail";
+	editorTemplate -suppress "overrideShading";
+	editorTemplate -suppress "overrideTexturing";
+	editorTemplate -suppress "overridePlayback";
+	editorTemplate -suppress "overrideEnabled";
+	editorTemplate -suppress "overrideVisibility";
+	editorTemplate -suppress "overrideColor";
+	editorTemplate -suppress "lodVisibility";
+	editorTemplate -suppress "renderInfo";
+	editorTemplate -suppress "identification";
+	editorTemplate -suppress "layerRenderable";
+	editorTemplate -suppress "layerOverrideColor";
+	editorTemplate -suppress "renderLayerInfo";
+	editorTemplate -suppress "renderType";
+	editorTemplate -suppress "renderVolume";
+	editorTemplate -suppress "visibleFraction";
+	editorTemplate -suppress "motionBlur";
+	editorTemplate -suppress "visibleInReflections";
+	editorTemplate -suppress "visibleInRefractions";
+	editorTemplate -suppress "depthJitter";
+	editorTemplate -suppress "ignoreSelfShadowing";
+	editorTemplate -suppress "primaryVisibility";
+	editorTemplate -suppress "referenceObject";
+	editorTemplate -suppress "compInstObjGroups";
+	editorTemplate -suppress "underWorldObject";
+	editorTemplate -suppress "localPosition";
+	editorTemplate -suppress "worldPosition";
+	editorTemplate -suppress "localScale";
+	editorTemplate -suppress "lightData";
+	editorTemplate -suppress "lightDirection";
+	editorTemplate -suppress "lightIntensity";
+	editorTemplate -suppress "lightAmbient";
+	editorTemplate -suppress "lightDiffuse";
+	editorTemplate -suppress "lightSpecular";
+	editorTemplate -suppress "lightShadowFraction";
+	editorTemplate -suppress "preShadowIntensity";
+	editorTemplate -suppress "lightBlindData";
+}
+
+global proc suppressAttributesForVRaySurfaceShapes() {
+	suppressAttributesForVRayObjects();
+
+	editorTemplate -suppress "doubleSided";
+	editorTemplate -suppress "opposite";
+	editorTemplate -suppress "smoothShading";
+
+	editorTemplate -suppress "ignoreHwShader";
+	editorTemplate -suppress "center";
+	editorTemplate -suppress "matrix";
+	editorTemplate -suppress "inverseMatrix";
+	editorTemplate -suppress "worldMatrix";
+	editorTemplate -suppress "worldInverseMatrix";
+	editorTemplate -suppress "parentMatrix";
+	editorTemplate -suppress "parentInverseMatrix";
+	editorTemplate -suppress "instObjGroups";
+
+	editorTemplate -suppress "controlPoints";
+	editorTemplate -suppress "weights";
+	editorTemplate -suppress "tweak";
+	editorTemplate -suppress "relativeTweak";
+	editorTemplate -suppress "currentUVSet";
+	editorTemplate -suppress "currentColorSet";
+	editorTemplate -suppress "uvSet";
+	editorTemplate -suppress "displayColors";
+	editorTemplate -suppress "displayColorChannel";
+	editorTemplate -suppress "displayImmediate";
+	editorTemplate -suppress "colorSet";
+
+	editorTemplate -suppress "featureDisplacement";
+	editorTemplate -suppress "initialSampleRate";
+	editorTemplate -suppress "extraSampleRate";
+	editorTemplate -suppress "textureThreshold";
+	editorTemplate -suppress "normalThreshold";
+	editorTemplate -suppress "boundingBoxScale";
+	
+	editorTemplate -suppress "collisionOffsetVelocityIncrement";
+	editorTemplate -suppress "collisionDepthVelocityIncrement";
+	editorTemplate -suppress "collisionOffsetVelocityMultiplier";
+	editorTemplate -suppress "collisionDepthVelocityMultiplier";
+}
+
+global proc suppressAttributesForVRayObjectSets() {
+	editorTemplate -suppress "memberWireframeColor";
+	editorTemplate -suppress "annotation";
+	editorTemplate -suppress "partition";
+	editorTemplate -suppress "isLayer";
+	editorTemplate -suppress "verticesOnlySet";
+	editorTemplate -suppress "edgesOnlySet";
+	editorTemplate -suppress "facetsOnlySet";
+	editorTemplate -suppress "editPointsOnlySet";
+	editorTemplate -suppress "renderableOnlySet";
+	editorTemplate -suppress "dagSetMembers";
+	editorTemplate -suppress "dnSetMembers";
+	editorTemplate -suppress "groupNodes";
+	editorTemplate -suppress "usedBy";
+}
+
+
+// ---------------------------------------------------------------------------------
+// 2014-11-14 03.00 pm
+// ---------------------------------------------------------------------------------
+
+global proc vrayOnDomemasterStereoOn(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayDomemasterStereoOn"`) {
+		int $dim = (! `getAttr ($node + ".vrayDomemasterStereoOn")`);
+		if ($dim == 0) {
+			// disable the physical camera
+			if (`attributeQuery -exists -node $node "vrayCameraPhysicalOn"` && `getAttr ($node + ".vrayCameraPhysicalOn")`) {
+				setAttr ($node + ".vrayCameraPhysicalOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnCameraPhysicalOn($node, $attrName, $tmpWidget + "vray_cameraPhysical_camera|dummy");
+			}
+     	// disable the LatlongStereo camera
+			if (`attributeQuery -exists -node $node "vrayLatLongStereoOn"` && `getAttr ($node + ".vrayLatLongStereoOn")`) {
+				setAttr ($node + ".vrayLatLongStereoOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnLatLongStereoOn($node, $attrName, $tmpWidget + "vray_LatLongStereo_camera|dummy");
+			}
+			// disable the dome camera
+			if (`attributeQuery -exists -node $node "vrayCameraDomeOn"` && `getAttr ($node + ".vrayCameraDomeOn")`) {
+				setAttr ($node + ".vrayCameraDomeOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnCameraDomeOn($node, $attrName, $tmpWidget + "vray_cameraDome_camera|dummy");
+			}
+		}
+		string $attrNames[] = {"vrayDomemasterStereoCamera", "vrayDomemasterStereoFovAngle", "vrayDomemasterStereoZeroParallaxSphere", "vrayDomemasterStereoSeparation", "vrayDomemasterStereoForwardTilt", "vrayDomemasterStereoTiltCompensation", "vrayDomemasterStereoVerticalMode", "vrayDomemasterStereoSeparationMap", "vrayDomemasterStereoHeadTurnMap", "vrayDomemasterStereoHeadTiltMap", "vrayDomemasterStereoFlipX", "vrayDomemasterStereoFlipY" };
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+global proc vrayOnLatLongStereoOn(string $node, string $attrName, string $widget) {
+	if (`attributeQuery -exists -node $node "vrayLatLongStereoOn"`) {
+		int $dim = (! `getAttr ($node + ".vrayLatLongStereoOn")`);
+		if ($dim == 0) {
+			// disable the physical camera
+			if (`attributeQuery -exists -node $node "vrayCameraPhysicalOn"` && `getAttr ($node + ".vrayCameraPhysicalOn")`) {
+				setAttr ($node + ".vrayCameraPhysicalOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnCameraPhysicalOn($node, $attrName, $tmpWidget + "vray_cameraPhysical_camera|dummy");
+			}
+      // disable the DomemasterStereo camera
+			if (`attributeQuery -exists -node $node "vrayDomemasterStereoOn"` && `getAttr ($node + ".vrayDomemasterStereoOn")`) {
+				setAttr ($node + ".vrayDomemasterStereoOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnLatLongStereoOn($node, $attrName, $tmpWidget + "vray_DomemasterStereo_camera|dummy");
+			}
+      // disable the dome camera
+			if (`attributeQuery -exists -node $node "vrayCameraDomeOn"` && `getAttr ($node + ".vrayCameraDomeOn")`) {
+				setAttr ($node + ".vrayCameraDomeOn") false;
+				string $tmpWidget = tokenizeWidget(tokenizeWidget($widget));
+				vrayOnCameraDomeOn($node, $attrName, $tmpWidget + "vray_cameraDome_camera|dummy");
+			}
+		}
+		string $attrNames[] = {"vrayLatLongStereoCamera", "vrayLatLongStereoFovVertAngle", "vrayLatLongStereoFovHorizAngle", "vrayLatLongStereoParallaxDistance", "vrayLatLongStereoSeparation", "vrayLatLongStereoZenithMode", "vrayLatLongStereoSeparationMap", "vrayLatLongStereoFlipX", "vrayLatLongStereoFlipY" };
+		vrayDimControls($node, $attrNames, $widget, $dim);
+	}
+}
+
+
+// ---------------------------------------------------------------------------------
+

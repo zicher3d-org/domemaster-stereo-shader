@@ -42,7 +42,7 @@ class LatLongStereoTemplate(templates.AttributeTemplate):
     self.endNoOptimize()
     self.endLayout()
     
-    self.beginLayout( "Options", collapse=False)
+    self.beginLayout("Options", collapse=False)
     self.addControl("aiExposure", label="Exposure")
     self.addControl("aiFocusDistance", label="Focal Distance")
     self.addControl("aiApertureSize", label="Aperture Size")

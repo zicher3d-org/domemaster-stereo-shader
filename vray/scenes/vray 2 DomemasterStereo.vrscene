@@ -1,0 +1,1183 @@
+/////////////////////////////////////////
+// Exported by V-Ray Plugins Exporter
+// Thu Nov 13 20:39:12 2014
+/////////////////////////////////////////
+
+
+// Frame at time 1
+
+SettingsRenderChannels vraySettingsRenderChannels {
+  unfiltered_fragment_method=0;
+}
+
+SettingsOutput vraySettingsOutput {
+  img_width=450;
+  img_height=450;
+  img_pixelAspect=1;
+  img_file="vray 2 DomemasterStereo.png";
+  img_dir="";
+  img_file_needFrameNumber=0;
+  img_separateAlpha=0;
+  img_noAlpha=0;
+  img_dontSaveRgbChannel=0;
+  img_rawFile=0;
+  img_rawFileVFB=1;
+  anim_start=1;
+  anim_end=1;
+  anim_frame_padding=4;
+  anim_renumber_on=0;
+  anim_renumber_start=0;
+  anim_renumber_step=1;
+  anim_ren_frame_start=0;
+  frame_start=1;
+  frames_per_second=1;
+  frames=List(1);
+  rgn_left=0;
+  rgn_width=450;
+  rgn_top=0;
+  rgn_height=450;
+  bmp_width=450;
+  bmp_height=450;
+  r_left=0;
+  r_width=450;
+  r_top=0;
+  r_height=450;
+  relements_separateFolders=0;
+  relements_divider=".";
+  film_offset_x=0;
+  film_offset_y=-0;
+}
+
+SettingsOptions vraySettingsOptions {
+  geom_displacement=1;
+  geom_doHidden=1;
+  light_doLights=1;
+  light_doDefaultLights=1;
+  light_doHiddenLights=1;
+  light_doShadows=1;
+  light_onlyGI=0;
+  gi_dontRenderImage=0;
+  mtl_reflectionRefraction=1;
+  mtl_limitDepth=0;
+  mtl_maxDepth=5;
+  mtl_doMaps=1;
+  mtl_filterMaps=1;
+  mtl_transpMaxLevels=50;
+  mtl_transpCutoff=0.001;
+  mtl_override_on=0;
+  mtl_glossy=1;
+  geom_backfaceCull=0;
+  ray_bias=0;
+  misc_lowThreadPriority=0;
+}
+
+SettingsImageSampler vraySettingsImageSampler {
+  type=1;
+  fixed_subdivs=1;
+  dmc_minSubdivs=1;
+  dmc_maxSubdivs=4;
+  dmc_threshold=0.01;
+  dmc_show_samples=0;
+  subdivision_minRate=-1;
+  subdivision_maxRate=2;
+  subdivision_jitter=1;
+  subdivision_threshold=0.15;
+  subdivision_edges=1;
+  subdivision_normals=1;
+  subdivision_normals_threshold=0.1;
+  subdivision_show_samples=0;
+}
+
+FilterArea aaFilter {
+  size=1.5;
+}
+
+
+DomemasterStereo RenderCamShape {
+  camera=0;
+  fov_angle=360.0;
+  zero_parallax_sphere=360.0;
+  separation=6.5;
+  forward_tilt=0.0;
+  tilt_compensation=0;
+  vertical_mode=1;
+  separation_map=1.0;
+  head_turn_map=1.0;
+  head_tilt_map=0.5;
+  flip_x=0;
+  flip_y=0;
+}
+
+
+
+SettingsCamera vraySettingsCamera {
+  type=0;
+  height=400;
+  dist=2;
+  fov=-1;
+  auto_fit=1;
+  curve=1;
+}
+
+SettingsCameraDof vraySettingsCameraDof {
+  on=0;
+  aperture=5;
+  center_bias=0;
+  focal_dist=200;
+  sides_on=0;
+  sides_num=5;
+  rotation=0;
+  anisotropy=0;
+  subdivs=8;
+}
+
+SettingsMotionBlur vraySettingsMotionBlur {
+  on=0;
+  geom_samples=2;
+  low_samples=1;
+}
+
+RenderView renderView {
+  transform=TransformHex("000080BF0000000032310DA532310D2500008025000080BF0000000B000080BF000080A5000000007D9FD5AB7BA582B9486CA278487213407D9FD5AB7BA5D23C");
+  fov=1.570796;
+  frame_samples=2;
+  clipping=0;
+  clipping_near=0.1;
+  clipping_far=10000;
+  zoom=1;
+  orthographic=0;
+  orthographicWidth=10;
+}
+
+SettingsEXR vraySettingsEXR {
+  compression=0;
+  bits_per_channel=16;
+  extra_attributes="";
+  auto_data_window=0;
+}
+
+SettingsPNG vraySettingsPNG {
+  compression=9;
+  bits_per_channel=8;
+}
+
+SettingsJPEG vraySettingsJPEG {
+  quality=85;
+}
+
+SettingsSGI vraySettingsSGI {
+  bits_per_channel=8;
+}
+
+SettingsTIFF vraySettingsTIFF {
+  bits_per_channel=16;
+  interleaved=0;
+}
+
+SettingsTGA vraySettingsTGA {
+  compression=2;
+}
+
+SettingsColorMapping vraySettingsColorMapping {
+  type=0;
+  affect_background=1;
+  dark_mult=1;
+  bright_mult=1;
+  gamma=1;
+  subpixel_mapping=0;
+  clamp_output=0;
+  clamp_level=1;
+  adaptation_only=0;
+  linearWorkflow=0;
+}
+
+SettingsUnitsInfo vraySettingsUnitsInfo {
+  meters_scale=0.01;
+  photometric_scale=0.002;
+  scene_upDir=Vector(0, 1, 0);
+  seconds_scale=0.04166667;
+}
+
+SettingsGI vraySettingsGI {
+  on=0;
+  refract_caustics=1;
+  reflect_caustics=0;
+  saturation=1;
+  contrast=1;
+  contrast_base=0.5;
+  primary_engine=0;
+  primary_multiplier=1;
+  secondary_engine=2;
+  secondary_multiplier=1;
+  ray_distance_on=0;
+  ray_distance=100;
+  ao_on=0;
+  ao_amount=0.8;
+  ao_radius=10;
+  ao_subdivs=8;
+}
+
+SettingsIrradianceMap vraySettingsIrradianceMap {
+  min_rate=-3;
+  max_rate=0;
+  subdivs=50;
+  interp_samples=20;
+  calc_interp_samples=10;
+  interp_frames=2;
+  color_threshold=0.3;
+  normal_threshold=0.1;
+  distance_threshold=0.1;
+  detail_enhancement=0;
+  detail_radius=60;
+  detail_subdivs_mult=0.3;
+  detail_scale=0;
+  randomize_samples=1;
+  interpolation_mode=1;
+  lookup_mode=3;
+  mode=0;
+  dont_delete=1;
+  file="";
+  show_samples=0;
+  show_calc_phase=1;
+  show_direct_light=0;
+  multiple_views=0;
+  multipass=1;
+  check_sample_visibility=0;
+  auto_save=1;
+  auto_save_file="";
+}
+
+SettingsPhotonMap vraySettingsPhotonMap {
+  bounces=10;
+  max_photons=30;
+  prefilter=0;
+  prefilter_samples=10;
+  mode=0;
+  file="";
+  auto_search_distance=1;
+  search_distance=10;
+  convex_hull_estimate=0;
+  dont_delete=1;
+  auto_save=1;
+  auto_save_file="";
+  store_direct_light=1;
+  multiplier=1;
+  max_density=0;
+  retrace_corners=0;
+  retrace_bounces=10;
+}
+
+SettingsDMCGI vraySettingsDMCGI {
+  subdivs=8;
+  depth=3;
+}
+
+SettingsLightCache vraySettingsLightCache {
+  subdivs=500;
+  sample_size=0.02;
+  filter_type=1;
+  filter_samples=5;
+  filter_size=0.06;
+  prefilter=0;
+  prefilter_samples=10;
+  depth=100;
+  show_calc_phase=1;
+  store_direct_light=1;
+  world_scale=0;
+  mode=0;
+  file="";
+  dont_delete=1;
+  auto_save=1;
+  auto_save_file="";
+  num_passes=8;
+  use_for_glossy_rays=0;
+  adaptive_sampling=0;
+  multiple_views=0;
+  retrace_enabled=0;
+  retrace_threshold=1;
+}
+
+SettingsCaustics vraySettingsCaustics {
+  on=0;
+  max_photons=30;
+  search_distance=0;
+  max_density=0;
+  multiplier=1;
+  mode=0;
+  file="";
+  dont_delete=1;
+  auto_save=1;
+  auto_save_file="";
+}
+
+SettingsDMCSampler vraySettingsDMCSampler {
+  time_dependent=0;
+  adaptive_amount=0.85;
+  adaptive_threshold=0.01;
+  adaptive_min_samples=8;
+  subdivs_mult=1;
+}
+
+SettingsDefaultDisplacement vraySettingsDefaultDisplacement {
+  override_on=1;
+  edgeLength=4;
+  viewDependent=1;
+  maxSubdivs=256;
+  tightBounds=1;
+  amount=1;
+  relative=1;
+}
+
+SettingsRaycaster vraySettingsRaycaster {
+  maxLevels=80;
+  minLeafSize=0;
+  faceLevelCoef=1;
+  dynMemLimit=5000;
+  optLevel=0;
+}
+
+SettingsRegionsGenerator vraySettingsRegionsGenerator {
+  xc=64;
+  yc=64;
+  xymeans=0;
+  seqtype=4;
+  reverse=0;
+}
+
+LightOmni pointLightShape1 {
+  enabled=1;
+  transform=TransformHex("0000803F0000000000000000000000000000803F0000000000000000000000000000803F0000000000000000000000005682CA0ED6A922400000000000000000");
+  color=Color(1, 1, 1);
+  color_tex=AColor(1, 1, 1, 1);
+  shadows=1;
+  shadowColor_tex=AColor(0, 0, 0, 1);
+  shadowBias=0.02;
+  photonSubdivs=500;
+  causticSubdivs=1000;
+  diffuseMult=1;
+  causticMult=1;
+  cutoffThreshold=0.005;
+  affectDiffuse=1;
+  affectSpecular=1;
+  bumped_below_surface_check=1;
+  nsamples=1;
+  channels=List(
+  );
+  channels_raw=List(
+  );
+  channels_diffuse=List(
+  );
+  channels_specular=List(
+  );
+  intensity_tex=1;
+  shadowRadius=0;
+  shadowSubdivs=1;
+  storeWithIrradianceMap=0;
+  decay=0;
+}
+
+SettingsEnvironment vraySettingsEnvironment {
+  bg_tex=AColor(0, 0, 0, 1);
+  num_environment_objects=0;
+}
+
+GeomStaticMesh pPlaneShape1@mesh1 {
+  vertices=ListVectorHex("ZIPBAC0500006F010000e7XHO6D4QcPHV5ABDa92DGPWUN2JSbWW9PUFGB22GWHN4GSXDJDCU98S5ZRaIMMb8DF0WQVSZXOQeLI92CFQ0FMZAYKcUGebN5SLDTW5IIC5KPLOdCAVScIP7V6e25N4TcdBMHaaPJ7DaZeYb94NKbd46RdQO6VIHSM712HYGWbH6V6EZJUAacDOB3e9XDODRe6Ge3RVbTT4BFQ19J2TU0DS1HYGWbMUMdRPaEcP7Scb7TDYHd9TW8DBSZ0H5QFaDacW3YEF67D2B3e9XJMPBc7KYETT0TeXdB2TEQWZFPDSME8SeXcDTW5IFAa56VKYEXccH5VY89V6P6PJbHPCBQK6S35VDT3OWGBC62e9F5STe62bO7OaKBECd0eWDEb9JFEAFCcET8DTW5IFAaD4STe6OMVZQaFUZY7QHMFUacB08a5Y7SO0B3e9XR87LTbE4aMH3aMNZHE7UVUTP9IB8376UP8Y8eEJV2V3DNZEZ59b080adUXAGGdSNcI2dSeDYbOSDF3CBSUP4A82OB3e9XCAS192Q5c8NMEO4NBA");
+  faces=ListIntHex("ZIPB6009000073020000e7XYW532MQRM11K0IP1MAQZWNbEce5317abWHU9eeAbO89OcY8a5aHZCaW0bAX1XA13e9P3RJeOQZOM6MN30LVLB9Zcc6AUKPUUBG2Qa21DHSSZT8OZXDENEeL2Qa23DHI2PQ8OBYCW8F0884XbXO2F6XKPUB6M5E7H0X2O7JT9EFRHAXN18TGCWX0Q2RSQ82BHQ9K5Q59E63EDdRA7HO6CF4481dI2FRKAX2bYIVDFPXTMLcRBcIZN1TbAO4K4SCO6e8Ibb853IYPORETG2NA5bSM0ZG4eSC3WEOW625RMUCF22SEDG2K0GaSMMPQQBP9X1DdWB95bYUZG2VJ4RDOQ7WHbbB6394OORENE2B0GJd5B2XcZB3J57QXaP67bTED2ESEEF2OF0Id52R78CEVEa6AYFW6X5TNC27UV3E22PQ97aAXUHB528IENR6569bYRZbV6LHZSJJHIN00PCYORK9I1ORe56MHP1LCN1QacA2AF2Z0PLBcIRCeDD6aZ56HHPRXUbb328IP1aB56PHPX6V2OJBLWQ04C69WN3bAOV3VRHJ1Rb7LXe4MYZTDDQTK5Q096T3bV77J47HJOYVGbbb5313POREIRSSIEND14XDCNRZHVMGWb19TY3UW792VN2258LHWNI1GT1WIBN994I89343LX73J4322BO5Hbb753NaOORECPSQ2XRD1ac139AFP741XcN6LCU6D2eRE8PSacNQD1W2bZMDcJc3LYHU6eWTKB22UV68bcR797aYXUAZ428IK6a8a1U18aIYcbNSbLaPG1S0TdBSMRY9I77aBb1W18JTO46S0BHb5FG50e0BaKRVdDC7aNGSP18XGC69E7P9XU3AW7d3VTcSKBYWG26JSY9ZT7SVY51X95M3BV7G4VIRcXLOcQSAGMZKZY5PbI5aBQET37V7LdbDOVcDA");
+  normals=ListVectorHex("ZIPBAC05000075000000e7X30W3XB8PHKdTT577J9JePMFRAANaGWM8JAYCFdT3C6H5RAIVRY5IQJ3b3MaHDG4ZdQMZD9AFPaUP4IQc3IPTZ4P29bFC6BXDNVIQFVb9Wbe0K542MaR6N5O5NKKXFBOL18OQdJQVPHTWNS0RUeL8QDVeBM5aNWMYUK3WSJX1MH5SAA");
+  faceNormals=ListIntHex("ZIPB6009000076020000e7XYW532MQRM11KKdYU6UU6UAAIAU9cIC6G94C67J549IMUUHUaER4EY5FM1bZ7IL6RD4XA1Ea5K4VGUT5GMRa2XDHKSZS8OYHEZAELZ84XbUO2a7XTPULHTc9DNeT2O7aQ96JRWVDNaV4UPJ8GTTQQ5YKL44FOQXJXBXKYRRb0TcU4VDSURG9I5V8IN9QHK9TJPM9W9RFF8LAHI9KBBH6E64ED6MFTJK2UHJC958RKI81AHG9KJBHAK11b377Xcc58SU8F2WSE5HRXC5cXYTQASERJeIYJRFLN1bYTKNINUabZ2FIFBZSABXHRdcIGLRNLN3bY646AIZU190OJA56UZTWB29TEAOR0KEcXYHTBbJR18INMRTLNabY591TANP4NKZGNQ0GDCBNRS9IaNR1LNcbYEFSLaRX9ILAG720A6BTLRYbI3H8aKSSHKQNC2Q8C5RDX84W0U9K7KaU8NOJbLNTeBN9EAPF8Z6RRR8BW07O43XE1dI5aBIbOU4MUOBZL8DcRWU84bVQHKV0IDI9L4RUG81U0S9KXcFZWJXQWWMWHa60LUdE2ERERQSOIEFYHN5PWFFPL1VbW9Y6MYUVG2LSEEKRQN9cXY1IATDR2dIN3aKQIDHP2GHdRBJc4KPXUP6BbTAD2DSESPSS2XQD1376YbDB79JeX4V6d4TJC2BUEeGRTVIcXYE4BLLRR8IJ7ada1KHPTQaBULIASEGHRM0DOCQORI9I68aGb1V18X3E8OQBLWQ04NQQLa3dX723VE1ITdKH65bPVZK2HSES6b0R76NR0EMYVE82PITVMX6Q2VHM2XSEC6bYR77NR7JHKXAcKN3GV2HQaK4bZ7H3VIXIFUTcXYACB5HRAdIT5aFGSN184d7UUZTLa5RJQOZ6LA9DR6dIV3aaFSM18YYJYCXdDYNbHGIZEbAeGRJGAMTLJX9");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB805000041010000e7X5YWC7WBTHWIKKDC6LXBIKVU00B62R7D36DMbGQ4NDLde1DF4BBFRVK5TOWOTB119V4X3XUB8NXD4ULMJMCH8TD3HGc5HT5CMY5RVAb9WSU0UDTZG855PSHGQO5X4eYBWIR80HJ4C4JZ0UFMbQCO5PY614dYZVDRX7JDDRWQ9RcDBM0aXAJOSOFYVMRV7LEFPeLbLCTVY9M01LbLQ87UBWL9WUc07XU72IE04HHL0RLKTNF63QOEYE8EQJABWLKULR6HXaL9YHdHJFJ6GTbNce2KaD2PFSR0PbYaVFOYYTTUPa6TPTAe7G6HBbM1SMSHFa5ZSSMC4cLa1Y2E70TY1O3AOLDDRQ2OcSVXKCcb2C0U3b2EXaHAJTM69LSCbAGdHcb2C0UXT790ES73KJ6XbPQ976SY1O3WBKN0TNPPcSVd3XEHSEZ32WRIKLeCOMG2IK4B7WHEcS99J9HCP54ARR4c5L2AEQWAA"), 
+          ListIntHex("ZIPB6009000073020000e7XYW532MQRM11K0IP1MAQZWNbEce5317abWHU9eeAbO89OcY8a5aHZCaW0bAX1XA13e9P3RJeOQZOM6MN30LVLB9Zcc6AUKPUUBG2Qa21DHSSZT8OZXDENEeL2Qa23DHI2PQ8OBYCW8F0884XbXO2F6XKPUB6M5E7H0X2O7JT9EFRHAXN18TGCWX0Q2RSQ82BHQ9K5Q59E63EDdRA7HO6CF4481dI2FRKAX2bYIVDFPXTMLcRBcIZN1TbAO4K4SCO6e8Ibb853IYPORETG2NA5bSM0ZG4eSC3WEOW625RMUCF22SEDG2K0GaSMMPQQBP9X1DdWB95bYUZG2VJ4RDOQ7WHbbB6394OORENE2B0GJd5B2XcZB3J57QXaP67bTED2ESEEF2OF0Id52R78CEVEa6AYFW6X5TNC27UV3E22PQ97aAXUHB528IENR6569bYRZbV6LHZSJJHIN00PCYORK9I1ORe56MHP1LCN1QacA2AF2Z0PLBcIRCeDD6aZ56HHPRXUbb328IP1aB56PHPX6V2OJBLWQ04C69WN3bAOV3VRHJ1Rb7LXe4MYZTDDQTK5Q096T3bV77J47HJOYVGbbb5313POREIRSSIEND14XDCNRZHVMGWb19TY3UW792VN2258LHWNI1GT1WIBN994I89343LX73J4322BO5Hbb753NaOORECPSQ2XRD1ac139AFP741XcN6LCU6D2eRE8PSacNQD1W2bZMDcJc3LYHU6eWTKB22UV68bcR797aYXUAZ428IK6a8a1U18aIYcbNSbLaPG1S0TdBSMRY9I77aBb1W18JTO46S0BHb5FG50e0BaKRVdDC7aNGSP18XGC69E7P9XU3AW7d3VTcSKBYWG26JSY9ZT7SVY51X95M3BV7G4VIRcXLOcQSAGMZKZY5PbI5aBQET37V7LdbDOVcDA")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB500000000F000000e7XTYQd97UbHTTHAAA4ZGIFA");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+BRDFDiffuse checkerLambert@diffuse_brdf {
+  color=Color(0, 0, 0);
+  color_tex=checkerLambert@diffuse_brdf_color_tex@tex_with_amount;
+  transparency=Color(0, 0, 0);
+}
+
+TexAColorOp checkerLambert@diffuse_brdf_color_tex@tex_with_amount {
+  color_a=checker1;
+  mult_a=0.8;
+}
+
+TexChecker checker1 {
+  compatibility_with=1;
+  alpha_from_intensity=0;
+  invert=0;
+  color_mult=AColor(1, 1, 1, 1);
+  color_offset=AColor(0, 0, 0, 1);
+  alpha_mult=1;
+  alpha_offset=0;
+  nouvw_color=AColor(0.5, 0.5, 0.5, 1);
+  uvwgen=place2dTexture1;
+  white_color=AColor(1, 0.6952312, 0.225, 1);
+  black_color=AColor(0.55, 0.3823772, 0.12375, 1);
+  contrast=1;
+}
+
+UVWGenMayaPlace2dTexture place2dTexture1 {
+  uvw_channel=0;
+  coverage_u=1;
+  coverage_v=1;
+  translate_frame_u=0;
+  translate_frame_v=0;
+  rotate_frame=0;
+  mirror_u=0;
+  mirror_v=0;
+  wrap_u=1;
+  wrap_v=1;
+  stagger=0;
+  repeat_u=4;
+  repeat_v=4;
+  offset_u=0;
+  offset_v=0;
+  rotate_uv=0;
+  noise_u=0;
+  noise_v=0;
+  nsamples=1;
+}
+
+MtlSingleBRDF checkerLambert@material {
+  brdf=checkerLambert@diffuse_brdf;
+  allow_negative_colors=1;
+}
+
+Node pPlaneShape1@node {
+  transform=TransformHex("3607CC410000000000000000000000003607CC410000000000000000000000003607CC4100000000000000000000000000000000000000000000000000000000");
+  geometry=pPlaneShape1@mesh1;
+  material=checkerLambert@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape1@mesh2 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+BRDFDiffuse lambert1@diffuse_brdf {
+  color=Color(0, 0, 0);
+  color_tex=lambert1@diffuse_brdf_color_tex@tex_with_amount;
+  transparency=Color(0, 0, 0);
+}
+
+TexAColorOp lambert1@diffuse_brdf_color_tex@tex_with_amount {
+  color_a=AColor(0.5, 0.5, 0.5, 1);
+  mult_a=0.8;
+}
+
+MtlSingleBRDF lambert1@material {
+  brdf=lambert1@diffuse_brdf;
+  allow_negative_colors=1;
+}
+
+Node pCubeShape1@node {
+  transform=TransformHex("0000803F000000000000000000000000C4DABC400000000000000000000000000000803F000000000000000000002140C82AE77C589B0740A0E076137369C5BF");
+  geometry=pCubeShape1@mesh2;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape2@mesh3 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape2@node {
+  transform=TransformHex("670F773F00000000971F863E00000080C4DABC4000000000971F86BE00000080670F773F00000000F47B3B8C757E2040C82AE77C589B074014A5988491850040");
+  geometry=pCubeShape2@mesh3;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape3@mesh4 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape3@node {
+  transform=TransformHex("75DD5C3F000000008C70013F00000080C4DABC40000000008C7001BF0000008075DD5C3F000000009FDE68F705AC1D40C82AE77C589B07407AFA9A80299D1040");
+  geometry=pCubeShape3@mesh4;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape4@mesh5 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape4@node {
+  transform=TransformHex("853E333F00000000F7C6363F00000080C4DABC4000000000F7C636BF00000080853E333F00000000145D15909A481840C82AE77C589B0740FDCDE02C7DCE1740");
+  geometry=pCubeShape4@mesh5;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape5@mesh6 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape5@node {
+  transform=TransformHex("8435FA3E0000000064595F3F00000080C4DABC400000000064595FBF000000808435FA3E000000006C10146E00331140C82AE77C589B0740E5054A7D29561D40");
+  geometry=pCubeShape5@mesh6;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape6@mesh7 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape6@node {
+  transform=TransformHex("AEE8783E000000006952783F00000080C4DABC4000000000695278BF00000080AEE8783E00000000D9324F4BC4D30140C82AE77C589B07403DA06259A7682040");
+  geometry=pCubeShape6@mesh7;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape7@mesh8 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape7@node {
+  transform=TransformHex("A1E09FBC0000000085F37F3F00000000C4DABC400000000085F37FBF00000000A1E09FBC00000000806286313B49563FC82AE77C589B0740487E26B7D7002140");
+  geometry=pCubeShape7@mesh8;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape8@mesh9 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape8@node {
+  transform=TransformHex("C2BD8FBE000000004EB4753F00000000C4DABC40000000004EB475BF00000000C2BD8FBE0000000007E474CB63CE01C0C82AE77C589B0740C25D0AC204692040");
+  geometry=pCubeShape8@mesh9;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape9@mesh10 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape9@node {
+  transform=TransformHex("B8B905BF00000000FC4B5A3F00000000C4DABC4000000000FC4B5ABF00000000B8B905BF0000000075C44A27993011C0C82AE77C589B07405AF1AC1392571D40");
+  geometry=pCubeShape9@mesh10;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape10@mesh11 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape10@node {
+  transform=TransformHex("973D3ABF0000000098A42F3F00000000C4DABC400000000098A42FBF00000000973D3ABF00000000B4685E3BA74618C0C82AE77C589B0740335229597AD01740");
+  geometry=pCubeShape10@mesh11;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape11@mesh12 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape11@node {
+  transform=TransformHex("8BBF61BF000000008971F13E00000000C4DABC40000000008971F1BE000000008BBF61BF00000000398CA174A9AA1DC0C82AE77C589B0740C8C8F2B2979F1040");
+  geometry=pCubeShape11@mesh12;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape12@mesh13 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape12@node {
+  transform=TransformHex("337D79BF00000000E979653E00000000C4DABC4000000000E97965BE00000000337D79BF00000000E21E70DF1E7E20C0C82AE77C589B0740C338140CF98A0040");
+  geometry=pCubeShape12@mesh13;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape13@mesh14 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape13@node {
+  transform=TransformHex("14CE7FBF00000000D5D81FBD00000000C4DABC4000000000D5D81F3D0000000014CE7FBF00000000F1EA84F5060021C0C82AE77C589B07403FA9647F5210C5BF");
+  geometry=pCubeShape13@mesh14;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape14@mesh15 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape14@node {
+  transform=TransformHex("404174BF00000000E94D99BE00000000C4DABC4000000000E94D993E00000000404174BF000000000FA3374DFA5120C0C82AE77C589B07403C5B3C8E791503C0");
+  geometry=pCubeShape14@mesh15;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape15@mesh16 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape15@node {
+  transform=TransformHex("3AA557BF00000000D8F509BF00000000C4DABC4000000000D8F5093F000000003AA557BF00000000A11D5FB041001DC0C82AE77C589B0740837A05AD5BC211C0");
+  geometry=pCubeShape15@mesh16;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape16@mesh17 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape16@node {
+  transform=TransformHex("8AF92BBF000000000DA23DBF00000000C4DABC40000000000DA23D3F000000008AF92BBF00000000A0E02DA1075617C0C82AE77C589B0740AEB8A84273BC18C0");
+  geometry=pCubeShape16@mesh17;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape17@mesh18 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape17@node {
+  transform=TransformHex("0296E8BE00000000AF0F64BF00000000C4DABC4000000000AF0F643F000000000296E8BE00000000BEFACBFA8F0A10C0C82AE77C589B0740866E1AD244FC1DC0");
+  geometry=pCubeShape17@mesh18;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape18@mesh19 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape18@node {
+  transform=TransformHex("C3F451BE00000000A98F7ABF00000000C4DABC4000000000A98F7A3F00000000C3F451BE000000004CFB28A52181FEBFC82AE77C589B0740461711ACFA9120C0");
+  geometry=pCubeShape18@mesh19;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape19@mesh20 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape19@node {
+  transform=TransformHex("C3B16F3D00000000B18F7FBF00000000C4DABC4000000000B18F7F3F00000000C3B16F3D0000000034865CCF9425D53FC82AE77C589B074012B076CF8DFD20C0");
+  geometry=pCubeShape19@mesh20;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape20@mesh21 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape20@node {
+  transform=TransformHex("1DCFA23E000000005FB672BF00000000C4DABC40000000005FB6723F000000001DCFA23E0000000080658DE7B25A0440C82AE77C589B074048EDF46C583920C0");
+  geometry=pCubeShape20@mesh21;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape21@mesh22 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape21@node {
+  transform=TransformHex("85240E3F0000000071E954BF00000000C4DABC400000000071E9543F0000000085240E3F00000000EDCA07DB62521240C82AE77C589B0740E48B36511DA61CC0");
+  geometry=pCubeShape21@mesh22;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape22@mesh23 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape22@node {
+  transform=TransformHex("05F4403F00000000B83D28BF00000000C4DABC4000000000B83D283F0000000005F4403F0000000065C00DC6D52F1940C82AE77C589B07401187F1584ED916C0");
+  geometry=pCubeShape22@mesh23;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape23@mesh24 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape23@node {
+  transform=TransformHex("9549663F00000000CEA3DFBE00000000C4DABC4000000000CEA3DF3E000000009549663F0000000051A176A0F34A1E40C82AE77C589B074035AB0D9CEFE70EC0");
+  geometry=pCubeShape23@mesh24;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+GeomStaticMesh pCubeShape24@mesh25 {
+  vertices=ListVectorHex("ZIPB600000001C000000e7X81OBd6CFA3Xb712GUVKO4a886dYKD2YAA1ODEU9");
+  faces=ListIntHex("ZIPB9000000036000000e7XKOVAHC79E523BHGNecBbRYaFa5SUJLaNJQacU6BC2UaSI67LYXAYOQJb0N6MZL28O79N1GJAUV7eNT");
+  normals=ListVectorHex("ZIPB2001000021000000e7X81OY3TG4S11YMEZWOUH5bdV54FLVaU4DFGXQZbALLSKXD2FA");
+  faceNormals=ListIntHex("ZIPB9000000041000000e7XQH4YFC8PHFTACH6UCF0ZcdXZKE4VAEK4FJGKIST0AUZREYbbB0TCbCEbbVcTEFEUbbAZ3MQV8d7CKR6L49d785aCaLYIA4DA");
+  map_channels=List(
+      List(
+          0, 
+          ListVectorHex("ZIPBB40000003C000000e7X81O60O9EAZVBdOBaeK1U3QBFUDPGV6aSF5d1b4UKbE4CJIaUGbEb53TUBWAS3aEJZ5468IcAFdHDT3AAA2b7ZaS"), 
+          ListIntHex("ZIPB900000003A000000e7XUUVDECQRH923NF053bdb10CKCZA2PWbKGdUKQDaOKaFQ7HV7J719DREK7DTQ23Od3Xd73I2L5UIMMAQTQZT2")
+      )
+  );
+  map_channels_names=ListString(
+    "map1"
+  );
+  edge_visibility=ListIntHex("ZIPB0800000010000000e7XTYQd97OLXZ3TBAAIU92PP");
+  primary_visibility=1;
+  dynamic_geometry=0;
+}
+
+Node pCubeShape24@node {
+  transform=TransformHex("B0897B3F00000000235B3EBE00000000C4DABC4000000000235B3E3E00000000B0897B3F00000000FA1485CF38A42040C82AE77C589B0740A36B41AE57E9FBBF");
+  geometry=pCubeShape24@mesh25;
+  material=lambert1@material;
+  nsamples=1;
+  visible=1;
+  user_attributes="";
+}
+
+SettingsLightLinker settings_lightlinker {
+  ignored_lights=List();
+  ignored_shadow_lights=List();
+}
+
+

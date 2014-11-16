@@ -15,13 +15,14 @@
 # http://www.andrewhazelden.com
 #
 # ------------------------------------------------------
-# Version 1.6 - Oct 21, 2014 
+# Version 1.6 - November 16, 2014
 # Updated domeAFL_FOV_Stereo flip X/Y code
+# Updated default camera separation value to 6.5cm
 # ------------------------------------------------------
 # Version 1.5 - July 3, 2014 
 # Update by Andrew Hazelden
 # ------------------------------------------------------
-# The Maya Node IDs are being updated  to use the newly 
+# The Maya Node IDs are being updated to use the newly 
 # registered robertoZiche block range. The shader order has 
 # been changed to match the Maya Node ID Sequence Numbering.
 # 
@@ -101,7 +102,7 @@ declare shader
         #: shortname "tilt"
     
     scalar  "Cameras_Separation", 
-        #: default 6.0 
+        #: default 6.5 
         #: min 0.0 
         #: max 1000000.0
         #: shortname "sep"
@@ -167,7 +168,7 @@ declare shader
       "nonConnectable"  #, "hidden"
     )
     control "Cameras_Separation" "scalar" (
-      "uiName" "Cameras Separation", "value" 6.0, "range" 0.0 1000000.0,
+      "uiName" "Cameras Separation", "value" 6.5, "range" 0.0 1000000.0,
       "nonConnectable"
     )
     control "Cameras_Separation_Map" "scalar" (

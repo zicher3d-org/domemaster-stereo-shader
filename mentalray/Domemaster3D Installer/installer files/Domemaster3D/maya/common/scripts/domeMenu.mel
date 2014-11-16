@@ -1,6 +1,6 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.6 - September 16, 2014
+Version 1.6 alpha 7 - November 16, 2014
 ------------------------------------------------------------------------------
 
 Notes:
@@ -360,6 +360,11 @@ global proc createDomemaster3DMenu() {
     -annotation "Create raster titles and scrolling credits using ImageMagick."
     -image "domeText.xpm" 
     -command "source \"domeText.mel\";domeText();";
+  menuItem 
+    -label "CrossBounce Simulation" 
+    -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
+    -image "domeCrossBounce.xpm" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
   menuItem 
     -label "Dome Viewer" 
     -annotation "View immersive fulldome and panoramic images+movies in Maya."

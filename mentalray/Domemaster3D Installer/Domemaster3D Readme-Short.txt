@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 6 - October 28, 2014
+Version 1.6 alpha 7 - November 15, 2014
 
 About This Shader
 ---------------------
@@ -49,11 +49,32 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/issues
 Source Code:
 https://github.com/zicher3d-org/domemaster-stereo-shader/
 
+Version 1.6 Alpha 7
+-----------------------
+November 16, 2014
+
+3DS Max/Maya
+  Updated the LatLong_Stereo.mi file to have the default camera separation value of 6.5 cm.
+  
+  Updated the DomeAFL_FOV_Stereo source code to optimize rendering performance by reusing common cos/sin calculations when possible.
+  
+Maya
+  Added a new fulldome crossbounce module that simulates the effect of "crossbounce" light pollution that happens when imagery is projected across a hemispherical fulldome theatre screen.
+  
+  Updated the LatLongStereoRig.py script to load the control map image using the DOMEMASTER3D_SOURCEIMAGES_DIR value defined in your maya.env file.
+
+  Added a python function to get the Domemaster3D AttrPresets folder path:
+    import domeMaterial as domeMaterial
+    reload(domeMaterial)
+    domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel')
+    
+
 Changes in Version 1.6 Alpha 6
 -------------------------------------
 October 28, 2014
 
 Rebuilt the DomeAFL_FOV_Stereo.dll shader.
+
 
 Changes in Version 1.6 Alpha 5
 -------------------------------------
@@ -80,10 +101,10 @@ Maya Changes
 Project Developers
 ----------------------
 
-Domemaster Stereo Shader & LatLong_Stereo shaders for 3DS Max Created by Roberto Ziche
+Domemaster Stereo Shader & LatLong_Stereo shaders Created by Roberto Ziche
 http://www.robertoziche.com/
 
-Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, and the installer by Andrew Hazelden
+Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, the custom Domemaster3D shelves, and the installer by Andrew Hazelden
 andrew@andrewhazelden.com
 http://www.andrewhazelden.com/blog
 
@@ -95,7 +116,7 @@ Special Thanks
 Thanks to the following people for their contributions:
 
 Ralf Habel for the 2D latlong_lens shader
-http://www.vi-motion.de/latlong_Tutorial/ (Link Broken)
+http://www.vi-motion.de/latlong_Tutorial/
 
 Aaron Bradbury for the installer imagery from his Vortex fulldome short film.
 http://www.luniere.com/project/vortex/

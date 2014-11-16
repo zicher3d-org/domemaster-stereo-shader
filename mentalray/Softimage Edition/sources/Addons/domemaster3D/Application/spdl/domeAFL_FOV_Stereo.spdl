@@ -70,7 +70,7 @@ PropertySet "domeAFL_FOV_Stereo_pset"
   {
     GUID = "{F1AE13EF-56E7-41B4-B9F5-7DA5D34E48F7}";
     Type = scalar;
-    Value = 6.0;
+    Value = 6.5;
     Value Minimum = 0.0;
     Value Maximum = 1000000.0;
   }
@@ -180,7 +180,7 @@ Defaults
   }
   Head_Turn_Map
   {
-    Name = "Turn Mulitplier";
+    Name = "Turn Multiplier";
     Commands = "{F5C75F11-2F05-11D3-AA95-00AA0068D2C0}";
   }
   Head_Tilt_Map

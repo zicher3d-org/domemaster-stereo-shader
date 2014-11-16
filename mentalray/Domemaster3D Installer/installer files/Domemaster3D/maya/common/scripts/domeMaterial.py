@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.6
-2014-10-03 05.09 pm
+Dome Material Script V1.6 alpha 7
+2014-11-16 05.05 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -16,11 +16,20 @@ You can set the file textures to an empty path if you don't want a default textu
 Version History
 ----------------
 
+Version 1.6 Alpha 7
+----------------------
+November 16, 2014
+
+Domemaster3D attribute presets path detection code added:
+  domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel') 
+  # C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/remapColor/ldr_to_hdr_boost_10x.mel
+
+
 Version 1.6 
 ---------------
 Oct 3, 2014
 
-Updating the sourceimages path code
+Updated the sourceimages path code
 
 Version 1.5
 ----------------
@@ -39,6 +48,7 @@ Added a mentalrayTexture image sequence function and shelf tool. This allows you
 **Note**: You need to render animations that use the new mentalrayTexture image sequence tool using a single frame per render job packet/render slice size so the animated texture loading expression is updated on each frame in the sequence. 
 
 If you are exporting your scene to a .mi file for Maya standalone rendering, you need to export one .mi file per frame so the image sequence texture is updated on every frame in the exported .mi output.
+
 
 Version 1.4 Beta 10
 ----------------------
@@ -211,6 +221,16 @@ import domeMaterial as domeMaterial
 reload(domeMaterial)
 domeMaterial.createDomeViewer()
 
+
+------------------------------------------------------------------------------
+
+Find out the path to the AttrPresets folder
+A python function to check the operating system platform and the AttrPresets folder. 
+
+import domeMaterial as domeMaterial
+reload(domeMaterial)
+domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel')
+
 """
 
 
@@ -318,6 +338,60 @@ def getModelsPath(modelFileName):
   print "[Requesting the model file]: " + combinedFileAndModelPath
 
   return combinedFileAndModelPath
+
+  
+"""
+Find out the path to the AttrPresets folder
+----------------------
+A python function to check the operating system platform and the AttrPresets folder. 
+
+"""
+def getDomePresetsPath(PresetsFileName):
+  import os
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  # ---------------------------------------------------------------------
+  # Setup the base folder path for the Domemaster3D AttrPresets
+  # ---------------------------------------------------------------------
+  
+  #Check OS platform for Windows/Mac/Linux Paths
+  import platform
+
+  #This is the base path for the images folder
+  basePresetsFolder = ""
+  
+    # Try and read the value from the current Maya.env file's environment variables
+  basePresetsFolder = os.environ.get('DOMEMASTER3D_MAYA_DIR') + "/common/presets/attrPresets/"
+  # Typical Result: C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/
+  
+  # Use a fixed value if the env var is empty
+  if basePresetsFolder == None:
+    if platform.system()=='Windows':
+      #Check if the program is running on Windows 
+      basePresetsFolder = "C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/"
+    elif platform.system()== 'win32':
+      #Check if the program is running on Windows 32
+      basePresetsFolder = "C:/Program Files (x86)/Domemaster3D/maya/common/presets/attrPresets/"
+    elif platform.system()== 'Darwin':
+      #Check if the program is running on Mac OS X
+      basePresetsFolder = "/Applications/Domemaster3D/maya/common/presets/attrPresets/"
+    elif platform.system()== 'Linux':
+      #Check if the program is running on Linux
+      basePresetsFolder = "/opt/Domemaster3D/maya/common/presets/attrPresets/"
+    elif platform.system()== 'Linux2':
+      #Check if the program is running on Linux
+      basePresetsFolder = "/opt/Domemaster3D/maya/common/presets/attrPresets/"
+    else:
+      # Create the empty variable as a fallback mode
+      basePresetsFolder = ""
+
+  combinedFileAndPresetsPath = basePresetsFolder + PresetsFileName
+
+  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Requesting the Presets file]: " + combinedFileAndPresetsPath
+
+  return combinedFileAndPresetsPath
 
   
 #Syntax: createDomeViewerTexture('domeViewer', True )

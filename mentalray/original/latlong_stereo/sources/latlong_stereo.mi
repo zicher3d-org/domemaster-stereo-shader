@@ -1,5 +1,5 @@
 # LatLong_Stereo Lens Shader Mental Ray Include File
-# Version 1.6 - 2014-10-21 
+# Version 1.6 - 2014-11-14 
 # -------------------------------------------------------------------
 # LatLong Stereo Shader by Roberto Ziche (http://www.robertoziche.com/)
 # Maya Support by Andrew Hazelden (andrew@andrewhazelden.com)
@@ -40,7 +40,7 @@ declare shader
             #: min 1.0 
             #: max 1000000.0
     scalar  "Cameras_Separation",
-            #: default 6.0 
+            #: default 6.5 
             #: min 0.0 
             #: max 1000000.0
             #: shortname "sep"
@@ -90,7 +90,7 @@ declare shader
       "nonConnectable"  #, "hidden"
     )
     control "Cameras_Separation" "scalar" (
-      "uiName" "Cameras Separation", "value" 6.0, "range" 0.0 1000000.0,
+      "uiName" "Cameras Separation", "value" 6.5, "range" 0.0 1000000.0,
       "nonConnectable"
     )
     control "Cameras_Separation_Map" "scalar" (

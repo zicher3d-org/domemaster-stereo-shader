@@ -1,6 +1,6 @@
 """
- LatLong_Stereo Camera Rig V1.6
- Updated 2014-10-24 09.21 pm
+ LatLong_Stereo Camera Rig V1.6 alpha 7
+ Updated 2014-11-16 05.42 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -16,6 +16,8 @@
 
  Modified the stereo camera name to have a random uppercase letter addon so each camera rig name is unique:
  This turns: DomeStereoCamera into DomeStereoCameraX
+ 
+ The latlong_separation_map.png source image is loaded using the DOMEMASTER3D_SOURCEIMAGES_DIR value defined in your maya.env file.
  
  Stereo Rig Script Notes
  --------------------------
@@ -62,11 +64,11 @@ A python function to check the operating system platform and the source images f
 
 """
 def getSourceImagesPath(imageFileName):
+  import os
   import maya.cmds as cmds
   import maya.mel as mel
-  
   # ---------------------------------------------------------------------
-  #Setup the base folder path for the Domemaster3D control maps
+  #Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
 
   #Check OS platform for Windows/Mac/Linux Paths
@@ -74,25 +76,31 @@ def getSourceImagesPath(imageFileName):
 
   #This is the base path for the images folder
   baseImagesFolder = ""
-
-  if platform.system()=='Windows':
-    #Check if the program is running on Windows 
-    baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
-  elif platform.system()== 'win32':
-    #Check if the program is running on Windows 32
-    baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Darwin':
-    #Check if the program is running on Mac OS X
-    baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux':
-    #Check if the program is running on Linux
-    baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
-  elif platform.system()== 'Linux2':
-    #Check if the program is running on Linux
-    baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
-  else:
-    # Create the empty variable as a fallback mode
-    baseImagesFolder = ""
+  
+  # Try and read the value from the current Maya.env file's environment variables
+  baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
+  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  
+  # Use a fixed value if the env var is empty
+  if baseImagesFolder == None:
+    if platform.system()=='Windows':
+      #Check if the program is running on Windows 
+      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+    elif platform.system()== 'win32':
+      #Check if the program is running on Windows 32
+      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Darwin':
+      #Check if the program is running on Mac OS X
+      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux':
+      #Check if the program is running on Linux
+      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+    elif platform.system()== 'Linux2':
+      #Check if the program is running on Linux
+      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+    else:
+      # Create the empty variable as a fallback mode
+      baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 

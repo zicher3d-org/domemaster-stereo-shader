@@ -1,5 +1,5 @@
 # Domemaster3D Lens Shader for Softimage #
-**Version 1.6 Alpha 6 - October 28, 2014**  
+**Version 1.6 Alpha 7 - November 18, 2014**  
 Ported to Softimage by Andrew Hazelden
 
 Email: [andrewhazelden@gmail.com](mailto:andrewhazelden@gmail.com)  
@@ -33,7 +33,7 @@ The Softimage Domemaster3D toolbar has buttons for the following features:
 - The **DomeAFL FOV** tool creates a standard 2D domeAFL FOV node + camera
 - The **DomeAFL WxH** tool creates a standard 2D domeAFL WxH node + camera 
 - The **LatLong tool** creates a 2D latlong_lens node + camera 
-- The **LatLong3D tool** creates a 3D LatLong_Stereo node + camera 
+- The **LatLong Stereo tool** creates a 3D LatLong_Stereo node + camera 
 - The **Starglobe tool** creates a starry background for your fulldome scenes.
 - The **DomeGrid tool** creates a hemispherical yellow wireframe reference grid. 
 - The **DomeViewer tool** creates an immersive fulldome viewer. 

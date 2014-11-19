@@ -2566,14 +2566,15 @@ openDomemasterWiki()
 
   Version History
   ----------------
+  Domemaster3D V1.6 Alpha 7 - Nov 18, 2014
   Domemaster3D V1.4 B2 - March 3, 2014
   Domemaster3D V1.4 B3 - March 4, 2014
 
 &quot;&quot;&quot;
 
 domemaster3D_title = &quot;About Domemaster3D for Softimage&quot;;
-domemaster3D_version = &quot;1.6 Alpha 6&quot;;
-release_date = &quot;October 28, 2014&quot;;
+domemaster3D_version = &quot;1.6 Alpha 7&quot;;
+release_date = &quot;November 18, 2014&quot;;
 
 domeDialgueString = &quot;Domemaster3D Shader for Softimage&quot; + &quot; - Version &quot; + domemaster3D_version + &quot;\n&quot;
 domeDialgueString += &quot;This edition was released on &quot; + release_date + &quot;.\n&quot;

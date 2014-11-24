@@ -10,9 +10,15 @@ When you run the DomemasterStereo shelf tool it adds a custom ArnoldDomemasterSt
 
 To change the DomemasterStereo attributes, select the camera in your scene. Open the attribute editor and switch to the camera's shape node. The lens shader is listed in the Arnold section.
 
-![DomemasterStereo Shader Attributes](images/domemasterstereo_attributes.png)
+## Known Issues ##
+
+The current version of the Arnold Domemaster3D shaders (as of 2014-11-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+
+At this point, the DomemasterStereo shader will render a stereo fulldome image but you will notice something that looks like a small "swirly region" in the zenith part of the fulldome frame. This is due to a lack of a screen space turn map texture. 
 
 ## Domemaster Stereo Shader Controls ##
+
+![DomemasterStereo Shader Attributes](images/domemasterstereo_attributes.png)
 
 **Camera**: Choices are **Center**/**Left**/**Right**. Selects the camera to use for rendering. **Center** skips 90% of the calculations and gives you a highly optimized standard latlong image.
 

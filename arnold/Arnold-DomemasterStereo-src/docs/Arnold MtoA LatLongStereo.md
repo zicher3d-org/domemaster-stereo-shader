@@ -10,9 +10,15 @@ When you run the LatLongStereo shelf tool it adds a custom ArnoldLatLongStereo c
 
 To change the LatLongStereo attributes, select the camera in your scene. Open the attribute editor and switch to the camera's shape node. The lens shader is listed in the Arnold section.
 
-![LatLongStereo Shader Attributes](images/latlongstereo_attributes.png)
+## Known Issues ##
+
+The current version of the Arnold Domemaster3D shaders (as of 2014-11-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+
+The LatLong_Stereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute.
 
 ## LatLong Stereo Shader Controls ##
+
+![LatLongStereo Shader Attributes](images/latlongstereo_attributes.png)
 
 **Camera**: Choices are **Center**/**Left**/**Right**. Selects the camera to use for rendering. **Center** skips 90% of the calculations and gives you a highly optimized standard latlong image.
 

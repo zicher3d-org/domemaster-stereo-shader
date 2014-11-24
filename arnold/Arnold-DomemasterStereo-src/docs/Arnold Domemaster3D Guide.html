@@ -293,11 +293,15 @@ img {
 <body>
 <h1 id="arnold-domemaster3d-guide">Arnold Domemaster3D Guide</h1>
 <hr>
-<p>2014-11-06 10.04 pm<br><img src="images\mtoa_domemasterstereo.png" alt="Maya DomemasterStereo for Arnold Screenshot"></p>
+<p>2014-11-24 11.20 am<br><img src="images\mtoa_domemasterstereo.png" alt="Maya DomemasterStereo for Arnold Screenshot"></p>
 <h2 id="overview">Overview</h2>
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Arnold version of the Domemaster Stereo Shader.</p>
 <p><strong>Tip:</strong> After you use the Maya shelf tools to add a fulldome or latlong stereo camera rig to your scene, you need to adjust the left camera in the stereo rig to change both of the &quot;linked&quot; lens shader attributes for the <strong>LatLongStereo</strong> or <strong>DomemasterStereo</strong> rigs.</p>
+<h2 id="known-issues">Known Issues</h2>
+<p>The current version of the Arnold Domemaster3D shaders (as of 2014-11-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold&#39;s MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.</p>
+<p>The LatLong_Stereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute.</p>
+<p>At this point, the DomemasterStereo shader will render a stereo fulldome image but you will notice something that looks like a small &quot;swirly region&quot; in the zenith part of the fulldome frame. This is due to a lack of a screen space turn map texture. </p>
 <h2 id="shader-screenshots">Shader Screenshots</h2>
 <p>Here are a few screenshots of the Maya Shelf tools and the Arnold based <strong>DomemasterStereo</strong>, <strong>DomemasterWxH</strong>, and <strong>LatLongStereo</strong> shader GUIs for Maya.</p>
 <h3 id="maya-shelf">Maya Shelf</h3>

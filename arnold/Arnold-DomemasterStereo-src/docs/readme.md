@@ -1,6 +1,6 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2014-11-06 10.04 pm
+2014-11-24 11.20 am
 ![Maya DomemasterStereo for Arnold Screenshot](images\mtoa_domemasterstereo.png)
 
 ## Overview ##
@@ -10,6 +10,15 @@ The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo prod
 This guide covers the Arnold version of the Domemaster Stereo Shader.
 
 **Tip:** After you use the Maya shelf tools to add a fulldome or latlong stereo camera rig to your scene, you need to adjust the left camera in the stereo rig to change both of the "linked" lens shader attributes for the **LatLongStereo** or **DomemasterStereo** rigs.
+
+## Known Issues ##
+
+The current version of the Arnold Domemaster3D shaders (as of 2014-11-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+
+The LatLong_Stereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute.
+
+At this point, the DomemasterStereo shader will render a stereo fulldome image but you will notice something that looks like a small "swirly region" in the zenith part of the fulldome frame. This is due to a lack of a screen space turn map texture. 
+
 
 ## Shader Screenshots ##
 

@@ -12,7 +12,7 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-23) is a development build that still has issues with the stereo camera separation controls. It can render 2D fisheye and latlong images but the stereo controls don't respond as expected. This is related to the current implementation of the lens shader's org attribute.
 
-Also, the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
+Also, in Maya the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
 
 ## Vray Standalone ##
 
@@ -149,7 +149,7 @@ If you run the plgparams with the shader name listed you can see the individual 
 	  flip_x: bool = false, Flip X
 	  flip_y: bool = false, Flip Y
 
-**Note:** If you receive the following error message it means you have tried to load a vray 2 shader in vray 3:  
+**Note:** If you receive the following error message it means you have tried to load a Vray 2.0 shader in Vray 3.0:  
 
     // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_DomemasterStereo.dll" (127): The specified procedure could not be found. //   
     // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_LatLongStereo.dll" (127): The specified procedure could not be found. //   
@@ -180,13 +180,13 @@ If you navigate to the Domemaster3D vray scenes folder you can try rendering the
     vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_left.vrscene"  
     vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_right.vrscene"  
 
-## Adding a Vray Lens Shader #
+## Adding a Vray Lens Shader in Maya #
 
-You can add a custom vray lens shader to your camera using the **VRay Extra Attributes** feature. 
+You can add a custom vray lens shader to a Maya camera using the **VRay Extra Attributes** feature. 
 
-To turn a normal camera into a DomemasterStereo camera you would start by selecting the camera's shape node in the Atrtribute Editor window. Open the `Attributes > VRay` menu, and select either the `DomemasterStereo camera` or `LatLongStereo camera` items. 
+To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera's shape node in the Attribute Editor window. Open the `Attributes > VRay` menu, and select either the `DomemasterStereo camera` or `LatLongStereo camera` items. 
 
-To turn on the lens shader scroll down to the bottom of the Attribute Editor and expand the `Extra VRay Attributes` section. Then enable the `Treat as a Vray DomemasterStereo` or `Treat as a Vray LatLongStereo Cam`.
+At this point you can turn ON the lens shader by scrolling down to the bottom of the Attribute Editor window and expanding the `Extra VRay Attributes` section. Then enable the appropriate `Treat as a Vray DomemasterStereo` or `Treat as a Vray LatLongStereo Cam` checkbox.
 
 ### VRay DomemasterStereo Camera ###
 
@@ -198,7 +198,7 @@ To turn on the lens shader scroll down to the bottom of the Attribute Editor and
 
 ### Removing a Lens Shader ###
 
-You can remove a vray lens shader from a camera by opening the `Attributes > VRay` menu and unchecking the specific lens shader. This will remove the lens shader's attributes that are listed in the `Extra VRay Attributes` section.
+You can remove a vray lens shader from a Maya camera by opening the `Attributes > VRay` menu and unchecking the specific lens shader. This will remove the lens shader's attributes that are listed in the `Extra VRay Attributes` section.
 
 ![Adding Extra Attributes](images/vray-extra-attributes.png)
 
@@ -232,7 +232,7 @@ Vray Script Files:
     vrayAEFunctions.mel
     
 
-Note: The default above vray script files are being replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+**Note:** The 4 vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 
 ### Mac 64-bit ###
@@ -260,7 +260,7 @@ Vray Script Files:
     vrayAEFunctions.mel
     
 
-Note: The default above vray script files are being replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+**Note:** The 4 vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 ### Linux 64-bit ###
 
@@ -287,8 +287,7 @@ Vray Script Files:
     attributeGroups.txt
     vrayAEFunctions.mel
     
-Note: The default above vray script files are being replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
-
+**Note:** The 4 vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 ## Compiling Instructions ##
 

@@ -1,5 +1,5 @@
 // DomemasterStereo Vray Shader
-// 2014-11-11 11.02 am
+// 2014-11-23 10.07 am
 // ---------------------------------
 // Ported to vray by Andrew Hazelden
 // Based upon the mental ray shader domeAFL_FOV_Stereo  
@@ -152,11 +152,13 @@ Vector DomemasterStereoImpl::getDir(double xs, double ys) const {
       break;
       
     case LEFTCAM:
-      org.x = (float)(-params->separation * params->separation_map / 2.0);
+      //org.x = (float)(-params->separation * params->separation_map / 2.0);
+      org.x = (float)(-params->separation * 1.0 / 2.0);
       break;
       
     case RIGHTCAM:
-      org.x = (float)(params->separation * params->separation_map / 2.0);
+      //org.x = (float)(params->separation * params->separation_map / 2.0);
+      org.x = (float)(params->separation * 1.0 / 2.0);
       break;
       
     default:

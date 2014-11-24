@@ -1,4 +1,4 @@
-// requires maya "2015";
+// requires maya "2014";
 startAttrPreset( "remapColor" );
 blendAttr "colorR" 0; 
 blendAttr "colorG" 0; 
@@ -6,7 +6,7 @@ blendAttr "colorB" 0;
 blendAttr "inputMin" 0; 
 blendAttr "inputMax" 1; 
 blendAttr "outputMin" 0; 
-blendAttr "outputMax" 15; 
+blendAttr "outputMax" 20; 
 blendAttr "red[0].red_Position" 0; 
 blendAttr "red[0].red_FloatValue" 0; 
 blendAttr "red[0].red_Interp" 1; 

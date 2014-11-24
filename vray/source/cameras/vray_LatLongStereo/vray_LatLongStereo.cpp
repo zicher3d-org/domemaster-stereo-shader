@@ -1,5 +1,5 @@
 // vray_LatLongStereo Shader
-// 2014-11-11 11.02 am
+// 2014-11-23 10.06 am
 // ---------------------------------
 // Ported to vray by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
@@ -137,9 +137,11 @@ Vector LatLongStereoImpl::getDir(double xs, double ys) const {
   if (params->camera != CENTERCAM) {
     // camera selection and initial position
     if (params->camera == LEFTCAM) {
-      org.x = (float)(-(params->separation) * (params->separation_map) / 2.0);
+      //org.x = (float)(-(params->separation) * (params->separation_map) / 2.0);
+      org.x = (float)(-(params->separation) * (1.0) / 2.0);
     } else if (params->camera == RIGHTCAM) {
-      org.x = (float)((params->separation) * (params->separation_map) / 2.0);
+      //org.x = (float)((params->separation) * (params->separation_map) / 2.0);
+      org.x = (float)((params->separation) * (1.0) / 2.0);
     }
     
     // head rotation = phi

@@ -1,13 +1,18 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2014-11-14 06.53 pm
-
+2014-11-09 10.24 pm
 
 ## Overview ##
 
 The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.
 
 This guide covers the Vray version of the Domemaster Stereo Shader.
+
+## Known Issues ##
+
+The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-23) is a development build that still has issues with the stereo camera separation controls. It can render 2D fisheye and latlong images but the stereo controls don't respond as expected. This is related to the current implementation of the lens shader's org attribute.
+
+Also, the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
 
 ## Vray Standalone ##
 
@@ -58,10 +63,122 @@ You can test this code out using the included vray example scene "vray 2 LatLong
       
     vray.exe -sceneFile="vray 2 LatLongStereo.vrscene" 
 
-## Vray Shader Parameters Screenshot ##
+## Vray Standalone Shader Installation ##
+
+### Windows 64-bit ###
+
+**Step 1.** Download the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
+
+**Step 2.** Copy the .dll files to the vray-plugins directory:  
+
+`H:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
+
+Vray Plugin Files:
+
+    vray_DomemasterStereo.dll
+    vray_LatLongStereo.dll
+
+**Step 3.** Edit the Windows environment variables and add an entry for the  `VRAY_PLUGINS_x64` vray standalone plugins path location.
+
+![Adding an ENV Var](images/adding-a-new-env-var.png)
+
+For Vray Standalone 2.0 the standard `VRAY_PLUGINS_x64` setting would be:   
+
+`VRAY_PLUGINS_x64`  
+`C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
+
+
+## Verify the Shader Loaded in Vray ##
+
+### Vray Shader Parameters Screenshot ###
 
 ![Plgparams Listing the Shader Parameters](images/vray_plugin_parameters.png)
 
+### Listing the Nodes ###
+
+You can list all of the active Vray Shader nodes using the plugin parameters tool:
+
+#### Windows Node List ####
+
+`cd C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\`  
+`plgparams.exe -list`
+
+#### Mac Node List ####
+
+`cd /Applications/ChaosGroup/V-Ray/Standalone_for_snow_leopard_x86/bin/snow_leopard_x86/gcc-4.2/`  
+`./plgparams.bin -list`
+
+#### Linux Node List ####
+
+`./plgparams.bin -list`
+
+
+### DomemasterStereo Node Parameters ###
+
+If you run the plgparams with the shader name listed you can see the individual node parameters. If you get a plgparams error asking for the -plugindir that means you are missing the vray plugins environment variable such as `VRAY_PLUGINS_x64` or `VRAY_PLUGINS_x86`.
+	
+#### plgparams.exe DomemasterStereo ####
+
+	Parameters for plugin 'DomemasterStereo'
+	  camera: integer = 0, Center, Left, Right Camera Views
+	  fov_angle: float = 180, Field of View
+	  zero_parallax_sphere: float = 360, Zero Parallax Sphere
+	  separation: float = 6.5, Camera Separation Distance
+	  forward_tilt: float = 0, Forward Tilt
+	  tilt_compensation: bool = false, Tilt Compensation Mode
+	  vertical_mode: bool = false, Vertical Mode
+	  separation_map: float = 1, Separation Map
+	  head_turn_map: float = 1, Head Turn Map
+	  head_tilt_map: float = 0.5, Head Tilt map
+	  flip_x: bool = false, Flip X
+	  flip_y: bool = false, Flip Y
+
+
+
+#### plgparams.exe LatLongStereo ####
+
+	Parameters for plugin 'LatLongStereo'
+	  camera: integer = 0, Center, Left, Right Camera Views
+	  fov_vert_angle: float = 180, Field of View Vertical
+	  fov_horiz_angle: float = 360, Field of View Horizontal
+	  parallax_distance: float = 360, Zero Parallax Distance
+	  separation: float = 6.5, Camera Separation
+	  zenith_mode: bool = false, Zenith Mode
+	  separation_map: float = 1, Separation Map
+	  head_tilt_map: float = 1, Head Tilt map
+	  flip_x: bool = false, Flip X
+	  flip_y: bool = false, Flip Y
+
+**Note:** If you receive the following error message it means you have tried to load a vray 2 shader in vray 3:  
+
+    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_DomemasterStereo.dll" (127): The specified procedure could not be found. //   
+    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_LatLongStereo.dll" (127): The specified procedure could not be found. //   
+
+#### Windows Parameters ####
+
+`plgparams.exe DomemasterStereo`  
+`plgparams.exe LatLongStereo`  
+
+#### Mac Parameters ####
+
+`./plgparams.bin DomemasterStereo`  
+`./plgparams.bin LatLongStereo`  
+
+#### Linux Parameters ####
+
+`./plgparams.bin DomemasterStereo`  
+`./plgparams.bin LatLongStereo`  
+
+
+## Rendering the Example Scenes ##
+
+If you navigate to the Domemaster3D vray scenes folder you can try rendering the sample vray standalone vrscene files.
+
+    vray.exe -sceneFile="vray 2 DomemasterStereo.vrscene"  
+    vray.exe -sceneFile="vray 2 LatLongStereo.vrscene"  
+    vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_center.vrscene"  
+    vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_left.vrscene"  
+    vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_right.vrscene"  
 
 ## Adding a Vray Lens Shader #
 
@@ -173,91 +290,6 @@ Vray Script Files:
 Note: The default above vray script files are being replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 
-## Verify the Shader Loaded in Vray ##
-
-### Listing the Nodes ###
-
-You can list all of the active Vray Shader nodes using the plugin parameters tool:
-
-#### Windows Node List ####
-
-`cd C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\`  
-`plgparams.exe -list`
-
-#### Mac Node List ####
-
-`cd /Applications/ChaosGroup/V-Ray/Standalone_for_snow_leopard_x86/bin/snow_leopard_x86/gcc-4.2/`  
-`./plgparams.bin -list`
-
-#### Linux Node List ####
-
-`./plgparams.bin -list`
-
-
-### DomemasterStereo Node Parameters ###
-
-If you run the plgparams with the shader name listed you can see the individual node parameters. If you get a plgparams error asking for the -plugindir that means you are missing the vray plugins environment variable such as `VRAY_PLUGINS_x64` or `VRAY_PLUGINS_x86`.
-	
-#### plgparams.exe DomemasterStereo ####
-
-	Parameters for plugin 'DomemasterStereo'
-	  camera: integer = 0, Center, Left, Right Camera Views
-	  fov_angle: float = 180, Field of View
-	  zero_parallax_sphere: float = 360, Zero Parallax Sphere
-	  separation: float = 6.5, Camera Separation Distance
-	  forward_tilt: float = 0, Forward Tilt
-	  tilt_compensation: bool = false, Tilt Compensation Mode
-	  vertical_mode: bool = false, Vertical Mode
-	  separation_map: float = 1, Separation Map
-	  head_turn_map: float = 1, Head Turn Map
-	  head_tilt_map: float = 0.5, Head Tilt map
-	  flip_x: bool = false, Flip X
-	  flip_y: bool = false, Flip Y
-
-
-
-#### plgparams.exe LatLongStereo ####
-
-	Parameters for plugin 'LatLongStereo'
-	  camera: integer = 0, Center, Left, Right Camera Views
-	  fov_vert_angle: float = 180, Field of View Vertical
-	  fov_horiz_angle: float = 360, Field of View Horizontal
-	  parallax_distance: float = 360, Zero Parallax Distance
-	  separation: float = 6.5, Camera Separation
-	  zenith_mode: bool = false, Zenith Mode
-	  separation_map: float = 1, Separation Map
-	  head_tilt_map: float = 1, Head Tilt map
-	  flip_x: bool = false, Flip X
-	  flip_y: bool = false, Flip Y
-
-**Note:** If you receive the following error message it means you have tried to load a vray 2 shader in vray 3:  
-
-    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_DomemasterStereo.dll" (127): The specified procedure could not be found. //   
-    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_LatLongStereo.dll" (127): The specified procedure could not be found. //   
-
-#### Windows Parameters ####
-
-`plgparams.exe DomemasterStereo`  
-`plgparams.exe LatLongStereo`  
-
-#### Mac Parameters ####
-
-`./plgparams.bin DomemasterStereo`  
-`./plgparams.bin LatLongStereo`  
-
-#### Linux Parameters ####
-
-`./plgparams.bin DomemasterStereo`  
-`./plgparams.bin LatLongStereo`  
-
-
-## Rendering the Example Scenes ##
-
-If you navigate to the Domemaster3D vray scenes folder you can try rendering the sample vray standalone vrscene files.
-
-    vray.exe -sceneFile="vray 2 DomemasterStereo.vrscene"  
-    vray.exe -sceneFile="vray 2 LatLongStereo.vrscene"  
-
 ## Compiling Instructions ##
 
 ### Windows 64-bit ###
@@ -330,5 +362,7 @@ At this point a few of the required vray on Linux shader compiling details are n
 ### Version 0.1 - 2014-11-14  ###
 
 Initial Vray support.
+
+
 
 

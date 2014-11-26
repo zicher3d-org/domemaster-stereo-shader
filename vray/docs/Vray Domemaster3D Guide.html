@@ -293,13 +293,14 @@ img {
 <body>
 <h1 id="vray-domemaster3d-guide">Vray Domemaster3D Guide</h1>
 <hr>
-<p>2014-11-09 10.24 pm</p>
+<p>2014-11-26 10.17 am</p>
 <h2 id="overview">Overview</h2>
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Vray version of the Domemaster Stereo Shader.</p>
 <h2 id="known-issues">Known Issues</h2>
-<p>The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-23) is a development build that still has issues with the stereo camera separation controls. It can render 2D fisheye and latlong images but the stereo controls don&#39;t respond as expected. This is related to the current implementation of the lens shader&#39;s org attribute.</p>
-<p>Also, in Maya the custom Vray Extra Attributes haven&#39;t been linked into the Vray for Maya .vrscene exporter.</p>
+<p>The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-26) is a development build.</p>
+<p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn&#39;t apply a circular alpha channel overlay yet.</p>
+<p>The Maya integration is still a work in progress. The Domemaster3D shaders aren&#39;t yet active in the Maya render view. Also, the custom Vray Extra Attributes haven&#39;t been linked into the Vray for Maya .vrscene exporter.</p>
 <h2 id="vray-standalone">Vray Standalone</h2>
 <p>Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone 2.0 using the <code>vray.exe</code> command line program.</p>
 <h3 id="domemasterstereo-in-a-vrscene-file">DomemasterStereo in a VRSCENE File</h3>
@@ -308,7 +309,7 @@ img {
 <pre><code>DomemasterStereo RenderCamShape {
   camera=0;
   fov_angle=360.0;
-  zero_parallax_sphere=360.0;
+  zero_parallax_sphere=355.0;
   separation=6.5;
   forward_tilt=0.0;
   tilt_compensation=0;
@@ -328,7 +329,7 @@ img {
   camera=0;
   fov_vert_angle=180.0;
   fov_horiz_angle=360.0;
-  parallax_distance=720;
+  parallax_distance=355;
   separation=6.5;
   zenith_mode=1;
   separation_map=1;
@@ -399,9 +400,14 @@ vray_LatLongStereo.dll</code></pre>
 <p>If you navigate to the Domemaster3D vray scenes folder you can try rendering the sample vray standalone vrscene files.</p>
 <pre><code>vray.exe -sceneFile=&quot;vray 2 DomemasterStereo.vrscene&quot;  
 vray.exe -sceneFile=&quot;vray 2 LatLongStereo.vrscene&quot;  
-vray.exe -sceneFile=&quot;vrayLatLong_Stereo_Boxworld2014_center.vrscene&quot;  
-vray.exe -sceneFile=&quot;vrayLatLong_Stereo_Boxworld2014_left.vrscene&quot;  
-vray.exe -sceneFile=&quot;vrayLatLong_Stereo_Boxworld2014_right.vrscene&quot;  </code></pre>
+
+vray.exe -sceneFile=&quot;LatLongStereo_Boxworld_center.vrscene&quot;  
+vray.exe -sceneFile=&quot;LatLongStereo_Boxworld_left.vrscene&quot;  
+vray.exe -sceneFile=&quot;LatLongStereo_Boxworld_right.vrscene&quot;  
+
+vray.exe -sceneFile=&quot;DomemasterStereo_Boxworld_center.vrscene&quot;  
+vray.exe -sceneFile=&quot;DomemasterStereo_Boxworld_left.vrscene&quot;  
+vray.exe -sceneFile=&quot;DomemasterStereo_Boxworld_right.vrscene&quot;  </code></pre>
 <h2 id="adding-a-vray-lens-shader-in-maya">Adding a Vray Lens Shader in Maya</h2>
 <p>You can add a custom vray lens shader to a Maya camera using the <strong>VRay Extra Attributes</strong> feature. </p>
 <p>To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera&#39;s shape node in the Attribute Editor window. Open the <code>Attributes &gt; VRay</code> menu, and select either the <code>DomemasterStereo camera</code> or <code>LatLongStereo camera</code> items. </p>
@@ -488,7 +494,33 @@ vrayAEFunctions.mel</code></pre>
 </ul>
 <h2 id="version-history">Version History</h2>
 <h3 id="version-0-1-2014-11-14">Version 0.1 - 2014-11-14</h3>
-<p>Initial Vray support.</p>
+<ul>
+<li>Initial Vray support.</li>
+</ul>
+<h3 id="version-0-2-2014-11-26">Version 0.2 - 2014-11-26</h3>
+<ul>
+<li>Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues</li>
+<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.</li>
+</ul>
+<h2 id="to-do-list">To Do List</h2>
+<h3 id="domemasterstereo-to-dos">DomemasterStereo To Dos</h3>
+<ul>
+<li>Correctly handle the black matting of the domemaster frame when &quot;if (r &lt; 1.0)&quot; is false</li>
+<li>Implement the head tilt code</li>
+</ul>
+<h3 id="vray-for-maya-to-dos">Vray for Maya To Dos</h3>
+<ul>
+<li>Get the DomemasterStereo and LatLongStereo shaders to render inside of Maya&#39;s render view</li>
+<li>Get the Maya custom Vray Extra Attributes linked into the Vray for Maya .vrscene exporter</li>
+</ul>
+<h3 id="vray-for-3ds-max-to-dos">Vray for 3DS Max To Dos</h3>
+<ul>
+<li>Start working on the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders once the features are locked and everything works correctly in Vray Standalone.</li>
+</ul>
+<h3 id="shader-testing-to-dos">Shader Testing To Dos</h3>
+<ul>
+<li>Generate a .vrscene file with screen space texture maps linked into the DomemasterStereo and LatLongStereo attributes.</li>
+</ul>
 
 </body>
 </html>

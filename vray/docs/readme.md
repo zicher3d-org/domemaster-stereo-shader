@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2014-11-09 10.24 pm
+2014-11-26 10.17 am
 
 ## Overview ##
 
@@ -10,9 +10,11 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-23) is a development build that still has issues with the stereo camera separation controls. It can render 2D fisheye and latlong images but the stereo controls don't respond as expected. This is related to the current implementation of the lens shader's org attribute.
+The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-26) is a development build.
 
-Also, in Maya the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
+More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
+
+The Maya integration is still a work in progress. The Domemaster3D shaders aren't yet active in the Maya render view. Also, the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
 
 ## Vray Standalone ##
 
@@ -27,7 +29,7 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a D
 	DomemasterStereo RenderCamShape {
 	  camera=0;
 	  fov_angle=360.0;
-	  zero_parallax_sphere=360.0;
+	  zero_parallax_sphere=355.0;
 	  separation=6.5;
 	  forward_tilt=0.0;
 	  tilt_compensation=0;
@@ -53,7 +55,7 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a L
 	  camera=0;
 	  fov_vert_angle=180.0;
 	  fov_horiz_angle=360.0;
-	  parallax_distance=720;
+	  parallax_distance=355;
 	  separation=6.5;
 	  zenith_mode=1;
 	  separation_map=1;
@@ -176,9 +178,15 @@ If you navigate to the Domemaster3D vray scenes folder you can try rendering the
 
     vray.exe -sceneFile="vray 2 DomemasterStereo.vrscene"  
     vray.exe -sceneFile="vray 2 LatLongStereo.vrscene"  
-    vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_center.vrscene"  
-    vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_left.vrscene"  
-    vray.exe -sceneFile="vrayLatLong_Stereo_Boxworld2014_right.vrscene"  
+
+    vray.exe -sceneFile="LatLongStereo_Boxworld_center.vrscene"  
+    vray.exe -sceneFile="LatLongStereo_Boxworld_left.vrscene"  
+    vray.exe -sceneFile="LatLongStereo_Boxworld_right.vrscene"  
+
+    vray.exe -sceneFile="DomemasterStereo_Boxworld_center.vrscene"  
+    vray.exe -sceneFile="DomemasterStereo_Boxworld_left.vrscene"  
+    vray.exe -sceneFile="DomemasterStereo_Boxworld_right.vrscene"  
+
 
 ## Adding a Vray Lens Shader in Maya #
 
@@ -360,8 +368,31 @@ At this point a few of the required vray on Linux shader compiling details are n
 
 ### Version 0.1 - 2014-11-14  ###
 
-Initial Vray support.
+- Initial Vray support.
+
+### Version 0.2 - 2014-11-26   ###
+
+- Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues
+- Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.
+
+## To Do List ##
+
+### DomemasterStereo To Dos ###
+
+- Correctly handle the black matting of the domemaster frame when "if (r < 1.0)" is false
+- Implement the head tilt code
+
+### Vray for Maya To Dos ###
+
+- Get the DomemasterStereo and LatLongStereo shaders to render inside of Maya's render view
+- Get the Maya custom Vray Extra Attributes linked into the Vray for Maya .vrscene exporter
+
+### Vray for 3DS Max To Dos ###
+
+- Start working on the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders once the features are locked and everything works correctly in Vray Standalone.
 
 
+### Shader Testing To Dos ###
 
+- Generate a .vrscene file with screen space texture maps linked into the DomemasterStereo and LatLongStereo attributes.
 

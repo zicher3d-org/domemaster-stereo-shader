@@ -1,5 +1,5 @@
-// vray_LatLongStereo Shader
-// 2014-11-23 10.06 am
+// vray_LatLongStereo Shader v0.2
+// 2014-11-26 10.26 am
 // ---------------------------------
 // Ported to vray by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
@@ -73,7 +73,7 @@ public:
 
   // Other methods
   void init(LatLongStereo_ParamsStruct &params);
-  Vector getDir(double xs, double ys) const;
+  Vector getDir(double xs, double ys, int rayVsOrgReturnMode) const;
 };
 
 void LatLongStereoImpl::init(LatLongStereo_ParamsStruct &p) {
@@ -85,7 +85,9 @@ void LatLongStereoImpl::frameBegin(VR::VRayRenderer *vray) {
   this->vray=vray;
 }
 
-Vector LatLongStereoImpl::getDir(double xs, double ys) const {
+Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
+  // Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
+
   const VR::VRayFrameData &fdata=vray->getFrameData();
   
   double rx=(xs-fdata.imgWidth*0.5)/(fdata.imgWidth*0.5f);
@@ -137,11 +139,16 @@ Vector LatLongStereoImpl::getDir(double xs, double ys) const {
   if (params->camera != CENTERCAM) {
     // camera selection and initial position
     if (params->camera == LEFTCAM) {
-      //org.x = (float)(-(params->separation) * (params->separation_map) / 2.0);
-      org.x = (float)(-(params->separation) * (1.0) / 2.0);
+      // Use the separation texture map
+      org.x = (float)(-(params->separation) * (params->separation_map) / 2.0);
+      // Debugging Alternate:  use a constant separation map value
+      //org.x = (float)(-(params->separation) * (1.0) / 2.0);
+      
     } else if (params->camera == RIGHTCAM) {
-      //org.x = (float)((params->separation) * (params->separation_map) / 2.0);
-      org.x = (float)((params->separation) * (1.0) / 2.0);
+      // Use the separation texture map
+      org.x = (float)((params->separation) * (params->separation_map) / 2.0);
+      // Debugging Alternate: use a constant separation map value
+      //org.x = (float)((params->separation) * (1.0) / 2.0);
     }
     
     // head rotation = phi
@@ -197,22 +204,27 @@ Vector LatLongStereoImpl::getDir(double xs, double ys) const {
     }
   }
 
-  return fdata.camToWorld.m*ray;
+  // Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
+  if(rayVsOrgReturnMode == 0){
+    return fdata.camToWorld.m*ray;
+  } else if (rayVsOrgReturnMode == 1){
+    return fdata.camToWorld.offs-org;
+  }
 }
 
-
 int LatLongStereoImpl::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, TraceRay &ray, Ireal &mint, Ireal &maxt, RayDeriv &rayDeriv, VR::Color &multResult) const {
-  Vector dir=getDir(xs, ys);
-
+  Vector dir=getDir(xs, ys, 0);   //Return the dir data from the getDir function
+  Vector org=getDir(xs, ys, 1);   //Return the org data from the getDir function
+  
   rayDeriv.dPdx.makeZero();
   rayDeriv.dPdy.makeZero();
 
   double delta=0.01f;
-  rayDeriv.dDdx=(getDir(xs+delta, ys)-getDir(xs-delta, ys))/float(delta*2.0f);
-  rayDeriv.dDdy=(getDir(xs, ys+delta)-getDir(xs, ys-delta))/float(delta*2.0f);
+  rayDeriv.dDdx=(getDir(xs+delta, ys, 0)-getDir(xs-delta, ys, 0))/float(delta*2.0f);
+  rayDeriv.dDdy=(getDir(xs, ys+delta, 0)-getDir(xs, ys-delta, 0))/float(delta*2.0f);
   
   const VR::VRayFrameData &fdata=vray->getFrameData();
-  ray.p=fdata.camToWorld.offs;
+  ray.p=org;
   ray.dir=dir;
 
   mint=0.0f;

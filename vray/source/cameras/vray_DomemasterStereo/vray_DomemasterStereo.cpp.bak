@@ -1,5 +1,5 @@
-// DomemasterStereo Vray Shader v0.2
-// 2014-11-26 10.26 am
+// DomemasterStereo Vray Shader
+// 2014-11-26 08.10 am
 // ---------------------------------
 // Ported to vray by Andrew Hazelden
 // Based upon the mental ray shader domeAFL_FOV_Stereo  
@@ -7,6 +7,7 @@
 
 // Todo:
 // Work out the return black color code if the check for "if (r < 1.0)" comes back as false
+// Might have to rotate the rendered view 90 degrees clockwise
 
 //**************************************************
 //**************************************************
@@ -96,12 +97,8 @@ Vector DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode
   const VR::VRayFrameData &fdata=vray->getFrameData();
   
   // Get the image coordinates
-  //double rx=(xs-fdata.imgWidth*0.5)/(fdata.imgWidth*0.5f);
-  //double ry=(fdata.imgHeight*0.5-ys)/(fdata.imgHeight*0.5f);
-  
-  // Swap X-Y to rotate the cartesian axis 90 degrees CW
-  double ry=(xs-fdata.imgWidth*0.5f)/(fdata.imgWidth*0.5f);
-  double rx=(ys-fdata.imgHeight*0.5f)/(fdata.imgHeight*0.5f);
+  double rx=(xs-fdata.imgWidth*0.5)/(fdata.imgWidth*0.5f);
+  double ry=(fdata.imgHeight*0.5-ys)/(fdata.imgHeight*0.5f);
   
   double r, phi, theta, rot, tmp, tmpY, tmpZ;
   //double offset;
@@ -120,7 +117,7 @@ Vector DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode
   r = sqrt((rx * rx) + (ry * ry));
 
   // Check if the shader should return black
-  if (r < 1.0) {
+  //if (r < 1.0) {
 
     // Compute phi angle
     if ((r > -DOME_EPSILON) && (r < DOME_EPSILON)) {
@@ -309,25 +306,17 @@ Vector DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode
       return fdata.camToWorld.offs-org;
     }
     
-  //This is connected to the if( r> 1.0) code
-  } else {
-    // Todo Work out the return black color code
+  // This is connected to the if( r> 1.0) code
+  // } else {
+    //Todo Work out the return black color code
     //Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
-    if(rayVsOrgReturnMode == 0){
-      //return fdata.camToWorld.m*ray;
-      ray.x=0.0;
-      ray.y=0.0;
-      ray.z=0.0;
-      return ray;
-    } else if (rayVsOrgReturnMode == 1){
-      //return fdata.camToWorld.offs;
-      org.x=0.0;
-      org.y=0.0;
-      org.z=0.0;
-      return org;
-    }
+    // if(rayVsOrgReturnMode == 0){
+      // return fdata.camToWorld.m*ray;
+    // } else if (rayVsOrgReturnMode == 1){
+      // return fdata.camToWorld.offs - org;
+    // }
     
-  } 
+  // } 
 }
 
 

@@ -11,10 +11,10 @@ SettingsRenderChannels vraySettingsRenderChannels {
 }
 
 SettingsOutput vraySettingsOutput {
-  img_width=600;
+  img_width=450;
   img_height=450;
   img_pixelAspect=1;
-  img_file="vrayLatLong_StereoBoxworld2014_right.exr";
+  img_file="DomemasterStereo_Boxworld_center.exr";
   img_dir="";
   img_file_needFrameNumber=0;
   img_separateAlpha=0;
@@ -33,13 +33,13 @@ SettingsOutput vraySettingsOutput {
   frames_per_second=1;
   frames=List(1);
   rgn_left=0;
-  rgn_width=600;
+  rgn_width=450;
   rgn_top=0;
   rgn_height=450;
-  bmp_width=600;
+  bmp_width=450;
   bmp_height=450;
   r_left=0;
-  r_width=600;
+  r_width=450;
   r_top=0;
   r_height=450;
   relements_separateFolders=0;
@@ -92,14 +92,19 @@ FilterArea aaFilter {
   size=1.5;
 }
 
-LatLongStereo LatLongStereoCameraXRightShape {
-  camera=2;
-  fov_vert_angle=180.0;
-  fov_horiz_angle=360.0;
-  parallax_distance=720;
-  separation=14;
-  zenith_mode=1;
-  separation_map=1;
+DomemasterStereo RenderCamShape {
+  camera=0;
+  fov_angle=360.0;
+  zero_parallax_sphere=355.0;
+  separation=6.5;
+  forward_tilt=0.0;
+  tilt_compensation=0;
+  vertical_mode=1;
+  separation_map=1.0;
+  head_turn_map=1.0;
+  head_tilt_map=0.5;
+  flip_x=0;
+  flip_y=0;
 }
 
 SettingsCamera vraySettingsCamera {

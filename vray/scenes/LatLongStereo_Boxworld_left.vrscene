@@ -14,7 +14,7 @@ SettingsOutput vraySettingsOutput {
   img_width=600;
   img_height=450;
   img_pixelAspect=1;
-  img_file="vrayLatLong_StereoBoxworld2014_center.exr";
+  img_file="LatLongStereo_Boxworld_left.exr";
   img_dir="";
   img_file_needFrameNumber=0;
   img_separateAlpha=0;
@@ -92,12 +92,12 @@ FilterArea aaFilter {
   size=1.5;
 }
 
-LatLongStereo LatLongStereoCameraXCenterShape {
-  camera=0;
+LatLongStereo LatLongStereoCameraXLeftShape {
+  camera=1;
   fov_vert_angle=180.0;
   fov_horiz_angle=360.0;
   parallax_distance=355;
-  separation=14;
+  separation=6.5;
   zenith_mode=1;
   separation_map=1;
 }

@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 7 - November 15, 2014
+Version 1.6 alpha 8 - November 26, 2014
 
 About This Shader
 ---------------------
@@ -48,6 +48,20 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/issues
 
 Source Code:
 https://github.com/zicher3d-org/domemaster-stereo-shader/
+
+-----------------------------------------------------------------------
+
+Version History
+-----------------
+
+Version 1.6 alpha 8
+-----------------------
+November 26, 2014
+
+Maya
+  Updated the DomeViewer tool's angular360_mesh.ma model to correct for a horizontal flipping
+  Update the DomeViewer tool's latlongSphere_mesh.ma model to correct for a Maya 2012 .fc attribute loading error.
+
 
 Version 1.6 Alpha 7
 -----------------------
@@ -104,7 +118,7 @@ Project Developers
 Domemaster Stereo Shader & LatLong_Stereo shaders Created by Roberto Ziche
 http://www.robertoziche.com/
 
-Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, the custom Domemaster3D shelves, and the installer by Andrew Hazelden
+Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, the custom Domemaster3D shelves, the Wiki documentation, and the installer by Andrew Hazelden
 andrew@andrewhazelden.com
 http://www.andrewhazelden.com/blog
 

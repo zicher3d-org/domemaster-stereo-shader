@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 8 - November 26, 2014
+Version 1.6 alpha 8 - December 4, 2014
 
 About This Shader
 ---------------------
@@ -56,12 +56,13 @@ Version History
 
 Version 1.6 alpha 8
 -----------------------
-November 26, 2014
+December 4, 2014
 
 Maya
   Updated the DomeViewer tool's angular360_mesh.ma model to correct for a horizontal flipping
-  Update the DomeViewer tool's latlongSphere_mesh.ma model to correct for a Maya 2012 .fc attribute loading error.
-
+  Updated the DomeViewer tool's latlongSphere_mesh.ma model to correct for a Maya 2012 .fc attribute loading error.
+  Updated the Crossbounce tool's "dome_mib_texture_remap1" node transform matrix attributes to correct for the Y-axis view flipping issue.
+  
 
 Version 1.6 Alpha 7
 -----------------------

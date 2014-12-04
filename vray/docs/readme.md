@@ -90,7 +90,7 @@ For Vray Standalone 2.0 the standard `VRAY_PLUGINS_x64` setting would be:
 `C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
 
 
-## Verify the Shader Loaded in Vray ##
+## Verify the Shader is Loaded in Vray ##
 
 ### Vray Shader Parameters Screenshot ###
 
@@ -356,12 +356,12 @@ lipo -info libvray_DomemasterStereo.so
 
 ### Linux 64-bit ###
 
-At this point a few of the required vray on Linux shader compiling details are not known by the Domemaster3D developer. This means Linux support is currently a work-in-progress endeavour.
+At this point a few of the required Vray on Linux shader compiling details are not known by the Domemaster3D developer. This means Linux support is currently a work-in-progress endeavour.
 
 ## Credits ##
 
 - Roberto Ziche created the original `domeAFL_FOV_Stereo` and `LatLong_Stereo` shader for mental ray on 3DS Max.
-- Andrew Hazelden ported the shader to vray.
+- Andrew Hazelden ported the shader to Vray.
 - Daniel Ott created the original 2D `domeAFL_FOV` for mental ray.
 
 ## Version History ##

@@ -1,7 +1,7 @@
 """
-Fulldome Cross Bounce Setup Script V1.6 Alpha 7
+Fulldome Cross Bounce Setup Script V1.6 Alpha 8
 for Domemaster3D and Maya on Windows
-2014-11-16 05.56 pm
+2014-12-04 07.52 am
 
 This script will create a Maya scene that uses Mental Ray Final Gather to compute a fulldome crossbounce light simulation. The rendered image shows the light pollution that happens when a video image is projected on a hemispherical dome screen. You can preview the full result in Photoshop or After Effects by applying the rendered crossbounce simulation with an Add (Linear Dodge) transfer mode over the original fulldome image.
 
@@ -82,9 +82,9 @@ def createCrossBounce():
 
   dome_tex_remap = 'dome_mib_texture_remap1'
 
-  #Set the matrix to use a  +1 value (mirrored) effect on the first transform matrix cell
-  #melSetAttrMatrixString = 'setAttr "' + dome_tex_remap + '.transform" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;'
-  #mel.eval(melSetAttrMatrixString)
+  #Set the matrix to use a mirrored effect on the X and Y axis matrix cells
+  melSetAttrMatrixString = 'setAttr "' + dome_tex_remap + '.transform" -type "matrix" -1 0 0 0 0 -1 0 0 0 0 1 0 0 0 0 1;'
+  mel.eval(melSetAttrMatrixString)
 
   # Load the following LDR to HDR presets file:
   ldrToHdrPresetsFile = domeMaterial.getDomePresetsPath("remapColor/ldr_to_hdr_boost_10x.mel")

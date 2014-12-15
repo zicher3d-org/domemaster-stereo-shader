@@ -1,5 +1,5 @@
 /*
-  Version 1.5
+  Version 1.6
 
   Procedure Name:
   AEdomeAFL_FOV_StereoTemplate
@@ -8,8 +8,15 @@
   Creates the attribute editor controls for the domeAFL_FOV_Stereo shader
 
   Version History
+  
   -----------------
-
+  Version 1.6
+  ------------------
+  Dec 12, 2014
+  
+  Reordered GUI controls to put Camera Separation next to Dome Radius
+  
+  
   Version 1.5
   ------------------
   July 6, 2014
@@ -401,11 +408,12 @@ global proc AEdomeAFL_FOV_StereoTemplate( string $nodeName )
       editorTemplate -addSeparator;
 
        // Define custom non-mappable slider controls
-      editorTemplate -callCustom 	"AEdomeAFL_FOV_Stereo_RadiusNew" "AEdomeAFL_FOV_Stereo_RadiusReplace" "Dome_Radius";   
-      
+             
+      editorTemplate -callCustom 	"AEdomeAFL_FOV_Stereo_SeparationNew" "AEdomeAFL_FOV_Stereo_SeparationReplace" "Cameras_Separation"; 
+            
+      editorTemplate -callCustom 	"AEdomeAFL_FOV_Stereo_RadiusNew" "AEdomeAFL_FOV_Stereo_RadiusReplace" "Dome_Radius"; 
+
       editorTemplate -callCustom 	"AEdomeAFL_FOV_Stereo_TiltNew" "AEdomeAFL_FOV_Stereo_TiltReplace" "Dome_Tilt";
-      
-      editorTemplate -callCustom 	"AEdomeAFL_FOV_Stereo_SeparationNew" "AEdomeAFL_FOV_Stereo_SeparationReplace" "Cameras_Separation";    
       
       editorTemplate -addSeparator;
       

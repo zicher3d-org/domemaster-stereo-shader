@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 8 - December 4, 2014
+Version 1.6 alpha 9 - December 14, 2014
 
 About This Shader
 ---------------------
@@ -74,10 +74,10 @@ Stereo Rig button
 The Stereo Rig tool create a stereo fulldome camera rig with the domeAFL_FOV_Stereo lens shader applied.
 
 Dome Texture Button
-The Dome Texture tool creates a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader.
+The Dome Texture tool creates a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo and LatLong_Stereo shaders.
 
 DomeRamp Button
-The DomeRamp tool creates a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo.
+The DomeRamp tool creates a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo and LatLong_Stereo shaders.
 
 DomeAFL_FOV Button
 The DomeAFL_FOV tool creates a standard 2D fulldome camera with the domeAFL_FOV lens shader applied.
@@ -244,6 +244,16 @@ Martin Watt for writing the original galaxies.mel script.
 
 Version History
 -----------------
+
+Version 1.6 alpha 9
+-----------------------
+December 13, 2014
+
+Maya
+  Added a new ramp attrPreset for latlong_Stereo shader users. The "LatLongStereoSeparation" ramp preset is a vertical gradient that is a parametric version of the latlong separation map texture that is designed to be used in conjunction with the "screen space" DomeRamp shelf button.
+  
+  Updated the AE template file for the DomeAFL_FOV_Stereo and LatLong_Stereo shaders so the Camera Separation control is placed next to the Dome Radius / Parallax Distance controls.
+
 
 Version 1.6 alpha 8
 -----------------------

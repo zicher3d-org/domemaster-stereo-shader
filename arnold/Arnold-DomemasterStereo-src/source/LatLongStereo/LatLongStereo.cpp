@@ -1,5 +1,5 @@
 // LatLongStereo Arnold Shader
-// 2014-10-31 4.23 pm
+// 2014-12-12 12.12 pm
 // ---------------------------------
 // Ported to Arnold by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
@@ -12,6 +12,9 @@
 #include <ai_cameras.h>
 #include <ai_nodes.h>
 #include <ai_metadata.h>
+
+#define DOME_DTOR  0.0174532925199433 
+#define DOME_PIOVER2 1.57079632679489661923 
 
 // For use with the Windows Visual Studio compiler and strcpy_s()
 //#include <string>
@@ -72,8 +75,8 @@ camera_create_ray {
   //head_tilt = headTiltMap;
   
   // Convert FOV from degrees to radians
-  double fovVert = fovVertDegrees * AI_DTOR;  
-  double fovHoriz = fovHorizDegrees * AI_DTOR;  
+  double fovVert = fovVertDegrees * DOME_DTOR;  
+  double fovHoriz = fovHorizDegrees * DOME_DTOR;  
   
   // Get the image coordinates
   x = input->sx;
@@ -82,7 +85,7 @@ camera_create_ray {
   // Calculate phi and theta...
   phi = x * (fovHoriz / 2.0);
   if(zenithMode){
-    theta = AI_PIOVER2 - y * (fovVert / 2.0);
+    theta = DOME_PIOVER2 - y * (fovVert / 2.0);
   } else {
    theta = y * (fovVert / 2.0);
   }  
@@ -90,7 +93,7 @@ camera_create_ray {
   // Calculate phi and theta...
   //phi = x * (fovHoriz / 2.0);
   //if(zenithMode) {
-  //  theta = AI_PIOVER2 - y * (fovVert);
+  //  theta = DOME_PIOVER2 - y * (fovVert);
   //} else {
   //  theta = y * (fovVert);
   //}  

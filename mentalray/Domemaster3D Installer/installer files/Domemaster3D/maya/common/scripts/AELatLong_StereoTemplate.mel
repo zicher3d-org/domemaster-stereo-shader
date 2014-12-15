@@ -430,11 +430,13 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       
       editorTemplate -addSeparator;
 
-       // Define custom non-mappable slider controls
-      editorTemplate -callCustom 	"AELatLong_Stereo_Parallax_DistanceNew" "AELatLong_Stereo_Parallax_DistanceReplace" "Parallax_Distance";   
+      // Define custom non-mappable slider controls
       
       editorTemplate -callCustom 	"AELatLong_Stereo_SeparationNew" "AELatLong_Stereo_SeparationReplace" "Cameras_Separation";    
       
+      editorTemplate -callCustom 	"AELatLong_Stereo_Parallax_DistanceNew" "AELatLong_Stereo_Parallax_DistanceReplace" "Parallax_Distance";   
+      
+
       //editorTemplate -addSeparator;
        
       editorTemplate -label "Zenith Mode" -annotation "Switch the camera orientation from a horizontal to vertical mode." -addControl "Zenith_Mode";

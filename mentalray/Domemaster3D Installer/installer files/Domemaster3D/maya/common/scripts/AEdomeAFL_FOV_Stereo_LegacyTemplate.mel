@@ -9,14 +9,17 @@
 
   Version History
   -----------------
+  
   Version 1.6
-  ------------------
-  Dec 12, 2014
+  -------------
+  Dec 20, 2014
   
   Reordered GUI controls to put Camera Separation next to Dome Radius
   
+  Updated the AE template to allow for a smaller Dome Radius value of 0.001 to allow for smaller camera scales.
+  
   Version 1.5
-  ------------------
+  -------------
   July 6, 2014
   Created a Fallback module to handle the updated Node IDs
   Updated Help URL
@@ -54,9 +57,9 @@ global proc AEdomeAFL_FOV_Stereo_RadiusNew( string $attrName )
       -annotation "Dome Radius (focus plane)" 
       -field true 
       -maxValue 3600.0 
-      -minValue 0.1 
+      -minValue 0.001 
       -value 360.0
-      -fieldMinValue 0.1 
+      -fieldMinValue 0.001 
       -fieldMaxValue 1000000.0 
       domeAFL_FOV_Stereo_Dome_Radius; 
 	
@@ -92,7 +95,7 @@ global proc AEdomeAFL_FOV_Stereo_SeparationNew( string $attrName )
     -field true 
     -maxValue 100.0 
     -minValue 0.0 
-    -value 6.0 
+    -value 6.5 
     -fieldMinValue 0
     -fieldMaxValue 1000000.0 
     domeAFL_FOV_Stereo_Cameras_Separation;

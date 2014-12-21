@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 8 - December 4, 2014
+Version 1.6 alpha 9 - December 20, 2014
 
 About This Shader
 ---------------------
@@ -28,6 +28,12 @@ The Domemaster3D v1.6 release for Windows has been compiled with Visual Studio 2
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
+Mac Notes
+----------
+The minimum Mac OS X version required to run the compiled versions of the Domemaster3D mental ray shaders is now Mac OS X 10.8 due to the version of Xcode used to compile the current .dylib library files. 
+
+If you need support for older versions of Mac OS X, you can compile the shaders locally on a legacy Mac OS X system using the included Makefiles and the shaders will run on systems as old as Mac OS X 10.6.
+
 Documentation and Resources
 -----------------------------------
 
@@ -54,69 +60,25 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
-Version 1.6 alpha 8
+Version 1.6 alpha 9
 -----------------------
-December 4, 2014
+December 20, 2014
+
+3DS Max
+  Updated the domeAFL_FOV_Stereo and LatLong_Stereo mental ray include files to allow for a smaller minimum zero parallax distance of 0.001 to allow for smaller camera scales.
 
 Maya
-  Updated the DomeViewer tool's angular360_mesh.ma model to correct for a horizontal flipping
-  Updated the DomeViewer tool's latlongSphere_mesh.ma model to correct for a Maya 2012 .fc attribute loading error.
-  Updated the Crossbounce tool's "dome_mib_texture_remap1" node transform matrix attributes to correct for the Y-axis view flipping issue.
+  Added a new ramp attrPreset for latlong_Stereo shader users. The "LatLongStereoSeparation" ramp preset is a vertical gradient that is a parametric version of the latlong separation map texture that is designed to be used in conjunction with the "screen space" DomeRamp shelf button.
   
-
-Version 1.6 Alpha 7
------------------------
-November 16, 2014
-
-3DS Max/Maya
-  Updated the LatLong_Stereo.mi file to have the default camera separation value of 6.5 cm.
+  Updated the AE template file for the DomeAFL_FOV_Stereo and LatLong_Stereo shaders so the Camera Separation control is placed next to the Dome Radius / Zero Parallax Distance controls.
   
-  Updated the DomeAFL_FOV_Stereo source code to optimize rendering performance by reusing common cos/sin calculations when possible.
-  
-Maya
-  Added a new fulldome crossbounce module that simulates the effect of "crossbounce" light pollution that happens when imagery is projected across a hemispherical fulldome theatre screen.
-  
-  Updated the LatLongStereoRig.py script to load the control map image using the DOMEMASTER3D_SOURCEIMAGES_DIR value defined in your maya.env file.
-
-  Added a python function to get the Domemaster3D AttrPresets folder path:
-    import domeMaterial as domeMaterial
-    reload(domeMaterial)
-    domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel')
-    
-
-Changes in Version 1.6 Alpha 6
--------------------------------------
-October 28, 2014
-
-Rebuilt the DomeAFL_FOV_Stereo.dll shader.
-
-
-Changes in Version 1.6 Alpha 5
--------------------------------------
-October 24, 2014
-
-Updated LatLong_Stereo source code for a horizontal orientation
-Updated domeAFL_FOV_Stereo code to fix a bug in the Flip X/Y code
-Updated Makefiles for all platforms
-Recompiled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
-
-3DS Max Changes
-  Updated 3DS Max LatLong_Stereo .dll shader file and mental ray include file
-
-Maya Changes
-  Updated the Maya.env file and MEL scripts so you can move the Domemaster3D shader for Maya to any folder location on your system including network volumes, or a non-administrative user's home folder.
-  Updated Maya Domemaster3D shelf - Added a set of wide aspect ratio render resolution buttons
-  Updated Maya AE Template/LatLongStereoRig.py file
-  Updated DomeRender.mel script to improve PreRenderMEL & PostRenderMEL field of view scripting
-  Updated the Maya Visor Example files and relinked the scene textures to use the sourceimages folder:
-  C:\Program Files\Domemaster3D\sourceimages
-  Added a new Maya rampShader attribute preset named "copperRampShader"
+  Updated the domeAFL_FOV_Stereo and LatLong_Stereo mental ray include files and the Maya AE template files to allow for a smaller minimum Dome Radius / Zero Parallax Distance of 0.001 to allow for smaller camera scales.
 
 
 Project Developers
 ----------------------
 
-Domemaster Stereo Shader & LatLong_Stereo shaders Created by Roberto Ziche
+Domemaster Stereo Shader & LatLong_Stereo shaders created by Roberto Ziche
 http://www.robertoziche.com/
 
 Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, the custom Domemaster3D shelves, the Wiki documentation, and the installer by Andrew Hazelden

@@ -1,5 +1,6 @@
 # Domemaster Stereoscopic Lens Shader Mental Ray Include File
 # Version 1.6 - Legacy Fallback NodeID Phenomenon
+# 2014-12-20 10.32 am
 #
 # This file helps you open domeAFL nodes with Legacy ID codes
 # from previous Domemaster3D releases prior to V1.5 July 2014
@@ -58,7 +59,7 @@ declare phenomenon
     
     scalar  "Dome_Radius",    
         #: default 360.0  
-        #: min 1.0 
+        #: min 0.001 
         #: max 1000000.0
         #: shortname "dr"
     

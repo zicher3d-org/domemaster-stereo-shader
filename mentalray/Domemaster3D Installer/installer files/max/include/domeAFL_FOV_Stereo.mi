@@ -15,6 +15,11 @@
 # http://www.andrewhazelden.com
 #
 # ------------------------------------------------------
+# Version 1.6 alpha 9 - December 20, 2014
+# Updated the domeAFL_FOV_Stereo mental ray include file
+# to allow for a smaller minimum Dome Radius value 
+# of 0.001 to allow for smaller camera scales.
+# ------------------------------------------------------
 # Version 1.6 - November 16, 2014
 # Updated domeAFL_FOV_Stereo flip X/Y code
 # Updated default camera separation value to 6.5cm
@@ -91,7 +96,7 @@ declare shader
     
     scalar  "Dome_Radius",    
         #: default 360.0  
-        #: min 1.0 
+        #: min 0.001 
         #: max 1000000.0
         #: shortname "dr"
     
@@ -158,7 +163,7 @@ declare shader
       "enum", "nonConnectable", "uiName" "Camera", "value" "0 Center, 1 Left, 2 Right", "range" 0 2,"helpText" "Center, Left, Right"
     )
     control "Dome_Radius" "scalar" (
-      "uiName" "Dome Radius", "value" 360.0, "range" 1.0 1000000.0,
+      "uiName" "Dome Radius", "value" 360.0, "range" 0.001 1000000.0,
       "helpText" "Dome Radius (focus plane)",
       "nonConnectable"  #, "hidden"
     )

@@ -1,6 +1,6 @@
 #   TITLE: Angular Fisheye Lenses (AFL) Softimage SPDL File
 #  AUTHOR: Andrew Hazelden (andrew@andrewhazelden.com)
-#    DATE: 2014-10-27 11.50 am
+#    DATE: 2014-12-20 10.13 am
 # PURPOSE: To simulate a Virtual Angular Fisheye Lens (AFL) for 
 #          the Production of Full-Dome Stereo Animations
 #
@@ -55,7 +55,7 @@ PropertySet "domeAFL_FOV_Stereo_pset"
     GUID = "{64707F7B-C2EB-4407-B4A3-2582DDBEB16E}";
     Type = scalar;
     Value = 924.0;
-    Value Minimum = 1.0;
+    Value Minimum = 0.001;
     Value Maximum = 10000000.0;
   }
   Parameter "Dome_Tilt" input

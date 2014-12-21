@@ -10,6 +10,15 @@
   Version History
   -----------------
   
+  Version 1.6 alpha 9
+  ------------------
+  Dec 20, 2014
+  
+  Reordered GUI controls to put Camera Separation next to Zero Parallax Distance
+  
+  Updated the AE template to allow for a smaller Zero Parallax Distance value of 0.001 to allow for smaller camera scales.
+  
+  
   Version 1.6
   ----------------------
   2014-10-21 03.37 pm
@@ -50,9 +59,9 @@ global proc AELatLong_Stereo_Parallax_DistanceNew( string $attrName )
       -annotation "Zero Parallax Distance (focus plane)"
       -field true
       -maxValue 10000.0
-      -minValue 0.1
+      -minValue 0.001
       -value 360.0
-      -fieldMinValue 0.1
+      -fieldMinValue 0.001
       -fieldMaxValue 1000000.0
       LatLong_Stereo_Parallax_Distance;
 	

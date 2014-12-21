@@ -1,5 +1,5 @@
 # LatLong_Stereo Lens Shader Mental Ray Include File
-# Version 1.6 - 2014-11-14 
+# Version 1.6 - 2014-12-20 
 # -------------------------------------------------------------------
 # LatLong Stereo Shader by Roberto Ziche (http://www.robertoziche.com/)
 # Maya Support by Andrew Hazelden (andrew@andrewhazelden.com)
@@ -9,7 +9,12 @@
 #  LatLong_Stereo
 #    Node ID = 1185225
 #
-
+#------------------------------------------
+# Version 1.6 alpha 9 - December 20, 2014
+# Updated the LatLong_Stereo mental ray include file
+# to allow for a smaller minimum zero parallax distance 
+# of 0.001 to allow for smaller camera scales.
+#------------------------------------------
 
 #------------------------------------------
 # LatLong_Stereo
@@ -37,7 +42,7 @@ declare shader
             #: shortname "cam"
     scalar  "Parallax_Distance",
             #: default 360.0  
-            #: min 1.0 
+            #: min 0.001
             #: max 1000000.0
     scalar  "Cameras_Separation",
             #: default 6.5 
@@ -85,7 +90,7 @@ declare shader
       "enum", "nonConnectable", "uiName" "Camera", "value" "0 Center, 1 Left, 2 Right", "range" 0 2,"helpText" "Center, Left, Right"
     )
     control "Parallax_Distance" "scalar" (
-      "uiName" "Zero Parallax Distance", "value" 360.0, "range" 1.0 1000000.0,
+      "uiName" "Zero Parallax Distance", "value" 360.0, "range" 0.001 1000000.0,
       "helpText" "Dome Radius (focus plane)",
       "nonConnectable"  #, "hidden"
     )

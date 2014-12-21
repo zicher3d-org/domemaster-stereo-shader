@@ -1,6 +1,6 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2014-11-24 11.20 am
+2014-12-20  
 ![Maya DomemasterStereo for Arnold Screenshot](images/mtoa_domemasterstereo.png)
 
 ## Overview ##
@@ -357,6 +357,10 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 - Daniel Ott created the original 2D `domeAFL_FOV`, and `domeAFL_WxH` lens shaders for mental ray.
 
 ## Version History ##
+
+### Version 0.2 - 2014-12-20 ###
+
+Updated the minimum `Zero Parallax Sphere` and  `Zero Parallax Distance` values in the DomemasterStereo and LatLongStereo shaders to 0.001 to support smaller camera scales.
 
 ### Version 0.1 - 2014-11-01 ###
 

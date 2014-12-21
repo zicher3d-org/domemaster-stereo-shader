@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 9 - December 14, 2014
+Version 1.6 alpha 9 - December 20, 2014
 
 About This Shader
 ---------------------
@@ -27,6 +27,11 @@ Windows Notes
 The Domemaster3D v1.6 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
+Mac Notes
+----------
+The minimum Mac OS X version required to run the compiled versions of the Domemaster3D mental ray shaders is now Mac OS X 10.8 due to the version of Xcode used to compile the current .dylib library files. 
+
+If you need support for older versions of Mac OS X, you can compile the shaders locally on a legacy Mac OS X system using the included Makefiles and the shaders will run on systems as old as Mac OS X 10.6.
 
 Domemaster3D Media Folder
 --------------------------------
@@ -207,7 +212,7 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Project Developers
 ----------------------
 
-Domemaster Stereo Shader & LatLong_Stereo shaders Created by Roberto Ziche
+Domemaster Stereo Shader & LatLong_Stereo shaders created by Roberto Ziche
 http://www.robertoziche.com/
 
 Domemaster3D & LatLong_Stereo shaders for Maya and Softimage, the custom Domemaster3D shelves, the Wiki documentation, and the installer by Andrew Hazelden
@@ -247,13 +252,17 @@ Version History
 
 Version 1.6 alpha 9
 -----------------------
-December 13, 2014
+December 20, 2014
+
+3DS Max
+  Updated the domeAFL_FOV_Stereo and LatLong_Stereo mental ray include files to allow for a smaller minimum zero parallax distance of 0.001 to allow for smaller camera scales.
 
 Maya
   Added a new ramp attrPreset for latlong_Stereo shader users. The "LatLongStereoSeparation" ramp preset is a vertical gradient that is a parametric version of the latlong separation map texture that is designed to be used in conjunction with the "screen space" DomeRamp shelf button.
   
-  Updated the AE template file for the DomeAFL_FOV_Stereo and LatLong_Stereo shaders so the Camera Separation control is placed next to the Dome Radius / Parallax Distance controls.
-
+  Updated the AE template file for the DomeAFL_FOV_Stereo and LatLong_Stereo shaders so the Camera Separation control is placed next to the Dome Radius / Zero Parallax Distance controls.
+  
+  Updated the domeAFL_FOV_Stereo and LatLong_Stereo mental ray include files and the Maya AE template files to allow for a smaller minimum Dome Radius / Zero Parallax Distance of 0.001 to allow for smaller camera scales.
 
 Version 1.6 alpha 8
 -----------------------

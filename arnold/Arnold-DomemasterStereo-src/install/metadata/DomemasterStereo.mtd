@@ -4,7 +4,7 @@
 #     the Production of Full-Dome Animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2014-10-30 09.18 pm
+# 2014-12-20 10.08 am
 
 [node DomemasterStereo]
     desc                         STRING "Domemaster Stereo Shader"
@@ -37,7 +37,7 @@
     [attr zero_parallax_sphere]
       label                      STRING "Zero Parallax Sphere"
       desc                       STRING "Zero Parallax Sphere adjusts the focus plane (radius)"
-      min                        FLOAT  0.1
+      min                        FLOAT  0.001
       softmax                    FLOAT  5000.0
       default                    FLOAT  360.0
       animatable                 BOOL   True

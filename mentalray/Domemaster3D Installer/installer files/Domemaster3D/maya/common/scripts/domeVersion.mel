@@ -1,11 +1,12 @@
 /*
-	Dome Version Checker V1.6 Alpha 8
+	Dome Version Checker V1.6 Alpha 9
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
+  Domemaster3D V1.6 Alpha 9 - December 20, 2014
   Domemaster3D V1.6 Alpha 8 - December 4, 2014
   Domemaster3D V1.6 Alpha 7 - Nov 16, 2014
   Domemaster3D V1.6 Alpha 6 - Oct 28, 2014
@@ -76,14 +77,14 @@ global proc string getMayaPlatform(){
 //Show the version info window
 global proc domeVersion(){
   string $dialogButtonSelected = "";
-  string $domemaster3D_version = "1.6 Alpha 8";
-  string $release_date = "December 4, 2014";
+  string $domemaster3D_version = "1.6 Alpha 9";
+  string $release_date = "December 20, 2014";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Maya" + " - Version " + $domemaster3D_version + "\n";
   $domeDialogString += "This edition was released on " + $release_date + ".\n";
   $domeDialogString += "\n";
-  $domeDialogString += "A 2D/3D angular fisheye rendering system for planetariums and fulldome theatres. This shader is also available for 3DS Max, and Softimage.\n";
+  $domeDialogString += "A 2D/3D angular fisheye and latlong rendering system for planetariums, fulldome theatres, and VR headsets. This shader is also available for 3DS Max, and Softimage.\n";
   $domeDialogString += "\n";
   $domeDialogString += "The Domemaster3D shader is distributed under the GPL v3 license.\n";
   

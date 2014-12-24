@@ -1,7 +1,7 @@
-// vray_LatLongStereo Shader v0.2
-// 2014-11-26 10.26 am
+// vray_LatLongStereo Shader v0.3
+// 2014-12-24 
 // ---------------------------------
-// Ported to vray by Andrew Hazelden
+// Ported to Vray 2.0 by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
 // by Roberto Ziche
 

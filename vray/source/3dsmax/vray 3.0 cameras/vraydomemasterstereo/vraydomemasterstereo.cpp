@@ -1,10 +1,10 @@
 /**********************************************************************
   FILE: vraydomemasterstereo.cpp
 
-  vray DomemasterStereo Shader v0.2
-  2014-12-24 12.29 am
+  vray DomemasterStereo Shader v0.3
+  2014-12-24 
 
-  Ported to vray by Andrew Hazelden
+  Ported to Vray 3.0 by Andrew Hazelden
   Based upon the mental ray shader domeAFL_FOV_Stereo by Roberto Ziche
 
   Todo:
@@ -955,6 +955,8 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
     
 
   } 
+  //fallback return option to eliminate VS2010 "not all control paths return a value" warning
+  return org;
 }
 
 // This is called to compute the actual ray:

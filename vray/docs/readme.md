@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2014-11-26 10.17 am
+2014-12-24 09.01 am
 
 ## Overview ##
 
@@ -10,15 +10,19 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Vray Domemaster3D shaders for Vray Standalone (as of 2014-11-26) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2014-12-24) is a development build.
+
+The Vray Standalone version generally works without too many issues.
 
 More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
 
 The Maya integration is still a work in progress. The Domemaster3D shaders aren't yet active in the Maya render view. Also, the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
 
+The initial 3DS Max source code has been added in this v0.3 release but the GUI elements need to be completed and there is a `LibDescription` error in the source code/makefile that gives an error during compiling.
+
 ## Vray Standalone ##
 
-Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone 2.0 using the `vray.exe` command line program.
+Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone 2.0 / 3.0 using the `vray.exe` command line program.
 
 ### DomemasterStereo in a VRSCENE File ###
 
@@ -363,17 +367,23 @@ At this point a few of the required Vray on Linux shader compiling details are n
 - Roberto Ziche created the original `domeAFL_FOV_Stereo` and `LatLong_Stereo` shader for mental ray on 3DS Max.
 - Andrew Hazelden ported the shader to Vray.
 - Daniel Ott created the original 2D `domeAFL_FOV` for mental ray.
+- Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.
 
 ## Version History ##
 
-### Version 0.1 - 2014-11-14  ###
+### Version 0.1 - 2014-11-14 ###
 
 - Initial Vray support.
 
-### Version 0.2 - 2014-11-26   ###
+### Version 0.2 - 2014-11-26 ###
 
 - Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues
 - Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.
+
+### Version 0.3 - 2014-12-24 ###
+
+- Added Vray 3.0 support for Maya/Standalone
+- Added a Vray 3.0 for Max version of the `DomemasterStereo` and `LatLongStereo` source code. The GUI elements still need to be fine tuned and the Visual Studio makefile needs a bit of work to fix a `LibDescription` compiling error.
 
 ## To Do List ##
 
@@ -389,7 +399,14 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ### Vray for 3DS Max To Dos ###
 
-- Start working on the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders once the features are locked and everything works correctly in Vray Standalone.
+- Finish up the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders.
+
+- Fix the `LibDescription` dllexport compiler error in the source code:
+
+    	warning LNK4022: cannot find unique match for symbol 'LibDescription'
+    	warning LNK4002: "char const * __cdecl LibDescription(void)" (?LibDescription@@YAPEBDXZ) defined in .\..\..\build\vraylatlongstereo\max2015\x64\official\vraylatlongstereo.obj
+    	warning LNK4002: "wchar_t const * __cdecl LibDescription(void)" (?LibDescription@@YAPEB_WXZ) defined in ..\..\..\lib\x64\vrender2015.lib
+    	error LNK2001: unresolved external symbol LibDescription
 
 
 ### Shader Testing To Dos ###

@@ -1,5 +1,5 @@
-// vray_LatLongStereo Shader v0.2
-// 2014-12-23 
+// vray_LatLongStereo Shader v0.3
+// 2014-12-24 
 // ---------------------------------
 // Ported to Vray 3.0 by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
@@ -8,8 +8,8 @@
 //**************************************************
 //**************************************************
 
-//Fix VS2012 compile issue (error LNK2038: mismatch detected for '_MSC_VER': value '1600' doesn't match value '1700')
-
+//**************************************************
+//**************************************************
 
 #include "vrayplugins.h"
 #include "vrayinterface.h"
@@ -47,7 +47,11 @@ struct LatLongStereo_ParamsStruct {
 class LatLongStereoImpl: public VRayCamera2 {
 	LatLongStereo_ParamsStruct *params;
 	VRayRenderer *vray;
+
+	VR::VRayFrameDataCameraFilmTrans* cameraFilmTrans;
 public:
+	LatLongStereoImpl() : cameraFilmTrans(NULL) {}
+
 	// From VRayCamera
 	virtual int getScreenRay(   double xs, double ys, 
 	                            double time, 
@@ -63,7 +67,6 @@ public:
 	                            bool calcDerivs = false ) const;
 
 	int canDoDOF(void) { return false; }
-	Vector2 mapToScreen(const Vector &p) { return Vector2(p.x, p.y); }
 
 	void renderBegin(VRayRenderer *vray) {}
 	void renderEnd(VRayRenderer *vray) {}
@@ -84,13 +87,22 @@ void LatLongStereoImpl::init(LatLongStereo_ParamsStruct &p) {
 
 void LatLongStereoImpl::frameBegin(VR::VRayRenderer *vray) {
 	this->vray=vray;
+	
+	const VR::VRayFrameData &_fdata=vray->getFrameData();
+	VR::VRayFrameData &fdata=const_cast<VR::VRayFrameData&>(_fdata);
+
+	VR::VRayFrameDataCameraFilmTrans* filmTrans = static_cast<VR::VRayFrameDataCameraFilmTrans*>(fdata.newInterface(EXT_FRAME_DATA_CAMERA_FILM_TRANS));
+
+	if (filmTrans && filmTrans->params.enabled) {
+		cameraFilmTrans = filmTrans;
+	}
 }
 
 Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
   // Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
 
-  const VR::VRayFrameData &fdata=vray->getFrameData();
-  
+	const VR::VRayFrameData &fdata=vray->getFrameData();
+	
   double rx=(xs-fdata.imgWidth*0.5)/(fdata.imgWidth*0.5f);
   double ry=(fdata.imgHeight*0.5-ys)/(fdata.imgHeight*0.5f);
 
@@ -214,6 +226,11 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
 }
 
 int LatLongStereoImpl::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, TraceRay &ray, Ireal &mint, Ireal &maxt, RayDeriv &rayDeriv, VR::Color &multResult) const {
+	if (cameraFilmTrans) {
+		const VR::VRayFrameData& fdata = vray->getFrameData();
+		cameraFilmTrans->transformScreenRay(xs, ys, fdata.rgnLeft, fdata.rgnTop, fdata.imgWidth, fdata.imgHeight);
+	}
+
   Vector dir=getDir(xs, ys, 0);   //Return the dir data from the getDir function
   Vector org=getDir(xs, ys, 1);   //Return the org data from the getDir function
   
@@ -241,6 +258,15 @@ int LatLongStereoImpl::getScreenRays(
         const float* dof_uc, const float* dof_vc, 
         bool calcDerivs /*= false*/ ) const
 {
+		double x[RAYS_IN_BUNCH];
+		double y[RAYS_IN_BUNCH];
+		if (cameraFilmTrans) {
+			const VR::VRayFrameData& fdata = vray->getFrameData();
+			cameraFilmTrans->transformScreenRayBunch(x,y, xs, ys, raysbunch.getCount(), fdata.rgnLeft, fdata.rgnTop, fdata.imgWidth, fdata.imgHeight);
+			xs = x;
+			ys = y;
+		}
+
 	for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.mints()[i] = 0.0f;
 	for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.maxts()[i] = LARGE_FLOAT;
 
@@ -380,6 +406,7 @@ public:
 		vray->setCameraRaySampler(NULL, 1, cameraSampler);
 	}
 };
+
 
 #define LatLongStereo_PluginID PluginID(LARGE_CONST(1185226))
 SIMPLE_PLUGIN_LIBRARY(LatLongStereo_PluginID, EXT_RENDER_SETTINGS, "LatLongStereo", "LatLongStereo plugin for V-Ray", LatLongStereo, LatLongStereo_Params);

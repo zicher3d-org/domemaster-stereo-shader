@@ -1,12 +1,15 @@
-// DomemasterStereo Vray Shader v0.2
-// 2014-11-26 10.26 am
+// DomemasterStereo Vray Shader v0.3
+// 2014-12-24 
 // ---------------------------------
-// Ported to vray by Andrew Hazelden
+// Ported to Vray 3.0 by Andrew Hazelden
 // Based upon the mental ray shader domeAFL_FOV_Stereo  
 // by Roberto Ziche
 
 // Todo:
 // Work out the return black color code if the check for "if (r < 1.0)" comes back as false
+
+//**************************************************
+//**************************************************
 
 //**************************************************
 //**************************************************
@@ -48,53 +51,64 @@ struct DomemasterStereo_ParamsStruct {
 //**************************************************
 // The actual camera
 class DomemasterStereoImpl: public VRayCamera2 {
-  DomemasterStereo_ParamsStruct *params;
-  VRayRenderer *vray;
+	DomemasterStereo_ParamsStruct *params;
+	VRayRenderer *vray;
 
+	VR::VRayFrameDataCameraFilmTrans* cameraFilmTrans;
 public:
-  // From VRayCamera
-  virtual int getScreenRay(   double xs, double ys, 
-  double time, 
-  float dof_uc, float dof_vc, 
-  TraceRay &ray, 
-  Ireal &mint, Ireal &maxt, 
-  RayDeriv &rayDeriv, 
-  VR::Color &multResult) const;
+	DomemasterStereoImpl() : cameraFilmTrans(NULL) {}
 
-  virtual int getScreenRays(  VR::RayBunchCamera& raysbunch,
-  const double* xs,   const double* ys, 
-  const float* dof_uc, const float* dof_vc, 
-  bool calcDerivs = false ) const;
+	// From VRayCamera
+	virtual int getScreenRay(   double xs, double ys, 
+	                            double time, 
+								float dof_uc, float dof_vc, 
+								TraceRay &ray, 
+								Ireal &mint, Ireal &maxt, 
+								RayDeriv &rayDeriv, 
+								VR::Color &multResult) const;
 
-  int canDoDOF(void) { return false; }
-  Vector2 mapToScreen(const Vector &p) { return Vector2(p.x, p.y); }
+	virtual int getScreenRays(  VR::RayBunchCamera& raysbunch,
+	                            const double* xs,   const double* ys, 
+	                            const float* dof_uc, const float* dof_vc, 
+	                            bool calcDerivs = false ) const;
 
-  void renderBegin(VRayRenderer *vray) {}
-  void renderEnd(VRayRenderer *vray) {}
-  void frameBegin(VR::VRayRenderer *vray);
-  void frameEnd(VRayRenderer *vray) {}
+	int canDoDOF(void) { return false; }
 
-  // From VRayCamera2
-  void frameBeginImpl(VR::VRayRenderer *vray, const VR::VRaySequenceData &sdata, const VR::VRayFrameData &fdata) { frameBegin(vray); }
+	void renderBegin(VRayRenderer *vray) {}
+	void renderEnd(VRayRenderer *vray) {}
+	void frameBegin(VR::VRayRenderer *vray);
+	void frameEnd(VRayRenderer *vray) {}
 
-  // Other methods
-  void init(DomemasterStereo_ParamsStruct &params);
-  Vector getDir(double xs, double ys, int rayVsOrgReturnMode) const;
+	// From VRayCamera2
+	void frameBeginImpl(VR::VRayRenderer *vray, const VR::VRaySequenceData &sdata, const VR::VRayFrameData &fdata) { frameBegin(vray); }
+
+	// Other methods
+	void init(DomemasterStereo_ParamsStruct &params);
+	Vector getDir(double xs, double ys, int rayVsOrgReturnMode) const;
 };
 
 void DomemasterStereoImpl::init(DomemasterStereo_ParamsStruct &p) {
-  params=&p;
+	params=&p;
 }
 
 void DomemasterStereoImpl::frameBegin(VR::VRayRenderer *vray) {
-  this->vray=vray;
+	this->vray=vray;
+	
+	const VR::VRayFrameData &_fdata=vray->getFrameData();
+	VR::VRayFrameData &fdata=const_cast<VR::VRayFrameData&>(_fdata);
+
+	VR::VRayFrameDataCameraFilmTrans* filmTrans = static_cast<VR::VRayFrameDataCameraFilmTrans*>(fdata.newInterface(EXT_FRAME_DATA_CAMERA_FILM_TRANS));
+
+	if (filmTrans && filmTrans->params.enabled) {
+		cameraFilmTrans = filmTrans;
+	}
 }
 
 Vector DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
   // Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
 
-  const VR::VRayFrameData &fdata=vray->getFrameData();
-  
+	const VR::VRayFrameData &fdata=vray->getFrameData();
+	
   // Get the image coordinates
   //double rx=(xs-fdata.imgWidth*0.5)/(fdata.imgWidth*0.5f);
   //double ry=(fdata.imgHeight*0.5-ys)/(fdata.imgHeight*0.5f);
@@ -190,7 +204,7 @@ Vector DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode
         // head rotation
         tmpY = target.y * cos(-forward_tilt) - target.z * sin(-forward_tilt);
         tmpZ = target.z * cos(-forward_tilt) + target.y * sin(-forward_tilt);
-        rot = atan2(target.x,-tmpY) * params->head_turn_map;
+        rot = atan2((double)target.x,(double)-tmpY) * params->head_turn_map;
         
         if (params->vertical_mode) {
           rot *= fabs(sinP);
@@ -328,10 +342,16 @@ Vector DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode
     }
     
   } 
+  //fallback return option to eliminate VS2010 "not all control paths return a value" warning
+  return org;
 }
 
-
 int DomemasterStereoImpl::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, TraceRay &ray, Ireal &mint, Ireal &maxt, RayDeriv &rayDeriv, VR::Color &multResult) const {
+	if (cameraFilmTrans) {
+		const VR::VRayFrameData& fdata = vray->getFrameData();
+		cameraFilmTrans->transformScreenRay(xs, ys, fdata.rgnLeft, fdata.rgnTop, fdata.imgWidth, fdata.imgHeight);
+	}
+
   Vector dir=getDir(xs, ys, 0);   //Return the dir data from the getDir function
   Vector org=getDir(xs, ys, 1);   //Return the org data from the getDir function
   
@@ -354,79 +374,90 @@ int DomemasterStereoImpl::getScreenRay(double xs, double ys, double time, float 
 
 
 int DomemasterStereoImpl::getScreenRays(  
-VR::RayBunchCamera& raysbunch,
-const double* xs,   const double* ys, 
-const float* dof_uc, const float* dof_vc, 
-bool calcDerivs /*= false*/ ) const
+		VR::RayBunchCamera& raysbunch,
+        const double* xs,   const double* ys, 
+        const float* dof_uc, const float* dof_vc, 
+        bool calcDerivs /*= false*/ ) const
 {
-  for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.mints()[i] = 0.0f;
-  for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.maxts()[i] = LARGE_FLOAT;
+		double x[RAYS_IN_BUNCH];
+		double y[RAYS_IN_BUNCH];
+		if (cameraFilmTrans) {
+			const VR::VRayFrameData& fdata = vray->getFrameData();
+			cameraFilmTrans->transformScreenRayBunch(x,y, xs, ys, raysbunch.getCount(), fdata.rgnLeft, fdata.rgnTop, fdata.imgWidth, fdata.imgHeight);
+			xs = x;
+			ys = y;
+		}
 
-  // This should be SingleOrigin for pinhole cameras for better performance
-  raysbunch.setType( RayBunchBaseParams<RAYS_IN_BUNCH>::MultipleOrigins );
+	for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.mints()[i] = 0.0f;
+	for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.maxts()[i] = LARGE_FLOAT;
 
-  bool success = true;
+	// This should be SingleOrigin for pinhole cameras for better performance
+	raysbunch.setType( RayBunchBaseParams<RAYS_IN_BUNCH>::MultipleOrigins );
 
-  // By default call single rays versions
-  for( unsigned int i = 0 ; i < raysbunch.getCount(); i++ )
-  {
-    TraceRay ray;
-    RayDeriv deriv;
-    Color multResult( 1.0f, 1.0f, 1.0f );
-    bool res = getScreenRay( xs[i], ys[i], 
-    raysbunch.times()[ i ], 
-    dof_uc[i], dof_vc[i], 
-    ray, 
-    raysbunch.mints()[i],
-    raysbunch.maxts()[i],
-    deriv,
-    multResult );
+	bool success = true;
 
-    success &= res;
+	// By default call single rays versions
+	for( unsigned int i = 0 ; i < raysbunch.getCount(); i++ )
+	{
+		TraceRay ray;
+		RayDeriv deriv;
+		Color multResult( 1.0f, 1.0f, 1.0f );
+		bool res = getScreenRay( xs[i], ys[i], 
+		                         raysbunch.times()[ i ], 
+								 dof_uc[i], dof_vc[i], 
+								 ray, 
+		                         raysbunch.mints()[i],
+								 raysbunch.maxts()[i],
+								 deriv,
+								 multResult );
 
-    if (res) {
-      // Scatter
-      raysbunch.origins(0)[i] = ray.p.x;
-      raysbunch.origins(1)[i] = ray.p.y;
-      raysbunch.origins(2)[i] = ray.p.z;
-      raysbunch.dirs(0)[i] = ray.dir.x;
-      raysbunch.dirs(1)[i] = ray.dir.y;
-      raysbunch.dirs(2)[i] = ray.dir.z;
+		success &= res;
 
-      raysbunch.currMultResults(0)[i] = multResult[0];
-      raysbunch.currMultResults(1)[i] = multResult[1];
-      raysbunch.currMultResults(2)[i] = multResult[2];
+		if (res)
+		{
+			// Scatter
+			raysbunch.origins(0)[i] = ray.p.x;
+			raysbunch.origins(1)[i] = ray.p.y;
+			raysbunch.origins(2)[i] = ray.p.z;
+			raysbunch.dirs(0)[i] = ray.dir.x;
+			raysbunch.dirs(1)[i] = ray.dir.y;
+			raysbunch.dirs(2)[i] = ray.dir.z;
 
-      // Restructure derivatives
-      *(raysbunch.dPds( 0, 0 ) + i) = deriv.dPdx.x;
-      *(raysbunch.dPds( 0, 1 ) + i) = deriv.dPdx.y;
-      *(raysbunch.dPds( 0, 2 ) + i) = deriv.dPdx.z;
+			raysbunch.currMultResults(0)[i] = multResult[0];
+			raysbunch.currMultResults(1)[i] = multResult[1];
+			raysbunch.currMultResults(2)[i] = multResult[2];
 
-      *(raysbunch.dPds( 1, 0 ) + i) = deriv.dPdy.x;
-      *(raysbunch.dPds( 1, 1 ) + i) = deriv.dPdy.y;
-      *(raysbunch.dPds( 1, 2 ) + i) = deriv.dPdy.z;
+			// Restructure derivatives
+			*(raysbunch.dPds( 0, 0 ) + i) = deriv.dPdx.x;
+			*(raysbunch.dPds( 0, 1 ) + i) = deriv.dPdx.y;
+			*(raysbunch.dPds( 0, 2 ) + i) = deriv.dPdx.z;
 
-      *(raysbunch.dDds( 0, 0 ) + i) = deriv.dDdx.x;
-      *(raysbunch.dDds( 0, 1 ) + i) = deriv.dDdx.y;
-      *(raysbunch.dDds( 0, 2 ) + i) = deriv.dDdx.z;
+			*(raysbunch.dPds( 1, 0 ) + i) = deriv.dPdy.x;
+			*(raysbunch.dPds( 1, 1 ) + i) = deriv.dPdy.y;
+			*(raysbunch.dPds( 1, 2 ) + i) = deriv.dPdy.z;
 
-      *(raysbunch.dDds( 1, 0 ) + i) = deriv.dDdy.x;
-      *(raysbunch.dDds( 1, 1 ) + i) = deriv.dDdy.y;
-      *(raysbunch.dDds( 1, 2 ) + i) = deriv.dDdy.z;
-    } else {
-      // This could be further optimized not to trace those rays
-      raysbunch.mints()[i] = -LARGE_FLOAT;
-      raysbunch.maxts()[i] = -LARGE_FLOAT;
+			*(raysbunch.dDds( 0, 0 ) + i) = deriv.dDdx.x;
+			*(raysbunch.dDds( 0, 1 ) + i) = deriv.dDdx.y;
+			*(raysbunch.dDds( 0, 2 ) + i) = deriv.dDdx.z;
 
-      raysbunch.currMultResults(0)[i] = 0.0f;
-      raysbunch.currMultResults(1)[i] = 0.0f;
-      raysbunch.currMultResults(2)[i] = 0.0f;
-    }
-  }
+			*(raysbunch.dDds( 1, 0 ) + i) = deriv.dDdy.x;
+			*(raysbunch.dDds( 1, 1 ) + i) = deriv.dDdy.y;
+			*(raysbunch.dDds( 1, 2 ) + i) = deriv.dDdy.z;
+		}
+		else
+		{
+			// This could be further optimized not to trace those rays
+			raysbunch.mints()[i] = -LARGE_FLOAT;
+			raysbunch.maxts()[i] = -LARGE_FLOAT;
 
-  return success;
+			raysbunch.currMultResults(0)[i] = 0.0f;
+			raysbunch.currMultResults(1)[i] = 0.0f;
+			raysbunch.currMultResults(2)[i] = 0.0f;
+		}
+	}
+
+	return success;
 }
-
 
 //**************************************************
 // Plugin stuff
@@ -434,7 +465,7 @@ bool calcDerivs /*= false*/ ) const
 // This structure describes the parameters of the plugin; the parameters must be of the
 // exact same type and in the same order as in the DomemasterStereo_ParamsStruct structure.
 struct DomemasterStereo_Params: VRayParameterListDesc {
-  DomemasterStereo_Params(void) {
+	DomemasterStereo_Params(void) {
     addParamInt("camera", 0, -1, "Center, Left, Right Camera Views");
     addParamFloat("fov_angle", 180.0f, -1, "Field of View");
     addParamFloat("zero_parallax_sphere", 360.0f, -1, "Zero Parallax Sphere");
@@ -447,18 +478,17 @@ struct DomemasterStereo_Params: VRayParameterListDesc {
     addParamFloat("head_tilt_map", 0.5f, -1, "Head Tilt map");
     addParamBool("flip_x", false, -1, "Flip X");
     addParamBool("flip_y", false, -1, "Flip Y");
-  }
+	}
 };
 
-
 class DomemasterStereo: public VRayRenderSettings {
-  // The actual camera that will be used
-  DomemasterStereoImpl camera;
+	// The actual camera that will be used
+	DomemasterStereoImpl camera;
 
-  // Cached parameters
-  DomemasterStereo_ParamsStruct params;
+	// Cached parameters
+	DomemasterStereo_ParamsStruct params;
 public:
-  DomemasterStereo(VRayPluginDesc *pluginDesc):VRayRenderSettings(pluginDesc) {
+	DomemasterStereo(VRayPluginDesc *pluginDesc):VRayRenderSettings(pluginDesc) {
     // We want the parameters to be cached to the params structure
     paramList->setParamCache("camera", &params.camera);
     paramList->setParamCache("fov_angle", &params.fov_angle);
@@ -472,35 +502,36 @@ public:
     paramList->setParamCache("head_tilt_map", &params.head_tilt_map);
     paramList->setParamCache("flip_x", &params.flip_x);
     paramList->setParamCache("flip_y", &params.flip_y);
-  }
+	}
 
-  // From RenderSettingsExtension
-  void setupSequenceData(VR::VRaySequenceData &sdata) {
-    // Note that this method is called before frameBegin(), and so parameters have not been cached
-    // Therefore, cache the parameters here - computes the actual parameter values from the scene
-    // description
-    paramList->cacheParams();
+	// From RenderSettingsExtension
+	void setupSequenceData(VR::VRaySequenceData &sdata) {
+		// Note that this method is called before frameBegin(), and so parameters have not been cached
+		// Therefore, cache the parameters here - computes the actual parameter values from the scene
+		// description
+		paramList->cacheParams();
 
-    // Initialize the camera
-    camera.init(params);
+		// Initialize the camera
+		camera.init(params);
 
-    // Set the camera into the sequence data so that VRay can use it
-    sdata.cameraRaySampler=static_cast<VRayCamera*>(&camera);
-  }
-  
-  void setupFrameData(VR::VRayFrameData &fdata) {
-    paramList->cacheParams(fdata.t);
-    // The field of view may be specified by a SettingsCamera plug-in, so only set it here if explicitly specified;
-    //if (paramList->getParam("fov")) fdata.fov=params.fov;
-  }
-  void renderEnd(VR::VRayRenderer *vray) {
-    VRayRenderSettings::renderEnd(vray);
-    
-    VRaySequenceData &sdata=const_cast<VR::VRaySequenceData&>(vray->getSequenceData());
-    VR::VRayCamera *cameraSampler=static_cast<VR::VRayCamera*>(&camera);
-    vray->setCameraRaySampler(NULL, 1, cameraSampler);
-  }
+		// Set the camera into the sequence data so that VRay can use it
+		sdata.cameraRaySampler=static_cast<VRayCamera*>(&camera);
+	}
+	
+	void setupFrameData(VR::VRayFrameData &fdata) {
+		paramList->cacheParams(fdata.t);
+		// The field of view may be specified by a SettingsCamera plug-in, so only set it here if explicitly specified;
+		//if (paramList->getParam("fov")) fdata.fov=params.fov;
+	}
+	void renderEnd(VR::VRayRenderer *vray) {
+		VRayRenderSettings::renderEnd(vray);
+		
+		VRaySequenceData &sdata=const_cast<VR::VRaySequenceData&>(vray->getSequenceData());
+		VR::VRayCamera *cameraSampler=static_cast<VR::VRayCamera*>(&camera);
+		vray->setCameraRaySampler(NULL, 1, cameraSampler);
+	}
 };
+
 
 #define DomemasterStereo_PluginID PluginID(LARGE_CONST(1185227))
 SIMPLE_PLUGIN_LIBRARY(DomemasterStereo_PluginID, EXT_RENDER_SETTINGS, "DomemasterStereo", "DomemasterStereo plugin for V-Ray", DomemasterStereo, DomemasterStereo_Params);

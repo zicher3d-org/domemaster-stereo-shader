@@ -1,8 +1,8 @@
 /**********************************************************************
   FILE: vraylatlongstereo.cpp
 
-  vray LatLongStereo Shader v0.2
-  2014-12-23 11.10 pm
+  vray LatLongStereo Shader v0.3
+  2014-12-24 
 
   Ported to vray by Andrew Hazelden
   Based upon the mental ray shader LatLong_Stereo by Roberto Ziche

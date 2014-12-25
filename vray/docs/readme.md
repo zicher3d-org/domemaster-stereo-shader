@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2014-12-24 09.01 am
+2014-12-25 11:46 am
 
 ## Overview ##
 
@@ -22,13 +22,13 @@ The initial 3DS Max source code has been added in this v0.3 release but the GUI 
 
 ## Vray Standalone ##
 
-Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone 2.0 / 3.0 using the `vray.exe` command line program.
+Right now the DomemasterStereo and LatLongStereo shaders are accessible from `Vray Standalone 2.0 / 3.0` and `RT for 3DS Max 2015` using the `vray.exe` command line program.
 
 ### DomemasterStereo in a VRSCENE File ###
 
 ![DomemasterStereo Renderings](images/vray_standalone_domemasterStereo_render.png)
 
-You can upgrade a regular Vray camera (in this case named RenderCamShape) to a DomemasterStereo camera by by pasting the following text in a .vrscene file:
+You can upgrade a regular Vray camera (in this case named RenderCamShape) to a DomemasterStereo camera by finding the camera entry in your Vray .vrscene file and pasting the following text in its place:
 	
 	DomemasterStereo RenderCamShape {
 	  camera=0;
@@ -53,7 +53,7 @@ You can test this code out using the included vray example scene "vray 2 Domemas
 
 ![LatLongStereo Renderings](images/vray_standalone_LatLongStereo_render.png)
 
-You can upgrade a regular Vray camera (in this case named RenderCamShape) to a LatLongStereo camera by by pasting the following text in a .vrscene file:
+You can upgrade a regular Vray camera (in this case named RenderCamShape) to a LatLongStereo camera by finding the camera entry in your Vray .vrscene file and pasting the following text in its place:
 
 	LatLongStereo RenderCamShape {
 	  camera=0;
@@ -77,14 +77,14 @@ You can test this code out using the included vray example scene "vray 2 LatLong
 
 **Step 2.** Copy the .dll files to the vray-plugins directory:  
 
-`H:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
+`C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
 
 Vray Plugin Files:
 
     vray_DomemasterStereo.dll
     vray_LatLongStereo.dll
 
-**Step 3.** Edit the Windows environment variables and add an entry for the  `VRAY_PLUGINS_x64` vray standalone plugins path location.
+**Step 3.** Edit the Windows environment variables and add an entry for the  `VRAY_PLUGINS_x64` Vray standalone plugins path location.
 
 ![Adding an ENV Var](images/adding-a-new-env-var.png)
 
@@ -93,6 +93,34 @@ For Vray Standalone 2.0 the standard `VRAY_PLUGINS_x64` setting would be:
 `VRAY_PLUGINS_x64`  
 `C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
 
+## Vray RT for 3DS Max Shader Installation ##
+
+### Windows 64-bit ###
+
+**Step 1.** Download the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
+
+**Step 2.** Copy the .dll files to the Vray RT plugins directory.
+
+`C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max <Max Version> for x64\bin\plugins`
+
+Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.
+
+Vray Plugin Files:  
+
+    vray_DomemasterStereo.dll (Not compiled yet)
+    vray_LatLongStereo.dll
+    
+**Step 3.** Edit the Windows environment variables and add an entry for the  `VRAY_PLUGINS_x64` Vray RT plugins path location.
+
+`C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max <Max Version> for x64\bin\plugins`
+
+Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.
+
+**Step 4.** Edit the Windows ENV Path and add the VRay RT `Bin` folder to the list.
+
+`;C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max <Max Version> for x64\bin`
+
+Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.
 
 ## Verify the Shader is Loaded in Vray ##
 
@@ -140,7 +168,6 @@ If you run the plgparams with the shader name listed you can see the individual 
 	  flip_y: bool = false, Flip Y
 
 
-
 #### plgparams.exe LatLongStereo ####
 
 	Parameters for plugin 'LatLongStereo'
@@ -151,14 +178,10 @@ If you run the plgparams with the shader name listed you can see the individual 
 	  separation: float = 6.5, Camera Separation
 	  zenith_mode: bool = false, Zenith Mode
 	  separation_map: float = 1, Separation Map
-	  head_tilt_map: float = 1, Head Tilt map
+	  head_tilt_map: float = 0.5, Head Tilt map
 	  flip_x: bool = false, Flip X
 	  flip_y: bool = false, Flip Y
 
-**Note:** If you receive the following error message it means you have tried to load a Vray 2.0 shader in Vray 3.0:  
-
-    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_DomemasterStereo.dll" (127): The specified procedure could not be found. //   
-    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_LatLongStereo.dll" (127): The specified procedure could not be found. //   
 
 #### Windows Parameters ####
 
@@ -194,7 +217,7 @@ If you navigate to the Domemaster3D vray scenes folder you can try rendering the
 
 ## Adding a Vray Lens Shader in Maya #
 
-You can add a custom vray lens shader to a Maya camera using the **VRay Extra Attributes** feature. 
+You can add a custom Vray lens shader to a Maya camera using the **VRay Extra Attributes** feature. 
 
 To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera's shape node in the Attribute Editor window. Open the `Attributes > VRay` menu, and select either the `DomemasterStereo camera` or `LatLongStereo camera` items. 
 
@@ -322,7 +345,6 @@ Compile the source code in Visual Studio 11 with the following project files:
 `vray_DomemasterStereo.vcxproj`  
 `vray_LatLongStereo.vcxproj`  
 
-
 If you are running an older version of Visual Studio you can use the legacy Microsoft Developer Studio project file:  
 
 `vray_DomemasterStereo.dsp`  
@@ -382,7 +404,7 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ### Version 0.3 - 2014-12-24 ###
 
-- Added Vray 3.0 support for Maya/Standalone
+- Added Vray 3.0 support for Maya/Standalone/Vray RT
 - Added a Vray 3.0 for Max version of the `DomemasterStereo` and `LatLongStereo` source code. The GUI elements still need to be fine tuned and the Visual Studio makefile needs a bit of work to fix a `LibDescription` compiling error.
 
 ## To Do List ##

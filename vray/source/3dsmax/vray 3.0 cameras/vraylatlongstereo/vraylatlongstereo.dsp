@@ -82,9 +82,9 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
-# ADD BASE LINK32 vray.lib paramblk2.lib maxutil.lib core.lib geom.lib comctl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /base:"0x08C40000" /dll /machine:AMD64 /out:"C:\Program Files\Autodesk\3ds Max 2015\plugins\vrayplugins\vraylatlongstereo2015.dlr" /libpath:"C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\lib\x64\Release" /libpath:"..\..\lib" /release
+# ADD BASE LINK32 vray2015.lib paramblk2.lib maxutil.lib core.lib geom.lib comctl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /base:"0x08C40000" /dll /machine:AMD64 /out:"C:\Program Files\Autodesk\3ds Max 2015\plugins\vrayplugins\vraylatlongstereo2015.dlr" /libpath:"C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\lib\x64\Release" /libpath:"..\..\lib" /release
 # SUBTRACT BASE LINK32 /pdb:none
-# ADD LINK32 vrender2015.lib vray.lib paramblk2.lib maxutil.lib core.lib geom.lib comctl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib mesh.lib gfx.lib putils_s.lib vutils_s.lib /base:"0x08C40000" /dll /pdb:"..\..\pdb\vraylatlongstereo2015.pdb" /debug /machine:AMD64 /def:".\plugin.def" /out:"..\..\vrayplugins\vraylatlongstereo2015.dlo" /libpath:"C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\lib\x64\Release" /libpath:"..\..\..\lib\x64" /libpath:"..\..\..\lib\x64\vc11" /release
+# ADD LINK32 vrender2015.lib vray2015.lib paramblk2.lib maxutil.lib core.lib geom.lib comctl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib mesh.lib gfx.lib putils_s.lib vutils_s.lib /base:"0x08C40000" /dll /pdb:"..\..\pdb\vraylatlongstereo2015.pdb" /debug /machine:AMD64 /def:".\plugin.def" /out:"..\..\vrayplugins\vraylatlongstereo2015.dlo" /libpath:"C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\lib\x64\Release" /libpath:"..\..\..\lib\x64" /libpath:"..\..\..\lib\x64\vc11" /release
 # SUBTRACT LINK32 /nologo /pdb:none
 
 !ENDIF 

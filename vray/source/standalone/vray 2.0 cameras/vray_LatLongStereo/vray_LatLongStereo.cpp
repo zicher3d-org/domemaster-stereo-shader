@@ -210,6 +210,9 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
   } else if (rayVsOrgReturnMode == 1){
     return fdata.camToWorld.offs-org;
   }
+  
+  // Fix the Visual Studio "not all control paths return a value" warning
+  return fdata.camToWorld.offs-org;
 }
 
 int LatLongStereoImpl::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, TraceRay &ray, Ireal &mint, Ireal &maxt, RayDeriv &rayDeriv, VR::Color &multResult) const {

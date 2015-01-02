@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2014-12-25 11:46 am
+2015-01-01  
 
 ## Overview ##
 
@@ -45,6 +45,8 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a D
 	  flip_y=0;
 	}
 
+Note: camera=0 means center view, camera=1 is left view, and camera=2 is right view.
+
 You can test this code out using the included vray example scene "vray 2 DomemasterStereo.vrscene". To render the sample scene launch vray standalone from the command prompt with:
      
 	vray.exe -sceneFile="vray 2 DomemasterStereo.vrscene"
@@ -64,6 +66,8 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a L
 	  zenith_mode=1;
 	  separation_map=1;
 	}
+
+Note: camera=0 means center view, camera=1 is left view, and camera=2 is right view.
 
 You can test this code out using the included vray example scene "vray 2 LatLongStereo.vrscene". To render the sample scene launch vray standalone from the command prompt with:
       

@@ -1,11 +1,11 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 1.6 alpha 9 - December 20, 2014
+Version 1.6 - January 1, 2015
 
 ## Render Farm Note ## 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
 
 
-## Install Guide for Maya 2010 to 2015 on Linux ##
+## Install Guide for Maya 2010 to 2016 on Linux ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /opt/Domemaster3D/
@@ -44,7 +44,7 @@ andrew@andrewhazelden.com
 
 
 
-## Install Guide for Maya 2010 to 2015 x64 on Windows ##
+## Install Guide for Maya 2010 to 2016 x64 on Windows ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 C:\Program Files\Domemaster3D\
@@ -74,7 +74,7 @@ System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
 
-## Install Guide for Maya 2011 to 2015 x64 on Mac OS X ##
+## Install Guide for Maya 2011 to 2016 x64 on Mac OS X ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /Applications/Domemaster3D/
@@ -104,7 +104,7 @@ sudo ports install ImageMagick
 
 
 
-## Install Guide for 3DS Max 2009 to 2015 x64 ##
+## Install Guide for 3DS Max 2009 to 2016 x64 ##
 
 Step 1.  Extract the ZIP file and copy the included "Domemaster3D" folder to:
 C:\Program Files\Domemaster3D\
@@ -155,7 +155,7 @@ This process can be used for Mental Ray Standalone and Maya Satellite render nod
 Step 1.  Extract the ZIP file and copy the included "Domemaster3D" folder to:
 
 Linux Install Path:
-/Applications/Domemaster3D/
+/opt/Domemaster3D/
 
 Windows Install Path:
 C:\Program Files\Domemaster3D\
@@ -169,7 +169,7 @@ Step 2. Copy the .mi 'include' files to your mental ray include folder.
 The Domemaster3D .mi include files are stored in the folder:
 
 Linux include Path:
-/Applications/Domemaster3D/mr-standalone/include/
+/opt/Domemaster3D/mr-standalone/include/
 
 Windows include Path:
 C:\Program Files\Domemaster3D\mr-standalone\include\
@@ -180,10 +180,10 @@ Mac OS X include Path:
 
 Step 3. Copy the .so / .dll / .dylib 'library' files to your mental ray shader folder.
 
-The Domemaster3D .so shader lib files are stored in the folder:
+The Domemaster3D shader lib files are stored in the folder:
 
 Linux Shader Lib Path:
-/Applications/Domemaster3D/mr-standalone/linux-x64/
+/opt/Domemaster3D/mr-standalone/linux-x64/
 
 Windows Shader Lib Path:
 C:\Program Files\Domemaster3D\mr-standalone\windows-x64\

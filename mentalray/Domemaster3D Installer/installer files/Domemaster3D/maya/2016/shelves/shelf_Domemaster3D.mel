@@ -1,0 +1,948 @@
+global proc shelf_Domemaster3D () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AutoMagic Fulldome 3D Scene" 
+        -enableBackground 0
+        -align "center" 
+        -label "AutoMagic" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_magicDome.xpm" 
+        -image1 "render_magicDome.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()\ndomeCamera.createDomeGrid()\ndomeCamera.createTestShapes()\ndomeCamera.setRenderRes()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Fulldome Stereo Rig" 
+        -enableBackground 0
+        -align "center" 
+        -label "Stereo Rig" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.792793 0.792793 0.792793 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_domeAFL_FOV_Stereo.xpm" 
+        -image1 "render_domeAFL_FOV_Stereo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Screen Space Texture" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomeTexture" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_rob_lookup_background.xpm" 
+        -image1 "render_rob_lookup_background.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Screen Space Ramp" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomeRamp" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_domeRamp.xpm" 
+        -image1 "render_domeRamp.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "DomeAFL_FOV" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomeAFL_FOV" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_domeAFL_FOV.xpm" 
+        -image1 "render_domeAFL_FOV.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_FOV_Camera()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "DomeAFL_WxH" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomeAFL_WxH" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_domeAFL_WxH.xpm" 
+        -image1 "render_domeAFL_WxH.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_WxH_Camera()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Latitude Longitude" 
+        -enableBackground 0
+        -align "center" 
+        -label "LatLong" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_latlong_lens.xpm" 
+        -image1 "render_latlong_lens.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Latitude Longitude Stereo" 
+        -enableBackground 0
+        -align "center" 
+        -label "LatLong3D" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_LatLong_Stereo.xpm" 
+        -image1 "render_LatLong_Stereo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoRig()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Color Material" 
+        -enableBackground 0
+        -align "center" 
+        -label "Color" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "colorMaterial.xpm" 
+        -image1 "colorMaterial.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorMiaMaterial()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Color + Bump Material" 
+        -enableBackground 0
+        -align "center" 
+        -label "C+Bump" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "bumpMaterial.xpm" 
+        -image1 "bumpMaterial.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorBumpMiaMaterial()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Color Image Sequence Material" 
+        -enableBackground 0
+        -align "center" 
+        -label "Im Seq" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "mentalrayTextureAnimationMaterial.xpm" 
+        -image1 "mentalrayTextureAnimationMaterial.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorImageSequenceMiaMaterial()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Starglobe" 
+        -enableBackground 0
+        -align "center" 
+        -label "Starglobe" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_starglobe.xpm" 
+        -image1 "render_starglobe.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeStarglobe.mel\";\ncreateStarglobe();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "FulldomeIBL" 
+        -enableBackground 0
+        -align "center" 
+        -label "FulldomeIBL" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "fulldomeIBL.xpm" 
+        -image1 "fulldomeIBL.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera \nreload(domeCamera)\ndomeCamera.createFulldomeIBL()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "HemirectIBL" 
+        -enableBackground 0
+        -align "center" 
+        -label "HemirectIBL" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "hemirectIBL.xpm" 
+        -image1 "hemirectIBL.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createHemirectIBL()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Reference Grid" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomeGrid" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeGrid.xpm" 
+        -image1 "domeGrid.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeGrid()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Galaxy Creator" 
+        -enableBackground 0
+        -align "center" 
+        -label "Galaxy" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_galaxy.xpm" 
+        -image1 "render_galaxy.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"galaxyCreator.mel\";\ngalaxyCreator();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Text" 
+        -enableBackground 0
+        -align "center" 
+        -label "Text" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeText.xpm" 
+        -image1 "domeText.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeText.mel\";\ndomeText();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Fulldome CrossBounce Simulation" 
+        -enableBackground 0
+        -align "center" 
+        -label "CrossBounce" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeCrossBounce.xpm" 
+        -image1 "domeCrossBounce.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()\n\nimport domeCrossBounce\nreload(domeCrossBounce)\ndomeCrossBounce.createCrossBounce()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Viewer" 
+        -enableBackground 0
+        -align "center" 
+        -label "Viewer" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeViewer.xpm" 
+        -image1 "domeViewer.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeViewer.mel\";\ndomeViewer();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Histogram" 
+        -enableBackground 0
+        -align "center" 
+        -label "Histogram" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeHistogram.xpm" 
+        -image1 "domeHistogram.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeHistogram.mel\";\ndomeHistogram();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 0.5k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 0.5k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "0.5k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(512)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 1k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 1k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "1k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(1024)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 2k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 2k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "2k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(2048)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 4k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 4k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "4k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(4096)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 8k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 8k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "8k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution.xpm" 
+        -image1 "render_resolution.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(8192)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 2x1k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 2x1k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "2x1k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution_wide.xpm" 
+        -image1 "render_resolution_wide.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderResWH(2048,1024)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 4x2k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 4x2k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "4x2k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution_wide.xpm" 
+        -image1 "render_resolution_wide.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderResWH(4096,2048)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 8x4k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 8x4k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "8x4k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "render_resolution_wide.xpm" 
+        -image1 "render_resolution_wide.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderResWH(8192,4096)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the scenes folder for the current project." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Scenes Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SCN" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "dome_directory.xpm" 
+        -image1 "dome_directory.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the images folder for the current project." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Images Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "IMG" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "dome_directory.xpm" 
+        -image1 "dome_directory.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the Maya Render Log" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render Log" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "rLOG" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeLog.xpm" 
+        -image1 "domeLog.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenMayaRenderLogFile();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Maya Diagnostics Report" 
+        -enableBackground 0
+        -align "center" 
+        -label "Diagnostics" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Diag" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeLog.xpm" 
+        -image1 "domeLog.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Task Manager" 
+        -enableBackground 0
+        -align "center" 
+        -label "Task Manager" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Task" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "task.xpm" 
+        -image1 "task.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\nopenTaskManager();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Upgrade Domemaster Node IDs" 
+        -enableBackground 0
+        -align "center" 
+        -label "Upgrade" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Upgr" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "nodeUpgrade.xpm" 
+        -image1 "nodeUpgrade.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Load the MentalRay Plugin" 
+        -enableBackground 0
+        -align "center" 
+        -label "Reload MR" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "mentalray_load.xpm" 
+        -image1 "mentalray_load.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Version Info" 
+        -enableBackground 0
+        -align "center" 
+        -label "Version Info" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeInfo.xpm" 
+        -image1 "domeInfo.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeVersion.mel\";\ndomeVersion();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Wiki Help" 
+        -enableBackground 0
+        -align "center" 
+        -label "Wiki Help" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeHelp.xpm" 
+        -image1 "domeHelp.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+
+} 

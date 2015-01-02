@@ -1,11 +1,13 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6 alpha 9 - December 20, 2014
+Version 1.6 - January 1, 2015
 
 About This Shader
 ---------------------
 The Domemaster Stereo lens shader is a custom mental ray shader that creates a stereoscopic 3D fisheye image. The lens shader provides advanced controls to optimize the viewing experience for stereoscopic dome renderings. 
 
-The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader, and the stereoscopic LatLong_Stereo shader.
+The shader collection also supports fulldome 2D rendering using either the DomeAFL_FOV shader, the DomeAFL_WxH shader, or the "Center" camera option in the DomeAFL_FOV_Stereo shader. 
+
+Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader, and the stereoscopic LatLong_Stereo shader.
 
 Note: The previous Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
 
@@ -60,8 +62,19 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+Version 1.6
+---------------
+January 1, 2015
+
+3DS Max
+  Added Autodesk 3DS Max 2016 shader install option
+
+Maya
+  Added Autodesk Maya 2016 shader install option
+
+  
 Version 1.6 alpha 9
------------------------
+-------------------
 December 20, 2014
 
 3DS Max

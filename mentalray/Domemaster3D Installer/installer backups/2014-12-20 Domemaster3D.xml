@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.6</version>
+    <version>1.6-alpha9</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -256,72 +256,6 @@
             <selected>1</selected>
             <show>1</show>
             <componentList>
-	<!-- Maya 2016 Install files -->
-	<componentGroup>
-                    <name>Maya2016</name>
-                    <description>Maya 2016 Support Beta </description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Maya_2016_env</name>
-                            <description>Maya Environment File</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>~/Library/Preferences/Autodesk/maya/2016-x64/</destination>
-                                    <name>env_mac</name>
-                                    <platforms>osx</platforms>
-                                    <actionList>
-                                        <changePermissions>
-                                            <files>*</files>
-                                            <permissions>777</permissions>
-                                        </changePermissions>
-                                    </actionList>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/maya2016/mac/Maya.env</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                                <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016-x64</destination>
-                                    <name>env_linux</name>
-                                    <platforms>linux</platforms>
-                                    <actionList>
-                                        <changePermissions>
-                                            <files>*</files>
-                                            <permissions>777</permissions>
-                                        </changePermissions>
-                                    </actionList>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/maya2016/linux/Maya.env</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                                <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016-x64</destination>
-                                    <name>env_win</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/maya2016/win/Maya.env</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                        </component>
-                    </componentList>
-                </componentGroup>
-
 	<!-- Maya 2015 Install files -->
 	<componentGroup>
                     <name>Maya2015</name>
@@ -843,108 +777,6 @@
             <selected>1</selected>
             <show>1</show>
             <componentList>
-                <componentGroup>
-                    <name>max_2016</name>
-                    <description>3DS Max 2016 Support Beta</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2016 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2016_Shaders</name>
-                            <description>Shaders</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2016_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2016_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2016_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2016_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2016_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2016_Shaders_Dir</name>
-                            <title>3DS Max 2016 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2016_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2016_Include_Dir</name>
-                            <title>3DS Max 2016 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2016_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
                 <componentGroup>
                     <name>max_2015</name>
                     <description>3DS Max 2015 Support</description>

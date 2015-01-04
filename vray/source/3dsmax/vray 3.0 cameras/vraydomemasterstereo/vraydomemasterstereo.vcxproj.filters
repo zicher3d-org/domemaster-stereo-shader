@@ -2,15 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{d6aa07c6-8df4-4fd4-ac4b-5df7b643daac}</UniqueIdentifier>
+      <UniqueIdentifier>{ce7c6af2-7ab8-4a7a-976d-352a433c88f3}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{d558d6a6-98b4-4494-8167-edc3b2fec2c3}</UniqueIdentifier>
+      <UniqueIdentifier>{c488f76c-8494-46e5-b4fe-a292ab0705cf}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{77e21ebb-9de1-40bf-8550-dcf42ca34a69}</UniqueIdentifier>
+      <UniqueIdentifier>{d8376200-82b5-46e9-8881-ebd3324f2201}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
   </ItemGroup>
@@ -23,5 +23,15 @@
     <CustomBuild Include="plugin.def">
       <Filter>Source Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

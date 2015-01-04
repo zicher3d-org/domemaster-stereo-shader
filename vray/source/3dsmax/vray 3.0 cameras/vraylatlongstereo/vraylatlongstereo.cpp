@@ -29,6 +29,7 @@
 #include "vraygeom.h"
 #include "raybunchcamera.h"
 #include "vraylatlongstereo.h"
+#include "resource.h"
 
 // no param block script access for VRay free
 #ifdef _FREE_
@@ -46,14 +47,15 @@ using namespace VRayLatLongStereo;
 #define RIGHTCAM     2
 
 #define DOME_PI  3.141592653589793238
-#define DOME_DTOR  0.0174532925199433 
-#define DOME_PIOVER2 1.57079632679489661923 
+#define DOME_DTOR  0.0174532925199433
+#define DOME_RTOD  57.295779513082321
+#define DOME_PIOVER2 1.57079632679489661923
 
 //************************************************************
 // #defines
 //************************************************************
 
-#define	PLUGIN_CLASSID Class_ID(0x1d04418d, 0x4e486c84)
+#define	PLUGIN_CLASSID Class_ID(0x563e7757, 0x68824b0f)
 
 #define STR_CLASSNAME _T("VRayLatLongStereo")
 #define STR_INTERNALNAME _T("VRayLatLongStereo")
@@ -114,9 +116,9 @@ public:
 	void Enable(int onOff) {}
 	BOOL SetFOVControl(Control *c) {
 #if MAX_RELEASE<13900
-		pblock->SetController(pblock->IDtoIndex(pb_fov), 0, c);
+		// [rz] pblock->SetController(pblock->IDtoIndex(pb_fov), 0, c);
 #else
-		pblock->SetControllerByID((ParamID) pb_fov, 0, c);
+		// [rz] pblock->SetControllerByID((ParamID) pb_fov, 0, c);
 #endif
 		return TRUE;
 	}
@@ -136,8 +138,8 @@ public:
 	RefResult EvalCameraState(TimeValue time, Interval &valid, CameraState *cs);
 	void SetOrtho(BOOL b) {}
 	BOOL IsOrtho(void) { return FALSE; }
-	void SetFOV(TimeValue t, float f) { pblock->SetValue(pb_fov, t, f); }
-	float GetFOV(TimeValue t, Interval &valid) { float res; pblock->GetValue(pb_fov, t, res, valid); return res; }
+	void SetFOV(TimeValue t, float f) { /* [rz] pblock->SetValue(pb_fov, t, f);*/ }
+	float GetFOV(TimeValue t, Interval &valid) { float res; /* [rz] pblock->GetValue(pb_fov, t, res, valid);*/ res = 1.0f; return res; }
 	void SetTDist(TimeValue t, float f) {}
 	float GetTDist(TimeValue t, Interval &valid=FOREVER) { return 100.0f; }
 	int GetManualClip(void) { return FALSE; }
@@ -272,8 +274,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved) {
 	return(TRUE);
 }
 
-__declspec( dllexport ) const TCHAR* LibDescription() { return STR_LIBDESC; }
-__declspec( dllexport ) int LibNumberClasses() { return 1; }
+__declspec(dllexport) const TCHAR* LibDescription() { return STR_LIBDESC; }
+__declspec(dllexport) int LibNumberClasses() { return 1; }
 
 __declspec( dllexport ) ClassDesc* LibClassDesc(int i) {
 	switch(i) { case 0: return &cameraClassDesc; }
@@ -293,7 +295,7 @@ TCHAR *GetString(int id) {
 //************************************************************
 
 // Paramblock2 name
-enum { camera_params, }; 
+enum { camera_params }; 
 
 static int ctrlID=100;
 
@@ -301,71 +303,75 @@ int nextID(void) { return ctrlID++; }
 
 static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &cameraClassDesc, P_AUTO_CONSTRUCT, REFNO_PBLOCK, 
 	// Params
-  
+	/*
   pb_camera, _FT("stereo_camera"), TYPE_INT, P_ANIMATABLE, 0,
 		p_default, 0,
-		p_ui, TYPE_INTLISTBOX, nextID(), 0, SPIN_AUTOSCALE,
+		p_ui, TYPE_SPINNER, EDITTYPE_INT, nextID(), 0, SPIN_AUTOSCALE,
     p_prompt, "Center, Left, Right Camera Views",
 	PB_END,
-  
-  pb_fov_vert_angle, _FT("fov_vert_angle"), TYPE_ANGLE, P_ANIMATABLE, 0,
-		p_default, 180.0f,
+	*/
+
+	pb_camera, _FT("stereo_camera"), TYPE_INT, 0, IDS_DLG_CAMERA,
+		p_default, 0,
+		p_ui, TYPE_INTLISTBOX, nextID(), 3, IDS_CAMCENTER, IDS_CAMLEFT, IDS_CAMRIGHT,
+		p_range, 0, 2,
+		p_prompt, "Center, Left, Right Camera Views",
+	PB_END,
+
+	pb_fov_vert_angle, _FT("fov_vert_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_V,
+		p_default, DOME_PI,
+		p_range, 0.0f, 180.0f, 
 		p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
     p_prompt, "Field of View Vertical",
 	PB_END,
   
-  pb_fov_horiz_angle, _FT("fov_horiz_angle"), TYPE_ANGLE, P_ANIMATABLE, 0,
-		p_default, 360.0f,
+	pb_fov_horiz_angle, _FT("fov_horiz_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_H,
+		p_default, DOME_PI*2,
+		p_range, 0.0f, 360.0f,
 		p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
     p_prompt, "Field of View Horizontal",
 	PB_END,
   
-  pb_parallax_distance, _FT("parallax_distance"), TYPE_FLOAT, P_ANIMATABLE, 0,
-		p_default, 360.0f,
+	pb_parallax_distance, _FT("parallax_distance"), TYPE_FLOAT, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_PARALLAX,
+		p_default, 400.0f,		// [rz] is there a way to adjust this based on the current scene unit?
+		p_range, 0.0f, 999999.0f,
 		p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
     p_prompt, "Zero Parallax Distance",
 	PB_END,
   
-  pb_separation, _FT("separation"), TYPE_FLOAT, P_ANIMATABLE, 0,
+  pb_separation, _FT("separation"), TYPE_FLOAT, P_ANIMATABLE, IDS_DLG_SEPARATION,
 		p_default, 6.5f,
+		p_range, 0.0f, 999999.0f,
 		p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
     p_prompt, "Camera Separation",
 	PB_END,
   
-  pb_zenith_mode, _FT("zenith_mode"), TYPE_BOOL, P_ANIMATABLE, 0,
+  pb_zenith_mode, _FT("zenith_mode"), TYPE_BOOL, 0, IDS_DLG_ZENITH,
 		p_default, FALSE,
 		p_ui, TYPE_SINGLECHEKBOX, nextID(),
     p_prompt, "Zenith Mode",
 	PB_END,
   
+	/*
   pb_separation_map, _FT("separation_map"), TYPE_TEXMAPBUTTON, P_ANIMATABLE, 0,
 		p_default, 1.0f,
 		p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
     p_prompt, "Separation Map",
 	PB_END,
+  	*/
   
-  pb_head_tilt_map, _FT("head_tilt_map"), TYPE_TEXMAPBUTTON, P_ANIMATABLE, 0,
-		p_default, 0.5f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
-    p_prompt, "Head Tilt map",
-	PB_END,
-  
-	pb_flip_x, _FT("flip_x"), TYPE_BOOL, P_ANIMATABLE, 0,
+	pb_flip_x, _FT("flip_x"), TYPE_BOOL, 0, IDS_DLG_FLIP_X,
 		p_default, FALSE,
 		p_ui, TYPE_SINGLECHEKBOX, nextID(),
     p_prompt, "Flip X",
 	PB_END,
   
-	pb_flip_y, _FT("flip_y"), TYPE_BOOL, P_ANIMATABLE, 0,
+	pb_flip_y, _FT("flip_y"), TYPE_BOOL, 0, IDS_DLG_FLIP_Y,
 		p_default, FALSE,
 		p_ui, TYPE_SINGLECHEKBOX, nextID(),
     p_prompt, "Flip Y",
 	PB_END,
-  
-	// pb_fov, _FT("fov"), TYPE_ANGLE, P_ANIMATABLE, 0,
-		// p_default, 45.0f*pi/180.0f,
-		// p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
-	//PB_END,
+
 PB_END
 );
 
@@ -406,7 +412,10 @@ RefTargetHandle VRayCamera::Clone(RemapDir& remap) {
 
 RefResult VRayCamera::EvalCameraState(TimeValue time, Interval &valid, CameraState *cs) {
 	cs->isOrtho=FALSE;
-	pblock->GetValue(pb_fov, time, cs->fov, valid);
+	// [rz] pblock->GetValue(pb_fov, time, cs->fov, valid);
+	// [rz] cs->fov = 1.0f;
+	pblock->GetValue(pb_fov_vert_angle, time, cs->fov, valid);	// [rz] better formula?
+	cs->fov /= 2.0f;
 	cs->tdist=100.0f;
 	cs->horzLine=FALSE;
 	cs->manualClip=FALSE;
@@ -670,17 +679,17 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
 	TimeValue t=fdata.t;
 
 	stereo_camera=pblock->GetInt(pb_camera, t);
-	fov_vert_angle=pblock->GetFloat(pb_fov_vert_angle, t);
-	fov_horiz_angle=pblock->GetFloat(pb_fov_horiz_angle, t);
+	fov_vert_angle=pblock->GetFloat(pb_fov_vert_angle, t) * DOME_RTOD;
+	fov_horiz_angle=pblock->GetFloat(pb_fov_horiz_angle, t) * DOME_RTOD;
 	parallax_distance=pblock->GetFloat(pb_parallax_distance, t);
 	separation=pblock->GetFloat(pb_separation, t);
 	zenith_mode=pblock->GetInt(pb_zenith_mode, t);
-	separation_map=pblock->GetFloat(pb_separation_map, t);
-	head_tilt_map=pblock->GetFloat(pb_head_tilt_map, t);
+	separation_map = 1.0f; // pblock->GetFloat(pb_separation_map, t);
 	flip_x=pblock->GetInt(pb_flip_x, t);
 	flip_y=pblock->GetInt(pb_flip_y, t);
 
-	fov=pblock->GetFloat(pb_fov, fdata.t);
+	//fov=pblock->GetFloat(pb_fov, fdata.t);
+	fov = 1.0; // fov_vert_angle * DOME_DTOR / 2.0f;	// [rz] testing only. Need better approximation formula.
 	targetDist=GetTDist((TimeValue) fdata.t);
 	aperture=0.0f;
 

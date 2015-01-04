@@ -13,10 +13,9 @@ enum {
 	pb_separation,
 	pb_zenith_mode,
 	pb_separation_map,
-	pb_head_tilt_map,
 	pb_flip_x,
 	pb_flip_y,
-  pb_fov,
+	pb_fov
 };
 
 };

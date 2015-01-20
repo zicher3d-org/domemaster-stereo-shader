@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<xsi_file type="Shelf" xsi_version="11.1.57.0" syntax_version="1.0">
+<xsi_file type="Shelf" xsi_version="13.0.114.0" syntax_version="1.0">
    <shelf_view name="Domemaster3D" clsid="{111B430D-D85E-4C53-B67E-390456B404B2}">
       <properties>
          <showtabs>false</showtabs>
@@ -13,8 +13,8 @@
             <item type="scriptbutton" label="AutoMagic" bitmap="render_magicDome" scriptengine="XSI.SIPython.1" tooltip="AutoMagic Fulldome 3D Scene">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 Automagic Setup Script 
-Version 1.6 2014-10-27 01.42 pm
- ---------------------------------------------------------------------            
+Version 1.6 - 2015-01-20  
+---------------------------------------------------------------------            
 Domemaster3D Camera Setup Script
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 Based upon the Softimage scripting work of Max Crow
@@ -123,6 +123,15 @@ def createFulldomeStereoRig():
   Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  #Application.SetValue(leftRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  #Application.SetValue(rightRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  
+  # Link the camera aspect ratio settings
+  Application.CopyPaste(baseRig+&quot;.camera.aspect&quot;, &quot;&quot;, leftRig+&quot;.camera.aspect&quot;, 1)
+  Application.CopyPaste(baseRig+&quot;.camera.aspect&quot;, &quot;&quot;, rightRig+&quot;.camera.aspect&quot;, 1)
 
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
@@ -498,6 +507,8 @@ Application.OpenView(&quot;Render Preview&quot;, &quot;&quot;)
             <item type="scriptbutton" label="Stereo Rig" bitmap="render_domeAFL_FOV_Stereo" scriptengine="XSI.SIPython.1" tooltip="Fulldome Stereo Rig">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 Domemaster3D Camera Setup Script
+Version 1.6 - 2015-01-20  
+--------------------------------------------------------------------- 
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 Based upon the Softimage scripting work of Max Crow
 
@@ -605,6 +616,15 @@ def createFulldomeStereoRig():
   Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  #Application.SetValue(leftRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  #Application.SetValue(rightRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  
+  # Link the camera aspect ratio settings
+  Application.CopyPaste(baseRig+&quot;.camera.aspect&quot;, &quot;&quot;, leftRig+&quot;.camera.aspect&quot;, 1)
+  Application.CopyPaste(baseRig+&quot;.camera.aspect&quot;, &quot;&quot;, rightRig+&quot;.camera.aspect&quot;, 1)
 
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
@@ -775,7 +795,13 @@ createFulldomeStereoRig()
 closeExprWindow()]]&gt;</scripttext>
             </item>
             <item type="scriptbutton" label="DomeTexture" bitmap="render_rob_lookup_background" scriptengine="XSI.SIPython.1" tooltip="Screen Space Texture">
-               <scripttext>&lt;![CDATA[
+               <scripttext>&lt;![CDATA[&quot;&quot;&quot;
+Domemaster3D createRobLookup
+Version 1.6 - 2015-01-20  
+--------------------------------------------------------------------- 
+A python function to create a screen space texture and attach it to a camera.
+&quot;&quot;&quot;	
+
 &quot;&quot;&quot;
 Find out the path to the sourceimages folder
 ----------------------
@@ -857,6 +883,9 @@ def createRobLookup():
   Application.SetValue(baseRig+ &quot;.kine.global.rotx&quot;, 90, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.roty&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.rotz&quot;, 0, &quot;&quot;)
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
 
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
@@ -902,7 +931,8 @@ createRobLookup()]]&gt;</scripttext>
             <item type="scriptbutton" label="FOV Camera" bitmap="render_domeAFL_FOV" scriptengine="XSI.SIPython.1" tooltip="domeAFL_FOV">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 Domemaster3D createDomeAFL_FOV_Camera
-----------------------
+Version 1.6 - 2015-01-20  
+--------------------------------------------------------------------- 
 A python function to create a domeAFL_FOV lens shader and attach it to a camera.
 &quot;&quot;&quot;	
 def createDomeAFL_FOV_Camera():
@@ -929,6 +959,9 @@ def createDomeAFL_FOV_Camera():
   Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
 
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
@@ -968,7 +1001,9 @@ createDomeAFL_FOV_Camera()]]&gt;</scripttext>
                <scripttext>&lt;![CDATA[
 &quot;&quot;&quot;
 Domemaster3D createDomeAFL_WxH_Camera
-----------------------
+Version 1.6 - 2015-01-20  
+--------------------------------------------------------------------- 
+
 A python function to create a domeAFL_WxH lens shader and attach it to a camera.
 &quot;&quot;&quot;	
 def createDomeAFL_WxH_Camera():
@@ -995,6 +1030,9 @@ def createDomeAFL_WxH_Camera():
   Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
 
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
@@ -1029,7 +1067,9 @@ createDomeAFL_WxH_Camera()]]&gt;</scripttext>
             <item type="scriptbutton" label="Lat Camera" bitmap="render_latlong_lens" scriptengine="XSI.SIPython.1" tooltip="LatLong">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 Domemaster3D createLatLong_Camera
-----------------------
+Version 1.6 - 2015-01-20  
+--------------------------------------------------------------------- 
+
 A python function to create a latitude longitude lens shader and attach it to a camera.
 &quot;&quot;&quot;	
 def createLatLong_Camera():
@@ -1059,6 +1099,9 @@ def createLatLong_Camera():
   Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
 
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
@@ -1095,7 +1138,7 @@ createLatLong_Camera()]]&gt;</scripttext>
             <item type="scriptbutton" label="Lat3D Camera" bitmap="render_LatLong_Stereo.bmp" scriptengine="XSI.SIPython.1" tooltip="LatLong3D">
                <scripttext>&lt;![CDATA[&quot;&quot;&quot;
 LatLong_Stereo Camera Setup Script
-Version 1.6 Alpha 5 - 2014-10-27 12.58 pm
+Version 1.6 - 2015-01-20  
 ---------------------------------------------
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 Based upon the Softimage scripting work of Max Crow
@@ -1205,7 +1248,16 @@ def createLatLongStereoRig():
   Application.SetValue(baseRig+ &quot;.kine.global.posx&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posy&quot;, 0, &quot;&quot;)
   Application.SetValue(baseRig+ &quot;.kine.global.posz&quot;, 0, &quot;&quot;)
-
+  
+  # Set the camera aspect ratio to 1
+  Application.SetValue(baseRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  #Application.SetValue(leftRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  #Application.SetValue(rightRig+&quot;.camera.aspect&quot;, 1, &quot;&quot;)
+  
+  # Link the camera aspect ratio settings
+  Application.CopyPaste(baseRig+&quot;.camera.aspect&quot;, &quot;&quot;, leftRig+&quot;.camera.aspect&quot;, 1)
+  Application.CopyPaste(baseRig+&quot;.camera.aspect&quot;, &quot;&quot;, rightRig+&quot;.camera.aspect&quot;, 1)
+  
   # Set the camera to use a custom focal length
   # Medium wide angle camera set up with a 18 mm focal length = 90 degree field of view
   Application.SetValue(baseRig+&quot;.camera.fov&quot;, 90, &quot;&quot;)
@@ -1229,8 +1281,7 @@ def createLatLongStereoRig():
   #Application.SIApplyShaderToCnxPoint2(&quot;mentalray.LatLong_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
   Application.SIApplyShaderToCnxPoint2(&quot;Softimage.LatLong_Stereo.1.0&quot;, rightRig+&quot;.camera.Item&quot;, &quot;&quot;, &quot;&quot;)
   Application.SetValue(rightRig+&quot;.camera.LatLong_Stereo.Camera&quot;, 2, &quot;&quot;)
-
-
+  
   # Enable the PPG Windows
   Application.SetValue(&quot;preferences.Interaction.autoinspect&quot;, True, &quot;&quot;)
 
@@ -1239,12 +1290,12 @@ def createLatLongStereoRig():
   Application.AddProp(&quot;Custom_parameter_list&quot;, &quot;&quot;, &quot;&quot;, &quot;LatLong Camera Controls&quot;, &quot;&quot;)
   Application.SelectObj(rigControls, &quot;&quot;, &quot;&quot;)
 
-  # Set the camera separation control to have a 6.5 cm default value
 
   Application.SIAddCustomParameter(rigControls, &quot;Field Of View Vertical&quot;, &quot;siDouble&quot;, 180, &quot;&quot;, 180, &quot;&quot;, 2053, &quot;&quot;, 360, &quot;&quot;, &quot;&quot;)
 
   Application.SIAddCustomParameter(rigControls, &quot;Field Of View Horizontal&quot;, &quot;siDouble&quot;, 360, &quot;&quot;, 360, &quot;&quot;, 2053, &quot;&quot;, 360, &quot;&quot;, &quot;&quot;)
-
+  
+  # Set the camera separation control to have a 6.5 cm default value
   Application.SIAddCustomParameter(rigControls, &quot;Separation&quot;, &quot;siDouble&quot;, 6.5, &quot;&quot;, 1000000, &quot;&quot;, 2053, &quot;&quot;, 1000000, &quot;&quot;, &quot;&quot;)
 
   # Set the dome radius control to have a 10 meter default value
@@ -2566,20 +2617,22 @@ openDomemasterWiki()
 
   Version History
   ----------------
-  Domemaster3D V1.6 Alpha 7 - Nov 18, 2014
+  
+  Domemaster3D V1.6 - January 20, 2014
+  Domemaster3D V1.6 Alpha 7 - November 18, 2014
   Domemaster3D V1.4 B2 - March 3, 2014
   Domemaster3D V1.4 B3 - March 4, 2014
 
 &quot;&quot;&quot;
 
 domemaster3D_title = &quot;About Domemaster3D for Softimage&quot;;
-domemaster3D_version = &quot;1.6 Alpha 7&quot;;
-release_date = &quot;November 18, 2014&quot;;
+domemaster3D_version = &quot;1.6&quot;;
+release_date = &quot;January 20, 2014&quot;;
 
 domeDialgueString = &quot;Domemaster3D Shader for Softimage&quot; + &quot; - Version &quot; + domemaster3D_version + &quot;\n&quot;
 domeDialgueString += &quot;This edition was released on &quot; + release_date + &quot;.\n&quot;
 domeDialgueString += &quot;\n&quot;
-domeDialgueString += &quot;A 2D/3D angular fisheye rendering system for planetariums and fulldome theatres. This shader is also available for 3DS Max, and Maya.\n&quot;;
+domeDialgueString += &quot;A 2D/3D angular fisheye rendering system for use in planetariums, fulldome theatres, and VR headsets. This shader is also available for 3DS Max, and Maya.\n&quot;;
 domeDialgueString += &quot;\n&quot;
 domeDialgueString += &quot;The Domemaster3D shader is distributed under the GPL v3 license.\n&quot;;
 print (domeDialgueString)

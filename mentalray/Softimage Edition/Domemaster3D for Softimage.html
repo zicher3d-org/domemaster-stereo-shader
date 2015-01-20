@@ -4,279 +4,303 @@
 <title>README</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
-/* Markdown.css */
-/* Authors: Kevin Burke: http://kev.inburke.com/, modified by Evan Wondrasek  */
-/* https://bitbucket.org/kevinburke/markdowncss */
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
 
-body{
-    margin: 0 auto;
-    font-family: Georgia, Palatino, serif;
-    color: #444444;
-    line-height: 1;
-    max-width: 960px;
-    padding: 5px;
-}
-h1, h2, h3, h4 {
-    color: #111111;
-    font-weight: 400;
-}
-h1, h2, h3, h4, h5, p {
-    margin-bottom: 16px;
-    padding: 0;
-}
-h1 {
-    font-size: 28px;
-}
-h2 {
-    font-size: 22px;
-    margin: 20px 0 6px;
-}
-h3 {
-    font-size: 21px;
-}
-h4 {
-    font-size: 18px;
-}
-h5 {
-    font-size: 16px;
-}
-a {
-    color: #0099ff;
-    margin: 0;
-    padding: 0;
-    vertical-align: baseline;
-}
-a:hover {
-    text-decoration: none;
-    color: #ff6600;
-}
-a:visited {
-    color: purple;
-}
-ul, ol {
-    padding: 0;
-    margin: 0;
-}
-li {
-    line-height: 24px;
-    margin-left: 44px;
-}
-li ul, li ul {
-    margin-left: 24px;
-}
-p, ul, ol {
-    font-size: 14px;
-    line-height: 20px;
-    max-width: 540px;
-}
-pre {
-    padding: 0px 24px;
-    max-width: 800px;
-    white-space: pre-wrap;
-}
-code {
-    font-family: Consolas, Monaco, Andale Mono, monospace;
-    line-height: 1.5;
-    font-size: 13px;
-}
-aside {
-    display: block;
-    float: right;
-    width: 390px;
-}
-blockquote {
-    border-left:.5em solid #eee;
-    padding: 0 2em;
-    margin-left:0;
-    max-width: 476px;
-}
-blockquote  cite {
-    font-size:14px;
-    line-height:20px;
-    color:#bfbfbf;
-}
-blockquote cite:before {
-    content: '\2014 \00A0';
-}
+/* RESET
+=============================================================================*/
 
-blockquote p {  
-    color: #666;
-    max-width: 460px;
-}
-hr {
-    width: 540px;
-    text-align: left;
-    margin: 0 auto 0 0;
-    color: #999;
-}
-
-button,
-input,
-select,
-textarea {
-  font-size: 100%;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
-  vertical-align: baseline;
-  *vertical-align: middle;
-}
-button, input {
-  line-height: normal;
-  *overflow: visible;
-}
-button::-moz-focus-inner, input::-moz-focus-inner {
-  border: 0;
   padding: 0;
-}
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  cursor: pointer;
-  -webkit-appearance: button;
-}
-input[type=checkbox], input[type=radio] {
-  cursor: pointer;
-}
-/* override default chrome & firefox settings */
-input:not([type="image"]), textarea {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+  border: 0;
 }
 
-input[type="search"] {
-  -webkit-appearance: textfield;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-label,
-input,
-select,
-textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: normal;
-  margin-bottom: 18px;
-}
-input[type=checkbox], input[type=radio] {
-  cursor: pointer;
-  margin-bottom: 0;
-}
-input[type=text],
-input[type=password],
-textarea,
-select {
-  display: inline-block;
-  width: 210px;
-  padding: 4px;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: 18px;
-  height: 18px;
-  color: #808080;
-  border: 1px solid #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-select, input[type=file] {
-  height: 27px;
-  line-height: 27px;
-}
-textarea {
-  height: auto;
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-/* grey out placeholders */
-:-moz-placeholder {
-  color: #bfbfbf;
-}
-::-webkit-input-placeholder {
-  color: #bfbfbf;
+body>*:first-child {
+  margin-top: 0 !important;
 }
 
-input[type=text],
-input[type=password],
-select,
-textarea {
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  transition: border linear 0.2s, box-shadow linear 0.2s;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-input[type=text]:focus, input[type=password]:focus, textarea:focus {
-  outline: none;
-  border-color: rgba(82, 168, 236, 0.8);
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+body>*:last-child {
+  margin-bottom: 0 !important;
 }
 
-/* buttons */
-button {
-  display: inline-block;
-  padding: 4px 14px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  background-color: #0064cd;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
-  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
-  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
-  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
-  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
-  background-image: linear-gradient(top, #049cdb, #0064cd);
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  border: 1px solid #004b9a;
-  border-bottom-color: #003f81;
-  -webkit-transition: 0.1s linear all;
-  -moz-transition: 0.1s linear all;
-  transition: 0.1s linear all;
-  border-color: #0064cd #0064cd #003f81;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
 }
-button:hover {
-  color: #fff;
-  background-position: 0 -15px;
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
   text-decoration: none;
 }
-button:active {
-  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+
+a:hover {
+  text-decoration: underline;
 }
-button::-moz-focus-inner {
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
   padding: 0;
-  border: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
 }
 </style>
 </head>
 <body>
 <h1>Domemaster3D Lens Shader for Softimage</h1>
-<p><strong>Version 1.6 Alpha 7 - November 18, 2014</strong><br />
+<p><strong>Version 1.6 - January 20, 2015</strong><br />
 Ported to Softimage by Andrew Hazelden</p>
-<p>Email: <a href="&#x6d;a&#x69;&#108;&#x74;&#111;&#58;&#x61;&#110;d&#114;&#x65;&#119;&#104;&#x61;&#122;el&#x64;e&#110;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#x61;&#x6e;&#x64;r&#101;&#119;&#x68;&#x61;&#x7a;&#101;&#108;&#100;&#101;&#x6e;&#x40;g&#109;&#97;&#105;&#108;&#x2e;&#x63;o&#x6d;</a><br />
+<p>Twitter: <a href="https://twitter.com/andrewhazelden">@andrewhazelden</a><br />
+Email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x65;&#x77;&#x40;&#97;&#x6e;d&#114;&#x65;&#x77;&#104;&#x61;&#122;&#101;&#x6c;&#x64;&#x65;&#110;&#x2e;&#99;&#x6f;&#109;">&#x61;&#110;&#x64;&#114;&#101;w&#64;a&#110;&#100;&#114;&#101;&#119;&#x68;&#x61;zel&#100;&#x65;&#x6e;&#46;&#99;&#111;&#109;</a><br />
 Web: <a href="http://www.andrewhazelden.com">www.andrewhazelden.com</a></p>
 <p><code>DomeAFL_FOV_Stereo</code> and <code>LatLong_Stereo</code> shaders created by Robert Ziche<br />
 <a href="http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images">http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images</a>
 <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/">https://github.com/zicher3d-org/domemaster-stereo-shader/</a></p>
-<p><code>DomeAFL_FOV_Stereo</code> is Based upon Daniel Ott's 2D &quot;DomeAFL&quot; Angular fisheye lens shaders
+<p><code>DomeAFL_FOV_Stereo</code> is based upon Daniel Ott's 2D &quot;DomeAFL&quot; Angular fisheye lens shaders
 <a href="http://www.thedott.net/shaders/domeAFL/">http://www.thedott.net/shaders/domeAFL/</a></p>
 <p>Domemaster3D Softimage Wiki<br />
 <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Softimage-Domemaster3D-Install">https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Softimage-Domemaster3D-Install</a></p>
@@ -409,6 +433,30 @@ Connect <code>mib_texture_filter_lookup.out</code> to <code>Color_to_Scalar.inpu
 <p>Connect the <code>mib_texture_remap.out</code> to the <code>mib_texture_filter_lookup.coord</code>.</p>
 <p>Deselect all of the nodes in the render tree. From the Tools menu in the Render Tree window select Rearrange (Ctrl-R) to cleanup the work area.</p>
 <p>To see the results of the <code>rob_lookup_background</code> shader you need to click the 'preview' or 'render' buttons.</p>
+<h2>Version History</h2>
+<p>This is the version history for the Softimage Domemaster3D shader.</p>
+<h3>Version 1.6 - January 20, 2015</h3>
+<p>Updated the Domemaster3D toolbar scripts to set the camera aspect ratio to 1.</p>
+<h3>Version 1.6 Alpha 7 - November 18, 2014</h3>
+<p>Updated the Linux shader files.</p>
+<p>Recompiled the domeAFL<em>FOV</em>Stereo shader to implement the RZ shader improvements.</p>
+<h3>Version 1.6 Alpha 6 - October 28, 2014</h3>
+<p>Added the LatLongStereo Shader that renders stereoscopic equirectangular output.</p>
+<p>Added the Stereo 3D View tool that creates a Softimage Fx Tree node graph that performs red/cyan anaglyph stereo merging of your left and right render passes.</p>
+<p>Updated the Automagic toolbar button script.</p>
+<h3>Version 1.4 Beta 4 - March 23, 2014</h3>
+<p>Updated the Starglobe script to add realtime openGL and rendertime polygon subdivision smoothing on the &quot;starry sky&quot; quadsphere mesh.</p>
+<p>Added a DomeViewer toolbar button that creates a fulldome media viewer in Softimage. You can use the tool to review domemaster angular fisheye images, or video files.</p>
+<h3>Version 1.4 Beta 3 - March 4, 2014</h3>
+<p>Updated the toolbar scripts to stop Softimage from opening the floating property windows when the python button scripts are launched. This significantly reduces the floating window clutter.</p>
+<h3>Version 1.4 Beta 2 - March 3, 2014</h3>
+<p>Improved the toolbar with a revised stereo camera rig, and improved starglobe tool, added a reference grid, an automagic fulldome tool, and new resolution presets. Fixed an outstanding issue with the domeAFL_FOV spdl file so the 2D lens shader works correctly.</p>
+<h3>Version 1.4 Beta 1 - February 24, 2014</h3>
+<p>Ported the Domemaster3D shelf from Maya to Softimage, added a Softimage version of the Starglobe tool.</p>
+<h3>Version 1.1 - January 23, 2014</h3>
+<p>The domeAFL library has been recompiled to match the shader binary in the Maya and 3DS Max release and the latlong_lens shader has been added to the addon.</p>
+<h3>Version 1.0 - June 15, 2012</h3>
+<p>This is the beta version of the Domemaster3D Lens Shader for Softimage. It has been tested with Softimage 2013 64-bit on Windows 7.</p>
 
 </body>
 </html>

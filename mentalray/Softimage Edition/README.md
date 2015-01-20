@@ -1,8 +1,9 @@
 # Domemaster3D Lens Shader for Softimage #
-**Version 1.6 Alpha 7 - November 18, 2014**  
+**Version 1.6 - January 20, 2015**  
 Ported to Softimage by Andrew Hazelden
 
-Email: [andrewhazelden@gmail.com](mailto:andrewhazelden@gmail.com)  
+Twitter: [@andrewhazelden](https://twitter.com/andrewhazelden)  
+Email: [andrew@andrewhazelden.com](mailto:andrew@andrewhazelden.com)  
 Web: [www.andrewhazelden.com](http://www.andrewhazelden.com)
 
 
@@ -11,7 +12,7 @@ Web: [www.andrewhazelden.com](http://www.andrewhazelden.com)
 [https://github.com/zicher3d-org/domemaster-stereo-shader/](https://github.com/zicher3d-org/domemaster-stereo-shader/)
 
 
-`DomeAFL_FOV_Stereo` is Based upon Daniel Ott's 2D "DomeAFL" Angular fisheye lens shaders
+`DomeAFL_FOV_Stereo` is based upon Daniel Ott's 2D "DomeAFL" Angular fisheye lens shaders
 [http://www.thedott.net/shaders/domeAFL/](http://www.thedott.net/shaders/domeAFL/)
 
 Domemaster3D Softimage Wiki  
@@ -236,3 +237,50 @@ Deselect all of the nodes in the render tree. From the Tools menu in the Render 
 
 To see the results of the `rob_lookup_background` shader you need to click the 'preview' or 'render' buttons.
 
+## Version History ##
+
+This is the version history for the Softimage Domemaster3D shader.
+
+### Version 1.6 - January 20, 2015 ###
+
+Updated the Domemaster3D toolbar scripts to set the camera aspect ratio to 1.
+
+### Version 1.6 Alpha 7 - November 18, 2014 ###
+
+Updated the Linux shader files.
+
+Recompiled the domeAFL_FOV_Stereo shader to implement the RZ shader improvements.
+
+### Version 1.6 Alpha 6 - October 28, 2014 ###
+
+Added the LatLongStereo Shader that renders stereoscopic equirectangular output.
+
+Added the Stereo 3D View tool that creates a Softimage Fx Tree node graph that performs red/cyan anaglyph stereo merging of your left and right render passes.
+
+Updated the Automagic toolbar button script.
+
+### Version 1.4 Beta 4 - March 23, 2014 ###
+
+Updated the Starglobe script to add realtime openGL and rendertime polygon subdivision smoothing on the "starry sky" quadsphere mesh.
+
+Added a DomeViewer toolbar button that creates a fulldome media viewer in Softimage. You can use the tool to review domemaster angular fisheye images, or video files.
+
+### Version 1.4 Beta 3 - March 4, 2014 ###
+
+Updated the toolbar scripts to stop Softimage from opening the floating property windows when the python button scripts are launched. This significantly reduces the floating window clutter.
+
+### Version 1.4 Beta 2 - March 3, 2014 ###
+
+Improved the toolbar with a revised stereo camera rig, and improved starglobe tool, added a reference grid, an automagic fulldome tool, and new resolution presets. Fixed an outstanding issue with the domeAFL_FOV spdl file so the 2D lens shader works correctly.
+
+### Version 1.4 Beta 1 - February 24, 2014 ###
+
+Ported the Domemaster3D shelf from Maya to Softimage, added a Softimage version of the Starglobe tool.
+
+### Version 1.1 - January 23, 2014 ###
+
+The domeAFL library has been recompiled to match the shader binary in the Maya and 3DS Max release and the latlong_lens shader has been added to the addon.
+
+### Version 1.0 - June 15, 2012 ###
+
+This is the beta version of the Domemaster3D Lens Shader for Softimage. It has been tested with Softimage 2013 64-bit on Windows 7.

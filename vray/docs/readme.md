@@ -2,6 +2,54 @@
 -------------------------
 2015-01-01  
 
+
+- Table of Contents
+    *    [Overview](#overview)
+    *    [Known Issues](#known-issues)
+    *    [Vray Standalone](#vray-standalone)
+        +    [DomemasterStereo in a VRSCENE File](#domemasterstereo-in-a-vrscene-file)
+        +    [LatLongStereo in a VRSCENE File](#latlongstereo-in-a-vrscene-file)
+    *    [Vray Standalone Shader Installation](#vray-standalone-shader-installation)
+        +    [Windows 64-bit](#windows-64-bit)
+    *    [Vray RT for 3DS Max Shader Installation](#vray-rt-for-3ds-max-shader-installation)
+        +    [Windows 64-bit](#windows-64-bit-1)
+    *    [Verify the Shader is Loaded in Vray](#verify-the-shader-is-loaded-in-vray)
+        +    [Vray Shader Parameters Screenshot](#vray-shader-parameters-screenshot)
+        +    [Listing the Nodes](#listing-the-nodes)
+            *    [Windows Node List](#windows-node-list)
+            *    [Mac Node List](#mac-node-list)
+            *    [Linux Node List](#linux-node-list)
+        +    [Node Parameters](#node-parameters)
+            *    [plgparams.exe DomemasterStereo](#plgparamsexe-domemasterstereo)
+            *    [plgparams.exe LatLongStereo](#plgparamsexe-latlongstereo)
+            *    [Windows Parameters](#windows-parameters)
+            *    [Mac Parameters](#mac-parameters)
+            *    [Linux Parameters](#linux-parameters)
+    *    [Rendering the Example Scenes](#rendering-the-example-scenes)
+    *    [Adding a Vray Lens Shader in Maya](#adding-a-vray-lens-shader-in-maya)
+        +    [VRay DomemasterStereo Camera](#vray-domemasterstereo-camera)
+        +    [VRay LatLongStereo Camera](#vray-latlongstereo-camera)
+        +    [Removing a Lens Shader](#removing-a-lens-shader)
+    *    [Maya Shader Installation](#maya-shader-installation)
+        +    [Windows 64-bit](#windows-64-bit-2)
+        +    [Mac 64-bit](#mac-64-bit)
+        +    [Linux 64-bit](#linux-64-bit)
+    *    [Compiling Instructions](#compiling-instructions)
+        +    [Windows 64-bit](#windows-64-bit-3)
+        +    [Mac OS X 64-bit](#mac-os-x-64-bit)
+        +    [Linux 64-bit](#linux-64-bit-1)
+    *    [Credits](#credits)
+    *    [Version History](#version-history)
+        +    [Version 0.1 - 2014-11-14](#version-01---2014-11-14)
+        +    [Version 0.2 - 2014-11-26](#version-02---2014-11-26)
+        +    [Version 0.3 - 2014-12-24](#version-03---2014-12-24)
+    *    [To Do List](#to-do-list)
+        +    [DomemasterStereo To Dos](#domemasterstereo-to-dos)
+        +    [Vray for Maya To Dos](#vray-for-maya-to-dos)
+        +    [Vray for 3DS Max To Dos](#vray-for-3ds-max-to-dos)
+        +    [Shader Testing To Dos](#shader-testing-to-dos)
+
+
 ## Overview ##
 
 The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.
@@ -151,7 +199,7 @@ You can list all of the active Vray Shader nodes using the plugin parameters too
 `./plgparams.bin -list`
 
 
-### DomemasterStereo Node Parameters ###
+### Node Parameters ###
 
 If you run the plgparams with the shader name listed you can see the individual node parameters. If you get a plgparams error asking for the -plugindir that means you are missing the vray plugins environment variable such as `VRAY_PLUGINS_x64` or `VRAY_PLUGINS_x86`.
 	

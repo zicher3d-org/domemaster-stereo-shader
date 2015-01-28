@@ -66,11 +66,13 @@ More work needs to be done to apply a black overlay to the circular outside area
 
 The Maya integration is still a work in progress. The Domemaster3D shaders aren't yet active in the Maya render view. Also, the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
 
-The initial 3DS Max source code has been added in this v0.3 release but the GUI elements need to be completed and there is a `LibDescription` error in the source code/makefile that gives an error during compiling.
+The initial 3DS Max source code has been added in this v0.3 release but the GUI elements need to be completed.
 
 ## Vray Standalone ##
 
-Right now the DomemasterStereo and LatLongStereo shaders are accessible from `Vray Standalone 2.0 / 3.0` and `RT for 3DS Max 2015` using the `vray.exe` command line program.
+Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone and Vray RT version 2.0 / 3.0 using the `vray.exe` command line program. Until the Maya and 3DS Max shader integrations are complete you will have to add the DomemasterStereo and LatLongStereo camera parameters to your .vrscene files manually. 
+
+Andrew Hazelden's [Vray Syntax Highlighter](https://github.com/AndrewHazelden/Vray-Scene-Syntax-Highlighter) module for Notepad++, GEDIT, BBEdit, and TextWrangler is a good tool for simplifying the process of editing a .vrscene file.
 
 ### DomemasterStereo in a VRSCENE File ###
 
@@ -474,13 +476,6 @@ At this point a few of the required Vray on Linux shader compiling details are n
 ### Vray for 3DS Max To Dos ###
 
 - Finish up the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders.
-
-- Fix the `LibDescription` dllexport compiler error in the source code:
-
-    	warning LNK4022: cannot find unique match for symbol 'LibDescription'
-    	warning LNK4002: "char const * __cdecl LibDescription(void)" (?LibDescription@@YAPEBDXZ) defined in .\..\..\build\vraylatlongstereo\max2015\x64\official\vraylatlongstereo.obj
-    	warning LNK4002: "wchar_t const * __cdecl LibDescription(void)" (?LibDescription@@YAPEB_WXZ) defined in ..\..\..\lib\x64\vrender2015.lib
-    	error LNK2001: unresolved external symbol LibDescription
 
 
 ### Shader Testing To Dos ###

@@ -470,7 +470,7 @@ vertical-align:1px;
 <body>
 <h1 id="vray-domemaster3d-guide">Vray Domemaster3D Guide</h1>
 <hr>
-<p>2015-01-01  </p>
+<p>2015-01-28  </p>
 <h2 id="overview">Overview</h2>
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Vray version of the Domemaster Stereo Shader.</p>
@@ -479,9 +479,10 @@ vertical-align:1px;
 <p>The Vray Standalone version generally works without too many issues.</p>
 <p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn&#39;t apply a circular alpha channel overlay yet.</p>
 <p>The Maya integration is still a work in progress. The Domemaster3D shaders aren&#39;t yet active in the Maya render view. Also, the custom Vray Extra Attributes haven&#39;t been linked into the Vray for Maya .vrscene exporter.</p>
-<p>The initial 3DS Max source code has been added in this v0.3 release but the GUI elements need to be completed and there is a <code>LibDescription</code> error in the source code/makefile that gives an error during compiling.</p>
+<p>The initial 3DS Max source code has been added in this v0.3 release but the GUI elements need to be completed.</p>
 <h2 id="vray-standalone">Vray Standalone</h2>
-<p>Right now the DomemasterStereo and LatLongStereo shaders are accessible from <code>Vray Standalone 2.0 / 3.0</code> and <code>RT for 3DS Max 2015</code> using the <code>vray.exe</code> command line program.</p>
+<p>Right now the DomemasterStereo and LatLongStereo shaders are accessible from <code>Vray Standalone 2.0 / 3.0</code> and <code>RT for 3DS Max 2015</code> using the <code>vray.exe</code> command line program. Until the Maya and 3DS Max shader integrations are complete you will have to add the DomemasterStereo and LatLongStereo camera parameters to your .vrscene files manually.</p>
+<p>Andrew Hazelden's <a href="https://github.com/AndrewHazelden/Vray-Scene-Syntax-Highlighter">Vray Syntax Highlighter</a> module for Notepad++, GEDIT, BBEdit, and TextWrangler is a good tool for simplifying the process of editing a .vrscene file.</p>
 <h3 id="domemasterstereo-in-a-vrscene-file">DomemasterStereo in a VRSCENE File</h3>
 <p><img src="images/vray_standalone_domemasterStereo_render.png" alt="DomemasterStereo Renderings"></p>
 <p>You can upgrade a regular Vray camera (in this case named RenderCamShape) to a DomemasterStereo camera by finding the camera entry in your Vray .vrscene file and pasting the following text in its place:</p>
@@ -701,13 +702,8 @@ vrayAEFunctions.mel
 <li>Get the DomemasterStereo and LatLongStereo shaders to render inside of Maya&#39;s render view</li><li>Get the Maya custom Vray Extra Attributes linked into the Vray for Maya .vrscene exporter</li></ul>
 <h3 id="vray-for-3ds-max-to-dos">Vray for 3DS Max To Dos</h3>
 <ul>
-<li><p>Finish up the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders.</p>
-</li><li><p>Fix the <code>LibDescription</code> dllexport compiler error in the source code:</p>
-<pre><code>  warning LNK4022: cannot find unique match for symbol &#39;LibDescription&#39;
-  warning LNK4002: &quot;char const * __cdecl LibDescription(void)&quot; (?LibDescription@@YAPEBDXZ) defined in .\..\..\build\vraylatlongstereo\max2015\x64\official\vraylatlongstereo.obj
-  warning LNK4002: &quot;wchar_t const * __cdecl LibDescription(void)&quot; (?LibDescription@@YAPEB_WXZ) defined in ..\..\..\lib\x64\vrender2015.lib
-  error LNK2001: unresolved external symbol LibDescription
-</code></pre></li></ul>
+<li><p>Finish up the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders.</p></li>
+</ul>
 <h3 id="shader-testing-to-dos">Shader Testing To Dos</h3>
 <ul>
 <li>Generate a .vrscene file with screen space texture maps linked into the DomemasterStereo and LatLongStereo attributes.</li></ul>

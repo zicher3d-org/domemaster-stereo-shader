@@ -1,6 +1,6 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.6 alpha 7 - November 16, 2014
+Version 1.7 - January 26, 2015
 ------------------------------------------------------------------------------
 
 Notes:
@@ -49,15 +49,15 @@ global proc string getMayaPlatform(){
   //-------------------------------------------------
 
   string $mayaPlatform = "";
-  python( "import sys" );
+  python("import sys");
 
-  if( python( "sys.platform == 'win32'" ) ){
+  if(python("sys.platform == 'win32'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'windows'" ) ){
+  }else if(python( "sys.platform == 'windows'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'darwin'" ) ){
+  }else if(python( "sys.platform == 'darwin'")){
     $mayaPlatform = "darwin";
-  }else {
+  }else{
     $mayaPlatform = "linux";
   }
 
@@ -80,7 +80,7 @@ global proc createDomeRigSubmenu(){
   // }
   
   //remove any existing radio submenu collections
-  if (`menu -query -exists domeRigSubMenuCollection`){
+  if(`menu -query -exists domeRigSubMenuCollection`){
     print("Replacing the existing domeRigSubMenuCollection item.\n");
     deleteUI domeRigSubMenuCollection;
   }
@@ -95,7 +95,7 @@ global proc createDomeRigSubmenu(){
   string $funcName = "";
   int $isCurrent;
   
-  for ($domeActiveRig in $rigs) {
+  for($domeActiveRig in $rigs){
     //Check if this is the default rig
     
     if($defaultRig == $domeActiveRig){
@@ -104,7 +104,7 @@ global proc createDomeRigSubmenu(){
       $isCurrent = false;
     }
     
-    print ("Camera Rig: " + $domeActiveRig + " Default: " + $isCurrent + "\n");
+    print("Camera Rig: " + $domeActiveRig + " Default: " + $isCurrent + "\n");
     
     //Build the radio button item's command string
     $funcName = "";
@@ -150,13 +150,11 @@ global proc editDomeDiagOpenMenuItems(){
   // Build the scene directory path
   string $scenesPath = $projPath + "scenes";
 
-menuItem
-  -edit 
+menuItem -edit 
   -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
   DomeDiagOpenScenesMenu;
 
-menuItem 
-  -edit 
+menuItem -edit 
   -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
   DomeDiagOpenImagesMenu;
 
@@ -173,7 +171,7 @@ global proc createDomemaster3DMenu() {
   global string $gMainWindow;
 
   //remove any existing Domemaster3D menus
-  if (`menu -query -exists mainDomemaster3DMenu`){
+  if(`menu -query -exists mainDomemaster3DMenu`){
     print("Replacing the existing Domemaster3D menu item.\n");
     deleteUI mainDomemaster3DMenu;
   }
@@ -181,29 +179,25 @@ global proc createDomemaster3DMenu() {
   //Create the Domemaster3D Menu
   //The postMenuCommand will run the function editDomeDiagOpenMenuItems() that refreshes the Open Scenes and Open Images menu items.
   setParent $gMainWindow;
-  menu 
-    -label "Domemaster3D" 
+  menu -label "Domemaster3D" 
     -tearOff true 
     -postMenuCommand "editDomeDiagOpenMenuItems();"
     mainDomemaster3DMenu;
 
-  menuSet 
-    -currentMenuSet 
+  menuSet -currentMenuSet 
     renderingMenuSet;
   
-  menuSet 
-    -addMenu 
+  menuSet -addMenu 
     mainDomemaster3DMenu 
     renderingMenuSet;
 
   updateMenuMode;
   updateMenuModeUI;
   
-  setParent 
-    -menu 
+  setParent -menu 
     mainDomemaster3DMenu;
   
-  menuItem 
+  menuItem
     -subMenu true 
     -tearOff true 
     -label "Dome Cameras" 
@@ -223,9 +217,9 @@ global proc createDomemaster3DMenu() {
       //Fulldome 2D Section
 
       float $mayaVersion = getMayaVersionDome();
-      if ($mayaVersion >=2015){
+      if($mayaVersion >=2015){
         menuItem -divider true -dividerLabel "Fulldome 2D";
-      } else {
+      }else{
         menuItem -divider true;
       }
 
@@ -243,9 +237,9 @@ global proc createDomemaster3DMenu() {
       //Fulldome Stereo Section
 
       float $mayaVersion = getMayaVersionDome();
-      if ($mayaVersion >=2015){
+      if($mayaVersion >=2015){
         menuItem -divider true -dividerLabel "Fulldome Stereo";
-      } else {
+      }else{
         menuItem -divider true;
       }
 
@@ -270,7 +264,7 @@ global proc createDomemaster3DMenu() {
 
       // Check if we are running Maya 2011 or higher
       float $mayaVersion = getMayaVersionDome();
-      if ($mayaVersion >=2011){
+      if($mayaVersion >=2011){
         menuItem 
           -subMenu true 
           -tearOff true 
@@ -288,9 +282,9 @@ global proc createDomemaster3DMenu() {
   //Lens Shader Compatible Materials Section
 
   float $mayaVersion = getMayaVersionDome();
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Lens Shader Compatible Materials";
-  } else {
+  }else{
     menuItem -divider true;
   }
   
@@ -313,9 +307,9 @@ global proc createDomemaster3DMenu() {
   //Image Based Lighting Section
 
   float $mayaVersion = getMayaVersionDome();
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Image Based Lighting";
-  } else {
+  }else{
     menuItem -divider true;
   }
 
@@ -333,9 +327,9 @@ global proc createDomemaster3DMenu() {
   //Fulldome Tools Section
 
   float $mayaVersion = getMayaVersionDome();
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Fulldome Tools";
-  } else {
+  }else{
     menuItem -divider true;
   }
 
@@ -384,9 +378,9 @@ global proc createDomemaster3DMenu() {
   //Diagnostics Section
 
   float $mayaVersion = getMayaVersionDome();
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Diagnostics";
-  } else {
+  }else{
     menuItem -divider true;
   }
 
@@ -407,13 +401,13 @@ global proc createDomemaster3DMenu() {
     //Win Example:  C:/Users/hazelden
     $domeUserHomePathString = `getenv "USERPROFILE"`;
     $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
-  } else if(getMayaPlatform() == "darwin") {
+  }else if(getMayaPlatform() == "darwin") {
     //Mac OS X Log Filename
     $renderLogName = "mayaRender.log";
     //Mac Example: $Home = /Users/hazelden
     $domeUserHomePathString = `getenv "HOME"`;
     $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
-  } else {
+  }else{
     //Linux Log Filename
     $renderLogName = "mayaRender.log";
     //Linux Example: $Home = /home/hazelden
@@ -430,23 +424,29 @@ global proc createDomemaster3DMenu() {
 
   
   menuItem 
-    -label ("Open Scenes Folder")
+    -label "Open Scenes Folder"
     //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
-    -annotation ("Opening the \"Scenes\" folder for the current project.")
+    -annotation "Opening the \"Scenes\" folder for the current project."
     -imageOverlayLabel "SCN"
     -image "dome_directory.xpm"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     DomeDiagOpenScenesMenu;
   menuItem 
-    -label ("Open Images Folder")
+    -label "Open Images Folder"
     //-annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
-    -annotation ("Opening the \"Images\" folder for the current project.")
+    -annotation "Opening the \"Images\" folder for the current project."
     -imageOverlayLabel "IMG"
     -image "dome_directory.xpm"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
     DomeDiagOpenImagesMenu;
   menuItem 
-    -label ("Open MayaRenderLog")
+    -label "Open TEMP Folder"
+    -annotation "Opening the temporary folder."
+    -imageOverlayLabel "TMP"
+    -image "dome_directory.xpm"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();";
+  menuItem 
+    -label "Open MayaRenderLog"
     //-label ("Open " + $renderLogName) 
     //-label "Open MayaRenderLog.txt"
     -annotation ("Opening the Maya Render Log file: " + $domeMayaRenderLogPathString)
@@ -479,9 +479,9 @@ global proc createDomemaster3DMenu() {
 
   //Support Section
   float $mayaVersion = getMayaVersionDome();
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Support";
-  } else {
+  }else{
     menuItem -divider true;
   }
 
@@ -495,7 +495,6 @@ global proc createDomemaster3DMenu() {
     -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."
     -image "domeInfo.xpm"
     -command "source \"domeVersion.mel\";domeVersion();";
-
 } 
 
 //Create the menu

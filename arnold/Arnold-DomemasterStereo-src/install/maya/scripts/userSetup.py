@@ -1,6 +1,6 @@
 """
-Arnold Domemaster3D Startup Code Version 1.6
-2014-11-01 07.38 pm
+Arnold Domemaster3D Startup Code Version 1.6.1
+2015-01-31 09.28 am
 by Andrew Hazelden
 
 """
@@ -61,14 +61,17 @@ def addNewArnoldDomeRig():
     # add[rig, language, createProcedure]
     # cameraSetFunc=[rig,callback] 
     # Add the custom rig
-    cmds.evalDeferred("cmds.stereoRigManager(add=['ArnoldDomeStereoCamera', 'Python', 'arnoldDomeStereoRig.createRig'])")
+    #cmds.evalDeferred("cmds.stereoRigManager(add=['ArnoldDomeStereoCamera', 'Python', 'arnoldDomeStereoRig.createRig'])")
+    cmds.stereoRigManager(add=['ArnoldDomeStereoCamera', 'Python', 'arnoldDomeStereoRig.createRig'])
     # Add the custom callback set for Maya 2011+
     mayaVersion = getMayaVersionDome()
     if (mayaVersion >= 2011):
-      cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['ArnoldDomeStereoCamera','arnoldDomeStereoRig.attachToCameraSet'] )")
+      #cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['ArnoldDomeStereoCamera','arnoldDomeStereoRig.attachToCameraSet'] )")
+      cmds.stereoRigManager(cameraSetFunc=['ArnoldDomeStereoCamera','arnoldDomeStereoRig.attachToCameraSet'])
     
     #Make the new rig the default rig
-    cmds.evalDeferred("cmds.stereoRigManager(defaultRig='ArnoldDomeStereoCamera')")
+    #cmds.evalDeferred("cmds.stereoRigManager(defaultRig='ArnoldDomeStereoCamera')")
+    cmds.stereoRigManager(defaultRig='ArnoldDomeStereoCamera')
   else:
     print ("An ArnoldDomeStereoCamera rig already exists in the stereoRigManager.")
 
@@ -84,14 +87,17 @@ def addNewArnoldLatLongRig():
     # add[rig, language, createProcedure]
     # cameraSetFunc=[rig,callback] 
     # Add the custom rig
-    cmds.evalDeferred("cmds.stereoRigManager(add=['ArnoldLatLongStereoCamera', 'Python', 'arnoldLatLongStereoRig.createRig'])")
+    #cmds.evalDeferred("cmds.stereoRigManager(add=['ArnoldLatLongStereoCamera', 'Python', 'arnoldLatLongStereoRig.createRig'])")
+    cmds.stereoRigManager(add=['ArnoldLatLongStereoCamera', 'Python', 'arnoldLatLongStereoRig.createRig'])
     # Add the custom callback set for Maya 2011+
     mayaVersion = getMayaVersionDome()
     if (mayaVersion >= 2011):
-      cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['ArnoldLatLongStereoCamera','arnoldLatLongStereoRig.attachToCameraSet'] )")
+      #cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['ArnoldLatLongStereoCamera','arnoldLatLongStereoRig.attachToCameraSet'] )")
+      cmds.stereoRigManager(cameraSetFunc=['ArnoldLatLongStereoCamera','arnoldLatLongStereoRig.attachToCameraSet'] )
     
     #Make the new rig the default rig
-    cmds.evalDeferred("cmds.stereoRigManager(defaultRig='ArnoldLatLongStereoCamera')")
+    #cmds.evalDeferred("cmds.stereoRigManager(defaultRig='ArnoldLatLongStereoCamera')")
+    cmds.stereoRigManager(defaultRig='ArnoldLatLongStereoCamera')
   else:
     print ("An ArnoldLatLongStereoCamera rig already exists in the stereoRigManager.")
 
@@ -115,45 +121,44 @@ def deferredLoadArnoldRig():
 #----------------------------------------------------------------------------
 # Main Domemaster3D Start up function  
 #----------------------------------------------------------------------------
-import maya.cmds as cmds
 
-# Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
-#import arnoldDomeStereoRig
-#import arnoldLatLongStereoRig
+# Stop Maya from running the python code twice by looking if it is __main__
+if (__name__ == '__main__'):
+  import maya.cmds as cmds
 
+  # Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
+  #import arnoldDomeStereoRig
+  #import arnoldLatLongStereoRig
 
+  """
+  Maya tip on detecting Maya Batch mode is from Michael Scarpa's blog post "MEL Sillyness":
+  http://www.scarpa.name/2010/12/16/mel-sillyness/
+  """
 
-"""
-Maya tip on detecting Maya Batch mode is from Michael Scarpa's blog post "MEL Sillyness":
-http://www.scarpa.name/2010/12/16/mel-sillyness/
-"""
-
-
-
-# Check if Maya is running in batch mode or with a GUI
-import maya.OpenMaya
-isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
-# isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
-if(isMayaInBatchMode == False):
-  print("The Arnold Domemaster3D Shader is running in GUI mode.")
-  # Make sure the stereo plug-in is loaded
-  cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
-  
-  # Load the new stereo Arnold stereo rigs
-  cmds.evalDeferred("deferredLoadArnoldRig()")
-  
-  # Load the Domemaster3D menu system in the rendering menu set
-  #cmds.evalDeferred("addNewDomeMenu()")
-else:
-  print("The Arnold Domemaster3D Shader is running in batch mode.")
-
+  # Check if Maya is running in batch mode or with a GUI
+  import maya.OpenMaya
+  isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
+  # isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
+  if(isMayaInBatchMode == False):
+    print("The Arnold Domemaster3D Shader is running in GUI mode.")
+    # Make sure the stereo plug-in is loaded
+    cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
+    
+    # Load the new stereo Arnold stereo rigs
+    cmds.evalDeferred("deferredLoadArnoldRig()")
+    
+    # Load the Domemaster3D menu system in the rendering menu set
+    #cmds.evalDeferred("addNewDomeMenu()")
+  else:
+    print("The Arnold Domemaster3D Shader is running in batch mode.")
 
 
-# Make sure the Arnold plugin was loaded
-# if not (cmds.pluginInfo("mtoa",q=True,loaded=True)):
-   # cmds.loadPlugin("mtoa")
-# else:
-   # pass
+
+  # Make sure the Arnold plugin was loaded
+  # if not (cmds.pluginInfo("mtoa",q=True,loaded=True)):
+     # cmds.loadPlugin("mtoa")
+  # else:
+     # pass
    
 # ---------------------------------------------------------------------
 # End Domemaster3D Startup Code

@@ -1,9 +1,9 @@
 """
-Domemaster3D Startup Code Version 1.6
-2014-09-17 09.47 am
+Domemaster3D Startup Code Version 1.6.1
+2015-01-31 08.57 am
 by Andrew Hazelden
-
 """
+
 #Find the name of the stereo camera rig
 def findDomeRig():
   import maya.cmds as cmds
@@ -53,7 +53,7 @@ def getMayaVersionDome():
 def addNewDomeRig():
   import maya.mel as mel
   import maya.cmds as cmds
-  import domeStereoRig as domeStereoRig
+  #import domeStereoRig as domeStereoRig
   
   if (findDomeRig() == 0):
     print ("A DomeStereoCamera rig has been added to the stereoRigManager.")
@@ -79,7 +79,7 @@ def addNewDomeRig():
 def addNewLatLongRig():
   import maya.mel as mel
   import maya.cmds as cmds
-  import domeStereoRig as domeStereoRig
+  #import LatLongStereoRig
   
   if (findLatLongRig() == 0):
     print ("A LatLongStereoCamera rig has been added to the stereoRigManager.")
@@ -111,38 +111,46 @@ def addNewDomeMenu():
 #----------------------------------------------------------------------------
 # Main Domemaster3D Start up function  
 #----------------------------------------------------------------------------
-import maya.cmds as cmds
 
-# Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
-import domeStereoRig
-import LatLongStereoRig
+# Stop Maya from running the python code twice by looking if it is __main__
+if (__name__ == '__main__'):
+  import maya.cmds as cmds
+  import maya.mel as mel
+
+  #Check OS platform for Windows/Mac/Linux
+  import platform
+    
+  # Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
+  import domeStereoRig
+  import LatLongStereoRig
 
 
-"""
-Maya tip on detecting Maya Batch mode is from Michael Scarpa's blog post "MEL Sillyness":
-http://www.scarpa.name/2010/12/16/mel-sillyness/
-"""
+  """
+  Maya tip on detecting Maya Batch mode is from Michael Scarpa's blog post "MEL Sillyness":
+  http://www.scarpa.name/2010/12/16/mel-sillyness/
+  """
 
-# Check if Maya is running in batch mode or with a GUI
-import maya.OpenMaya
-isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
-# isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
-if(isMayaInBatchMode == False):
-  print("The Domemaster3D Shader is running in GUI mode.")
-  # Make sure the stereo plug-in is loaded
-  cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
-  cmds.evalDeferred("addNewDomeRig()")
-  cmds.evalDeferred("addNewLatLongRig()")
-  # Load the Domemaster3D menu system in the rendering menu set
-  cmds.evalDeferred("addNewDomeMenu()")
-else:
-  print("The Domemaster3D Shader is running in batch mode.")
+  # Check if Maya is running in batch mode or with a GUI
+  import maya.OpenMaya
+  isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
+  # isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
+  if(isMayaInBatchMode == False):
+    print("The Domemaster3D Shader is running in GUI mode.")
+    # Make sure the stereo plug-in is loaded
+    cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
+    cmds.evalDeferred("addNewDomeRig()")
+    cmds.evalDeferred("addNewLatLongRig()")
+    # Load the Domemaster3D menu system in the rendering menu set
+    cmds.evalDeferred("addNewDomeMenu()")
+    
+  else:
+    print("The Domemaster3D Shader is running in batch mode.")
 
-# Make sure the mental ray plugin was loaded
-#if not (cmds.pluginInfo("Mayatomr",q=True,loaded=True)):
-#    cmds.loadPlugin("Mayatomr")
-#else:
-#    pass
+  # Make sure the mental ray plugin was loaded
+  #if not (cmds.pluginInfo("Mayatomr",q=True,loaded=True)):
+  #    cmds.loadPlugin("Mayatomr")
+  #else:
+  #    pass
 
 # ---------------------------------------------------------------------
 # End Domemaster3D Startup Code

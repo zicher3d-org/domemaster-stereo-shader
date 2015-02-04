@@ -28,7 +28,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()\ndomeCamera.createDomeGrid()\ndomeCamera.createTestShapes()\ndomeCamera.setRenderRes()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -54,7 +53,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -80,7 +78,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -106,7 +103,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -132,7 +128,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_FOV_Camera()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -158,7 +153,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_WxH_Camera()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -184,7 +178,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -210,7 +203,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoRig()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -236,7 +228,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorMiaMaterial()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -262,7 +253,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorBumpMiaMaterial()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -288,7 +278,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorImageSequenceMiaMaterial()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -314,7 +303,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeStarglobe.mel\";\ncreateStarglobe();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -340,7 +328,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera \nreload(domeCamera)\ndomeCamera.createFulldomeIBL()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -366,7 +353,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createHemirectIBL()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -392,7 +378,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeGrid()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -418,7 +403,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"galaxyCreator.mel\";\ngalaxyCreator();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -444,13 +428,12 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeText.mel\";\ndomeText();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 34
-        -height 34
+        -width 35
+        -height 35
         -manage 1
         -visible 1
         -preventOverride 0
@@ -470,7 +453,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()\n\nimport domeCrossBounce\nreload(domeCrossBounce)\ndomeCrossBounce.createCrossBounce()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -496,7 +478,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeViewer.mel\";\ndomeViewer();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -522,7 +503,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeHistogram.mel\";\ndomeHistogram();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -549,7 +529,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(512)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -576,7 +555,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(1024)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -603,7 +581,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(2048)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -630,7 +607,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(4096)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -657,7 +633,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderRes(8192)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -684,7 +659,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -711,7 +685,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderResWH(4096,2048)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -738,7 +711,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.changeRenderResWH(8192,4096)" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -765,7 +737,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -792,7 +763,32 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the TEMP folder." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open TEMP Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "TMP" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "dome_directory.xpm" 
+        -image1 "dome_directory.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -819,7 +815,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeDiagnostics.mel\";\ndomeOpenMayaRenderLogFile();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -846,7 +841,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -873,7 +867,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeDiagnostics.mel\";\nopenTaskManager();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -900,7 +893,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -926,7 +918,6 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -952,7 +943,6 @@ global proc shelf_Domemaster3D () {
         -command "source \"domeVersion.mel\";\ndomeVersion();" 
         -sourceType "mel" 
         -commandRepeatable 1
-        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -978,7 +968,5 @@ global proc shelf_Domemaster3D () {
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()" 
         -sourceType "python" 
         -commandRepeatable 1
-        -flat 1
     ;
-
 } 

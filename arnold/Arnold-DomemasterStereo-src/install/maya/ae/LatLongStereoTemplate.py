@@ -1,5 +1,5 @@
 # LatLong Stereo Shader Template File
-# 2014-10-31 6:38 pm
+# 2015-01-31 09.29 am
 
 import pymel.core as pm
 import maya.cmds as cmds

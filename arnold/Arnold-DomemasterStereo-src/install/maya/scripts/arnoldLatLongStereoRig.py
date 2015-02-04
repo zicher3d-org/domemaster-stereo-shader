@@ -1,6 +1,6 @@
 """
- Arnold LatLong_Stereo Camera Rig V1.6
- 2014-11-05 05.57 pm
+ Arnold LatLong_Stereo Camera Rig V1.6.1
+ 2015-01-31 09.28 am
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 

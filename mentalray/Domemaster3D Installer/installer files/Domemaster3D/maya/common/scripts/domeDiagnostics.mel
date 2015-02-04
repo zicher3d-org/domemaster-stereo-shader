@@ -1197,6 +1197,47 @@ global proc domeOpenImagesDirectory(){
 }
 
 
+global proc domeOpenTempDirectory(){
+  // Open the operating system's TEMP folder
+  int $mayaVersion = getMayaVersionDome();
+
+  // Build the images directory path
+  string $path;
+  string $runCommand = "";
+  
+  if(getMayaPlatform() == "windows"){
+		$path = toNativePath(`getenv "TEMP"`) + "\\" ;
+    print ($path + "\n");
+  } else {
+		$path = toNativePath(`getenv "TMPDIR"`) + "/";
+    print ($path + "\n");
+  }
+  
+  int $dirExists = `filetest -d $path`;
+  if ($dirExists == 1){
+    if (getMayaPlatform() == "windows"){
+      $runCommand = "explorer \"";
+    } else if (getMayaPlatform() == "darwin"){
+      $runCommand = "open \"";
+    } else {
+    //Linux assumed
+      $runCommand = "nautilus \"";
+    }
+
+    $runCommand += toNativePath($path);
+    $runCommand += "\"";
+
+    // Open a new explorer window
+    print ("Running command:\n" + $runCommand + "\n");
+    system ($runCommand);
+
+    print ("Opening the " + $path + " folder.\n");
+  } else {
+    print ("The " + $path + " folder doesn't exist yet!\n");
+  }
+}
+
+
 
 //Check what Maya version is active
 global proc int getMayaVersionDome(){

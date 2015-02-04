@@ -634,7 +634,7 @@ global proc shelf_Domemaster3D () {
         -sourceType "python" 
         -commandRepeatable 1
     ;
-      shelfButton
+    shelfButton
         -enableCommandRepeat 1
         -enable 1
         -width 35
@@ -761,6 +761,32 @@ global proc shelf_Domemaster3D () {
         -marginWidth 1
         -marginHeight 1
         -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the TEMP folder." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open TEMP Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "TMP" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "dome_directory.xpm" 
+        -image1 "dome_directory.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();" 
         -sourceType "mel" 
         -commandRepeatable 1
     ;
@@ -943,5 +969,4 @@ global proc shelf_Domemaster3D () {
         -sourceType "python" 
         -commandRepeatable 1
     ;
-
 } 

@@ -4,7 +4,7 @@
 # the Production of immersive spherical animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2014-10-30 09.18 pm
+# 2015-01-26 05.58 pm
 
 [node LatLongStereo]
     desc                        STRING "LatLong Stereo Shader"
@@ -17,7 +17,9 @@
     houdini.label               STRING "LatLongStereo"
     houdini.help_url            STRING "https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages"
     houdini.order               STRING "camera fov_vert_angle fov_horiz_angle parallax_distance separation exposure separation_map flip_ray_x flip_ray_y  aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration"
-
+    
+    [attr is_perspective]
+      default                    BOOL   True
     [attr camera]
       desc                       STRING "Center, Left, Right Camera Views"
       houdini.type               STRING "menu:single:menu"
@@ -45,7 +47,7 @@
     [attr parallax_distance]
       label                      STRING "Zero Parallax Distance"
       desc                       STRING "Zero Parallax Distance adjusts the focus plane (radius)"
-      min                        FLOAT  0.1
+      min                        FLOAT  0.001
       softmax                    FLOAT  5000.0
       default                    FLOAT  360.0
       animatable                 BOOL   True

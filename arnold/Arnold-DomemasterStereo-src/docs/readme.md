@@ -1,6 +1,7 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2014-12-20  
+2015-02-04 
+  
 ![Maya DomemasterStereo for Arnold Screenshot](images/mtoa_domemasterstereo.png)
 
 ## Overview ##
@@ -80,9 +81,9 @@ Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` fo
 **Step 7.**
 Edit your Windows Environment variables using the System Control Panel to include Arnold's env vars and path:  
 
-    PATH="C:\solidangle\mtoadeploy\2014\bin\"  
-    ARNOLD_PLUGIN_PATH="C:\solidangle\mtoadeploy\2014\shaders"  
-    MAYA_RENDER_DESC_PATH="C:\solidangle\mtoadeploy\2014\"  
+    PATH="C:\solidangle\mtoadeploy\2015\bin\"  
+    ARNOLD_PLUGIN_PATH="C:\solidangle\mtoadeploy\2015\shaders"  
+    MAYA_RENDER_DESC_PATH="C:\solidangle\mtoadeploy\2015\"  
 
 
 ### Mac 64-bit ###
@@ -121,9 +122,9 @@ Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` fo
 Edit your `.bash_profile` to include Arnold's env vars and path:
 
     # Arnold Settings  
-    export PATH="$PATH:$HOME/solidangle/mtoa/2014/bin/"  
-    export ARNOLD_PLUGIN_PATH="$HOME/solidangle/mtoa/2014/shaders"  
-    export MAYA_RENDER_DESC_PATH="$HOME/solidangle/mtoa/2014/"  
+    export PATH="$PATH:$HOME/solidangle/mtoa/2015/bin/"  
+    export ARNOLD_PLUGIN_PATH="$HOME/solidangle/mtoa/2015/shaders"  
+    export MAYA_RENDER_DESC_PATH="$HOME/solidangle/mtoa/2015/"  
 
 ### Linux 64-bit ###
 
@@ -162,9 +163,9 @@ Copy the Maya icons from the `Arnold-DomemasterStereo-src\install\maya\icons` fo
 Edit your .bash_profile to include Arnold's env vars and path:
 
     # Arnold Settings  
-    export PATH="$PATH:/opt/solidangle/mtoa/2014/bin/"  
-    export ARNOLD_PLUGIN_PATH="/opt/solidangle/mtoa/2014/shaders"  
-    export MAYA_RENDER_DESC_PATH="/opt/solidangle/mtoa/2014/"  
+    export PATH="$PATH:/opt/solidangle/mtoa/2015/bin/"  
+    export ARNOLD_PLUGIN_PATH="/opt/solidangle/mtoa/2015/shaders"  
+    export MAYA_RENDER_DESC_PATH="/opt/solidangle/mtoa/2015/"  
 
 
 ## Verify the Shader Loaded in Arnold ##
@@ -194,7 +195,7 @@ If you run Arnold's Kick utility with the info flag you can see the DomemasterSt
       type:         camera
       output:       (null)
       parameters:   27
-      filename:     C:\solidangle\mtoadeploy\2014\shaders\DomemasterStereo.dll
+      filename:     C:\solidangle\mtoadeploy\2015\shaders\DomemasterStereo.dll
       version:      4.2.0.6
 
       Type          Name                              Default
@@ -357,6 +358,12 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 - Daniel Ott created the original 2D `domeAFL_FOV`, and `domeAFL_WxH` lens shaders for mental ray.
 
 ## Version History ##
+
+### Version 0.3 - 2015-01-31 ###
+
+Updated the Maya userSetup.py script to avoid a condition where the code was run twice at startup.
+
+Updated the metadata files to include the "is_perspective" attribute to fix the Arnold error message "node "%s" is not a perspective camera, cannot use view-dependent subdivision". This change was done in reference to the Arnold Ticket #1646: [https://trac.solidangle.com/mtoa/ticket/1646#comment:9](https://trac.solidangle.com/mtoa/ticket/1646#comment:9)
 
 ### Version 0.2 - 2014-12-20 ###
 

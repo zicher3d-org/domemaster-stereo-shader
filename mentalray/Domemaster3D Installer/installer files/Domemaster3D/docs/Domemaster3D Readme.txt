@@ -287,9 +287,7 @@ January 1, 2015
 Maya
   Added Autodesk Maya 2016 shader install option
 
-  
 Version 1.6 alpha 9
-
 -------------------
 December 20, 2014
 

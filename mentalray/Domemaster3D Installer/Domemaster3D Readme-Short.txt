@@ -65,7 +65,7 @@ Version History
 
 Version 1.6.2
 -----------------
-February 18, 2015
+February 23, 2015
 
 Maya
   Updated the Dome Diagnostics tool.
@@ -92,6 +92,7 @@ January 1, 2015
 
 Maya
   Added Autodesk Maya 2016 shader install option
+  
 Version 1.6 alpha 9
 -------------------
 December 20, 2014

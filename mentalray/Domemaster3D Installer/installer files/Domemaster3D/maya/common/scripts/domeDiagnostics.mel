@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.6
-  2014-10-03 8pm
+  Dome Diagnostics Report Tool V1.6.2
+  2015-02-23 11.38 pm
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  Version 1.6.2
+  ------------------
+  February 28, 2015
+  
+  Added support for detecting the PlayblastVR renderer and Vray for Maya 2016.
   
   Version 1.6
   ------------------
@@ -279,6 +285,8 @@ global proc domeDiagnostics(){
     $domeDebugText += "> The Maya Hardware 2.0 renderer is active.\r\n";
   }else if ($rendererString == "mayaVector"){
     $domeDebugText += "> The Maya Vector renderer is active.\r\n";
+  }else if ($rendererString == "PlayblastVR"){
+    $domeDebugText += "> The PlayblastVR immersive hardware renderer is active.\r\n";
   }
   $domeDebugText += "\r\n";
 
@@ -608,6 +616,127 @@ global proc domeDiagnostics(){
 
   //------------------------------------------------------------
 
+	$domeDebugText += "##  PlayblastVR Variables ##\r\n\r\n";
+  
+  //PlayblastVR
+  //string $playblastVRShaderString = `getenv "PLAYBLASTVR_LOCATION"`;
+  //$domeDebugText += "### `PLAYBLASTVR_LOCATION` ###\r\n> " + $playblastVRShaderString + "\r\n\r\n";
+  
+  if ($mayaVersion >= 2013){
+    string $playblastVRModuleString = `getModulePath -moduleName "PlayblastVR"`;
+    $domeDebugText += "### `PLAYBLASTVR Module` ###\r\n> " + $playblastVRModuleString + "\r\n\r\n";
+  }
+  
+  string $panoramaFormatString;
+  
+  // Query the PlayblastVR optionVar value
+  if(`optionVar -exists "playblastVRPanoramaFormat"`){
+    // Read the previous playblastVRPanoramaFormat optionVar setting
+    int $panoramaFormat = `optionVar -query "playblastVRPanoramaFormat"`;
+    
+    switch($panoramaFormat){
+      case 1:
+        $panoramaFormatString = "Angular Fisheye";
+        break;
+      case 2:
+        $panoramaFormatString = "Angular Fisheye with 4:3 Ratio Background";
+        break;
+      case 3:
+        $panoramaFormatString = "Angular Fisheye with 16:9 Ratio Background";
+        break;
+      case 4:
+        $panoramaFormatString = "LatLong";
+        break;
+      case 5:
+        $panoramaFormatString = "Cylindrical";
+        break;
+      case 6:
+        $panoramaFormatString = "Cubemap 3x2";
+        break;
+      case 7:
+        $panoramaFormatString = "Vertical Cross Cube";
+        break;
+      case 8:
+        $panoramaFormatString = "Horizontal Cross Cube";
+        break;
+      case 9:
+        $panoramaFormatString = "Vertical Tee Cube";
+        break;
+      case 10:
+        $panoramaFormatString = "Horizontal Tee Cube";
+        break;
+      case 11:
+        $panoramaFormatString = "Vertical Strip Cube";
+        break;
+      case 12:
+        $panoramaFormatString = "Horizontal Strip Cube";
+        break;
+      case 13:
+        $panoramaFormatString = "Mental Ray Horizontal Strip Cube 1";
+        break;
+      case 14:
+        $panoramaFormatString = "Quadsphere";
+        break;    
+      case 15:
+        $panoramaFormatString = "Perspective";
+        break;
+    }  
+  }
+  
+  $domeDebugText += "### `PlayblastVR Panorama Format` ###\r\n> " + $panoramaFormatString + "\r\n\r\n";
+  
+  string $batchSequenceString;
+  
+  // Query the PlayblastVR optionVar value
+  if(`optionVar -exists "playblastVRShowBatchSequence"`){
+    // Read the previous playblastVRShowBatchSequence optionVar setting
+    int $ShowBatchSequence = `optionVar -query "playblastVRShowBatchSequence"`;
+    switch($ShowBatchSequence){
+    case 1:
+      // None
+      $batchSequenceString = "None";
+      break;
+    case 2:
+      // FCheck
+      $batchSequenceString = "FCheck";
+      break;
+    case 3:
+      // IMF Display
+      $batchSequenceString = "IMF Display";
+      break;
+    case 4:
+      // DJV Viewer
+      $batchSequenceString = "DJV Viewer";
+      break;
+    case 5:
+      // Adobe SpeedGrade
+      $batchSequenceString = "Adobe SpeedGrade";
+      break;
+    case 6:
+      // Kolor Eyes
+      $batchSequenceString = "Kolor Eyes";
+      break;
+    case 7:
+      // Scratch Player
+      $batchSequenceString = "Scratch Player";
+      break;
+    case 8:
+      // Domemaster3D DomeViewer
+      $batchSequenceString = "Domemaster3D DomeViewer";
+      break;
+    default:
+      $batchSequenceString = "None";
+      break;
+    }
+  }
+  
+  $domeDebugText += "### `Show Batch Sequence viewer` ###\r\n> " + $batchSequenceString + "\r\n\r\n";
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  
+  //------------------------------------------------------------
+
 	$domeDebugText += "##  Arnold Environment Variables ##\r\n\r\n";
 
   //Arnold
@@ -648,58 +777,67 @@ global proc domeDiagnostics(){
 
   if ($mayaVersion == 2010){
     $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_FOR_MAYA2010_PLUGINS_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2010_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2010_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2010_x64"`;
-  $domeDebugText += "### `VRAY_TOOLS_MAYA2010_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2010_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2011){
     $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_FOR_MAYA2011_PLUGINS_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2011_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2011_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2011_x64"`;
-  $domeDebugText += "### `VRAY_TOOLS_MAYA2011_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2011_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2012){
     $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_FOR_MAYA2012_PLUGINS_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2012_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2012_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2012_x64"`;
-  $domeDebugText += "### `VRAY_TOOLS_MAYA2012_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2012_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2013){
     $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_FOR_MAYA2013_PLUGINS_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2013_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2013_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2013_x64"`;
-  $domeDebugText += "### `VRAY_TOOLS_MAYA2013_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2013_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2014){
     $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_FOR_MAYA2014_PLUGINS_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2014_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2014_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2014_x64"`;
-  $domeDebugText += "### `VRAY_TOOLS_MAYA2014_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2014_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   } else if ($mayaVersion == 2015){
     $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_FOR_MAYA2015_PLUGINS_x64"`;
-  $domeDebugText += "### `VRAY_FOR_MAYA2015_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_FOR_MAYA2015_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2015_x64"`;
-  $domeDebugText += "### `VRAY_TOOLS_MAYA2015_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2015_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  } else if ($mayaVersion == 2016){
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2016_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2016_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   }
 
 

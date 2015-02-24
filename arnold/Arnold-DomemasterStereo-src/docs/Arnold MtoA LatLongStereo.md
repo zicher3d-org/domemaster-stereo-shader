@@ -12,9 +12,11 @@ To change the LatLongStereo attributes, select the camera in your scene. Open th
 
 ## Known Issues ##
 
-The current version of the Arnold Domemaster3D shaders (as of 2014-11-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+The current version of the Arnold Domemaster3D shaders (as of 2015-02-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
 
-The LatLong_Stereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute.
+The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. The LatLongStereo shader should be rendered with a 2:1 aspect ratio to avoid vertically over-rendering the scene's FOV angle.
+
+Also the LatLongStereo shader expects a 2:1 aspect ratio render resolution for the output. The code to compensate for a non 2:1 rendered aspect ratio hasn't been finished yet so you will experience over-rendering of the FOV if you render to an image with a 1:1 aspect ratio.
 
 ## LatLong Stereo Shader Controls ##
 

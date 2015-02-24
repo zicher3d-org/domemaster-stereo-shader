@@ -21,7 +21,7 @@ MTOA_SHADERS_DIR=$(HOME)/solidangle/mtoa/$(MAYA_VERSION)/shaders
 MTOA_TEMPLATE_DIR=$(HOME)/solidangle/mtoa/$(MAYA_VERSION)/scripts/mtoa/ui/ae
 
 # Which version of the Arnold API Devkit are you using?
-MTOA_API_VERSION=4.2.0.6
+MTOA_API_VERSION=4.2.3.1
 
 MTOA_DEV_DIR=$(HOME)/solidangle/Arnold-$(MTOA_API_VERSION)-darwin
 MTOA_INCLUDE_DIR=$(MTOA_DEV_DIR)/include

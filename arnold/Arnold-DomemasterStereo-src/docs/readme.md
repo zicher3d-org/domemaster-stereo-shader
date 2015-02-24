@@ -1,6 +1,6 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2015-02-04 
+2015-02-23
   
 ![Maya DomemasterStereo for Arnold Screenshot](images/mtoa_domemasterstereo.png)
 
@@ -14,9 +14,9 @@ This guide covers the Arnold version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Arnold Domemaster3D shaders (as of 2014-11-23) are a development build. At this point in time there is no easy way to create screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+The current version of the Arnold Domemaster3D shaders (as of 2015-02-23) are a development build. At this point in time there is no easy way to create stereoscopic prodcution centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
 
-The LatLong_Stereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute.
+The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. The LatLongStereo shader should be rendered with a 2:1 aspect ratio to avoid vertically over-rendering the scene's FOV angle.
 
 At this point, the DomemasterStereo shader will render a stereo fulldome image but you will notice something that looks like a small "swirly region" in the zenith part of the fulldome frame. This is due to a lack of a screen space turn map texture. 
 
@@ -44,7 +44,7 @@ Here are a few screenshots of the Maya Shelf tools and the Arnold based **Domema
 ### Windows 64-bit ###
 
 **Step 1.**
-Download the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
+Download the [Visual C++ 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
 
 
 **Step 2.**
@@ -301,7 +301,7 @@ you can check if the shader is installed and define a custom library search path
 ### Windows 64-bit ###
 
 **Step 1.**
-Install Visual Studio, Arnold, and MtoA. The current script has the paths for command line compiling with Visual Studio 2012 (11.0)
+Install Visual Studio, Arnold, and MtoA. The current script has the paths for command line compiling with Visual Studio 2013 (12.0)
 
 **Step 2.**
 Open a new command prompt and cd into the source code folder.
@@ -354,10 +354,19 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 
 - Roberto Ziche created the original `domeAFL_FOV_Stereo` shader for 3DS Max.
 - Luis Silva created the initial Arnold lens shader port for Softimage.
-- Andrew Hazelden finished porting the `DomemasterStereo` lens shader for Arnold on Maya/Softimage/Houdini.
+- Andrew Hazelden is doing the ongoing port of the `DomemasterStereo` and LatLongStereo lens shader for Arnold on Maya/Softimage/Houdini.
 - Daniel Ott created the original 2D `domeAFL_FOV`, and `domeAFL_WxH` lens shaders for mental ray.
 
 ## Version History ##
+
+
+### Version 1.6.1 - 2015-02-23 ###
+
+Updated the Windows builds to use Visual Studio 2013 for the Arnold .dll shader compiles.
+
+Tweaked the LatLongStereo FOV code to improve the vertical FOV rendering issue. 
+
+**Note:** The LatLongStereo shader currently expects a 2:1 aspect ratio render resolution for the output. The code to compensate for a non 2:1 rendered aspect ratio hasn't been finished yet so you will experience over-rendering of the vertical FOV if you render to an image with a 1:1 aspect ratio.
 
 ### Version 0.3 - 2015-01-31 ###
 

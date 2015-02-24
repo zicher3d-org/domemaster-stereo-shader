@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6.1 - February 4, 2015
+Version 1.6.2 - February 23, 2015
 
 About This Shader
 ---------------------
@@ -14,6 +14,7 @@ Note: The previous Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) No
 Install Directory
 -------------------
 The Domemaster3D shader is installed to the following paths:
+
 Windows:
 C:\Program Files\Domemaster3D\
 
@@ -38,6 +39,7 @@ If you need support for older versions of Mac OS X, you can compile the shaders 
 Domemaster3D Media Folder
 --------------------------------
 The Domemaster3D control texture maps, models, and the DomeViewer panoramic meshes are stored in the following directories:
+
 Windows:
 C:\Program Files\Domemaster3D\sourceimages\
 
@@ -153,6 +155,9 @@ The SCN button opens the scenes folder for the current project in a new window o
 Open Images Folder Button
 The IMG button opens the images folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
 
+Open Temporary Folder Button
+The TMP button opens the operating system's temporary %TEMP% / $TEMP folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+
 Display Render Log Button
 The rLog button opens the current MayaRenderLog.txt file to show the render statistics.
 
@@ -252,6 +257,15 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 1.6.2
+-----------------
+February 23, 2015
+
+Maya
+  Updated the Dome Diagnostics tool.
+
+  Updated the DomeViewer mesh files to more precisely align the front axis correctly on the angular360, latlong, cube map, cylindrical, and starglobe viewer geometry.
+
 Version 1.6.1
 -----------------
 February 4, 2015
@@ -260,8 +274,9 @@ Updated the Installer splash screen.
 
 Maya
   Added a new "TMP" Domemaster3D shelf tool and Domemaster3D menu item that opens the operating system's %TEMP% temporary files directory.
-  Updated the userSetup.py script to improve the startup procedures
   
+  Updated the userSetup.py script to improve the startup procedures
+
 Version 1.6
 ---------------
 January 1, 2015
@@ -271,10 +286,11 @@ January 1, 2015
 
 Maya
   Added Autodesk Maya 2016 shader install option
-  
+
   
 Version 1.6 alpha 9
---------------------
+
+-------------------
 December 20, 2014
 
 3DS Max

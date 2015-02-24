@@ -1,5 +1,5 @@
 // LatLongStereo Arnold Shader
-// 2014-12-12 12.12 pm
+// 2015-02-13 04.06 pm
 // ---------------------------------
 // Ported to Arnold by Andrew Hazelden
 // Based upon the mental ray shader LatLong_Stereo  
@@ -84,19 +84,15 @@ camera_create_ray {
 
   // Calculate phi and theta...
   phi = x * (fovHoriz / 2.0);
-  if(zenithMode){
-    theta = DOME_PIOVER2 - y * (fovVert / 2.0);
-  } else {
-   theta = y * (fovVert / 2.0);
-  }  
   
-  // Calculate phi and theta...
-  //phi = x * (fovHoriz / 2.0);
-  //if(zenithMode) {
-  //  theta = DOME_PIOVER2 - y * (fovVert);
-  //} else {
-  //  theta = y * (fovVert);
-  //}  
+  // Working on the vertical field of view @ 1/2 real value issue
+  if(zenithMode){
+    //theta = DOME_PIOVER2 - y * (fovVert / 2.0);
+    theta = DOME_PIOVER2 - y * (fovVert);
+  } else {
+   //theta = y * (fovVert / 2.0);
+   theta = y * (fovVert);
+  }  
   
   // Start by matching camera (center camera)
   org = 0.0;

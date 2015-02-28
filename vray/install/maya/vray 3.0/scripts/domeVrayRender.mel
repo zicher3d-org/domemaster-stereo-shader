@@ -1,0 +1,24 @@
+/*
+
+Domemaster3D for Vray for Maya v1.6.3
+2015-02-28 1.37 am
+by Andrew Hazelden
+-----------------------------
+
+This script will prepare a Vray Scene for rendering in Maya using the DomemasterStereo or LatLongStereo shaders.
+
+Mel Commands:
+
+Add the custom Vray Post Translate Python Script for the current lens shader:
+source "domeVRayRender.mel";
+domeVrayAddTranslator();
+
+*/
+
+
+global proc domeVrayAddTranslator(){
+  // Use the new domeVrayRender.py python script translator actions
+  string $vraySettingsNode = "vraySettings";
+  string $vrayTranslator = "import domeVrayRender\nreload(domeVrayRender)\ndomeVrayRender.domeVrayTranslator()";
+  setAttr ($vraySettingsNode+".postTranslatePython") -type "string" $vrayTranslator;
+}

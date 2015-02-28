@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-01-01  
+2015-02-28   
 
 
 - Table of Contents
@@ -58,15 +58,15 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2014-12-24) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-02-28) is a development build.
 
 The Vray Standalone version generally works without too many issues.
 
 More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
 
-The Maya integration is still a work in progress. The Domemaster3D shaders aren't yet active in the Maya render view. Also, the custom Vray Extra Attributes haven't been linked into the Vray for Maya .vrscene exporter.
+The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.
 
-The initial 3DS Max source code has been added in this v0.3 release but the GUI elements need to be completed.
+The initial 3DS Max source code has been added in this v0.4 release but the GUI elements need to be completed.
 
 ## Vray Standalone ##
 
@@ -277,6 +277,18 @@ To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camer
 
 At this point you can turn ON the lens shader by scrolling down to the bottom of the Attribute Editor window and expanding the `Extra VRay Attributes` section. Then enable the appropriate `Treat as a Vray DomemasterStereo` or `Treat as a Vray LatLongStereo Cam` checkbox.
 
+### VRay Post Translate Python Script ###
+
+When the `DomemasterStereo` or `LatLongStereo` Vray Extra Attribute section is enabled with the checkbox a new Vray Render Settings **Mel/Python Callbacks** `Post Translate Python Script` entry is added automatically that allows the `DomemasterStereo` and `LatLongStereo` lens shaders to work in the Maya Render View and the Vray Frame Buffer window.
+
+![Post Translate Python Script](images/post-translate-python-script.png)
+
+The `Post Translate Python Script` field is set to use the following python code:
+
+    import domeVrayRender
+    reload(domeVrayRender)
+    domeVrayRender.domeVrayTranslator()
+
 ### VRay DomemasterStereo Camera ###
 
 ![VRay DomemasterStereo Camera](images/vray_DomemasterStereoCamera.png)
@@ -290,6 +302,11 @@ At this point you can turn ON the lens shader by scrolling down to the bottom of
 You can remove a vray lens shader from a Maya camera by opening the `Attributes > VRay` menu and unchecking the specific lens shader. This will remove the lens shader's attributes that are listed in the `Extra VRay Attributes` section.
 
 ![Adding Extra Attributes](images/vray-extra-attributes.png)
+
+You can also delete the python code in the **Mel/Python Callbacks** `Post Translate Python Script` field if you want to completly remove all references to the Domemaster3D shader elements from the Maya scene file.
+
+![Clearing the Python Translator](images/clear-post-translate-python-script.png)
+
 
 ## Maya Shader Installation ##
 
@@ -319,9 +336,10 @@ Vray Script Files:
     attributeNodes.txt
     attributeGroups.txt
     vrayAEFunctions.mel
+    domeVrayRender.py
     
 
-**Note:** The 4 vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+**Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 
 ### Mac 64-bit ###
@@ -347,9 +365,10 @@ Vray Script Files:
     attributeNodes.txt
     attributeGroups.txt
     vrayAEFunctions.mel
+    domeVrayRender.py
     
 
-**Note:** The 4 vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+**Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 ### Linux 64-bit ###
 
@@ -375,8 +394,9 @@ Vray Script Files:
     attributeNodes.txt
     attributeGroups.txt
     vrayAEFunctions.mel
+    domeVrayRender.py
     
-**Note:** The 4 vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+**Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
 ## Compiling Instructions ##
 
@@ -447,19 +467,28 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ## Version History ##
 
-### Version 0.1 - 2014-11-14 ###
+### Version 0.4 - 2015-02-28 ###
 
-- Initial Vray support.
+**Maya Code Update:**
+
+- Added a Vray for Maya `Post Translate Python Script` item that handles the export and rendering of the DomemasterStereo and LatLongStereo shaders. The `Post Translate Python Script` data is stored in the vraySettings node using the `.ptp` / `.postTranslatePython` attribute. 
+
+- When a DomemasterStereo or LatLongStereo Vray Extra Attribute is added to a Maya camera shape node and turned ON with the checkbox, a `Post Translate Python Script` code snippet is added automatically to the Vray Render Settings window.
+
+### Version 0.3 - 2014-12-24 ###
+
+- Added Vray 3.0 support for Maya/Standalone/Vray RT
+- Added a Vray 3.0 for Max version of the `DomemasterStereo` and `LatLongStereo` source code. The GUI elements still need to be fine tuned and the Visual Studio makefile needs a bit of work to fix a `LibDescription` compiling error.
 
 ### Version 0.2 - 2014-11-26 ###
 
 - Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues
 - Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.
 
-### Version 0.3 - 2014-12-24 ###
+### Version 0.1 - 2014-11-14 ###
 
-- Added Vray 3.0 support for Maya/Standalone/Vray RT
-- Added a Vray 3.0 for Max version of the `DomemasterStereo` and `LatLongStereo` source code. The GUI elements still need to be fine tuned and the Visual Studio makefile needs a bit of work to fix a `LibDescription` compiling error.
+- Initial Vray support.
+
 
 ## To Do List ##
 
@@ -470,8 +499,7 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ### Vray for Maya To Dos ###
 
-- Get the DomemasterStereo and LatLongStereo shaders to render inside of Maya's render view
-- Get the Maya custom Vray Extra Attributes linked into the Vray for Maya .vrscene exporter
+- Implement Roberto Ziche's updated camera origin code in the Maya shaders.
 
 ### Vray for 3DS Max To Dos ###
 

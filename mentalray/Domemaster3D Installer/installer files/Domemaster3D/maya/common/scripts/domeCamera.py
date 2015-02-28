@@ -1,12 +1,18 @@
 """
-Domemaster3D Camera Setup Script V1.6
-2014-10-21 04.42 pm
+Domemaster3D Camera Setup Script V1.6.2
+2015-02-27 07.39 am
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 1.6
+---------------
+February 27, 2015
+
+Increased the dome grid line thickness so it has improved legibility in the realtime viewports.
 
 Version 1.6
 ---------------
@@ -1344,8 +1350,12 @@ def createDomeGrid():
   attrName = 'gridLineThickness'
 
   #This is the default starting value for the grid line strokes
-  initialGridLineThickness = 0.05
-  #previous setting 0.035
+  
+  # Mental Ray optimized thin lines
+  #initialGridLineThickness = 0.05
+  
+  #PlayblastVR compatible thicker lines
+  initialGridLineThickness = 0.200
 
   #Check if the attribute exists on the domeGrid node
   #if(mel.attributeExists(attrName, baseNodeName) == 0):

@@ -1,5 +1,5 @@
 // Andrew Hazelden LatLongStereo + DomemasterStereo Edited File
-// 2014-11-14 02.59 pm
+// 2015-02-28 1.37 am
 
 proc string tokenizeWidget(string $widget) {
 	string $tokens[];
@@ -871,7 +871,7 @@ global proc suppressAttributesForVRayObjectSets() {
 
 
 // ---------------------------------------------------------------------------------
-// 2014-11-14 03.00 pm
+// 2015-02-28 1.37 am
 // ---------------------------------------------------------------------------------
 
 global proc vrayOnDomemasterStereoOn(string $node, string $attrName, string $widget) {
@@ -899,6 +899,9 @@ global proc vrayOnDomemasterStereoOn(string $node, string $attrName, string $wid
 		}
 		string $attrNames[] = {"vrayDomemasterStereoCamera", "vrayDomemasterStereoFovAngle", "vrayDomemasterStereoZeroParallaxSphere", "vrayDomemasterStereoSeparation", "vrayDomemasterStereoForwardTilt", "vrayDomemasterStereoTiltCompensation", "vrayDomemasterStereoVerticalMode", "vrayDomemasterStereoSeparationMap", "vrayDomemasterStereoHeadTurnMap", "vrayDomemasterStereoHeadTiltMap", "vrayDomemasterStereoFlipX", "vrayDomemasterStereoFlipY" };
 		vrayDimControls($node, $attrNames, $widget, $dim);
+    
+    // Add the Domemaster3D shader's Vray Translator Python Script settings 
+    domeVrayAddTranslator();
 	}
 }
 
@@ -927,9 +930,19 @@ global proc vrayOnLatLongStereoOn(string $node, string $attrName, string $widget
 		}
 		string $attrNames[] = {"vrayLatLongStereoCamera", "vrayLatLongStereoFovVertAngle", "vrayLatLongStereoFovHorizAngle", "vrayLatLongStereoParallaxDistance", "vrayLatLongStereoSeparation", "vrayLatLongStereoZenithMode", "vrayLatLongStereoSeparationMap", "vrayLatLongStereoFlipX", "vrayLatLongStereoFlipY" };
 		vrayDimControls($node, $attrNames, $widget, $dim);
+    
+    // Add the Domemaster3D shader's Vray Translator Python Script settings 
+    domeVrayAddTranslator();
 	}
 }
 
 
 // ---------------------------------------------------------------------------------
+// 2015-02-28 1.37 am
 
+global proc domeVrayAddTranslator(){
+  // Use the new domeVrayRender.py python script translator actions
+  string $vraySettingsNode = "vraySettings";
+  string $vrayTranslator = "import domeVrayRender\nreload(domeVrayRender)\ndomeVrayRender.domeVrayTranslator()";
+  setAttr ($vraySettingsNode+".postTranslatePython") -type "string" $vrayTranslator;
+}

@@ -134,7 +134,7 @@
       <AdditionalLibraryDirectories>..\..\..\lib\x64;..\..\..\lib\x64\vc11;C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SetChecksum>true</SetChecksum>
       <BaseAddress>0x08C40000</BaseAddress>
-      <AdditionalDependencies>vrender2015.lib;vray2015.lib;paramblk2.lib;maxutil.lib;core.lib;geom.lib;comctl32.lib;odbc32.lib;odbccp32.lib;mesh.lib;gfx.lib;putils_s.lib;vutils_s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vrender2015.lib;vray2015.lib;paramblk2.lib;maxutil.lib;core.lib;geom.lib;comctl32.lib;odbc32.lib;odbccp32.lib;mesh.lib;gfx.lib;putils_s.lib;vutils_s.lib;bmm.lib;Maxscrpt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions> /machine:AMD64</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

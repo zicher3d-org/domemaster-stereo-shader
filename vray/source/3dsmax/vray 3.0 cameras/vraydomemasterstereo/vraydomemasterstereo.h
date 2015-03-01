@@ -8,7 +8,7 @@ namespace VRayDomemasterStereo
 enum {
 	pb_camera,
 	pb_fov_angle,
-	pb_zero_parallax_sphere,
+	pb_parallax_distance,
 	pb_separation,
 	pb_forward_tilt,
 	pb_tilt_compensation,
@@ -18,7 +18,7 @@ enum {
 	pb_head_tilt_map,
 	pb_flip_x,
 	pb_flip_y,
-  pb_fov,
+  pb_fov
 };
 
 };

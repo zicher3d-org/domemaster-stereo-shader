@@ -4,7 +4,7 @@
 #     the Production of Full-Dome Animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2015-01-26 05.58 pm
+# 2015-03-01 08.40 am
 
 [node DomemasterWxH]
     desc                         STRING "DomemasterWxH Shader"
@@ -13,15 +13,17 @@
     maya.name                    STRING "camera"
     maya.classification          STRING "shader/surface"
 
+    houdini.category             STRING "Domemaster3D"
     houdini.icon                 STRING "SHOP_surface"
     houdini.label                STRING "DomemasterWxH"
     houdini.help_url             STRING "https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages"
-    houdini.order                STRING "diameter height flip_ray_x flip_ray_y exposure focus_distance aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration"
+    houdini.order                STRING "diameter height flip_ray_x flip_ray_y exposure focus_distance aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration "
     
     [attr is_perspective]
       default                    BOOL   True
     [attr diameter]
       label                      STRING "Diameter"
+      desc                       STRING "Diameter"
       min                        FLOAT  0.1
       max                        FLOAT  9999.0
       default                    FLOAT  1.0
@@ -29,6 +31,7 @@
       maya.channelbox            BOOL   False
     [attr height]
       label                      STRING "Height"
+      desc                       STRING "Height"
       min                        FLOAT  0.0001
       max                        FLOAT  9999.0
       default                    FLOAT  0.5
@@ -43,9 +46,11 @@
 #      maya.channelbox            BOOL   False
     [attr flip_ray_x]
       label                      STRING "Flip X"
+      desc                       STRING "Flip X"
       default                    BOOL   False
     [attr flip_ray_y]
       label                      STRING "Flip Y"
+      desc                       STRING "Flip Y"
       default                    BOOL   False
     [attr exposure]
       min                        FLOAT -100.0

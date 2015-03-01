@@ -4,7 +4,7 @@
 #     the Production of Full-Dome Animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2015-01-26 05.58 pm
+# 2015-03-01 08.40 am
 
 [node DomemasterStereo]
     desc                         STRING "Domemaster Stereo Shader"
@@ -13,10 +13,11 @@
     maya.name                    STRING "camera"
     maya.classification          STRING "shader/surface"
 
+    houdini.category             STRING "Domemaster3D"
     houdini.icon                 STRING "SHOP_surface"
     houdini.label                STRING "DomemasterStereo"
     houdini.help_url             STRING "https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages"
-    houdini.order                STRING "camera fov_angle zero_parallax_sphere separation forward_tilt tilt_compensation vertical_mode separation_map head_turn_map head_tilt_map flip_ray_x flip_ray_y exposure focus_distance aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration"
+    houdini.order                STRING "camera fov_angle zero_parallax_sphere separation forward_tilt tilt_compensation vertical_mode separation_map head_turn_map head_tilt_map flip_ray_x flip_ray_y exposure focus_distance aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration "
     
     [attr is_perspective]
       default                    BOOL   True

@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.6.2
-  2015-02-23 11.38 pm
+  2015-03-02 7.26 am
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -15,6 +15,7 @@
   February 28, 2015
   
   Added support for detecting the PlayblastVR renderer and Vray for Maya 2016.
+  Updated Arnold environment variable diagnostic code 
   
   Version 1.6
   ------------------
@@ -622,15 +623,21 @@ global proc domeDiagnostics(){
   //string $playblastVRShaderString = `getenv "PLAYBLASTVR_LOCATION"`;
   //$domeDebugText += "### `PLAYBLASTVR_LOCATION` ###\r\n> " + $playblastVRShaderString + "\r\n\r\n";
   
-  if ($mayaVersion >= 2013){
-    string $playblastVRModuleString = `getModulePath -moduleName "PlayblastVR"`;
-    $domeDebugText += "### `PLAYBLASTVR Module` ###\r\n> " + $playblastVRModuleString + "\r\n\r\n";
-  }
+  string $playblastVRModuleString;
+  
+
   
   string $panoramaFormatString;
   
   // Query the PlayblastVR optionVar value
   if(`optionVar -exists "playblastVRPanoramaFormat"`){
+  
+    //Check for a PlayblastVR module if the playblastVRPanoramaFormat exists
+    if ($mayaVersion >= 2013){
+      $playblastVRModuleString = `getModulePath -moduleName "PlayblastVR"`;
+      $domeDebugText += "### `PLAYBLASTVR Module` ###\r\n> " + $playblastVRModuleString + "\r\n\r\n";
+    }
+  
     // Read the previous playblastVRPanoramaFormat optionVar setting
     int $panoramaFormat = `optionVar -query "playblastVRPanoramaFormat"`;
     
@@ -740,6 +747,9 @@ global proc domeDiagnostics(){
 	$domeDebugText += "##  Arnold Environment Variables ##\r\n\r\n";
 
   //Arnold
+  string $arnoldLicenseString = `getenv "solidangle_LICENSE"`;
+  $domeDebugText += "### `solidangle_LICENSE` ###\r\n> " + $arnoldLicenseString + "\r\n\r\n";
+  
   string $arnoldShaderString = `getenv "ARNOLD_PLUGIN_PATH"`;
   $domeDebugText += "### `ARNOLD_PLUGIN_PATH` ###\r\n> " + $arnoldShaderString + "\r\n\r\n";
 

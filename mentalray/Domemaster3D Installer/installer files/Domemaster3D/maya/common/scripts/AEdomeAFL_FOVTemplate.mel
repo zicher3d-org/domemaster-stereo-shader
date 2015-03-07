@@ -220,7 +220,7 @@ global proc AEdomeAFL_FOVTemplate( string $nodeName )
 	editorTemplate -beginScrollLayout;
 
     editorTemplate -beginLayout "Domemaster FOV Shader" -collapse 0;
-      editorTemplate 	-beginNoOptimize;
+      editorTemplate -beginNoOptimize;
       
       editorTemplate -label "Field of View" -annotation "\"Field of View\" controls the final rendered angular fisheye based view angle in degrees. This setting overrides the Maya camera based field of view setting." -addControl "FOV_Angle";
       

@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6.3 - February 28, 2015
+Version 1.6.3 - March 7, 2015
 
 About This Shader
 ---------------------
@@ -259,11 +259,15 @@ Version History
 
 Version 1.6.3
 -----------------
-February 28, 2015
+March 7, 2015
 
 Maya
   Updated the DomeGrid line width to improve the legibility in the realtime viewports.
 
+  Updated the Maya "domeAFL_FOV_StereoBlockworld.ma" and "LatLong_StereoBoxworld2014" visor scenes.
+  
+  Updated the Dome Diagnostics tool to improve Arnold and PlayblastVR detection.
+  
 Version 1.6.2
 -----------------
 February 23, 2015

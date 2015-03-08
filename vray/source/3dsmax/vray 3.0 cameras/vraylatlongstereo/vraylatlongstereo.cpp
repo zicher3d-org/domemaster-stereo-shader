@@ -10,7 +10,6 @@
   Todo:
   [rz] Bitmap to Texmap
   [rz] Relocate bCol definition
-  [rz] Parameters order
   [rz] Bool parameters (from int)
   [rz] Remove pb_fov (pb2 enum)
   [rz] Adjust default parameter values based on scene units?
@@ -198,8 +197,8 @@ public:
 #endif
   CreateMouseCallBack* GetCreateMouseCallBack();
 
-  void BeginEditParams(IObjParam *ip, ULONG flags,Animatable *prev);
-  void EndEditParams(IObjParam *ip, ULONG flags,Animatable *next);
+  void BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev);
+  void EndEditParams(IObjParam *ip, ULONG flags, Animatable *next);
   void InvalidateUI(void);
 
   // From ReferenceTarget
@@ -317,12 +316,13 @@ enum { camera_params };
 static int ctrlID = 100;
 int nextID(void) { return ctrlID++; }
 
-static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &cameraClassDesc, P_AUTO_CONSTRUCT, REFNO_PBLOCK, 
+static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE, 0, &cameraClassDesc,
+  P_AUTO_CONSTRUCT + P_AUTO_UI, REFNO_PBLOCK, IDD_LATLONGUI, IDS_LATLONGROLL, 0, 0 , NULL,
   // Params
 
   pb_camera, _FT("stereo_camera"), TYPE_INT, 0, IDS_DLG_CAMERA,
     p_default, 0,
-    p_ui, TYPE_INTLISTBOX, nextID(), 3, IDS_CAMCENTER, IDS_CAMLEFT, IDS_CAMRIGHT,
+    p_ui, TYPE_INTLISTBOX, IDC_CAMERA, 3, IDS_CAMCENTER, IDS_CAMLEFT, IDS_CAMRIGHT,
     p_range, 0, 2,
     p_tooltip, "Select Center, Left, or Right Camera Views",
   PB_END,
@@ -330,52 +330,52 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
   pb_fov_vert_angle, _FT("fov_vert_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_V,
     p_default, DOME_PI,
     p_range, -180.0f, 180.0f, 
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_FOVV_EDIT, IDC_FOVV_SPIN, SPIN_AUTOSCALE,
     p_tooltip, "Field of View - Vertical",
   PB_END,
   
   pb_fov_horiz_angle, _FT("fov_horiz_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_H,
     p_default, DOME_PI*2,
     p_range, 0.0f, 360.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_FOVH_EDIT, IDC_FOVH_SPIN, SPIN_AUTOSCALE,
     p_tooltip, "Field of View - Horizontal",
   PB_END,
 
   pb_separation, _FT("separation"), TYPE_FLOAT, P_ANIMATABLE, IDS_DLG_SEPARATION,
     p_default, 6.5f,
     p_range, 0.0f, 999999.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_CAMSEP_EDIT, IDC_CAMSEP_SPIN, SPIN_AUTOSCALE,
     p_tooltip, "Camera Separation",
   PB_END,
 
   pb_separation_map, _FT("separation_map"), TYPE_BITMAP, 0, IDS_DLG_SEPMAP,
     //p_default, 1.0f,
-    p_ui, TYPE_BITMAPBUTTON, nextID(),
+    p_ui, TYPE_BITMAPBUTTON, IDC_SEPMAP,
     p_tooltip, "Separation Map",
   PB_END,
 
   pb_parallax_distance, _FT("parallax_distance"), TYPE_FLOAT, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_PARALLAX,
     p_default, 400.0f,    // [rz] is there a way to adjust this based on the current scene unit?
     p_range, 0.0f, 999999.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, nextID(), nextID(), SPIN_AUTOSCALE,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_PLAX_EDIT, IDC_PLAX_SPIN, SPIN_AUTOSCALE,
     p_tooltip, "Zero Parallax Distance",
   PB_END,
 
   pb_zenith_mode, _FT("zenith_mode"), TYPE_BOOL, 0, IDS_DLG_ZENITH,
     p_default, FALSE,
-    p_ui, TYPE_SINGLECHEKBOX, nextID(),
+    p_ui, TYPE_SINGLECHEKBOX, IDC_ZENITH,
     p_tooltip, "Zenith Mode",
   PB_END,
 
   pb_flip_x, _FT("flip_x"), TYPE_BOOL, 0, IDS_DLG_FLIP_X,
     p_default, FALSE,
-    p_ui, TYPE_SINGLECHEKBOX, nextID(),
+    p_ui, TYPE_SINGLECHEKBOX, IDC_FLIPX,
     p_tooltip, "Flip X",
   PB_END,
   
   pb_flip_y, _FT("flip_y"), TYPE_BOOL, 0, IDS_DLG_FLIP_Y,
     p_default, FALSE,
-    p_ui, TYPE_SINGLECHEKBOX, nextID(),
+    p_ui, TYPE_SINGLECHEKBOX, IDC_FLIPY,
     p_tooltip, "Flip Y",
   PB_END,
 
@@ -587,9 +587,7 @@ CreateMouseCallBack* VRayCamera::GetCreateMouseCallBack() {
 static Pb2TemplateGenerator templateGenerator;
 
 void VRayCamera::BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev) {
-  DLGTEMPLATE* tmp=templateGenerator.GenerateTemplate(pblock, STR_DLGTITLE, 108);
-  pmap=CreateCPParamMap2(pblock, ip, hInstance, tmp, STR_DLGTITLE, 0);
-  templateGenerator.ReleaseDlgTemplate(tmp);
+  pmap = CreateCPParamMap2(pblock, ip, hInstance, MAKEINTRESOURCE(IDD_LATLONGUI), GetString(IDS_LATLONGROLL), 0);
 }
 
 void VRayCamera::EndEditParams(IObjParam *ip, ULONG flags, Animatable *next) {

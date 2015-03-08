@@ -1,12 +1,16 @@
 """
-Domemaster3D Camera Setup Script V1.6.2
-2015-02-27 07.39 am
+Domemaster3D Camera Setup Script V1.7
+2015-03-07 
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 1.7
+------------
+2015-03-07 
 
 Version 1.6
 ---------------

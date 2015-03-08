@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.6.2
-  2015-03-02 7.26 am
+  Dome Diagnostics Report Tool V1.7
+  2015-03-07 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,11 @@
 
   Version History
   ----------------
+  
+  Version 1.7
+  -----------
+  2015-03-07
+  
   
   Version 1.6.2
   ------------------

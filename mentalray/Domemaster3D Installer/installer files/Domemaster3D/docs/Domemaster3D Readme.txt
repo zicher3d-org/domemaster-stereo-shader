@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.6.3 - March 7, 2015
+Version 1.7 - March 7, 2015
 
 About This Shader
 ---------------------
@@ -27,7 +27,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v1.6 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v1.7 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 Mac Notes
@@ -35,6 +35,8 @@ Mac Notes
 The minimum Mac OS X version required to run the compiled versions of the Domemaster3D mental ray shaders is now Mac OS X 10.8 due to the version of Xcode used to compile the current .dylib library files. 
 
 If you need support for older versions of Mac OS X, you can compile the shaders locally on a legacy Mac OS X system using the included Makefiles and the shaders will run on systems as old as Mac OS X 10.6.
+
+https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Shader-Compiling#compiling-a-mac-os-x-build
 
 Domemaster3D Media Folder
 --------------------------------
@@ -257,7 +259,7 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
-Version 1.6.3
+Version 1.7
 -----------------
 March 7, 2015
 

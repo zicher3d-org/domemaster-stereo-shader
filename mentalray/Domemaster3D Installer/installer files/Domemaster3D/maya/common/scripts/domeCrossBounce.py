@@ -1,7 +1,7 @@
 """
-Fulldome Cross Bounce Setup Script V1.6 Alpha 8
+Fulldome Cross Bounce Setup Script V1.7
 for Domemaster3D and Maya on Windows
-2014-12-04 07.52 am
+2015-03-07 
 
 This script will create a Maya scene that uses Mental Ray Final Gather to compute a fulldome crossbounce light simulation. The rendered image shows the light pollution that happens when a video image is projected on a hemispherical dome screen. You can preview the full result in Photoshop or After Effects by applying the rendered crossbounce simulation with an Add (Linear Dodge) transfer mode over the original fulldome image.
 

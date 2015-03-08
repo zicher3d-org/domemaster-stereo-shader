@@ -1,6 +1,6 @@
 /*
-  Domemaster Node ID Upgrader V1.5
-  2014-07-06
+  Domemaster Node ID Upgrader V1.7
+  2015-03-07 
   by Andrew Hazelden
   
   The this tool allows you to upgrade any Domemaster nodes that have a legacy Domemaster3D Node ID
@@ -8,6 +8,10 @@
 
   Version History
   ----------------
+  
+  Version 1.7
+  -------------
+  2015-03-07 
 
   Version 1.5
   ------------------

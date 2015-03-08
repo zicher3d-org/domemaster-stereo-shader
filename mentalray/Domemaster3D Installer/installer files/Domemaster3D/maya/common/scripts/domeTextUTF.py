@@ -1,5 +1,5 @@
 """
-Dome Text UTF Converter V1.5
+Dome Text UTF Converter V1.7
 by Andrew Hazelden
 
 The DomeTextUTF script converts text into the UTF8 encoding format
@@ -7,10 +7,14 @@ The DomeTextUTF script converts text into the UTF8 encoding format
 Python text encoding notes:
 http://docs.python.org/2.5/lib/standard-encodings.html
 
-Version 1.5
------------------
-July 6, 2014
 
+Version 1.7
+------------
+2015-03-07 
+
+Version 1.5
+------------
+July 6, 2014
 
 Version 1
 ------------

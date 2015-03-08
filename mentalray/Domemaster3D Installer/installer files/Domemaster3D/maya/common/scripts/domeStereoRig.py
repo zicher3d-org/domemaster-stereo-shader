@@ -1,10 +1,15 @@
 """
- Domemaster3D Fulldome Stereo Rig V1.6
- 2014-10-03
+ Domemaster3D Fulldome Stereo Rig V1.7
+ 2015-03-07 
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
+
+ Version 1.7
+ -------------
+ 2015-03-07 
+
  
  Version 1.6
  ---------------

@@ -1,5 +1,5 @@
 /*
-  Galaxy Creator GUI V1.5
+  Galaxy Creator GUI V1.7
   by Andrew Hazelden
 
   This is a Maya GUI wrapper for Martin Watt's galaxy script.
@@ -7,6 +7,9 @@
   Version History
   ----------------
 
+  Version 1.7 - 2015-03-07
+  -------------------------
+  
   Version 1.5 - July 6, 2014
   ------------------------------------
 

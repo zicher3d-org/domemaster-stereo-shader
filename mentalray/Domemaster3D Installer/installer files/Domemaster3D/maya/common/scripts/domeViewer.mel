@@ -1,12 +1,15 @@
 /*
-  Dome Viewer V1.6
-  2014-10-03
+  Dome Viewer V1.7
+  2015-03-07 
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
   
   A Bradbury alignment grid is included for viewing calibrated fulldome imagery.
   
+  Version 1.7
+  -------------
+  2015-03-07
   
   Version 1.6
   ---------------

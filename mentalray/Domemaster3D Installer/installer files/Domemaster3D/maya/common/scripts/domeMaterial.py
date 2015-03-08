@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.6 alpha 7
-2014-11-16 05.05 pm
+Dome Material Script V1.7
+2015-03-07 
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -15,6 +15,10 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+Version 1.7
+-------------
+2015-03-07 
 
 Version 1.6 Alpha 7
 ----------------------

@@ -1,5 +1,5 @@
 /*
-  Version 1.5
+  Version 1.7
 
   Procedure Name:
   AElatlong_lens_LegacyTemplate
@@ -9,6 +9,10 @@
 
   Version History
   -----------------
+  
+  Version 1.7
+  -------------
+  2015-03-07 
 
   Version 1.5 - July 6, 2014
   Created a Fallback module to handle the updated latlong_lens node IDs

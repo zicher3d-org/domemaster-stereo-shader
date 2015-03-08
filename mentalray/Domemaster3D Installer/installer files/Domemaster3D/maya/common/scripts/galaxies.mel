@@ -1,5 +1,5 @@
 /* 
-Script Name: galaxies.mel V1.5
+Script Name: galaxies.mel V1.7
 Created by: Martin Watt
 http://www.highend3d.com/maya/mel/?section=dynamics#3039
 
@@ -10,6 +10,8 @@ Galaxies 1.3 update by Andrew Hazelden
 New Features: Added a custom control $speedUp that runs the simulation faster by changing the gravitational field magnitude 
 
 Version 1.5 - July 6, 2014
+
+Version 1.7 - 2015-03-07 
 
 */
 

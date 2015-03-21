@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.7
-  2015-03-07 
+  Dome Diagnostics Report Tool V1.7.1
+  2015-03-16  
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -760,6 +760,9 @@ global proc domeDiagnostics(){
 
   string $mtoaShaderString = `getenv "MTOA_EXTENSIONS_PATH"`;
   $domeDebugText += "### `MTOA_EXTENSIONS_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+
+  string $mtoaShaderString = `getenv "MTOA_PATH"`;
+  $domeDebugText += "### `MTOA_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
 
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 

@@ -25,8 +25,8 @@
             *    [Windows Parameters](#windows-parameters)
             *    [Mac Parameters](#mac-parameters)
             *    [Linux Parameters](#linux-parameters)
-    *    [Vray for 3DS Max Lens Shaders](#vray-for-3ds-max-lens-shaders)
     *    [Rendering the Example Scenes](#rendering-the-example-scenes)
+    *    [Vray for 3DS Max Lens Shaders](#vray-for-3ds-max-lens-shaders)
     *    [Adding a Vray Lens Shader in Maya](#adding-a-vray-lens-shader-in-maya)
         +    [VRay DomemasterStereo Camera](#vray-domemasterstereo-camera)
         +    [VRay LatLongStereo Camera](#vray-latlongstereo-camera)
@@ -166,8 +166,8 @@ Vray Plugin Files:
 
     vraylatlongstereo2014.dlo
     vraydomemasterstereo2014.dlo
-
-
+    
+    
 ## Vray RT for 3DS Max Shader Installation ##
 
 ### Windows 64-bit ###
@@ -278,7 +278,6 @@ If you run the plgparams with the shader name listed you can see the individual 
 `./plgparams.bin DomemasterStereo`  
 `./plgparams.bin LatLongStereo`  
 
-
 ## Rendering the Example Scenes ##
 
 If you navigate to the Domemaster3D vray scenes folder you can try rendering the sample vray standalone vrscene files.
@@ -304,7 +303,7 @@ Here are two screenshots showing the Vray for 3DS Max beta versions of the Domem
 
 There are two new controls added for the first time in the Vray for 3DS Max lens shaders: 
 
-- A Neck Offset allows you to simulate the effect of a physical 360%deg; panoramic camera rig where the lens nodal points are shifted away from the camera origin.
+- A Neck Offset allows you to simulate the effect of a physical 360&deg; panoramic camera rig where the lens nodal points are shifted away from the camera origin.
 
 ![Neck Offset](images/neck-offset.png)
 
@@ -345,8 +344,8 @@ You can remove a vray lens shader from a Maya camera by opening the `Attributes 
 ![Adding Extra Attributes](images/vray-extra-attributes.png)
 
 You can also delete the python code in the **Mel/Python Callbacks** `Post Translate Python Script` field if you want to completly remove all references to the Domemaster3D shader elements from the Maya scene file.
-
 ![Clearing the Python Translator](images/clear-post-translate-python-script.png)
+
 ## Maya Shader Installation ##
 
 ### Windows 64-bit ###

@@ -131,3 +131,4 @@
     [attr rolling_shutter_duration]
       min                        FLOAT  0.0
       max                        FLOAT  1.0
+      

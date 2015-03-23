@@ -10,7 +10,7 @@
         +    [DomemasterStereo in a VRSCENE File](#domemasterstereo-in-a-vrscene-file)
         +    [LatLongStereo in a VRSCENE File](#latlongstereo-in-a-vrscene-file)
     *    [Vray Standalone Shader Installation](#vray-standalone-shader-installation)
-        +    [Windows 64-bit](#windows-64-bit)
+    *    [Vray for 3DS Max Shader Installation](#vray-for-3ds-max-shader-installation)
     *    [Vray RT for 3DS Max Shader Installation](#vray-rt-for-3ds-max-shader-installation)
         +    [Windows 64-bit](#windows-64-bit-1)
     *    [Verify the Shader is Loaded in Vray](#verify-the-shader-is-loaded-in-vray)
@@ -25,6 +25,7 @@
             *    [Windows Parameters](#windows-parameters)
             *    [Mac Parameters](#mac-parameters)
             *    [Linux Parameters](#linux-parameters)
+    *    [Vray for 3DS Max Lens Shaders](#vray-for-3ds-max-lens-shaders)
     *    [Rendering the Example Scenes](#rendering-the-example-scenes)
     *    [Adding a Vray Lens Shader in Maya](#adding-a-vray-lens-shader-in-maya)
         +    [VRay DomemasterStereo Camera](#vray-domemasterstereo-camera)
@@ -55,7 +56,7 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-02-28) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-03-23 ) is a development build.
 
 The Vray Standalone version generally works without too many issues.
 
@@ -108,7 +109,7 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a L
 	  camera=0;
 	  fov_vert_angle=180.0;
 	  fov_horiz_angle=360.0;
-	  parallax_distance=355;
+	  parallax_distance=355.0;
 	  separation=6.5;
 	  zenith_mode=1;
 	  separation_map=1;
@@ -144,6 +145,29 @@ For Vray Standalone 2.5 the standard `VRAY_PLUGINS_x64` setting would be:
 `VRAY_PLUGINS_x64`  
 `C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
 
+## Vray for 3DS Max Shader Installation ##
+
+There are now Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.
+
+### Windows 64-bit ###
+
+**Step 1.** Download the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
+
+**Step 2.** Copy the .dlo files to the Vray for 3DS Max plugins directory.
+
+`C:\Program Files\Autodesk\3ds Max <Max Version>\plugins\vrayplugins`
+
+Note: Change `<Max Version>` to the release number of 3DS Max. Example: Write in 2015 for the `<Max Version>` if you are using 3DS Max 2015.
+
+Vray Plugin Files:  
+
+    vraylatlongstereo2015.dlo
+    vraydomemasterstereo2015.dlo
+
+    vraylatlongstereo2014.dlo
+    vraydomemasterstereo2014.dlo
+
+
 ## Vray RT for 3DS Max Shader Installation ##
 
 ### Windows 64-bit ###
@@ -165,13 +189,13 @@ Vray Plugin Files:
 
 `C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max <Max Version> for x64\bin\plugins`
 
-Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.
+Note: Change `<Max Version>` to the release number of 3DS Max. Example: Write in 2015 for the `<Max Version>` if you are using 3DS Max 2015.
 
 **Step 4.** Edit the Windows ENV Path and add the VRay RT `Bin` folder to the list.
 
 `;C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max <Max Version> for x64\bin`
 
-Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.
+Note: Change `<Max Version>` to the release number of 3DS Max. Example: Write in 2015 for the `<Max Version>` if you are using 3DS Max 2015.
 
 ## Verify the Shader is Loaded in Vray ##
 
@@ -233,6 +257,11 @@ If you run the plgparams with the shader name listed you can see the individual 
 	  flip_x: bool = false, Flip X
 	  flip_y: bool = false, Flip Y
 
+    
+**Note:** If you receive the following error message it means you have tried to load a Vray 2.5 shader in Vray 3.0:  
+
+    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_DomemasterStereo.dll" (127): The specified procedure could not be found. //   
+    // Error: Error loading plugin library "C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_LatLongStereo.dll" (127): The specified procedure could not be found. //   
 
 #### Windows Parameters ####
 
@@ -265,6 +294,21 @@ If you navigate to the Domemaster3D vray scenes folder you can try rendering the
     vray.exe -sceneFile="DomemasterStereo_Boxworld_left.vrscene"  
     vray.exe -sceneFile="DomemasterStereo_Boxworld_right.vrscene"  
 
+## Vray for 3DS Max Lens Shaders ##
+
+Here are two screenshots showing the Vray for 3DS Max beta versions of the Domemaster3D lens shaders.
+
+![Vray for 3DS Max DomemasterStereo Shader](images/vray_max_domemaster_stereo.png)
+
+![Vray for 3DS Max LatLongStereo Shader](images/vray_max_latlong_stereo.png)
+
+There are two new controls added for the first time in the Vray for 3DS Max lens shaders: 
+
+- A Neck Offset allows you to simulate the effect of a physical 360%deg; panoramic camera rig where the lens nodal points are shifted away from the camera origin.
+
+![Neck Offset](images/neck-offset.png)
+
+- The hemirect (hemi-equirectangular) checkbox in the LatLongStereo shader that lets you render a partial LatLong image where the top edge of the rendering starts aligned to the zenith pole region. This is useful if you want to render a cropped 360&deg; x 90&deg; latlong image that could then be converted in post into a 180&deg; domemaster (angular fisheye) image with no unused/over-rendered areas in the source image.
 
 ## Adding a Vray Lens Shader in Maya #
 
@@ -303,8 +347,6 @@ You can remove a vray lens shader from a Maya camera by opening the `Attributes 
 You can also delete the python code in the **Mel/Python Callbacks** `Post Translate Python Script` field if you want to completly remove all references to the Domemaster3D shader elements from the Maya scene file.
 
 ![Clearing the Python Translator](images/clear-post-translate-python-script.png)
-
-
 ## Maya Shader Installation ##
 
 ### Windows 64-bit ###

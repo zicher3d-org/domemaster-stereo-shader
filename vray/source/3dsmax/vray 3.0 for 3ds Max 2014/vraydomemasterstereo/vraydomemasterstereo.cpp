@@ -2,7 +2,7 @@
   FILE: vraydomemasterstereo.cpp
   
   vray DomemasterStereo Shader v0.5
-  2015-02-07
+  2015-03-23 
 
   Ported to Vray 3.0 by Andrew Hazelden/Roberto Ziche
   Based upon the mental ray shader domeAFL_FOV_Stereo by Roberto Ziche
@@ -212,7 +212,12 @@ public:
 #endif
 
   // From ReferenceMaker
-  RefResult NotifyRefChanged(NOTIFY_REF_CHANGED_ARGS);
+  //Vray 3.0 for Max 2015 Change [ACH]
+  //RefResult NotifyRefChanged(NOTIFY_REF_CHANGED_ARGS);
+
+  //Vray 3.0 for Max 2014 Change [ACH]
+  RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message);
+  
   int NumRefs(void) { return 1; }
   RefTargetHandle GetReference(int i) { return (i==0)? pblock : NULL; }
   void SetReference(int i, RefTargetHandle rtarg) { if (i==0) pblock=(IParamBlock2*) rtarg; }
@@ -505,7 +510,11 @@ RefResult VRayCamera::EvalCameraState(TimeValue time, Interval &valid, CameraSta
   return REF_SUCCEED;
 }
 
-RefResult VRayCamera::NotifyRefChanged(NOTIFY_REF_CHANGED_ARGS) {
+// Vray 3.0 for Max 2015 Change [ACH]
+//RefResult VRayCamera::NotifyRefChanged(NOTIFY_REF_CHANGED_ARGS) {
+
+// Vray 3.0 for Max 2014 Change[ACH]
+RefResult VRayCamera::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message) {
   if (hTarget==pblock) 
   {
     camera_param_blk.InvalidateUI();

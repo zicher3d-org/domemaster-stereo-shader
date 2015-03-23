@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-02-28   
+2015-03-23  
 
 
 - Table of Contents
@@ -40,9 +40,6 @@
         +    [Linux 64-bit](#linux-64-bit-1)
     *    [Credits](#credits)
     *    [Version History](#version-history)
-        +    [Version 0.1 - 2014-11-14](#version-01---2014-11-14)
-        +    [Version 0.2 - 2014-11-26](#version-02---2014-11-26)
-        +    [Version 0.3 - 2014-12-24](#version-03---2014-12-24)
     *    [To Do List](#to-do-list)
         +    [DomemasterStereo To Dos](#domemasterstereo-to-dos)
         +    [Vray for Maya To Dos](#vray-for-maya-to-dos)
@@ -66,11 +63,11 @@ More work needs to be done to apply a black overlay to the circular outside area
 
 The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.
 
-The initial 3DS Max source code has been added in this v0.4 release but the GUI elements need to be completed.
+The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on Max 2015 and Max 2014, and Vray 2.5 for Max 2015.
 
 ## Vray Standalone ##
 
-Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone and Vray RT version 2.0 / 3.0 using the `vray.exe` command line program. Until the Maya and 3DS Max shader integrations are complete you will have to add the DomemasterStereo and LatLongStereo camera parameters to your .vrscene files manually. 
+Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone and Vray RT version 2.5 / 3.0 using the `vray.exe` command line program. Until the Maya and 3DS Max shader integrations are complete you will have to add the DomemasterStereo and LatLongStereo camera parameters to your .vrscene files manually. 
 
 Andrew Hazelden's [Vray Syntax Highlighter](https://github.com/AndrewHazelden/Vray-Scene-Syntax-Highlighter) module for Notepad++, GEDIT, BBEdit, and TextWrangler is a good tool for simplifying the process of editing a .vrscene file.
 
@@ -142,7 +139,7 @@ Vray Plugin Files:
 
 ![Adding an ENV Var](images/adding-a-new-env-var.png)
 
-For Vray Standalone 2.0 the standard `VRAY_PLUGINS_x64` setting would be:   
+For Vray Standalone 2.5 the standard `VRAY_PLUGINS_x64` setting would be:   
 
 `VRAY_PLUGINS_x64`  
 `C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins`
@@ -403,7 +400,7 @@ Vray Script Files:
 ### Windows 64-bit ###
 
 **Step 1.**
-Install Visual Studio and Vray Standalone (which includes a copy of the Vray plugin SDK).
+Install Visual Studio 2013 Community Edition and Vray Standalone (which includes a copy of the Vray plugin SDK).
 
 **Step 2.**
 Open a new command prompt and cd into the vray cameras source code folder:
@@ -467,6 +464,18 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ## Version History ##
 
+### Version 0.5 - 2015-03-23 ###
+
+**3DS Max Builds Added**
+
+- There are now initial builds of the Vray for 3DS Max version of the Domemaster3D shaders. These are the first development versions of the shader so some things are expected to change before the final release.
+
+- The LatLongStereo shader for Vray on 3DS Max has a new Domemaster3D feature of a neck offset to simulate a physical 360&deg; camera rig's distance between a camera's lens nodal point and the origin on the tripod.
+
+- The LatLongStereo shader for Vray on 3DS Max has a new Domemaster3D feature of a hemirect checkbox. Hemirect stands for hemi-equirectangular which is a partial spherical rendering. The hemirect feature allows you to align partial latlong renderings so they start at the top zenith region of the latlong frame. This is useful if you want to render a latlong image with a 90&deg; vertical field of view and then warp it in post into a 180&deg; fulldome image.
+
+**Note:** The Domemaster3D source code for the Vray for Maya and Vray Standalone releases need to be updated and re-compiled to include the most recent Vray for 3DS Max Domemaster3D lens shader code changes.
+
 ### Version 0.4 - 2015-02-28 ###
 
 **Maya Code Update:**
@@ -499,11 +508,11 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ### Vray for Maya To Dos ###
 
-- Implement Roberto Ziche's updated camera origin code in the Maya shaders.
+- Implement Roberto Ziche's updated camera origin code, the neck offset, and the hemi-rect rendering options.
 
 ### Vray for 3DS Max To Dos ###
 
-- Finish up the 3DS Max GUI elements for the DomemasterStereo and LatLongStereo shaders.
+- Test the new Vray for 3DS Max shader builds.
 
 
 ### Shader Testing To Dos ###

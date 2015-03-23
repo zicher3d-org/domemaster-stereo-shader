@@ -68,7 +68,7 @@ using namespace VRayLatLongStereo;
 #define GETDIR        0
 #define GETORG        1
 
-#define PLUGIN_CLASSID Class_ID(0x563e7757, 0x68824b0f)
+#define PLUGIN_CLASSID Class_ID(0x5b6d4650, 0x21e1666f)
 
 #define STR_CLASSNAME _T("VRayLatLongStereo")
 #define STR_INTERNALNAME _T("VRayLatLongStereo")
@@ -110,15 +110,15 @@ public:
   int suspendSnap; // TRUE only during creation
   
   int   stereo_camera;
-  float fov_vert_angle; 
+  float fov_vert_angle;
   float fov_horiz_angle;
   float parallax_distance;
   float separation;
   PBBitmap *separation_map;
+  float neck_offset;
   int   zenith_mode;
   int   flip_x;
   int   flip_y;
-
   bool  zenith_fov;
 
   // Constructor/destructor
@@ -310,6 +310,34 @@ TCHAR *GetString(int id) {
 // Parameter block
 //************************************************************
 
+class VRayCamera_PBAccessor : public PBAccessor
+{
+  void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
+  {
+    VRayCamera *cam = (VRayCamera*)owner;
+    IParamMap2* pmap = cam->pblock->GetMap();
+    TSTR p, f, e, name;
+    
+    switch (id)
+    {
+      case pb_separation_map:
+      {
+        if (pmap)
+        {
+          TSTR sepname(v.bm->bi.Name());
+          SplitFilename(sepname, &p, &f, &e);
+          name = f + e;
+          pmap->SetText(pb_separation_map, name.data());
+        }
+        break;
+      }
+      default: break;
+    }
+  }
+};
+
+static VRayCamera_PBAccessor pb_accessor;
+
 // Paramblock2 name
 enum { camera_params }; 
 
@@ -329,10 +357,17 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE, 0, &cameraC
 
   pb_fov_vert_angle, _FT("fov_vert_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_V,
     p_default, DOME_PI,
-    p_range, -180.0f, 180.0f, 
+    p_range, 0.0f, 180.0f, 
     p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_FOVV_EDIT, IDC_FOVV_SPIN, SPIN_AUTOSCALE,
     p_tooltip, "Field of View - Vertical",
   PB_END,
+
+  pb_zenithfov, _FT("hemirect"), TYPE_BOOL, 0, IDS_DLG_ZENITHFOV,
+    p_default, FALSE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_ZENITHFOV,
+    p_tooltip, "Hemi-equirectangular (Zenith FOV)",
+  PB_END,
+
   
   pb_fov_horiz_angle, _FT("fov_horiz_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_H,
     p_default, DOME_PI*2,
@@ -348,9 +383,17 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE, 0, &cameraC
     p_tooltip, "Camera Separation",
   PB_END,
 
-  pb_separation_map, _FT("separation_map"), TYPE_BITMAP, 0, IDS_DLG_SEPMAP,
+  pb_neck_offset, _FT("neck_offset"), TYPE_FLOAT, P_ANIMATABLE, IDS_DLG_NECK,
+    p_default, 0.0f,
+    p_range, -999999.0f, 999999.0f,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_NECK_EDIT, IDC_NECK_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Neck Offset",
+  PB_END,
+
+  pb_separation_map, _FT("separation_map"), TYPE_BITMAP, P_SHORT_LABELS, IDS_DLG_SEPMAP,
     //p_default, 1.0f,
     p_ui, TYPE_BITMAPBUTTON, IDC_SEPMAP,
+    p_accessor, &pb_accessor,
     p_tooltip, "Separation Map",
   PB_END,
 
@@ -592,6 +635,7 @@ void VRayCamera::BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev) {
 
 void VRayCamera::EndEditParams(IObjParam *ip, ULONG flags, Animatable *next) {
   DestroyCPParamMap2(pmap);
+  pmap = NULL;
 }
 
 void VRayCamera::InvalidateUI(void) {
@@ -687,9 +731,11 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
 
   // angles in paramblock are automatically converted to radians, so no need to convert here
   fov_vert_angle = pblock->GetFloat(pb_fov_vert_angle, t);
+  zenith_fov = pblock->GetInt(pb_zenithfov, t);
   fov_horiz_angle = pblock->GetFloat(pb_fov_horiz_angle, t);
   parallax_distance = pblock->GetFloat(pb_parallax_distance, t);
   separation = pblock->GetFloat(pb_separation, t);
+  neck_offset = pblock->GetFloat(pb_neck_offset, t);
   zenith_mode = pblock->GetInt(pb_zenith_mode, t);
 
   separation_map = pblock->GetBitmap(pb_separation_map, t);
@@ -703,8 +749,8 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
   flip_x = pblock->GetInt(pb_flip_x, t);
   flip_y = pblock->GetInt(pb_flip_y, t);
 
-  zenith_fov = (fov_vert_angle < 0.0f) ? TRUE : FALSE;
-  fov_vert_angle = abs(fov_vert_angle);
+  //zenith_fov = (fov_vert_angle < 0.0f) ? TRUE : FALSE;
+  //fov_vert_angle = abs(fov_vert_angle);
 
   //fov=pblock->GetFloat(pb_fov, fdata.t);
   fov = 1.0; // fov_vert_angle / 2.0f;  // [rz] testing only. Need better approximation formula.
@@ -739,9 +785,11 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
     // zenith FOV
     if (zenith_mode){
       theta = -(ry - 1.0f) * (fov_vert_angle / 2.0);
+      if (flip_y) theta = theta + (DOME_PI - fov_vert_angle);
     }
     else {
       theta = DOME_PIOVER2 + (ry - 1.0f) * (fov_vert_angle / 2.0);
+      if (flip_y) theta = theta - (DOME_PI - fov_vert_angle);
     }
   } else {
     // horizontal FOV
@@ -814,6 +862,9 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
       org.z = (float)((org.z * cosP) + (org.x * sinP));
       org.x = (float)tmp;
     }
+
+    // Adjust org for Neck offset
+    org = org + target * neck_offset;
 
     // Compute ray from camera to target
     target *= parallax_distance;

@@ -71,7 +71,7 @@ using namespace VRayDomemasterStereo;
 #define GETDIR        0
 #define GETORG        1
 
-#define PLUGIN_CLASSID Class_ID(0x563e7758, 0x68824b10)
+#define PLUGIN_CLASSID Class_ID(0x511a5e3e, 0x61393d01)
 
 #define STR_CLASSNAME _T("VRayDomemasterStereo")
 #define STR_INTERNALNAME _T("VRayDomemasterStereo")
@@ -121,6 +121,7 @@ public:
   PBBitmap *separation_map;
   PBBitmap *head_turn_map;
   PBBitmap *head_tilt_map;
+  float neck_offset;
   int   flip_x;
   int   flip_y;
 
@@ -312,6 +313,46 @@ TCHAR *GetString(int id) {
 // Parameter block
 //************************************************************
 
+class VRayCamera_PBAccessor : public PBAccessor
+{
+  void Set(PB2Value& v, ReferenceMaker* owner, ParamID id, int tabIndex, TimeValue t)
+  {
+    VRayCamera *cam = (VRayCamera*)owner;
+    IParamMap2* pmap = cam->pblock->GetMap();
+    TSTR p, f, e, name;
+
+    switch (id) {
+      case pb_separation_map: {
+        if (pmap) {
+          TSTR sepname(v.bm->bi.Name());
+          SplitFilename(sepname, &p, &f, &e);
+          name = f + e;
+          pmap->SetText(pb_separation_map, name.data());
+        } break;
+      }
+      case pb_head_turn_map: {
+        if (pmap) {
+          TSTR sepname(v.bm->bi.Name());
+          SplitFilename(sepname, &p, &f, &e);
+          name = f + e;
+          pmap->SetText(pb_head_turn_map, name.data());
+        } break;
+      }
+      case pb_head_tilt_map: {
+        if (pmap) {
+          TSTR sepname(v.bm->bi.Name());
+          SplitFilename(sepname, &p, &f, &e);
+          name = f + e;
+          pmap->SetText(pb_head_tilt_map, name.data());
+        } break;
+      }
+      default: break;
+    }
+  }
+};
+
+static VRayCamera_PBAccessor pb_accessor;
+
 // Paramblock2 name
 enum { camera_params }; 
 
@@ -343,15 +384,24 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
     p_tooltip, "Camera Separation",
   PB_END,
 
+  pb_neck_offset, _FT("neck_offset"), TYPE_FLOAT, P_ANIMATABLE, IDS_DLG_NECK,
+    p_default, 0.0f,
+    p_range, -999999.0f, 999999.0f,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_NECK_EDIT, IDC_NECK_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Neck Offset",
+  PB_END,
+
   pb_separation_map, _FT("separation_map"), TYPE_BITMAP, P_SHORT_LABELS, IDS_DLG_SEPMAP,
     //p_default, 1.0f,
     p_ui, TYPE_BITMAPBUTTON, IDC_SEPMAP,
+    p_accessor, &pb_accessor,
     p_tooltip, "Separation Map",
   PB_END,
 
   pb_head_turn_map, _FT("head_turn_map"), TYPE_BITMAP, P_SHORT_LABELS, IDS_DLG_HEADMAP,
     //p_default, 1.0f,
     p_ui, TYPE_BITMAPBUTTON, IDC_HEADTURNMAP,
+    p_accessor, &pb_accessor,
     p_tooltip, "Head Turn map",
   PB_END,
 
@@ -378,6 +428,7 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
   pb_head_tilt_map, _FT("head_tilt_map"), TYPE_BITMAP, P_SHORT_LABELS, IDS_DLG_TILTMAP,
     //p_default, 0.5f,
     p_ui, TYPE_BITMAPBUTTON, IDC_HEADTILTMAP,
+    p_accessor, &pb_accessor,
     p_tooltip, "Head Tilt map",
   PB_END,
 
@@ -611,6 +662,7 @@ void VRayCamera::BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev) {
 
 void VRayCamera::EndEditParams(IObjParam *ip, ULONG flags, Animatable *next) {
   DestroyCPParamMap2(pmap);
+  pmap = NULL;
 }
 
 void VRayCamera::InvalidateUI(void) {
@@ -707,6 +759,7 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
   fov_angle = pblock->GetFloat(pb_fov_angle, t);
   parallax_distance = pblock->GetFloat(pb_parallax_distance, t);
   separation = pblock->GetFloat(pb_separation, t);
+  neck_offset = pblock->GetFloat(pb_neck_offset, t);
   forward_tilt = pblock->GetFloat(pb_forward_tilt, t);
   tilt_compensation = pblock->GetInt(pb_tilt_compensation, t);
 
@@ -925,6 +978,9 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
 
       org = org * tilt;
       
+      // Adjust org for Neck offset
+      org = org + target * neck_offset;
+
       // Compute ray from camera to target
       target *= parallax_distance;
       ray = target - org;

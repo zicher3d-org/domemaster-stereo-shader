@@ -1,7 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-03-23  
-
+2015-03-25  
 
 - Table of Contents
     *    [Overview](#overview)
@@ -64,7 +63,7 @@ More work needs to be done to apply a black overlay to the circular outside area
 
 The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.
 
-The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on Max 2015 and Max 2014, and Vray 2.5 for Max 2015.
+The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on 3DS Max 2015 and 3DS Max 2014, and Vray 2.5 for 3DS Max 2015, and Vray 2.4 for 3DS Max 2013.
 
 ## Vray Standalone ##
 
@@ -147,7 +146,7 @@ For Vray Standalone 2.5 the standard `VRAY_PLUGINS_x64` setting would be:
 
 ## Vray for 3DS Max Shader Installation ##
 
-There are now Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.
+There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.
 
 ### Windows 64-bit ###
 
@@ -166,6 +165,9 @@ Vray Plugin Files:
 
     vraylatlongstereo2014.dlo
     vraydomemasterstereo2014.dlo
+
+    vraylatlongstereo2013.dlo
+    vraydomemasetrstereo2013.dlo
     
     
 ## Vray RT for 3DS Max Shader Installation ##

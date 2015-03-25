@@ -293,7 +293,7 @@ img {
 <body>
 <h1>Vray Domemaster3D Guide</h1>
 <hr />
-<p>2015-03-23  </p>
+<p>2015-03-25  </p>
 <ul>
 <li>
 Table of Contents
@@ -387,7 +387,7 @@ Table of Contents
 <p>The Vray Standalone version generally works without too many issues.</p>
 <p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.</p>
 <p>The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.</p>
-<p>The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on Max 2015 and Max 2014, and Vray 2.5 for Max 2015.</p>
+<p>The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on 3DS Max 2015 and 3DS Max 2014, and Vray 2.5 for 3DS Max 2015, and Vray 2.4 for 3DS Max 2013.</p>
 <h2>Vray Standalone</h2>
 <p>Right now the DomemasterStereo and LatLongStereo shaders are accessible from Vray Standalone and Vray RT version 2.5 / 3.0 using the <code>vray.exe</code> command line program. Until the Maya and 3DS Max shader integrations are complete you will have to add the DomemasterStereo and LatLongStereo camera parameters to your .vrscene files manually. </p>
 <p>Andrew Hazelden's <a href="https://github.com/AndrewHazelden/Vray-Scene-Syntax-Highlighter">Vray Syntax Highlighter</a> module for Notepad++, GEDIT, BBEdit, and TextWrangler is a good tool for simplifying the process of editing a .vrscene file.</p>
@@ -450,7 +450,7 @@ vray_LatLongStereo.dll
 <p><code>VRAY_PLUGINS_x64</code><br />
 <code>C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins</code></p>
 <h2>Vray for 3DS Max Shader Installation</h2>
-<p>There are now Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.</p>
+<p>There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.</p>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong> Copy the .dlo files to the Vray for 3DS Max plugins directory.</p>
@@ -462,6 +462,9 @@ vraydomemasterstereo2015.dlo
 
 vraylatlongstereo2014.dlo
 vraydomemasterstereo2014.dlo
+
+vraylatlongstereo2013.dlo
+vraydomemasetrstereo2013.dlo
 </code></pre>
 
 <h2>Vray RT for 3DS Max Shader Installation</h2>

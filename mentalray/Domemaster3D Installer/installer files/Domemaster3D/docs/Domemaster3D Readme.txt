@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.7 - March 7, 2015
+Version 1.7.1 - March 26, 2015
 
 About This Shader
 ---------------------
@@ -259,6 +259,13 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 1.7.1
+-----------------
+March 26, 2015
+
+Maya
+  Updated Maya Domemaster3D Menu and Visor scripts
+  
 Version 1.7
 -----------------
 March 7, 2015

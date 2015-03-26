@@ -168,7 +168,11 @@ Vray Plugin Files:
 
     vraylatlongstereo2013.dlo
     vraydomemasetrstereo2013.dlo
-    
+
+**Step 3.**
+If you get an "Error Loading Plugin-DLL" error message in 3DS Max when when you try and load the shader it means you haven't installed the Microsoft Visual Studio 2013 x64 Redistributable library that was mentioned as a required stage in **Step 1**. Now is a good time to go back to step 1 and actually install the library file!
+
+![Visual Studio 2013 Library Missing Error](images/vray-max-no-vs2013-libs.png)  
     
 ## Vray RT for 3DS Max Shader Installation ##
 

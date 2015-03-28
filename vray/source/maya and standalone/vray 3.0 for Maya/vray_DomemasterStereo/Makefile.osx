@@ -1,0 +1,65 @@
+# Mac OS X - DomemasterStereo Vray Shader Makefile
+# by Andrew Hazelden  andrew@andrewhazelden.com
+# http://www.andrewhazelden.com
+
+# You can compile this file from the command line using:
+# make -f Makefile.osx
+
+# You can install the files using the command
+# sudo make -f Makefile.osx install
+
+# note: vray standalone for Mac OS X is a 32-bit i386 program!
+
+# Check compiled file details:
+# otool -L libvray_DomemasterStereo.so 
+# lipo -info libvray_DomemasterStereo.so 
+
+
+
+CC=g++
+
+# Which version of the VRAY API Devkit are you using?
+VRAY_API_VERSION=2.0
+
+# Current Maya Version = 2015
+#MAYA_VERSION=2014
+MAYA_VERSION=2015
+
+# Maya VRAY Plugins Directory
+MAYA_VRAY_PLUG_DIR=/Applications/Autodesk/maya$(MAYA_VERSION)/vray/vrayplugins
+
+# Maya Standalone + Shader Compiling Paths
+VRAY_STANDALONE_DIR=/Applications/ChaosGroup/V-Ray/Standalone_for_snow_leopard_x86
+VRAY_LIB_DIR=$(VRAY_STANDALONE_DIR)/lib/snow_leopard_x86/gcc-4.2
+VRAY_INCLUDE_DIR=$(VRAY_STANDALONE_DIR)/include
+VRAY_PLUG_DIR=$(VRAY_STANDALONE_DIR)/bin/snow_leopard_x86/gcc-4.2/plugins
+
+INC=-I$(VRAY_INCLUDE_DIR)/
+LIB= 
+LIB_STATIC= 
+CFLAGS=-c -O3 -fPIC -DBIT64 -dynamic -fno-common
+LIBTOOL=libtool
+
+OBJS = vray_DomemasterStereo.o
+SRCS = vray_DomemasterStereo.cpp
+
+all: libvray_DomemasterStereo.so
+
+$(OBJS): 
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
+
+libvray_DomemasterStereo.so : $(OBJS) 
+	$(LIBTOOL) -o libvray_DomemasterStereo.so $(OBJS)
+
+clean: 
+	rm -rf $(OBJS) 
+	rm -rf libvray_DomemasterStereo.so
+
+install:
+	# Vray Shader install
+	# ---------------------------------
+	cp ./libvray_DomemasterStereo.so $(VRAY_PLUG_DIR)
+	cp ./libvray_DomemasterStereo.so $(MAYA_VRAY_PLUG_DIR)
+
+
+go: clean all install

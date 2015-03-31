@@ -706,11 +706,18 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <li>Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.</li>
 </ul>
 <h2>Version History</h2>
-<h3>2015-03-30</h3>
-<p><strong>Mac OS X</strong></p>
+<h3>2015-03-31</h3>
+<p><strong>Vray Standalone Mac OS X Support</strong></p>
 <ul>
 <li>Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool <code>plgparams.bin</code> on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.</li>
 </ul>
+<p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  </p>
+<p><img src="images/vray_mac_plugin_params_domemasterstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 2" /> </p>
+<p><strong>Vray for Softimage Support</strong></p>
+<ul>
+<li>A basic set of Vray for Sofimage SPDL and DSPreset files have been created for the DomemasterStereo and LatLongStereo lens shaders. The lens shader GUIs show up in Softimage but I haven't figured out the Softimage to Vray translator features yet which are required to export the lens shader data to a .vrscene file or activate the shader in the Vray Frame Buffer window.</li>
+</ul>
+<p><img src="images/vray-for-softimage-domemaster3d-shaders.png" alt="Vray for Softimage Support" /></p>
 <h3>Version 0.5 - 2015-03-23</h3>
 <p><strong>3DS Max Builds Added</strong></p>
 <ul>
@@ -762,6 +769,10 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <h3>Vray for 3DS Max To Dos</h3>
 <ul>
 <li>Test the new Vray for 3DS Max shader builds.</li>
+</ul>
+<h3>Vray for Softimage To Dos</h3>
+<ul>
+<li>Finish figuring out how the VRay/SI Bridge SDK works. Get the DomemasterStereo and LatLongStereo lens shader translator working in Softimage.</li>
 </ul>
 <h3>Shader Testing To Dos</h3>
 <ul>

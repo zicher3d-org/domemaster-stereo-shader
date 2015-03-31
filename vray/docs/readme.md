@@ -515,11 +515,21 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ## Version History ##
 
-### 2015-03-30 ###
+### 2015-03-31 ###
 
-**Mac OS X**
+**Vray Standalone Mac OS X Support**
 
 - Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool `plgparams.bin` on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.
+
+![Plgparams Listing the Shader Parameters on the Mac 1](images/vray_mac_plugin_params_latlongstereo.png)  
+
+![Plgparams Listing the Shader Parameters on the Mac 2](images/vray_mac_plugin_params_domemasterstereo.png) 
+
+**Vray for Softimage Support**
+
+- A basic set of Vray for Sofimage SPDL and DSPreset files have been created for the DomemasterStereo and LatLongStereo lens shaders. The lens shader GUIs show up in Softimage but I haven't figured out the Softimage to Vray translator features yet which are required to export the lens shader data to a .vrscene file or activate the shader in the Vray Frame Buffer window.
+
+![Vray for Softimage Support](images/vray-for-softimage-domemaster3d-shaders.png)
 
 ### Version 0.5 - 2015-03-23 ###
 
@@ -570,6 +580,10 @@ At this point a few of the required Vray on Linux shader compiling details are n
 ### Vray for 3DS Max To Dos ###
 
 - Test the new Vray for 3DS Max shader builds.
+
+### Vray for Softimage To Dos ###
+
+- Finish figuring out how the VRay/SI Bridge SDK works. Get the DomemasterStereo and LatLongStereo lens shader translator working in Softimage.
 
 ### Shader Testing To Dos ###
 

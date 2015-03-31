@@ -293,7 +293,7 @@ img {
 <body>
 <h1>Vray Domemaster3D Guide</h1>
 <hr />
-<p>2015-03-25  </p>
+<p>2015-03-28  </p>
 <ul>
 <li>
 Table of Contents
@@ -489,7 +489,9 @@ vray_LatLongStereo.dll
 <p>Note: Change <code>&lt;Max Version&gt;</code> to the release number of 3DS Max. Example: Write in 2015 for the <code>&lt;Max Version&gt;</code> if you are using 3DS Max 2015.</p>
 <h2>Verify the Shader is Loaded in Vray</h2>
 <h3>Vray Shader Parameters Screenshot</h3>
-<p><img src="images/vray_plugin_parameters.png" alt="Plgparams Listing the Shader Parameters" /></p>
+<p><img src="images/vray_plugin_parameters.png" alt="Plgparams Listing the Shader Parameters" />  </p>
+<p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  </p>
+<p><img src="images/vray_mac_plugin_params_domemasterstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 2" />  </p>
 <h3>Listing the Nodes</h3>
 <p>You can list all of the active Vray Shader nodes using the plugin parameters tool:</p>
 <h4>Windows Node List</h4>
@@ -686,7 +688,7 @@ Open a new terminal window and cd into the source code folder.</p>
 Edit the Makefile.osx file and change the <code>MAYA_VERSION</code> variable to match your current Maya release, and update the <code>MAYA_VRAY_PLUG_DIR</code>, <code>VRAY_STANDALONE_DIR</code>, <code>VRAY_LIB_DIR</code>, <code>VRAY_PLUG_DIR</code> variables to match your current vray standalone directory names.</p>
 <p><strong>Step 4.</strong>
 Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo</code> shader:  </p>
-<p><code>Make -f Makefile.osx</code></p>
+<p><code>make -f Makefile.osx</code></p>
 <p><strong>Step 5.</strong>
 At this point in time the Vray Standalone release for Mac OS X is i386 (32-bit) and the Mac OS X Maya Vray build is x64 (64-bit). This will require the makefile to be updated to match your desired build target.</p>
 <p>You can check your compiled .so architecture with the following commands:</p>
@@ -704,6 +706,11 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <li>Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.</li>
 </ul>
 <h2>Version History</h2>
+<h3>2015-03-30</h3>
+<p><strong>Mac OS X</strong></p>
+<ul>
+<li>Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool <code>plgparams.bin</code> on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.</li>
+</ul>
 <h3>Version 0.5 - 2015-03-23</h3>
 <p><strong>3DS Max Builds Added</strong></p>
 <ul>

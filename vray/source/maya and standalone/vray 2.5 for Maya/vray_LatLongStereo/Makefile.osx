@@ -1,4 +1,5 @@
 # Mac OS X - LatLongStereo Vray Shader Makefile
+# 2015-03-30 9.36 pm
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
@@ -9,16 +10,19 @@
 # sudo make -f Makefile.osx install
 
 # note: vray standalone for Mac OS X is a 32-bit i386 program!
+# -arch i386 -arch x86_64
+# -m32
 
 # Check compiled file details:
 # otool -L libvray_LatLongStereo.so 
 # lipo -info libvray_LatLongStereo.so 
 
 
-CC=g++
+CXX=g++
+RM=rm -f
 
 # Which version of the VRAY API Devkit are you using?
-VRAY_API_VERSION=2.0
+VRAY_API_VERSION=2.5
 
 # Current Maya Version = 2015
 #MAYA_VERSION=2014
@@ -33,11 +37,13 @@ VRAY_LIB_DIR=$(VRAY_STANDALONE_DIR)/lib/snow_leopard_x86/gcc-4.2
 VRAY_INCLUDE_DIR=$(VRAY_STANDALONE_DIR)/include
 VRAY_PLUG_DIR=$(VRAY_STANDALONE_DIR)/bin/snow_leopard_x86/gcc-4.2/plugins
 
-INC=-I$(VRAY_INCLUDE_DIR)/
-LIB= 
-LIB_STATIC= 
-CFLAGS=-c -O3 -fPIC -DBIT64 -dynamic -fno-common
+INC=-I$(VRAY_INCLUDE_DIR)
+LIB=-L$(VRAY_LIB_DIR) -lvray -lplugman_s -lvutils_s
+LIB_STATIC=
+CPPFLAGS=-c -O3 -fPIC -dynamic -fno-common -arch i386 -arch x86_64
+#CPPFLAGS=-c -O3 -fPIC -dynamic -fno-common -arch i386
 LIBTOOL=libtool
+LDEXECFLAGS=-macosx_version_min 10.9
 
 OBJS = vray_LatLongStereo.o
 SRCS = vray_LatLongStereo.cpp
@@ -45,20 +51,19 @@ SRCS = vray_LatLongStereo.cpp
 all: libvray_LatLongStereo.so
 
 $(OBJS): 
-	$(CC) $(CFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
+	$(CXX) $(CPPFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
 
-libvray_LatLongStereo.so : $(OBJS) 
-	$(LIBTOOL) -o libvray_LatLongStereo.so $(OBJS)
+libvray_LatLongStereo.so : $(OBJS)
+	$(LIBTOOL) -dynamic -undefined suppress -flat_namespace $(LDEXECFLAGS) -o libvray_LatLongStereo.so $(OBJS)
 
 clean: 
-	rm -rf $(OBJS) 
-	rm -rf libvray_LatLongStereo.so
+	$(RM) $(OBJS) 
+	$(RM) libvray_LatLongStereo.so
 
 install:
 	# Vray Shader install
 	# ---------------------------------
 	cp ./libvray_LatLongStereo.so $(VRAY_PLUG_DIR)
-	cp ./libvray_LatLongStereo.so $(MAYA_VRAY_PLUG_DIR)
-
+	#cp ./libvray_LatLongStereo.so $(MAYA_VRAY_PLUG_DIR)
 
 go: clean all install

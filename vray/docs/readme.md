@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-03-25  
+2015-03-28  
 
 - Table of Contents
     *    [Overview](#overview)
@@ -207,7 +207,11 @@ Note: Change `<Max Version>` to the release number of 3DS Max. Example: Write in
 
 ### Vray Shader Parameters Screenshot ###
 
-![Plgparams Listing the Shader Parameters](images/vray_plugin_parameters.png)
+![Plgparams Listing the Shader Parameters](images/vray_plugin_parameters.png)  
+
+![Plgparams Listing the Shader Parameters on the Mac 1](images/vray_mac_plugin_params_latlongstereo.png)  
+
+![Plgparams Listing the Shader Parameters on the Mac 2](images/vray_mac_plugin_params_domemasterstereo.png)  
 
 ### Listing the Nodes ###
 
@@ -485,7 +489,7 @@ Edit the Makefile.osx file and change the `MAYA_VERSION` variable to match your 
 **Step 4.**
 Use the Mac OS X makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo` shader:  
 
-`Make -f Makefile.osx`
+`make -f Makefile.osx`
 
 **Step 5.**
 At this point in time the Vray Standalone release for Mac OS X is i386 (32-bit) and the Mac OS X Maya Vray build is x64 (64-bit). This will require the makefile to be updated to match your desired build target.
@@ -510,6 +514,12 @@ At this point a few of the required Vray on Linux shader compiling details are n
 - Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.
 
 ## Version History ##
+
+### 2015-03-30 ###
+
+**Mac OS X**
+
+- Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool `plgparams.bin` on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.
 
 ### Version 0.5 - 2015-03-23 ###
 
@@ -560,7 +570,6 @@ At this point a few of the required Vray on Linux shader compiling details are n
 ### Vray for 3DS Max To Dos ###
 
 - Test the new Vray for 3DS Max shader builds.
-
 
 ### Shader Testing To Dos ###
 

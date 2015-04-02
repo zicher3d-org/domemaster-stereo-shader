@@ -1,7 +1,7 @@
 """
 domeVrayRender.py
-Domemaster3D for Vray for Maya v1.6.3
-2015-02-28 2.11 am
+Domemaster3D for Vray for Maya v1.7
+2015-04-01 09.06 pm
 by Andrew Hazelden
 -----------------------------
 
@@ -179,9 +179,15 @@ def domeVrayTranslator():
         
         flip_y = domeVrayGetAttrNumValue("vrayLatLongStereoFlipY")
         LatLongStereo.set("flip_y", flip_y)
+        
+        neck_offset = domeVrayGetAttrNumValue("vrayLatLongStereoNeckOffset")
+        LatLongStereo.set("neck_offset", neck_offset)
+        
+        zenith_fov = domeVrayGetAttrNumValue("vrayLatLongStereoZenithFov")
+        LatLongStereo.set("zenith_fov", zenith_fov)
      
     elif domeVrayHasDomemasterStereoAttrs() == 1:
-      # DomemasterStereo  Lens Shader Setup
+      # DomemasterStereo Lens Shader Setup
       DomemasterStereo = vr.create("DomemasterStereo", "DomemasterStereo")
       
       # Check if the shader was found
@@ -199,8 +205,8 @@ def domeVrayTranslator():
         fov_angle = domeVrayGetAttrNumValue("vrayDomemasterStereoFovAngle")
         DomemasterStereo.set("fov_angle", fov_angle)
         
-        zero_parallax_sphere = domeVrayGetAttrNumValue("vrayDomemasterStereoZeroParallaxSphere")
-        DomemasterStereo.set("zero_parallax_sphere", zero_parallax_sphere)
+        parallax_distance = domeVrayGetAttrNumValue("vrayDomemasterStereoParallaxDistance")
+        DomemasterStereo.set("parallax_distance", parallax_distance)
         
         separation = domeVrayGetAttrNumValue("vrayDomemasterStereoSeparation")
         DomemasterStereo.set("separation", separation)
@@ -223,7 +229,9 @@ def domeVrayTranslator():
         
         flip_y = domeVrayGetAttrNumValue("vrayDomemasterStereoFlipY")
         DomemasterStereo.set("flip_y", flip_y)
-      
+        
+        neck_offset = domeVrayGetAttrNumValue("vrayDomemasterStereoNeckOffset")
+        DomemasterStereo.set("neck_offset", neck_offset)
 
 #Check what version of Maya is active
 def getMayaVersionDome():

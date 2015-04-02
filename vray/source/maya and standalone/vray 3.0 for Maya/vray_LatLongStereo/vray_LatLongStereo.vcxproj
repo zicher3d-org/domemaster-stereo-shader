@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -13,15 +13,18 @@
   <PropertyGroup Label="Globals">
     <SccProjectName />
     <SccLocalPath />
+    <ProjectGuid>{0AC26A52-8253-5BE9-9115-854AA466EFEA}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -36,13 +39,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\</OutDir>
-    <IntDir>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\</IntDir>
+    <OutDir>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\</OutDir>
+    <IntDir>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\</OutDir>
-    <IntDir>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\</IntDir>
+    <OutDir>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\</OutDir>
+    <IntDir>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -56,15 +59,15 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\</AssemblerListingLocation>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\vray_LatLongStereo.pch</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\vray_LatLongStereo.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\</ProgramDataBaseFileName>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\vray_LatLongStereo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\vray_LatLongStereo.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -73,16 +76,16 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\vray_LatLongStereo.bsc</OutputFile>
+      <OutputFile>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\vray_LatLongStereo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>..\..\..\..\bin\x64\vc101\plugins\vray_LatLongStereo.dll</OutputFile>
-      <ImportLibrary>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc101\vray_LatLongStereo.lib</ImportLibrary>
-      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc101;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>..\..\..\..\bin\x64\vc11\plugins\vray_LatLongStereo.dll</OutputFile>
+      <ImportLibrary>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\vray_LatLongStereo.lib</ImportLibrary>
+      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc11;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;vray.lib;plugman_s.lib;vutils_s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -97,16 +100,16 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\</AssemblerListingLocation>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\vray_LatLongStereo.pch</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\vray_LatLongStereo.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\</ProgramDataBaseFileName>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\vray_LatLongStereo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\vray_LatLongStereo.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -115,16 +118,16 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\vray_LatLongStereo.bsc</OutputFile>
+      <OutputFile>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\vray_LatLongStereo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>..\..\..\..\bin\x64\vc101\plugins\vray_LatLongStereo.dll</OutputFile>
-      <ImportLibrary>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101\vray_LatLongStereo.lib</ImportLibrary>
-      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc101;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>..\..\..\..\bin\x64\vc11\plugins\vray_LatLongStereo.dll</OutputFile>
+      <ImportLibrary>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\vray_LatLongStereo.lib</ImportLibrary>
+      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc11;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vray.lib;odbc32.lib;odbccp32.lib;plugman_s.lib;vutils_s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

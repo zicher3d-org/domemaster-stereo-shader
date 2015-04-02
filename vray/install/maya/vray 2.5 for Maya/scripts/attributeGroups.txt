@@ -3,7 +3,7 @@ AttributeGroup vray_DomemasterStereo {
   attribute_0 = vrayDomemasterStereoOn
   attribute_1 = vrayDomemasterStereoCamera
   attribute_2 = vrayDomemasterStereoFovAngle
-  attribute_3 = vrayDomemasterStereoZeroParallaxSphere
+  attribute_3 = vrayDomemasterStereoParallaxDistance
   attribute_4 = vrayDomemasterStereoSeparation
   attribute_5 = vrayDomemasterStereoForwardTilt
   attribute_6 = vrayDomemasterStereoTiltCompensation
@@ -13,6 +13,7 @@ AttributeGroup vray_DomemasterStereo {
   attribute_10 = vrayDomemasterStereoHeadTiltMap
   attribute_11 = vrayDomemasterStereoFlipX
   attribute_12 = vrayDomemasterStereoFlipY
+  attribute_13 = vrayDomemasterStereoNeckOffset
 }
 
 
@@ -35,6 +36,8 @@ AttributeGroup vray_LatLongStereo {
   attribute_7 = vrayLatLongStereoSeparationMap
   attribute_8 = vrayLatLongStereoFlipX
   attribute_9 = vrayLatLongStereoFlipY
+  attribute_10 = vrayLatLongStereoNeckOffset
+  attribute_11 = vrayLatLongStereoZenithFov
 }
 
 

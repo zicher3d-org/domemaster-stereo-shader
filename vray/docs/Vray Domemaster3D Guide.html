@@ -293,7 +293,7 @@ img {
 <body>
 <h1>Vray Domemaster3D Guide</h1>
 <hr />
-<p>2015-03-28  </p>
+<p>2015-04-02 </p>
 <ul>
 <li>
 Table of Contents
@@ -383,7 +383,7 @@ Table of Contents
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Vray version of the Domemaster Stereo Shader.</p>
 <h2>Known Issues</h2>
-<p>The current version of the Vray Domemaster3D shaders (as of 2015-03-23 ) is a development build.</p>
+<p>The current version of the Vray Domemaster3D shaders (as of 2015-04-01 ) is a development build.</p>
 <p>The Vray Standalone version generally works without too many issues.</p>
 <p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.</p>
 <p>The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.</p>
@@ -397,7 +397,7 @@ Table of Contents
 <pre><code>DomemasterStereo RenderCamShape {
   camera=0;
   fov_angle=360.0;
-  zero_parallax_sphere=355.0;
+  parallax_distance=355.0;
   separation=6.5;
   forward_tilt=0.0;
   tilt_compensation=0;
@@ -407,6 +407,7 @@ Table of Contents
   head_tilt_map=0.5;
   flip_x=0;
   flip_y=0;
+  neck_offset=0.0;
 }
 </code></pre>
 
@@ -426,6 +427,8 @@ Table of Contents
   separation=6.5;
   zenith_mode=1;
   separation_map=1;
+  neck_offset=0.0;
+  zenith_fov=0;
 }
 </code></pre>
 
@@ -436,7 +439,7 @@ Table of Contents
 
 <h2>Vray Standalone Shader Installation</h2>
 <h3>Windows 64-bit</h3>
-<p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">Visual Studio 2012 (VC++ 11.0) Redistributable Package</a>.</p>
+<p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong> Copy the .dll files to the vray-plugins directory:  </p>
 <p><code>C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins</code></p>
 <p>Vray Plugin Files:</p>
@@ -472,7 +475,7 @@ If you get an &quot;Error Loading Plugin-DLL&quot; error message in 3DS Max when
 <p><img src="images/vray-max-no-vs2013-libs.png" alt="Visual Studio 2013 Library Missing Error" />  </p>
 <h2>Vray RT for 3DS Max Shader Installation</h2>
 <h3>Windows 64-bit</h3>
-<p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">Visual Studio 2012 (VC++ 11.0) Redistributable Package</a>.</p>
+<p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong> Copy the .dll files to the Vray RT plugins directory.</p>
 <p><code>C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max &lt;Max Version&gt; for x64\bin\plugins</code></p>
 <p>Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.</p>
@@ -508,7 +511,7 @@ vray_LatLongStereo.dll
 <pre><code>Parameters for plugin 'DomemasterStereo'
   camera: integer = 0, Center, Left, Right Camera Views
   fov_angle: float = 180, Field of View
-  zero_parallax_sphere: float = 360, Zero Parallax Sphere
+  parallax_distance: float = 360, Parallax Distance
   separation: float = 6.5, Camera Separation Distance
   forward_tilt: float = 0, Forward Tilt
   tilt_compensation: bool = false, Tilt Compensation Mode
@@ -518,6 +521,7 @@ vray_LatLongStereo.dll
   head_tilt_map: float = 0.5, Head Tilt map
   flip_x: bool = false, Flip X
   flip_y: bool = false, Flip Y
+  neck_offset: float = 0, Neck Offset
 </code></pre>
 
 <h4>plgparams.exe LatLongStereo</h4>
@@ -532,6 +536,8 @@ vray_LatLongStereo.dll
   head_tilt_map: float = 0.5, Head Tilt map
   flip_x: bool = false, Flip X
   flip_y: bool = false, Flip Y
+  neck_offset: float = 0, Neck Offset
+  zenith_fov: float = 0, Hemi-equirectangular
 </code></pre>
 
 <p><strong>Note:</strong> If you receive the following error message it means you have tried to load a Vray 2.5 shader in Vray 3.0:  </p>
@@ -599,7 +605,7 @@ domeVrayRender.domeVrayTranslator()
 <h2>Maya Shader Installation</h2>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong>
-Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">Visual Studio 2012 (VC++ 11.0) Redistributable Package</a>.</p>
+<strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong>
 Copy the .dll files to the vray-plugins directory:  </p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\vrayplugins\</code></p>
@@ -672,7 +678,7 @@ Open a new command prompt and cd into the vray cameras source code folder:</p>
 <p><strong>Step 3.</strong>
 Copy the Domemaster3D <code>vray_DomemasterStereo</code> and <code>vray_LatLongStereo</code> source code folders into the vray cameras source code folder. </p>
 <p><strong>Step 4.</strong>
-Compile the source code in Visual Studio 11 with the following project files:</p>
+Set the compiling mode to &quot;release&quot; and compile the source code in Visual Studio 2013 with the following project files:</p>
 <p><code>vray_DomemasterStereo.vcxproj</code><br />
 <code>vray_LatLongStereo.vcxproj</code>  </p>
 <p>If you are running an older version of Visual Studio you can use the legacy Microsoft Developer Studio project file:  </p>
@@ -706,6 +712,21 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <li>Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.</li>
 </ul>
 <h2>Version History</h2>
+<h3>2015-04-02</h3>
+<p><strong>Vray for Maya</strong></p>
+<ul>
+<li>
+<p>Synced the Vray for Maya code to include the 3DS Max &quot;Neck Offset&quot; and &quot;Hemi-equirectangular&quot; features.</p>
+</li>
+<li>
+<p>The Visual Studio compiler version has been switched to Visual Studio 2013. This means you will need to install the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a> if you don't have it on your workstations and render nodes.</p>
+</li>
+</ul>
+<p>Note: The Domemaster3D Vray for Maya shader parameters have been updated and may break compatibility with the previous releases. This was done to syncronise the variable names in .vrscene exports with the 3DS Max version of the shaders.</p>
+<p><strong>Vray for Softimage</strong></p>
+<ul>
+<li>Synced the Vray for Softimage SPDL code to include the 3DS Max &quot;Neck Offset&quot; and &quot;Hemi-equirectangular&quot; features.</li>
+</ul>
 <h3>2015-03-31</h3>
 <p><strong>Vray Standalone Mac OS X Support</strong></p>
 <ul>
@@ -731,7 +752,6 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <p>The LatLongStereo shader for Vray on 3DS Max has a new Domemaster3D feature of a hemirect checkbox. Hemirect stands for hemi-equirectangular which is a partial spherical rendering. The hemirect feature allows you to align partial latlong renderings so they start at the top zenith region of the latlong frame. This is useful if you want to render a latlong image with a 90&deg; vertical field of view and then warp it in post into a 180&deg; fulldome image.</p>
 </li>
 </ul>
-<p><strong>Note:</strong> The Domemaster3D source code for the Vray for Maya and Vray Standalone releases need to be updated and re-compiled to include the most recent Vray for 3DS Max Domemaster3D lens shader code changes.</p>
 <h3>Version 0.4 - 2015-02-28</h3>
 <p><strong>Maya Code Update:</strong></p>
 <ul>
@@ -760,15 +780,16 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <h3>DomemasterStereo To Dos</h3>
 <ul>
 <li>Correctly handle the black matting of the domemaster frame when &quot;if (r &lt; 1.0)&quot; is false</li>
-<li>Implement the head tilt code</li>
 </ul>
 <h3>Vray for Maya To Dos</h3>
 <ul>
-<li>Implement Roberto Ziche's updated camera origin code, the neck offset, and the hemi-rect rendering options.</li>
+<li>Implement a screen space texture UV re-mapping mode in the lens shaders for the stereo control maps.</li>
 </ul>
 <h3>Vray for 3DS Max To Dos</h3>
 <ul>
 <li>Test the new Vray for 3DS Max shader builds.</li>
+<li>Figure out a way to reduce the noise in the screen space control map based renderings</li>
+<li>Improve the screen space texture map support</li>
 </ul>
 <h3>Vray for Softimage To Dos</h3>
 <ul>

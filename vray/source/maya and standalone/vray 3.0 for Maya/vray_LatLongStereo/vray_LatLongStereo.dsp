@@ -38,8 +38,8 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "..\..\..\..\build\vray_LatLongStereo\release\x64\vc101"
-# PROP Intermediate_Dir "..\..\..\..\build\vray_LatLongStereo\release\x64\vc101"
+# PROP Output_Dir "..\..\..\..\build\vray_LatLongStereo\release\x64\vc11"
+# PROP Intermediate_Dir "..\..\..\..\build\vray_LatLongStereo\release\x64\vc11"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /FD /c
@@ -54,7 +54,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib vray.lib plugman_s.lib vutils_s.lib /nologo /subsystem:windows /dll /pdb:"..\..\..\..\pdb\x64\vc101\vray_LatLongStereo.pdb" /debug /machine:I386 /out:"..\..\..\..\bin\x64\vc101\plugins\vray_LatLongStereo.dll" /libpath:"..\..\..\..\lib\x64\vc101"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib vray.lib plugman_s.lib vutils_s.lib /nologo /subsystem:windows /dll /pdb:"..\..\..\..\pdb\x64\vc11\vray_LatLongStereo.pdb" /debug /machine:I386 /out:"..\..\..\..\bin\x64\vc11\plugins\vray_LatLongStereo.dll" /libpath:"..\..\..\..\lib\x64\vc11"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "vray_LatLongStereo - Win32 Debug"
@@ -66,8 +66,8 @@ LINK32=xilink6.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101"
-# PROP Intermediate_Dir "..\..\..\..\build\vray_LatLongStereo\debug\x64\vc101"
+# PROP Output_Dir "..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11"
+# PROP Intermediate_Dir "..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /YX /FD /GZ /c
@@ -82,7 +82,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 vray.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib plugman_s.lib vutils_s.lib /nologo /subsystem:windows /dll /debug /machine:I386 /out:"..\..\..\..\bin\x64\vc101\plugins\vray_LatLongStereo.dll" /pdbtype:sept /libpath:"..\..\..\..\lib\x64\vc101"
+# ADD LINK32 vray.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib plugman_s.lib vutils_s.lib /nologo /subsystem:windows /dll /debug /machine:I386 /out:"..\..\..\..\bin\x64\vc11\plugins\vray_LatLongStereo.dll" /pdbtype:sept /libpath:"..\..\..\..\lib\x64\vc11"
 
 !ENDIF 
 

@@ -1,7 +1,7 @@
-// vray_LatLongStereo Shader v0.3
-// 2014-12-24 
+// vray_LatLongStereo Shader v0.5
+// 2015-04-01 11.38 pm
 // ---------------------------------
-// Ported to Vray 2.0 by Andrew Hazelden
+// Ported to Vray 2.5 by Andrew Hazelden/Roberto Ziche
 // Based upon the mental ray shader LatLong_Stereo  
 // by Roberto Ziche
 
@@ -29,6 +29,8 @@ struct LatLongStereo_ParamsStruct {
   float head_tilt_map;
   int   flip_x;
   int   flip_y;
+  float neck_offset;
+  int   zenith_fov;
 };
 
 #define CENTERCAM    0
@@ -36,8 +38,11 @@ struct LatLongStereo_ParamsStruct {
 #define RIGHTCAM     2
 
 #define DOME_PI  3.141592653589793238
-#define DOME_DTOR  0.0174532925199433 
-#define DOME_PIOVER2 1.57079632679489661923 
+#define DOME_DTOR  0.0174532925199433
+#define DOME_PIOVER2 1.57079632679489661923
+
+#define GETDIR        0
+#define GETORG        1
 
 //**************************************************
 // The actual camera
@@ -48,17 +53,17 @@ class LatLongStereoImpl: public VRayCamera2 {
 public:
   // From VRayCamera
   virtual int getScreenRay(   double xs, double ys, 
-  double time, 
-  float dof_uc, float dof_vc, 
-  TraceRay &ray, 
-  Ireal &mint, Ireal &maxt, 
-  RayDeriv &rayDeriv, 
-  VR::Color &multResult) const;
+                              double time, 
+                              float dof_uc, float dof_vc, 
+                              TraceRay &ray, 
+                              Ireal &mint, Ireal &maxt, 
+                              RayDeriv &rayDeriv, 
+                              VR::Color &multResult) const;
 
   virtual int getScreenRays(  VR::RayBunchCamera& raysbunch,
-  const double* xs,   const double* ys, 
-  const float* dof_uc, const float* dof_vc, 
-  bool calcDerivs = false ) const;
+                              const double* xs,   const double* ys, 
+                              const float* dof_uc, const float* dof_vc, 
+                              bool calcDerivs = false ) const;
 
   int canDoDOF(void) { return false; }
   Vector2 mapToScreen(const Vector &p) { return Vector2(p.x, p.y); }
@@ -80,42 +85,60 @@ void LatLongStereoImpl::init(LatLongStereo_ParamsStruct &p) {
   params=&p;
 }
 
-
 void LatLongStereoImpl::frameBegin(VR::VRayRenderer *vray) {
   this->vray=vray;
 }
 
 Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
-  // Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
 
   const VR::VRayFrameData &fdata=vray->getFrameData();
   
-  double rx=(xs-fdata.imgWidth*0.5)/(fdata.imgWidth*0.5f);
-  double ry=(fdata.imgHeight*0.5-ys)/(fdata.imgHeight*0.5f);
+  double rx = 2.0f * xs / fdata.imgWidth - 1.0f;
+  double ry = -2.0f * ys / fdata.imgHeight + 1.0f;
 
   double phi, theta, tmp;
   double sinP, cosP, sinT, cosT;
   //double head_tilt = params->head_tilt_map;
   
-  Vector org, ray, target, htarget;
-  //Matrix tilt;
+  VR::Vector org, ray, target, htarget;
   
-  // Convert FOV from degrees to radians
-  double fovVert = params->fov_vert_angle * DOME_DTOR;  
-  double fovHoriz = params->fov_horiz_angle * DOME_DTOR;  
-
+  // Check the stereo camera view for 0=center, 1=Left, 2=Right
+  int stereo_camera = params->camera;
+  
+  double fov_vert_angle = params->fov_vert_angle * DOME_DTOR;  
+  double fov_horiz_angle = params->fov_horiz_angle * DOME_DTOR; 
+  float parallax_distance = params->parallax_distance;
+  float separation = params->separation;
+  int zenith_mode = params->zenith_mode;
+  int flip_x = params->flip_x;
+  int flip_y = params->flip_y;
+  float neck_offset = params->neck_offset;
+  int zenith_fov = params->zenith_fov;
+  
   // Calculate phi and theta...
-  phi = rx * (fovHoriz / 2.0);
-  if(params->zenith_mode){
-    theta = DOME_PIOVER2 - ry * (fovVert / 2.0);
+  phi = rx * (fov_horiz_angle / 2.0);
+  if (zenith_fov) {
+    // zenith FOV
+    if (zenith_mode){
+      theta = -(ry - 1.0f) * (fov_vert_angle / 2.0);
+      if (flip_y) theta = theta + (DOME_PI - fov_vert_angle);
+    }
+    else {
+      theta = DOME_PIOVER2 + (ry - 1.0f) * (fov_vert_angle / 2.0);
+      if (flip_y) theta = theta - (DOME_PI - fov_vert_angle);
+    }
   } else {
-    theta = ry * (fovVert / 2.0);
-  }  
+    // horizontal FOV
+    if (zenith_mode){
+      theta = DOME_PIOVER2 - ry * (fov_vert_angle / 2.0);
+    }
+    else {
+      theta = ry * (fov_vert_angle / 2.0);
+    }
+  }
   
   // Start by matching camera (center camera)
-  org.x = 0.0;
-  org.y = 0.0;
-  org.z = 0.0;
+  org.x = org.y = org.z = 0.0;
   
   // Compute commonly used values
   sinP = sin(phi);
@@ -124,7 +147,7 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
   cosT = cos(theta);
   
   // Center camera target vector (normalized)
-  if(params->zenith_mode) {
+  if (zenith_mode) {
     target.x = (float)(sinP * sinT);
     target.y = (float)(-cosP * sinT);
     target.z = (float)(-cosT);
@@ -136,24 +159,21 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
   
   // Camera selection and initial position
   // 0=center, 1=Left, 2=Right
-  if (params->camera != CENTERCAM) {
+  if (stereo_camera != CENTERCAM) {
+  
+    //float separation_mult = params->separation_map;
+    float separation_mult = 1.0f;
+  
     // camera selection and initial position
-    if (params->camera == LEFTCAM) {
-      // Use the separation texture map
-      org.x = (float)(-(params->separation) * (params->separation_map) / 2.0);
-      // Debugging Alternate:  use a constant separation map value
-      //org.x = (float)(-(params->separation) * (1.0) / 2.0);
-      
-    } else if (params->camera == RIGHTCAM) {
-      // Use the separation texture map
-      org.x = (float)((params->separation) * (params->separation_map) / 2.0);
-      // Debugging Alternate: use a constant separation map value
-      //org.x = (float)((params->separation) * (1.0) / 2.0);
+    if (stereo_camera == LEFTCAM) {
+      org.x = (float)(-separation * separation_mult / 2.0);
+    } else {  // RIGHTCAM
+      org.x = (float)(separation * separation_mult / 2.0);
     }
     
     // head rotation = phi
     // rotate camera
-    if(params->zenith_mode) {
+    if (zenith_mode) {
       tmp = (float)((org.x * cosP) - (org.y * sinP));
       org.y = (float)((org.y * cosP) + (org.x * sinP));
       org.x = (float)tmp;
@@ -163,39 +183,29 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
       org.x = (float)tmp;
     }
     
-    // calculate head target
-    htarget.x = (float)(sinP * sinT);
-    htarget.y = (float)(-cosP * sinT);
-    htarget.z = (float)target.z;
-    
-    // head tilt
-    //head_tilt = (double)((head_tilt - 0.5) * DOME_PI);
-    
-    // Rotate vector tilt
-    
-    //Todo: Find the vray replacement for this mental ray line:
-    //mi_matrix_rotate_axis(tilt, &htarget, head_tilt);
-    
-    //vector_by_matrix_mult(&org, tilt, &org);
-
+    // Adjust org for Neck offset
+    org = org + target * neck_offset;
     
     // Compute ray from camera to target
-    target *= params->parallax_distance;
+    target *= parallax_distance;
     ray = target - org;
     ray = normalize(ray);
+    
   } else {
-    ray = target;
-  }
   
+    // center cam
+    ray = target;
+    
+  }
   // Flip the X ray direction about the Y-axis
-  if(params->flip_x) {
+  if (flip_x) {
     org.x = -org.x;
     ray.x = -ray.x;
   }
   
   // Flip the Y ray direction about the X-axis
-  if(params->flip_y) {
-    if (params->zenith_mode) {
+  if (flip_y) {
+    if (zenith_mode) {
       org.z = -org.z;
       ray.z = -ray.z;
     } else {
@@ -204,44 +214,41 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
     }
   }
 
-  // Note: rayVsOrgReturnMode == 0 means ray, rayVsOrgReturnMode == 1 means org data is returned
-  if(rayVsOrgReturnMode == 0){
-    return fdata.camToWorld.m*ray;
-  } else if (rayVsOrgReturnMode == 1){
-    return fdata.camToWorld.offs-org;
+
+  if (rayVsOrgReturnMode == GETDIR){
+    return ray;
+  } else {  
+    // GETORG
+    return org;
   }
-  
-  // Fix the Visual Studio "not all control paths return a value" warning
-  return fdata.camToWorld.offs-org;
 }
 
 int LatLongStereoImpl::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, TraceRay &ray, Ireal &mint, Ireal &maxt, RayDeriv &rayDeriv, VR::Color &multResult) const {
-  Vector dir=getDir(xs, ys, 0);   //Return the dir data from the getDir function
-  Vector org=getDir(xs, ys, 1);   //Return the org data from the getDir function
+  Vector dir = getDir(xs, ys, GETDIR);   //Return the dir data from the getDir function
+  Vector org = getDir(xs, ys, GETORG);   //Return the org data from the getDir function
   
   rayDeriv.dPdx.makeZero();
   rayDeriv.dPdy.makeZero();
 
   double delta=0.01f;
-  rayDeriv.dDdx=(getDir(xs+delta, ys, 0)-getDir(xs-delta, ys, 0))/float(delta*2.0f);
-  rayDeriv.dDdy=(getDir(xs, ys+delta, 0)-getDir(xs, ys-delta, 0))/float(delta*2.0f);
+  rayDeriv.dDdx = (getDir(xs + delta, ys, GETDIR) - getDir(xs - delta, ys, GETDIR)) / float(delta*2.0f);
+  rayDeriv.dDdy = (getDir(xs, ys + delta, GETDIR) - getDir(xs, ys - delta, GETDIR)) / float(delta*2.0f);
   
   const VR::VRayFrameData &fdata=vray->getFrameData();
-  ray.p=org;
-  ray.dir=dir;
+  ray.p = fdata.camToWorld.offs + fdata.camToWorld.m*org;
+  ray.dir = fdata.camToWorld.m*dir;
 
-  mint=0.0f;
-  maxt=1e18f;
+  mint = 0.0f;
+  maxt = LARGE_FLOAT;
 
   return true;
 }
 
 
-int LatLongStereoImpl::getScreenRays(  
-VR::RayBunchCamera& raysbunch,
-const double* xs,   const double* ys, 
-const float* dof_uc, const float* dof_vc, 
-bool calcDerivs /*= false*/ ) const
+int LatLongStereoImpl::getScreenRays( VR::RayBunchCamera& raysbunch,
+                                      const double* xs,   const double* ys, 
+                                      const float* dof_uc, const float* dof_vc, 
+                                      bool calcDerivs /*= false*/ ) const
 {
   for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.mints()[i] = 0.0f;
   for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.maxts()[i] = LARGE_FLOAT;
@@ -331,7 +338,9 @@ struct LatLongStereo_Params: VRayParameterListDesc {
     addParamFloat("head_tilt_map", 0.5f, -1, "Head Tilt map");
     addParamBool("flip_x", false, -1, "Flip X");
     addParamBool("flip_y", false, -1, "Flip Y");
-  }
+    addParamFloat("neck_offset", 0.0f, -1, "Neck Offset");
+    addParamBool("zenith_fov", false, -1, "Hemi-equirectangular");
+	}
 };
 
 class LatLongStereo: public VRayRenderSettings {
@@ -353,6 +362,8 @@ public:
     paramList->setParamCache("head_tilt_map", &params.head_tilt_map);
     paramList->setParamCache("flip_x", &params.flip_x);
     paramList->setParamCache("flip_y", &params.flip_y);
+    paramList->setParamCache("neck_offset", &params.neck_offset);
+    paramList->setParamCache("zenith_fov", &params.zenith_fov);
   }
 
   // From RenderSettingsExtension
@@ -382,6 +393,7 @@ public:
     vray->setCameraRaySampler(NULL, 1, cameraSampler);
   }
 };
+
 
 #define LatLongStereo_PluginID PluginID(LARGE_CONST(1185226))
 SIMPLE_PLUGIN_LIBRARY(LatLongStereo_PluginID, EXT_RENDER_SETTINGS, "LatLongStereo", "LatLongStereo plugin for V-Ray", LatLongStereo, LatLongStereo_Params);

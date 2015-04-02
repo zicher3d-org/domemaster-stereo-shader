@@ -100,6 +100,8 @@ LatLongStereo LatLongStereoCameraXLeftShape {
   separation=6.5;
   zenith_mode=1;
   separation_map=1;
+  neck_offset=0.0;
+  zenith_fov=0;
 }
 
 SettingsCamera vraySettingsCamera {

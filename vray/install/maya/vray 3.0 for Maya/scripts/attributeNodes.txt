@@ -1,3 +1,6 @@
+// Vray Domemaster3D Modified
+// 2015-04-02 12.17 am
+
 Node kMesh {
   group_0 = vray_subdivision
   group_1 = vray_subquality

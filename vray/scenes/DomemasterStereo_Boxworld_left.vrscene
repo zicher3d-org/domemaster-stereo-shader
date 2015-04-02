@@ -95,7 +95,7 @@ FilterArea aaFilter {
 DomemasterStereo RenderCamShape {
   camera=1;
   fov_angle=360.0;
-  zero_parallax_sphere=355.0;
+  parallax_distance=355.0;
   separation=6.5;
   forward_tilt=0.0;
   tilt_compensation=0;
@@ -105,6 +105,7 @@ DomemasterStereo RenderCamShape {
   head_tilt_map=0.5;
   flip_x=0;
   flip_y=0;
+  neck_offset=0.0;
 }
 
 SettingsCamera vraySettingsCamera {

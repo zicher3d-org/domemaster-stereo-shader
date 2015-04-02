@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-03-28  
+2015-04-02 
 
 - Table of Contents
     *    [Overview](#overview)
@@ -55,7 +55,7 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-03-23 ) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-04-01 ) is a development build.
 
 The Vray Standalone version generally works without too many issues.
 
@@ -80,7 +80,7 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a D
 	DomemasterStereo RenderCamShape {
 	  camera=0;
 	  fov_angle=360.0;
-	  zero_parallax_sphere=355.0;
+	  parallax_distance=355.0;
 	  separation=6.5;
 	  forward_tilt=0.0;
 	  tilt_compensation=0;
@@ -90,6 +90,7 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a D
 	  head_tilt_map=0.5;
 	  flip_x=0;
 	  flip_y=0;
+      neck_offset=0.0;
 	}
 
 Note: camera=0 means center view, camera=1 is left view, and camera=2 is right view.
@@ -112,6 +113,8 @@ You can upgrade a regular Vray camera (in this case named RenderCamShape) to a L
 	  separation=6.5;
 	  zenith_mode=1;
 	  separation_map=1;
+      neck_offset=0.0;
+      zenith_fov=0;
 	}
 
 Note: camera=0 means center view, camera=1 is left view, and camera=2 is right view.
@@ -124,7 +127,7 @@ You can test this code out using the included vray example scene "vray 2 LatLong
 
 ### Windows 64-bit ###
 
-**Step 1.** Download the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
+**Step 1.** Download the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
 
 **Step 2.** Copy the .dll files to the vray-plugins directory:  
 
@@ -178,7 +181,7 @@ If you get an "Error Loading Plugin-DLL" error message in 3DS Max when when you 
 
 ### Windows 64-bit ###
 
-**Step 1.** Download the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
+**Step 1.** Download the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
 
 **Step 2.** Copy the .dll files to the Vray RT plugins directory.
 
@@ -241,7 +244,7 @@ If you run the plgparams with the shader name listed you can see the individual 
 	Parameters for plugin 'DomemasterStereo'
 	  camera: integer = 0, Center, Left, Right Camera Views
 	  fov_angle: float = 180, Field of View
-	  zero_parallax_sphere: float = 360, Zero Parallax Sphere
+	  parallax_distance: float = 360, Parallax Distance
 	  separation: float = 6.5, Camera Separation Distance
 	  forward_tilt: float = 0, Forward Tilt
 	  tilt_compensation: bool = false, Tilt Compensation Mode
@@ -251,7 +254,7 @@ If you run the plgparams with the shader name listed you can see the individual 
 	  head_tilt_map: float = 0.5, Head Tilt map
 	  flip_x: bool = false, Flip X
 	  flip_y: bool = false, Flip Y
-
+      neck_offset: float = 0, Neck Offset
 
 #### plgparams.exe LatLongStereo ####
 
@@ -266,6 +269,8 @@ If you run the plgparams with the shader name listed you can see the individual 
 	  head_tilt_map: float = 0.5, Head Tilt map
 	  flip_x: bool = false, Flip X
 	  flip_y: bool = false, Flip Y
+      neck_offset: float = 0, Neck Offset
+      zenith_fov: float = 0, Hemi-equirectangular
 
     
 **Note:** If you receive the following error message it means you have tried to load a Vray 2.5 shader in Vray 3.0:  
@@ -361,7 +366,7 @@ You can also delete the python code in the **Mel/Python Callbacks** `Post Transl
 ### Windows 64-bit ###
 
 **Step 1.**
-Download the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
+**Step 1.** Download the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
 
 **Step 2.**
 Copy the .dll files to the vray-plugins directory:  
@@ -462,7 +467,7 @@ Open a new command prompt and cd into the vray cameras source code folder:
 Copy the Domemaster3D `vray_DomemasterStereo` and `vray_LatLongStereo` source code folders into the vray cameras source code folder. 
 
 **Step 4.**
-Compile the source code in Visual Studio 11 with the following project files:
+Set the compiling mode to "release" and compile the source code in Visual Studio 2013 with the following project files:
 
 `vray_DomemasterStereo.vcxproj`  
 `vray_LatLongStereo.vcxproj`  
@@ -515,6 +520,20 @@ At this point a few of the required Vray on Linux shader compiling details are n
 
 ## Version History ##
 
+### 2015-04-02 ###
+
+**Vray for Maya**
+
+- Synced the Vray for Maya code to include the 3DS Max "Neck Offset" and "Hemi-equirectangular" features.
+
+- The Visual Studio compiler version has been switched to Visual Studio 2013. This means you will need to install the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784) if you don't have it on your workstations and render nodes.
+
+Note: The Domemaster3D Vray for Maya shader parameters have been updated and may break compatibility with the previous releases. This was done to syncronise the variable names in .vrscene exports with the 3DS Max version of the shaders.
+
+**Vray for Softimage**
+
+- Synced the Vray for Softimage SPDL code to include the 3DS Max "Neck Offset" and "Hemi-equirectangular" features.
+
 ### 2015-03-31 ###
 
 **Vray Standalone Mac OS X Support**
@@ -540,8 +559,6 @@ At this point a few of the required Vray on Linux shader compiling details are n
 - The LatLongStereo shader for Vray on 3DS Max has a new Domemaster3D feature of a neck offset to simulate a physical 360&deg; camera rig's distance between a camera's lens nodal point and the origin on the tripod.
 
 - The LatLongStereo shader for Vray on 3DS Max has a new Domemaster3D feature of a hemirect checkbox. Hemirect stands for hemi-equirectangular which is a partial spherical rendering. The hemirect feature allows you to align partial latlong renderings so they start at the top zenith region of the latlong frame. This is useful if you want to render a latlong image with a 90&deg; vertical field of view and then warp it in post into a 180&deg; fulldome image.
-
-**Note:** The Domemaster3D source code for the Vray for Maya and Vray Standalone releases need to be updated and re-compiled to include the most recent Vray for 3DS Max Domemaster3D lens shader code changes.
 
 ### Version 0.4 - 2015-02-28 ###
 
@@ -571,15 +588,16 @@ At this point a few of the required Vray on Linux shader compiling details are n
 ### DomemasterStereo To Dos ###
 
 - Correctly handle the black matting of the domemaster frame when "if (r < 1.0)" is false
-- Implement the head tilt code
 
 ### Vray for Maya To Dos ###
 
-- Implement Roberto Ziche's updated camera origin code, the neck offset, and the hemi-rect rendering options.
+- Implement a screen space texture UV re-mapping mode in the lens shaders for the stereo control maps.
 
 ### Vray for 3DS Max To Dos ###
 
 - Test the new Vray for 3DS Max shader builds.
+- Figure out a way to reduce the noise in the screen space control map based renderings
+- Improve the screen space texture map support
 
 ### Vray for Softimage To Dos ###
 

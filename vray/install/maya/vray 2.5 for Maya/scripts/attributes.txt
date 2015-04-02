@@ -32,8 +32,8 @@ Attribute vrayDomemasterStereoFovAngle {
   range_step = 0.1
   default = 180.0
 }
-Attribute vrayDomemasterStereoZeroParallaxSphere {
-  label = Zero Parallax Sphere
+Attribute vrayDomemasterStereoParallaxDistance {
+  label = Parallax Distance
   state = optional
   group = vray_DomemasterStereo
   subtype = slider
@@ -120,6 +120,17 @@ Attribute vrayDomemasterStereoFlipY {
   subtype = switch
   decl = int
   default = false
+}
+Attribute vrayDomemasterStereoNeckOffset {
+  label = Neck Offset
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = -10000.0
+  rangesoft_max = 1000.0
+  range_step = 0.1
+  default = 0.0
 }
 
 
@@ -239,6 +250,25 @@ Attribute vrayLatLongStereoFlipX {
 }
 Attribute vrayLatLongStereoFlipY {
   label = Flip Y
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayLatLongStereoNeckOffset {
+  label = Neck Offset
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = -10000.0
+  rangesoft_max = 1000.0
+  range_step = 0.1
+  default = 0.0
+}
+Attribute vrayLatLongStereoZenithFov {
+  label = Hemi-equirectangular
   state = optional
   group = vray_LatLongStereo
   subtype = switch

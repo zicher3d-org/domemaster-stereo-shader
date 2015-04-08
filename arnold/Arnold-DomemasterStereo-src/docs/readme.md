@@ -1,6 +1,6 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2015-02-23
+2015-04-08 
   
 ![Maya DomemasterStereo for Arnold Screenshot](images/mtoa_domemasterstereo.png)
 
@@ -14,7 +14,7 @@ This guide covers the Arnold version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Arnold Domemaster3D shaders (as of 2015-02-23) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+The current version of the Arnold Domemaster3D shaders (as of 2015-04-08 ) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
 
 The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. The LatLongStereo shader should be rendered with a 2:1 aspect ratio to avoid vertically over-rendering the scene's FOV angle.
 
@@ -359,6 +359,9 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 
 ## Version History ##
 
+### Version 1.6.2 - 2015-04-08 ###
+
+Added the initial Cinema4D C4DtoA "res" support files for the lens shaders.
 
 ### Version 1.6.1 - 2015-02-23 ###
 

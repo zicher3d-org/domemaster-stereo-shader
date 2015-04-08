@@ -293,14 +293,14 @@ img {
 <body>
 <h1>Arnold Domemaster3D Guide</h1>
 <hr />
-<p>2015-02-23</p>
+<p>2015-04-08 </p>
 <p><img src="images/mtoa_domemasterstereo.png" alt="Maya DomemasterStereo for Arnold Screenshot" /></p>
 <h2>Overview</h2>
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Arnold version of the Domemaster Stereo Shader.</p>
 <p><strong>Tip:</strong> After you use the Maya shelf tools to add a fulldome or latlong stereo camera rig to your scene, you need to adjust the left camera in the stereo rig to change both of the &quot;linked&quot; lens shader attributes for the <strong>LatLongStereo</strong> or <strong>DomemasterStereo</strong> rigs.</p>
 <h2>Known Issues</h2>
-<p>The current version of the Arnold Domemaster3D shaders (as of 2015-02-23) are a development build. At this point in time there is no easy way to create stereoscopic prodcution centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.</p>
+<p>The current version of the Arnold Domemaster3D shaders (as of 2015-04-08 ) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.</p>
 <p>The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. The LatLongStereo shader should be rendered with a 2:1 aspect ratio to avoid vertically over-rendering the scene's FOV angle.</p>
 <p>At this point, the DomemasterStereo shader will render a stereo fulldome image but you will notice something that looks like a small &quot;swirly region&quot; in the zenith part of the fulldome frame. This is due to a lack of a screen space turn map texture. </p>
 <h2>Shader Screenshots</h2>
@@ -541,10 +541,12 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 <ul>
 <li>Roberto Ziche created the original <code>domeAFL_FOV_Stereo</code> shader for 3DS Max.</li>
 <li>Luis Silva created the initial Arnold lens shader port for Softimage.</li>
-<li>Andrew Hazelden is doing the ongoing port of the <code>DomemasterStereo</code> and LatLongStereo lens shader for Arnold on Maya/Softimage/Houdini.</li>
+<li>Andrew Hazelden is doing the ongoing port of the <code>DomemasterStereo</code> and <code>LatLongStereo</code> lens shader for Arnold on Maya/Softimage/Houdini.</li>
 <li>Daniel Ott created the original 2D <code>domeAFL_FOV</code>, and <code>domeAFL_WxH</code> lens shaders for mental ray.</li>
 </ul>
 <h2>Version History</h2>
+<h3>Version 1.6.2 - 2015-04-08</h3>
+<p>Added the initial Cinema4D C4DtoA &quot;res&quot; support files for the lens shaders.</p>
 <h3>Version 1.6.1 - 2015-02-23</h3>
 <p>Updated the Windows builds to use Visual Studio 2013 for the Arnold .dll shader compiles.</p>
 <p>Tweaked the LatLongStereo FOV code to improve the vertical FOV rendering issue. </p>

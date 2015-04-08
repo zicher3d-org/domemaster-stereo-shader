@@ -1,0 +1,25 @@
+// LatLongStereo shader for Arnold/C4DtoA v1
+// 2015-04-08 08.01 am
+// C4DtoA Support by Andrew Hazelden
+// email: andrew@andrewhazelden.com
+// web:   www.andrewhazelden.com
+
+STRINGTABLE ainode_LatLongStereo
+{
+	ainode_LatLongStereo   "Arnold LatLongStereo node";
+
+	C4DAI_LATLONGSTEREO_MAIN_GRP              "Main";
+
+	C4DAIP_LATLONGSTEREO_CAMERA               "Camera";
+	C4DAIP_LATLONGSTEREO_FOV_VERT_ANGLE       "Field of View Vertical";
+	C4DAIP_LATLONGSTEREO_FOV_HORIZ_ANGLE      "Field of View Horizontal";
+	C4DAIP_LATLONGSTEREO_PARALLAX_DISTANCE    "Zero Parallax Distance";
+	C4DAIP_LATLONGSTEREO_SEPARATION           "Camera Separation";
+	C4DAIP_LATLONGSTEREO_ZENITH_MODE          "Zenith Mode";
+	C4DAIP_LATLONGSTEREO_SEPARATION_MAP       "Separation Map";
+	//C4DAIP_LATLONGSTEREO_HEAD_TURN_MAP        "Head Turn Map";
+	C4DAIP_LATLONGSTEREO_HEAD_TILT_MAP        "Head Tilt Map";
+	C4DAIP_LATLONGSTEREO_FLIP_RAY_X           "Flip X";
+	C4DAIP_LATLONGSTEREO_FLIP_RAY_Y           "Flip Y";
+}
+

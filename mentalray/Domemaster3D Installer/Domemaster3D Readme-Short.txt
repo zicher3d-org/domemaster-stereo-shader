@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.7.1 - March 28, 2015
+Version 1.7.2 - April 9, 2015
 
 About This Shader
 ---------------------
@@ -64,6 +64,14 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 
 Version History
 -----------------
+
+
+Version 1.7.2
+----------------
+April 9, 2015
+
+Maya
+  Updated the dome diagnostics tool to support RLM environment variables
 
 Version 1.7.1
 -----------------

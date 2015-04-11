@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.7.1
-  2015-03-16  
+  Dome Diagnostics Report Tool V1.7.2
+  2015-04-09 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  Version 1.7.2
+  -------------
+  2015-04-09 
+  
+  Added support for RLM reprise license manager environment variable detection.
   
   Version 1.7
   -----------
@@ -781,6 +787,63 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MAXWELL3_MATERIALS_DATABASE` ###\r\n> " + $maxwellMaterialsDBString + "\r\n\r\n";
 
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  RLM License Manager Environment Variables ##\r\n\r\n";
+  
+  // From RLM Documentation Guide:
+  // http://www.reprisesoftware.com/RLM_License_Administration.pdf
+  
+  string $rlmString = `getenv "RLM_COMM_TIMEOUT"`;
+  $domeDebugText += "### `RLM_COMM_TIMEOUT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_CONNECT_TIMEOUT"`;
+  $domeDebugText += "### `RLM_CONNECT_TIMEOUT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_DEBUG"`;
+  $domeDebugText += "### `RLM_DEBUG` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_DIAGNOSTICS"`;
+  $domeDebugText += "### `RLM_DIAGNOSTICS` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_EXTENDED_ERROR_MESSAGES"`;
+  $domeDebugText += "### `RLM_EXTENDED_ERROR_MESSAGES` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_LICENSE"`;
+  $domeDebugText += "### `RLM_LICENSE` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_NO_UNLIMIT"`;
+  $domeDebugText += "### `RLM_NO_UNLIMIT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_LICENSE_PASSWORD"`;
+  $domeDebugText += "### `RLM_LICENSE_PASSWORD` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_PATH_RANDOMIZE"`;
+  $domeDebugText += "### `RLM_PATH_RANDOMIZE` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_PROJECT"`;
+  $domeDebugText += "### `RLM_PROJECT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_QUEUE"`;
+  $domeDebugText += "### `RLM_QUEUE` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  string $rlmString = `getenv "RLM_ROAM"`;
+  $domeDebugText += "### `RLM_ROAM` ###\r\n> " + $rlmString + "\r\n\r\n";
+    
+  string $rlmString = `getenv "RLMSTAT"`;
+  $domeDebugText += "### `RLMSTAT` ###\r\n> " + $rlmString + "\r\n\r\n";
+
+  // Optional additions: 
+  
+  // Run the terminal command to check for licenses:
+  // rlmstat -avail
+  
+  // Run the command to check the status of RLM and ISV servers:
+  // rlmstat -a
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
   //------------------------------------------------------------
 
 	$domeDebugText += "##  VRAY Environment Variables ##\r\n\r\n";

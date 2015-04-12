@@ -14,9 +14,11 @@
   -------------
   2015-04-12  
   
-  Added support for RLM reprise license manager environment variable detection.
+  Updated the dome diagnostics tool to support RLM environment variables
   
-  Updated the PlayblastVR optionvar reading code.
+  Updated the dome diagnostics tool PlayblastVR OptionVar reading code
+  
+  Updated the dome diagnostics tool Arnold MtoA environment variables
   
   Version 1.7
   -----------
@@ -772,6 +774,9 @@ global proc domeDiagnostics(){
   string $arnoldLicenseString = `getenv "solidangle_LICENSE"`;
   $domeDebugText += "### `solidangle_LICENSE` ###\r\n> " + $arnoldLicenseString + "\r\n\r\n";
   
+  string $mtoaShaderString = `getenv "ARNOLD_PATH"`;
+  $domeDebugText += "### `ARNOLD_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
   string $arnoldShaderString = `getenv "ARNOLD_PLUGIN_PATH"`;
   $domeDebugText += "### `ARNOLD_PLUGIN_PATH` ###\r\n> " + $arnoldShaderString + "\r\n\r\n";
 
@@ -780,6 +785,9 @@ global proc domeDiagnostics(){
 
   string $mtoaShaderString = `getenv "MTOA_PATH"`;
   $domeDebugText += "### `MTOA_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  string $mtoaShaderString = `getenv "MTOA_LOG_PATH"`;
+  $domeDebugText += "### `MTOA_LOG_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
 
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 

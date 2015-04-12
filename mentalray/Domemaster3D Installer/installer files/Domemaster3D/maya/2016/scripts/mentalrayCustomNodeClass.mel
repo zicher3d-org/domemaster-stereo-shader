@@ -1,6 +1,6 @@
 //****************************************************************************
 // Contains Maya node classification strings for known mental ray shaders.
-// Maya 2015
+// Maya 2016
 //
 // Domemaster3D Shader v1.5 - July 3, 2014 
 // Updated mentalrayCustomNodeClass.mel file to support hiding the legacy domeAFL shaders

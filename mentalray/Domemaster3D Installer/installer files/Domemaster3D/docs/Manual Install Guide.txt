@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 1.7.1 - March 28, 2015
+Version 1.7.2 - April 12, 2015
 
 ## Render Farm Note ## 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
@@ -11,7 +11,18 @@ Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /opt/Domemaster3D/
 
 
-Step 2. Copy the Maya.env file to the user's maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
+Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
+
+Maya Module Approach
+If you are using Maya 2013-2016 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+
+Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
+$HOME/maya/<Maya Version Number>/modules/
+
+Note: If the modules folder doesn't exist yet, you should create it.
+
+Maya ENV Approach
+Copy the Maya.env file to the user's maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
 
 The Domemaster3D shader's Maya.env files are located in:
 /opt/Domemaster3D/maya/<Maya Version Number>/
@@ -37,7 +48,7 @@ sudo apt-get update
 sudo apt-get install imagemagick
 
 ## Notes ##
-The Domemaster3D shader v1.6 was compiled using CentOS Linux 6.4. 
+The Domemaster3D shader v1.7 was compiled using CentOS Linux 6.4. 
 
 If there are any issues with running the shader, the developer can be reached at: 
 andrew@andrewhazelden.com
@@ -50,7 +61,18 @@ Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 C:\Program Files\Domemaster3D\
 
 
-Step 2. Copy the Maya.env file to the user's maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
+Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
+
+Maya Module Approach
+If you are using Maya 2013-2016 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+
+Copy the Domemaster3D.mod Maya module file from C:\Program Files\Domemaster3D\maya\modules\Domemaster3D.mod to your user account's Maya modules folder:
+C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\modules\
+
+Note: If the modules folder doesn't exist yet, you should create it.
+
+Maya ENV Approach
+Copy the Maya.env file to the user's maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
 
 The Domemaster3D shader's Maya.env files are located in:
 C:\Program Files\Domemaster3D\maya\<Maya Version Number>\
@@ -79,7 +101,18 @@ System Properties > Environment Variables and then editing the current
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /Applications/Domemaster3D/
 
-Step 2. Copy the Maya.env file to the user's  maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
+Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
+
+Maya Module Approach
+If you are using Maya 2013-2016 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+
+Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
+/Applications/Domemaster3D/<Maya Version Number>/modules/
+
+Note: If the modules folder doesn't exist yet, you should create it.
+
+Maya ENV Approach
+Copy the Maya.env file to the user's  maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
 
 The Domemaster3D shader's Maya.env files are located in:
 /Applications/Domemaster3D/<Maya Version Number>/
@@ -207,3 +240,5 @@ If the render farm customer is rendering a 3D fulldome or LatlongStereo scene ha
 source "domeRender.mel"; domemaster3DPreRenderMEL();
 
 This will make sure the camera's field of view is correct and the stereo rig is ready to render.
+
+If there are lens shader artifacts that show up in Domemaster3D or LatLongStereo renderings, you can advise your customers to eliminate them by using the Domemaster3D shelf's native mental ray texturing tools when applying surface materials to objects in the scene. Also the applying Maya native camera shape FOV overrides (that are discussed on the Maya Domemaster3D Wiki's Tip's and Tricks page) can be used as another tool to help reduce/eliminate the lens shading artifacts.

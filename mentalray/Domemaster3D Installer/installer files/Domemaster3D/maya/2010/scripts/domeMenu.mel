@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.7
-2015-03-26 Maya 2010
+Version 1.7.2
+2015-04-12 Maya 2010
 ------------------------------------------------------------------------------
 
 Notes:
@@ -485,7 +485,11 @@ global proc createDomemaster3DMenu() {
   }else{
     menuItem -divider true;
   }
-
+  menuItem 
+    -label "Load Domemaster3D Shelf" 
+    -annotation "Load the Domemaster3D Shelf into Maya."
+    -image "domeLog.xpm" 
+    -command "loadNewShelf(\"shelf_Domemaster3D.mel\");";
   menuItem 
     -label "Domemaster3D Wiki Help" 
     -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."

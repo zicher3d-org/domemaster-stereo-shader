@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.7.2
-  2015-04-09 
+  2015-04-12 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,9 +12,11 @@
   
   Version 1.7.2
   -------------
-  2015-04-09 
+  2015-04-12  
   
   Added support for RLM reprise license manager environment variable detection.
+  
+  Updated the PlayblastVR optionvar reading code.
   
   Version 1.7
   -----------
@@ -636,8 +638,6 @@ global proc domeDiagnostics(){
   
   string $playblastVRModuleString;
   
-
-  
   string $panoramaFormatString;
   
   // Query the PlayblastVR optionVar value
@@ -742,6 +742,18 @@ global proc domeDiagnostics(){
       // Domemaster3D DomeViewer
       $batchSequenceString = "Domemaster3D DomeViewer";
       break;
+    case 9:
+      // Whirligig
+      $batchSequenceString = "Whirligig";
+      break;
+    case 10:
+      // VLC
+      $batchSequenceString = "VLC";
+      break;
+    case 11:
+      // RV
+      $batchSequenceString = "RV";
+      break;
     default:
       $batchSequenceString = "None";
       break;
@@ -751,7 +763,6 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `Show Batch Sequence viewer` ###\r\n> " + $batchSequenceString + "\r\n\r\n";
   
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
-
   
   //------------------------------------------------------------
 

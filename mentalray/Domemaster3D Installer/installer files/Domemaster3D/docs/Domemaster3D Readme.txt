@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.7.1 - March 28, 2015
+Version 1.7.2 - April 12, 2015
 
 About This Shader
 ---------------------
@@ -259,6 +259,21 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 1.7.2
+----------------
+April 12, 2015
+
+Maya
+  Updated the dome diagnostics tool to support RLM environment variables
+  
+  Updated the dome diagnostics tool PlayblastVR OptionVar reading code
+  
+  Updated the dome diagnostics tool Arnold MtoA environment variables
+  
+  Added an entry to the Domemaster3D menu to load the "shelf_Domemaster3D.mel" shelf file.
+
+  Added a Maya Domemaster3D.mod module file for Maya 2013-2016. This makes it easier to install Domemaster3D in a multi-user environment. This module file was created with the help of Randall Rickert (USC School of Cinematic Arts). Note: If you want to use the new Domemaster3D.mod module file instead of using the standard Maya.env file, you need to clear out and remove the Domemaster3D entries that are placed in the Maya.env file by the Domemaster3D installer. You can find the Maya.env file in the folder: (C:\Users\<User Account>\Documents\maya\<Version Number>-x64\Maya.env).
+  
 Version 1.7.1
 -----------------
 March 28, 2015

@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.7.2
-  2015-04-12 
+  Dome Diagnostics Report Tool V1.7.3
+  2015-04-14 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  Version 1.7.3
+  -------------
+  2015-04-14 
+  
+  Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
   
   Version 1.7.2
   -------------
@@ -874,8 +880,14 @@ global proc domeDiagnostics(){
   $vrayString = `getenv "VRAY_AUTH_CLIENT_FILE_PATH"`;
   $domeDebugText += "### `VRAY_AUTH_CLIENT_FILE_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
 
-
   if ($mayaVersion == 2010){
+      if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2010_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA20150_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
     $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -885,6 +897,13 @@ global proc domeDiagnostics(){
     $vrayString = `getenv "VRAY_TOOLS_MAYA2010_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2010_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2011){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2011_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2011_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
     $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -894,6 +913,13 @@ global proc domeDiagnostics(){
     $vrayString = `getenv "VRAY_TOOLS_MAYA2011_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2011_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2012){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2012_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2012_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
     $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -903,6 +929,13 @@ global proc domeDiagnostics(){
     $vrayString = `getenv "VRAY_TOOLS_MAYA2012_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2012_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2013){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2013_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2013_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
     $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -912,6 +945,13 @@ global proc domeDiagnostics(){
     $vrayString = `getenv "VRAY_TOOLS_MAYA2013_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2013_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
  } else if ($mayaVersion == 2014){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2014_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2014_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
     $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -921,6 +961,14 @@ global proc domeDiagnostics(){
     $vrayString = `getenv "VRAY_TOOLS_MAYA2014_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2014_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   } else if ($mayaVersion == 2015){
+    if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2015_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2015_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
     $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -930,6 +978,14 @@ global proc domeDiagnostics(){
     $vrayString = `getenv "VRAY_TOOLS_MAYA2015_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2015_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   } else if ($mayaVersion == 2016){
+      if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2016_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2016_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2016_PLUGINS_x64"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2016_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
     $vrayString = `getenv "VRAY_FOR_MAYA2016_MAIN_x64"`;
     $domeDebugText += "### `VRAY_FOR_MAYA2016_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 

@@ -820,6 +820,9 @@ global proc domeDiagnostics(){
   // From RLM Documentation Guide:
   // http://www.reprisesoftware.com/RLM_License_Administration.pdf
   
+  string $rlmString = `getenv "HTTP_PROXY"`;
+  $domeDebugText += "### `HTTP_PROXY` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
   string $rlmString = `getenv "RLM_COMM_TIMEOUT"`;
   $domeDebugText += "### `RLM_COMM_TIMEOUT` ###\r\n> " + $rlmString + "\r\n\r\n";
   

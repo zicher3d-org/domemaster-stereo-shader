@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 1.7.2 - April 12, 2015
+Version 1.7.3 - April 16, 2015
 
 ## Render Farm Note ## 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
@@ -125,7 +125,7 @@ Maya.env.win
 To use the appropriate Maya.env file you need to select the right one
 for your platform, rename it to "Maya.env", and copy it to your user
 account's "Maya version-x64" folder:
-~/Library/Preferences/Autodesk/maya/<Maya Version Number>-x64/Maya.env
+~/Library/Preferences/Autodesk/maya/<Maya Version Number>/Maya.env
 
 
 Step 3. If you are running Mac OS X 10.8, 10.9, and 10.10 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.

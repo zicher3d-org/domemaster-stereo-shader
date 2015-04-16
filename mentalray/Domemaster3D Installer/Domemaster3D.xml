@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.7.2</version>
+    <version>1.7.3</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -259,7 +259,7 @@
                 <!-- Maya 2016 Install files -->
                 <componentGroup>
                     <name>Maya2016</name>
-                    <description>Maya 2016 Support Beta </description>
+                    <description>Maya 2016 Support Beta</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
@@ -274,7 +274,7 @@
                             <folderList>
                                 <folder>
                                     <description>Maya.env File</description>
-                                    <destination>~/Library/Preferences/Autodesk/maya/2016-x64/</destination>
+                                    <destination>~/Library/Preferences/Autodesk/maya/2016/</destination>
                                     <name>env_mac</name>
                                     <platforms>osx</platforms>
                                     <actionList>
@@ -291,7 +291,7 @@
                                 </folder>
                                 <folder>
                                     <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016-x64</destination>
+                                    <destination>${windows_folder_personal}/maya/2016</destination>
                                     <name>env_linux</name>
                                     <platforms>linux</platforms>
                                     <actionList>
@@ -308,7 +308,7 @@
                                 </folder>
                                 <folder>
                                     <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016-x64</destination>
+                                    <destination>${windows_folder_personal}/maya/2016</destination>
                                     <name>env_win</name>
                                     <platforms>windows</platforms>
                                     <distributionFileList>

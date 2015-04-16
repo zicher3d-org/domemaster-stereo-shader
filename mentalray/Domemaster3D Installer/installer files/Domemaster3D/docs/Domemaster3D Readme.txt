@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.7.3 - April 14, 2015
+Version 1.7.3 - April 16, 2015
 
 About This Shader
 ---------------------
@@ -69,7 +69,7 @@ Maya.env.osx
 Maya.env.win
 
 To use the appropriate Maya.env file you need to select the right one for your platform, rename it to "Maya.env", and copy it to your user account's "Maya version-x64" folder:
-C:\Users\<Your User Account>\Documents\Maya\Maya2012-x64\Maya.env
+C:\Users\<Your User Account>\Documents\Maya\<Maya Version>\Maya.env
 
 
 Maya Tools
@@ -261,11 +261,16 @@ Version History
 
 Version 1.7.3
 -------------
-2015-04-14 
+2015-04-16
 
 Maya
+  Updated the Maya 2016 x64 install paths
+  
   Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
- 
+  
+  Updated the Domemaster3D module file entry line for the Maya version specific Python Path:
+    PYTHONPATH+:=../2015/scripts
+
 Version 1.7.2
 ----------------
 April 12, 2015

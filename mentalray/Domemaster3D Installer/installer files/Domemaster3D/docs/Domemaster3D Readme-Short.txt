@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.7.3 - April 14, 2015
+Version 1.7.3 - April 16, 2015
 
 About This Shader
 ---------------------
@@ -67,11 +67,16 @@ Version History
 
 Version 1.7.3
 -------------
-2015-04-14 
+2015-04-16
 
 Maya
+  Updated the Maya 2016 x64 install paths
+  
   Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
- 
+  
+  Updated the Domemaster3D module file entry line for the Maya version specific Python Path:
+    PYTHONPATH+:=../2015/scripts
+
 Version 1.7.2
 ----------------
 April 12, 2015
@@ -85,7 +90,7 @@ Maya
   
   Added an entry to the Domemaster3D menu to load the "shelf_Domemaster3D.mel" shelf file.
 
-  Added a Maya Domemaster3D.mod module file for Maya 2013-2016. This makes it easier to install Domemaster3D in a multi-user environment. This module file was created with the help of Randall Rickert (USC School of Cinematic Arts). Note: If you want to use the new Domemaster3D.mod module file instead of using the standard Maya.env file, you need to clear out and remove the Domemaster3D entries that are placed in the Maya.env file by the Domemaster3D installer. You can find the Maya.env file in the folder: (C:\Users\<User Account>\Documents\maya\<Version Number>-x64\Maya.env).
+  Added a Maya Domemaster3D.mod module file for Maya 2013-2016. This makes it easier to install Domemaster3D in a multi-user environment. This module file was created with the help of Randall Rickert (USC School of Cinematic Arts). Note: If you want to use the new Domemaster3D.mod module file instead of using the standard Maya.env file, you need to clear out and remove the Domemaster3D entries that are placed in the Maya.env file by the Domemaster3D installer. You can find the Maya.env file in the folder: (C:\Users\<User Account>\Documents\maya\<Version Number>\Maya.env).
   
 Version 1.7.1
 -----------------

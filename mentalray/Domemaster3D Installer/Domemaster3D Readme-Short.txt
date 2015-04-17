@@ -70,8 +70,8 @@ Version 1.7.3
 2015-04-16
 
 Maya
-  Updated the Maya 2016 x64 install paths
-  
+  Maya 2016 Compatibility Release - Updated the Maya 2016 install paths, the Maya 2016 Visor tab script (visorPanel.mel), the MR physical sky files (AEmia_physicalskyTemplate.mel & createMentalRayIndirectLightingTab.mel), and the mental ray for Maya 2016 mentalrayCustomNodeClass.mel script.
+	
   Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
   
   Updated the Domemaster3D module file entry line for the Maya version specific Python Path:

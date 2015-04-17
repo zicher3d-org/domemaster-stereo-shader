@@ -2,7 +2,7 @@
 // Mental Ray Indirect Lighting Tab
 //==================================================================
 
-// Note: Updated on April 16, 2013 by Andrew Hazelden to connect the 
+// Note: Updated on April 16, 2015 by Andrew Hazelden to connect the 
 // exposure lens shader to the first input on the lens shader list 
 // .miLensShaderList[0]
 
@@ -176,9 +176,9 @@ global proc miCreateSunSky()
 	for ($camera in $cameras) {
 		if (!`getAttr ($camera + ".orthographic")`) {
 			connectAttr -force ($exposureControl + ".message") ($camera + ".miLensShaderList[0]");
-        	// New connection to the first input on the lens shader list (AH)   
+			// New connection to the first input on the lens shader list (AH)   
         		
-        		
+        	
 			connectAttr -force
 				($skyShader + ".message")
 				($camera + ".miEnvironmentShader");
@@ -1262,7 +1262,10 @@ global	string	$miHintsFinalGather[];
 	attrControlGrp -attribute "miDefaultOptions.finalGatherTraceDiffuse"
 		-label (getPluginResource("Mayatomr", "kSecondaryDiffuseBounces"))
 			miFinalGatherDiffuseCtrl;
-
+	miControlGrpAnnotate
+		(getPluginResource("Mayatomr", "kSecondaryDiffuseBounceAnnot"))
+			miFinalGatherDiffuseCtrl;
+			
 	setParent ..;
 
 	//---------------------
@@ -1298,7 +1301,7 @@ global	string	$miHintsFinalGather[];
 	columnLayout -adj true miFGSecondaryfile;
 
 	rowLayout -nc 2;
-		text -label (getPluginResource("Mayatomr", "kFGSecondaryFile"));
+		text -label (getPluginResource("Mayatomr", "kFGSecondaryFile")) -annotation (getPluginResource("Mayatomr", "kFGSecondaryFileAnnot"));
 		string $AddNewItem = getPluginResource("Mayatomr", "kcreateMRIndirLightTabAddNewItem");
 		if(`layout -exists "miAEFGSecondaryfile"`)
 			button -label $AddNewItem

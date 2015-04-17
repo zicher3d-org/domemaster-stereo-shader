@@ -2,7 +2,7 @@
 // Contains Maya node classification strings for known mental ray shaders.
 // Maya 2016
 //
-// Domemaster3D Shader v1.5 - July 3, 2014 
+// Domemaster3D Shader v1.7 - April 16, 2015 
 // Updated mentalrayCustomNodeClass.mel file to support hiding the legacy domeAFL shaders
 // Changed by Andrew Hazelden (andrew@andrewhazelden.com)
 //
@@ -16,90 +16,90 @@
 global proc int mentalrayCustomNodeClassIsLegacy(string $nodeType)
 {
     if ($nodeType == "mia_material" ||
-          $nodeType == "misss_fast_shader" ||
-          $nodeType == "mi_car_paint_phen" ||
-          $nodeType == "mi_metallic_paint" ||
-          $nodeType == "misss_fast_shader2" ||
-          $nodeType == "misss_fast_shader" ||
-          $nodeType == "mib_glossy_reflection" ||
-          $nodeType == "mib_glossy_refraction" ||
-          $nodeType == "builtin_bsdf_architectural" ||
-          $nodeType == "builtin_bsdf_architectural_comp" ||
-          $nodeType == "builtin_bsdf_ashikhmin" ||
-          $nodeType == "builtin_bsdf_carpaint" ||
-          $nodeType == "builtin_bsdf_lambert" ||
-          $nodeType == "builtin_bsdf_mirror" ||
-          $nodeType == "builtin_bsdf_phong" ||
-          $nodeType == "path_material" ||
-          $nodeType == "mib_illum_lambert" ||
-          $nodeType == "mib_illum_phong" ||
-          $nodeType == "mib_illum_blinn" ||
-          $nodeType == "mib_illum_cooktorr" ||
-          $nodeType == "mib_illum_ward" ||
-          $nodeType == "mib_illum_ward_deriv" ||
-          $nodeType == "path_material" ||
-          $nodeType == "misss_mia_skin_phen_d" ||
-          $nodeType == "misss_mia_skin2_phen_d" ||
-          $nodeType == "mib_texture_turbulence" ||
-          $nodeType == "mib_texture_checkerboard" ||
-          $nodeType == "mib_texture_polkadot" ||
-          $nodeType == "mib_texture_polkasphere" ||
-          $nodeType == "mib_texture_wave" ||
-          $nodeType == "mib_texture_lookup" ||
-          $nodeType == "mib_texture_lookup2" ||
-          $nodeType == "mib_texture_filter_lookup" ||
-          $nodeType == "mib_bump_basis" ||
-          $nodeType == "mi_bump_flakes" ||
-          $nodeType == "mib_bent_normal_env" ||
-          $nodeType == "mib_bump_basis" ||
-          $nodeType == "mib_bump_map" ||
-          $nodeType == "mib_bump_map2" ||
-          $nodeType == "mib_passthrough_bump_map" ||
-          $nodeType == "mib_texture_remap" ||
-          $nodeType == "mib_texture_rotate" ||
-          $nodeType == "mib_texture_vector" ||
-          $nodeType == "miv_tecture_wave" ||
-          $nodeType == "dielectric_material_photon" ||
-          $nodeType == "transmat" ||
-          $nodeType == "dgs_material" ||
-          $nodeType == "dielectric_material" ||
-          $nodeType == "dielectric_material" ||
-          $nodeType == "dgs_material_photon" ||
-          $nodeType == "transmat_photon" ||
-          $nodeType == "mib_photon_basic" || 
-          $nodeType == "oversampling_lens" ||
-          $nodeType == "mib_lens_clamp" ||
-          $nodeType == "mib_lens_stencil" ||
-          $nodeType == "mib_lookup_background" ||
-          $nodeType == "physical_lens_dof" ||
-          $nodeType == "mib_dielectric" ||
-          $nodeType == "mib_opacity" ||
-          $nodeType == "mib_reflect" ||
-          $nodeType == "mib_refract" ||
-          $nodeType == "mib_refraction_index" ||
-          $nodeType == "mib_transparency" ||
-          $nodeType == "misss_physical" ||
-          $nodeType == "misss_skin_specular" ||
-          $nodeType == "mib_light_infinite" ||
-          $nodeType == "mib_light_point" ||
-          $nodeType == "mib_light_spot" ||
-          $nodeType == "mib_light_photometric" ||
-          $nodeType == "mib_fg_occlusion" ||
-          $nodeType == "mib_shadow_transparency" ||
-          $nodeType == "mia_physicalsky" ||
-          $nodeType == "mib_lookup_cube1" ||
-          $nodeType == "mib_lookup_cube6" ||
-          $nodeType == "mib_lookup_cylindrical" ||
-          $nodeType == "mib_lookup_spherical" ||
-          $nodeType == "domeAFL_FOV_Stereo_Legacy" ||
-          $nodeType == "domeAFL_FOV_Legacy" ||
-          $nodeType == "domeAFL_WxH_Legacy" ||
-          $nodeType == "rob_lookup_background_Legacy" ||
-          $nodeType == "latlong_lens_Legacy")
-          return 1;
-        
-        if(startsWith($nodeType, "mib_geo_") == 1)
-            return 1;
+		$nodeType == "misss_fast_shader" ||
+		$nodeType == "mi_car_paint_phen" ||
+		$nodeType == "mi_metallic_paint" ||
+		$nodeType == "misss_fast_shader2" ||
+		$nodeType == "misss_fast_shader" ||
+		$nodeType == "mib_glossy_reflection" ||
+		$nodeType == "mib_glossy_refraction" ||
+		$nodeType == "builtin_bsdf_architectural" ||
+		$nodeType == "builtin_bsdf_architectural_comp" ||
+		$nodeType == "builtin_bsdf_ashikhmin" ||
+		$nodeType == "builtin_bsdf_carpaint" ||
+		$nodeType == "builtin_bsdf_lambert" ||
+		$nodeType == "builtin_bsdf_mirror" ||
+		$nodeType == "builtin_bsdf_phong" ||
+		$nodeType == "path_material" ||
+		$nodeType == "mib_illum_lambert" ||
+		$nodeType == "mib_illum_phong" ||
+		$nodeType == "mib_illum_blinn" ||
+		$nodeType == "mib_illum_cooktorr" ||
+		$nodeType == "mib_illum_ward" ||
+		$nodeType == "mib_illum_ward_deriv" ||
+		$nodeType == "path_material" ||
+		$nodeType == "misss_mia_skin_phen_d" ||
+		$nodeType == "misss_mia_skin2_phen_d" ||
+		$nodeType == "mib_texture_turbulence" ||
+		$nodeType == "mib_texture_checkerboard" ||
+		$nodeType == "mib_texture_polkadot" ||
+		$nodeType == "mib_texture_polkasphere" ||
+		$nodeType == "mib_texture_wave" ||
+		$nodeType == "mib_texture_lookup" ||
+		$nodeType == "mib_texture_lookup2" ||
+		$nodeType == "mib_texture_filter_lookup" ||
+		$nodeType == "mib_bump_basis" ||
+		$nodeType == "mi_bump_flakes" ||
+		$nodeType == "mib_bent_normal_env" ||
+		$nodeType == "mib_bump_basis" ||
+		$nodeType == "mib_bump_map" ||
+		$nodeType == "mib_bump_map2" ||
+		$nodeType == "mib_passthrough_bump_map" ||
+		$nodeType == "mib_texture_remap" ||
+		$nodeType == "mib_texture_rotate" ||
+		$nodeType == "mib_texture_vector" ||
+		$nodeType == "miv_tecture_wave" ||
+		$nodeType == "dielectric_material_photon" ||
+		$nodeType == "transmat" ||
+		$nodeType == "dgs_material" ||
+		$nodeType == "dielectric_material" ||
+		$nodeType == "dielectric_material" ||
+		$nodeType == "dgs_material_photon" ||
+		$nodeType == "transmat_photon" ||
+		$nodeType == "mib_photon_basic" || 
+		$nodeType == "oversampling_lens" ||
+		$nodeType == "mib_lens_clamp" ||
+		$nodeType == "mib_lens_stencil" ||
+		$nodeType == "mib_lookup_background" ||
+		$nodeType == "physical_lens_dof" ||
+		$nodeType == "mib_dielectric" ||
+		$nodeType == "mib_opacity" ||
+		$nodeType == "mib_reflect" ||
+		$nodeType == "mib_refract" ||
+		$nodeType == "mib_refraction_index" ||
+		$nodeType == "mib_transparency" ||
+		$nodeType == "misss_physical" ||
+		$nodeType == "misss_skin_specular" ||
+		$nodeType == "mib_light_infinite" ||
+		$nodeType == "mib_light_point" ||
+		$nodeType == "mib_light_spot" ||
+		$nodeType == "mib_light_photometric" ||
+		$nodeType == "mib_fg_occlusion" ||
+		$nodeType == "mib_shadow_transparency" ||
+		$nodeType == "mia_physicalsky" ||
+		$nodeType == "mib_lookup_cube1" ||
+		$nodeType == "mib_lookup_cube6" ||
+		$nodeType == "mib_lookup_cylindrical" ||
+		$nodeType == "mib_lookup_spherical" ||
+    $nodeType == "domeAFL_FOV_Stereo_Legacy" ||
+    $nodeType == "domeAFL_FOV_Legacy" ||
+    $nodeType == "domeAFL_WxH_Legacy" ||
+    $nodeType == "rob_lookup_background_Legacy" ||
+    $nodeType == "latlong_lens_Legacy")
+		return 1;
+
+		if(startsWith($nodeType, "mib_geo_") == 1)
+			return 1;
            
     return 0;
 }
@@ -147,6 +147,10 @@ global proc string mentalrayCustomNodeClass(string $nodeType)
 	    $nodeType == "mi_metallic_paint_x_passes")
 		return "rendernode/mentalray/material:shader/surface:swatch/mentalRaySwatchGen:drawdb/shader/surface/mentalray/mi_metallic_paint" + $legacyClassification;
 
+    // xgen_hair_physical
+    if ($nodeType == "xgen_hair_physical")
+        return "rendernode/mentalray/material:shader/surface:swatch/File:drawdb/shader/surface/mentalray/xgen_hair_physical" + $legacyClassification;
+   
 	// mila material
 	if ($nodeType == "mila_material")
 		return "rendernode/mentalray/material:connection/mentalray/shadow:/connection/mentalray/photon:shader/surface:swatch/mentalRaySwatchGen:drawdb/shader/surface/mentalray/mila_material";
@@ -358,6 +362,7 @@ global proc string mentalrayCustomNodeClass(string $nodeType)
 	    $nodeType == "bifrost_isosurface_geo" ||
 	    $nodeType == "bifrost_particle_geo" ||
 	    $nodeType == "bifrost_volume_geo" ||
+	    $nodeType == "bifrost_volume_swatch_geo" ||
 	    $nodeType == "bifrost_density_volume" ||
 	    $nodeType == "bifrost_simple_scatter" ||
 	    $nodeType == "bifrost_color_remap" ||
@@ -366,13 +371,18 @@ global proc string mentalrayCustomNodeClass(string $nodeType)
 	    $nodeType == "bifrost_color_if" ||
 	    $nodeType == "bifrost_scalar_if" ||
 	    $nodeType == "bifrost_illum_flat" ||
-	    $nodeType == "maya_bifrost_liquid" ||
+	    $nodeType == "maya_bifrost_aero" ||
+	    $nodeType == "maya_liquid_mila_material" ||
+	    $nodeType == "maya_bifrost_remap_liquid" ||
+	    $nodeType == "maya_foam_mila_material" ||
+	    $nodeType == "maya_bifrost_remap_foam" ||
 	    $nodeType == "bifrost_mix_vorticity_velocities" ) &&
 	    $enableBIFShaders == 0 ) ||
 
 	  (($nodeType == "xgen_scalar_to_integer" ||
 	    $nodeType == "xgen_integer_to_vector" ||
 	    $nodeType == "xgen_scalar_to_vector" ||
+	    $nodeType == "xgen_vector_to_scalar" ||
 	    $nodeType == "xgen_boolean_to_vector" ||
 	    $nodeType == "xgen_boolean_switch" ||
 	    $nodeType == "xgen_tube_normals" ) &&
@@ -380,7 +390,8 @@ global proc string mentalrayCustomNodeClass(string $nodeType)
 
 	    $nodeType == "misss_physical_phen"  ||
 	    $nodeType == "mi_metallic_paint_output_mixer" ||
-	    $nodeType == "surfaceSampler" )
+	    $nodeType == "surfaceSampler"  || 
+			$nodeType == "maya_object_light")
 
 		return "rendernode/mentalray/internal:nodeCreator/hidden" + $legacyClassification;
 

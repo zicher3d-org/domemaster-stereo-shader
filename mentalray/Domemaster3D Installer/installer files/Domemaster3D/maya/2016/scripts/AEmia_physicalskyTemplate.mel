@@ -11,7 +11,7 @@
 //	None
 //
 
-// Note: Updated on April 16, 2013 by Andrew Hazelden to connect the 
+// Note: Updated on April 16, 2015 by Andrew Hazelden to connect the 
 // exposure lens shader to the first input on the lens shader list 
 // .miLensShaderList[0]
 
@@ -34,13 +34,9 @@ global proc miUpdateSkyCameras(string $skyShader)
 			
 			if(size($exposureControl))
 			{
-			
-      			// Old connection to the first lens shader input
-				//$cmd = ("connectAttr -force " + $exposureControl + ".message " + $camera + ".miLensShader");
-
-        		// New connection to the first input on the lens shader list (AH)  
-       			$cmd = ("connectAttr -force " + $exposureControl + ".message " + $camera + ".miLensShaderList[0]");
-
+				// New connection to the first input on the lens shader list (AH)  
+				$cmd = ("connectAttr -force " + $exposureControl + ".message " + $camera + ".miLensShaderList[0]");
+				// [ACH] Fulldome Lens Shader Compatibility Edit
 				catchQuiet(`eval $cmd`);
 			}
 		}
@@ -78,6 +74,7 @@ global proc miRemoveSkyCameras(string $skyShader)
 			disconnectAttr
 				($exposureControl + ".message")
 				($camera + ".miLensShaderList[0]");
+				// [ACH] Fulldome Lens Shader Compatibility Edit
 		}
 	}
 }

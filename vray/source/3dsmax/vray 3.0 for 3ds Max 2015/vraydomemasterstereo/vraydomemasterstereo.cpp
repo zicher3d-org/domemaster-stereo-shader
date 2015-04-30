@@ -2,14 +2,13 @@
   FILE: vraydomemasterstereo.cpp
   
   vray DomemasterStereo Shader v0.5
-  2015-03-23 
+  2015-04-30
 
   Ported to Vray 3.0 by Andrew Hazelden/Roberto Ziche
   Based upon the mental ray shader domeAFL_FOV_Stereo by Roberto Ziche
 
   Todo:
   [rz] Bitmap to Texmap
-  [rz] Relocate bCol definition
   [rz] Bool parameters (from int)
   [rz] Remove pb_fov (pb2 enum)
   [rz] Adjust default parameter values based on scene units?
@@ -82,9 +81,6 @@ using namespace VRayDomemasterStereo;
 //************************************************************
 // The definition of the VRayCamera
 //************************************************************
-
-// [rz] relocate?
-BMM_Color_64 bCol;
 
 #define REFNO_PBLOCK 0
 
@@ -861,18 +857,20 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
       float rx1 = xs / fdata.imgWidth - dx1;
       float ry1 = ys / fdata.imgHeight - dy1;
 
+      BMM_Color_64 bCol;
+
       // [rz] not the right grayscale conversion formula, but ok assuming all input bitmaps are grayscale
-      if (separation_map != NULL) {
+      if (separation_map != NULL && separation_map->bm != NULL) {
         separation_map->bm->GetFiltered(rx1, ry1, dx1, dy1, &bCol);
         separation_mult = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
       }
 
-      if (head_turn_map != NULL) {
+      if (head_turn_map != NULL && head_turn_map->bm != NULL) {
         head_turn_map->bm->GetFiltered(rx1, ry1, dx1, dy1, &bCol);
         head_turn_mult = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
       }
 
-      if (head_tilt_map != NULL) {
+      if (head_tilt_map != NULL && head_tilt_map->bm != NULL) {
         head_tilt_map->bm->GetFiltered(rx1, ry1, dx1, dy1, &bCol);
         head_tilt = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
       }

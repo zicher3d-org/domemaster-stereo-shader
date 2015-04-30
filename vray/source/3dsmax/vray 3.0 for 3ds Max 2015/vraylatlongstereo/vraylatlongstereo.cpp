@@ -2,14 +2,13 @@
   FILE: vraylatlongstereo.cpp
   
   vray LatLongStereo Shader v0.5
-  2015-03-23 
+  2015-04-30
 
   Ported to Vray 3.0 by Andrew Hazelden/Roberto Ziche
   Based upon the mental ray shader LatLong_Stereo by Roberto Ziche
 
   Todo:
   [rz] Bitmap to Texmap
-  [rz] Relocate bCol definition
   [rz] Bool parameters (from int)
   [rz] Remove pb_fov (pb2 enum)
   [rz] Adjust default parameter values based on scene units?
@@ -80,9 +79,6 @@ using namespace VRayLatLongStereo;
 //************************************************************
 // The definition of the VRayCamera
 //************************************************************
-
-// [rz] relocate?
-BMM_Color_64 bCol;
 
 #define REFNO_PBLOCK 0
 
@@ -828,13 +824,14 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
     float separation_mult = 1.0f;
 
     // get separation multiplier from map
-    if (separation_map != NULL) {
+    if (separation_map != NULL && separation_map->bm != NULL) {
       // [rz] these could be moved to per-frame calculation
       float dx1 = 1.0f / (fdata.imgWidth * 2.0f);
       float dy1 = 1.0f / (fdata.imgHeight * 2.0f);
       float rx1 = xs / fdata.imgWidth - dx1;
       float ry1 = ys / fdata.imgHeight - dy1;
-
+ 
+      BMM_Color_64 bCol;
       separation_map->bm->GetFiltered(rx1,ry1,dx1,dy1, &bCol);
       //if (separation_map->bm->HasFilter()) {
         //separation_map->bm->GetFiltered(rx1,ry1,dx1,dy1, &bCol);

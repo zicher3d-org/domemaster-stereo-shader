@@ -1,12 +1,20 @@
 """
-Arnold Domemaster3D Camera Setup Script V1.6.1
-2015-01-31 09.28 am
+Arnold Domemaster3D Camera Setup Script V1.7.0
+2015-05-07 09.06 am
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 1.7
+---------------
+2015-05-07 
+
+Updated the dome grid defaults to create a 360x180 sphere.
+
+The stereo rig manager defaultRig is value is now switched automatically when a LatLongStereo or DomeStereo camera is created.
 
 Version 1.6
 ---------------
@@ -325,6 +333,11 @@ def createArnoldFulldomeStereoRig():
   #maya.app.stereo.stereoCameraRig.createStereoCameraRig()
   
   from maya.app.stereo import stereoCameraRig
+  
+  # Set the default rig to an ArnoldDomeStereoCamera
+  cmds.stereoRigManager(defaultRig='ArnoldDomeStereoCamera')
+  
+  # Add the camera rig to the scene
   rig = stereoCameraRig.createStereoCameraRig('ArnoldDomeStereoCamera')
   #[u'ArnoldDomeStereoCamera', u'ArnoldDomeStereoCameraLeft', u'ArnoldDomeStereoCameraRight']
   
@@ -402,6 +415,11 @@ def createArnoldLatLongStereoRig():
   #maya.app.stereo.stereoCameraRig.createStereoCameraRig()
   
   from maya.app.stereo import stereoCameraRig
+  
+  # Set the default rig to an ArnoldLatLongStereoCamera
+  cmds.stereoRigManager(defaultRig='ArnoldLatLongStereoCamera')
+  
+  # Add the camera rig to the scene
   rig = stereoCameraRig.createStereoCameraRig('ArnoldLatLongStereoCamera')
   #[u'ArnoldLatLongCamera', u'ArnoldLatLongCameraLeft', u'ArnoldLatLongCameraRight']
   
@@ -517,9 +535,26 @@ def createDomemasterWxH_Camera():
 
 
 """
+Domemaster3D LatLongGrid test background 
+--------------------------------------
+A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
+
+"""
+  
+def createLatLongGrid():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  # Create a spherical yellow test grid in Maya. 
+  createDomeGrid()
+  
+  # Align the grid on the horizontal axis
+  cmds.setAttr('domeGrid.rotateX', 90, type='float')
+  
+"""
 Domemaster3D DomeGrid test background 
 --------------------------------------
-A python function to create a hemispherical yellow test grid in Maya. 
+A python function to create a spherical yellow test grid in Maya. 
 
 """
 
@@ -703,7 +738,7 @@ def createDomeGrid():
   cmds.setAttr(domeGridTransform+'.inheritsTransform', 1)
   
  
-  #---------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
   # Create the PaintFX Toon stroke outlines
   # --------------------------------------------------------------------------
   
@@ -761,8 +796,7 @@ def createDomeGrid():
   #Super Bright Yellow Color for Physical Sky Compatibility
   #cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
   cmds.setAttr(domeGridlineMaterial+'.outColor', 1, 1, 0, type='double3')
-  
-  
+    
   #---------------------------------------------------------------------------
   #Adjust the grid surface shader
   #---------------------------------------------------------------------------
@@ -786,7 +820,7 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   #cmds.group( 'domeGridSurface', 'domeGridToon', 'MeshGroup', name='domeGrid' )
   cmds.group( domeRadiusCurveName[0], domeRadiusSurfaceName[0], 'domeGridToon', 'MeshGroup', name='domeGrid' )
-  #        
+       
   #---------------------------------------------------------------------------
   # Add Extra Attrs to the domeGrid shape
   #---------------------------------------------------------------------------
@@ -796,10 +830,13 @@ def createDomeGrid():
   #Add a Field of View control to the domeGrid's transform node
   #---------------------------------------------------------------------------
   attrName = 'fieldOfView'
-
+  
   #Check if the attribute exists on the domeGrid node
   #if(mel.attributeExists(attrName, baseNodeName) == 0):
-  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=360, defaultValue=180 , keyable=True)
+  
+  # 180 degree default = 180
+  # 360 degree default = 360
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=360, defaultValue=360 , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   #---------------------------------------------------------------------------  
@@ -839,7 +876,10 @@ def createDomeGrid():
 
   #Check if the attribute exists on the domeGrid node
   #if(mel.attributeExists(attrName, baseNodeName) == 0):
-  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=120, hasSoftMaxValue=True, softMaxValue=40, defaultValue=12 , keyable=True)
+  
+  #  180 degree dome default value = 12
+  #  360 degree dome default value = 24
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=120, hasSoftMaxValue=True, softMaxValue=40, defaultValue=24 , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   #Connect the domeGrid dome radius control to the sphere's makeNurbCircle sections attribute:

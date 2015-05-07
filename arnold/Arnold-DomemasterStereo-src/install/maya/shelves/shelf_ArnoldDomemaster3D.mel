@@ -41,17 +41,43 @@ global proc shelf_ArnoldDomemaster3D () {
         -annotation "AutoMagic Fulldome 3D Scene" 
         -enableBackground 0
         -align "center" 
-        -label "AutoMagic" 
+        -label "AutoMagic Dome" 
         -labelOffset 0
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_magicdome.xpm" 
-        -image1 "renderArnold_magicdome.xpm" 
+        -image "renderArnold_magicdome.png" 
+        -image1 "renderArnold_magicdome.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldFulldomeStereoRig()\narnoldDomeCamera.createDomeGrid()\narnoldDomeCamera.createTestShapes()\narnoldDomeCamera.setRenderRes()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+        shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AutoMagic LatLong 3D Scene" 
+        -enableBackground 0
+        -align "center" 
+        -label "AutoMagic LatLong" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "renderArnold_magiclatlong.png" 
+        -image1 "renderArnold_magiclatlong.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLongStereoRig()\narnoldDomeCamera.createDomeGrid()\narnoldDomeCamera.createTestShapes()\narnoldDomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -72,8 +98,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_domemasterStereo.xpm" 
-        -image1 "renderArnold_domemasterStereo.xpm" 
+        -image "renderArnold_domemasterStereo.png" 
+        -image1 "renderArnold_domemasterStereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -98,8 +124,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_LatLongStereo.xpm" 
-        -image1 "renderArnold_LatLongStereo.xpm" 
+        -image "renderArnold_LatLongStereo.png" 
+        -image1 "renderArnold_LatLongStereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -124,8 +150,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_domemasterWxH.xpm" 
-        -image1 "renderArnold_domemasterWxH.xpm" 
+        -image "renderArnold_domemasterWxH.png" 
+        -image1 "renderArnold_domemasterWxH.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -150,8 +176,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_grid.xpm" 
-        -image1 "domeArnold_grid.xpm" 
+        -image "domeArnold_grid.png" 
+        -image1 "domeArnold_grid.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -177,8 +203,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "0.5k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.xpm" 
-        -image1 "domeArnold_render_resolution.xpm" 
+        -image "domeArnold_render_resolution.png" 
+        -image1 "domeArnold_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -204,8 +230,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.xpm" 
-        -image1 "domeArnold_render_resolution.xpm" 
+        -image "domeArnold_render_resolution.png" 
+        -image1 "domeArnold_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -231,8 +257,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.xpm" 
-        -image1 "domeArnold_render_resolution.xpm" 
+        -image "domeArnold_render_resolution.png" 
+        -image1 "domeArnold_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -258,8 +284,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.xpm" 
-        -image1 "domeArnold_render_resolution.xpm" 
+        -image "domeArnold_render_resolution.png" 
+        -image1 "domeArnold_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -285,8 +311,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "8k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.xpm" 
-        -image1 "domeArnold_render_resolution.xpm" 
+        -image "domeArnold_render_resolution.png" 
+        -image1 "domeArnold_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -312,8 +338,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "2x1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution_wide.xpm" 
-        -image1 "domeArnold_render_resolution_wide.xpm" 
+        -image "domeArnold_render_resolution_wide.png" 
+        -image1 "domeArnold_render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -339,8 +365,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "4x2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution_wide.xpm" 
-        -image1 "domeArnold_render_resolution_wide.xpm" 
+        -image "domeArnold_render_resolution_wide.png" 
+        -image1 "domeArnold_render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -366,8 +392,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "8x4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution_wide.xpm" 
-        -image1 "domeArnold_render_resolution_wide.xpm" 
+        -image "domeArnold_render_resolution_wide.png" 
+        -image1 "domeArnold_render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -392,8 +418,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "arnold_load.xpm" 
-        -image1 "arnold_load.xpm" 
+        -image "arnold_load.png" 
+        -image1 "arnold_load.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -418,8 +444,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_info.xpm" 
-        -image1 "domeArnold_info.xpm" 
+        -image "domeArnold_info.png" 
+        -image1 "domeArnold_info.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -444,8 +470,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_help.xpm" 
-        -image1 "domeArnold_help.xpm" 
+        -image "domeArnold_help.png" 
+        -image1 "domeArnold_help.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1

@@ -1,13 +1,14 @@
 /*
-	Dome Arnold Version Checker V1.6.1
+	Dome Arnold Version Checker v1.7
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
-  Domemaster3D V1.6.1 - 2015-02-19 
-  Domemaster3D V1.6 Alpha 6 - 2014-11-7
+  Domemaster3D v1.7 - 2015-05-07 
+  Domemaster3D v1.6.1 - 2015-02-19 
+  Domemaster3D v1.6 Alpha 6 - 2014-11-7
 
 	To use the Dome Version Checker script run the following MEL commands:
 	source "domeVersion.mel";
@@ -60,8 +61,8 @@ global proc string getMayaPlatform(){
 //Show the version info window
 global proc arnoldDomeVersion(){
   string $dialogButtonSelected = "";
-  string $domemaster3D_version = "1.6.1";
-  string $release_date = "February 19, 2015";
+  string $domemaster3D_version = "1.7";
+  string $release_date = "May 7, 2015";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Arnold MtoA" + " - Version " + $domemaster3D_version + "\n";

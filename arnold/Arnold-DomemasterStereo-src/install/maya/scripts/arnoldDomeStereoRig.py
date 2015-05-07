@@ -1,6 +1,6 @@
 """
- Arnold Domemaster3D Fulldome Stereo Rig V1.6.1
- 2015-01-31 09.28 am
+ Arnold Domemaster3D Fulldome Stereo Rig V1.7
+ 2015-05-07 09.12 am
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2015-04-08 
+2015-05-07 
   
 ![Maya DomemasterStereo for Arnold Screenshot](images/mtoa_domemasterstereo.png)
 
@@ -14,7 +14,7 @@ This guide covers the Arnold version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Arnold Domemaster3D shaders (as of 2015-04-08 ) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+The current version of the Arnold Domemaster3D shaders (as of 2015-05-07 ) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
 
 The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. The LatLongStereo shader should be rendered with a 2:1 aspect ratio to avoid vertically over-rendering the scene's FOV angle.
 
@@ -358,6 +358,14 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 - Daniel Ott created the original 2D `domeAFL_FOV`, and `domeAFL_WxH` lens shaders for mental ray.
 
 ## Version History ##
+
+### Version 1.7 - 2015-05-07 ###
+
+Updated the Maya shelf tools to add a new Automagic LatLong Stereo option
+
+Updated the python script that creates the Arnold LatLongStereo and DomeStereo cameras. The stereo rig manager defaultRig value is now switched automatically when a LatLongStereo or DomeStereo camera is created. This fixes an alignment issue that happened when the wrong stereo camera defaultRig was active when creating a new camera in Arnold.
+
+Updated the dome grid shape to use a full sphere as the default FOV value for the wireframe mesh geometry. This improves the rendering experience when a latlong shader is used.
 
 ### Version 1.6.2 - 2015-04-08 ###
 

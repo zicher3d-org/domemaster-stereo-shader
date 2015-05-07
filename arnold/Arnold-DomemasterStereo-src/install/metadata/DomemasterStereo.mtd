@@ -4,7 +4,7 @@
 #     the Production of Full-Dome Animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2015-03-01 08.40 am
+# 2015-04-25 09.51 am
 
 [node DomemasterStereo]
     desc                         STRING "Domemaster Stereo Shader"
@@ -12,6 +12,8 @@
     # The maya.name value has to be "camera" for this node to show up in the Maya Camera Shapes' Arnold tab.
     maya.name                    STRING "camera"
     maya.classification          STRING "shader/surface"
+    maya.type                    STRING "camera"
+    maya.translator              STRING  "DomemasterStereo"
 
     houdini.category             STRING "Domemaster3D"
     houdini.icon                 STRING "SHOP_surface"

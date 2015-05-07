@@ -1,6 +1,6 @@
 """
-Arnold Domemaster3D Startup Code Version 1.6.1
-2015-01-31 09.28 am
+Arnold Domemaster3D Startup Code Version 1.7
+2015-05-07 09.11 am
 by Andrew Hazelden
 
 """

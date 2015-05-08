@@ -1,3 +1,4 @@
+
 Attribute vrayDomemasterStereoOn {
   label = Treat as a VRay Domemaster Stereo Camera
   state = optional
@@ -277,19 +278,6 @@ Attribute vrayLatLongStereoZenithFov {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Attribute vrayPhotonSubdivs {
   label = Photon subdivs
   state = optional
@@ -428,15 +416,6 @@ Attribute vrayUserAttributes {
   decl = string
   group = vray_user_attributes
   default = 
-}
-
-Attribute vraySubdivUVsAtBorders {
-  label = Subdivide UVs at borders
-  state = optional
-  group = vray_subdivision
-  subtype = switch
-  decl = int
-  default = 1
 }
 
 Attribute vrayPreserveMapBorders {
@@ -1677,6 +1656,44 @@ Attribute vrayMaterialId {
   default = 0
 }
 
+Attribute vrayTraceDepth {
+  label = Trace Depth
+  state = optional
+  group = vray_bifrost_mtl
+  subtype = slider
+  decl = int
+  range_min = -1
+  range_max = 1000
+  rangesoft_max = 10
+  range_step = 1
+  default = -1
+}
+
+Attribute vrayAffectShadows {
+  label = Affect Shadows
+  state = optional
+  group = vray_bifrost_mtl
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayGlossyBRDF {
+  label = Glossy BRDF
+  state = optional
+  decl = int
+  group = vray_test_grp
+  subtype = selector
+  default = 1
+  range_0 = Phong
+  range_1 = 0
+  range_2 = Blinn
+  range_3 = 1
+  range_4 = Ward
+  range_5 = 2
+  range_6 = GGX
+  range_7 = 3
+}
 
 
 Attribute vraySkipExport {
@@ -2172,7 +2189,7 @@ Attribute vrayFluidFullMB {
 }
 
 Attribute vrayFluidDeep {
-  label = Deep Output
+  label = Deep Output/Trace Sets
   state = optional
   group = vray_fluid_shading_quality
   subtype = switch
@@ -2568,7 +2585,7 @@ Attribute vrayLuminanceGIContrib {
 }
 
 Attribute vrayOsdSubdivEnable {
-  label = Render as OpenSubdiv surface
+  label = Osd Render as OpenSubdiv surface
   state = optional
   group = vray_opensubdiv
   subtype = switch
@@ -2578,7 +2595,7 @@ Attribute vrayOsdSubdivEnable {
 }
 
 Attribute vrayOsdPreserveMapBorders {
-  label = Preserve Map Borders
+  label = Osd Preserve Map Borders
   state = optional
   group = vray_opensubdiv
   subtype = selector
@@ -2593,7 +2610,7 @@ Attribute vrayOsdPreserveMapBorders {
 }
 
 Attribute vrayOsdSubdivUVs {
-  label = Subdivide UVs
+  label = Osd Subdivide UVs
   state = optional
   group = vray_opensubdiv
   subtype = switch
@@ -2603,7 +2620,7 @@ Attribute vrayOsdSubdivUVs {
 }
 
 Attribute vrayOsdPreserveGeomBorders {
-  label = Preserve Geometry Borders
+  label = Osd Preserve Geometry Borders
   state = optional
   group = vray_opensubdiv
   subtype = switch
@@ -2612,7 +2629,7 @@ Attribute vrayOsdPreserveGeomBorders {
 }
 
 Attribute vrayOsdSubdivType {
-  label = Type
+  label = Osd Type
   state = optional
   group = vray_opensubdiv
   subtype = selector
@@ -2625,7 +2642,7 @@ Attribute vrayOsdSubdivType {
 }
 
 Attribute vrayOsdSubdivDepth {
-  label = Depth
+  label = Osd Depth
   state = optional
   group = vray_opensubdiv
   subtype = slider

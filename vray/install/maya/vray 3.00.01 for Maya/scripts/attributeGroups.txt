@@ -1,3 +1,4 @@
+
 AttributeGroup vray_DomemasterStereo {
   label = DomemasterStereo camera
   attribute_0 = vrayDomemasterStereoOn
@@ -17,13 +18,6 @@ AttributeGroup vray_DomemasterStereo {
 }
 
 
-
-
-
-
-
-
-
 AttributeGroup vray_LatLongStereo {
   label = LatLongStereo camera
   attribute_0 = vrayLatLongStereoOn
@@ -39,27 +33,6 @@ AttributeGroup vray_LatLongStereo {
   attribute_10 = vrayLatLongStereoNeckOffset
   attribute_11 = vrayLatLongStereoZenithFov
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -449,4 +422,16 @@ AttributeGroup vray_surface_luminance {
   attribute_0 = vrayLuminanceMode
   attribute_1 = vrayLuminanceSamples
   attribute_2 = vrayLuminanceGIContrib
+}
+
+AttributeGroup vray_localrayserver {
+  label = Local ray server
+  attribute_0 = vrayLocalRayserver
+}
+
+AttributeGroup vray_bifrost_mtl {
+	label = VRayMtl options
+	attribute_0 = vrayTraceDepth
+	attribute_1 = vrayGlossyBRDF
+	attribute_2 = vrayAffectShadows
 }

@@ -1,5 +1,5 @@
 // Andrew Hazelden LatLongStereo + DomemasterStereo Edited File
-// 2015-05-07 05.10 am
+// 2015-05-08 05.08 pm
 // for Vray 3.00.01 for Maya
 
 proc string tokenizeWidget(string $widget) {

@@ -26,7 +26,6 @@ Adapted the mental ray script to work with Arnold
 
 Force Arnold to Load
 
-
 Run using the command:
 import arnoldDomeCamera as arnoldDomeCamera
 reload(arnoldDomeCamera)

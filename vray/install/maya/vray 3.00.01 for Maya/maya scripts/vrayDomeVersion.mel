@@ -1,17 +1,15 @@
 /*
-	Dome Arnold Version Checker v1.7
+	Dome Vray Version Checker v1.7
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
-  Domemaster3D v1.7 - 2015-05-07 
-  Domemaster3D v1.6.1 - 2015-02-19 
-  Domemaster3D v1.6 Alpha 6 - 2014-11-7
+  Domemaster3D v1.7 - 2015-05-08
 
 	To use the Dome Version Checker script run the following MEL commands:
-	source "arnoldDomeVersion.mel";
+	source "vrayDomeVersion.mel";
 	domeVersion();
 
 */
@@ -59,13 +57,13 @@ global proc string getMayaPlatform(){
 
 
 //Show the version info window
-global proc arnoldDomeVersion(){
+global proc vrayDomeVersion(){
   string $dialogButtonSelected = "";
   string $domemaster3D_version = "1.7";
-  string $release_date = "May 7, 2015";
+  string $release_date = "May 8, 2015";
 
   string $domeDialogString = "";
-  $domeDialogString += "Domemaster3D Shader for Arnold MtoA" + " - Version " + $domemaster3D_version + "\n";
+  $domeDialogString += "Domemaster3D Shader for Vray for Maya" + " - Version " + $domemaster3D_version + "\n";
   $domeDialogString += "This edition was released on " + $release_date + ".\n";
   $domeDialogString += "\n";
   $domeDialogString += "A 2D/3D angular fisheye and latlong rendering system for planetariums, fulldome theatres, and VR headsets.\n";
@@ -78,7 +76,7 @@ global proc arnoldDomeVersion(){
   if ($mayaVersion >=2011){
     //Maya 2011 or newer detected
     $dialogButtonSelected = `confirmDialog 
-      -title "About Domemaster3D for Arnold MtoA"
+      -title "About Domemaster3D for Vray"
       -messageAlign center
       -message $domeDialogString
       -icon "information"
@@ -90,7 +88,7 @@ global proc arnoldDomeVersion(){
   } else {
     //Maya 2010 or older detected
     $dialogButtonSelected = `confirmDialog 
-      -title "About Domemaster3D for Arnold MtoA"
+      -title "About Domemaster3D for Vray MtoA"
       -messageAlign center
       -message $domeDialogString
       -button "Check for Update"
@@ -101,11 +99,11 @@ global proc arnoldDomeVersion(){
   }
 
   if($dialogButtonSelected == "Check for Update"){
-    python("import arnoldDomeCamera as arnoldDomeCamera\narnoldDomeCamera.openArnoldDomemasterDownloads()"); 
+    python("import vrayDomeCamera as vrayDomeCamera\nvrayDomeCamera.openVrayDomemasterDownloads()"); 
   }else if($dialogButtonSelected == "Read the User Forum"){
-    python("import arnoldDomeCamera as arnoldDomeCamera\narnoldDomeCamera.openArnoldDomemasterNing()"); 
+    python("import vrayDomeCamera as vrayDomeCamera\nvrayDomeCamera.openVrayDomemasterNing()"); 
   }else if($dialogButtonSelected == "Report a Bug"){
-    python("import arnoldDomeCamera as arnoldDomeCamera\narnoldDomeCamera.openArnoldDomemasterBugReport()"); 
+    python("import vrayDomeCamera as vrayDomeCamera\nvrayDomeCamera.openVrayDomemasterBugReport()"); 
   }
 
 }

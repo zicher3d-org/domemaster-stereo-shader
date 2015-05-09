@@ -1,6 +1,6 @@
 """
  Arnold Domemaster3D Fulldome Stereo Rig V1.7
- 2015-05-07 09.12 am
+ 2015-05-08 11.30 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -109,7 +109,7 @@ def getSourceImagesPath(imageFileName):
 def createLensShaders(centerCam, leftCam, rightCam):
   import maya.mel as mel
   import maya.cmds as cmds
-  print "Center: " + centerCam + "Left: " + leftCam + "Right: " + rightCam
+  print "[Center] " + centerCam + " [Left] " + leftCam + " [Right] " + rightCam
   # ---------------------------------------------------------------------
   #Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------

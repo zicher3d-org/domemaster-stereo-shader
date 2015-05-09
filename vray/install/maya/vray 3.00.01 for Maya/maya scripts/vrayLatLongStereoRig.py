@@ -1,16 +1,16 @@
 """
- Arnold LatLong_Stereo Camera Rig V1.7
- 2015-05-08 11.30 pm
+ Vray LatLongStereo Camera Rig V1.7
+ 2015-05-08 10.56 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
  
- Version 1.6
+ Version 1.7
  ---------------
- 2014-10-31
+ 2015-05-08
 
- Adapted the mental ray script to support Arnold latlong_stereo rendering
+ Adapted the mental ray script to support Vray latlong_stereo rendering
 
 
  Stereo Rig Script Notes
@@ -120,51 +120,139 @@ def createLensShaders(centerCam, leftCam, rightCam):
   # turnMapFileTexture = getSourceImagesPath("latlong_turn_map.png")
   # tiltMapFileTexture = getSourceImagesPath("latlong_head_tilt_map.png")
   
-  # Arnold camera type
-  cameraType = 'LatLongStereo'
+  # Check if Vray is loaded before linking the attributes
+  if (cmds.pluginInfo("vrayformaya", query=True, loaded=True)):
+    # -------------------------------------------------------------------------
+    # Center Camera Lens Shader
+    # -------------------------------------------------------------------------
+    print( "[Center Camera] " + centerCam + "\n" )
 
-  # Check if Arnold is loaded before linking the attributes
-  if (cmds.pluginInfo("mtoa",q=True,loaded=True)):
-    # Switch the active camera type
-    #cmds.setAttr( centerCam+'.ai_translator', cameraType, type='string')
-    cmds.setAttr( leftCam+'.ai_translator', cameraType, type='string')
-    cmds.setAttr( rightCam+'.ai_translator', cameraType, type='string')
-    
-    # ---------------------------------------------------------------------
-    # Create the fulldome nodes for the rig
-    # ---------------------------------------------------------------------
-    #cmds.setAttr( centerCam+'.aiCamera', 0 ) #Set the view to center
-    
-    cmds.setAttr( leftCam+'.aiCamera', 1 ) #Set the view to left
-    cmds.setAttr( rightCam+'.aiCamera', 2 ) #Set the view to right
+    #cmds.select( centerCam, replace=True )
+
+    # Enable the Lens Shader's Vray Extra Attributes
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoOn', longName='vrayLatLongStereoOn', attributeType='long', defaultValue=1)
+
+    # Center Camera View
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoCamera', longName='vrayLatLongStereoCamera', attributeType='long', defaultValue=0)
+
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoFovVertAngle', longName='vrayLatLongStereoFovVertAngle', attributeType='float', min=0.1, softMaxValue=180, defaultValue=180)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoFovHorizAngle', longName='vrayLatLongStereoFovHorizAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=360)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoParallaxDistance', longName='vrayLatLongStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoSeparation', longName='vrayLatLongStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoZenithMode', longName='vrayLatLongStereoZenithMode', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoSeparationMap', longName='vrayLatLongStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoSeparationMap', longName='vrayLatLongStereoSeparationMap', usedAsColor=True, attributeType='float3' )
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoSeparationMapr', longName='vrayLatLongStereoSeparationMapr', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoSeparationMapg', longName='vrayLatLongStereoSeparationMapg', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoSeparationMapb', longName='vrayLatLongStereoSeparationMapb', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoFlipX', longName='vrayLatLongStereoFlipX', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoFlipY', longName='vrayLatLongStereoFlipY', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoNeckOffset', longName='vrayLatLongStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
+    cmds.addAttr( centerCam, shortName='vrayLatLongStereoZenithFov', longName='vrayLatLongStereoZenithFov', attributeType='long', defaultValue=0)
+
+    # -------------------------------------------------------------------------
+    # Left Camera Lens Shader
+    # -------------------------------------------------------------------------
+    leftCamShape = leftCam + 'Shape'
+    # leftCamShape = leftCam
+    # leftCamShape = getObjectShapeNode(leftCam)
+    print( "[Left Camera Shape] " + leftCamShape + "\n" )
+
+    #cmds.select( leftCamShape, replace=True )
+
+    # Enable the Lens Shader's Vray Extra Attributes
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoOn', longName='vrayLatLongStereoOn', attributeType='long', defaultValue=1)
+
+    # Left Camera View
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoCamera', longName='vrayLatLongStereoCamera', attributeType='long', defaultValue=1)
+
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoFovVertAngle', longName='vrayLatLongStereoFovVertAngle', attributeType='float', min=0.1, softMaxValue=180, defaultValue=180)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoFovHorizAngle', longName='vrayLatLongStereoFovHorizAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=360)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoParallaxDistance', longName='vrayLatLongStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoSeparation', longName='vrayLatLongStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoZenithMode', longName='vrayLatLongStereoZenithMode', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoSeparationMap', longName='vrayLatLongStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoSeparationMap', longName='vrayLatLongStereoSeparationMap', usedAsColor=True, attributeType='float3' )
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoSeparationMapr', longName='vrayLatLongStereoSeparationMapr', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoSeparationMapg', longName='vrayLatLongStereoSeparationMapg', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoSeparationMapb', longName='vrayLatLongStereoSeparationMapb', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoFlipX', longName='vrayLatLongStereoFlipX', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoFlipY', longName='vrayLatLongStereoFlipY', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoNeckOffset', longName='vrayLatLongStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayLatLongStereoZenithFov', longName='vrayLatLongStereoZenithFov', attributeType='long', defaultValue=0)
+
+    # -------------------------------------------------------------------------
+    # Right Camera Lens Shader
+    # -------------------------------------------------------------------------
+    rightCamShape = rightCam + 'Shape'
+    # rightCamShape = rightCam
+    # rightCamShape = getObjectShapeNode(rightCam)
+    print( "[Right Camera Shape] " + rightCamShape + "\n" )
+
+    #cmds.select( rightCamShape, replace=True )
+
+    # Enable the Lens Shader's Vray Extra Attributes
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoOn', longName='vrayLatLongStereoOn', attributeType='long', defaultValue=1)
+
+    # Center Camera View
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoCamera', longName='vrayLatLongStereoCamera', attributeType='long', defaultValue=2)
+
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoFovVertAngle', longName='vrayLatLongStereoFovVertAngle', attributeType='float', min=0.1, softMaxValue=180, defaultValue=180)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoFovHorizAngle', longName='vrayLatLongStereoFovHorizAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=360)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoParallaxDistance', longName='vrayLatLongStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoSeparation', longName='vrayLatLongStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoZenithMode', longName='vrayLatLongStereoZenithMode', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoSeparationMap', longName='vrayLatLongStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoSeparationMap', longName='vrayLatLongStereoSeparationMap', usedAsColor=True, attributeType='float3' )
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoSeparationMapr', longName='vrayLatLongStereoSeparationMapr', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoSeparationMapg', longName='vrayLatLongStereoSeparationMapg', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoSeparationMapb', longName='vrayLatLongStereoSeparationMapb', attributeType='float', parent='vrayLatLongStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoFlipX', longName='vrayLatLongStereoFlipX', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoFlipY', longName='vrayLatLongStereoFlipY', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoNeckOffset', longName='vrayLatLongStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayLatLongStereoZenithFov', longName='vrayLatLongStereoZenithFov', attributeType='long', defaultValue=0)
 
     # ---------------------------------------------------------------------
     # Link the common left and right camera attributes to the center camera
     # ---------------------------------------------------------------------
+
+    # Link the left camera attributes
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoOn', leftCam+'.vrayLatLongStereoOn', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFovVertAngle', leftCam+'.vrayLatLongStereoFovVertAngle', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFovHorizAngle', leftCam+'.vrayLatLongStereoFovHorizAngle', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoParallaxDistance', leftCam+'.vrayLatLongStereoParallaxDistance', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoSeparation', leftCam+'.vrayLatLongStereoSeparation', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoZenithMode', leftCam+'.vrayLatLongStereoZenithMode', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFlipX', leftCam+'.vrayLatLongStereoFlipX', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFlipY', leftCam+'.vrayLatLongStereoFlipY', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoNeckOffset', leftCam+'.vrayLatLongStereoNeckOffset', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoZenithFov', leftCam+'.vrayLatLongStereoZenithFov', force=True )
+
     # Link the right camera attributes
-    cmds.connectAttr( leftCam+'.aiFovVertAngle', rightCam+'.aiFovVertAngle', force=True )
-    cmds.connectAttr( leftCam+'.aiFovHorizAngle', rightCam+'.aiFovHorizAngle', force=True )
-    cmds.connectAttr( leftCam+'.aiParallaxDistance', rightCam+'.aiParallaxDistance', force=True )
-    cmds.connectAttr( leftCam+'.aiSeparation', rightCam+'.aiSeparation', force=True )
-    cmds.connectAttr( leftCam+'.aiZenithMode', rightCam+'.aiZenithMode', force=True )
-    
-    cmds.connectAttr( leftCam+'.aiSeparationMap', rightCam+'.aiSeparationMap', force=True )
-    
-    cmds.connectAttr( leftCam+'.aiFlipRayX', rightCam+'.aiFlipRayX', force=True )
-    cmds.connectAttr( leftCam+'.aiFlipRayY', rightCam+'.aiFlipRayY', force=True )
-    
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoOn', rightCam+'.vrayLatLongStereoOn', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFovVertAngle', rightCam+'.vrayLatLongStereoFovVertAngle', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFovHorizAngle', rightCam+'.vrayLatLongStereoFovHorizAngle', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoParallaxDistance', rightCam+'.vrayLatLongStereoParallaxDistance', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoSeparation', rightCam+'.vrayLatLongStereoSeparation', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoZenithMode', rightCam+'.vrayLatLongStereoZenithMode', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFlipX', rightCam+'.vrayLatLongStereoFlipX', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoFlipY', rightCam+'.vrayLatLongStereoFlipY', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoNeckOffset', rightCam+'.vrayLatLongStereoNeckOffset', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoZenithFov', rightCam+'.vrayLatLongStereoZenithFov', force=True )
+
+
     # ---------------------------------------------------------------------
     # Create the custom Domemaster3D shading networks
     # ---------------------------------------------------------------------
-    
+
     # Create the nodes
 
     # ---------------------------------------------------------------------
     # Link the center camera lens shader to the Maya camera rig stereo3d settings
     # This enables real-time 3D previews in the viewport
     # ---------------------------------------------------------------------
-    cmds.connectAttr( leftCam+'.aiParallaxDistance', centerCam+'.zeroParallax', force=True )
-    cmds.connectAttr( leftCam+'.aiSeparation', centerCam+'.interaxialSeparation', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoParallaxDistance', centerCam+'.zeroParallax', force=True )
+    cmds.connectAttr( centerCam+'.vrayLatLongStereoSeparation', centerCam+'.interaxialSeparation', force=True )
 
     #Turn off the Stereo 3D effect on the native Maya camera rig
     # This skips the need for a pre-render and post-render mel script.
@@ -251,7 +339,7 @@ def __createFrustumNode( mainCam, parent, baseName ):
     
   return frustum
 
-def createRig(unusedBasename='ArnoldLatLongStereoCamera'):
+def createRig(unusedBasename='VrayLatLongStereoCamera'):
   """
   Creates a new stereo rig. Uses a series of Maya commands to build
   a stereo rig.
@@ -264,11 +352,11 @@ def createRig(unusedBasename='ArnoldLatLongStereoCamera'):
   import string
   import random
   randomLetterPostfix = random.choice(string.ascii_uppercase)
-  #print ("The StereoCameraRig Random letter extension is: ArnoldLatLongStereoCamera" + randomLetterPostfix)
+  #print ("The StereoCameraRig Random letter extension is: VrayLatLongStereoCamera" + randomLetterPostfix)
 
   #Put a temp throwaway value of unusedBasename as the createRig input variable
   #Define basename here instead of the regular createRig() variable
-  basename='ArnoldLatLongStereoCamera' + randomLetterPostfix
+  basename='VrayLatLongStereoCamera' + randomLetterPostfix
 
   # Create the root of the rig
   # 
@@ -356,7 +444,7 @@ def createRig(unusedBasename='ArnoldLatLongStereoCamera'):
   cmds.addAttr( root, longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.01)
   cmds.setAttr( root+'.Cam_Locator_Scale', keyable=False, channelBox=True)
   
-  # Result: Connected ArnoldLatLongStereoCamera.Cam_Locator_Scale to ArnoldLatLongStereoCameraLeftShape.locatorScale. // 
+  # Result: Connected VrayLatLongStereoCamera.Cam_Locator_Scale to VrayLatLongStereoCameraLeftShape.locatorScale. // 
   cmds.connectAttr ( root+'.Cam_Locator_Scale', centerCam+'.locatorScale', force=True)
   cmds.connectAttr ( root+'.Cam_Locator_Scale', leftCam+'.locatorScale', force=True)
   cmds.connectAttr ( root+'.Cam_Locator_Scale', rightCam+'.locatorScale', force=True)
@@ -374,7 +462,7 @@ def attachToCameraSet( *args, **keywords ):
   if not keywords.has_key( 'allDone' ):
     stereoCameraSets.parentToLayer0Rig( *args, cameraSet=keywords['cameraSet'] )
 
-rigTypeName = 'ArnoldLatLongStereoCamera'
+rigTypeName = 'VrayLatLongStereoCamera'
 
 def registerThisRig():
   """
@@ -384,8 +472,8 @@ def registerThisRig():
   mayaVersion = getMayaVersionDome()
   if (mayaVersion >= 2011):
     global rigTypeName 
-    cmds.stereoRigManager( add=[rigTypeName, 'Python', 'arnoldLatLongStereoRig.createRig'] )
-    cmds.stereoRigManager( cameraSetFunc=[rigTypeName, 'arnoldLatLongStereoRig.attachToCameraSet'] )
+    cmds.stereoRigManager( add=[rigTypeName, 'Python', 'vrayLatLongStereoRig.createRig'] )
+    cmds.stereoRigManager( cameraSetFunc=[rigTypeName, 'vrayLatLongStereoRig.attachToCameraSet'] )
   else:
     cmds.stereoRigManager(add=['StereoCamera', 'Python', 'maya.app.stereo.stereoCameraDefaultRig.createRig'])
 

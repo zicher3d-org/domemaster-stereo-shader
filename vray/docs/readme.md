@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-04-02 
+2015-05-09 
 
 - Table of Contents
     *    [Overview](#overview)
@@ -55,7 +55,7 @@ This guide covers the Vray version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-04-01 ) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-05-09 ) is a development build.
 
 The Vray Standalone version generally works without too many issues.
 
@@ -326,7 +326,15 @@ There are two new controls added for the first time in the Vray for 3DS Max lens
 
 ## Adding a Vray Lens Shader in Maya #
 
-You can add a custom Vray lens shader to a Maya camera using the **VRay Extra Attributes** feature. 
+![Domemaster3D Vray for Maya Shelf](images/domemaster3d-vray-for-maya-shelf.png)
+
+There is now a custom VrayDomemaster3D shelf that makes it easier to use the Domemaster3D lens shaders. In addition to the shelf tools there is also a pair of LatLongStereo and DomemasterStereo camera rigs that work with Maya's native StereoRigManager system.
+
+**Note:** If you want to use the Maya Render View's native stereo preview system, you have to turn off the **Use V-Ray VFB** checkbox in the Maya render settings window.
+
+---
+
+You can also add a custom Vray lens shader to a Maya camera using the **VRay Extra Attributes** feature. 
 
 To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera's shape node in the Attribute Editor window. Open the `Attributes > VRay` menu, and select either the `DomemasterStereo camera` or `LatLongStereo camera` items. 
 
@@ -365,7 +373,6 @@ You can also delete the python code in the **Mel/Python Callbacks** `Post Transl
 
 ### Windows 64-bit ###
 
-**Step 1.**
 **Step 1.** Download the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
 
 **Step 2.**
@@ -379,7 +386,7 @@ Vray Plugin Files:
     vray_LatLongStereo.dll
 
 **Step 3.**
-Copy the Maya Vray script files to the Vray scripts folder:  
+Copy the Vray script files to the Vray scripts folder:  
 
 `C:\Program Files\Autodesk\Maya<Version>\vray\scripts`
 
@@ -389,11 +396,21 @@ Vray Script Files:
     attributeNodes.txt
     attributeGroups.txt
     vrayAEFunctions.mel
-    domeVrayRender.py
     
 
 **Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
+**Step 4.**
+Copy the Maya script files to the scripts folder:  
+
+`C:\Users\<User Account>\Documents\maya\<Version>\scripts`
+
+Vray Script Files:
+
+**Step 5.**
+Copy the Maya shelf file `shelf_VrayDomemaster3D.mel` into your Shelves folder:
+
+`C:\Users\<User Account>\Documents\maya\<Version>\prefs\shelves`
 
 ### Mac 64-bit ###
 
@@ -408,7 +425,7 @@ Vray Plugin Files:
     vray_LatLongStereo.so
 
 **Step 2.**
-Copy the Maya Vray script files to the Vray scripts folder:  
+Copy the  Vray script files to the Vray scripts folder:  
 
 `/Applications/Autodesk/maya2015/vray/scripts`
 
@@ -418,10 +435,14 @@ Vray Script Files:
     attributeNodes.txt
     attributeGroups.txt
     vrayAEFunctions.mel
-    domeVrayRender.py
     
-
 **Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+
+**Step 3.**
+Copy the Maya script files to your scripts folder.
+
+**Step 4.**
+Copy the Maya shelf file `shelf_VrayDomemaster3D.mel` into your Shelves folder.
 
 ### Linux 64-bit ###
 
@@ -437,7 +458,7 @@ Vray Plugin Files:
 
 
 **Step 3.**
-Copy the Maya Vray script files to the Vray scripts folder:  
+Copy the Vray script files to the Vray scripts folder:  
 
 `/opt/Autodesk/Maya<Version>/vray/scripts`
 
@@ -447,9 +468,14 @@ Vray Script Files:
     attributeNodes.txt
     attributeGroups.txt
     vrayAEFunctions.mel
-    domeVrayRender.py
     
 **Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
+
+**Step 4.**
+Copy the Maya script files to your scripts folder.
+
+**Step 5.**
+Copy the Maya shelf file `shelf_VrayDomemaster3D.mel` into your Shelves folder.
 
 ## Compiling Instructions ##
 
@@ -519,6 +545,16 @@ At this point a few of the required Vray on Linux shader compiling details are n
 - Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.
 
 ## Version History ##
+
+### 2015-05-08 ###
+
+**Vray for Maya**
+
+- Added a version info MEL script
+- Added a Vray for Maya shelf toolbar labeled `VrayDomemaster3D`
+- Created Maya Stereo Rig Manager scripts for the DomemasterStereo and LatLongStereo cameras.
+
+- **Note:** If you want to use the Maya Render View's native stereo preview system, you have to turn off the **Use V-Ray VFB** checkbox in the Maya render settings window.
 
 ### 2015-04-02 ###
 

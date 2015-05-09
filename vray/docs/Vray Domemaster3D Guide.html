@@ -293,7 +293,7 @@ img {
 <body>
 <h1>Vray Domemaster3D Guide</h1>
 <hr />
-<p>2015-04-02 </p>
+<p>2015-05-09 </p>
 <ul>
 <li>
 Table of Contents
@@ -383,7 +383,7 @@ Table of Contents
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Vray version of the Domemaster Stereo Shader.</p>
 <h2>Known Issues</h2>
-<p>The current version of the Vray Domemaster3D shaders (as of 2015-04-01 ) is a development build.</p>
+<p>The current version of the Vray Domemaster3D shaders (as of 2015-05-09 ) is a development build.</p>
 <p>The Vray Standalone version generally works without too many issues.</p>
 <p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.</p>
 <p>The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.</p>
@@ -581,7 +581,11 @@ vray.exe -sceneFile=&quot;DomemasterStereo_Boxworld_right.vrscene&quot;
 <li>The hemirect (hemi-equirectangular) checkbox in the LatLongStereo shader that lets you render a partial LatLong image where the top edge of the rendering starts aligned to the zenith pole region. This is useful if you want to render a cropped 360&deg; x 90&deg; latlong image that could then be converted in post into a 180&deg; domemaster (angular fisheye) image with no unused/over-rendered areas in the source image.</li>
 </ul>
 <h2>Adding a Vray Lens Shader in Maya</h2>
-<p>You can add a custom Vray lens shader to a Maya camera using the <strong>VRay Extra Attributes</strong> feature. </p>
+<p><img src="images/domemaster3d-vray-for-maya-shelf.png" alt="Domemaster3D Vray for Maya Shelf" /></p>
+<p>There is now a custom VrayDomemaster3D shelf that makes it easier to use the Domemaster3D lens shaders. In addition to the shelf tools there is also a pair of LatLongStereo and DomemasterStereo camera rigs that work with Maya's native StereoRigManager system.</p>
+<p><strong>Note:</strong> If you want to use the Maya Render View's native stereo preview system, you have to turn off the <strong>Use V-Ray VFB</strong> checkbox in the Maya render settings window.</p>
+<hr />
+<p>You can also add a custom Vray lens shader to a Maya camera using the <strong>VRay Extra Attributes</strong> feature. </p>
 <p>To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera's shape node in the Attribute Editor window. Open the <code>Attributes &gt; VRay</code> menu, and select either the <code>DomemasterStereo camera</code> or <code>LatLongStereo camera</code> items. </p>
 <p>At this point you can turn ON the lens shader by scrolling down to the bottom of the Attribute Editor window and expanding the <code>Extra VRay Attributes</code> section. Then enable the appropriate <code>Treat as a Vray DomemasterStereo</code> or <code>Treat as a Vray LatLongStereo Cam</code> checkbox.</p>
 <h3>VRay Post Translate Python Script</h3>
@@ -604,8 +608,7 @@ domeVrayRender.domeVrayTranslator()
 <img src="images/clear-post-translate-python-script.png" alt="Clearing the Python Translator" /></p>
 <h2>Maya Shader Installation</h2>
 <h3>Windows 64-bit</h3>
-<p><strong>Step 1.</strong>
-<strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
+<p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong>
 Copy the .dll files to the vray-plugins directory:  </p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\vrayplugins\</code></p>
@@ -615,17 +618,23 @@ vray_LatLongStereo.dll
 </code></pre>
 
 <p><strong>Step 3.</strong>
-Copy the Maya Vray script files to the Vray scripts folder:  </p>
+Copy the Vray script files to the Vray scripts folder:  </p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
 attributeNodes.txt
 attributeGroups.txt
 vrayAEFunctions.mel
-domeVrayRender.py
 </code></pre>
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
+<p><strong>Step 4.</strong>
+Copy the Maya script files to the scripts folder:  </p>
+<p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\scripts</code></p>
+<p>Vray Script Files:</p>
+<p><strong>Step 5.</strong>
+Copy the Maya shelf file <code>shelf_VrayDomemaster3D.mel</code> into your Shelves folder:</p>
+<p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\prefs\shelves</code></p>
 <h3>Mac 64-bit</h3>
 <p><strong>Step 1.</strong>
 Copy the .so files to the vray-plugins directory:  </p>
@@ -636,17 +645,20 @@ vray_LatLongStereo.so
 </code></pre>
 
 <p><strong>Step 2.</strong>
-Copy the Maya Vray script files to the Vray scripts folder:  </p>
+Copy the  Vray script files to the Vray scripts folder:  </p>
 <p><code>/Applications/Autodesk/maya2015/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
 attributeNodes.txt
 attributeGroups.txt
 vrayAEFunctions.mel
-domeVrayRender.py
 </code></pre>
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
+<p><strong>Step 3.</strong>
+Copy the Maya script files to your scripts folder.</p>
+<p><strong>Step 4.</strong>
+Copy the Maya shelf file <code>shelf_VrayDomemaster3D.mel</code> into your Shelves folder.</p>
 <h3>Linux 64-bit</h3>
 <p><strong>Step 1.</strong>
 Copy the .so files to the vray-plugins directory:  </p>
@@ -657,17 +669,20 @@ vray_LatLongStereo.so
 </code></pre>
 
 <p><strong>Step 3.</strong>
-Copy the Maya Vray script files to the Vray scripts folder:  </p>
+Copy the Vray script files to the Vray scripts folder:  </p>
 <p><code>/opt/Autodesk/Maya&lt;Version&gt;/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
 attributeNodes.txt
 attributeGroups.txt
 vrayAEFunctions.mel
-domeVrayRender.py
 </code></pre>
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
+<p><strong>Step 4.</strong>
+Copy the Maya script files to your scripts folder.</p>
+<p><strong>Step 5.</strong>
+Copy the Maya shelf file <code>shelf_VrayDomemaster3D.mel</code> into your Shelves folder.</p>
 <h2>Compiling Instructions</h2>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong>
@@ -698,10 +713,10 @@ Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code>
 <p><strong>Step 5.</strong>
 At this point in time the Vray Standalone release for Mac OS X is i386 (32-bit) and the Mac OS X Maya Vray build is x64 (64-bit). This will require the makefile to be updated to match your desired build target.</p>
 <p>You can check your compiled .so architecture with the following commands:</p>
-<p>otool -L libvray_LatLongStereo.so<br />
-lipo -info libvray_LatLongStereo.so   </p>
-<p>otool -L libvray_DomemasterStereo.so<br />
-lipo -info libvray_DomemasterStereo.so   </p>
+<p>otool -L libvray<em>LatLongStereo.so<br />
+lipo -info libvray</em>LatLongStereo.so   </p>
+<p>otool -L libvray<em>DomemasterStereo.so<br />
+lipo -info libvray</em>DomemasterStereo.so   </p>
 <h3>Linux 64-bit</h3>
 <p>At this point a few of the required Vray on Linux shader compiling details are not known by the Domemaster3D developer. This means Linux support is currently a work-in-progress endeavour.</p>
 <h2>Credits</h2>
@@ -712,6 +727,18 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <li>Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.</li>
 </ul>
 <h2>Version History</h2>
+<h3>2015-05-08</h3>
+<p><strong>Vray for Maya</strong></p>
+<ul>
+<li>Added a version info MEL script</li>
+<li>Added a Vray for Maya shelf toolbar labeled <code>VrayDomemaster3D</code></li>
+<li>
+<p>Created Maya Stereo Rig Manager scripts for the DomemasterStereo and LatLongStereo cameras.</p>
+</li>
+<li>
+<p><strong>Note:</strong> If you want to use the Maya Render View's native stereo preview system, you have to turn off the <strong>Use V-Ray VFB</strong> checkbox in the Maya render settings window.</p>
+</li>
+</ul>
 <h3>2015-04-02</h3>
 <p><strong>Vray for Maya</strong></p>
 <ul>
@@ -770,7 +797,7 @@ lipo -info libvray_DomemasterStereo.so   </p>
 <h3>Version 0.2 - 2014-11-26</h3>
 <ul>
 <li>Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues</li>
-<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.</li>
+<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL<em>FOV</em>Stereo shader.</li>
 </ul>
 <h3>Version 0.1 - 2014-11-14</h3>
 <ul>

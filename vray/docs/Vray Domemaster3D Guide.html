@@ -275,92 +275,51 @@ img {
 <body>
 <h1>Vray Domemaster3D Guide</h1>
 <hr />
-<p>2015-05-21 </p>
-<ul>
-<li>
-Table of Contents
-<ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#known-issues">Known Issues</a></li>
-<li>
-<a href="#vray-standalone">Vray Standalone</a>
-<ul>
-<li><a href="#domemasterstereo-in-a-vrscene-file">DomemasterStereo in a VRSCENE File</a></li>
-<li><a href="#latlongstereo-in-a-vrscene-file">LatLongStereo in a VRSCENE File</a></li>
-</ul>
-</li>
-<li><a href="#vray-standalone-shader-installation">Vray Standalone Shader Installation</a></li>
-<li><a href="#vray-for-3ds-max-shader-installation">Vray for 3DS Max Shader Installation</a></li>
-<li>
-<a href="#vray-rt-for-3ds-max-shader-installation">Vray RT for 3DS Max Shader Installation</a>
-<ul>
-<li><a href="#windows-64-bit-1">Windows 64-bit</a></li>
-</ul>
-</li>
-<li>
-<a href="#verify-the-shader-is-loaded-in-vray">Verify the Shader is Loaded in Vray</a>
-<ul>
-<li><a href="#vray-shader-parameters-screenshot">Vray Shader Parameters Screenshot</a></li>
-<li>
-<a href="#listing-the-nodes">Listing the Nodes</a>
-<ul>
-<li><a href="#windows-node-list">Windows Node List</a></li>
-<li><a href="#mac-node-list">Mac Node List</a></li>
-<li><a href="#linux-node-list">Linux Node List</a></li>
-</ul>
-</li>
-<li>
-<a href="#node-parameters">Node Parameters</a>
-<ul>
-<li><a href="#plgparamsexe-domemasterstereo">plgparams.exe DomemasterStereo</a></li>
-<li><a href="#plgparamsexe-latlongstereo">plgparams.exe LatLongStereo</a></li>
-<li><a href="#windows-parameters">Windows Parameters</a></li>
-<li><a href="#mac-parameters">Mac Parameters</a></li>
-<li><a href="#linux-parameters">Linux Parameters</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#rendering-the-example-scenes">Rendering the Example Scenes</a></li>
-<li><a href="#vray-for-3ds-max-lens-shaders">Vray for 3DS Max Lens Shaders</a></li>
-<li>
-<a href="#adding-a-vray-lens-shader-in-maya">Adding a Vray Lens Shader in Maya</a>
-<ul>
-<li><a href="#vray-domemasterstereo-camera">VRay DomemasterStereo Camera</a></li>
-<li><a href="#vray-latlongstereo-camera">VRay LatLongStereo Camera</a></li>
-<li><a href="#removing-a-lens-shader">Removing a Lens Shader</a></li>
-</ul>
-</li>
-<li>
-<a href="#maya-shader-installation">Maya Shader Installation</a>
-<ul>
-<li><a href="#windows-64-bit-2">Windows 64-bit</a></li>
-<li><a href="#mac-64-bit">Mac 64-bit</a></li>
-<li><a href="#linux-64-bit">Linux 64-bit</a></li>
-</ul>
-</li>
-<li>
-<a href="#compiling-instructions">Compiling Instructions</a>
-<ul>
-<li><a href="#windows-64-bit-3">Windows 64-bit</a></li>
-<li><a href="#mac-os-x-64-bit">Mac OS X 64-bit</a></li>
-<li><a href="#linux-64-bit-1">Linux 64-bit</a></li>
-</ul>
-</li>
-<li><a href="#credits">Credits</a></li>
-<li><a href="#version-history">Version History</a></li>
-<li>
-<a href="#to-do-list">To Do List</a>
-<ul>
-<li><a href="#domemasterstereo-to-dos">DomemasterStereo To Dos</a></li>
-<li><a href="#vray-for-maya-to-dos">Vray for Maya To Dos</a></li>
-<li><a href="#vray-for-3ds-max-to-dos">Vray for 3DS Max To Dos</a></li>
-<li><a href="#shader-testing-to-dos">Shader Testing To Dos</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>2015-05-21 
+**
+- Table of Contents
+    *    <a href="#overview">Overview</a>
+    *    <a href="#known-issues">Known Issues</a>
+    *    <a href="#vray-standalone">Vray Standalone</a>
+        +    <a href="#domemasterstereo-in-a-vrscene-file">DomemasterStereo in a VRSCENE File</a>
+        +    <a href="#latlongstereo-in-a-vrscene-file">LatLongStereo in a VRSCENE File</a>
+    *    <a href="#vray-standalone-shader-installation">Vray Standalone Shader Installation</a>
+    *    <a href="#vray-for-3ds-max-shader-installation">Vray for 3DS Max Shader Installation</a>
+    *    <a href="#vray-rt-for-3ds-max-shader-installation">Vray RT for 3DS Max Shader Installation</a>
+        +    <a href="#windows-64-bit-1">Windows 64-bit</a>
+    *    <a href="#verify-the-shader-is-loaded-in-vray">Verify the Shader is Loaded in Vray</a>
+        +    <a href="#vray-shader-parameters-screenshot">Vray Shader Parameters Screenshot</a>
+        +    <a href="#listing-the-nodes">Listing the Nodes</a>
+            *    <a href="#windows-node-list">Windows Node List</a>
+            *    <a href="#mac-node-list">Mac Node List</a>
+            *    <a href="#linux-node-list">Linux Node List</a>
+        +    <a href="#node-parameters">Node Parameters</a>
+            *    <a href="#plgparamsexe-domemasterstereo">plgparams.exe DomemasterStereo</a>
+            *    <a href="#plgparamsexe-latlongstereo">plgparams.exe LatLongStereo</a>
+            *    <a href="#windows-parameters">Windows Parameters</a>
+            *    <a href="#mac-parameters">Mac Parameters</a>
+            *    <a href="#linux-parameters">Linux Parameters</a>
+    *    <a href="#rendering-the-example-scenes">Rendering the Example Scenes</a>
+    *    <a href="#vray-for-3ds-max-lens-shaders">Vray for 3DS Max Lens Shaders</a>
+    *    <a href="#adding-a-vray-lens-shader-in-maya">Adding a Vray Lens Shader in Maya</a>
+        +    <a href="#vray-domemasterstereo-camera">VRay DomemasterStereo Camera</a>
+        +    <a href="#vray-latlongstereo-camera">VRay LatLongStereo Camera</a>
+        +    <a href="#removing-a-lens-shader">Removing a Lens Shader</a>
+    *    <a href="#maya-shader-installation">Maya Shader Installation</a>
+        +    <a href="#windows-64-bit-2">Windows 64-bit</a>
+        +    <a href="#mac-64-bit">Mac 64-bit</a>
+        +    <a href="#linux-64-bit">Linux 64-bit</a>
+    *    <a href="#compiling-instructions">Compiling Instructions</a>
+        +    <a href="#windows-64-bit-3">Windows 64-bit</a>
+        +    <a href="#mac-os-x-64-bit">Mac OS X 64-bit</a>
+        +    <a href="#linux-64-bit-1">Linux 64-bit</a>
+    *    <a href="#credits">Credits</a>
+    *    <a href="#version-history">Version History</a>
+    *    <a href="#to-do-list">To Do List</a>
+        +    <a href="#domemasterstereo-to-dos">DomemasterStereo To Dos</a>
+        +    <a href="#vray-for-maya-to-dos">Vray for Maya To Dos</a>
+        +    <a href="#vray-for-3ds-max-to-dos">Vray for 3DS Max To Dos</a>
+        +    <a href="#shader-testing-to-dos">Shader Testing To Dos</a></p>
 <h2>Overview</h2>
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
 <p>This guide covers the Vray version of the Domemaster Stereo Shader.</p>
@@ -717,12 +676,13 @@ Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code>
 <p><code>make -f MakefileMavericks.osx</code></p>
 <p><strong>Step 5.</strong>
 You can check your compiled .so architecture with the following commands:</p>
-<p>otool -L libvray<em>LatLongStereo.so<br />
-lipo -info libvray</em>LatLongStereo.so   
-</p>
-<p>otool -L libvray<em>DomemasterStereo.so<br />
-lipo -info libvray</em>DomemasterStereo.so   
-</p>
+<pre><code>otool -L libvray_LatLongStereo.so   
+lipo -info libvray_LatLongStereo.so   
+
+otool -L libvray_DomemasterStereo.so  
+lipo -info libvray_DomemasterStereo.so   
+</code></pre>
+
 <h3>Linux 64-bit</h3>
 <p>At this point a few of the required Vray on Linux shader compiling details are not known by the Domemaster3D developer. This means Linux support is currently a work-in-progress endeavour.</p>
 <h2>Credits</h2>
@@ -766,9 +726,10 @@ lipo -info libvray</em>DomemasterStereo.so
 <li>Synced the Vray for Softimage SPDL code to include the 3DS Max &quot;Neck Offset&quot; and &quot;Hemi-equirectangular&quot; features.</li>
 </ul>
 <h3>2015-03-31</h3>
-<p><strong>Vray Standalone Mac OS X Support</strong></p>
+<p><strong>Vray Standalone Mac OS X Support</strong>  
+</p>
 <ul>
-<li>Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool <code>plgparams.bin</code> on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.</li>
+<li>Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders.</li>
 </ul>
 <p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  
 </p>

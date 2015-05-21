@@ -1,7 +1,7 @@
 # Vray Domemaster3D Guide #
 -------------------------
 2015-05-21 
-
+**
 - Table of Contents
     *    [Overview](#overview)
     *    [Known Issues](#known-issues)
@@ -525,11 +525,13 @@ Use the Mac OS X makefile to compile a new `vray_DomemasterStereo.so` and `vray_
 **Step 5.**
 You can check your compiled .so architecture with the following commands:
 
-otool -L libvray_LatLongStereo.so  
-lipo -info libvray_LatLongStereo.so   
 
-otool -L libvray_DomemasterStereo.so  
-lipo -info libvray_DomemasterStereo.so   
+
+	otool -L libvray_LatLongStereo.so  	
+	lipo -info libvray_LatLongStereo.so   
+
+	otool -L libvray_DomemasterStereo.so  
+	lipo -info libvray_DomemasterStereo.so   
 
 ### Linux 64-bit ###
 
@@ -576,9 +578,9 @@ Note: The Domemaster3D Vray for Maya shader parameters have been updated and may
 
 ### 2015-03-31 ###
 
-**Vray Standalone Mac OS X Support**
+**Vray Standalone Mac OS X Support**  
 
-- Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool `plgparams.bin` on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.
+- Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders.
 
 ![Plgparams Listing the Shader Parameters on the Mac 1](images/vray_mac_plugin_params_latlongstereo.png)  
 

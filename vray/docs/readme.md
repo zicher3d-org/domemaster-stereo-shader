@@ -1,6 +1,6 @@
 # Vray Domemaster3D Guide #
 -------------------------
-2015-05-09 
+2015-05-21 
 
 - Table of Contents
     *    [Overview](#overview)
@@ -417,7 +417,7 @@ Copy the Maya shelf file `shelf_VrayDomemaster3D.mel` into your Shelves folder:
 **Step 1.**
 Copy the .so files to the vray-plugins directory:  
 
-`/Applications/Autodesk/maya2015/vray/vrayplugins`
+`/Applications/Autodesk/maya<Version>/vray/vrayplugins`
 
 Vray Plugin Files:
 
@@ -427,7 +427,7 @@ Vray Plugin Files:
 **Step 2.**
 Copy the  Vray script files to the Vray scripts folder:  
 
-`/Applications/Autodesk/maya2015/vray/scripts`
+`/Applications/Autodesk/maya<Version>/vray/scripts`
 
 Vray Script Files:
 
@@ -487,7 +487,7 @@ Install Visual Studio 2013 Community Edition and Vray Standalone (which includes
 **Step 2.**
 Open a new command prompt and cd into the vray cameras source code folder:
 
-`cd C:\Program Files\Chaos Group\V-Ray\Maya 2015 for x64\samples\vray_plugins\cameras`
+`cd C:\Program Files\Chaos Group\V-Ray\Maya <Version> for x64\samples\vray_plugins\cameras`
 
 **Step 3.**
 Copy the Domemaster3D `vray_DomemasterStereo` and `vray_LatLongStereo` source code folders into the vray cameras source code folder. 
@@ -506,7 +506,7 @@ If you are running an older version of Visual Studio you can use the legacy Micr
 
 ### Mac OS X 64-bit ###
 
-There are issues with the Domemaster3D makefile on Mac OS X. At this point a few of the required vray on Mac shader compiling details are not known by the Domemaster3D developer. This means Mac support is currently a work-in-progress endeavour.
+The first version of Vray for Mac OS X support has been added to the lens shaders. Mac OS X 10.9 Mavericks or 10.10 Yosemite is required to use the lens shaders.
 
 **Step 1.**
 Install Xcode and Vray Standalone (which includes a copy of the Vray plugin SDK).
@@ -515,16 +515,14 @@ Install Xcode and Vray Standalone (which includes a copy of the Vray plugin SDK)
 Open a new terminal window and cd into the source code folder.
 
 **Step 3.**
-Edit the Makefile.osx file and change the `MAYA_VERSION` variable to match your current Maya release, and update the `MAYA_VRAY_PLUG_DIR`, `VRAY_STANDALONE_DIR`, `VRAY_LIB_DIR`, `VRAY_PLUG_DIR` variables to match your current vray standalone directory names.
+Copy the Vray Lib and Include files into the matching folders located next to the source code files.
 
 **Step 4.**
 Use the Mac OS X makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo` shader:  
 
-`make -f Makefile.osx`
+`make -f MakefileMavericks.osx`
 
 **Step 5.**
-At this point in time the Vray Standalone release for Mac OS X is i386 (32-bit) and the Mac OS X Maya Vray build is x64 (64-bit). This will require the makefile to be updated to match your desired build target.
-
 You can check your compiled .so architecture with the following commands:
 
 otool -L libvray_LatLongStereo.so  
@@ -545,6 +543,12 @@ At this point a few of the required Vray on Linux shader compiling details are n
 - Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.
 
 ## Version History ##
+
+### 2015-05-21 ###
+
+**Vray for Maya**
+
+- Added Vray 3.0 for Maya on Mac OS X Support. This build works with Mac OS X 10.9 Mavericks and 10.10 Yosemite only.
 
 ### 2015-05-08 ###
 
@@ -612,7 +616,7 @@ Note: The Domemaster3D Vray for Maya shader parameters have been updated and may
 ### Version 0.2 - 2014-11-26 ###
 
 - Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues
-- Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.
+- Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray `domeAFL_FOV_Stereo` shader.
 
 ### Version 0.1 - 2014-11-14 ###
 

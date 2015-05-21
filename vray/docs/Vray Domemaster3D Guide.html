@@ -6,7 +6,7 @@
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
 /* Author: Nicolas Hery - http://nicolashery.com */
-/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Version: 29d1c5bc36da364ad5aa86946d420b7bbc54a253 */
 /* Source: https://github.com/nicolahery/markdownpad-github */
 
 /* RESET
@@ -212,24 +212,6 @@ pre code, pre tt {
   border: none;
 }
 
-kbd {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-color: #DDDDDD;
-    background-image: linear-gradient(#F1F1F1, #DDDDDD);
-    background-repeat: repeat-x;
-    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
-    border-image: none;
-    border-radius: 2px 2px 2px 2px;
-    border-style: solid;
-    border-width: 1px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    line-height: 10px;
-    padding: 1px 4px;
-}
-
 /* QUOTES
 =============================================================================*/
 
@@ -293,7 +275,7 @@ img {
 <body>
 <h1>Vray Domemaster3D Guide</h1>
 <hr />
-<p>2015-05-09 </p>
+<p>2015-05-21 </p>
 <ul>
 <li>
 Table of Contents
@@ -440,7 +422,8 @@ Table of Contents
 <h2>Vray Standalone Shader Installation</h2>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
-<p><strong>Step 2.</strong> Copy the .dll files to the vray-plugins directory:  </p>
+<p><strong>Step 2.</strong> Copy the .dll files to the vray-plugins directory:  
+</p>
 <p><code>C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.dll
@@ -449,7 +432,8 @@ vray_LatLongStereo.dll
 
 <p><strong>Step 3.</strong> Edit the Windows environment variables and add an entry for the  <code>VRAY_PLUGINS_x64</code> Vray standalone plugins path location.</p>
 <p><img src="images/adding-a-new-env-var.png" alt="Adding an ENV Var" /></p>
-<p>For Vray Standalone 2.5 the standard <code>VRAY_PLUGINS_x64</code> setting would be:   </p>
+<p>For Vray Standalone 2.5 the standard <code>VRAY_PLUGINS_x64</code> setting would be:   
+</p>
 <p><code>VRAY_PLUGINS_x64</code><br />
 <code>C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\plugins</code></p>
 <h2>Vray for 3DS Max Shader Installation</h2>
@@ -459,7 +443,8 @@ vray_LatLongStereo.dll
 <p><strong>Step 2.</strong> Copy the .dlo files to the Vray for 3DS Max plugins directory.</p>
 <p><code>C:\Program Files\Autodesk\3ds Max &lt;Max Version&gt;\plugins\vrayplugins</code></p>
 <p>Note: Change <code>&lt;Max Version&gt;</code> to the release number of 3DS Max. Example: Write in 2015 for the <code>&lt;Max Version&gt;</code> if you are using 3DS Max 2015.</p>
-<p>Vray Plugin Files:  </p>
+<p>Vray Plugin Files:  
+</p>
 <pre><code>vraylatlongstereo2015.dlo
 vraydomemasterstereo2015.dlo
 
@@ -472,14 +457,16 @@ vraydomemasetrstereo2013.dlo
 
 <p><strong>Step 3.</strong>
 If you get an &quot;Error Loading Plugin-DLL&quot; error message in 3DS Max when when you try and load the shader it means you haven't installed the Microsoft Visual Studio 2013 x64 Redistributable library that was mentioned as a required stage in <strong>Step 1</strong>. Now is a good time to go back to step 1 and actually install the library file!</p>
-<p><img src="images/vray-max-no-vs2013-libs.png" alt="Visual Studio 2013 Library Missing Error" />  </p>
+<p><img src="images/vray-max-no-vs2013-libs.png" alt="Visual Studio 2013 Library Missing Error" />  
+</p>
 <h2>Vray RT for 3DS Max Shader Installation</h2>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong> Copy the .dll files to the Vray RT plugins directory.</p>
 <p><code>C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max &lt;Max Version&gt; for x64\bin\plugins</code></p>
 <p>Note: Change <Max Version> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.</p>
-<p>Vray Plugin Files:  </p>
+<p>Vray Plugin Files:  
+</p>
 <pre><code>vray_DomemasterStereo.dll (Not compiled yet)
 vray_LatLongStereo.dll
 </code></pre>
@@ -492,9 +479,12 @@ vray_LatLongStereo.dll
 <p>Note: Change <code>&lt;Max Version&gt;</code> to the release number of 3DS Max. Example: Write in 2015 for the <code>&lt;Max Version&gt;</code> if you are using 3DS Max 2015.</p>
 <h2>Verify the Shader is Loaded in Vray</h2>
 <h3>Vray Shader Parameters Screenshot</h3>
-<p><img src="images/vray_plugin_parameters.png" alt="Plgparams Listing the Shader Parameters" />  </p>
-<p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  </p>
-<p><img src="images/vray_mac_plugin_params_domemasterstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 2" />  </p>
+<p><img src="images/vray_plugin_parameters.png" alt="Plgparams Listing the Shader Parameters" />  
+</p>
+<p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  
+</p>
+<p><img src="images/vray_mac_plugin_params_domemasterstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 2" />  
+</p>
 <h3>Listing the Nodes</h3>
 <p>You can list all of the active Vray Shader nodes using the plugin parameters tool:</p>
 <h4>Windows Node List</h4>
@@ -540,20 +530,24 @@ vray_LatLongStereo.dll
   zenith_fov: float = 0, Hemi-equirectangular
 </code></pre>
 
-<p><strong>Note:</strong> If you receive the following error message it means you have tried to load a Vray 2.5 shader in Vray 3.0:  </p>
+<p><strong>Note:</strong> If you receive the following error message it means you have tried to load a Vray 2.5 shader in Vray 3.0:  
+</p>
 <pre><code>// Error: Error loading plugin library &quot;C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_DomemasterStereo.dll&quot; (127): The specified procedure could not be found. //   
 // Error: Error loading plugin library &quot;C:\Program Files\Autodesk\Maya2015\vray\vrayplugins\vray_LatLongStereo.dll&quot; (127): The specified procedure could not be found. //   
 </code></pre>
 
 <h4>Windows Parameters</h4>
 <p><code>plgparams.exe DomemasterStereo</code><br />
-<code>plgparams.exe LatLongStereo</code>  </p>
+<code>plgparams.exe LatLongStereo</code>  
+</p>
 <h4>Mac Parameters</h4>
 <p><code>./plgparams.bin DomemasterStereo</code><br />
-<code>./plgparams.bin LatLongStereo</code>  </p>
+<code>./plgparams.bin LatLongStereo</code>  
+</p>
 <h4>Linux Parameters</h4>
 <p><code>./plgparams.bin DomemasterStereo</code><br />
-<code>./plgparams.bin LatLongStereo</code>  </p>
+<code>./plgparams.bin LatLongStereo</code>  
+</p>
 <h2>Rendering the Example Scenes</h2>
 <p>If you navigate to the Domemaster3D vray scenes folder you can try rendering the sample vray standalone vrscene files.</p>
 <pre><code>vray.exe -sceneFile=&quot;vray 2 DomemasterStereo.vrscene&quot;  
@@ -610,7 +604,8 @@ domeVrayRender.domeVrayTranslator()
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong>
-Copy the .dll files to the vray-plugins directory:  </p>
+Copy the .dll files to the vray-plugins directory:  
+</p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\vrayplugins\</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.dll
@@ -618,7 +613,8 @@ vray_LatLongStereo.dll
 </code></pre>
 
 <p><strong>Step 3.</strong>
-Copy the Vray script files to the Vray scripts folder:  </p>
+Copy the Vray script files to the Vray scripts folder:  
+</p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
@@ -629,7 +625,8 @@ vrayAEFunctions.mel
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
 <p><strong>Step 4.</strong>
-Copy the Maya script files to the scripts folder:  </p>
+Copy the Maya script files to the scripts folder:  
+</p>
 <p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\scripts</code></p>
 <p>Vray Script Files:</p>
 <p><strong>Step 5.</strong>
@@ -637,16 +634,18 @@ Copy the Maya shelf file <code>shelf_VrayDomemaster3D.mel</code> into your Shelv
 <p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\prefs\shelves</code></p>
 <h3>Mac 64-bit</h3>
 <p><strong>Step 1.</strong>
-Copy the .so files to the vray-plugins directory:  </p>
-<p><code>/Applications/Autodesk/maya2015/vray/vrayplugins</code></p>
+Copy the .so files to the vray-plugins directory:  
+</p>
+<p><code>/Applications/Autodesk/maya&lt;Version&gt;/vray/vrayplugins</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.so
 vray_LatLongStereo.so
 </code></pre>
 
 <p><strong>Step 2.</strong>
-Copy the  Vray script files to the Vray scripts folder:  </p>
-<p><code>/Applications/Autodesk/maya2015/vray/scripts</code></p>
+Copy the  Vray script files to the Vray scripts folder:  
+</p>
+<p><code>/Applications/Autodesk/maya&lt;Version&gt;/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
 attributeNodes.txt
@@ -661,7 +660,8 @@ Copy the Maya script files to your scripts folder.</p>
 Copy the Maya shelf file <code>shelf_VrayDomemaster3D.mel</code> into your Shelves folder.</p>
 <h3>Linux 64-bit</h3>
 <p><strong>Step 1.</strong>
-Copy the .so files to the vray-plugins directory:  </p>
+Copy the .so files to the vray-plugins directory:  
+</p>
 <p><code>/opt/Autodesk/Maya&lt;Version&gt;/vray/vrayplugins/</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.so
@@ -669,7 +669,8 @@ vray_LatLongStereo.so
 </code></pre>
 
 <p><strong>Step 3.</strong>
-Copy the Vray script files to the Vray scripts folder:  </p>
+Copy the Vray script files to the Vray scripts folder:  
+</p>
 <p><code>/opt/Autodesk/Maya&lt;Version&gt;/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
@@ -689,34 +690,39 @@ Copy the Maya shelf file <code>shelf_VrayDomemaster3D.mel</code> into your Shelv
 Install Visual Studio 2013 Community Edition and Vray Standalone (which includes a copy of the Vray plugin SDK).</p>
 <p><strong>Step 2.</strong>
 Open a new command prompt and cd into the vray cameras source code folder:</p>
-<p><code>cd C:\Program Files\Chaos Group\V-Ray\Maya 2015 for x64\samples\vray_plugins\cameras</code></p>
+<p><code>cd C:\Program Files\Chaos Group\V-Ray\Maya &lt;Version&gt; for x64\samples\vray_plugins\cameras</code></p>
 <p><strong>Step 3.</strong>
 Copy the Domemaster3D <code>vray_DomemasterStereo</code> and <code>vray_LatLongStereo</code> source code folders into the vray cameras source code folder. </p>
 <p><strong>Step 4.</strong>
 Set the compiling mode to &quot;release&quot; and compile the source code in Visual Studio 2013 with the following project files:</p>
 <p><code>vray_DomemasterStereo.vcxproj</code><br />
-<code>vray_LatLongStereo.vcxproj</code>  </p>
-<p>If you are running an older version of Visual Studio you can use the legacy Microsoft Developer Studio project file:  </p>
+<code>vray_LatLongStereo.vcxproj</code>  
+</p>
+<p>If you are running an older version of Visual Studio you can use the legacy Microsoft Developer Studio project file:  
+</p>
 <p><code>vray_DomemasterStereo.dsp</code><br />
-<code>vray_LatLongStereo.dsp</code>  </p>
+<code>vray_LatLongStereo.dsp</code>  
+</p>
 <h3>Mac OS X 64-bit</h3>
-<p>There are issues with the Domemaster3D makefile on Mac OS X. At this point a few of the required vray on Mac shader compiling details are not known by the Domemaster3D developer. This means Mac support is currently a work-in-progress endeavour.</p>
+<p>The first version of Vray for Mac OS X support has been added to the lens shaders. Mac OS X 10.9 Mavericks or 10.10 Yosemite is required to use the lens shaders.</p>
 <p><strong>Step 1.</strong>
 Install Xcode and Vray Standalone (which includes a copy of the Vray plugin SDK).</p>
 <p><strong>Step 2.</strong>
 Open a new terminal window and cd into the source code folder.</p>
 <p><strong>Step 3.</strong>
-Edit the Makefile.osx file and change the <code>MAYA_VERSION</code> variable to match your current Maya release, and update the <code>MAYA_VRAY_PLUG_DIR</code>, <code>VRAY_STANDALONE_DIR</code>, <code>VRAY_LIB_DIR</code>, <code>VRAY_PLUG_DIR</code> variables to match your current vray standalone directory names.</p>
+Copy the Vray Lib and Include files into the matching folders located next to the source code files.</p>
 <p><strong>Step 4.</strong>
-Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo</code> shader:  </p>
-<p><code>make -f Makefile.osx</code></p>
+Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo</code> shader:  
+</p>
+<p><code>make -f MakefileMavericks.osx</code></p>
 <p><strong>Step 5.</strong>
-At this point in time the Vray Standalone release for Mac OS X is i386 (32-bit) and the Mac OS X Maya Vray build is x64 (64-bit). This will require the makefile to be updated to match your desired build target.</p>
-<p>You can check your compiled .so architecture with the following commands:</p>
+You can check your compiled .so architecture with the following commands:</p>
 <p>otool -L libvray<em>LatLongStereo.so<br />
-lipo -info libvray</em>LatLongStereo.so   </p>
+lipo -info libvray</em>LatLongStereo.so   
+</p>
 <p>otool -L libvray<em>DomemasterStereo.so<br />
-lipo -info libvray</em>DomemasterStereo.so   </p>
+lipo -info libvray</em>DomemasterStereo.so   
+</p>
 <h3>Linux 64-bit</h3>
 <p>At this point a few of the required Vray on Linux shader compiling details are not known by the Domemaster3D developer. This means Linux support is currently a work-in-progress endeavour.</p>
 <h2>Credits</h2>
@@ -727,6 +733,11 @@ lipo -info libvray</em>DomemasterStereo.so   </p>
 <li>Thanks to Trygve Wastvedt for his help in getting the Vray for 3DS Max port started.</li>
 </ul>
 <h2>Version History</h2>
+<h3>2015-05-21</h3>
+<p><strong>Vray for Maya</strong></p>
+<ul>
+<li>Added Vray 3.0 for Maya on Mac OS X Support. This build works with Mac OS X 10.9 Mavericks and 10.10 Yosemite only.</li>
+</ul>
 <h3>2015-05-08</h3>
 <p><strong>Vray for Maya</strong></p>
 <ul>
@@ -759,7 +770,8 @@ lipo -info libvray</em>DomemasterStereo.so   </p>
 <ul>
 <li>Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool <code>plgparams.bin</code> on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.</li>
 </ul>
-<p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  </p>
+<p><img src="images/vray_mac_plugin_params_latlongstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 1" />  
+</p>
 <p><img src="images/vray_mac_plugin_params_domemasterstereo.png" alt="Plgparams Listing the Shader Parameters on the Mac 2" /> </p>
 <p><strong>Vray for Softimage Support</strong></p>
 <ul>
@@ -797,7 +809,7 @@ lipo -info libvray</em>DomemasterStereo.so   </p>
 <h3>Version 0.2 - 2014-11-26</h3>
 <ul>
 <li>Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues</li>
-<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL<em>FOV</em>Stereo shader.</li>
+<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray <code>domeAFL_FOV_Stereo</code> shader.</li>
 </ul>
 <h3>Version 0.1 - 2014-11-14</h3>
 <ul>

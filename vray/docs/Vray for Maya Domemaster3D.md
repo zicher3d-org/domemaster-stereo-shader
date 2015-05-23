@@ -33,6 +33,14 @@ The Maya integration is still a work in progress. The Domemaster3D shaders are n
 
 ## <a name="adding-a-vray-lens-shader-in-maya"></a>Adding a Vray Lens Shader in Maya #
 
+![Domemaster3D Vray for Maya Shelf](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/domemaster3d-vray-for-maya-shelf.png)
+
+There is now a custom VrayDomemaster3D shelf that makes it easier to use the Domemaster3D lens shaders. In addition to the shelf tools there is also a pair of LatLongStereo and DomemasterStereo camera rigs that work with Maya's native StereoRigManager system.
+
+**Note:** If you want to use the Maya Render View's native stereo preview system, you have to turn off the **Use V-Ray VFB** checkbox in the Maya render settings window.
+
+---
+
 You can add a custom Vray lens shader to a Maya camera using the **VRay Extra Attributes** feature. 
 
 To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera's shape node in the Attribute Editor window. Open the `Attributes > VRay` menu, and select either the `DomemasterStereo camera` or `LatLongStereo camera` items. 
@@ -67,6 +75,7 @@ You can remove a vray lens shader from a Maya camera by opening the `Attributes 
 ![Adding Extra Attributes](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray-extra-attributes.png)
 
 You can also delete the python code in the **Mel/Python Callbacks** `Post Translate Python Script` field if you want to completly remove all references to the Domemaster3D shader elements from the Maya scene file.
+
 ![Clearing the Python Translator](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/clear-post-translate-python-script.png)
 
 ## <a name="maya-shader-installation"></a>Maya Shader Installation ##

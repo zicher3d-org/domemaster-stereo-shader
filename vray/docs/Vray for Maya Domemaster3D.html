@@ -311,6 +311,10 @@ img {
 <p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.</p>
 <p>The Maya integration is still a work in progress. The Domemaster3D shaders are now active in the Maya render view and the custom Vray Extra Attributes are linked into the Vray for Maya .vrscene exporter when the lens shaders are added as Vray Extra Attributes on the camera shape node.</p>
 <h2><a name="adding-a-vray-lens-shader-in-maya"></a>Adding a Vray Lens Shader in Maya</h2>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/domemaster3d-vray-for-maya-shelf.png" alt="Domemaster3D Vray for Maya Shelf" /></p>
+<p>There is now a custom VrayDomemaster3D shelf that makes it easier to use the Domemaster3D lens shaders. In addition to the shelf tools there is also a pair of LatLongStereo and DomemasterStereo camera rigs that work with Maya's native StereoRigManager system.</p>
+<p><strong>Note:</strong> If you want to use the Maya Render View's native stereo preview system, you have to turn off the <strong>Use V-Ray VFB</strong> checkbox in the Maya render settings window.</p>
+<hr />
 <p>You can add a custom Vray lens shader to a Maya camera using the <strong>VRay Extra Attributes</strong> feature. </p>
 <p>To turn a normal camera into a DomemasterStereo or LatLongStereo formatted camera, select the camera's shape node in the Attribute Editor window. Open the <code>Attributes &gt; VRay</code> menu, and select either the <code>DomemasterStereo camera</code> or <code>LatLongStereo camera</code> items. </p>
 <p>At this point you can turn ON the lens shader by scrolling down to the bottom of the Attribute Editor window and expanding the <code>Extra VRay Attributes</code> section. Then enable the appropriate <code>Treat as a Vray DomemasterStereo</code> or <code>Treat as a Vray LatLongStereo Cam</code> checkbox.</p>
@@ -330,8 +334,8 @@ domeVrayRender.domeVrayTranslator()
 <h3><a name="removing-a-lens-shader"></a>Removing a Lens Shader</h3>
 <p>You can remove a vray lens shader from a Maya camera by opening the <code>Attributes &gt; VRay</code> menu and unchecking the specific lens shader. This will remove the lens shader's attributes that are listed in the <code>Extra VRay Attributes</code> section.</p>
 <p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray-extra-attributes.png" alt="Adding Extra Attributes" /></p>
-<p>You can also delete the python code in the <strong>Mel/Python Callbacks</strong> <code>Post Translate Python Script</code> field if you want to completly remove all references to the Domemaster3D shader elements from the Maya scene file.
-<img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/clear-post-translate-python-script.png" alt="Clearing the Python Translator" /></p>
+<p>You can also delete the python code in the <strong>Mel/Python Callbacks</strong> <code>Post Translate Python Script</code> field if you want to completly remove all references to the Domemaster3D shader elements from the Maya scene file.</p>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/clear-post-translate-python-script.png" alt="Clearing the Python Translator" /></p>
 <h2><a name="maya-shader-installation"></a>Maya Shader Installation</h2>
 <h3><a name="windows-64-bit"></a>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>

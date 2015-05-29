@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.7.3
-  2015-04-14 
+  Dome Diagnostics Report Tool V1.7.4
+  2015-05-29 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  Version 1.7.4
+  -------------
+  2015-05-29 
+  
+  Updated the Domemaster3D shelf directory buttons "SCN", "IMG", and "TMP" so they open and run a Nautilus file browser window as a non blocking task on Linux
   
   Version 1.7.3
   -------------
@@ -1447,6 +1453,11 @@ global proc domeOpenSceneDirectory(){
 
     $runCommand += toNativePath($path);
     $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
 
     // Open a new explorer window
     print ("Running command:\n" + $runCommand + "\n");
@@ -1482,6 +1493,11 @@ global proc domeOpenImagesDirectory(){
 
     $runCommand += toNativePath($path);
     $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
 
     // Open a new explorer window
     print ("Running command:\n" + $runCommand + "\n");
@@ -1523,6 +1539,11 @@ global proc domeOpenTempDirectory(){
 
     $runCommand += toNativePath($path);
     $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
 
     // Open a new explorer window
     print ("Running command:\n" + $runCommand + "\n");

@@ -35,6 +35,12 @@
 
 ## <a name="version-history"></a>Version History ##
 
+### 2015-06-01 ###
+
+**Vray for Maya**
+
+- Added new Linux makefiles for Vray 3.0 for Maya and Vray 2.5 for Maya. This allows users to compile their own Linux versions of the DomemasterStereo and LatLongStereo shaders.
+
 ### 2015-05-21 ###
 
 **Vray for Maya**

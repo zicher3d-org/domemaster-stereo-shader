@@ -25,7 +25,7 @@ This guide covers the Vray for Maya version of the Domemaster3D Shaders.
 
 ## <a name="known-issues"></a>Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-05-23 ) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-06-01 ) is a development build.
 
 More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
 
@@ -194,16 +194,16 @@ If you are running an older version of Visual Studio you can use the legacy Micr
 The first version of Vray for Mac OS X support has been added to the lens shaders. Mac OS X 10.9 Mavericks or 10.10 Yosemite is required to use the lens shaders.
 
 **Step 1.**
-Install Xcode and Vray Standalone (which includes a copy of the Vray plugin SDK).
+Install Xcode.
 
 **Step 2.**
 Open a new terminal window and cd into the source code folder.
 
 **Step 3.**
-Copy the Vray Lib and Include files into the matching folders located next to the source code files.
+Copy the Vray SDK Lib and Include files into the matching folders located next to the source code files.
 
 **Step 4.**
-Use the Mac OS X makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo` shader:  
+Use the Mac OS X makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo.so` shader:  
 
 `make -f MakefileMavericks.osx`
 
@@ -221,4 +221,17 @@ You can check your compiled .so architecture with the following commands:
 
 ### <a name="linux-64-bit-compile"></a>Linux 64-bit Compile ###
 
-At this point a few of the required Vray on Linux shader compiling details are not known by the Domemaster3D developer. This means Linux support is currently a work-in-progress endeavour.
+**Step 1.**
+Install GCC.
+
+**Step 2.**
+Open a new terminal window and cd into the source code folder.
+
+**Step 3.**
+Copy the Vray SDK Lib and Include files into the matching folders located next to the source code files.
+
+**Step 4.**
+Use the Linux makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo.so` shader:  
+
+`make -f Makefile`
+

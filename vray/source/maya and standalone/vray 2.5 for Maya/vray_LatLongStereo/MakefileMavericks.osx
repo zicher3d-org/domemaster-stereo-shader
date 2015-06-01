@@ -1,5 +1,5 @@
 # Mac OS X - LatLongStereo Vray Shader Makefile
-# 2015-05-21 9 am
+# 2015-06-01 10.00 am
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
@@ -10,9 +10,8 @@
 # otool -L libvray_LatLongStereo.so 
 # lipo -info libvray_LatLongStereo.so 
 
-# In order to compile the lens shaders on Mac OS X, you have to copy your Vray for Mac Lib & Include files into the folders "../lib" and "../include".
-
-# Notes: The "--gc-sections" flag was removed to allow compiling on Maverick and higher
+# Note: In order to compile the lens shaders, you have to copy your Vray for Maya Lib & Include files into the folders "../lib" and "../include".
+# Note: The "--gc-sections" flag was removed to allow compiling on Maverick and higher
 
 .SUFFIXES:
 

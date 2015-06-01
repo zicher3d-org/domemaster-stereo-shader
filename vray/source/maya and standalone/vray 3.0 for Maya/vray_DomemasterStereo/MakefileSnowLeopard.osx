@@ -1,5 +1,5 @@
 # Mac OS X - DomemasterStereo Vray Shader Makefile
-# 2015-05-19 3 pm
+# 2015-06-01 09.58 am
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
@@ -10,6 +10,7 @@
 # otool -L libvray_DomemasterStereo.so 
 # lipo -info libvray_DomemasterStereo.so 
 
+# Note: In order to compile the lens shaders, you have to copy your Vray for Maya Lib & Include files into the folders "../lib" and "../include".
 
 .SUFFIXES:
 

@@ -1,5 +1,5 @@
 # Linux - DomemasterStereo Vray Shader Makefile
-# 2015-06-01 09.50 am
+# 2015-06-05 1.59pm
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
@@ -13,7 +13,7 @@
 all: libvray_DomemasterStereo.so
 
 libvray_DomemasterStereo.so:  vray_DomemasterStereo.obj
-	g++  -lpthread -lrt -lc -lz  -Wl,--gc-sections  -fPIC      -Wl,--no-as-needed   "-Wl,-(" -lvutils_s  -ldl -lvray -lplugman_s -shared -Wl,--export-dynamic -o "./libvray_DomemasterStereo.so" -L"../lib"    -O "./vray_DomemasterStereo.obj"  "-Wl,-)" -pthread -lrt
+	g++  -lpthread -lrt -lc -lz  -Wl,--gc-sections  -fPIC      -Wl,--no-as-needed   "-Wl,-(" -lvutils_s  -ldl -lvray -lplugman_s -shared -Wl,--export-dynamic -o "./libvray_DomemasterStereo.so" -L"../lib" -L"../lib/gcc-4.4" -O "./vray_DomemasterStereo.obj"  "-Wl,-)" -pthread -lrt
 
 
 vray_DomemasterStereo.obj: ./vray_DomemasterStereo.cpp

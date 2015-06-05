@@ -98,8 +98,8 @@ global proc shelf_VrayDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeVray_domemasterStereo.png" 
-        -image1 "domeVray_domemasterStereo.png" 
+        -image "domeVray_DomemasterStereo.png" 
+        -image1 "domeVray_DomemasterStereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1

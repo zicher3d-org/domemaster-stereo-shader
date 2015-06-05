@@ -1,5 +1,5 @@
 # Linux - LatLongStereo Vray Shader Makefile
-# 2015-06-01 09.57 am
+# 2015-06-05 1.59pm
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
@@ -13,7 +13,7 @@
 all: libvray_LatLongStereo.so
 
 libvray_LatLongStereo.so:  vray_LatLongStereo.obj
-	g++  -lpthread -lrt -lc -lz  -Wl,--gc-sections  -fPIC      -Wl,--no-as-needed   "-Wl,-(" -lvutils_s  -ldl -lvray -lplugman_s -shared -Wl,--export-dynamic -o "./libvray_LatLongStereo.so" -L"../lib"    -O "./vray_LatLongStereo.obj"  "-Wl,-)" -pthread -lrt
+	g++  -lpthread -lrt -lc -lz  -Wl,--gc-sections  -fPIC      -Wl,--no-as-needed   "-Wl,-(" -lvutils_s  -ldl -lvray -lplugman_s -shared -Wl,--export-dynamic -o "./libvray_LatLongStereo.so" -L"../lib" -L"../lib/gcc-4.4" -O "./vray_LatLongStereo.obj"  "-Wl,-)" -pthread -lrt
 
 
 vray_LatLongStereo.obj: ./vray_LatLongStereo.cpp

@@ -35,6 +35,17 @@
 
 ## <a name="version-history"></a>Version History ##
 
+
+### 2015-06-05 ###
+
+**Vray for Maya**
+
+- Updated the Linux Makefiles to better link against the lib files.
+
+- Added a new Linux Vray 3.0 for Maya build of the Domemaster3D shaders. The shader .so files were compiled with CentOS 6.4 but they should work fine with any Redhat/CentOS/Fedora/etc... Linux version that supports Vray 3.0 for Maya.
+
+- Updated the Domemaster3D Vray Maya shelf file to fix an icon file name capitalization issue that would occur on case sensitive file systems.
+
 ### 2015-06-01 ###
 
 **Vray for Maya**

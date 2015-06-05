@@ -357,6 +357,15 @@ domeVrayRender.py
 </code></pre>
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
+<p><strong>Step 3.</strong>
+Copy the icon files to your user account's Maya icon folder:</p>
+<p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\prefs\icons</code></p>
+<p><strong>Step 4.</strong>
+Copy the Maya script files to your user account's Maya scripts folder, or a shared Maya scripts folder:</p>
+<p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\scripts</code></p>
+<p><strong>Step 5.</strong>
+Copy the Maya shelf files to your user account's Maya shelf folder:</p>
+<p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\prefs\shelves</code></p>
 <h3><a name="mac-64-bit"></a>Mac 64-bit</h3>
 <p><strong>Step 1.</strong>
 Copy the .so files to the vray-plugins directory:  </p>
@@ -378,18 +387,27 @@ domeVrayRender.py
 </code></pre>
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
+<p><strong>Step 3.</strong>
+Copy the icon files to your user account's Maya icon folder:</p>
+<p><code>~/Library/Preferences/Autodesk/maya/&lt;Version&gt;/prefs/icons</code></p>
+<p><strong>Step 4.</strong>
+Copy the Maya script files to your user account's Maya scripts folder, or a shared Maya scripts folder:</p>
+<p><code>~/Library/Preferences/Autodesk/maya/&lt;Version&gt;/scripts</code></p>
+<p><strong>Step 5.</strong>
+Copy the Maya shelf files to your user account's Maya shelf folder:</p>
+<p><code>~/Library/Preferences/Autodesk/maya/&lt;Version&gt;/prefs\shelves</code></p>
 <h3><a name="linux-64-bit"></a>Linux 64-bit</h3>
 <p><strong>Step 1.</strong>
 Copy the .so files to the vray-plugins directory:  </p>
-<p><code>/opt/Autodesk/Maya&lt;Version&gt;/vray/vrayplugins/</code></p>
+<p><code>/usr/Autodesk/Maya&lt;Version&gt;/vray/vrayplugins/</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.so
 vray_LatLongStereo.so
 </code></pre>
 
-<p><strong>Step 3.</strong>
+<p><strong>Step 2.</strong>
 Copy the Maya Vray script files to the Vray scripts folder:  </p>
-<p><code>/opt/Autodesk/Maya&lt;Version&gt;/vray/scripts</code></p>
+<p><code>/usr/Autodesk/Maya&lt;Version&gt;/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
 attributeNodes.txt
@@ -399,6 +417,15 @@ domeVrayRender.py
 </code></pre>
 
 <p><strong>Note:</strong> Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.</p>
+<p><strong>Step 3.</strong>
+Copy the icon files to your user account's Maya icon folder:</p>
+<p><code>~/maya/&lt;Version&gt;/prefs/icons</code></p>
+<p><strong>Step 4.</strong>
+Copy the Maya script files to your user account's Maya scripts folder, or a shared Maya scripts folder:</p>
+<p><code>~/maya/&lt;Version&gt;/scripts</code></p>
+<p><strong>Step 5.</strong>
+Copy the Maya shelf files to your user account's Maya shelf folder:</p>
+<p><code>~/maya/&lt;Version&gt;/prefs/shelves</code></p>
 <h2><a name="compiling-instructions"></a>Compiling Instructions</h2>
 <h3>Windows 64-bit Compile</h3>
 <p><strong>Step 1.</strong> Install Visual Studio 2013 Community Edition and Vray Standalone (which includes a copy of the Vray plugin SDK).</p>

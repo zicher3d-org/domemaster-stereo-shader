@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.7.4
-  2015-05-29 
+  2015-06-12 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,7 +12,7 @@
   
   Version 1.7.4
   -------------
-  2015-05-29 
+  2015-06-12 
   
   Updated the Domemaster3D shelf directory buttons "SCN", "IMG", and "TMP" so they open and run a Nautilus file browser window as a non blocking task on Linux
   
@@ -767,6 +767,10 @@ global proc domeDiagnostics(){
     case 11:
       // RV
       $batchSequenceString = "RV";
+      break;
+    case 12:
+      // Amateras Dome Player
+      $batchSequenceString = "Amateras Dome Player";
       break;
     default:
       $batchSequenceString = "None";

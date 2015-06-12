@@ -259,7 +259,7 @@
                 <!-- Maya 2016 Install files -->
                 <componentGroup>
                     <name>Maya2016</name>
-                    <description>Maya 2016 Support Beta</description>
+                    <description>Maya 2016 Support</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
@@ -845,7 +845,7 @@
             <componentList>
                 <componentGroup>
                     <name>max_2016</name>
-                    <description>3DS Max 2016 Support Beta</description>
+                    <description>3DS Max 2016 Support</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2016 folder.</detailedDescription>
                     <selected>0</selected>

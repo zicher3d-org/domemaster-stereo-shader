@@ -1,6 +1,6 @@
 """
-Domemaster3D Camera Setup Script V1.7
-2015-03-07 
+Domemaster3D Camera Setup Script V1.7.4
+2015-06-12
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -8,9 +8,11 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 1.7
+Version 1.7.4
 ------------
-2015-03-07 
+2015-06-12
+
+Updated the Maya Wiki page link to use the new GitHub Wiki table of contents.
 
 Version 1.6
 ---------------
@@ -336,7 +338,7 @@ def openDomemasterWiki():
   import webbrowser
   
   # Domemaster Stereo Shader - Wiki Page
-  url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages'
+  url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki'
   
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)

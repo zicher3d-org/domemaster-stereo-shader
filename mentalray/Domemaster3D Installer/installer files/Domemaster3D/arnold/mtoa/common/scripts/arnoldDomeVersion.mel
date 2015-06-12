@@ -1,0 +1,113 @@
+/*
+	Dome Arnold Version Checker v1.7..1
+	by Andrew Hazelden
+
+	This tool displays the version number and lets you download an update.
+
+	Version History
+	----------------
+  Domemaster3D v1.7.1 - 2015-06-12
+  Domemaster3D v1.7 - 2015-05-07 
+  Domemaster3D v1.6.1 - 2015-02-19 
+  Domemaster3D v1.6 Alpha 6 - 2014-11-7
+
+	To use the Dome Version Checker script run the following MEL commands:
+	source "arnoldDomeVersion.mel";
+	domeVersion();
+
+*/
+
+
+//Check what Maya version is active
+global proc int getMayaVersionDome(){
+  // Check if we are running Maya 2011 or higher
+  float $mayaVersion = `getApplicationVersionAsFloat`;
+
+  // Test this GUI using the Maya 2010 - non-docked GUI mode
+  //float $mayaVersion = 2010;
+
+  // Write out the current Maya version number
+  //print("Maya " + $mayaVersion + " detected.\n");
+
+  return $mayaVersion;
+}
+
+  
+//Check the operating system
+global proc string getMayaPlatform(){
+  //-------------------------------------------------
+  //Get the current Maya Platform using python
+  //      The $mayaPlatform options are:
+  //          "windows", "darwin", "linux"
+  //-------------------------------------------------
+
+  string $mayaPlatform = "";
+  python( "import sys" );
+
+  if( python( "sys.platform == 'win32'" ) ){
+    $mayaPlatform = "windows";
+  }else if( python( "sys.platform == 'windows'" ) ){
+    $mayaPlatform = "windows";
+  }else if( python( "sys.platform == 'darwin'" ) ){
+    $mayaPlatform = "darwin";
+  }else {
+    $mayaPlatform = "linux";
+  }
+
+  //print("Running on " + $mayaPlatform + ".\n");
+  return $mayaPlatform;
+}
+
+
+//Show the version info window
+global proc arnoldDomeVersion(){
+  string $dialogButtonSelected = "";
+  string $domemaster3D_version = "1.7.1";
+  string $release_date = "June 12, 2015";
+
+  string $domeDialogString = "";
+  $domeDialogString += "Domemaster3D Shader for Arnold MtoA" + " - Version " + $domemaster3D_version + "\n";
+  $domeDialogString += "This edition was released on " + $release_date + ".\n";
+  $domeDialogString += "\n";
+  $domeDialogString += "A 2D/3D angular fisheye and latlong rendering system for planetariums, fulldome theatres, and VR headsets.\n";
+  $domeDialogString += "\n";
+  $domeDialogString += "The Domemaster3D shader is distributed under the GPL v3 license.\n";
+  
+  // Check if we are running Maya 2011 or higher
+  float $mayaVersion = getMayaVersionDome();
+  
+  if ($mayaVersion >=2011){
+    //Maya 2011 or newer detected
+    $dialogButtonSelected = `confirmDialog 
+      -title "About Domemaster3D for Arnold MtoA"
+      -messageAlign center
+      -message $domeDialogString
+      -icon "information"
+      -button "Check for Update"
+      -button "Read the User Forum"
+      -button "Report a Bug"
+      -button "Close"
+      -defaultButton "Close"`;
+  } else {
+    //Maya 2010 or older detected
+    $dialogButtonSelected = `confirmDialog 
+      -title "About Domemaster3D for Arnold MtoA"
+      -messageAlign center
+      -message $domeDialogString
+      -button "Check for Update"
+      -button "Read the User Forum"
+      -button "Report a Bug"
+      -button "Close"
+      -defaultButton "Close"`;
+  }
+
+  if($dialogButtonSelected == "Check for Update"){
+    python("import arnoldDomeCamera as arnoldDomeCamera\narnoldDomeCamera.openArnoldDomemasterDownloads()"); 
+  }else if($dialogButtonSelected == "Read the User Forum"){
+    python("import arnoldDomeCamera as arnoldDomeCamera\narnoldDomeCamera.openArnoldDomemasterNing()"); 
+  }else if($dialogButtonSelected == "Report a Bug"){
+    python("import arnoldDomeCamera as arnoldDomeCamera\narnoldDomeCamera.openArnoldDomemasterBugReport()"); 
+  }
+
+}
+

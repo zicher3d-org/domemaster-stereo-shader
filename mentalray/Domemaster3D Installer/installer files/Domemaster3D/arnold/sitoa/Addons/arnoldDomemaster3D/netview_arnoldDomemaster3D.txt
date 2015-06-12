@@ -1,0 +1,6 @@
+Arnold Domemaster3D Shader for Softimage - Version 1.7
+This edition was released on June 12, 2015.
+
+A 2D/3D angular fisheye and latlong rendering system for use in planetariums, fulldome theatres, and VR headsets. This shader is available for mental ray, Vray, and Arnold and works with Softimage, Maya, and 3DS Max.
+
+The Domemaster3D shader is distributed under the GPL v3 License.

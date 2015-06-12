@@ -1,0 +1,26 @@
+// DomemasterStereo shader for Arnold/C4DtoA v1
+// 2015-04-08 08.01 am
+// C4DtoA Support by Andrew Hazelden
+// email: andrew@andrewhazelden.com
+// web:   www.andrewhazelden.com
+
+STRINGTABLE ainode_DomemasterStereo
+{
+	ainode_DomemasterStereo   "Arnold DomemasterStereo node";
+
+	C4DAI_DOMEMASTERSTEREO_MAIN_GRP               "Main";
+
+	C4DAIP_DOMEMASTERSTEREO_CAMERA                "Camera";
+	C4DAIP_DOMEMASTERSTEREO_FOV_ANGLE             "Field of View";
+	C4DAIP_DOMEMASTERSTEREO_ZERO_PARALLAX_SPHERE  "Zero Parallax Sphere";
+	C4DAIP_DOMEMASTERSTEREO_SEPARATION            "Camera Separation";
+	C4DAIP_DOMEMASTERSTEREO_FORWARD_TILT          "Dome Forward Tilt";
+	C4DAIP_DOMEMASTERSTEREO_TILT_COMPENSATION     "Dome Tilt Compensation";
+	C4DAIP_DOMEMASTERSTEREO_VERTICAL_MODE         "Vertical Mode";
+	C4DAIP_DOMEMASTERSTEREO_SEPARATION_MAP        "Separation Map";
+	C4DAIP_DOMEMASTERSTEREO_HEAD_TURN_MAP         "Head Turn Map";
+	C4DAIP_DOMEMASTERSTEREO_HEAD_TILT_MAP         "Head Tilt Map";
+	C4DAIP_DOMEMASTERSTEREO_FLIP_RAY_X            "Flip X";
+	C4DAIP_DOMEMASTERSTEREO_FLIP_RAY_Y            "Flip Y";
+}
+

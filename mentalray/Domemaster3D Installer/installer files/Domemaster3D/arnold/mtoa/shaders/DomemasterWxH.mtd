@@ -1,0 +1,103 @@
+# Domemaster WxH Lens Shader Arnold Metadata File
+# -------------------------------------------------------------------
+# Simulate a Virtual Angular Fisheye Lens (AFL) for 
+#     the Production of Full-Dome Animations
+# -------------------------------------------------------------------
+# MTD by Andrew Hazelden andrew@andrewhazelden.com
+# 2015-04-25 09.51 am
+
+[node DomemasterWxH]
+    desc                         STRING "DomemasterWxH Shader"
+    maya.id                      INT    0x001215C2
+    # The maya.name value has to be "camera" for this node to show up in the Maya Camera Shapes' Arnold tab.
+    maya.name                    STRING "camera"
+    maya.classification          STRING "shader/surface"
+    maya.type                    STRING "camera"
+    maya.translator              STRING  "DomemasterWxH"
+    
+    houdini.category             STRING "Domemaster3D"
+    houdini.icon                 STRING "SHOP_surface"
+    houdini.label                STRING "DomemasterWxH"
+    houdini.help_url             STRING "https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages"
+    houdini.order                STRING "diameter height flip_ray_x flip_ray_y exposure focus_distance aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration "
+    
+    [attr is_perspective]
+      default                    BOOL   True
+    [attr diameter]
+      label                      STRING "Diameter"
+      desc                       STRING "Diameter"
+      min                        FLOAT  0.1
+      max                        FLOAT  9999.0
+      default                    FLOAT  1.0
+      animatable                 BOOL   True
+      maya.channelbox            BOOL   False
+    [attr height]
+      label                      STRING "Height"
+      desc                       STRING "Height"
+      min                        FLOAT  0.0001
+      max                        FLOAT  9999.0
+      default                    FLOAT  0.5
+      animatable                 BOOL   True
+      maya.channelbox            BOOL   False
+#    [attr view_offset]
+#      label                      STRING "View Offset"
+#      min                        Vector -1.0 -1.0 -1.0
+#      max                        Vector 1.0 1.0 1.0
+#      default                    Vector 0.0 0.0 0.0
+#      animatable                 BOOL   True
+#      maya.channelbox            BOOL   False
+    [attr flip_ray_x]
+      label                      STRING "Flip X"
+      desc                       STRING "Flip X"
+      default                    BOOL   False
+    [attr flip_ray_y]
+      label                      STRING "Flip Y"
+      desc                       STRING "Flip Y"
+      default                    BOOL   False
+    [attr exposure]
+      min                        FLOAT -100.0
+      max                        FLOAT  100.0
+      softmin                    FLOAT -5.0
+      softmax                    FLOAT  5.0
+    [attr focus_distance]
+      min                        FLOAT  0.0
+      max                        FLOAT  1000000000.0
+      softmin                    FLOAT  0.0
+      softmax                    FLOAT  200.0
+      animatable                 BOOL   True
+    [attr aperture_size]
+      min                        FLOAT  0.0
+      max                        FLOAT  20.0
+      softmin                    FLOAT  0.0
+      softmax                    FLOAT  1.0
+      animatable                 BOOL   True
+    [attr aperture_blades]
+      min                        INT    0
+      max                        INT    40
+      default                    INT    0
+    [attr aperture_blade_curvature]
+      min                        FLOAT -20.0
+      max                        FLOAT  20.0
+      softmin                    FLOAT  0.0
+      softmax                    FLOAT  1.0
+    [attr aperture_rotation]
+      min                        FLOAT  0.0
+      max                        FLOAT  360.0
+      softmin                    FLOAT  0.0
+      softmax                    FLOAT  50.0
+    [attr aperture_aspect_ratio]
+      min                        FLOAT  0.0
+      softmin                    FLOAT  0.0
+      softmax                    FLOAT  1.0
+    [attr shutter_start]
+      min                        FLOAT  0.0
+      max                        FLOAT  1.0
+      default                    FLOAT  0.0
+    [attr shutter_end]
+      min                        FLOAT  0.0
+      max                        FLOAT  1.0
+      default                    FLOAT  1.0
+    [attr rolling_shutter_duration]
+      min                        FLOAT  0.0
+      max                        FLOAT  1.0
+      

@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.7.4</version>
+    <version>1.8</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -207,6 +207,48 @@
                     <distributionFileList>
                         <distributionDirectory>
                             <origin>installer files/Domemaster3D/sources</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Arnold Beta</description>
+                    <destination>${installdir}</destination>
+                    <name>arnold</name>
+                    <platforms>all</platforms>
+                    <actionList>
+                        <addDirectoryToPath>
+                            <insertAt>end</insertAt>
+                            <path>${installdir}</path>
+                        </addDirectoryToPath>
+                        <changePermissions>
+                            <files>*</files>
+                            <permissions>777</permissions>
+                        </changePermissions>
+                    </actionList>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>installer files/Domemaster3D/arnold</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Vray Beta</description>
+                    <destination>${installdir}</destination>
+                    <name>vray</name>
+                    <platforms>all</platforms>
+                    <actionList>
+                        <addDirectoryToPath>
+                            <insertAt>end</insertAt>
+                            <path>${installdir}</path>
+                        </addDirectoryToPath>
+                        <changePermissions>
+                            <files>*</files>
+                            <permissions>777</permissions>
+                        </changePermissions>
+                    </actionList>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>installer files/Domemaster3D/vray</origin>
                         </distributionDirectory>
                     </distributionFileList>
                 </folder>

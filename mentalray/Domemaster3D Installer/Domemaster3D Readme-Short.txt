@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.7.4 - June 12, 2015
+Version 1.8 - July 8, 2015
 
 About This Shader
 ---------------------
@@ -64,6 +64,21 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 
 Version History
 -----------------
+
+Version 1.8
+-------------
+2015-07-08
+
+Arnold
+  Added the Arnold Domemaster3D shader beta files to the folder:
+  C:\Program Files\Domemaster3D\arnold
+  
+Vray
+  Added the Vray Domemaster3D shader beta files to the folder:
+  C:\Program Files\Domemaster3D\vray
+
+Maya
+  Fixed an issue with the Domemaster3D Menu where the LatLong stereo menu item wasn't linked to the correct menu function.
 
 Version 1.7.4
 -------------

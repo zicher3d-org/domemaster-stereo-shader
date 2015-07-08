@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 1.7.4 - June 12, 2015
+Version 1.8 - July 8, 2015
 
 ## Render Farm Note ## 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.

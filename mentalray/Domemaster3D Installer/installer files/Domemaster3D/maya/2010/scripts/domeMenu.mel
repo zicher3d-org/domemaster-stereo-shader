@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.7.2
-2015-04-12 Maya 2010
+Version 1.7.5
+2015-07-08 Maya 2010
 ------------------------------------------------------------------------------
 
 Notes:
@@ -213,7 +213,7 @@ global proc createDomemaster3DMenu() {
         -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied."
         -image "render_LatLong_Stereo.xpm"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoRig()\")";
 
       //Fulldome 2D Section
 

@@ -1,0 +1,61 @@
+# Mac OS X - Domemaster3D Arnold Shader Makefile
+# by Andrew Hazelden  andrew@andrewhazelden.com
+# http://www.andrewhazelden.com
+
+# You can compile this file from the command line using:
+# Make -f Makefile.osx
+
+# You can install the files using the command
+# sudo Make -f Makefile.osx install
+
+CC=g++
+
+# Which version of Maya you are running with Arnold?
+#MAYA_VERSION=2012
+#MAYA_VERSION=2013
+# Current Build Version = 2014
+MAYA_VERSION=2014
+#MAYA_VERSION=2015
+
+MTOA_SHADERS_DIR=$(HOME)/solidangle/mtoa/$(MAYA_VERSION)/shaders
+MTOA_TEMPLATE_DIR=$(HOME)/solidangle/mtoa/$(MAYA_VERSION)/scripts/mtoa/ui/ae
+
+# Which version of the Arnold API Devkit are you using?
+MTOA_API_VERSION=4.2.3.1
+
+MTOA_DEV_DIR=$(HOME)/solidangle/Arnold-$(MTOA_API_VERSION)-darwin
+MTOA_INCLUDE_DIR=$(MTOA_DEV_DIR)/include
+
+INC=-I$(MTOA_INCLUDE_DIR)/
+LIB= 
+LIB_STATIC= 
+CFLAGS=-c -O3 -fPIC -DBIT64 -dynamic -fno-common
+LIBTOOL=libtool
+LDEXECFLAGS=-macosx_version_min 10.6
+
+OBJS = DomemasterWxH.o
+SRCS = DomemasterWxH.cpp
+
+all: DomemasterWxH.dylib
+
+$(OBJS): 
+	$(CC) $(CFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
+
+DomemasterWxH.dylib : $(OBJS) 
+	$(LIBTOOL) -flat_namespace -undefined suppress -dynamic $(LDEXECFLAGS) -o DomemasterWxH.dylib $(OBJS)
+
+clean: 
+	rm -rf $(OBJS) 
+	rm -rf DomemasterWxH.dylib
+
+install:
+	# Arnold Shader and Metadata File
+	# ---------------------------------
+	cp ./DomemasterWxH.dylib $(MTOA_SHADERS_DIR)
+	cp ./DomemasterWxH.mtd $(MTOA_SHADERS_DIR)
+
+	# Arnold Maya AE Template File
+	# ------------------------------
+	cp ./DomemasterWxHTemplate.py $(MTOA_TEMPLATE_DIR)
+	
+go: clean all install

@@ -16,15 +16,15 @@ This guide covers the Vray for 3DS Max version of the Domemaster3D Shaders.
 
 ## <a name="known-issues"></a>Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-05-23 ) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-07-09 ) is a development build.
 
 More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
 
-The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on 3DS Max 2015 and 3DS Max 2014, and Vray 2.5 for 3DS Max 2015, and Vray 2.4 for 3DS Max 2013.
+The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.2 on 3DS Max 2016, Vray 3.0 on 3DS Max 2015 and 3DS Max 2014, and Vray 2.5 for 3DS Max 2015, and Vray 2.4 for 3DS Max 2013.
 
 ## <a name="vray-for-3ds-max-shader-installation"></a>Vray for 3DS Max Shader Installation ##
 
-There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.
+There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015 & Vray 3.0 for 3DS Max 2014, and Vray 3.2 on 3DS Max 2016 builds of the Domemaster3D shaders.
 
 ### Windows 64-bit ###
 
@@ -37,6 +37,9 @@ There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for
 Note: Change `<Max Version>` to the release number of 3DS Max. Example: Write in 2015 for the `<Max Version>` if you are using 3DS Max 2015.
 
 Vray Plugin Files:  
+
+    vraylatlongstereo2016.dlo
+    vraydomemasterstereo2016.dlo
 
     vraylatlongstereo2015.dlo
     vraydomemasterstereo2015.dlo

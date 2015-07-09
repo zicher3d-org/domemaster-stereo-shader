@@ -35,6 +35,11 @@
 
 ## <a name="version-history"></a>Version History ##
 
+### 2015-07-09 ###
+
+**Vray for Max**
+
+- Added a new Vray 3.2 for 3DS Max 2016 build of the DomemasterStereo and LatLongStereo shaders. 
 
 ### 2015-06-05 ###
 

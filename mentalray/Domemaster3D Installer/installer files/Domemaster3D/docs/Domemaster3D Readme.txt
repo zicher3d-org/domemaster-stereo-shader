@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.8 - July 8, 2015
+Version 1.8.1 - July 27, 2015
 
 About This Shader
 ---------------------
@@ -258,6 +258,17 @@ Martin Watt for writing the original galaxies.mel script.
 
 Version History
 -----------------
+
+Version 1.8.1
+-------------
+2015-07-27 
+
+Vray
+  Added the Vray 3.2 Domemaster3D shader beta files to the folder:
+  C:\Program Files\Domemaster3D\vray
+
+Maya
+  Fixed an issue that would occur with the domeAFL_FOV and DomeAFL_FOV_Stereo shader's preview hemisphere mesh alignment when linking the lens shader to an existing camera that is tipped away from the upright initial position.
 
 Version 1.8
 -------------

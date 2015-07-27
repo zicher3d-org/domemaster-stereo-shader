@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.8 - July 8, 2015
+Version 1.8.1 - July 27, 2015
 
 About This Shader
 ---------------------
@@ -65,6 +65,17 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+Version 1.8.1
+-------------
+2015-07-27 
+
+Vray
+  Added the Vray 3.2 Domemaster3D shader beta files to the folder:
+  C:\Program Files\Domemaster3D\vray
+
+Maya
+  Fixed an issue that would occur with the domeAFL_FOV and DomeAFL_FOV_Stereo shader's preview hemisphere mesh alignment when linking the lens shader to an existing camera that is tipped away from the upright initial position.
+
 Version 1.8
 -------------
 2015-07-08
@@ -80,6 +91,7 @@ Vray
 Maya
   Fixed an issue with the Domemaster3D Menu where the LatLong stereo menu item wasn't linked to the correct menu function.
 
+  
 Version 1.7.4
 -------------
 2015-06-12
@@ -129,62 +141,6 @@ March 28, 2015
 
 Maya
   Updated Maya Domemaster3D Menu and Visor scripts
-
-Version 1.7
------------------
-March 7, 2015
-
-Maya
-  Updated the DomeGrid line width to improve the legibility in the realtime viewports.
-
-  Updated the Maya "domeAFL_FOV_StereoBlockworld.ma" and "LatLong_StereoBoxworld2014" visor scenes.
-  
-  Updated the Dome Diagnostics tool to improve Arnold and PlayblastVR detection.
-
-Version 1.6.2
------------------
-February 23, 2015
-
-Maya
-  Updated the Dome Diagnostics tool.
-
-  Updated the DomeViewer mesh files to more precisely align the front axis correctly on the angular360, latlong, cubemap, cylindrical, and starglobe viewer geometry.
-    
-Version 1.6.1
------------------
-February 4, 2015
-
-Updated the Installer splash screen.
-
-Maya
-  Added a new "TMP" Domemaster3D shelf tool and Domemaster3D menu item that opens the operating system's %TEMP% temporary files directory.
-  
-  Updated the userSetup.py script to improve the startup procedures
-
-Version 1.6
----------------
-January 1, 2015
-
-3DS Max
-  Added Autodesk 3DS Max 2016 shader install option
-
-Maya
-  Added Autodesk Maya 2016 shader install option
-  
-Version 1.6 alpha 9
--------------------
-December 20, 2014
-
-3DS Max
-  Updated the domeAFL_FOV_Stereo and LatLong_Stereo mental ray include files to allow for a smaller minimum zero parallax distance of 0.001 to allow for smaller camera scales.
-
-Maya
-  Added a new ramp attrPreset for latlong_Stereo shader users. The "LatLongStereoSeparation" ramp preset is a vertical gradient that is a parametric version of the latlong separation map texture that is designed to be used in conjunction with the "screen space" DomeRamp shelf button.
-  
-  Updated the AE template file for the DomeAFL_FOV_Stereo and LatLong_Stereo shaders so the Camera Separation control is placed next to the Dome Radius / Zero Parallax Distance controls.
-  
-  Updated the domeAFL_FOV_Stereo and LatLong_Stereo mental ray include files and the Maya AE template files to allow for a smaller minimum Dome Radius / Zero Parallax Distance of 0.001 to allow for smaller camera scales.
-
 
 Project Developers
 ----------------------

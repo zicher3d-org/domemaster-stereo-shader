@@ -1,5 +1,5 @@
 /*
-  Version 1.7
+  Version 1.8
 
   Procedure Name:
   AEdomeAFL_FOVTemplate
@@ -9,6 +9,10 @@
 
   Version History
   -----------------
+  
+  Version 1.8 - 2015-07-27 
+  ------------------------------------
+  Fixed the preview hemisphere mesh alignment when linking the lens shader to an existing camera that is tipped away from the upright initial position.
   
   Version 1.7 - 2015-03-07 
 
@@ -44,7 +48,7 @@
 // New Dome Radius GUI Controls
 //---------------------------------------------------------------------------------
 
-//Return the name of the Node's Attr
+// Return the name of the Node's Attr
 global proc string dome_AEStripNodeName (string $nodeName)
 {
 	string $buffer[];
@@ -53,7 +57,7 @@ global proc string dome_AEStripNodeName (string $nodeName)
 }
 
 
-//Return the base name of the Node
+// Return the base name of the Node
 global proc string dome_AEStripAttrName (string $nodeName)
 {
 	string $buffer[];
@@ -62,23 +66,23 @@ global proc string dome_AEStripAttrName (string $nodeName)
 }
 
 
-//Find the shape node
-//example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
+// Find the shape node
+// Example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
 global proc string getObjectShapeNode ( string $object ) {
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
-//Find the object's parent node
-//example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
+// Find the object's parent node
+// Example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
 global proc string getObjectParentNode ( string $object ) {
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }
 
 
-//This creates the Double Sided Preview Shape checkbox in the attribute editor
+// This creates the Double Sided Preview Shape checkbox in the attribute editor
 global proc domeAFL_FOV_DoubleSidedPreviewShapeNew( string $attrName )
 {
   string $menuName = "Double Sided Shading" ;
@@ -95,7 +99,7 @@ global proc domeAFL_FOV_DoubleSidedPreviewShapeNew( string $attrName )
 }
 
 
-//Double Sided Preview Shape
+// Double Sided Preview Shape
 global proc domeAFL_FOV_DoubleSidedPreviewShapeReplace( string $attrName )
 {
   // Install connection between the doubleSidedPreviewShape attribute and the options Menu
@@ -103,10 +107,10 @@ global proc domeAFL_FOV_DoubleSidedPreviewShapeReplace( string $attrName )
 }
 
 
-//Create the field of view and dome radius preview shape 
+// Create the field of view and dome radius preview shape 
 global proc AEdomeAFL_FOV_AddPreviewShape (string $nodeName)
 {
-  //separate the node name from the node.attribute name
+  // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
 
    //string $baseNodeName = "domeAFL_FOV";
@@ -120,21 +124,21 @@ global proc AEdomeAFL_FOV_AddPreviewShape (string $nodeName)
   //domeRadius("domeAFL_FOV");
   domeRadius($baseNodeName);
   
-  //Reselect the DomeAFL node after creating the preview shape
+  // Reselect the DomeAFL node after creating the preview shape
   select -cl;
   select $baseNodeName;
  }
 
 
-//This creates the controls in the attribute editor
+// This creates the controls in the attribute editor
 global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
 {
-  //separate the node name from the node.attribute name
+  // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
   
   int $NewDomeSetup = 0;
   
-  //Add a version number attribute to the extra attribute fields
+  // Add a version number attribute to the extra attribute fields
   string $attrName ="domeVersion";
   int $domeVersion = 1;
   if (!`attributeExists $attrName $baseNodeName`) {
@@ -146,17 +150,17 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
     
     
     string $nodeType = "domeAFL_FOV";
-    //Add the Attribute Editor node "help menu" link
+    // Add the Attribute Editor node "help menu" link
     addAttributeEditorNodeHelp(
       $nodeType,
       "showHelp -absolute \"https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages\"");
   }
 
   //---------------------------------------------------------------------
-  //Add FOV Controls
+  // Add FOV Controls
   //---------------------------------------------------------------------
   
-  //Dome_Radius Control for scaling the preview shape
+  // Dome_Radius Control for scaling the preview shape
   $attrName ="Dome_Radius";
   if (!`attributeExists $attrName $baseNodeName`) {
   addAttr -ln $attrName -at double  -min 0.1 -max 1000000.0 -hasSoftMaxValue true -softMaxValue  360 -defaultValue 2.0 -keyable true $baseNodeName;
@@ -164,7 +168,7 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   }
   
   /*
-  //Field of View Preview
+  // Field of View Preview
   $attrName ="fovPreview";
   if (!`attributeExists $attrName $baseNodeName`) {
     addAttr -ln $attrName  -nn "FOV Preview" -at bool -defaultValue true -keyable true $baseNodeName;
@@ -172,14 +176,14 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   }
   */
   
-  //FOV Display Mode
+  // FOV Display Mode
   string $attrName ="fovDisplayMode";
    if (!`attributeExists $attrName $baseNodeName`) {
     addAttr -ln $attrName  -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -defaultValue 1 -keyable true $baseNodeName;
     print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
   
-  //FOV Preview Color
+  // FOV Preview Color
   $attrName ="fovPreviewColor";
   string $attrRName = "fovPreviewColorR";
   string $attrGName = "fovPreviewColorG";
@@ -193,14 +197,14 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
     print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
 
-  //FOV Preview Transparency
+  // FOV Preview Transparency
   $attrName ="fovPreviewTransparency";
   if (!`attributeExists $attrName $baseNodeName`) {
   addAttr -ln "fovPreviewTransparency"  -at double  -min 0 -max 1 -defaultValue 0.25 -keyable true $baseNodeName;
   print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
   
-   //Double Sided Rendering
+   // Double Sided Rendering
   $attrName ="doubleSidedShading";
   if (!`attributeExists $attrName $baseNodeName`) {
     addAttr -ln $attrName  -nn "Double Sided Shading" -at "enum" -en "Double Sided:Show Frontfaces:Show Backfaces" -min 0 -keyable true -defaultValue 2 $baseNodeName;
@@ -208,14 +212,14 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   }
   
   if($NewDomeSetup){
-  //Add the dome preview shape to the camera via the connected lens shader
+  // Add the dome preview shape to the camera via the connected lens shader
     AEdomeAFL_FOV_AddPreviewShape($nodeName);
   }
   
 }
 
 
-//Create the attribute editor view for the domeAFL_FOV node
+// Create the attribute editor view for the domeAFL_FOV node
 global proc AEdomeAFL_FOVTemplate( string $nodeName )
 {
 	AEswatchDisplay $nodeName;
@@ -233,11 +237,11 @@ global proc AEdomeAFL_FOVTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
        
-    //Define the Stereo Display Controls
+    // Define the Stereo Display Controls
     editorTemplate -beginLayout "FOV Display Controls" -collapse 0;
       editorTemplate 	-beginNoOptimize;
     
-      //Add the custom dynamic attributes to the node
+      // Add the custom dynamic attributes to the node
       editorTemplate -callCustom "AEdomeAFL_FOV_AddDynamicAttrs" "AEdomeAFL_FOV_AddDynamicAttrs" "fovPreview";
       
       //editorTemplate -label "Field of View Preview" -annotation  "This will enable the field of view preview mode on the \"FOV Preview dome\" geometry." -addDynamicControl "fovPreview";
@@ -253,7 +257,7 @@ global proc AEdomeAFL_FOVTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
 
-    //Define the image orientation attributes
+    // Define the image orientation attributes
     editorTemplate -beginLayout "Image Orientation" -collapse 0;
       editorTemplate 	-beginNoOptimize;
       editorTemplate -label "Flip X" -annotation "Flips the image horizontally" -addControl "Flip_Ray_X";	
@@ -261,7 +265,7 @@ global proc AEdomeAFL_FOVTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
   
-    //Hide the raw numerical camera and view offset fields
+    // Hide the raw numerical camera and view offset fields
     editorTemplate -suppress "caching";
     editorTemplate -suppress "nodeState";
     //editorTemplate -suppress "View_Offset";
@@ -269,7 +273,7 @@ global proc AEdomeAFL_FOVTemplate( string $nodeName )
 
     AEdependNodeTemplate $nodeName;
     
-    //Add any new controls that aren't listed above to the bottom of the attribute editor window 
+    // Add any new controls that aren't listed above to the bottom of the attribute editor window 
     editorTemplate -addExtraControls;
 
   editorTemplate -endScrollLayout;

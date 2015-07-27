@@ -1,5 +1,5 @@
 /*
-  domeRadius V1.7
+  domeRadius V1.8
   by Andrew Hazelden
 
   This is a Maya MEL script for creating the preview shape for the DomeAFL_FOV
@@ -11,9 +11,12 @@
   Version History
   ----------------
 
-  Version 1.7
-  -------------
-  2015-03-07 
+  Version 1.8 - 2015-07-27 
+  -------------------------------
+  Fixed the preview hemisphere mesh alignment when linking the lens shader to an existing camera that is tipped away from the upright initial position.
+  
+  Version 1.7 - 2015-03-07 
+  -------------------------------
   
   Version 1.5 - July 6, 2014
   -------------------------------
@@ -34,14 +37,14 @@
 */
 
 
-//Create the domePreview surface
+// Create the domePreview surface
 global proc domeRadius(string $nodeName){
   string $connectedCamera = getConnectionList($nodeName);
   //string $connectedCamera = getConnectionList("domeAFL_FOV");
   
-  //Make sure a camera is connected to the lens shader
+  // Make sure a camera is connected to the lens shader
   if ($connectedCamera != "<none>"){
-    //Add the FOV preview NURBS surface shape
+    // Add the FOV preview NURBS surface shape
     addDomePreviewRig($connectedCamera, $nodeName);
   }
 }
@@ -49,24 +52,24 @@ global proc domeRadius(string $nodeName){
 
 global proc string getConnectionList( string $object){
   //--------------------------------------------------------
-  //Scan for active lens shader connections
+  // Scan for active lens shader connections
   //--------------------------------------------------------
   
-  //Sample debugging camera name
+  // Sample debugging camera name
   //string $baseNodeName = "center_domeAFL_FOV_Stereo";
   //string $baseNodeName = "domeAFL_FOV";
   string $baseNodeName = $object;
   
   if(  (`objExists ($baseNodeName)`) && ((`nodeType($baseNodeName)`== "domeAFL_FOV") || (`nodeType($baseNodeName)`== "domeAFL_FOV_Stereo") )){
-    //Scan the lens shader connections
-    //Extra flags: -connections true
+    // Scan the lens shader connections
+    // Extra flags: -connections true
     string $cameras[] = `listConnections -type "camera"  ($baseNodeName+".message")`;
     //Result: stereoCamera stereoCameraRight stereoCameraLeft // 
 
-    //Check how many cameras are connected
+    // Check how many cameras are connected
     int $domeLensConnectionCount = `size($cameras)`;
 
-    //Debug print the node connections
+    // Debug print the node connections
     print "\nConnected Cameras:\n";
     print $cameras;
     print "\n";
@@ -90,15 +93,15 @@ global proc string getConnectionList( string $object){
 }
 
 
-//Add a new camera rig to the scene
+// Add a new camera rig to the scene
 global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
-  //Add a domeAFL_FOV camera
+  // Add a domeAFL_FOV camera
   //python ("import domeCamera as domeCamera");
   //string $camName = `python("domeCamera.createFulldomeStereoRig()")`;
 
   //select -r domeAFL_FOV_Camera1|domePreview;
 
-  //Check if the camera exists and the dome preview surface exists
+  // Check if the camera exists and the dome preview surface exists
   if((`objExists ($cameraName)`)  && (`objExists ($cameraName+"|"+$cameraName+"PreviewHemisphere")`)   ) {
     //warning("domePreview surface exists. Skipping.\n");
     print("PreviewHemisphere surface exists. Skipping.\n");
@@ -106,22 +109,22 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
   } else {
     print("No PreviewHemisphere surface exists. Creating a new surface.\n");
     
-    //Load the lens shader in the Attribute Editor window so the extra attribute controls are added
+    // Load the lens shader in the Attribute Editor window so the extra attribute controls are added
     //showEditorExact($lensShaderName) ;
     
     //---------------------------------------------------------------------------------------
     // Create a revolved NURBS Hemisphere
     //---------------------------------------------------------------------------------------
-    //Sections 8
-    //Spans 8
+    // Sections 8
+    // Spans 8
 
-    //Create the base curve with a 90 degree arc
+    // Create the base curve with a 90 degree arc
     string $domeRadiusCurveName[] = `circle -name ($cameraName+"PreviewCurve") -c 0 0 0 -nr 0 0 1 -sw 90 -r 1 -d 3 -ut 0 -tol 0.01 -s 4 -ch 1 `;
 
-    //Get the curve's shape node name
+    // Get the curve's shape node name
     string $domeCurveShape = getObjectShapeNode($domeRadiusCurveName[0]);   
     
-    //Revolve the base 90 degree arc curve into a NURBS dome shape
+    // Revolve the base 90 degree arc curve into a NURBS dome shape
     string $domeRadiusSurfaceName[] = `revolve  -name ($cameraName+"PreviewHemisphere") -ch 1 -po 0 -rn 0 -ssw 0 -esw 360 -ut 0 -tol 0.01 -degree 3 -s 8 -ulp 1 -ax 0 1 0 ($domeCurveShape)`;
     // Result: DomeStereoCameraPreviewCurve1 makeNurbCircle1 // 
 
@@ -136,7 +139,7 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     //print $domeSurfaceShape;
     //print "\n";
     
-    //Find out the preview curve's makeNurbCircle node name
+    // Find out the preview curve's makeNurbCircle node name
     string $makeCurveShapeName = $domeCurveShape;
     string $makeCurveObject[] = `listConnections -type "makeNurbCircle"  ($makeCurveShapeName+".create")`;
     string $makeCurveNodeName = $makeCurveObject[0];
@@ -147,36 +150,36 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     // Make the NURBS Curve able to be moved without effecting the revolves
     //---------------------------------------------------------------------------------------
     
-    //Find out the name of the "makeNurbCircle" node that is used to create the DomeStereoCameraPreviewCurve shape
+    // Find out the name of the "makeNurbCircle" node that is used to create the DomeStereoCameraPreviewCurve shape
     //string $makeCurveShapeName = "domeAFL_FOV_Camera1PreviewCurveShape";
     string $makeRevolveObjects[] = `listConnections -type "revolve"  ($makeCurveShapeName+".worldSpace")`;
     string $makeRevolveNodeName = $makeRevolveObjects[0];
     print("The circle creation node is: " + $makeRevolveNodeName + "\n");
 
-    //Reconnect the curve to the revolve node using local space
-    //This replaces the curve's previous .worldSpace connection that inhibited the
-    //ability to move the curve without effecting the revolve
+    // Reconnect the curve to the revolve node using local space
+    // This replaces the curve's previous .worldSpace connection that inhibited the
+    // ability to move the curve without effecting the revolve
     connectAttr -f ($makeCurveShapeName+".local") ($makeRevolveNodeName+".inputCurve");
     //connectAttr -f domeAFL_FOV_Camera1PreviewCurveShape.local revolve1.inputCurve;
     // Result: Connected domeAFL_FOV_Camera1PreviewCurveShape.local to revolve1.inputCurve. // 
 
     //---------------------------------------------------------------------------------------
-    //Set up display + shading overrides
+    // Set up display + shading overrides
     //---------------------------------------------------------------------------------------
      
-    //Set the object to render as a wireframe without shading
+    // Set the object to render as a wireframe without shading
     setAttr ($domeSurfaceShape+".overrideEnabled") 1;
     
-    //Toggle the NURBS surface shading Off
+    // Toggle the NURBS surface shading Off
     //setAttr ($domeSurfaceShape+".overrideShading") 0;
     
-    //Toggle the NURBS surface shading On
+    // Toggle the NURBS surface shading On
     //setAttr  ($domeSurfaceShape+".overrideShading") 1;
 
-    //set the dome surface to a reference mode to make it unselectable
+    // Set the dome surface to a reference mode to make it unselectable
     setAttr ($domeRadiusSurfaceName[0]+".overrideDisplayType") 2;
 
-    //Make object invisible in renders
+    // Make object invisible in renders
     setAttr ($domeRadiusSurfaceName[0]+".primaryVisibility") 0;
     setAttr ($domeRadiusSurfaceName[0]+".castsShadows") 0;
     setAttr ($domeRadiusSurfaceName[0]+".receiveShadows") 0;
@@ -185,7 +188,7 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     setAttr ($domeRadiusSurfaceName[0]+".visibleInRefractions") 0;
     setAttr ($domeRadiusSurfaceName[0]+".smoothShading") 0;
     
-    //Make object invisible in mental ray renders
+    // Make object invisible in mental ray renders
     setAttr ($domeRadiusSurfaceName[0]+".miFinalGatherCast") 0;
     setAttr ($domeRadiusSurfaceName[0]+".miFinalGatherReceive") 0;
     setAttr ($domeRadiusSurfaceName[0]+".miRefractionReceive") 0;
@@ -193,13 +196,13 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     setAttr ($domeRadiusSurfaceName[0]+".miTransparencyReceive") 0;
     setAttr ($domeRadiusSurfaceName[0]+".miTransparencyCast") 0;
  
-    //Template the preview geometry to avoid selections
+    // Template the preview geometry to avoid selections
     //setAttr ($domeSurfaceShape+".template") 1;
     
     //---------------------------------------------------------------------------------------
     // Position the preview shape on the camera
 
-    //Reset the rotations on the parented preview shapes
+    // Reset the rotations on the parented preview shapes
     setAttr ($domeRadiusSurfaceName[0]+".rx") 0;
     setAttr ($domeRadiusSurfaceName[0]+".ry") 0;
     setAttr ($domeRadiusSurfaceName[0]+".rz") 0;
@@ -207,14 +210,14 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     setAttr ($domeRadiusCurveName[0]+".ry") 0;
     setAttr ($domeRadiusCurveName[0]+".rz") 0;
 
-    //Put the domeSurface "PreviewShape" inside the DomeStereoCamera group
+    // Put the domeSurface "PreviewShape" inside the DomeStereoCamera group
 
-    //Have the revolved shape aligned relative to the camera
+    // Have the revolved shape aligned relative to the camera
     parent  ($domeRadiusSurfaceName[0])  $cameraName;
-    //Parent the NURBS revolve curve to the camera
+    // Parent the NURBS revolve curve to the camera
     parent ($domeRadiusCurveName[0]) $cameraName;
 
-    //Reset the transforms on the parented preview shapes
+    // Reset the transforms on the parented preview shapes
     setAttr ($domeRadiusSurfaceName[0]+".tx") 0;
     setAttr ($domeRadiusSurfaceName[0]+".ty") 0;
     setAttr ($domeRadiusSurfaceName[0]+".tz") 0;
@@ -223,12 +226,17 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     setAttr ($domeRadiusCurveName[0]+".ty") 0;
     setAttr ($domeRadiusCurveName[0]+".tz") 0;
     
-    //Turn the curve shape into an invisible curve "history" object
+    // Aligning the dome mesh to the front axis of the camera
+    setAttr ($domeRadiusSurfaceName[0]+".rx") -90;
+    setAttr ($domeRadiusSurfaceName[0]+".ry") 0;
+    setAttr ($domeRadiusSurfaceName[0]+".rz") 0;
+    
+    // Turn the curve shape into an invisible curve "history" object
     setAttr ($domeCurveShape+".intermediateObject") 1;
         
-    //Check if the Dome Radius attr exists on the lens shader node before linking the dome radius values
+    // Check if the Dome Radius attr exists on the lens shader node before linking the dome radius values
     if(`attributeExists "Dome_Radius" $lensShaderName`){
-      //Connection the dome radius value to the dome surface's scale attributes
+      // Connection the dome radius value to the dome surface's scale attributes
       connectAttr -f ($lensShaderName+".Dome_Radius") ($domeRadiusSurfaceName[0]+".scaleX");
       connectAttr -f ($lensShaderName+".Dome_Radius") ($domeRadiusSurfaceName[0]+".scaleY");
       connectAttr -f ($lensShaderName+".Dome_Radius") ($domeRadiusSurfaceName[0]+".scaleZ");
@@ -238,20 +246,20 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
       print("The Dome Radius control is missing from the lens shader attributes.\n");
     }
       
-    //Expression to control the field of view preview sweep angle 
-    //Note: $domeRadiusSurfaceName[0] holds the value for makeNurbCircle1
+    // Expression to control the field of view preview sweep angle 
+    // Note: $domeRadiusSurfaceName[0] holds the value for makeNurbCircle1
     string $expressionBuilderString = $makeCurveNodeName + ".sweep = " + $lensShaderName + ".FOV_Angle/2;"; 
     string $domeRadiusExpressionName = `expression -s $expressionBuilderString -o  ($domeRadiusCurveName[1]) -ae 1 -uc all -name "domeRadiusExpr"`;
 
     //select -cl;
       
     //---------------------------------------------------------------------------------------  
-    //Map the custom preview shape + curve names to the lens shader extra attr fields 
+    // Map the custom preview shape + curve names to the lens shader extra attr fields 
     //---------------------------------------------------------------------------------------
     //string $nodeName = "center_domeAFL_FOV_Stereo";   
     string $nodeName = $lensShaderName;
     
-    //Add the NURBS preview shape name
+    // Add the NURBS preview shape name
     string $attrName ="previewShape";
     //string $shapeName ="DomeStereoCameraPreviewShape";
     string $shapeName = ($domeRadiusSurfaceName[0]);
@@ -262,7 +270,7 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
       print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
     }
     
-    //Add the NURBS preview curve name
+    // Add the NURBS preview curve name
     string $attrName ="previewCurve";
     //string $shapeName ="DomeStereoCameraPreviewCurve";
     string $shapeName = ($domeRadiusCurveName[0]);
@@ -272,8 +280,8 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
       setAttr -type "string" ($nodeName+"."+$attrName) $shapeName;
       print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
     }
-    
-    //lock the preview shape transforms
+     
+    // Lock the preview shape transforms
     // setAttr -lock true ($domeRadiusSurfaceName[0]+".tx");
     // setAttr -lock true ($domeRadiusSurfaceName[0]+".ty");
     // setAttr -lock true ($domeRadiusSurfaceName[0]+".tz");
@@ -282,21 +290,21 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     // setAttr -lock true ($domeRadiusSurfaceName[0]+".rz");
     
     //---------------------------------------------------------------------------------------
-    //Create the FOV Preview material
+    // Create the FOV Preview material
     //---------------------------------------------------------------------------------------
     //string $lensShaderName = "domeAFL_FOV";
     //string $domeSurfaceShape = "domeAFL_FOV_Camera1PreviewHemisphere";
 
-    //Create an orange dome shape to visualize the zero parallax radius zone
-    //Orange Color = R 212/G 59/B 26
-    //Transparency Color = R 212/G 59/B 26
-    //Transparency = 25% / RGB 0.54/0.54/0.54
+    // Create an orange dome shape to visualize the zero parallax radius zone
+    // Orange Color = R 212/G 59/B 26
+    // Transparency Color = R 212/G 59/B 26
+    // Transparency = 25% / RGB 0.54/0.54/0.54
 
     if (`nodeType($lensShaderName)`== "domeAFL_FOV"){
-      //Create the surfaceShader name based upon the current camera name : domeAFL_FOVPreviewMaterial
+      // Create the surfaceShader name based upon the current camera name : domeAFL_FOVPreviewMaterial
       string $previewMaterialName = $cameraName + "PreviewMaterial";
 
-      //Check if the camera exists and the dome preview surface exists
+      // Check if the camera exists and the dome preview surface exists
       if(`objExists ($previewMaterialName)`) {
         print("The FOV Preview SurfaceShader material exists. Regenerating.\n");
         select -r $previewMaterialName ;
@@ -306,30 +314,30 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
       print("No FOV Preview SurfaceShader exists. Creating a new surface shader.\n");
       string $domeRadiusMat = `shadingNode -asShader surfaceShader -name $previewMaterialName`;
       
-      //Set the color to orange
+      // Set the color to orange
       //setAttr ($domeRadiusMat+".outColor") -type double3  0.831373 0.231373 0.101961 ;
-      //Add a default semi-transparent setting
+      // Add a default semi-transparent setting
       //setAttr ($domeRadiusMat+".outTransparency") -type double3 0.54 0.54 0.54 ;
 
-      //Add a new shading group to the surface shader
+      // Add a new shading group to the surface shader
       string $previewMaterialSGName = $previewMaterialName + "SG";
       select $domeRadiusMat;
       string $domeRadiusSG =`sets -renderable true -noSurfaceShader true -empty -name ($previewMaterialSGName)`;
       connectAttr -f ($domeRadiusMat+".outColor") ($domeRadiusSG+".surfaceShader");
       sets -e -forceElement ($domeRadiusSG) $domeSurfaceShape;
       
-      //Connect the lens shader color controls to the ZeroParallaxRadiusMaterialcenter_domeAFL_FOV_Stereo material
-      //Connect the FOV preview color swatch to the surface shader
+      // Connect the lens shader color controls to the ZeroParallaxRadiusMaterialcenter_domeAFL_FOV_Stereo material
+      // Connect the FOV preview color swatch to the surface shader
       connectAttr -f ($lensShaderName+".fovPreviewColor") ($domeRadiusMat+".outColor");
-      //Connect the FOV preview transparency slider to the surface shader transparency attrs
+      // Connect the FOV preview transparency slider to the surface shader transparency attrs
       connectAttr -f ($lensShaderName+".fovPreviewTransparency") ($domeRadiusMat+".outTransparencyR");
       connectAttr -f ($lensShaderName+".fovPreviewTransparency") ($domeRadiusMat+".outTransparencyG");
       connectAttr -f ($lensShaderName+".fovPreviewTransparency") ($domeRadiusMat+".outTransparencyB");   
     }else if (`nodeType($lensShaderName)`== "domeAFL_FOV_Stereo"){
-      //Create the surfaceShader name based upon the current camera name : domeAFL_FOV_StereoZeroParallaxRadiusMaterial
+      // Create the surfaceShader name based upon the current camera name : domeAFL_FOV_StereoZeroParallaxRadiusMaterial
       string $previewMaterialName = $cameraName + "ZeroParallaxRadiusMaterial";
 
-      //Check if the camera exists and the dome preview surface exists
+      // Check if the camera exists and the dome preview surface exists
       if(`objExists ($previewMaterialName)`) {
         print("The zero parallax SurfaceShader material exists. Regenerating.\n");
         select -r $previewMaterialName ;
@@ -339,45 +347,45 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
       print("No zero parallax SurfaceShader exists. Creating a new surface shader.\n");
       string $domeRadiusMat = `shadingNode -asShader surfaceShader -name $previewMaterialName`;
       
-      //Set the color to orange
+      // Set the color to orange
       //setAttr ($domeRadiusMat+".outColor") -type double3  0.831373 0.231373 0.101961 ;
-      //Add a default semi-transparent setting
+      // Add a default semi-transparent setting
       //setAttr ($domeRadiusMat+".outTransparency") -type double3 0.54 0.54 0.54 ;
 
-      //Add a new shading group to the surface shader
+      // Add a new shading group to the surface shader
       string $previewMaterialSGName = $previewMaterialName + "SG";
       select $domeRadiusMat;
       string $domeRadiusSG =`sets -renderable true -noSurfaceShader true -empty -name ($previewMaterialSGName)`;
       connectAttr -f ($domeRadiusMat+".outColor") ($domeRadiusSG+".surfaceShader");
       sets -e -forceElement ($domeRadiusSG) $domeSurfaceShape;
 
-       //Connect the lens shader color controls to the ZeroParallaxRadiusMaterialcenter_domeAFL_FOV_Stereo material
-      //Connect the FOV preview color swatch to the surface shader
+      // Connect the lens shader color controls to the ZeroParallaxRadiusMaterialcenter_domeAFL_FOV_Stereo material
+      // Connect the FOV preview color swatch to the surface shader
       connectAttr -f ($lensShaderName+".zeroParallaxColor") ($domeRadiusMat+".outColor");
-      //Connect the zeroParallaxTransparency slider to the surface shader transparency attrs
+      // Connect the zeroParallaxTransparency slider to the surface shader transparency attrs
       connectAttr -f ($lensShaderName+".zeroParallaxTransparency") ($domeRadiusMat+".outTransparencyR");
       connectAttr -f ($lensShaderName+".zeroParallaxTransparency") ($domeRadiusMat+".outTransparencyG");
       connectAttr -f ($lensShaderName+".zeroParallaxTransparency") ($domeRadiusMat+".outTransparencyB");
     }
 
     //---------------------------------------------------------------------------------------
-    //Set the stereo camera preview shape defaults
+    // Set the stereo camera preview shape defaults
     //---------------------------------------------------------------------------------------
     if (`nodeType($lensShaderName)`== "domeAFL_FOV_Stereo"){
-        //Check for the  .Camera = 0 (center) view
+        // Check for the  .Camera = 0 (center) view
         int $cameraView = `getAttr ($lensShaderName+".Camera")`;
         if ($cameraView == 0){
-          //Set the center view to show the zero parallax shape
+          // Set the center view to show the zero parallax shape
           setAttr ($lensShaderName+".zeroParallaxDisplayMode") 1;
         } else { 
-          //Set the left and right views to hide the zero parallax shape
+          // Set the left and right views to hide the zero parallax shape
           setAttr ($lensShaderName+".zeroParallaxDisplayMode") 0;
         }
     }
     
   
     //---------------------------------------------------------------------------------------
-    //Create the Zero Parallax Mode expression
+    // Create the Zero Parallax Mode expression
     //---------------------------------------------------------------------------------------
     
     string $exprName = "";
@@ -466,31 +474,34 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
 
     expression -name $exprName -string $PreviewShapeExpr -object $lensShaderName -alwaysEvaluate 1 -unitConversion all ;
 
-    //Force a first value into the double sided shading attribute
+    // Force a first value into the double sided shading attribute
     setAttr ($lensShaderName + ".doubleSidedShading") 0;
     
     //---------------------------------------------------------------------------------------
    
-    //Lock the camera's scale attributes
+    // Lock the camera's scale attributes
     setAttr -lock true ($cameraName+".sx");
     setAttr -lock true ($cameraName+".sy");
     setAttr -lock true ($cameraName+".sz");
     
     print("\nAdded a fulldome camera + preview shape\n");
+    
+    // Aligning the dome mesh to the front axis of the camera
+    //evalDeferred("setAttr \"" + $domeRadiusSurfaceName[0] + ".rotate\" -90 0 0; print \"Aligning the dome mesh " + $domeRadiusSurfaceName[0] + " to the front axis of the camera\";");
   }
 }
 
 
-//Find the shape node
-//example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
+// Find the shape node
+// Example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
 global proc string getObjectShapeNode ( string $object ) {
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
-//Find the object's parent node
-//example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
+// Find the object's parent node
+// Example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
 global proc string getObjectParentNode ( string $object ) {
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];

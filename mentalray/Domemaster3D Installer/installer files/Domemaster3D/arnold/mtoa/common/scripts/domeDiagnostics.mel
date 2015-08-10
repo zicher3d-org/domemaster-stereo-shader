@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.7.5
-  2015-06-12 
+  Dome Diagnostics Report Tool V1.8.2
+  2015-08-10
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  
+  Version V1.8.2
+  --------------------
+  
+  Added Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection
   
   Version 1.7.5 Alpha
   --------------------
@@ -275,6 +281,9 @@ global proc domeDiagnostics(){
 
  //Maya language locale (codeset) format (UTF8, 1252, etc..)
   $domeDebugText += "### `MAYA Locale (Codeset) Format` ###\r\n> " + `about -codeset` + "\r\n\r\n";
+
+ //Maya License Timeout
+  $domeDebugText += "### `MAYA_DISABLE_IDLE_LICENSE` ###\r\n> " +`getenv "MAYA_DISABLE_IDLE_LICENSE"`+ "\r\n\r\n";
 
   //Example: unlimited
   $domeDebugText += "### `MAYA_LICENSE` ###\r\n> " +`getenv "MAYA_LICENSE"`+ "\r\n\r\n";

@@ -1,6 +1,6 @@
 """
-Vray Domemaster3D Camera Setup Script V1.7.0
-2015-05-08 10.08 pm
+Vray Domemaster3D Camera Setup Script V1.7.1
+2015-08-10 9.34 am
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -8,10 +8,14 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 1.7
----------------
-2015-05-08 
 
+Version 1.7.1  2015-08-10
+-------------------------------------
+Updated Wiki link in the shelf tool
+
+
+Version 1.7  2015-05-08 
+-------------------------------------
 Initial version for Vray
 
 ------------------------------------------------------------------------------
@@ -87,7 +91,7 @@ def openDomemasterWiki():
   import webbrowser
   
   # Domemaster Stereo Shader - Wiki Page
-  url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages'
+  url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki'
   
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)

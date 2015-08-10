@@ -339,14 +339,16 @@ domeVrayRender.domeVrayTranslator()
 <h2><a name="maya-shader-installation"></a>Maya Shader Installation</h2>
 <h3><a name="windows-64-bit"></a>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
-<p><strong>Step 2.</strong> Copy the .dll files to the vray-plugins directory:  </p>
+<p><strong>Step 2.</strong> Copy the .dll files to the vray-plugins directory:  
+</p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\vrayplugins\</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.dll
 vray_LatLongStereo.dll
 </code></pre>
 
-<p><strong>Step 3.</strong> Copy the Maya Vray script files to the Vray scripts folder:  </p>
+<p><strong>Step 3.</strong> Copy the Vray script files to the Vray scripts folder:  
+</p>
 <p><code>C:\Program Files\Autodesk\Maya&lt;Version&gt;\vray\scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
@@ -368,7 +370,8 @@ Copy the Maya shelf files to your user account's Maya shelf folder:</p>
 <p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Version&gt;\prefs\shelves</code></p>
 <h3><a name="mac-64-bit"></a>Mac 64-bit</h3>
 <p><strong>Step 1.</strong>
-Copy the .so files to the vray-plugins directory:  </p>
+Copy the .so files to the vray-plugins directory:  
+</p>
 <p><code>/Applications/Autodesk/maya&lt;Version&gt;/vray/vrayplugins</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.so
@@ -376,7 +379,8 @@ vray_LatLongStereo.so
 </code></pre>
 
 <p><strong>Step 2.</strong>
-Copy the Maya Vray script files to the Vray scripts folder:  </p>
+Copy the Vray script files to the Vray scripts folder:  
+</p>
 <p><code>/Applications/Autodesk/maya&lt;Version&gt;/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
@@ -398,7 +402,8 @@ Copy the Maya shelf files to your user account's Maya shelf folder:</p>
 <p><code>~/Library/Preferences/Autodesk/maya/&lt;Version&gt;/prefs\shelves</code></p>
 <h3><a name="linux-64-bit"></a>Linux 64-bit</h3>
 <p><strong>Step 1.</strong>
-Copy the .so files to the vray-plugins directory:  </p>
+Copy the .so files to the vray-plugins directory:  
+</p>
 <p><code>/usr/Autodesk/Maya&lt;Version&gt;/vray/vrayplugins/</code></p>
 <p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.so
@@ -406,7 +411,8 @@ vray_LatLongStereo.so
 </code></pre>
 
 <p><strong>Step 2.</strong>
-Copy the Maya Vray script files to the Vray scripts folder:  </p>
+Copy the Vray script files to the Vray scripts folder:  
+</p>
 <p><code>/usr/Autodesk/Maya&lt;Version&gt;/vray/scripts</code></p>
 <p>Vray Script Files:</p>
 <pre><code>attributes.txt
@@ -434,10 +440,13 @@ Copy the Maya shelf files to your user account's Maya shelf folder:</p>
 <p><strong>Step 3.</strong> Copy the Domemaster3D <code>vray_DomemasterStereo</code> and <code>vray_LatLongStereo</code> source code folders into the vray cameras source code folder. </p>
 <p><strong>Step 4.</strong> Set the compiling mode to &quot;release&quot; and compile the source code in Visual Studio 2013 with the following project files:</p>
 <p><code>vray_DomemasterStereo.vcxproj</code><br />
-<code>vray_LatLongStereo.vcxproj</code>  </p>
-<p>If you are running an older version of Visual Studio you can use the legacy Microsoft Developer Studio project file:  </p>
+<code>vray_LatLongStereo.vcxproj</code>  
+</p>
+<p>If you are running an older version of Visual Studio you can use the legacy Microsoft Developer Studio project file:  
+</p>
 <p><code>vray_DomemasterStereo.dsp</code><br />
-<code>vray_LatLongStereo.dsp</code>  </p>
+<code>vray_LatLongStereo.dsp</code>  
+</p>
 <h3><a name="mac-os-64-bit-compile"></a>Mac OS X 64-bit Compile</h3>
 <p>The first version of Vray for Mac OS X support has been added to the lens shaders. Mac OS X 10.9 Mavericks or 10.10 Yosemite is required to use the lens shaders.</p>
 <p><strong>Step 1.</strong>
@@ -447,7 +456,8 @@ Open a new terminal window and cd into the source code folder.</p>
 <p><strong>Step 3.</strong>
 Copy the Vray SDK Lib and Include files into the matching folders located next to the source code files.</p>
 <p><strong>Step 4.</strong>
-Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo.so</code> shader:  </p>
+Use the Mac OS X makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo.so</code> shader:  
+</p>
 <p><code>make -f MakefileMavericks.osx</code></p>
 <p><strong>Step 5.</strong>
 You can check your compiled .so architecture with the following commands:</p>
@@ -467,7 +477,8 @@ Open a new terminal window and cd into the source code folder.</p>
 <p><strong>Step 3.</strong>
 Copy the Vray SDK Lib and Include files into the matching folders located next to the source code files.</p>
 <p><strong>Step 4.</strong>
-Use the Linux makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo.so</code> shader:  </p>
+Use the Linux makefile to compile a new <code>vray_DomemasterStereo.so</code> and <code>vray_LatLongStereo.so</code> shader:  
+</p>
 <p><code>make -f Makefile</code></p>
 
 </body>

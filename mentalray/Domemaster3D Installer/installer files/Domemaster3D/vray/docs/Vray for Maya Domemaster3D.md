@@ -25,7 +25,7 @@ This guide covers the Vray for Maya version of the Domemaster3D Shaders.
 
 ## <a name="known-issues"></a>Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-06-01 ) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2015-08-10) is a development build.
 
 More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
 
@@ -93,7 +93,7 @@ Vray Plugin Files:
     vray_DomemasterStereo.dll
     vray_LatLongStereo.dll
 
-**Step 3.** Copy the Maya Vray script files to the Vray scripts folder:  
+**Step 3.** Copy the Vray script files to the Vray scripts folder:  
 
 `C:\Program Files\Autodesk\Maya<Version>\vray\scripts`
 
@@ -137,7 +137,7 @@ Vray Plugin Files:
     vray_LatLongStereo.so
 
 **Step 2.**
-Copy the Maya Vray script files to the Vray scripts folder:  
+Copy the Vray script files to the Vray scripts folder:  
 
 `/Applications/Autodesk/maya<Version>/vray/scripts`
 
@@ -165,7 +165,7 @@ Copy the Maya script files to your user account's Maya scripts folder, or a shar
 **Step 5.**
 Copy the Maya shelf files to your user account's Maya shelf folder:
 
-`~/Library/Preferences/Autodesk/maya/<Version>/prefs\shelves`
+`~/Library/Preferences/Autodesk/maya/<Version>/prefs/shelves`
 
 
 
@@ -182,7 +182,7 @@ Vray Plugin Files:
     vray_LatLongStereo.so
 
 **Step 2.**
-Copy the Maya Vray script files to the Vray scripts folder:  
+Copy the Vray script files to the Vray scripts folder:  
 
 `/usr/Autodesk/Maya<Version>/vray/scripts`
 
@@ -280,6 +280,3 @@ Copy the Vray SDK Lib and Include files into the matching folders located next t
 Use the Linux makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo.so` shader:  
 
 `make -f Makefile`
-
-
-

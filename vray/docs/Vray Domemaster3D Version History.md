@@ -35,6 +35,12 @@
 
 ## <a name="version-history"></a>Version History ##
 
+### 2015-08-10 ###
+
+- Added Vray 3.1 for Maya support.
+
+- Updated the wiki link in the Vray Domemaster3D Maya shelf tool.
+
 ### 2015-07-09 ###
 
 **Vray for Max**

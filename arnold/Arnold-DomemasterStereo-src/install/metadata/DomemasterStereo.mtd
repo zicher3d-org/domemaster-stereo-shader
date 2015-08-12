@@ -4,7 +4,7 @@
 #     the Production of Full-Dome Animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2015-04-25 09.51 am
+# 2015-08-12 01.00 pm
 
 [node DomemasterStereo]
     desc                         STRING "Domemaster Stereo Shader"
@@ -13,8 +13,9 @@
     maya.name                    STRING "camera"
     maya.classification          STRING "shader/surface"
     maya.type                    STRING "camera"
-    maya.translator              STRING  "DomemasterStereo"
-
+    maya.translator              STRING "DomemasterStereo"
+    c4d.classification           STRING "surface"
+    c4d.menu                     STRING "Domemaster3D"
     houdini.category             STRING "Domemaster3D"
     houdini.icon                 STRING "SHOP_surface"
     houdini.label                STRING "DomemasterStereo"

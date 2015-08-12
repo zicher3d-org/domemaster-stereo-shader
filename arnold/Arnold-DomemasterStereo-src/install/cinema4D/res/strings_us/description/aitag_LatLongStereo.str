@@ -1,0 +1,11 @@
+STRINGTABLE AiTag_LatLongStereo
+{
+   AiTagLatLongStereo         "Arnold LatLongStereo node";
+
+   C4DAI_LATLONGSTEREO_MAIN_GRP                    "Main";
+   C4DAI_LATLONGSTEREO_SHADER_GRP                  "LatLong Stereo Shader";
+   C4DAI_LATLONGSTEREO_CUSTOM_MAPS_GRP             "Custom Maps";
+   C4DAI_LATLONGSTEREO_FLIP_GRP                    "Image Orientation";
+   C4DAI_LATLONGSTEREO_EXTRAS_GRP                  "Extras";
+}
+

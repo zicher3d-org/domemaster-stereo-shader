@@ -154,6 +154,9 @@ The 8x4k button sets the render resolution to 8192x4096 pixels.
 Open Scenes Folder Button
 The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
 
+Open Sourceimages Folder Button
+The SRC button opens the sourceimages folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+
 Open Images Folder Button
 The IMG button opens the images folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
 
@@ -273,6 +276,8 @@ Added the first working version of the Cinema4D C4DtoA Domemaster3D shader beta 
 
 Maya
   Updated the Dome Diagnostics tool to include a check for the Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection
+  
+  Added a domeOpenSourceImagesDirectory() function to open the sourceimages directory. This is used by the Domemaster3D Maya shelf tool "SRC".
 
 Version 1.8.1
 -------------

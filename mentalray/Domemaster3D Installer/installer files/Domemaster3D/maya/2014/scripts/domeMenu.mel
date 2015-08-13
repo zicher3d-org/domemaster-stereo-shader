@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.7.5
-2015-07-08 Maya 2011+
+Version 1.8.2
+2015-08-12 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -432,6 +432,14 @@ global proc createDomemaster3DMenu() {
     -image "dome_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     DomeDiagOpenScenesMenu;
+  menuItem 
+    -label "Open Sourceimages Folder"
+    //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
+    -annotation "Opening the \"Sourceimages\" folder for the current project."
+    -imageOverlayLabel "SRC"
+    -image "dome_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
+    DomeDiagOpenSourceImagesMenu;
   menuItem 
     -label "Open Images Folder"
     //-annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)

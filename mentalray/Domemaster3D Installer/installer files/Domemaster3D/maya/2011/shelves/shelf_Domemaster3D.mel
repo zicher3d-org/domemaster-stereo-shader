@@ -20,8 +20,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_magicDome.xpm" 
-        -image1 "render_magicDome.xpm" 
+        -image "render_magicDome.png" 
+        -image1 "render_magicDome.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -45,8 +45,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.792793 0.792793 0.792793 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_domeAFL_FOV_Stereo.xpm" 
-        -image1 "render_domeAFL_FOV_Stereo.xpm" 
+        -image "render_domeAFL_FOV_Stereo.png" 
+        -image1 "render_domeAFL_FOV_Stereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -70,8 +70,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_rob_lookup_background.xpm" 
-        -image1 "render_rob_lookup_background.xpm" 
+        -image "render_rob_lookup_background.png" 
+        -image1 "render_rob_lookup_background.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -95,8 +95,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_domeRamp.xpm" 
-        -image1 "render_domeRamp.xpm" 
+        -image "render_domeRamp.png" 
+        -image1 "render_domeRamp.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -120,8 +120,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_domeAFL_FOV.xpm" 
-        -image1 "render_domeAFL_FOV.xpm" 
+        -image "render_domeAFL_FOV.png" 
+        -image1 "render_domeAFL_FOV.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -145,8 +145,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_domeAFL_WxH.xpm" 
-        -image1 "render_domeAFL_WxH.xpm" 
+        -image "render_domeAFL_WxH.png" 
+        -image1 "render_domeAFL_WxH.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -170,8 +170,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_latlong_lens.xpm" 
-        -image1 "render_latlong_lens.xpm" 
+        -image "render_latlong_lens.png" 
+        -image1 "render_latlong_lens.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -195,8 +195,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_LatLong_Stereo.xpm" 
-        -image1 "render_LatLong_Stereo.xpm" 
+        -image "render_LatLong_Stereo.png" 
+        -image1 "render_LatLong_Stereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -220,8 +220,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "colorMaterial.xpm" 
-        -image1 "colorMaterial.xpm" 
+        -image "colorMaterial.png" 
+        -image1 "colorMaterial.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -245,8 +245,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "bumpMaterial.xpm" 
-        -image1 "bumpMaterial.xpm" 
+        -image "bumpMaterial.png" 
+        -image1 "bumpMaterial.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -270,8 +270,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "mentalrayTextureAnimationMaterial.xpm" 
-        -image1 "mentalrayTextureAnimationMaterial.xpm" 
+        -image "mentalrayTextureAnimationMaterial.png" 
+        -image1 "mentalrayTextureAnimationMaterial.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -295,8 +295,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_starglobe.xpm" 
-        -image1 "render_starglobe.xpm" 
+        -image "render_starglobe.png" 
+        -image1 "render_starglobe.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -320,8 +320,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "fulldomeIBL.xpm" 
-        -image1 "fulldomeIBL.xpm" 
+        -image "fulldomeIBL.png" 
+        -image1 "fulldomeIBL.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -345,8 +345,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "hemirectIBL.xpm" 
-        -image1 "hemirectIBL.xpm" 
+        -image "hemirectIBL.png" 
+        -image1 "hemirectIBL.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -370,8 +370,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeGrid.xpm" 
-        -image1 "domeGrid.xpm" 
+        -image "domeGrid.png" 
+        -image1 "domeGrid.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -395,8 +395,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_galaxy.xpm" 
-        -image1 "render_galaxy.xpm" 
+        -image "render_galaxy.png" 
+        -image1 "render_galaxy.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -420,8 +420,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeText.xpm" 
-        -image1 "domeText.xpm" 
+        -image "domeText.png" 
+        -image1 "domeText.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -445,8 +445,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeCrossBounce.xpm" 
-        -image1 "domeCrossBounce.xpm" 
+        -image "domeCrossBounce.png" 
+        -image1 "domeCrossBounce.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -470,8 +470,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeViewer.xpm" 
-        -image1 "domeViewer.xpm" 
+        -image "domeViewer.png" 
+        -image1 "domeViewer.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -495,8 +495,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeHistogram.xpm" 
-        -image1 "domeHistogram.xpm" 
+        -image "domeHistogram.png" 
+        -image1 "domeHistogram.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -521,8 +521,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "0.5k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution.xpm" 
-        -image1 "render_resolution.xpm" 
+        -image "render_resolution.png" 
+        -image1 "render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -547,8 +547,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution.xpm" 
-        -image1 "render_resolution.xpm" 
+        -image "render_resolution.png" 
+        -image1 "render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -573,8 +573,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution.xpm" 
-        -image1 "render_resolution.xpm" 
+        -image "render_resolution.png" 
+        -image1 "render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -599,8 +599,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution.xpm" 
-        -image1 "render_resolution.xpm" 
+        -image "render_resolution.png" 
+        -image1 "render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -625,8 +625,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "8k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution.xpm" 
-        -image1 "render_resolution.xpm" 
+        -image "render_resolution.png" 
+        -image1 "render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -651,8 +651,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "2x1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution_wide.xpm" 
-        -image1 "render_resolution_wide.xpm" 
+        -image "render_resolution_wide.png" 
+        -image1 "render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -677,8 +677,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "4x2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution_wide.xpm" 
-        -image1 "render_resolution_wide.xpm" 
+        -image "render_resolution_wide.png" 
+        -image1 "render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -703,8 +703,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "8x4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "render_resolution_wide.xpm" 
-        -image1 "render_resolution_wide.xpm" 
+        -image "render_resolution_wide.png" 
+        -image1 "render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -729,12 +729,38 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "SCN" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "dome_directory.xpm" 
-        -image1 "dome_directory.xpm" 
+        -image "dome_directory.png" 
+        -image1 "dome_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the sourceimages folder for the current project." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Sourceimages Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SRC" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "dome_directory.png" 
+        -image1 "dome_directory.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
         -sourceType "mel" 
         -commandRepeatable 1
     ;
@@ -755,8 +781,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "IMG" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "dome_directory.xpm" 
-        -image1 "dome_directory.xpm" 
+        -image "dome_directory.png" 
+        -image1 "dome_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -781,8 +807,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "TMP" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "dome_directory.xpm" 
-        -image1 "dome_directory.xpm" 
+        -image "dome_directory.png" 
+        -image1 "dome_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -807,8 +833,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "rLOG" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeLog.xpm" 
-        -image1 "domeLog.xpm" 
+        -image "domeLog.png" 
+        -image1 "domeLog.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -833,8 +859,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "Diag" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeLog.xpm" 
-        -image1 "domeLog.xpm" 
+        -image "domeLog.png" 
+        -image1 "domeLog.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -859,8 +885,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "Task" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "task.xpm" 
-        -image1 "task.xpm" 
+        -image "task.png" 
+        -image1 "task.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -885,8 +911,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "Upgr" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "nodeUpgrade.xpm" 
-        -image1 "nodeUpgrade.xpm" 
+        -image "nodeUpgrade.png" 
+        -image1 "nodeUpgrade.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -910,8 +936,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "mentalray_load.xpm" 
-        -image1 "mentalray_load.xpm" 
+        -image "mentalray_load.png" 
+        -image1 "mentalray_load.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -935,8 +961,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeInfo.xpm" 
-        -image1 "domeInfo.xpm" 
+        -image "domeInfo.png" 
+        -image1 "domeInfo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -960,8 +986,8 @@ global proc shelf_Domemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeHelp.xpm" 
-        -image1 "domeHelp.xpm" 
+        -image "domeHelp.png" 
+        -image1 "domeHelp.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1

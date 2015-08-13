@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.8.2
-  2015-08-10
+  2015-08-13
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -14,7 +14,9 @@
   Version V1.8.2
   --------------------
   
-  Added Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection
+  Added Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection to the dome diagnostics tool.
+  
+  Added a domeOpenSourceImagesDirectory() function to open the source images directory. This is used by the Domemaster3D Maya shelf tool "SRC".
   
   Version 1.7.5 Alpha
   --------------------
@@ -93,6 +95,9 @@
 
   To open the images folder for the current project use:
   source "domeDiagnostics.mel"; domeOpenImagesDirectory();
+  
+  To open the sourceimages folder for the current project use:
+  source "domeDiagnostics.mel"; domeOpenSourceImagesDirectory();
 
   To open the Mac OS X Activity Monitor / Windows Task Manager use:
   source "domeDiagnostics.mel"; openTaskManager();
@@ -1529,6 +1534,48 @@ global proc domeOpenImagesDirectory(){
     print ("The " + $path + " folder doesn't exist yet!\n");
   }
 }
+
+
+global proc domeOpenSourceImagesDirectory(){
+  // Open the current project/images folder
+  int $mayaVersion = getMayaVersionDome();
+
+  // Get the current project folder name
+  string  $projPath = `workspace -q -rootDirectory`;
+
+  // Build the images directory path
+  string $path = $projPath + "sourceimages";
+
+  string $runCommand = "";
+  int $dirExists = `filetest -d $path`;
+  if ($dirExists == 1){
+    if (getMayaPlatform() == "windows"){
+      $runCommand = "explorer \"";
+    } else if (getMayaPlatform() == "darwin"){
+      $runCommand = "open \"";
+    } else {
+    //Linux assumed
+      $runCommand = "nautilus \"";
+    }
+
+    $runCommand += toNativePath($path);
+    $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
+
+    // Open a new explorer window
+    print ("Running command:\n" + $runCommand + "\n");
+    system ($runCommand);
+
+    print ("Opening the " + $path + " folder.\n");
+  } else {
+    print ("The " + $path + " folder doesn't exist yet!\n");
+  }
+}
+
 
 
 global proc domeOpenTempDirectory(){

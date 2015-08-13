@@ -79,6 +79,8 @@ Added the first working version of the Cinema4D C4DtoA Domemaster3D shader beta 
 
 Maya
   Updated the Dome Diagnostics tool to include a check for the Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection
+  
+  Added a domeOpenSourceImagesDirectory() function to open the sourceimages directory. This is used by the Domemaster3D Maya shelf tool "SRC".
 
 Version 1.8.1
 -------------

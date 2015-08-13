@@ -106,7 +106,7 @@
                             <platforms>all</platforms>
                             <runAsAdmin>0</runAsAdmin>
                             <runInTerminal>0</runInTerminal>
-                            <url>https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages</url>
+                            <url>https://github.com/zicher3d-org/domemaster-stereo-shader/wiki</url>
                             <windowsIcon></windowsIcon>
                         </linkShortcut>
                         <linkShortcut>

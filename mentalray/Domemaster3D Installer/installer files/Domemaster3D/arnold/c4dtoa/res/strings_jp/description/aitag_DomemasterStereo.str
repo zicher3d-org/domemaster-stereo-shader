@@ -1,0 +1,27 @@
+STRINGTABLE AiTag_DomemasterStereo
+{
+   AiTagDomemasterStereo         "Arnold DomemasterStereo node";
+
+   C4DAI_DOMEMASTERSTEREO_MAIN_GRP                    "Main";
+   C4DAI_DOMEMASTERSTEREO_SHADER_GRP                  "Domemaster Stereo Shader";
+   C4DAI_DOMEMASTERSTEREO_CUSTOM_MAPS_GRP             "Custom Maps";
+   C4DAI_DOMEMASTERSTEREO_FLIP_GRP                    "Image Orientation";
+   C4DAI_DOMEMASTERSTEREO_EXTRAS_GRP                  "Extras";
+   
+   C4DAIP_DOMEMASTERSTEREO_CAMERA                     "Camera";
+   C4DAIP_DOMEMASTERSTEREO_FOV_ANGLE                  "Field of View";
+   C4DAIP_DOMEMASTERSTEREO_ZERO_PARALLAX_SPHERE       "Zero Parallax Sphere";
+   C4DAIP_DOMEMASTERSTEREO_SEPARATION                 "Camera Separation";
+   C4DAIP_DOMEMASTERSTEREO_FORWARD_TILT               "Dome Forward Tilt";
+   C4DAIP_DOMEMASTERSTEREO_TILT_COMPENSATION          "Dome Tilt Compensation";
+   C4DAIP_DOMEMASTERSTEREO_VERTICAL_MODE              "Vertical Mode";
+   C4DAIP_DOMEMASTERSTEREO_SEPARATION_MAP             "Separation Map";
+   C4DAIP_DOMEMASTERSTEREO_HEAD_TURN_MAP              "Head Turn Map";
+   C4DAIP_DOMEMASTERSTEREO_HEAD_TILT_MAP              "Head Tilt Map";
+   C4DAIP_DOMEMASTERSTEREO_FLIP_RAY_X                 "Flip X";
+   C4DAIP_DOMEMASTERSTEREO_FLIP_RAY_Y                 "Flip Y";
+   
+   C4DAI_DOMEMASTERSTEREO_CAMERA__CENTER              "Center";
+   C4DAI_DOMEMASTERSTEREO_CAMERA__LEFT                "Left";
+   C4DAI_DOMEMASTERSTEREO_CAMERA__RIGHT               "Right";
+}

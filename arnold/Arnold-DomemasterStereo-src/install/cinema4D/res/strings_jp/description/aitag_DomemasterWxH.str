@@ -1,0 +1,16 @@
+STRINGTABLE AiTag_DomemasterWxH
+{
+   AiTagDomemasterWxH         "Arnold DomemasterWxH node";
+
+   C4DAI_DOMEMASTERWXH_MAIN_GRP                    "Main";
+   C4DAI_DOMEMASTERWXH_SHADER_GRP                  "DomemasterWxH Shader";
+   C4DAI_DOMEMASTERWXH_FLIP_GRP                    "Image Orientation";
+   C4DAI_DOMEMASTERWXH_EXTRAS_GRP                  "Extras";
+   
+   C4DAIP_DOMEMASTERWXH_DIAMETER                   "Diameter";
+   C4DAIP_DOMEMASTERWXH_HEIGHT                     "Height";
+   // C4DAIP_DOMEMASTERWXH_VIEW_OFFSET                "View Offset";
+   C4DAIP_DOMEMASTERWXH_FLIP_RAY_X                 "Flip X";
+   C4DAIP_DOMEMASTERWXH_FLIP_RAY_Y                 "Flip Y";
+}
+

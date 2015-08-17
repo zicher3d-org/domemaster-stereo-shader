@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.7
-2015-03-07 
+Dome Material Script V1.8
+2015-08-16 10.55 pm
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -15,6 +15,13 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+Version 1.8
+-------------
+2015-08-16 
+
+Added a new Hybrid mentalrayTexture material that combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node.
+
 
 Version 1.7
 -------------
@@ -180,6 +187,17 @@ Run using the command:
 import domeMaterial as domeMaterial
 reload(domeMaterial)
 domeMaterial.createColorImageSequenceMiaMaterial()
+
+------------------------------------------------------------------------------
+Create a Hybrid MIA Material + Maya File Texture
+A python function to create a hybrid shading network with a mia_material with a shading network for a mental ray native animated file texture using a mel expression to cycle the images used per frame, and a Maya file texture node shading network for high resolution previews in the real-time viewport window.
+
+This is designed so image sequences can be used as file texture on fulldome renders without having to worry about the blurry grey line artifact in MR.
+
+Run using the command:
+import domeMaterial as domeMaterial
+reload(domeMaterial)
+domeMaterial.createHybridColorImageSequenceMiaMaterial()
 
 ------------------------------------------------------------------------------
 
@@ -1588,6 +1606,175 @@ def createColorImageSequenceMiaMaterial():
   cmds.select(color_mr_tex, r=True)
   mel.eval ( ' showEditorExact("' + color_mr_tex + '") ' )
 
+  #-----------------------------------------------------------------------
+  #output the name of the new fileTexture node
+  return color_mr_tex
+
+
+"""
+Create a Hybrid MIA Material + Maya File Texture
+--------------------------------------------------
+A python function to create a hybrid shading network with a mia_material with a shading network for a mental ray native animated file texture using a mel expression to cycle the images used per frame, and a Maya file texture node shading network for high resolution previews in the real-time viewport window.
+
+This is designed so image sequences can be used as file texture on fulldome renders without having to worry about the blurry grey line artifact in MR.
+"""
+# Create a Hybrid color image sequence MIA material    
+def createHybridColorImageSequenceMiaMaterial():
+  import maya.cmds as cmds
+  import maya.mel as mel  
+
+  # Make sure the mental ray plugin was loaded
+  forceMentalRayLoad()
+
+  # Texture variables
+  #Set the file texture variables to "" if you don't want a file to be specified
+  #ColorMapFileTexture = ""
+
+  ColorMapFileTexture = getSourceImagesPath("checker.iff")
+  #ColorMapFileTexture = getSourceImagesPath("checker")
+
+  #Get the selected geometry
+  object_selection = cmds.ls(sl=True)
+
+  # Create the render nodes
+
+  #Create the mia_material + shading group
+  dome_mia_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='sequence_mia_material_x_passesSG' )
+  
+  #Create a mia_material_x_passes shader
+  dome_mia_shader_name = cmds.shadingNode( 'mia_material_x_passes', n='sequence_mia_material_x_passes', asShader=True)  
+
+  #Create a mia_material shader
+  #dome_mia_shader_name = cmds.shadingNode( 'mia_material', n='dome_mia_material', asShader=True)   
+
+  #Apply the shading group to the selected geometry
+  if object_selection:
+    print("Applying the "+dome_mia_shader_name+" surface material to:")
+    for obj in object_selection: 
+      print obj
+      
+    for obj in object_selection: 
+      cmds.select(obj)
+      cmds.hyperShade(assign=dome_mia_shader_group_name)  
+
+  # Create the MR nodes 
+  color_tex_lookup = cmds.shadingNode( 'mib_texture_lookup', n='sequence_mib_texture_lookup1',  asUtility=True) 
+  color_mr_tex = cmds.shadingNode( 'mentalrayTexture', n='sequence_mentalrayTexture1', asTexture=True) 
+
+  # Create the Maya software nodes
+  materialNamePrefix = 'sequence_'
+  maya_tex = cmds.shadingNode( 'file', n=materialNamePrefix+'maya_file_texture', asTexture=True) 
+
+  #Create the Lambert in-scene preview material
+  preview_shader_name = cmds.shadingNode( 'lambert', n=materialNamePrefix+'preview_material', asShader=True) 
+  maya_placement = cmds.shadingNode( 'place2dTexture', n=materialNamePrefix+'place2dTexture', asUtility=True)
+
+  # Set the filename for the mental ray texture nodes
+  #cmds.setAttr( color_mr_tex+'.fileTextureName', ColorMapFileTexture , type="string")
+
+  # Connect the place2dTexture node to the mr shading network
+  cmds.connectAttr( maya_placement+'.outU', color_tex_lookup+'.coordX' )
+  cmds.connectAttr( maya_placement+'.outV', color_tex_lookup+'.coordY' )
+  # place2dTexture.outU -> mib_texture_lookup.coordX
+  # place2dTexture.outV -> mib_texture_lookup.coordY
+  
+  # Connect the color texture nodes
+  cmds.connectAttr( color_mr_tex+'.message', color_tex_lookup+'.tex' )
+  #mentalrayTexture.message -> mib_texture_lookup.tex
+
+  cmds.connectAttr( color_tex_lookup+'.outValue', dome_mia_shader_name+'.diffuse' )
+  #mib_texture_lookup.outValue -> mia_material.diffuse
+  
+  # Connect the mentalrayTexture filename to the Maya file texture node filename
+  cmds.connectAttr( color_mr_tex+'.fileTextureName', maya_tex+'.fileTextureName' )
+  #mentalrayTexture.fileTextureName -> file.fileTextureName
+  
+  # Connect the place2D texture to the Maya file texture
+  # Disabled WrapU and WrapV since the Mental ray network connections don't support it
+  cmds.connectAttr(maya_placement+'.coverage', maya_tex+'.coverage', f=True)
+  cmds.connectAttr(maya_placement+'.translateFrame', maya_tex+'.translateFrame', f=True)
+  cmds.connectAttr(maya_placement+'.rotateFrame', maya_tex+'.rotateFrame', f=True)
+  cmds.connectAttr(maya_placement+'.mirrorU', maya_tex+'.mirrorU', f=True)
+  cmds.connectAttr(maya_placement+'.mirrorV', maya_tex+'.mirrorV', f=True)
+  cmds.connectAttr(maya_placement+'.stagger', maya_tex+'.stagger', f=True)
+  #cmds.connectAttr(maya_placement+'.wrapU', maya_tex+'.wrapU', f=True)
+  #cmds.connectAttr(maya_placement+'.wrapV', maya_tex+'.wrapV', f=True)
+  cmds.connectAttr(maya_placement+'.repeatUV', maya_tex+'.repeatUV', f=True)
+  cmds.connectAttr(maya_placement+'.offset', maya_tex+'.offset', f=True)
+  cmds.connectAttr(maya_placement+'.rotateUV', maya_tex+'.rotateUV', f=True)
+  cmds.connectAttr(maya_placement+'.noiseUV', maya_tex+'.noiseUV', f=True)
+  cmds.connectAttr(maya_placement+'.vertexUvOne', maya_tex+'.vertexUvOne', f=True)
+  cmds.connectAttr(maya_placement+'.vertexUvTwo', maya_tex+'.vertexUvTwo', f=True)
+  cmds.connectAttr(maya_placement+'.vertexUvThree', maya_tex+'.vertexUvThree', f=True)
+  cmds.connectAttr(maya_placement+'.vertexCameraOne', maya_tex+'.vertexCameraOne', f=True)
+  cmds.connectAttr(maya_placement+'.outUV', maya_tex+'.uvCoord', f=True)
+  cmds.connectAttr(maya_placement+'.outUvFilterSize', maya_tex+'.uvFilterSize', f=True)
+  
+  # Connect the Lambert preview shader
+
+  # Connect the Maya domeViewer file texture to the lambert preview material color shader inputs
+  cmds.connectAttr(maya_tex+'.outColor', preview_shader_name+'.color', f=True)
+
+  # Connect the Lambert in-scene preview shader to the shading group
+  cmds.connectAttr(preview_shader_name+'.outColor', dome_mia_shader_group_name+'.surfaceShader', f=True)
+
+  # Turn on the shading group "Suppress all Maya Shaders" checkbox
+  cmds.setAttr(dome_mia_shader_group_name+'.miExportMrMaterial', 1)
+
+  # Set values for the shading nodes
+
+  # Set the mia_material to be a glossy material
+  cmds.setAttr(dome_mia_shader_name+".refl_color", 1, 1, 1, type="double3")
+  #cmds.setAttr(dome_mia_shader_name+".reflectivity", 1)
+  cmds.setAttr(dome_mia_shader_name+".refl_gloss", 0.3)
+  cmds.setAttr(dome_mia_shader_name+".diffuse_roughness", 0)
+  cmds.setAttr(dome_mia_shader_name+".diffuse_weight", 1)
+
+  # Set the mia_material to be a matte material
+  cmds.setAttr(dome_mia_shader_name+".reflectivity", 0)
+  
+  # Connect the nodes
+  
+  # Connect the mia_material shader to the shading group
+  # cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.surfaceShader', f=True)
+  cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miPhotonShader', f=True)
+  cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miShadowShader', f=True)
+  cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miMaterialShader', f=True)
+
+  #-----------------------------------------------------------------------
+  # Start the sequence animation code here
+  #-----------------------------------------------------------------------
+
+  #---------------------------------------------------------------------------
+  # Add Extra Attrs to the node
+  #---------------------------------------------------------------------------
+
+  createMentalrayTextureExtraAttrs(color_mr_tex, ColorMapFileTexture)
+
+  #-----------------------------------------------------------------------
+  #Select the original objects
+  #-----------------------------------------------------------------------
+  """
+  if object_selection:
+    cmds.select(object_selection)
+    print("Selected: ")
+    print(object_selection)
+
+  #No objects were selected
+  if not object_selection:
+    #print "No objects selected"
+    #Select the surface material
+    cmds.select(color_mr_tex, r=True)
+  """
+
+  #Select the File Texture node in the attribute editor
+  cmds.select(color_mr_tex, r=True)
+  mel.eval ( ' showEditorExact("' + color_mr_tex + '") ' )
+
+
+  # Enable Viewport Textures
+  cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', displayTextures=True)
+  
   #-----------------------------------------------------------------------
   #output the name of the new fileTexture node
   return color_mr_tex

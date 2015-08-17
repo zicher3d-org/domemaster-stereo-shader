@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.8.2 - August 12, 2015
+Version 1.8.2 - August 16, 2015
 
 About This Shader
 ---------------------
@@ -264,7 +264,7 @@ Version History
 
 Version 1.8.2
 -------------
-2015-08-10
+2015-08-16
 
 Vray
 Added the Vray 3.1 for Maya Domemaster3D shader beta files to the folder:
@@ -278,6 +278,8 @@ Maya
   Updated the Dome Diagnostics tool to include a check for the Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection
   
   Added a domeOpenSourceImagesDirectory() function to open the sourceimages directory. This is used by the Domemaster3D Maya shelf tool "SRC".
+  
+ Added a Maya Domemaster3D Hybrid MR + Maya Color Material. The new Hybrid mentalrayTexture material shading network combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node. The shading group uses the "Suppress all Maya Shaders" setting to make sure the mentalrayTexture is used at render time in a similar fashion to how the Starglobe surface material works.
 
 Version 1.8.1
 -------------

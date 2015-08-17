@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.7.5
-2015-07-08 Maya 2010
+Version 1.8.2
+2015-08-17 Maya 2010
 ------------------------------------------------------------------------------
 
 Notes:
@@ -304,7 +304,12 @@ global proc createDomemaster3DMenu() {
     -annotation "Create a mia_material_x_passes / mentalrayTexture based image sequence shading network."
     -image "mentalrayTextureAnimationMaterial.xpm" 
     -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorImageSequenceMiaMaterial()\")";
-
+  menuItem 
+    -label "Create Hybrid MR + Maya Color Material" 
+    -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
+    -image "hybridMaterial.xpm" 
+    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
+    
   //Image Based Lighting Section
 
   float $mayaVersion = getMayaVersionDome();
@@ -432,6 +437,15 @@ global proc createDomemaster3DMenu() {
     -image "dome_directory.xpm"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     DomeDiagOpenScenesMenu;
+  menuItem 
+    -label "Open Sourceimages Folder"
+    //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
+    -annotation "Opening the \"Sourceimages\" folder for the current project."
+    -imageOverlayLabel "SRC"
+    -image "dome_directory.xpm"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
+    DomeDiagOpenSourceImagesMenu;
+  menuItem 
   menuItem 
     -label "Open Images Folder"
     //-annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)

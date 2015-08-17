@@ -265,6 +265,29 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Hybrid Color Material" 
+        -align "center" 
+        -label "Hybrid Color" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "hybridMaterial.xpm" 
+        -image1 "hybridMaterial.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorImageSequenceMiaMaterial()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -align "center" 
         -label "Starglobe" 
         -labelOffset 0

@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
 Version 1.8.2
-2015-08-16 Maya 2011+
+2015-08-17 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -307,7 +307,7 @@ global proc createDomemaster3DMenu() {
   menuItem 
     -label "Create Hybrid MR + Maya Color Material" 
     -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
-    -image "mentalrayTextureAnimationMaterial.png" 
+    -image "hybridMaterial.png" 
     -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
 
   //Image Based Lighting Section

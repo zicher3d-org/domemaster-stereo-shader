@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.8
-2015-08-16 10.55 pm
+Dome Material Script V1.8.2
+2015-08-17 9.30 am
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -18,7 +18,7 @@ Version History
 
 Version 1.8
 -------------
-2015-08-16 
+2015-08-17 
 
 Added a new Hybrid mentalrayTexture material that combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node.
 
@@ -1732,6 +1732,10 @@ def createHybridColorImageSequenceMiaMaterial():
 
   # Set the mia_material to be a matte material
   cmds.setAttr(dome_mia_shader_name+".reflectivity", 0)
+  
+  # Disable the wrapU and WrapV settings so the mental ray shading network and maya file texture base network have the same image tiling settings when the image is transformed so the background is shown outside the image area.
+  cmds.setAttr(maya_placement+".wrapU", 0)
+  cmds.setAttr(maya_placement+".wrapV", 0)
   
   # Connect the nodes
   

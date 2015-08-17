@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.8.2 - August 16, 2015
+Version 1.8.2 - August 17, 2015
 
 About This Shader
 ---------------------
@@ -111,6 +111,9 @@ The Color + Bump Material tool creates a mia_material_x_passes based mental ray 
 Color Image Sequence Material Button
 The Color Image Sequence Material tool creates a mia_material_x_passes based mental ray shading network with support for color file textures. The mentalrayTexture node has extra attributes applied that allow you to create image sequences.
 Note: The image sequence mode requires your batch rendering software to distribute the rendering job using 1 frame per packet / render slice so a new image is loaded for each frame of the sequence.
+
+Hybrid MR + Maya Color Material Button
+The new Hybrid mentalrayTexture + Maya Color Material tool creates a shading network that combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node. The shading group uses the "Suppress all Maya Shaders" setting to make sure the mentalrayTexture is used at render time in a similar fashion to how the Starglobe surface material works. A place2dTexture node is used to drive the placement of both the mentalrayTexture and the Maya file texture nodes. Note: The place2dTexture WrapU and WrapV attributes are not supported by the mentalrayTexture node so it is a good idea to keep the rotate frame setting to 0/90/180/270, and the RepeatUV values in the range of 0-1 so the texture map doesn't expose the blank area outside the image area when transformed.
 
 Starglobe Button
 The Starglobe tool creates a mia_material_x_passes based starry background for your fulldome scenes.

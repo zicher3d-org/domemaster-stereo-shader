@@ -27,7 +27,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v1.7 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v1.8 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
@@ -82,7 +82,9 @@ Maya
   
   Added a domeOpenSourceImagesDirectory() function to open the sourceimages directory. This is used by the Domemaster3D Maya shelf tool "SRC".
   
- Added a Maya Domemaster3D Hybrid MR + Maya Color Material. The new Hybrid mentalrayTexture material shading network combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node. The shading group uses the "Suppress all Maya Shaders" setting to make sure the mentalrayTexture is used at render time in a similar fashion to how the Starglobe surface material works.
+  Added a Maya Domemaster3D Hybrid MR + Maya Color Material. The new Hybrid mentalrayTexture material shading network combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node. The shading group uses the "Suppress all Maya Shaders" setting to make sure the mentalrayTexture is used at render time in a similar fashion to how the Starglobe surface material works.
+  
+  Added two new mia_material_x_passes material presets "Gold" and "AmberCrystalGlass". They do a really good job of demonstrating the new Maya 2016 Hypershade material preview viewport window's mental ray rendering mode.
 
 Version 1.8.1
 -------------

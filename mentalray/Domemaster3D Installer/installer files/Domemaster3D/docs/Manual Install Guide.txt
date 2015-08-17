@@ -48,7 +48,7 @@ sudo apt-get update
 sudo apt-get install imagemagick
 
 ## Notes ##
-The Domemaster3D shader v1.7 was compiled using CentOS Linux 6.4. 
+The Domemaster3D shader v1.8 was compiled using CentOS Linux 6.4. 
 
 If there are any issues with running the shader, the developer can be reached at: 
 andrew@andrewhazelden.com
@@ -94,6 +94,9 @@ C:\Program Files\Domemaster3D\bin
 This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
+
+Step 4. The Domemaster3D v1.7 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
 ## Install Guide for Maya 2011 to 2016 x64 on Mac OS X ##
@@ -181,6 +184,9 @@ C:\Program Files\Domemaster3D\bin
 This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
+
+Step 5. The Domemaster3D v1.7 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
 ## Install Guide for Mental Ray Standalone and Maya Satellite ##

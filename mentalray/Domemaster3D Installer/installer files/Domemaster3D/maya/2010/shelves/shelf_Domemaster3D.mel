@@ -642,6 +642,30 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Open the TEMP folder." 
+        -align "center" 
+        -label "Open TEMP Folder" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "TMP" 
+        -image "dome_directory.xpm" 
+        -image1 "dome_directory.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();" 
+        -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Open the Maya Render Log" 
         -align "center" 
         -label "Render Log" 
@@ -727,6 +751,54 @@ global proc shelf_Domemaster3D () {
         -marginHeight 1
         -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" 
         -sourceType "mel" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Add Pre/Post Render Mel" 
+        -align "center" 
+        -label "Add MEL" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "ADD" 
+        -image "preRenderMel.xpm" 
+        -image1 "preRenderMel.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.AddPrePostRenderScript()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Remove Pre/Post Render Mel" 
+        -align "center" 
+        -label "Remove MEL" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -imageOverlayLabel "REM" 
+        -image "preRenderMel.xpm" 
+        -image1 "preRenderMel.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()" 
+        -sourceType "python" 
         -actionIsSubstitute 0
         -commandRepeatable 1
     ;

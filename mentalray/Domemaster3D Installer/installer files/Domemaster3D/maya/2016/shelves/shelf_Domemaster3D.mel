@@ -953,6 +953,58 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Add Pre/Post Render Mel" 
+        -enableBackground 0
+        -align "center" 
+        -label "Add MEL" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "ADD" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "preRenderMel.png" 
+        -image1 "preRenderMel.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.addPrePostRenderScript()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Remove Pre/Post Render Mel" 
+        -enableBackground 0
+        -align "center" 
+        -label "Remove MEL" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "REM" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "preRenderMel.png" 
+        -image1 "preRenderMel.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Load the MentalRay Plugin" 
         -enableBackground 0
         -align "center" 

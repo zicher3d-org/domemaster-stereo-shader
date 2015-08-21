@@ -1,19 +1,20 @@
 """
- Domemaster3D Fulldome Stereo Rig V1.7
- 2015-03-07 
+ Domemaster3D Fulldome Stereo Rig V1.8
+ 2015-08-21 
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
-
- Version 1.7
- -------------
- 2015-03-07 
-
  
- Version 1.6
- ---------------
- Oct 3, 2014
+ Version 1.8 - 2015-08-21
+ ------------------------
+
+ Version 1.7 - 2015-03-07
+ ------------------------
+ 
+ Version 1.6 - Oct 3, 2014
+ ------------------------
+ 
 
  Updated the sourceimages path code to allow the installation of the Domemaster3D shader to a folder other than the default path.
  
@@ -188,26 +189,26 @@ def createLensShaders(centerCam, leftCam, rightCam):
   sceneScale = cmds.currentUnit( query=True, linear=True )
   print("Scene scale in: " + sceneScale)
   
-  baseSeparationValue = 6
+  baseSeparationValue = 6.5
   baseDomeRadiusInCm = 360 / baseSeparationValue
   
   if sceneScale == "cm":
-    defaultSeparation = 6
+    defaultSeparation = 6.5
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "centimeter":
-    defaultSeparation = 6
+    defaultSeparation = 6.5
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "m":
-    defaultSeparation = .06
+    defaultSeparation = .065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "meter":
-    defaultSeparation = .06
+    defaultSeparation = .065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "km":
-    defaultSeparation = 0.00006
+    defaultSeparation = 0.000065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "kilometer":
-    defaultSeparation = 0.00006
+    defaultSeparation = 0.000065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "in":
     defaultSeparation = 2.362204724409449

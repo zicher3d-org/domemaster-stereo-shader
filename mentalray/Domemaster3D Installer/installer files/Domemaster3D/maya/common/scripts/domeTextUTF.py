@@ -1,5 +1,5 @@
 """
-Dome Text UTF Converter V1.7
+Dome Text UTF Converter V1.8
 by Andrew Hazelden
 
 The DomeTextUTF script converts text into the UTF8 encoding format

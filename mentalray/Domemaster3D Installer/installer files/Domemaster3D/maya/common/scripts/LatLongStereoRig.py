@@ -1,10 +1,13 @@
 """
- LatLong_Stereo Camera Rig V1.7
- Updated 2015-03-07 07.36 pm
+ LatLong_Stereo Camera Rig V1.8
+ Updated 2015-08-21
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
+ 
+ Version 1.8 - 2015-08-21
+ ------------------------
  
  Version 1.7 - 2015-03-07 
  ------------------------
@@ -179,26 +182,26 @@ def createLensShaders(centerCam, leftCam, rightCam):
   sceneScale = cmds.currentUnit( query=True, linear=True )
   print("Scene scale in: " + sceneScale)
   
-  baseSeparationValue = 6
+  baseSeparationValue = 6.5
   baseDomeRadiusInCm = 360 / baseSeparationValue
   
   if sceneScale == "cm":
-    defaultSeparation = 6
+    defaultSeparation = 6.5
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "centimeter":
-    defaultSeparation = 6
+    defaultSeparation = 6.5
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "m":
-    defaultSeparation = .06
+    defaultSeparation = .065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "meter":
-    defaultSeparation = .06
+    defaultSeparation = .065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "km":
-    defaultSeparation = 0.00006
+    defaultSeparation = 0.000065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "kilometer":
-    defaultSeparation = 0.00006
+    defaultSeparation = 0.000065
     defaultDomeRadius = baseDomeRadiusInCm * defaultSeparation
   elif sceneScale == "in":
     defaultSeparation = 2.362204724409449

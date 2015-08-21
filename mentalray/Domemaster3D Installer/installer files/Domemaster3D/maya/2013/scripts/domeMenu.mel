@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.8.2
-2015-08-17 Maya 2011+
+Version 1.8.3
+2015-08-20 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -485,6 +485,16 @@ global proc createDomemaster3DMenu() {
     -imageOverlayLabel "Upgr"
     -image "nodeUpgrade.png"
     -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" ;
+  menuItem 
+    -label "Add Pre/Post Render Mel" 
+    -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
+    -image "preRenderMel.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.addPrePostRenderScript()\");";
+  menuItem
+    -label "Remove Pre/Post Render Mel" 
+    -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
+    -image "preRenderMel.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
   menuItem 
     -label "Reload MentalRay Plugin" 
     -annotation "Force mental ray to reload. This can fix issues if Maya didn't startup correctly."

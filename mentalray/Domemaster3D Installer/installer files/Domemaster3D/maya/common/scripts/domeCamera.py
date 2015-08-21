@@ -1,12 +1,19 @@
 """
-Domemaster3D Camera Setup Script V1.7.4
-2015-06-12
+Domemaster3D Camera Setup Script V1.8.3
+2015-08-21
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 1.8.3
+------------
+2015-08-21
+
+Added the `addPrePostRenderScript()` and `removePrePostRenderScript()` functions to the domeCamera.py script to make it easier to set up the Domemaster3D pre render and post render mel scripts in the Maya render settings window.
+
 
 Version 1.7.4
 ------------
@@ -241,7 +248,6 @@ Run using the command:
 import domeCamera as domeCamera
 reload(domeCamera)
 domeCamera.createDomeRampTexture()
-
 ------------------------------------------------------------------------------
 
 Domemaster3D setRenderRes
@@ -251,6 +257,24 @@ Run using the command:
 import domeCamera as domeCamera
 reload(domeCamera)
 domeCamera.setRenderRes()
+------------------------------------------------------------------------------
+
+Domemaster3D Add Pre/Post Render Mel
+A python function to add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window.
+
+Run using the command:
+import domeCamera as domeCamera
+reload(domeCamera)
+domeCamera.addPrePostRenderScript()
+------------------------------------------------------------------------------
+
+Domemaster3D Remove Pre/Post Render Mel
+A python function to remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window. 
+
+Run using the command:
+import domeCamera as domeCamera
+reload(domeCamera)
+domeCamera.removePrePostRenderScript()
 ------------------------------------------------------------------------------
 
 Domemaster3D setDomeSamplingQuality
@@ -488,6 +512,50 @@ def setDomeSamplingQuality():
     cmds.setAttr( 'miDefaultOptions.miSamplesQualityR', 0.6)
     cmds.setAttr( 'miDefaultOptions.miSamplesMin', 1)
     cmds.setAttr( 'miDefaultOptions.miSamplesMax', 100)
+
+
+"""
+Domemaster3D Add Pre/Post Render Mel
+----------------------
+A python function to add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window.
+
+"""
+def addPrePostRenderScript():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  print("Adding the Pre/Post Render Mel\n")
+  
+  # PreRender MEL:
+  cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  # PostRender MEL:
+  cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  
+  # Enable realtime 3D
+  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
+  
+
+
+"""
+Domemaster3D Remove Pre/Post Render Mel
+----------------------
+A python function to remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window. 
+
+"""
+def removePrePostRenderScript():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  print("Removing the Pre/Post Render Mel\n")
+  
+  #PreRender MEL:
+  cmds.setAttr( 'defaultRenderGlobals.preMel', "", type='string')
+  #PostRender MEL:
+  cmds.setAttr( 'defaultRenderGlobals.postMel' , "", type='string')
+
+  # Disable the realtime 3D camera offsets
+  mel.eval("source \"domeRender.mel\"; domemaster3DPreRenderMEL();");
+
 
 
 """

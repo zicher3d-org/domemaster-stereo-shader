@@ -186,7 +186,7 @@ Remove Pre/Post Render Mel Button
 The "Rem" button removes the Domemaster3D pre-render mel scripts from the render settings window and disables the realtime anaglyph viewport preview mode. This is used to prepare a scene that might be submitted to an online render farm service that doesn't allow pre/post render mel scripts to be included with a scene file.
 
 Maya Button
-The "MAYA" shelf tool will launch a 2nd instance of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time.
+The "MAYA" shelf tool will launch an additonal instance of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time.
 
 Load Mental Ray Plugin Button
 The Load MentalRay Plugin tool forces mental ray to reload. This can fix issues if Maya didn't startup correctly or the mental ray plugin isn't set to autoload.
@@ -284,7 +284,7 @@ Arnold
 Maya
   Added a "Add Pre/Post Render Mel" and "Remove Pre/Post Render Mel" set of menu items to the Domemaster3D menu and shelf buttons labelled "ADD" and "REM". The "Add" shelf button adds the Domemaster3D pre-render mel scripts to the render settings window. This is used for the LatLongStereo and DomeAFL_FOV_Stereo shaders to switch the stereo camera rig between the realtime anaglyph stereo mode in the viewport and the mental ray lens shader controlled stereo mode at render time. The "Rem" button removes the Domemaster3D pre-render mel scripts from the render settings window and disables the realtime anaglyph viewport preview mode. This is used to prepare a scene that might be submitted to an online render farm service that doesn't allow pre/post render mel scripts to be included with a scene file.
   
-  Added a "MAYA" shelf tool and the "Launch a 2nd Maya Instance" Domemaster3D menu item will launch a 2nd copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time. The MEL command used by the shelf tool is: source "domeDiagnostics.mel"; domeLaunchMayaInstance();
+  Added a "MAYA" shelf tool and the "Launch Another Maya Instance" Domemaster3D menu item will launch an additional copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time. The MEL command used by the shelf tool is: source "domeDiagnostics.mel"; domeLaunchMayaInstance();
 
   Updated the DomeAFL_FOV_Stereo and LatLong_Stereo python camera rig scripts to use a default camera separation of 6.5 cm.
   

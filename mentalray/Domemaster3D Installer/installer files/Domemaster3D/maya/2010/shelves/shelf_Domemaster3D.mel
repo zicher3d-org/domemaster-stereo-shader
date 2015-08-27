@@ -810,7 +810,7 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Launch a 2nd Maya Instance" 
+        -annotation "Launch Another Maya Instance" 
         -align "center" 
         -label "Maya" 
         -labelOffset 0

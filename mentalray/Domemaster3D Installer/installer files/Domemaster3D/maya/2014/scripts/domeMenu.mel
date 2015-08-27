@@ -496,8 +496,8 @@ global proc createDomemaster3DMenu() {
     -image "domeMayaScript.png" 
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
   menuItem
-    -label "Launch a 2nd Maya Instance" 
-    -annotation "This tool will launch a 2nd instance of Maya. This is handy if you want to work in two separate Maya sessions at the same time."
+    -label "Launch Another Maya Instance" 
+    -annotation "This tool will launch an additional copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time"
     -image "domeMayaScript.png" 
     -command "source \"domeDiagnostics.mel\"; domeLaunchMayaInstance();";
   menuItem 

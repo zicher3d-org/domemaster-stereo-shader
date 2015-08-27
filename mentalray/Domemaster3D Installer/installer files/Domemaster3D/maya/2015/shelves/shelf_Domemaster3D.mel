@@ -962,8 +962,8 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "ADD" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "preRenderMel.png" 
-        -image1 "preRenderMel.png" 
+        -image "domeMayaScript.png" 
+        -image1 "domeMayaScript.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -988,13 +988,39 @@ global proc shelf_Domemaster3D () {
         -imageOverlayLabel "REM" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "preRenderMel.png" 
-        -image1 "preRenderMel.png" 
+        -image "domeMayaScript.png" 
+        -image1 "domeMayaScript.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()" 
         -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Launch a 2nd Maya Instance" 
+        -enableBackground 0
+        -align "center" 
+        -label "Maya" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "MAYA" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeMayaScript.png" 
+        -image1 "domeMayaScript.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\"; domeLaunchMayaInstance();" 
+        -sourceType "mel" 
         -commandRepeatable 1
     ;
     shelfButton

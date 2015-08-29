@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.8.3
-  2015-08-27
+  Dome Diagnostics Report Tool V1.8.4
+  2015-08-29
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,6 +10,50 @@
   Version History
   ----------------
   
+  Version V1.8.4
+  --------------------
+  2015-08-29  
+  
+  Updated the PlayblastVR optionVar list for the batch sequence viewers
+  
+  Added detection for the MAYA_NO_CONSOLE_WINDOW environment variable. This environment variable lets you turn off the display of the Maya console window. It can effect the stability of batch renders that are launched with mayabatch if the console is disabled and anything is printed directly to the console window.
+
+  Added the Environment variable detection for the following Maya 3rd party modules and plugins:
+  
+  Bifrost Env Vars:
+    BIFROST_ECHO_GEOSHADER
+    BIFROST_ENABLE_GRAPH_EDITING
+  
+  QT Support Env Vars:
+    QT_HIGHDPI_AWARE
+    MAYA_ALIEN_WIDGETS
+  
+  Mental Ray Env Vars:
+    MI_MAYA_BATCH_OPTIONS
+    MI_CUSTOM_SHADER_PATH
+    MI_CUSTOM_SHADER_SUPPRESS - do not load suppressed files
+    MAYATOMR   - used for a pipe to the renderer
+  
+  Arnold Env Vars:
+    MTOA_SILENT_MODE 
+    MTOA_COMMAND_PORT
+    ARNOLD_LICENSE_ATTEMPTS
+    ARNOLD_LICENSE_ATTEMPT_DELAY
+    K_SEARCH_PATH
+      
+  XGEN Env Vars:
+    XGEN_CONFIG_PATH
+    XGEN_EXPORT_ARCHIVE_STANDALONE
+    XGEN_LOCATION
+    XGEN_ROOT
+    HDF5_DISABLE_VERSION_CHECK
+    
+  SEEXPR Software Env Vars:  
+    SE_EXPR_PLUGINS
+  
+  Mac & Linux Env Vars:
+    LD_LIBRARY_PATH
+    
   Version V1.8.3
   --------------------
   2015-08-27
@@ -499,6 +543,19 @@ global proc domeDiagnostics(){
 
   string $renderString = `getenv "MAYA_RENDER_DESC_PATH"`;
   $domeDebugText += "### `MAYA_RENDER_DESC_PATH` ###\r\n> " + $renderString + "\r\n\r\n";
+  
+  
+  // This environment variable lets you turn off the display of the Maya console window. It can effect the stability of batch renders that are launched with mayabatch if the console is disabled and anything is printed directly to the console window.
+  // Referenced at: https://groups.google.com/d/topic/maya_he3d/rrAUrP5fF34/discussion
+  string $consoleString = `getenv "MAYA_NO_CONSOLE_WINDOW"`;
+  $domeDebugText += "### `MAYA_NO_CONSOLE_WINDOW` ###\r\n> " + $consoleString + "\r\n\r\n";
+  
+  // QT Window Manager
+  string $qtString = `getenv "QT_HIGHDPI_AWARE"`;
+  $domeDebugText += "### `QT_HIGHDPI_AWARE` ###\r\n> " + $qtString + "\r\n\r\n";
+
+  string $qtString = `getenv "MAYA_ALIEN_WIDGETS"`;
+  $domeDebugText += "### `MAYA_ALIEN_WIDGETS` ###\r\n> " + $qtString + "\r\n\r\n";
 
   //------------------------------------------------------------
 
@@ -525,14 +582,18 @@ global proc domeDiagnostics(){
 
   //------------------------------------------------------------
 
-	//List the active ENV vars
+	// List the active ENV vars
 	$domeDebugText += "##  OS Environment Variables ##\r\n\r\n";
 
-  //System wide environment path
+  // System wide environment path
   string $pathString = `getenv "PATH"`;
   $domeDebugText += "### `PATH` ###\r\n> " + $pathString + "\r\n\r\n";
 
-  //TEMP directory
+  // Mac & Linux library loading path
+  string $pathString = `getenv "LD_LIBRARY_PATH"`;
+  $domeDebugText += "### `LD_LIBRARY_PATH` ###\r\n> " + $pathString + "\r\n\r\n";
+
+  // TEMP directory
   string $tmpString;
   
 	if(getMayaPlatform() == "windows"){
@@ -552,6 +613,8 @@ global proc domeDiagnostics(){
 		$domeUserHomePathString = `getenv "HOME"`;
   }
   $domeDebugText += "### `USERPROFILE PATH`###\r\n> " + $domeUserHomePathString + "\r\n\r\n";  
+
+
 
   //------------------------------------------------------------
 
@@ -582,8 +645,22 @@ global proc domeDiagnostics(){
     string $mrSocketsString = `getenv "MI_MAYA_SOCKETS"`;
     $domeDebugText += "### `MI_MAYA_SOCKETS` ###\r\n> " + $mrSocketsString + "\r\n\r\n";
 
-    string $mrSocketsString = `getenv "MAYA_EXR_LONGNAME"`;
-    $domeDebugText += "### `MAYA_EXR_LONGNAME` ###\r\n> " + $mrSocketsString + "\r\n\r\n";
+    string $mrTextString = `getenv "MAYA_EXR_LONGNAME"`;
+    $domeDebugText += "### `MAYA_EXR_LONGNAME` ###\r\n> " + $mrTextString + "\r\n\r\n";
+    
+    string $mrTextString = `getenv "MI_MAYA_BATCH_OPTIONS"`;
+    $domeDebugText += "### `MI_MAYA_BATCH_OPTIONS` ###\r\n> " + $mrTextString + "\r\n\r\n";
+    
+    string $mrTextString = `getenv "MI_CUSTOM_SHADER_PATH"`;
+    $domeDebugText += "### `MI_CUSTOM_SHADER_PATH` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    // Skip loading suppressed files
+    string $mrTextString = `getenv "MI_CUSTOM_SHADER_SUPPRESS"`;
+    $domeDebugText += "### `MI_CUSTOM_SHADER_SUPPRESS` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    // Used as a pipe to the mr renderer
+    string $mrTextString = `getenv "MAYATOMR"`;
+    $domeDebugText += "### `MAYATOMR` ###\r\n> " + $mrTextString + "\r\n\r\n";
 
     //------------------------------------------------------------
 
@@ -798,6 +875,10 @@ global proc domeDiagnostics(){
       // Amateras Dome Player
       $batchSequenceString = "Amateras Dome Player";
       break;
+    case 13:
+      // Live View Rift
+      $batchSequenceString = "Live View Rift";
+      break;
     default:
       $batchSequenceString = "None";
       break;
@@ -833,7 +914,25 @@ global proc domeDiagnostics(){
   
   string $mtoaShaderString = `getenv "MTOA_LOG_PATH"`;
   $domeDebugText += "### `MTOA_LOG_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
-
+  
+  // Ask if you want to start a potentially long batch rendering task in Maya
+  string $mtoaShaderString = `getenv "MTOA_SILENT_MODE"`;
+  $domeDebugText += "### `MTOA_SILENT_MODE` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  // Choose a custom command port number for communication of batch render progress messages
+  string $mtoaShaderString = `getenv "MTOA_COMMAND_PORT"`;
+  $domeDebugText += "### `MTOA_COMMAND_PORT` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  string $mtoaShaderString = `getenv "ARNOLD_LICENSE_ATTEMPTS"`;
+  $domeDebugText += "### `ARNOLD_LICENSE_ATTEMPTS` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  string $mtoaShaderString = `getenv "ARNOLD_LICENSE_ATTEMPT_DELAY"`;
+  $domeDebugText += "### `ARNOLD_LICENSE_ATTEMPT_DELAY` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  // Custom search path for the Arnold Kick library files
+  string $mtoaShaderString = `getenv "K_SEARCH_PATH"`;
+  $domeDebugText += "### `K_SEARCH_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 
   //------------------------------------------------------------
@@ -1038,14 +1137,58 @@ global proc domeDiagnostics(){
     $domeDebugText += "### `VRAY_TOOLS_MAYA2016_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   }
 
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
+  //------------------------------------------------------------
+  // Disney XGEN
+  
+	$domeDebugText += "##  XGEN Environment Variables ##\r\n\r\n";
+  
+	string $xgenString = `getenv "XGEN_CONFIG_PATH"`;
+	$domeDebugText += "### `XGEN_CONFIG_PATH` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	string $xgenString = `getenv "XGEN_EXPORT_ARCHIVE_STANDALONE"`;
+	$domeDebugText += "### `XGEN_EXPORT_ARCHIVE_STANDALONE` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	string $xgenString = `getenv "XGEN_LOCATION"`;
+	$domeDebugText += "### `XGEN_LOCATION` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	string $xgenString = `getenv "XGEN_ROOT"`;
+	$domeDebugText += "### `XGEN_ROOT` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	string $xgenString = `getenv "HDF5_DISABLE_VERSION_CHECK"`;
+	$domeDebugText += "### `HDF5_DISABLE_VERSION_CHECK` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	$domeDebugText +=  "------------------------------------------------\r\n\r\n";
 
+  //------------------------------------------------------------
+  // Disney SEEXPR
+  
+	$domeDebugText += "##  Disney SEEXPR Environment Variables ##\r\n\r\n";
+	
+	string $seExprString = `getenv "SE_EXPR_PLUGINS"`;
+	$domeDebugText += "### `SE_EXPR_PLUGINS` ###\r\n> " + $seExprString + "\r\n\r\n";
+	
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 
   //------------------------------------------------------------
+  // Maya Bifrost
+  
+	$domeDebugText += "##  BIFROST Environment Variables ##\r\n\r\n";
+  
+  string $bifrostString = `getenv "BIFROST_ECHO_GEOSHADER"`;
+	$domeDebugText += "### `BIFROST_ECHO_GEOSHADER` ###\r\n> " + $bifrostString + "\r\n\r\n";
+  
+  string $bifrostString = `getenv "BIFROST_ENABLE_GRAPH_EDITING"`;
+	$domeDebugText += "### `BIFROST_ENABLE_GRAPH_EDITING` ###\r\n> " + $bifrostString + "\r\n\r\n";
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 
+  //------------------------------------------------------------
+  // Fabric Engine
+  
 	$domeDebugText += "##  Fabric Engine Environment Variables ##\r\n\r\n";
-
-	//Fabric Engine
+	
 	string $fabricCapiString = `getenv "FABRIC_CAPI_DIR"`;
 	$domeDebugText += "### `FABRIC_CAPI_DIR` ###\r\n> " + $fabricCapiString + "\r\n\r\n";
 	

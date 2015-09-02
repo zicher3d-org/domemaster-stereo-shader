@@ -1,27 +1,27 @@
 STRINGTABLE AiTag_LatLongStereo
 {
-   AiTagLatLongStereo         "Arnold LatLongStereo node";
+   AiTagLatLongStereo         "Arnold LatLongStereo \u30ce\u30fc\u30c9";
 
-   C4DAI_LATLONGSTEREO_MAIN_GRP                    "Main";
+   C4DAI_LATLONGSTEREO_MAIN_GRP                    "\u30e1\u30a4\u30f3";
    C4DAI_LATLONGSTEREO_SHADER_GRP                  "LatLong Stereo Shader";
-   C4DAI_LATLONGSTEREO_CUSTOM_MAPS_GRP             "Custom Maps";
-   C4DAI_LATLONGSTEREO_FLIP_GRP                    "Image Orientation";
-   C4DAI_LATLONGSTEREO_EXTRAS_GRP                  "Extras";
+   C4DAI_LATLONGSTEREO_CUSTOM_MAPS_GRP             "\u81ea\u4f5c\u4fee\u6b63\u30de\u30c3\u30d7";
+   C4DAI_LATLONGSTEREO_FLIP_GRP                    "\u753b\u50cf\u306e\u5411\u304d";
+   C4DAI_LATLONGSTEREO_EXTRAS_GRP                  "\u8ffd\u52a0\u8a2d\u5b9a";
    
-   C4DAIP_LATLONGSTEREO_CAMERA                     "Camera";
-   C4DAIP_LATLONGSTEREO_FOV_VERT_ANGLE             "Field of View Vertical";
-   C4DAIP_LATLONGSTEREO_FOV_HORIZ_ANGLE            "Field of View Horizontal";
-   C4DAIP_LATLONGSTEREO_PARALLAX_DISTANCE          "Zero Parallax Distance";
-   C4DAIP_LATLONGSTEREO_SEPARATION                 "Camera Separation";
-   C4DAIP_LATLONGSTEREO_ZENITH_MODE                "Zenith Mode";
-   C4DAIP_LATLONGSTEREO_SEPARATION_MAP             "Separation Map";
-   // C4DAIP_LATLONGSTEREO_HEAD_TURN_MAP              "Head Turn Map";
-   C4DAIP_LATLONGSTEREO_HEAD_TILT_MAP              "Head Tilt Map";
-   C4DAIP_LATLONGSTEREO_FLIP_RAY_X                 "Flip X";
-   C4DAIP_LATLONGSTEREO_FLIP_RAY_Y                 "Flip Y";
+   C4DAIP_LATLONGSTEREO_CAMERA                     "\u30ab\u30e1\u30e9";
+   C4DAIP_LATLONGSTEREO_FOV_VERT_ANGLE             "\u5782\u76f4\u753b\u89d2";
+   C4DAIP_LATLONGSTEREO_FOV_HORIZ_ANGLE            "\u6c34\u5e73\u753b\u89d2";
+   C4DAIP_LATLONGSTEREO_PARALLAX_DISTANCE          "\u8996\u5dee\u30bc\u30ed\u8ddd\u96e2";
+   C4DAIP_LATLONGSTEREO_SEPARATION                 "\u4e21\u773c\u9593\u9694";
+   C4DAIP_LATLONGSTEREO_ZENITH_MODE                "\u5929\u9802\u30e2\u30fc\u30c9";
+   C4DAIP_LATLONGSTEREO_SEPARATION_MAP             "\u8996\u5dee\u4fee\u6b63\u30de\u30c3\u30d7";
+   // C4DAIP_LATLONGSTEREO_HEAD_TURN_MAP           "\u5411\u304d\u4fee\u6b63\u30de\u30c3\u30d7";
+   C4DAIP_LATLONGSTEREO_HEAD_TILT_MAP              "\u50be\u304d\u4fee\u6b63\u30de\u30c3\u30d7";
+   C4DAIP_LATLONGSTEREO_FLIP_RAY_X                 "X \u65b9\u5411\u3092\u53cd\u8ee2";
+   C4DAIP_LATLONGSTEREO_FLIP_RAY_Y                 "Y \u65b9\u5411\u3092\u53cd\u8ee2";
    
-   C4DAI_LATLONGSTEREO_CAMERA__CENTER              "Center";
-   C4DAI_LATLONGSTEREO_CAMERA__LEFT                "Left";
-   C4DAI_LATLONGSTEREO_CAMERA__RIGHT               "Right";
+   C4DAI_LATLONGSTEREO_CAMERA__CENTER              "\u4e2d\u5fc3";
+   C4DAI_LATLONGSTEREO_CAMERA__LEFT                "\u5de6";
+   C4DAI_LATLONGSTEREO_CAMERA__RIGHT               "\u53f3";
 }
 

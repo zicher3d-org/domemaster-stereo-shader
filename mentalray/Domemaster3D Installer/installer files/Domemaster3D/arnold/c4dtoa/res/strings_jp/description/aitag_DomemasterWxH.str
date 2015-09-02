@@ -1,16 +1,16 @@
 STRINGTABLE AiTag_DomemasterWxH
 {
-   AiTagDomemasterWxH         "Arnold DomemasterWxH node";
+   AiTagDomemasterWxH         "Arnold DomemasterWxH \u30ce\u30fc\u30c9";
 
-   C4DAI_DOMEMASTERWXH_MAIN_GRP                    "Main";
+   C4DAI_DOMEMASTERWXH_MAIN_GRP                    "\u30e1\u30a4\u30f3";
    C4DAI_DOMEMASTERWXH_SHADER_GRP                  "DomemasterWxH Shader";
-   C4DAI_DOMEMASTERWXH_FLIP_GRP                    "Image Orientation";
-   C4DAI_DOMEMASTERWXH_EXTRAS_GRP                  "Extras";
+   C4DAI_DOMEMASTERWXH_FLIP_GRP                    "\u753b\u50cf\u306e\u5411\u304d";
+   C4DAI_DOMEMASTERWXH_EXTRAS_GRP                  "\u8ffd\u52a0\u8a2d\u5b9a";
    
    C4DAIP_DOMEMASTERWXH_DIAMETER                   "Diameter";
    C4DAIP_DOMEMASTERWXH_HEIGHT                     "Height";
    // C4DAIP_DOMEMASTERWXH_VIEW_OFFSET                "View Offset";
-   C4DAIP_DOMEMASTERWXH_FLIP_RAY_X                 "Flip X";
-   C4DAIP_DOMEMASTERWXH_FLIP_RAY_Y                 "Flip Y";
+   C4DAIP_DOMEMASTERWXH_FLIP_RAY_X                 "X \u65b9\u5411\u3092\u53cd\u8ee2";
+   C4DAIP_DOMEMASTERWXH_FLIP_RAY_Y                 "Y \u65b9\u5411\u3092\u53cd\u8ee2";
 }
 

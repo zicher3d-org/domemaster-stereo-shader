@@ -7,9 +7,9 @@ STRINGTABLE AiTag_DomemasterWxH
    C4DAI_DOMEMASTERWXH_FLIP_GRP                    "\u753b\u50cf\u306e\u5411\u304d";
    C4DAI_DOMEMASTERWXH_EXTRAS_GRP                  "\u8ffd\u52a0\u8a2d\u5b9a";
    
-   C4DAIP_DOMEMASTERWXH_DIAMETER                   "Diameter";
-   C4DAIP_DOMEMASTERWXH_HEIGHT                     "Height";
-   // C4DAIP_DOMEMASTERWXH_VIEW_OFFSET                "View Offset";
+   C4DAIP_DOMEMASTERWXH_DIAMETER                   "\u76f4\u5f84";
+   C4DAIP_DOMEMASTERWXH_HEIGHT                     "\u9ad8\u3055";
+   // C4DAIP_DOMEMASTERWXH_VIEW_OFFSET                "\u8996\u70b9\u30aa\u30d5\u30bb\u30c3\u30c8";
    C4DAIP_DOMEMASTERWXH_FLIP_RAY_X                 "X \u65b9\u5411\u3092\u53cd\u8ee2";
    C4DAIP_DOMEMASTERWXH_FLIP_RAY_Y                 "Y \u65b9\u5411\u3092\u53cd\u8ee2";
 }

@@ -1,6 +1,6 @@
 /*
 
-PanoView v1.0.1 for Maxwell Render - 2015-10-09 07.12 am
+PanoView v1.0.1 for Maxwell Render - 2015-10-09 08.14 am
 by Andrew Hazelden
 www.andrewhazelden.com
 andrew@andrewhazelden.com
@@ -19,9 +19,11 @@ Step 3. Use the "Load" button in the script window to open up the PanoView.ms sc
 
 Step 4. Hit the "play" triangle button to run the script with you have a fulldome or latlong image in the maxwell.exe render view.
 
-Step 5. If any of the specific viewer tools fail to launch when selected, you may have to check that the executable path variable "viewerPath" is correct for the specific version of the viewer tool that is installed on your hard drive.
+Step 5.  If any of the specific viewer tools fail to launch when selected, you may have to check that the executable path variable "viewerPath" is correct for the specific version of the viewer tool that is installed on your hard drive.
 
 Notes:
+
+The default operating system for PanoView is Windows.  If you are on Mac or Linux, you should change the platform variable from "Windows" to either "Mac", or "Linux" so the correct viewing program is launched.
 
 Uncomment the media viewing tool you want to use in the mediaViewerTool() function by adding or removing the // comment symbols.
 
@@ -113,10 +115,13 @@ function kolorEyesViewer(mediaFileName){
   
   if(platform == "Windows"){
     // Running on Windows
-    viewerPath = "C:\Program Files\Kolor\KolorEyes 1.4\KolorEyes_x64.exe";
+    //viewerPath = "C:\Program Files\Kolor\KolorEyes 1.4\KolorEyes_x64.exe";
+    viewerPath = "C:\Program Files\Kolor\KolorEyes 1.5\KolorEyes_x64.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/Kolor Eyes.app";
+    //viewerPath = "/Applications/Kolor Eyes.app/Contents/MacOS/KolorEyes";
+   //viewerPath = "/Applications/Kolor Eyes 1.4.app/Contents/MacOS/KolorEyes";
+    viewerPath = "/Applications/Kolor Eyes 1.5.app/Contents/MacOS/KolorEyes"
   }else if(platform == "Linux"){
     // Running on Linux
     // Kolor Eyes is not available for Linux yet
@@ -149,7 +154,7 @@ function amaterasDomePlayerViewer(mediaFileName){
     viewerPath = "C:\Program Files\amateras320\bin\AmaterasDomePlayer.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/Amateras3/Amateras.app";
+    viewerPath = "/Applications/Amateras3/Amateras.app/Contents/MacOS/Amateras";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "amateras";
@@ -180,10 +185,13 @@ function djvViewer(mediaFileName){
   
   if(platform == "Windows"){
     // Running on Windows
-    viewerPath = "C:\Program Files\djv-1.1.0-Windows-64\bin\djv_view.exe";
+    viewerPath = "C:\Program Files\djv-1.0.5-Windows-64\bin\djv_view.exe";
+    //viewerPath = "C:\Program Files\djv-1.1.0-Windows-64\bin\djv_view.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/djv-OSX-64.app";
+    //viewerPath = "/Applications/djv-OSX-64.app/Contents/MacOS/djv-1.0.5-OSX-64";
+    viewerPath = "/Applications/djv-1.0.5-OSX-64.app/Contents/MacOS/djv-1.0.5-OSX-64";
+    //viewerPath = "/Applications/djv-1.1.0-OSX-64.app/Contents/MacOS/djv-1.1.0-OSX-64";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "djv-view";
@@ -214,7 +222,7 @@ function liveViewRiftViewer(mediaFileName){
     viewerPath = "C:\Program Files (x86)\Viarum\LiveViewRift\LiveViewRift.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/LiveViewRift.appp";
+    viewerPath = "/Applications/LiveViewRift.app/Contents/MacOS/LiveViewRift";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "LiveViewRift";
@@ -245,7 +253,7 @@ function scratchViewer(mediaFileName){
     viewerPath = "C:\Program Files\Assimilate\bin64\Assimilator.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/Scratch.app";
+    viewerPath = "/Applications/Scratch.app/Contents/MacOS/Scratch";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "Assimilator";
@@ -305,16 +313,21 @@ function speedgradeViewer(mediaFileName){
 function vlcViewer(mediaFileName){
   // VLC
   var viewerPath = "";
-  
+  var args = new Array;
+    
   if(platform == "Windows"){
     // Running on Windows
     viewerPath = "C:\Program Files (x86)\VideoLAN\VLC\vlc.exe";
+    args[0] = "--started-from-file";
+  	args[1] = mediaFileName;
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/VLC.app";
+    viewerPath = "/Applications/VLC.app/Contents/MacOS/VLC";
+    args[0] = mediaFileName;
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "vlc";
+    args[0] = mediaFileName;
   }else{
     print("There is an invalid operating system platform defined in the platform variable at the top of the code.");
     return;
@@ -323,9 +336,8 @@ function vlcViewer(mediaFileName){
   // Build an array with the command line arguments passed to VLC. We pass two arguments:
   // The command "--started-from-file", and the image path for the latlong panorama
 
-  var args = new Array;
-  args[0] = "--started-from-file";
-  args[1] = mediaFileName;
+
+
   Maxwell.launchProcess(viewerPath, args);
   
   print("[Launching VLC on " + platform + "]");
@@ -343,7 +355,7 @@ function rvViewer(mediaFileName){
     viewerPath = "C:\Program Files\rv-win64-x86-64-6.2.4\bin\rv.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/RV64.app";
+    viewerPath = "/Applications/RV64.app/Contents/MacOS/RV64";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "rv";
@@ -375,7 +387,7 @@ function whirligigViewer(mediaFileName){
     viewerPath = "C:\Program Files\Whirligig\Whirligig64bit.exe";
   }else if(platform == "Mac"){
     // Running on Mac
-    viewerPath = "/Applications/Whirligig.app";
+    viewerPath = "/Applications/Whirligig.app/Contents/MacOS/Whirligig";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "Whirligig";

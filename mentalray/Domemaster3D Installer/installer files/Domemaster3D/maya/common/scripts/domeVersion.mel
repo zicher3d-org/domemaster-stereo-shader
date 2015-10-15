@@ -1,11 +1,13 @@
 /*
-	Dome Version Checker V1.8.3
+	Dome Version Checker V1.9.1
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
+	Domemaster3D V1.9.1 - October 15, 2015
+	Domemaster3D V1.9 - September 23, 2015
 	Domemaster3D V1.8.3 - August 27, 2015
   Domemaster3D V1.8.2 - August 17, 2015
   Domemaster3D V1.8.1 - July 27, 2015
@@ -45,7 +47,7 @@
 */
 
 
-//Check what Maya version is active
+// Check what Maya version is active
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
   float $mayaVersion = `getApplicationVersionAsFloat`;
@@ -60,10 +62,10 @@ global proc int getMayaVersionDome(){
 }
 
   
-//Check the operating system
+// Check the operating system
 global proc string getMayaPlatform(){
   //-------------------------------------------------
-  //Get the current Maya Platform using python
+  // Get the current Maya Platform using python
   //      The $mayaPlatform options are:
   //          "windows", "darwin", "linux"
   //-------------------------------------------------
@@ -86,11 +88,11 @@ global proc string getMayaPlatform(){
 }
 
 
-//Show the version info window
+// Show the version info window
 global proc domeVersion(){
   string $dialogButtonSelected = "";
-  string $domemaster3D_version = "1.8.3";
-  string $release_date = "August 27, 2015";
+  string $domemaster3D_version = "1.9.1";
+  string $release_date = "October 15, 2015";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Maya" + " - Version " + $domemaster3D_version + "\n";
@@ -104,7 +106,7 @@ global proc domeVersion(){
   float $mayaVersion = getMayaVersionDome();
   
   if ($mayaVersion >=2011){
-    //Maya 2011 or newer detected
+    // Maya 2011 or newer detected
     $dialogButtonSelected = `confirmDialog 
       -title "About Domemaster3D for Maya"
       -messageAlign center
@@ -116,7 +118,7 @@ global proc domeVersion(){
       -button "Close"
       -defaultButton "Close"`;
   } else {
-    //Maya 2010 or older detected
+    // Maya 2010 or older detected
     $dialogButtonSelected = `confirmDialog 
       -title "About Domemaster3D for Maya"
       -messageAlign center

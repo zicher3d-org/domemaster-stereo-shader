@@ -1,10 +1,19 @@
 """
- LatLong_Stereo Camera Rig V1.8
- Updated 2015-08-21
+ LatLong_Stereo Camera Rig V1.9.1
+ 2015-10-15
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
+ 
+ Version 1.9.1 - 2015-10-15 
+ ------------------------
+
+ Added the ability to use a "DOMEMASTER3D_MAYA_REALTIME_FOV" environment variable through your operating system, the Maya.env file, or a Maya module file to set the realtime OpenGL "persp" viewport field of view FOV value for domeAFL_FOV, domeAFL_FOV_Stereo, latlong_lens, and LatLong_Stereo camera rigs. Typical values would be 4 (mm) for a wide angle 160 degree FOV in the OpenGL persp viewport, or 18 (mm) for a regular 90 degree view.
+
+In a Maya.env file you would change this environment variable by adding a line like this. (4 in this example means a 4mm lens):
+
+ DOMEMASTER3D_MAYA_REALTIME_FOV=4
  
  Version 1.8 - 2015-08-21
  ------------------------
@@ -452,7 +461,7 @@ def createRig(unusedBasename='LatLongStereoCamera'):
   cmds.connectAttr( root + '.stereoRightAngle', rightCam + '.rotateY' )
   cmds.connectAttr( root + '.filmBackOutputLeft',  leftCam  + '.hfo' )
   cmds.connectAttr( root + '.filmBackOutputRight', rightCam + '.hfo' )
-
+ 
   # Lock the attributes that should not be manipulated by the artist.
   #
   for attr in [ 'translate', 'rotate' ] :
@@ -463,11 +472,30 @@ def createRig(unusedBasename='LatLongStereoCamera'):
   #---------------------------------------------------------------------------
   # Custom LatLong Setup code
   #---------------------------------------------------------------------------
+  import os
+  import sys
+  
+  # 18 mm focal length = 90 degree FOV
+  defaultRealtimeFOV = 18
+  # 4 mm focal length = 160 degree FOV
+  #defaultRealtimeFOV = 4
+  
+  domeOverrideFOV = int(os.getenv('DOMEMASTER3D_MAYA_REALTIME_FOV', defaultRealtimeFOV))
+	
+  if((domeOverrideFOV >= 3) and (domeOverrideFOV <= 3500)):
+    print ("Using a Domemaster3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
+  else:
+    print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + str(domeOverrideFOV) + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + str(defaultRealtimeFOV) + " will be used instead.\n")
+    domeOverrideFOV = defaultRealtimeFOV
+   
+  # Use the default FOV value or pull the FOV value from the DOMEMASTER3D_MAYA_REALTIME_FOV env variable
+  cmds.setAttr(centerCam+'.focalLength', domeOverrideFOV)
+  
   # 4 mm focal length = 160 degree FOV
   #cmds.setAttr( centerCam + '.focalLength', 4 )
 
   # 18 mm focal length = 90 degree FOV
-  cmds.setAttr( centerCam + '.focalLength', 18 )
+  #cmds.setAttr( centerCam + '.focalLength', 18 )
   
   #cmds.setAttr( centerCam + '.stereo', 0 )
   #cmds.setAttr( centerCam + '.zeroParallax', 0.1 )

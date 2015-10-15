@@ -1,5 +1,5 @@
 """
-Fulldome Cross Bounce Setup Script V1.8
+Fulldome Cross Bounce Setup Script V1.9
 for Domemaster3D and Maya on Windows
 2015-08-21
 

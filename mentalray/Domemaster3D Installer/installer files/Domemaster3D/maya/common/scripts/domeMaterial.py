@@ -1,5 +1,5 @@
 """
-Dome Material Script V1.8.3
+Dome Material Script V1.9
 2015-08-21
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 

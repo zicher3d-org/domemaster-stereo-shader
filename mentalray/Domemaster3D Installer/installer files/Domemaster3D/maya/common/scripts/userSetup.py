@@ -1,5 +1,5 @@
 """
-Domemaster3D Startup Code Version 1.8
+Domemaster3D Startup Code Version 1.9
 2015-08-21
 by Andrew Hazelden
 """

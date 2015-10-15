@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.8.3 - August 27, 2015
+Version 1.9.1 - October 15, 2015
 
 About This Shader
 ---------------------
@@ -27,7 +27,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v1.8 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v1.9 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
@@ -65,6 +65,84 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+Version 1.9.1
+-------------
+2015-10-15
+
+Maya
+  Added the ability to use a "DOMEMASTER3D_MAYA_REALTIME_FOV" environment variable through your operating system, the Maya.env file, or a Maya module file to set the realtime OpenGL "persp" viewport focal length value for domeAFL_FOV, domeAFL_FOV_Stereo, domeAFL_WxH, latlong_lens, and LatLong_Stereo camera rigs. Typical values would be 4 (mm) for a wide angle 160 degree FOV in the OpenGL persp viewport, or 18 (mm) for a regular 90 degree FOV view.
+
+  In a Maya.env file you would change this environment variable by un-commenting/adding the line like this. (4 in this example means a 4mm lens in Maya):
+
+  DOMEMASTER3D_MAYA_REALTIME_FOV=4
+
+
+Version 1.9
+-------------
+2015-09-23 
+
+Arnold
+  Translated the Arnold C4DtoA Cinema4D shader UI to Japanese
+
+Maya
+  Added a new Domemaster3D menu item "LatLong Stereo Aim Camera" for making a camera rig that has an aim constraint applied for easier camera animation. Reminder: Maya has issues with using cameras that have aim constraints when you apply them to animation layers.
+  A LatLong Stereo Aim Camera can be created using the following python code:
+  
+    import domeCamera as domeCamera
+    reload(domeCamera)
+    domeCamera.createLatLongStereoAimRig()
+
+  Added a new Domemaster3D menu item "LatLong Stereo Zenith Camera" function for making a camera rig that has the "Zenith Mode" checkboxes enabled by default and a vertical orientation.
+  A LatLong Stereo Zenith Camera can be created using the following python code:
+  
+    import domeCamera as domeCamera
+    reload(domeCamera)
+    domeCamera.createLatLongStereoZenithRig()
+
+  Updated the dome Diagnostics tool with the following changes:
+    
+    Added detection for the Maya quicktime video encoding environment variable MAYA_QUICKTIME_ENCODING_GAMMA.
+    
+    Updated the PlayblastVR optionVar list for the batch sequence viewers
+    
+    Added detection for the MAYA_NO_CONSOLE_WINDOW environment variable. This environment variable lets you turn off the display of the Maya console window. It can effect the stability of batch renders that are launched with mayabatch if the console is disabled and anything is printed directly to the console window.
+
+    Added the Environment variable detection for the following Maya 3rd party modules and plugins:
+    
+    Bifrost Env Vars:
+      BIFROST_ECHO_GEOSHADER
+      BIFROST_ENABLE_GRAPH_EDITING
+    
+    QT Support Env Vars:
+      QT_HIGHDPI_AWARE
+      MAYA_ALIEN_WIDGETS
+    
+    Mental Ray Env Vars:
+      MI_MAYA_BATCH_OPTIONS
+      MI_CUSTOM_SHADER_PATH
+      MI_CUSTOM_SHADER_SUPPRESS - do not load suppressed files
+      MAYATOMR   - used for a pipe to the renderer
+    
+    Arnold Env Vars:
+      MTOA_SILENT_MODE 
+      MTOA_COMMAND_PORT
+      ARNOLD_LICENSE_ATTEMPTS
+      ARNOLD_LICENSE_ATTEMPT_DELAY
+      K_SEARCH_PATH
+      
+    XGEN Env Vars:
+      XGEN_CONFIG_PATH
+      XGEN_EXPORT_ARCHIVE_STANDALONE
+      XGEN_LOCATION
+      XGEN_ROOT
+      HDF5_DISABLE_VERSION_CHECK
+      
+    SEEXPR Software Env Vars:  
+      SE_EXPR_PLUGINS
+    
+    Mac & Linux Env Vars:
+      LD_LIBRARY_PATH
+
 Version 1.8.3
 -------------
 2015-08-27
@@ -92,13 +170,13 @@ Version 1.8.2
 2015-08-17
 
 Vray
-Added the Vray 3.1 for Maya Domemaster3D shader beta files to the folder:
+  Added the Vray 3.1 for Maya Domemaster3D shader beta files to the folder:
   C:\Program Files\Domemaster3D\vray
-
+  
 Arnold
-Added the first working version of the Cinema4D C4DtoA Domemaster3D shader beta files to the folder:
+  Added the first working version of the Cinema4D C4DtoA Domemaster3D shader beta files to the folder:
   C:\Program Files\Domemaster3D\arnold\c4dtoa
-
+  
 Maya
   Updated the Dome Diagnostics tool to include a check for the Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection
   
@@ -132,57 +210,7 @@ Vray
   C:\Program Files\Domemaster3D\vray
 
 Maya
-  Fixed an issue with the Domemaster3D menu where the LatLong Stereo menu item wasn't linked to the correct menu function.
-
-Version 1.7.4
--------------
-2015-06-12
-
-3DS Max
-  Updated the installer to remove the word "Beta" from the 3DS Max 2016 Support option
-  
-Maya
-  Updated the installer to remove the word "Beta" from the Maya 2016 Support option
-
-  Updated the Domemaster3D shelf directory buttons "SCN", "IMG", and "TMP" so they open and run a Nautilus file browser window as a non blocking task on Linux
-  
-  Updated the Domemaster3D for Maya Wiki page link to use the new GitHub Wiki table of contents
-  
-  Updated the Dome Diagnostics tool for improved renderer support
-
-Version 1.7.3
--------------
-2015-04-16
-
-Maya
-  Maya 2016 Compatibility Release - Updated the Maya 2016 install paths, the Maya 2016 Visor tab script (visorPanel.mel), the MR physical sky files (AEmia_physicalskyTemplate.mel & createMentalRayIndirectLightingTab.mel), and the mental ray for Maya 2016 mentalrayCustomNodeClass.mel script.
-	
-  Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
-  
-  Updated the Domemaster3D module file entry line for the Maya version specific Python Path:
-    PYTHONPATH+:=../2015/scripts
-
-Version 1.7.2
-----------------
-April 12, 2015
-
-Maya
-  Updated the dome diagnostics tool to support RLM environment variables
-  
-  Updated the dome diagnostics tool PlayblastVR OptionVar reading code
-  
-  Updated the dome diagnostics tool Arnold MtoA environment variables
-  
-  Added an entry to the Domemaster3D menu to load the "shelf_Domemaster3D.mel" shelf file.
-
-  Added a Maya Domemaster3D.mod module file for Maya 2013-2016. This makes it easier to install Domemaster3D in a multi-user environment. This module file was created with the help of Randall Rickert (USC School of Cinematic Arts). Note: If you want to use the new Domemaster3D.mod module file instead of using the standard Maya.env file, you need to clear out and remove the Domemaster3D entries that are placed in the Maya.env file by the Domemaster3D installer. You can find the Maya.env file in the folder: (C:\Users\<User Account>\Documents\maya\<Version Number>\Maya.env).
-  
-Version 1.7.1
------------------
-March 28, 2015
-
-Maya
-  Updated Maya Domemaster3D Menu and Visor scripts
+  Fixed an issue with the Domemaster3D Menu where the LatLong stereo menu item wasn't linked to the correct menu function.
 
 
 Project Developers

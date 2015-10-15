@@ -1,0 +1,53 @@
+Packaging a Domemaster3D Release - 2015-10-15
+by Andrew Hazelden <andrew@andrewhazelden.com>
+
+Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files:
+
+cd /cygdrive/c/Users/Administrator/Documents/GitHub/domemaster-stereo-shader
+find . -name '*.DS_Store' -type f -delete
+
+
+Step 2. Build the Bitrock Install Builder based installers for Mac & Windows using the file:
+
+~\GitHub\domemaster-stereo-shader\mentalray\Domemaster3D Installer\Domemaster3D.xml
+
+
+Step 3. Create the following ZIP archives:
+
+Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip
+    Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
+        Domemaster3D
+        Domemaster3D Readme-Short.txt
+        Mac OS X Installation Notes.txt
+        Manual Install Guide.txt
+        
+Domemaster3D-X.X-osx-installer.zip
+    Domemaster3D-X.X-osx-installer.app
+    Domemaster3D Readme-Short.txt
+    Mac OS X Installation Notes.txt
+
+Domemaster3D-X.X-windows-installer.zip
+    Domemaster3D Readme-Short.txt
+    Domemaster3D-X.X-windows-installer.exe
+
+
+Step 4. Upload the new release to GitHub and use the following format for the GitHub Releases Descriptions:
+
+vX.XW
+Domemaster3D vX.X for Maya + 3DS Max on Windows 64-bit
+This is the Domemaster3D Shader v1.9 release for Maya + 3DS Max on Windows 64-bit systems. This installer is compatible with 3DS Max 2009-2016 and Maya 2010-2016. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+
+
+vX.XM
+Domemaster3D vX.X for Maya on Mac OS X
+This is the Domemaster3D Shader v1.9 release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D folder.
+
+vX.XL
+Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux
+This is the Domemaster3D Shader vX.X manual install release for Maya + 3DS Max + Mental Ray Standalone. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders.
+
+
+Step 5. Update the GitHub based Version History Wiki page with the details from the Domemaster3D Readme-Short.txt file:
+
+https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Version-History
+

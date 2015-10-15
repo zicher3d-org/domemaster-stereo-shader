@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 1.8.3
-2015-08-27 Maya 2011+
+Version 1.9
+2015-09-23 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -124,21 +124,6 @@ global proc createDomeRigSubmenu(){
      $i += 1;
   }
   
-  //Set the default rig
-  //stereoRigManager -defaultRig $defaultRig;
-  
-  //menuItem 
-  // -label "stereoCamera"
-  // -radioButton 0
-  // -collection domeRigSubMenuCollection
-  // ("stereoCamera" + "RadioSubMenu");
-  
-  //menuItem 
-  // -label "domeStereoCamera"
-  // -radioButton 1
-  // -collection domeRigSubMenuCollection
-  // ("domeStereoCamera" + "RadioSubMenu");  
-  
   setParent -menu DomeCamerasMenu;  
 }
 
@@ -203,19 +188,29 @@ global proc createDomemaster3DMenu() {
     -tearOff true 
     -label "Dome Cameras" 
     DomeCamerasMenu;
-
-      menuItem 
+    
+      menuItem
         -label "LatLong Camera" 
         -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
         -image "render_latlong_lens.png"
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
-      menuItem 
+      menuItem
         -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied."
         -image "render_LatLong_Stereo.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoRig()\")";
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoRig()\")"; 
+      menuItem
+        -label "LatLong Stereo Aim Camera" 
+        -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with an aim constraint and the LatLong_Stereo shader applied."
+        -image "render_LatLong_Stereo.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoAimRig()\")"; 
+      menuItem
+        -label "LatLong Stereo Zenith Camera" 
+        -annotation "Create a stereoscopic latlong / equirectangular / spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
+        -image "render_LatLong_Stereo.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
 
-      //Fulldome 2D Section
+      // Fulldome 2D Section
 
       float $mayaVersion = getMayaVersionDome();
       if($mayaVersion >=2015){
@@ -224,12 +219,12 @@ global proc createDomemaster3DMenu() {
         menuItem -divider true;
       }
 
-      menuItem 
+      menuItem
         -label "Domemaster WxH Camera" 
         -annotation "Create a fulldome camera with the domeAFL_WxH lens shader applied. This shader uses a diameter and height setting instead of a field of view control."
         -image "render_domeAFL_WxH.png" 
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_WxH_Camera()\")";
-      menuItem 
+      menuItem
         -label "Domemaster FOV Camera" 
         -annotation "Create a fulldome camera with the domeAFL_FOV lens shader applied."
         -image "render_domeAFL_FOV.png" 

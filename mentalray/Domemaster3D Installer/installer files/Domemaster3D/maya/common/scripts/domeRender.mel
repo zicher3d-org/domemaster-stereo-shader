@@ -1,6 +1,6 @@
 /*
-  Dome Render V1.8
-  2015-08-21
+  Dome Render V1.9.1
+  2015-10-15
   by Andrew Hazelden
   
   A set of pre and post render MEL scripts that set the focal length and openGL stereo3D display modes based upon the rendering or interactive use of Maya. 
@@ -9,6 +9,12 @@
   
   Note: You can change the default focal length values from 500mm and 4mm on the first two lines of the domeScanLensShaders() function.
   
+  
+	Version 1.9.1
+	------------
+	2015-10-15 
+
+	Changed the field of view value from the default 90 degree FOV to a wide angle setting.
   
   Version 1.7
   -------------
@@ -92,16 +98,44 @@ global proc domemaster3DPostRenderMEL(){
 //List all of the lens shaders in the scene
 global proc domeScanLensShaders( string $renderMode ){
 
+  // Check for a Domemaster3D Realtime FOV Override
+  // 18 mm focal length = 90 degree FOV
+  int $defaultRealtimeFOV = 18;
+  // 4 mm focal length = 160 degree FOV
+  //int $defaultRealtimeFOV = 4;
+  
+  int $domeOverrideFOV = $defaultRealtimeFOV;
+  
+	string $domeOverrideFOVString = `getenv "DOMEMASTER3D_MAYA_REALTIME_FOV"`;
+	// Check if the env variable exists
+	if($domeOverrideFOVString != ""){
+		// Make sure the value is not a null string
+		$domeOverrideFOV = $domeOverrideFOVString;
+		if(($domeOverrideFOV >= 3) && ($domeOverrideFOV <= 3500)){
+			print ("A \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable was specified. Using an overridden FOV Value of " + $domeOverrideFOV + "\n");
+		}else{
+			print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + $domeOverrideFOV + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + $defaultRealtimeFOV + " will be used instead.\n");
+			$domeOverrideFOV = $defaultRealtimeFOV;
+		}
+	}
+	
   // Rendering Started - "Blury Streak Override" focal length
   int $domePreRenderFocalLength = 500;
   int $latlongPreRenderFocalLength = 18;
   
   // Rendering Done - interactive viewport focal length
-  int $domePostRenderFocalLength = 500;
-  int $latlongPostRenderFocalLength = 18;
-
-  //Classic
+  
   // 4 mm focal length = 160 degree FOV
+  //int $domePostRenderFocalLength = 4;
+  //int $latlongPostRenderFocalLength = 4;
+  
+  // 18 mm focal length = 90 degree FOV
+  //int $domePostRenderFocalLength = 18;
+  //int $latlongPostRenderFocalLength = 18;
+  
+  // Use the default FOV value or pull the FOV value from the DOMEMASTER3D_MAYA_REALTIME_FOV env variable
+  int $domePostRenderFocalLength = $domeOverrideFOV;
+  int $latlongPostRenderFocalLength = $domeOverrideFOV;
   
   //Scan the lens shaders in the scene
   string $domeAFL_FOV_lenses[] = `lsType("domeAFL_FOV")`;

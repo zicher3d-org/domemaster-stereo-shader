@@ -131,7 +131,7 @@ account's "Maya version-x64" folder:
 ~/Library/Preferences/Autodesk/maya/<Maya Version Number>/Maya.env
 
 
-Step 3. If you are running Mac OS X 10.8, 10.9, and 10.10 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
+Step 3. If you are running Mac OS X 10.9, 10.10, or 10.11 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
 
 Step 4. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on Mac OS X, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
 

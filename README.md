@@ -1,8 +1,10 @@
 # Domemaster Stereo Shader #
 
-Domemaster3D is a suite of fulldome stereo and LatLong stereo production lens shaders for Mental Ray (3DS Max, Maya, Softimage, Mental Ray Standalone), Vray (Maya, 3DS Max, Vray Standalone), Arnold (MtoA, SItoA, C4DtoA, HtoA, Kick), and comes integrated in Maxwell Render 3.2+.
+Domemaster3D is a suite of fulldome stereo and LatLong stereo production lens shaders for Mental Ray (3DS Max, Maya, Softimage, Mental Ray Standalone), Vray (Maya, 3DS Max, Vray Standalone), Arnold (MtoA, SItoA, C4DtoA, HtoA, Kick), and a version of the lens model comes integrated in Maxwell Render 3.2+.
 
 The core developers of the Domemaster3D rendering tools are [Roberto Ziche](http://www.robertoziche.com/) and [Andrew Hazelden](http://www.andrewhazelden.com/).  
+
+*The Domemaster3D shaders are distributed under the GPL v3 license.*
 
 ## Wiki Documentation Quick Links ##
 

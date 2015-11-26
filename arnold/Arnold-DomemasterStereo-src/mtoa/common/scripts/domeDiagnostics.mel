@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.8.4
-  2015-08-29
+  Dome Diagnostics Report Tool V1.9.2
+  2015-11-26 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,13 +10,29 @@
   Version History
   ----------------
   
-  Version V1.8.4
-  --------------------
-  2015-08-29  
   
-  Updated the PlayblastVR optionVar list for the batch sequence viewers
+  Version V1.9.2
+  --------------------
+  2015-11-26
+
+  Added detection for the environment variable "PYMEL_SKIP_MEL_INIT".
+  
+  
+  Version V1.9.1
+  --------------------
+  2015-09-23 
+  
+  Added detection for the Domemaster3D for Maya Realtime FOV Override environment variable. This env var is used to specify a different default FOV value when a DomeAFL_FOV, DomeAFL_FOV_Stereo, and LatLong_Stereo camera is added to the Maya scene. This value is also used when the Domemaster3D Pre/Post Render MEL script is run on a DomeAFL_FOV_Stereo, and LatLong_Stereo camera rig at render time.
+  
+  Version V1.9
+  --------------------
+  2015-09-23 
+  
+  Added detection for the Maya quicktime video encoding environment variable MAYA_QUICKTIME_ENCODING_GAMMA.
   
   Added detection for the MAYA_NO_CONSOLE_WINDOW environment variable. This environment variable lets you turn off the display of the Maya console window. It can effect the stability of batch renders that are launched with mayabatch if the console is disabled and anything is printed directly to the console window.
+
+  Updated the PlayblastVR optionVar list for the batch sequence viewers
 
   Added the Environment variable detection for the following Maya 3rd party modules and plugins:
   
@@ -318,7 +334,7 @@ global proc domeDiagnostics(){
 
   $domeDebugText +=  "-----------------------------------------\r\n\r\n";
 
-  $domeDebugText += "## Maya ##\r\n";
+  $domeDebugText += "## Maya ##\r\n\r\n";
   
   string $fancyMayaVersion;
   if ($mayaVersion >=2015){
@@ -557,28 +573,38 @@ global proc domeDiagnostics(){
   string $qtString = `getenv "MAYA_ALIEN_WIDGETS"`;
   $domeDebugText += "### `MAYA_ALIEN_WIDGETS` ###\r\n> " + $qtString + "\r\n\r\n";
 
+  string $domeTempString = `getenv "MAYA_QUICKTIME_ENCODING_GAMMA"`;
+  $domeDebugText += "### `MAYA_QUICKTIME_ENCODING_GAMMA` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
+  string $domeTempString = `getenv "PYMEL_SKIP_MEL_INIT"`;
+  $domeDebugText += "### `PYMEL_SKIP_MEL_INIT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
   //------------------------------------------------------------
 
-	//List the active Domemaster3D Maya ENV vars
+	// List the active Domemaster3D Maya ENV vars
 	$domeDebugText += "##  Domemaster3D Environment Variables ##\r\n\r\n";
 
-  //Domemaster3D Install Path
-  //Example: C:\Program Files\Domemaster3D\maya
+  // Domemaster3D Install Path
+  // Example: C:\Program Files\Domemaster3D\maya
   string $domeDirPathString = `getenv "DOMEMASTER3D_DIR"`;
   $domeDebugText += "### `DOMEMASTER3D_DIR` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
   
-  //Example: C:\Program Files\Domemaster3D\maya
+  // Example: C:\Program Files\Domemaster3D\maya
   string $domeDirPathString = `getenv "DOMEMASTER3D_MAYA_DIR"`;
   $domeDebugText += "### `DOMEMASTER3D_MAYA_DIR` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
   
-  //Example: C:\Program Files\Domemaster3D\maya
+  // Example: C:\Program Files\Domemaster3D\maya
   string $domeDirPathString = `getenv "DOMEMASTER3D_SOURCEIMAGES_DIR"`;
   $domeDebugText += "### `DOMEMASTER3D_SOURCEIMAGES_DIR` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
 
-  //Domemaster3D for Maya compatibility mode - used in Maya.env file for loading custom scripts
+  // Domemaster3D for Maya compatibility mode - used in Maya.env file for loading custom scripts
   //Example: 2015
   string $domeDirPathString = `getenv "DOMEMASTER3D_MAYA_TARGET"`;
   $domeDebugText += "### `DOMEMASTER3D_MAYA_TARGET` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
+  
+  // Domemaster3D for Maya Realtime FOV Override
+  string $domeFOVString = `getenv "DOMEMASTER3D_MAYA_REALTIME_FOV"`;
+  $domeDebugText += "### `DOMEMASTER3D_MAYA_REALTIME_FOV` ###\r\n> " + $domeFOVString + "\r\n\r\n";
 
   //------------------------------------------------------------
 

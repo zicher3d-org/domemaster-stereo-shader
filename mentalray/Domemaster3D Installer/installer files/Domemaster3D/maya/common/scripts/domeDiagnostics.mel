@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.9.1
-  2015-10-15 
+  Dome Diagnostics Report Tool V1.9.2
+  2015-11-26 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,14 @@
 
   Version History
   ----------------
+  
+  
+  Version V1.9.2
+  --------------------
+  2015-11-26
+
+  Added detection for the environment variable "PYMEL_SKIP_MEL_INIT".
+  
   
   Version V1.9.1
   --------------------
@@ -567,6 +575,9 @@ global proc domeDiagnostics(){
 
   string $domeTempString = `getenv "MAYA_QUICKTIME_ENCODING_GAMMA"`;
   $domeDebugText += "### `MAYA_QUICKTIME_ENCODING_GAMMA` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
+  string $domeTempString = `getenv "PYMEL_SKIP_MEL_INIT"`;
+  $domeDebugText += "### `PYMEL_SKIP_MEL_INIT` ###\r\n> " + $domeTempString + "\r\n\r\n";
 
   //------------------------------------------------------------
 

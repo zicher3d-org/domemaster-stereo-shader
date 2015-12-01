@@ -1,11 +1,16 @@
 /*
 
-PanoView v1.0.1 for Maxwell Render - 2015-10-09 08.14 am
+PanoView v1.0.4 for Maxwell Render - 2015-12-01
 by Andrew Hazelden
 www.andrewhazelden.com
 andrew@andrewhazelden.com
 
 This script will send the current Maxwell Render generated panoramic 360 image directly onto your Oculus Rift HMD using your favourite media viewing tool.
+
+
+PanoView Wiki Page:
+https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/PanoView-for-Maxwell-Render
+
 
 Installation:
 
@@ -32,8 +37,6 @@ Quite a few of the viewing tools only support 8-bit per channel formats like PNG
 This script can be launched with the -postscript:[script path] argument to run after a rendering finishes
 
 You can optionally remove the MXI file after opening the image output in the panoramic media viewing tool using the line removeMXIFile().
-
-The script works only in Windows but can be easily ported to other systems by changing the executable path to a Linux or Mac URL path for the viewing tool.
 
 
 Required Download:
@@ -73,7 +76,7 @@ http://djv.sourceforge.net/
 */
 
 
-print("PanoView for Maxwell Render v1.0.1");
+print("PanoView for Maxwell Render v1.0.2");
 print("By Andrew Hazelden");
 
 // Find out the current operating system platform. The platform variable should be set to either "Windows", "Mac", or "Linux".
@@ -403,19 +406,19 @@ function whirligigViewer(mediaFileName){
   var projectionMode = "barrel360";
   
   // Angular Fisheye 140 degree
-  var projectionMode = "fisheye140";  
+  // var projectionMode = "fisheye140";  
     
   // Angular Fisheye 180 degree / Domemaster 180
-  var projectionMode = "fisheye180";  
+  // var projectionMode = "fisheye180";  
   
   // Angular Fisheye 240 degree
-  var projectionMode = "fisheye240";
+  // var projectionMode = "fisheye240";
   
   // Angular Fisheye 360 degree
-  var projectionMode = "fisheye360"; 
+  // var projectionMode = "fisheye360"; 
   
   // Rectangular
-  var projectionMode = "flatscreen";
+  // var projectionMode = "flatscreen";
   
   var args = new Array;
   args[0] = "-feature";

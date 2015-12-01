@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>readme</title>
+      <style>.markdown-preview, .markdown-preview[data-use-github-style] { font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif; font-size: 16px; line-height: 1.6; word-wrap: break-word; overflow: scroll; box-sizing: border-box; padding: 20px; background-color: rgb(255, 255, 255); }
+.markdown-preview > :first-child, .markdown-preview[data-use-github-style] > :first-child { margin-top: 0px !important; }
+.markdown-preview > :last-child, .markdown-preview[data-use-github-style] > :last-child { margin-bottom: 0px !important; }
+.markdown-preview a:not([href]), .markdown-preview[data-use-github-style] a:not([href]) { color: inherit; text-decoration: none; }
+.markdown-preview .absent, .markdown-preview[data-use-github-style] .absent { color: rgb(204, 0, 0); }
+.markdown-preview .anchor, .markdown-preview[data-use-github-style] .anchor { position: absolute; top: 0px; left: 0px; display: block; padding-right: 6px; padding-left: 30px; margin-left: -30px; }
+.markdown-preview .anchor:focus, .markdown-preview[data-use-github-style] .anchor:focus { outline: none; }
+.markdown-preview h1, .markdown-preview[data-use-github-style] h1, .markdown-preview h2, .markdown-preview[data-use-github-style] h2, .markdown-preview h3, .markdown-preview[data-use-github-style] h3, .markdown-preview h4, .markdown-preview[data-use-github-style] h4, .markdown-preview h5, .markdown-preview[data-use-github-style] h5, .markdown-preview h6, .markdown-preview[data-use-github-style] h6 { position: relative; margin-top: 1em; margin-bottom: 16px; font-weight: bold; line-height: 1.4; }
+.markdown-preview h1 .octicon-link, .markdown-preview[data-use-github-style] h1 .octicon-link, .markdown-preview h2 .octicon-link, .markdown-preview[data-use-github-style] h2 .octicon-link, .markdown-preview h3 .octicon-link, .markdown-preview[data-use-github-style] h3 .octicon-link, .markdown-preview h4 .octicon-link, .markdown-preview[data-use-github-style] h4 .octicon-link, .markdown-preview h5 .octicon-link, .markdown-preview[data-use-github-style] h5 .octicon-link, .markdown-preview h6 .octicon-link, .markdown-preview[data-use-github-style] h6 .octicon-link { display: none; color: rgb(0, 0, 0); vertical-align: middle; }
+.markdown-preview h1:hover .anchor, .markdown-preview[data-use-github-style] h1:hover .anchor, .markdown-preview h2:hover .anchor, .markdown-preview[data-use-github-style] h2:hover .anchor, .markdown-preview h3:hover .anchor, .markdown-preview[data-use-github-style] h3:hover .anchor, .markdown-preview h4:hover .anchor, .markdown-preview[data-use-github-style] h4:hover .anchor, .markdown-preview h5:hover .anchor, .markdown-preview[data-use-github-style] h5:hover .anchor, .markdown-preview h6:hover .anchor, .markdown-preview[data-use-github-style] h6:hover .anchor { padding-left: 8px; margin-left: -30px; text-decoration: none; }
+.markdown-preview h1:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h1:hover .anchor .octicon-link, .markdown-preview h2:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h2:hover .anchor .octicon-link, .markdown-preview h3:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h3:hover .anchor .octicon-link, .markdown-preview h4:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h4:hover .anchor .octicon-link, .markdown-preview h5:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h5:hover .anchor .octicon-link, .markdown-preview h6:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h6:hover .anchor .octicon-link { display: inline-block; }
+.markdown-preview h1 tt, .markdown-preview[data-use-github-style] h1 tt, .markdown-preview h2 tt, .markdown-preview[data-use-github-style] h2 tt, .markdown-preview h3 tt, .markdown-preview[data-use-github-style] h3 tt, .markdown-preview h4 tt, .markdown-preview[data-use-github-style] h4 tt, .markdown-preview h5 tt, .markdown-preview[data-use-github-style] h5 tt, .markdown-preview h6 tt, .markdown-preview[data-use-github-style] h6 tt, .markdown-preview h1 code, .markdown-preview[data-use-github-style] h1 code, .markdown-preview h2 code, .markdown-preview[data-use-github-style] h2 code, .markdown-preview h3 code, .markdown-preview[data-use-github-style] h3 code, .markdown-preview h4 code, .markdown-preview[data-use-github-style] h4 code, .markdown-preview h5 code, .markdown-preview[data-use-github-style] h5 code, .markdown-preview h6 code, .markdown-preview[data-use-github-style] h6 code { font-size: inherit; }
+.markdown-preview h1, .markdown-preview[data-use-github-style] h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); }
+.markdown-preview h1 .anchor, .markdown-preview[data-use-github-style] h1 .anchor { line-height: 1; }
+.markdown-preview h2, .markdown-preview[data-use-github-style] h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); }
+.markdown-preview h2 .anchor, .markdown-preview[data-use-github-style] h2 .anchor { line-height: 1; }
+.markdown-preview h3, .markdown-preview[data-use-github-style] h3 { font-size: 1.5em; line-height: 1.43; }
+.markdown-preview h3 .anchor, .markdown-preview[data-use-github-style] h3 .anchor { line-height: 1.2; }
+.markdown-preview h4, .markdown-preview[data-use-github-style] h4 { font-size: 1.25em; }
+.markdown-preview h4 .anchor, .markdown-preview[data-use-github-style] h4 .anchor { line-height: 1.2; }
+.markdown-preview h5, .markdown-preview[data-use-github-style] h5 { font-size: 1em; }
+.markdown-preview h5 .anchor, .markdown-preview[data-use-github-style] h5 .anchor { line-height: 1.1; }
+.markdown-preview h6, .markdown-preview[data-use-github-style] h6 { font-size: 1em; color: rgb(119, 119, 119); }
+.markdown-preview h6 .anchor, .markdown-preview[data-use-github-style] h6 .anchor { line-height: 1.1; }
+.markdown-preview p, .markdown-preview[data-use-github-style] p, .markdown-preview blockquote, .markdown-preview[data-use-github-style] blockquote, .markdown-preview ul, .markdown-preview[data-use-github-style] ul, .markdown-preview ol, .markdown-preview[data-use-github-style] ol, .markdown-preview dl, .markdown-preview[data-use-github-style] dl, .markdown-preview table, .markdown-preview[data-use-github-style] table, .markdown-preview pre, .markdown-preview[data-use-github-style] pre { margin-top: 0px; margin-bottom: 16px; }
+.markdown-preview hr, .markdown-preview[data-use-github-style] hr { height: 4px; padding: 0px; margin: 16px 0px; border: 0px none; background-color: rgb(231, 231, 231); }
+.markdown-preview ul, .markdown-preview[data-use-github-style] ul, .markdown-preview ol, .markdown-preview[data-use-github-style] ol { padding-left: 2em; }
+.markdown-preview ul.no-list, .markdown-preview[data-use-github-style] ul.no-list, .markdown-preview ol.no-list, .markdown-preview[data-use-github-style] ol.no-list { padding: 0px; list-style-type: none; }
+.markdown-preview ul ul, .markdown-preview[data-use-github-style] ul ul, .markdown-preview ul ol, .markdown-preview[data-use-github-style] ul ol, .markdown-preview ol ol, .markdown-preview[data-use-github-style] ol ol, .markdown-preview ol ul, .markdown-preview[data-use-github-style] ol ul { margin-top: 0px; margin-bottom: 0px; }
+.markdown-preview li > p, .markdown-preview[data-use-github-style] li > p { margin-top: 16px; }
+.markdown-preview dl, .markdown-preview[data-use-github-style] dl { padding: 0px; }
+.markdown-preview dl dt, .markdown-preview[data-use-github-style] dl dt { padding: 0px; margin-top: 16px; font-size: 1em; font-style: italic; font-weight: bold; }
+.markdown-preview dl dd, .markdown-preview[data-use-github-style] dl dd { padding: 0px 16px; margin-bottom: 16px; }
+.markdown-preview blockquote, .markdown-preview[data-use-github-style] blockquote { padding: 0px 15px; color: rgb(119, 119, 119); border-left-width: 4px; border-left-style: solid; border-left-color: rgb(221, 221, 221); }
+.markdown-preview blockquote > :first-child, .markdown-preview[data-use-github-style] blockquote > :first-child { margin-top: 0px; }
+.markdown-preview blockquote > :last-child, .markdown-preview[data-use-github-style] blockquote > :last-child { margin-bottom: 0px; }
+.markdown-preview table, .markdown-preview[data-use-github-style] table { display: block; width: 100%; overflow: auto; word-break: normal; }
+.markdown-preview table th, .markdown-preview[data-use-github-style] table th { font-weight: bold; }
+.markdown-preview table th, .markdown-preview[data-use-github-style] table th, .markdown-preview table td, .markdown-preview[data-use-github-style] table td { padding: 6px 13px; border: 1px solid rgb(221, 221, 221); }
+.markdown-preview table tr, .markdown-preview[data-use-github-style] table tr { border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 204, 204); background-color: rgb(255, 255, 255); }
+.markdown-preview table tr:nth-child(2n), .markdown-preview[data-use-github-style] table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
+.markdown-preview img, .markdown-preview[data-use-github-style] img { max-width: 100%; box-sizing: border-box; }
+.markdown-preview .emoji, .markdown-preview[data-use-github-style] .emoji { max-width: none; }
+.markdown-preview span.frame, .markdown-preview[data-use-github-style] span.frame { display: block; overflow: hidden; }
+.markdown-preview span.frame > span, .markdown-preview[data-use-github-style] span.frame > span { display: block; float: left; width: auto; padding: 7px; margin: 13px 0px 0px; overflow: hidden; border: 1px solid rgb(221, 221, 221); }
+.markdown-preview span.frame span img, .markdown-preview[data-use-github-style] span.frame span img { display: block; float: left; }
+.markdown-preview span.frame span span, .markdown-preview[data-use-github-style] span.frame span span { display: block; padding: 5px 0px 0px; clear: both; color: rgb(51, 51, 51); }
+.markdown-preview span.align-center, .markdown-preview[data-use-github-style] span.align-center { display: block; overflow: hidden; clear: both; }
+.markdown-preview span.align-center > span, .markdown-preview[data-use-github-style] span.align-center > span { display: block; margin: 13px auto 0px; overflow: hidden; text-align: center; }
+.markdown-preview span.align-center span img, .markdown-preview[data-use-github-style] span.align-center span img { margin: 0px auto; text-align: center; }
+.markdown-preview span.align-right, .markdown-preview[data-use-github-style] span.align-right { display: block; overflow: hidden; clear: both; }
+.markdown-preview span.align-right > span, .markdown-preview[data-use-github-style] span.align-right > span { display: block; margin: 13px 0px 0px; overflow: hidden; text-align: right; }
+.markdown-preview span.align-right span img, .markdown-preview[data-use-github-style] span.align-right span img { margin: 0px; text-align: right; }
+.markdown-preview span.float-left, .markdown-preview[data-use-github-style] span.float-left { display: block; float: left; margin-right: 13px; overflow: hidden; }
+.markdown-preview span.float-left span, .markdown-preview[data-use-github-style] span.float-left span { margin: 13px 0px 0px; }
+.markdown-preview span.float-right, .markdown-preview[data-use-github-style] span.float-right { display: block; float: right; margin-left: 13px; overflow: hidden; }
+.markdown-preview span.float-right > span, .markdown-preview[data-use-github-style] span.float-right > span { display: block; margin: 13px auto 0px; overflow: hidden; text-align: right; }
+.markdown-preview code, .markdown-preview[data-use-github-style] code, .markdown-preview tt, .markdown-preview[data-use-github-style] tt { padding: 0.2em 0px; margin: 0px; font-size: 85%; border-radius: 3px; background-color: rgba(0, 0, 0, 0.0392157); }
+.markdown-preview code::before, .markdown-preview[data-use-github-style] code::before, .markdown-preview tt::before, .markdown-preview[data-use-github-style] tt::before, .markdown-preview code::after, .markdown-preview[data-use-github-style] code::after, .markdown-preview tt::after, .markdown-preview[data-use-github-style] tt::after { letter-spacing: -0.2em; content: ' '; }
+.markdown-preview code br, .markdown-preview[data-use-github-style] code br, .markdown-preview tt br, .markdown-preview[data-use-github-style] tt br { display: none; }
+.markdown-preview del code, .markdown-preview[data-use-github-style] del code { text-decoration: inherit; }
+.markdown-preview pre > code, .markdown-preview[data-use-github-style] pre > code { padding: 0px; margin: 0px; font-size: 100%; word-break: normal; white-space: pre; border: 0px; background: transparent; }
+.markdown-preview .highlight, .markdown-preview[data-use-github-style] .highlight { margin-bottom: 16px; }
+.markdown-preview .highlight pre, .markdown-preview[data-use-github-style] .highlight pre, .markdown-preview pre, .markdown-preview[data-use-github-style] pre { padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; border-radius: 3px; background-color: rgb(247, 247, 247); }
+.markdown-preview .highlight pre, .markdown-preview[data-use-github-style] .highlight pre { margin-bottom: 0px; word-break: normal; }
+.markdown-preview pre, .markdown-preview[data-use-github-style] pre { word-wrap: normal; }
+.markdown-preview pre code, .markdown-preview[data-use-github-style] pre code, .markdown-preview pre tt, .markdown-preview[data-use-github-style] pre tt { display: inline; max-width: initial; padding: 0px; margin: 0px; overflow: initial; line-height: inherit; word-wrap: normal; border: 0px; background-color: transparent; }
+.markdown-preview pre code::before, .markdown-preview[data-use-github-style] pre code::before, .markdown-preview pre tt::before, .markdown-preview[data-use-github-style] pre tt::before, .markdown-preview pre code::after, .markdown-preview[data-use-github-style] pre code::after, .markdown-preview pre tt::after, .markdown-preview[data-use-github-style] pre tt::after { content: normal; }
+.markdown-preview kbd, .markdown-preview[data-use-github-style] kbd { display: inline-block; padding: 3px 5px; font-size: 11px; line-height: 10px; color: rgb(85, 85, 85); vertical-align: middle; border-style: solid; border-width: 1px; border-color: rgb(204, 204, 204) rgb(204, 204, 204) rgb(187, 187, 187); border-radius: 3px; box-shadow: rgb(187, 187, 187) 0px -1px 0px inset; background-color: rgb(252, 252, 252); }
+.markdown-preview, .markdown-preview[data-use-github-style], .markdown-preview code, .markdown-preview[data-use-github-style] code { color: rgb(51, 51, 51); }
+.markdown-preview h1, .markdown-preview[data-use-github-style] h1, .markdown-preview h2, .markdown-preview[data-use-github-style] h2, .markdown-preview h3, .markdown-preview[data-use-github-style] h3, .markdown-preview h4, .markdown-preview[data-use-github-style] h4, .markdown-preview h5, .markdown-preview[data-use-github-style] h5, .markdown-preview h6, .markdown-preview[data-use-github-style] h6 { -webkit-font-smoothing: antialiased; cursor: text; }
+.markdown-preview > h1:first-child, .markdown-preview[data-use-github-style] > h1:first-child, .markdown-preview > h1:first-child + h2, .markdown-preview[data-use-github-style] > h1:first-child + h2, .markdown-preview > h2:first-child, .markdown-preview[data-use-github-style] > h2:first-child, .markdown-preview > h3:first-child, .markdown-preview[data-use-github-style] > h3:first-child, .markdown-preview > h4:first-child, .markdown-preview[data-use-github-style] > h4:first-child, .markdown-preview > h5:first-child, .markdown-preview[data-use-github-style] > h5:first-child, .markdown-preview > h6:first-child, .markdown-preview[data-use-github-style] > h6:first-child { margin-top: 0px; padding-top: 0px; }
+.markdown-preview a, .markdown-preview[data-use-github-style] a, .markdown-preview a code, .markdown-preview[data-use-github-style] a code { color: rgb(65, 131, 196); }
+.markdown-preview a:first-child h1, .markdown-preview[data-use-github-style] a:first-child h1, .markdown-preview a:first-child h2, .markdown-preview[data-use-github-style] a:first-child h2, .markdown-preview a:first-child h3, .markdown-preview[data-use-github-style] a:first-child h3, .markdown-preview a:first-child h4, .markdown-preview[data-use-github-style] a:first-child h4, .markdown-preview a:first-child h5, .markdown-preview[data-use-github-style] a:first-child h5, .markdown-preview a:first-child h6, .markdown-preview[data-use-github-style] a:first-child h6 { margin-top: 0px; padding-top: 0px; }
+.markdown-preview h1 + p, .markdown-preview[data-use-github-style] h1 + p, .markdown-preview h2 + p, .markdown-preview[data-use-github-style] h2 + p, .markdown-preview h3 + p, .markdown-preview[data-use-github-style] h3 + p, .markdown-preview h4 + p, .markdown-preview[data-use-github-style] h4 + p, .markdown-preview h5 + p, .markdown-preview[data-use-github-style] h5 + p, .markdown-preview h6 + p, .markdown-preview[data-use-github-style] h6 + p { margin-top: 0px; }
+.markdown-preview li p.first, .markdown-preview[data-use-github-style] li p.first { display: inline-block; }
+.markdown-preview ul li > :first-child, .markdown-preview[data-use-github-style] ul li > :first-child, .markdown-preview ol li > :first-child, .markdown-preview[data-use-github-style] ol li > :first-child, .markdown-preview ul li ul:first-of-type, .markdown-preview[data-use-github-style] ul li ul:first-of-type, .markdown-preview ol li ul:first-of-type, .markdown-preview[data-use-github-style] ol li ul:first-of-type { margin-top: 0px; }
+.markdown-preview ol > li, .markdown-preview[data-use-github-style] ol > li { list-style-type: decimal; }
+.markdown-preview ul > li, .markdown-preview[data-use-github-style] ul > li { list-style-type: disc; }
+.markdown-preview dl dt:first-child, .markdown-preview[data-use-github-style] dl dt:first-child { padding: 0px; }
+.markdown-preview dl dt > :first-child, .markdown-preview[data-use-github-style] dl dt > :first-child { margin-top: 0px; }
+.markdown-preview dl dt > :last-child, .markdown-preview[data-use-github-style] dl dt > :last-child { margin-bottom: 0px; }
+.markdown-preview dl dd > :first-child, .markdown-preview[data-use-github-style] dl dd > :first-child { margin-top: 0px; }
+.markdown-preview dl dd > :last-child, .markdown-preview[data-use-github-style] dl dd > :last-child { margin-bottom: 0px; }
+.markdown-preview blockquote p, .markdown-preview[data-use-github-style] blockquote p { font-size: 16px; line-height: 1.5; }
+.markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { padding: 16px; overflow: auto; font-size: 84%; line-height: 1.45; border-radius: 3px; background-color: rgb(40, 44, 52); }
+.markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { margin-bottom: 16px; word-break: normal; }
+.markdown-preview code, .markdown-preview[data-use-github-style] code, .markdown-preview tt, .markdown-preview[data-use-github-style] tt, .markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { font-family: Consolas, 'Liberation Mono', Courier, monospace; }
+.markdown-preview .emoji, .markdown-preview[data-use-github-style] .emoji { height: 20px; width: 20px; }
+.markdown-preview { font-size: 1.25em; color: rgb(200, 204, 213); background-color: rgb(47, 51, 61); }
+.markdown-preview h1, .markdown-preview h2 { color: inherit; border-color: rgb(24, 26, 31); }
+.markdown-preview a { color: rgb(100, 148, 237); }
+.markdown-preview hr { background-color: rgb(67, 73, 86); }
+.markdown-preview blockquote { color: rgb(157, 165, 180); border-left-color: rgba(157, 165, 180, 0.6); }
+.markdown-preview table th, .markdown-preview table td { border-color: rgb(24, 26, 31); }
+.markdown-preview table th { background-color: rgb(53, 59, 69); }
+.markdown-preview table tr { background-color: rgb(47, 51, 61); }
+.markdown-preview table tr:nth-child(2n) { background-color: rgb(40, 44, 52); }
+.markdown-preview code { color: rgb(243, 244, 246); border-color: rgb(24, 26, 31); background-color: rgb(62, 68, 81); background-clip: padding-box; }
+.markdown-preview pre.editor-colors::shadow .line.cursor-line { background-color: transparent; }
+.bracket-matcher .region {
+  border-bottom: 1px dotted lime;
+  position: absolute;
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 1px dashed rgba(250, 128, 114, 0.5);
+}
+
+pre.editor-colors,
+.host {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line,
+.host .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible,
+.host .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor,
+.host .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region,
+.host .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region,
+.host .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+  background-color: #353b45;
+}
+pre.editor-colors .invisible-character,
+.host .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide,
+.host .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide,
+.host .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .gutter .line-number,
+.host .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.git-line-removed:before,
+.host .gutter .line-number.git-line-removed:before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter .line-number.git-line-removed:after,
+.host .gutter .line-number.git-line-removed:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.cursor-line,
+.host .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #2c313a;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection,
+.host .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right,
+.host .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter .line-number .icon-right,
+.host .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter .line-number.folded,
+.host .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+.host .gutter .line-number:after,
+pre.editor-colors .fold-marker:after,
+.host .fold-marker:after {
+  color: #abb2bf;
+}
+.comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.entity.name.type {
+  color: #e5c07b;
+}
+.entity.other.inherited-class {
+  color: #98c379;
+}
+.keyword {
+  color: #c678dd;
+}
+.keyword.control {
+  color: #c678dd;
+}
+.keyword.operator {
+  color: #abb2bf;
+}
+.keyword.other.special-method {
+  color: #61afef;
+}
+.keyword.other.unit {
+  color: #d19a66;
+}
+.storage {
+  color: #c678dd;
+}
+.storage.type.annotation,
+.storage.type.primitive {
+  color: #c678dd;
+}
+.storage.modifier.package,
+.storage.modifier.import {
+  color: #abb2bf;
+}
+.constant {
+  color: #d19a66;
+}
+.constant.variable {
+  color: #d19a66;
+}
+.constant.character.escape {
+  color: #56b6c2;
+}
+.constant.numeric {
+  color: #d19a66;
+}
+.constant.other.color {
+  color: #56b6c2;
+}
+.constant.other.symbol {
+  color: #56b6c2;
+}
+.variable {
+  color: #e06c75;
+}
+.variable.interpolation {
+  color: #be5046;
+}
+.variable.parameter {
+  color: #abb2bf;
+}
+.invalid.illegal {
+  background-color: #e06c75;
+  color: #282c34;
+}
+.string {
+  color: #98c379;
+}
+.string.regexp {
+  color: #56b6c2;
+}
+.string.regexp .source.ruby.embedded {
+  color: #e5c07b;
+}
+.string.other.link {
+  color: #e06c75;
+}
+.punctuation.definition.comment {
+  color: #5c6370;
+}
+.punctuation.definition.method-parameters,
+.punctuation.definition.function-parameters,
+.punctuation.definition.parameters,
+.punctuation.definition.separator,
+.punctuation.definition.seperator,
+.punctuation.definition.array {
+  color: #abb2bf;
+}
+.punctuation.definition.heading,
+.punctuation.definition.identity {
+  color: #61afef;
+}
+.punctuation.definition.bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.punctuation.definition.italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.punctuation.section.embedded {
+  color: #be5046;
+}
+.punctuation.section.method,
+.punctuation.section.class,
+.punctuation.section.inner-class {
+  color: #abb2bf;
+}
+.support.class {
+  color: #e5c07b;
+}
+.support.type {
+  color: #56b6c2;
+}
+.support.function {
+  color: #56b6c2;
+}
+.support.function.any-method {
+  color: #61afef;
+}
+.entity.name.function {
+  color: #61afef;
+}
+.entity.name.class,
+.entity.name.type.class {
+  color: #e5c07b;
+}
+.entity.name.section {
+  color: #61afef;
+}
+.entity.name.tag {
+  color: #e06c75;
+}
+.entity.other.attribute-name {
+  color: #d19a66;
+}
+.entity.other.attribute-name.id {
+  color: #61afef;
+}
+.meta.class {
+  color: #e5c07b;
+}
+.meta.class.body {
+  color: #abb2bf;
+}
+.meta.method-call,
+.meta.method {
+  color: #abb2bf;
+}
+.meta.definition.variable {
+  color: #e06c75;
+}
+.meta.link {
+  color: #d19a66;
+}
+.meta.require {
+  color: #61afef;
+}
+.meta.selector {
+  color: #c678dd;
+}
+.meta.separator {
+  background-color: #373b41;
+  color: #abb2bf;
+}
+.meta.tag {
+  color: #abb2bf;
+}
+.none {
+  color: #abb2bf;
+}
+.markup.bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.markup.changed {
+  color: #c678dd;
+}
+.markup.deleted {
+  color: #e06c75;
+}
+.markup.italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.markup.heading .punctuation.definition.heading {
+  color: #61afef;
+}
+.markup.inserted {
+  color: #98c379;
+}
+.markup.list {
+  color: #e06c75;
+}
+.markup.quote {
+  color: #d19a66;
+}
+.markup.raw.inline {
+  color: #98c379;
+}
+.source.cs .keyword.operator {
+  color: #c678dd;
+}
+.source.css .property-name,
+.source.css .property-value {
+  color: #828997;
+}
+.source.css .property-name.support,
+.source.css .property-value.support {
+  color: #abb2bf;
+}
+.source.gfm .markup {
+  -webkit-font-smoothing: auto;
+}
+.source.gfm .markup.heading {
+  color: #e06c75;
+}
+.source.gfm .markup.link {
+  color: #c678dd;
+}
+.source.gfm .link .entity {
+  color: #61afef;
+}
+.source.ini .keyword.other.definition.ini {
+  color: #e06c75;
+}
+.source.java .storage.modifier.import {
+  color: #e5c07b;
+}
+.source.java .storage.type {
+  color: #e5c07b;
+}
+.source.java-properties .meta.key-pair {
+  color: #e06c75;
+}
+.source.java-properties .meta.key-pair > .punctuation {
+  color: #abb2bf;
+}
+.source.json .meta.structure.dictionary.json > .string.quoted.json {
+  color: #e06c75;
+}
+.source.json .meta.structure.dictionary.json > .string.quoted.json > .punctuation.string {
+  color: #e06c75;
+}
+.source.json .meta.structure.dictionary.json > .value.json > .string.quoted.json,
+.source.json .meta.structure.array.json > .value.json > .string.quoted.json,
+.source.json .meta.structure.dictionary.json > .value.json > .string.quoted.json > .punctuation,
+.source.json .meta.structure.array.json > .value.json > .string.quoted.json > .punctuation {
+  color: #98c379;
+}
+.source.json .meta.structure.dictionary.json > .constant.language.json,
+.source.json .meta.structure.array.json > .constant.language.json {
+  color: #56b6c2;
+}
+.source.ruby .constant.other.symbol > .punctuation {
+  color: inherit;
+}
+.source.python .keyword.operator.logical.python {
+  color: #c678dd;
+}
+.source.python .variable.parameter {
+  color: #d19a66;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h1 id="automagic-latlong-stereo-for-maxwell-studio-v0-1">Automagic LatLong Stereo for Maxwell Studio v0.1</h1>
+<p>2015-11-30 08.00 am</p>
+<p>By Andrew Hazelden<br>Email: <a href="mailto:andrew@andrewhazelden.com">andrew@andrewhazelden.com</a><br>Blog: <a href="http://www.andrewhazelden.com">http://www.andrewhazelden.com</a>  </p>
+<h2 id="description">Description</h2>
+<p>The automagicLatLongStereo.py script is used to quickly prepare your Maxwell Studio mxs scenes for rendering immersive 360&deg; LatLong Stereo VR content.</p>
+<p><img src="images/automagic_screenshot.png" alt="Script Screenshot"></p>
+<h2 id="script-installation">Script Installation</h2>
+<p>Copy the &quot;stereo&quot; folder to your Maxwell 3.2 scripts directory:</p>
+<p><strong>Windows</strong></p>
+<p><code>C:/Program Files/Next Limit/Maxwell 3/scripts/</code></p>
+<p><strong>Linux</strong></p>
+<p><code>/opt/maxwell/3/scripts/</code></p>
+<p><strong>Mac</strong></p>
+<p><code>/Applications/Maxwell 3/scripts/</code></p>
+<p><img src="images/maxwell3_scripts_folder.png" alt="Install the Script"></p>
+<h2 id="how-do-i-use-the-script-">How do I use the script?</h2>
+<p>Step 1.
+Edit your Maxwell MXS scene file so there is only one camera. Set the focus distance on the camera to the exact location in the scene that you want to use as the stereo camera rig&#39;s zero parallax distance (which is the convergence point for the left and right eyes).</p>
+<p><img src="images/mxs_in_maxwell_studio.png" alt="Maxwell Studio"></p>
+<p>Step 2.
+Launch PyMaxwell and open up the <code>automagicLatLongStereo.py</code> python script.</p>
+<p>Step 3.
+Edit the &quot;mxsFilePath&quot; variable in the main function near the bottom of this script and specify your Maxwell Studio based MXS scene file.</p>
+<p>Edit the &quot;separationTexturePath&quot; variable in the main function near the bottom of this script and specify your LatLong Stereo separation map texture image.</p>
+<p>Edit the the camera views to render section in the main function near the bottom of this script and specify if you want to render the left, right, or center camera views by editing the &quot;leftView&quot;, &quot;rightView&quot;, or &quot;centerView&quot; variables to equal 1.</p>
+<p><img src="images/pymaxwell_script_editing.png" alt="Edit the Script"></p>
+<p>Step 4. Select the Script &gt; Run menu item in PyMaxwell.</p>
+<p><img src="images/pymaxwell_run_script.png" alt="Run the Script"></p>
+<p>The script will start running. First the script will verify the mxs scene file exists.</p>
+<p>If the mxs file is located then the scene will be opened in maxwell and the camera parameters will be edited. A LatLong Stereo lens shader extension is applied to the camera.</p>
+<p>Camera&#39;s focus distance value will be used as the parallax distance for the lens shader and a suitable camera separation value is calculated based upon the current &quot;stereoDepthStrength&quot; value that is specified in the main function at the bottom of this script.</p>
+<p>Then the lens shader&#39;s camera view is adjusted so a set of center, left and right camera view based scene files are generated with the names <code>&lt;scene&gt;_C.mxs</code>, <code>&lt;scene&gt;_L.mxs</code> and <code>&lt;scene&gt;.R.mxs</code>. These new files are saved to the same folder as the original mxs scene file.</p>
+<p>Then the LatLong Stereo camera views that are enabled for rendering with the &quot;leftView = 1&quot;, &quot;rightView = 1&quot;, or &quot;centerView = 1&quot; options will be rendered in Maxwell Render.</p>
+<p><img src="images/pymaxwell_automagic_console_output.png" alt="Console Output"></p></body>
+</html>

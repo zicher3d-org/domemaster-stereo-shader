@@ -17,7 +17,10 @@
 *_p.c
 *.ilk
 *.meta
-*.obj
+
+# Temporarily commented out so I can upload the .obj geometry files.
+# *.obj
+
 *.pch
 *.pdb
 *.pgc

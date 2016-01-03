@@ -20,7 +20,9 @@ Version 1.9.2
 -------------
 2016-01-03
 
-Added GearVR Mono Cube Support
+Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+Changed the DomeViewer "Show Focal Length in HUD" default state to off
+Added a new DomeViewer "Connect Alpha Channel" checkbox to the Extra Controls section of the GUI. This checkbox tells the DomeViewer to connect the alpha channel from the DomeViewer loaded imagery to the surface material node. Th new "Connect Alpha Channel" checkbox is disabled by default so imagery with transparent mental ray rendered physical sky and sun and IBL based environment backdrops can be viewed in the viewport and you will still see the sky background.
 
 Version 1.8
 -------------
@@ -267,13 +269,13 @@ def getSourceImagesPath(imageFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
 
-  #Check OS platform for Windows/Mac/Linux Paths
+  # Check OS platform for Windows/Mac/Linux Paths
   import platform
 
-  #This is the base path for the images folder
+  # This is the base path for the images folder
   baseImagesFolder = ""
   
   # Try and read the value from the current Maya.env file's environment variables
@@ -283,19 +285,19 @@ def getSourceImagesPath(imageFileName):
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
-      #Check if the program is running on Windows 
+      # Check if the program is running on Windows 
       baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
     elif platform.system()== 'win32':
-      #Check if the program is running on Windows 32
+      # Check if the program is running on Windows 32
       baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
-      #Check if the program is running on Mac OS X
+      # Check if the program is running on Mac OS X
       baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux2':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
@@ -320,13 +322,13 @@ def getModelsPath(modelFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D models
+  # Set up the base folder path for the Domemaster3D models
   # ---------------------------------------------------------------------
 
-  #Check OS platform for Windows/Mac/Linux Paths
+  # Check OS platform for Windows/Mac/Linux Paths
   import platform
 
-  #This is the base path for the images folder
+  # This is the base path for the images folder
   baseModelsFolder = ""
   
   # Try and read the value from the current Maya.env file's environment variables
@@ -336,19 +338,19 @@ def getModelsPath(modelFileName):
   # Use a fixed value if the env var is empty
   if baseModelsFolder == None:
     if platform.system()=='Windows':
-      #Check if the program is running on Windows 
+      # Check if the program is running on Windows 
       baseModelsFolder = "C:/Program Files/Domemaster3D/sourceimages/"
     elif platform.system()== 'win32':
-      #Check if the program is running on Windows 32
+      # Check if the program is running on Windows 32
       baseModelsFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
-      #Check if the program is running on Mac OS X
+      # Check if the program is running on Mac OS X
       baseModelsFolder = "/Applications/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux2':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
@@ -377,32 +379,32 @@ def getDomePresetsPath(PresetsFileName):
   # Setup the base folder path for the Domemaster3D AttrPresets
   # ---------------------------------------------------------------------
   
-  #Check OS platform for Windows/Mac/Linux Paths
+  # Check OS platform for Windows/Mac/Linux Paths
   import platform
 
-  #This is the base path for the images folder
+  # This is the base path for the images folder
   basePresetsFolder = ""
   
-    # Try and read the value from the current Maya.env file's environment variables
+  # Try and read the value from the current Maya.env file's environment variables
   basePresetsFolder = os.environ.get('DOMEMASTER3D_MAYA_DIR') + "/common/presets/attrPresets/"
   # Typical Result: C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/
   
   # Use a fixed value if the env var is empty
   if basePresetsFolder == None:
     if platform.system()=='Windows':
-      #Check if the program is running on Windows 
+      # Check if the program is running on Windows 
       basePresetsFolder = "C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/"
     elif platform.system()== 'win32':
-      #Check if the program is running on Windows 32
+      # Check if the program is running on Windows 32
       basePresetsFolder = "C:/Program Files (x86)/Domemaster3D/maya/common/presets/attrPresets/"
     elif platform.system()== 'Darwin':
-      #Check if the program is running on Mac OS X
+      # Check if the program is running on Mac OS X
       basePresetsFolder = "/Applications/Domemaster3D/maya/common/presets/attrPresets/"
     elif platform.system()== 'Linux':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       basePresetsFolder = "/opt/Domemaster3D/maya/common/presets/attrPresets/"
     elif platform.system()== 'Linux2':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       basePresetsFolder = "/opt/Domemaster3D/maya/common/presets/attrPresets/"
     else:
       # Create the empty variable as a fallback mode
@@ -416,56 +418,59 @@ def getDomePresetsPath(PresetsFileName):
   return combinedFileAndPresetsPath
 
   
-#Syntax: createDomeViewerTexture('domeViewer', True )
+# Syntax: createDomeViewerTexture('domeViewer', True )
 def createDomeViewerTexture( meshName, isGrid ):
   import os
   import maya.cmds as cmds
   import maya.mel as mel
   
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D textures
+  # Set up the base folder path for the Domemaster3D textures
   # ---------------------------------------------------------------------
 
-  #Set the file texture variables to "" if you don't want a file to be specified
+  # Set the file texture variables to "" if you don't want a file to be specified
   domeViewerMapFileTexture = ""
  
-  #Read the texture from the Domemaster3D Folder
+  # Read the texture from the Domemaster3D Folder
   #domeViewerMapFileTexture = getSourceImagesPath("fulldome_1K.jpg")
 
   materialNamePrefix = ""
   
-  #Check if this is a pano or an alignment grid
+  # Check if the image's alpha channel should be connected to the surface material
+  connectAlphaEnabled = cmds.checkBoxGrp('checkGrpDomeViewerConnectAlpha', query=True, value1=True)
+  
+  # Check if this is a pano or an alignment grid
   if(isGrid == True):
-    #Image is a alignment grid
+    # Image is a alignment grid
     materialNamePrefix = 'domeViewerGrid_'
-    #Load the Aaron Bradbury fulldome alignment grid
+    # Load the Aaron Bradbury fulldome alignment grid
     domeViewerMapFileTexture = getSourceImagesPath("fulldomeAlignmentGrid_4k.png")
     
     domeViewer_maya_tex = cmds.shadingNode( 'file', n=materialNamePrefix+'FileTexture', asTexture=True) 
   else:
-    #Image is a regular pano
+    # Image is a regular pano
     materialNamePrefix = 'domeViewer_'
     
-    #Read the texture from the Image Name field in the GUI
+    # Read the texture from the Image Name field in the GUI
     domeViewerMapFileTexture = cmds.textFieldGrp("textDomeViewerImageOutputName", query=True, text=True)
   
-    #Check if the media type is a movie or an image
+    # Check if the media type is a movie or an image
     if cmds.optionMenuGrp("menuDomeViewerMediaType", query=True, select=True) == 3:
-      #Create a Movie Node
+      # Create a Movie Node
       domeViewer_maya_tex = cmds.shadingNode( 'movie', n=materialNamePrefix+'MovieTexture', asTexture=True) 
     else:
-      #File Texture Node
+      # File Texture Node
       domeViewer_maya_tex = cmds.shadingNode( 'file', n=materialNamePrefix+'FileTexture', asTexture=True) 
 
-  #Create the shading group
+  # Create the shading group
   domeViewer_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name=materialNamePrefix+'materialSG' )
 
-  #Create the Lambert in-scene preview material
+  # Create the Lambert in-scene preview material
   domeViewer_preview_shader_name = cmds.shadingNode( 'lambert', n=materialNamePrefix+'preview_material', asShader=True) 
   
   domeViewer_maya_placement = cmds.shadingNode( 'place2dTexture', n=materialNamePrefix+'place2dTexture', asUtility=True) 
 
-  #Connect the place2D texture to the Maya domeViewer file texture
+  # Connect the place2D texture to the Maya domeViewer file texture
   cmds.connectAttr(domeViewer_maya_placement+'.coverage', domeViewer_maya_tex+'.coverage', f=True)
   cmds.connectAttr(domeViewer_maya_placement+'.translateFrame', domeViewer_maya_tex+'.translateFrame', f=True)
   cmds.connectAttr(domeViewer_maya_placement+'.rotateFrame', domeViewer_maya_tex+'.rotateFrame', f=True)
@@ -485,16 +490,21 @@ def createDomeViewerTexture( meshName, isGrid ):
   cmds.connectAttr(domeViewer_maya_placement+'.outUV', domeViewer_maya_tex+'.uvCoord', f=True)
   cmds.connectAttr(domeViewer_maya_placement+'.outUvFilterSize', domeViewer_maya_tex+'.uvFilterSize', f=True)
   
-  #Connect the Lambert preview shader
+  # Connect the Lambert preview shader
 
   # Connect the Maya domeViewer file texture to the lambert preview material color and incandescent shader inputs
   cmds.connectAttr(domeViewer_maya_tex+'.outColor', domeViewer_preview_shader_name+'.color', f=True)
   cmds.connectAttr(domeViewer_maya_tex+'.outColor', domeViewer_preview_shader_name+'.incandescence', f=True)
 
+  # Connect the alpha channel transparency from a still image, image sequence file texture, or a movie node:
+  connectAlphaEnabled = cmds.checkBoxGrp('checkGrpDomeViewerConnectAlpha', query=True, value1=True)
+  if(connectAlphaEnabled == True):
+    cmds.connectAttr(domeViewer_maya_tex+'.outTransparency', domeViewer_preview_shader_name+'.transparency', f=True)
+
   # Connect the Lambert in-scene preview shader to the shading group
   cmds.connectAttr(domeViewer_preview_shader_name+'.outColor', domeViewer_shader_group_name+'.surfaceShader', f=True)
   
-  #Set the image exposure settings
+  # Set the image exposure settings
   imageExposure = cmds.floatSliderGrp("sliderDomeViewerImageExposure", query=True, value=True)
   cmds.setAttr( domeViewer_maya_tex+'.colorGain', imageExposure, imageExposure, imageExposure, type="double3")
   
@@ -506,21 +516,21 @@ def createDomeViewerTexture( meshName, isGrid ):
   else:
     print("Texture Not Found: " + domeViewerMapFileTexture)
   
-  #Check if this is a panorama - then enable image sequence caching
+  # Check if this is a panorama - then enable image sequence caching
   if(isGrid == False):
-    #Check what Media Type was selected
+    # Check what Media Type was selected
     if cmds.optionMenuGrp("menuDomeViewerMediaType", query=True, select=True) == 1:
       print("Loading a still image.")
     elif cmds.optionMenuGrp("menuDomeViewerMediaType", query=True, select=True) == 2:
       print("Loading an image sequence.")
-      #Enable Image Sequence Support
+      # Enable Image Sequence Support
       cmds.setAttr( domeViewer_maya_tex+'.useFrameExtension',  1)
        
       if cmds.checkBoxGrp("checkGrpDomeViewerPreviewCache", query=True, value1=True) == True:
-        #Enable RAM caching
+        # Enable RAM caching
         cmds.setAttr( domeViewer_maya_tex+'.useHardwareTextureCycling', 1)
       
-      #Set start and end frames for RAM caching
+      # Set start and end frames for RAM caching
       startFrame = cmds.intFieldGrp("intDomeViewerImageStartFrame", query=True, value1=True)
       endFrame = cmds.intFieldGrp("intDomeViewerImageEndFrame", query=True, value1=True)
       
@@ -528,14 +538,14 @@ def createDomeViewerTexture( meshName, isGrid ):
       cmds.setAttr( domeViewer_maya_tex+'.endCycleExtension', endFrame)
     elif cmds.optionMenuGrp("menuDomeViewerMediaType", query=True, select=True) == 3:
       print("Loading a Movie File.")
-      #Enable Image Sequence Support
+      # Enable Image Sequence Support
       cmds.setAttr( domeViewer_maya_tex+'.useFrameExtension',  1)
       
       if cmds.checkBoxGrp("checkGrpDomeViewerPreviewCache", query=True, value1=True) == True:
-        #Enable RAM caching
+        # Enable RAM caching
         cmds.setAttr( domeViewer_maya_tex+'.useHardwareTextureCycling', 1)
       
-      #Set start and end frames for RAM caching
+      # Set start and end frames for RAM caching
       startFrame = cmds.intFieldGrp("intDomeViewerImageStartFrame", query=True, value1=True)
       endFrame = cmds.intFieldGrp("intDomeViewerImageEndFrame", query=True, value1=True)
       
@@ -543,17 +553,17 @@ def createDomeViewerTexture( meshName, isGrid ):
       cmds.setAttr( domeViewer_maya_tex+'.endCycleExtension', endFrame)
   
   if cmds.checkBoxGrp("checkGrpDomeViewerFocalLength", query=True, value1=True) == True:
-    #Display the focal length in the heads up display
+    # Display the focal length in the heads up display
     mel.eval("setFocalLengthVisibility(1)")
   else:
-    #Hide the focal length in the heads up display
+    # Hide the focal length in the heads up display
     mel.eval("setFocalLengthVisibility(0)")
 
-  #Rotate the Cylinder texture 90 degrees to an "Upright" orientation
+  # Rotate the Cylinder texture 90 degrees to an "Upright" orientation
   #if(meshName == 'cylinder'):
   #  cmds.setAttr( domeViewer_maya_placement+'.rotateFrame', 90)
 
-  #Apply the shading group to the selected geometry
+  # Apply the shading group to the selected geometry
   #cmds.select("domeViewer")
   cmds.select(meshName)
   cmds.hyperShade(assign=domeViewer_shader_group_name)
@@ -564,7 +574,7 @@ def createDomeViewerTexture( meshName, isGrid ):
   baseNodeName = meshName
 
   #---------------------------------------------------------------------------
-  #Add a Display Mode control to the domeGrid's transform node
+  # Add a Display Mode control to the domeGrid's transform node
   #---------------------------------------------------------------------------
   
   attrName = 'displayMode'
@@ -574,7 +584,7 @@ def createDomeViewerTexture( meshName, isGrid ):
 
 
   #---------------------------------------------------------------------------
-  #Add a Double Sided Mode control to the domeGrid's transform node
+  # Add a Double Sided Mode control to the domeGrid's transform node
   #---------------------------------------------------------------------------
   
   attrName = 'doubleSidedShading'
@@ -585,19 +595,19 @@ def createDomeViewerTexture( meshName, isGrid ):
 
 
   #---------------------------------------------------------------------------
-  #Add an Exposure control to the domeGrid's transform node - Default value 0.25
+  # Add an Exposure control to the domeGrid's transform node - Default value 0.25
   #---------------------------------------------------------------------------
-  #Have the code switch the input value based upon an isGrid check
+  # Have the code switch the input value based upon an isGrid check
   imageExposure = cmds.floatSliderGrp("sliderDomeViewerImageExposure", query=True, value=True)
 
   attrName = 'exposure';
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", keyable=True, defaultValue=imageExposure, min=0, max=100, softMinValue=0.0001, softMaxValue=10)
 
   #---------------------------------------------------------------------------
-  #Add a Color Tint control to the domeGrid's transform node - Default color 0,0,0 = Black
+  # Add a Color Tint control to the domeGrid's transform node - Default color 0,0,0 = Black
   #---------------------------------------------------------------------------
 
-  #Have the code switch the input value based upon an isGrid check
+  # Have the code switch the input value based upon an isGrid check
   colorTintRGBcolor = cmds.colorSliderGrp("sliderDomeViewerColorTint", query=True, rgb=True)
 
   attrName = 'colorTint'
@@ -612,32 +622,32 @@ def createDomeViewerTexture( meshName, isGrid ):
   cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=colorTintRGBcolor[2])
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
-  #Connect the Grid Surface Color swatch to the surface shader
+  # Connect the Grid Surface Color swatch to the surface shader
   #cmds.connectAttr( (baseNodeName+'.'+attrName), domeViewer_maya_tex+'.colorGain', force=True)
 
-  #Setup the domeViewer & domeViewerGrid transparency
+  # Setup the domeViewer & domeViewerGrid transparency
   baseTransparency = 0
 
   if (isGrid == True):
-    #The grid background is 75% transparent
+    # The grid background is 75% transparent
     baseTransparency = 0.75
   else:
-    #The viewer background is solid
+    # The viewer background is solid
     baseTransparency = 0
 
   #---------------------------------------------------------------------------
-  #Add a Grid Surface Transparency control to the domeGrid's transform node - Default value 0.25
+  # Add a Grid Surface Transparency control to the domeGrid's transform node - Default value 0.25
   #---------------------------------------------------------------------------
   attrName = 'transparency'
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", keyable=True, defaultValue=baseTransparency, min=0, max=1)
 
-  #Connect the Grid Surface transparency swatch to the surface shader
+  # Connect the Grid Surface transparency swatch to the surface shader
   cmds.connectAttr( (baseNodeName+'.'+attrName), domeViewer_preview_shader_name+'.transparencyR', force=True)
   cmds.connectAttr( (baseNodeName+'.'+attrName), domeViewer_preview_shader_name+'.transparencyG', force=True)
   cmds.connectAttr( (baseNodeName+'.'+attrName), domeViewer_preview_shader_name+'.transparencyB', force=True)
 
   #---------------------------------------------------------------------------  
-  #Add a display mode expression to the domeGrid's transform node
+  # Add a display mode expression to the domeGrid's transform node
   #---------------------------------------------------------------------------
 
   domeRadiusTransform =  meshName
@@ -646,19 +656,19 @@ def createDomeViewerTexture( meshName, isGrid ):
 
   exprName = ""
   previewAttrName = "displayMode"
-  #The expression name is domeGrid_displayModeExpr
+  # The expression name is domeGrid_displayModeExpr
   exprName = domeRadiusTransform + "_" + previewAttrName + "Expr"
 
   PreviewShapeExpr = ""
 
   PreviewShapeExpr += "// Custom " + previewAttrName + " Preview Shape Expressions\n\n"
 
-  #Color controls - colorGain is the result of multiplying the exposure by the color tint
+  # Color controls - colorGain is the result of multiplying the exposure by the color tint
   PreviewShapeExpr += domeViewer_maya_tex + ".colorGainR = " + domeRadiusTransform+ ".colorTintColorR" + " * " + domeRadiusTransform+ ".exposure;"+ "\n\n"
   PreviewShapeExpr += domeViewer_maya_tex + ".colorGainG = " + domeRadiusTransform+ ".colorTintColorG" + " * " + domeRadiusTransform+ ".exposure;"+ "\n\n"
   PreviewShapeExpr += domeViewer_maya_tex + ".colorGainB = " + domeRadiusTransform+ ".colorTintColorB" + " * " + domeRadiusTransform+ ".exposure;"+ "\n\n"
 
-  #Visibility Controls
+  # Visibility Controls
   PreviewShapeExpr += "if (  " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  //Off Mode\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -704,7 +714,7 @@ def createDomeViewerTexture( meshName, isGrid ):
 
   previewAttrName = "doubleSidedShading"
 
-  #Visibility Controls
+  # Visibility Controls
   PreviewShapeExpr += "// Custom Double Sided Shading Expressions\n\n"
   PreviewShapeExpr += "if (" + previewAttrName + " == 0 ){\n"
   PreviewShapeExpr += "  print(\"Double Sided Shading Enabled\\n\");\n"
@@ -727,7 +737,7 @@ def createDomeViewerTexture( meshName, isGrid ):
 
   cmds.expression( name=exprName, string=PreviewShapeExpr, object=domeRadiusTransform, alwaysEvaluate=True, unitConversion=all)
 
-  #output the name of the new fileTexture node
+  # Output the name of the new fileTexture node
   return domeViewer_maya_tex
   
 
@@ -739,7 +749,7 @@ def resetDomeViewerCameraAngle():
   viewerCameraName = 'ViewerCamera1'
 
   if cmds.objExists(viewerCameraName):
-      #Reset the camera position
+      # Reset the camera position
       cmds.setAttr(viewerCameraName+".rx", 0)
       cmds.setAttr(viewerCameraName+".ry", 0)
       cmds.setAttr(viewerCameraName+".rz", 0)
@@ -749,11 +759,11 @@ def resetDomeViewerCameraAngle():
       
       viewerCameraShape = getObjectShapeNode(viewerCameraName)
       
-      #Reset the DomeViewer camera's field of view to use an 18mm lens which means a 90 degree FOV
+      # Reset the DomeViewer camera's field of view to use an 18mm lens which means a 90 degree FOV
       cmds.setAttr(viewerCameraShape[0]+".focalLength", 18)
       
 
-#Syntax: createDomeViewerCamera( 'ViewerCamera', 'domeViewer', 'domeViewerGrid' )
+# Syntax: createDomeViewerCamera( 'ViewerCamera', 'domeViewer', 'domeViewerGrid' )
 def createDomeViewerCamera( viewerCameraName, meshName, gridMeshName ):
   import os
   import math
@@ -765,12 +775,12 @@ def createDomeViewerCamera( viewerCameraName, meshName, gridMeshName ):
   
   #viewerCameraName = 'viewerCamera'
   
-  #Remove the old camera
+  # Remove the old camera
   if cmds.objExists(viewerCameraName + '1'): 
     cmds.select( viewerCameraName + '1', replace=True)
     cmds.delete()
   
-  #Calculate the focal length from the field of view
+  # Calculate the focal length from the field of view
   domeViewerFOV = cmds.floatSliderGrp("sliderDomeViewerFOV", query=True, value=True)
   horizontalFilmAperture = 1.417
   focal = math.tan (0.00872665 * domeViewerFOV)
@@ -779,13 +789,13 @@ def createDomeViewerCamera( viewerCameraName, meshName, gridMeshName ):
   #import maya.cmds as cmds
   cameraName = cmds.camera(name=viewerCameraName, focalLength=focal, filmFit='Vertical', nearClipPlane=1, farClipPlane=1000, cameraScale=1)
   
-  #Unselect the geometry in the scene
+  # Unselect the geometry in the scene
   cmds.select(clear=True)
   
-  #Change the icon size
+  # Change the icon size
   cmds.setAttr(cameraName[0]+".locatorScale", 15)
   
-  #Reset the camera position
+  # Reset the camera position
   cmds.setAttr(cameraName[0]+".rx", 0)
   cmds.setAttr(cameraName[0]+".ry", 0)
   cmds.setAttr(cameraName[0]+".rz", 0)
@@ -793,14 +803,14 @@ def createDomeViewerCamera( viewerCameraName, meshName, gridMeshName ):
   cmds.setAttr(cameraName[0]+".ty", 0)
   cmds.setAttr(cameraName[0]+".tz", 0)
   
-  #Setup the default perspective camera view
+  # Setup the default perspective camera view
   regularSceneCamera = 'persp'
   
-  #Tipped View
+  # Tipped View
   cmds.setAttr(regularSceneCamera+".rx", 20)
   cmds.setAttr(regularSceneCamera+".ry", -80)
   
-  #Level View
+  # Level View
   #cmds.setAttr(regularSceneCamera+".rx", 0)
   #cmds.setAttr(regularSceneCamera+".ry", -60)
   cmds.setAttr(regularSceneCamera+".rz", 0)
@@ -810,42 +820,42 @@ def createDomeViewerCamera( viewerCameraName, meshName, gridMeshName ):
   
   cmds.viewFit('persp')
   
-  #Turn off the grid
+  # Turn off the grid
   cmds.modelEditor('modelPanel4', edit=True, grid=False)
   
-  #Turn on hardware texturing and shading
+  # Turn on hardware texturing and shading
   cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
   cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
   
   gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
   
-  #Point constrain the mesh to the camera
+  # Point constrain the mesh to the camera
   if cmds.checkBoxGrp("checkGrpDomeViewerPointConstrain", query=True, value1=True):
     cmds.pointConstraint(cameraName[0], meshName, weight=1 )
 
-    #Add the point constraint for the fulldome grid too
+    # Add the point constraint for the fulldome grid too
     if( currentPanoFormat == 1 ):
       if( gridModeEnabled == 1 ):
         cmds.pointConstraint(cameraName[0], gridMeshName, weight=1 )
       
-  #Switch the viewport to look through a new fulldome viewing camera
+  # Switch the viewport to look through a new fulldome viewing camera
   cmds.lookThru(cameraName)
 
 
-#Load a new domeViewer polygon mesh into the scene
-#Syntax: createDomeViewerMesh('pCube1', 'mentalRayCube1_mesh', '45', 300 , viewerFlipScale)
+# Load a new domeViewer polygon mesh into the scene
+# Syntax: createDomeViewerMesh('pCube1', 'mentalRayCube1_mesh', '45', 300 , viewerFlipScale)
 def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFlipScale):
   import os  
   import maya.cmds as cmds
   import maya.mel as mel
   
-  #Viewer Mesh Object Details
+  # Viewer Mesh Object Details
   #meshName = 'pCube1'
   #meshFileName = 'mentalRayCube1_mesh'
   meshFileExtension = '.ma'
   meshFileType = 'mayaAscii'
   
-  #Get the selected geometry
+  # Get the selected geometry
   #object_selection = cmds.ls(sl=True)
 
   if cmds.objExists(meshName): 
@@ -861,19 +871,19 @@ def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFli
   #  cmds.select( meshFileName + '_uiConfigurationScriptNode', replace=True)
   #  cmds.delete()
     
-  #Load the viewer model from the Domemaster3D source images directory
+  # Load the viewer model from the Domemaster3D source images directory
   domeViewerModelFile = getModelsPath(meshFileName + meshFileExtension)
   
-  #Load the Maya .ma format viewer model into the scene
+  # Load the Maya .ma format viewer model into the scene
   domeViewer_mesh_file = cmds.file (domeViewerModelFile, i=True, type=meshFileType)
   
-  #Set the default size (scale) of the viewer backdrop
-  #Flip the scaleX attribute to mirror the texture direction left/right
+  # Set the default size (scale) of the viewer backdrop
+  # Flip the scaleX attribute to mirror the texture direction left/right
   cmds.setAttr( meshName + ".scaleZ", scale)
   cmds.setAttr( meshName + ".scaleX", (scale * viewerFlipScale))
   cmds.setAttr( meshName + ".scaleY", scale)
   
-  #Tilt the fulldome screen
+  # Tilt the fulldome screen
   cmds.setAttr ( meshName + ".rotateX", (-1*domeTiltAngle));
 
   
@@ -887,113 +897,113 @@ def createDomeViewer():
   import maya.cmds as cmds
   import maya.mel as mel
   
-  #Setup the tilt angle on the fulldome screen
+  # Setup the tilt angle on the fulldome screen
   domeTiltAngle = cmds.floatSliderGrp('sliderDomeViewerDomeTiltAngle', query=True, value=True)
   #domeTiltAngle = -35
   
-  #Preview Camera Name
+  # Preview Camera Name
   viewerCameraName = 'ViewerCamera'
   
   #---------------------------------------------------------------------------
   # Find out what type of panorama to add
   #---------------------------------------------------------------------------
   
-  #Get the selected panoramic image format
+  # Get the selected panoramic image format
   currentPanoFormat = cmds.optionMenuGrp('menuDomeViewerPanoramaFormat', query=True, select=True)
 
   gridMeshName = ""
   gridMeshFileName = ""
   
   if( currentPanoFormat == 1 ):
-    #180 Degree Fulldome
+    # 180 Degree Fulldome
     meshName = 'domeViewer'
     
-    #Polygon sphere with triangle pinch point
+    # Polygon sphere with triangle pinch point
     #meshFileName = 'fulldome_mesh'
 
-    #All quads polygon sphere - no pinch point
+    # All quads polygon sphere - no pinch point
     meshFileName = 'fulldome_quads_mesh'
 
     gridMeshName = 'domeViewerGrid'
     gridMeshFileName = 'fulldomeGrid_mesh'
   if( currentPanoFormat == 2 ):
-    #180 Degree Fulldome on 4:3 Ratio Background
+    # 180 Degree Fulldome on 4:3 Ratio Background
     meshName = 'domeViewer'
     
-    #Polygon sphere with triangle pinch point
+    # Polygon sphere with triangle pinch point
     #meshFileName = 'fulldome_mesh'
 
-    #All quads polygon sphere - no pinch point
+    # All quads polygon sphere - no pinch point
     meshFileName = 'fulldome_quads_4_3_mesh'
 
     gridMeshName = 'domeViewerGrid'
     gridMeshFileName = 'fulldomeGrid_mesh'
   if( currentPanoFormat == 3 ):
-    #180 Degree Fulldome on 16:9 Ratio Background
+    # 180 Degree Fulldome on 16:9 Ratio Background
     meshName = 'domeViewer'
     
-    #Polygon sphere with triangle pinch point
+    # Polygon sphere with triangle pinch point
     #meshFileName = 'fulldome_mesh'
 
-    #All quads polygon sphere - no pinch point
+    # All quads polygon sphere - no pinch point
     meshFileName = 'fulldome_quads_16_9_mesh'
 
     gridMeshName = 'domeViewerGrid'
     gridMeshFileName = 'fulldomeGrid_mesh'
   elif ( currentPanoFormat == 4 ):
-    #360 Degree Angular Fisheye
+    # 360 Degree Angular Fisheye
     meshName = 'angular360'
     meshFileName = 'angular360_mesh'
   elif ( currentPanoFormat == 5 ):
-    #Mirror Ball
+    # Mirror Ball
     meshName = 'mirrorball'
     meshFileName = 'mirrorball_mesh'
   elif ( currentPanoFormat == 6 ):
-    #Equirectangular (LatLong)
+    # Equirectangular (LatLong)
     meshName = 'latlong'
     meshFileName = 'latlongSphere_mesh'
   elif ( currentPanoFormat == 7 ):
-    #Cylindrical
+    # Cylindrical
     meshName = 'cylinder'
     meshFileName = 'cylinder_mesh'
   elif ( currentPanoFormat == 8 ):
-    #Cube Map 3x2
+    # Cube Map 3x2
     meshName = 'cube3x2'
     meshFileName = 'cube3x2_mesh'
   elif ( currentPanoFormat == 9 ):
-    #Vertical Cross Cube
+    # Vertical Cross Cube
     meshName = 'verticalCross'
     meshFileName = 'verticalCrossCube_mesh'
   elif ( currentPanoFormat == 10 ):
-    #Horizontal Cross Cube
+    # Horizontal Cross Cube
     meshName = 'horizontalCross'
     meshFileName = 'horizontalCrossCube_mesh'
   elif ( currentPanoFormat == 11 ):
-    #Vertical Tee Cube
+    # Vertical Tee Cube
     meshName = 'verticalTee'
     meshFileName = 'verticalTeeCube_mesh'
   elif ( currentPanoFormat == 12 ):
-    #Horizontal Tee Cube
+    # Horizontal Tee Cube
     meshName = 'horizontalTee'
     meshFileName = 'horizontalTeeCube_mesh'
   elif ( currentPanoFormat == 13 ):
-    #Vertical Strip Cube
+    # Vertical Strip Cube
     meshName = 'verticalStrip'
     meshFileName = 'verticalStripCube_mesh'
   elif ( currentPanoFormat == 14 ):
-    #Horizontal Strip Cube
+    # Horizontal Strip Cube
     meshName = 'horizontalStrip'
     meshFileName = 'horizontalStripCube_mesh'
   elif ( currentPanoFormat == 15 ):
-    #Mental Ray Horizontal Strip Cube
+    # Mental Ray Horizontal Strip Cube
     meshName = 'pCube1'
     meshFileName = 'mentalRayCube1_mesh'
   elif ( currentPanoFormat == 16 ):
-    #Quadsphere
+    # Quadsphere
     meshName = 'polyStarglobe'
     meshFileName = 'starglobe_mesh'
   elif ( currentPanoFormat == 17 ):
-    #GearVR Mono Cube
+    # GearVR Mono Cube
     meshName = 'gearVRMono'
     meshFileName = 'gearVRCube_mesh'
   
@@ -1001,49 +1011,49 @@ def createDomeViewer():
   # Create the panoramic elements in Maya
   #---------------------------------------------------------------------------
   
-  #Check if the viewer direction is flipped
-  #This will flip the inside vs outside of the preview shape
+  # Check if the viewer direction is flipped
+  # This will flip the inside vs outside of the preview shape
   viewerMeshScale = 0
   viewerFlipEnabled = cmds.checkBoxGrp('checkGrpDomeViewerFlipScale', query=True, value1=True)
   
-  # checkbox enabled = flipped / checkbox disabled = not flipping
+  # Checkbox enabled = flipped / checkbox disabled = not flipping
   if ( viewerFlipEnabled ):
     viewerFlipScale = -1
   else:
     viewerFlipScale = 1
   
-  #Create the viewer mesh
+  # Create the viewer mesh
   if ( currentPanoFormat == 16 ):
-    #The Quadsphere mesh is 12X larger than the other meshes by default
+    # The Quadsphere mesh is 12X larger than the other meshes by default
     viewerMeshScale = 25
   else:
-    #All other meshes
+    # All other meshes
     viewerMeshScale = 300
 
-  #Add the mesh to the scene
+  # Add the mesh to the scene
   createDomeViewerMesh( meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale )
 
-  #Create the surface material
+  # Create the surface material
   viewerTextureNode = createDomeViewerTexture( meshName, False )
   
   gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
   
-  #Create the fulldome alignment grid
+  # Create the fulldome alignment grid
   if(currentPanoFormat <= 3):
     if(gridModeEnabled == 1):
       print("Creating a Bradbury fulldome reference grid.")
-      #Create the dome alignment grid mesh
+      # Create the dome alignment grid mesh
       createDomeViewerMesh( gridMeshName, gridMeshFileName, domeTiltAngle, 294, 1 )
-      #Create the dome alignment grid surface material
+      # Create the dome alignment grid surface material
       viewerTextureNode = createDomeViewerTexture( gridMeshName, True )
       
-  #Add the camera to the scene
+  # Add the camera to the scene
   createDomeViewerCamera( viewerCameraName, meshName, gridMeshName )
   
-  #Select the File Texture node in the attribute editor so the image sequence loader will start working
+  # Select the File Texture node in the attribute editor so the image sequence loader will start working
   mel.eval ( ' showEditorExact("' + viewerTextureNode + '") ' )
   
-  #return the name of the domeViewer mesh
+  # return the name of the domeViewer mesh
   return meshName
 
 
@@ -1061,16 +1071,16 @@ def createStarglobe():
   forceMentalRayLoad()
 
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D textures
+  # Set up the base folder path for the Domemaster3D textures
   # ---------------------------------------------------------------------
 
-  #Set the file texture variables to "" if you don't want a file to be specified
+  # Set the file texture variables to "" if you don't want a file to be specified
   #StarglobeMapFileTexture = ""
 
   StarglobeMapFileTexture = getSourceImagesPath("starglobe_quadsphere_8k.jpg")
   StarglobeMayaFileTexture = getSourceImagesPath("starglobe_quadsphere_2k.jpg")
 
-  #Get the selected geometry
+  # Get the selected geometry
   object_selection = cmds.ls(sl=True)
 
   if cmds.objExists('polyStarglobe'): 
@@ -1088,13 +1098,13 @@ def createStarglobe():
    cmds.select( meshFileName + '_uiConfigurationScriptNode', replace=True)
    cmds.delete()
 
-  #Load the quads based starglobe sphere model
+  # Load the quads based starglobe sphere model
   StarglobeModelFile = getModelsPath("starglobe_mesh.ma")
 
-  #Load the Maya .ma format starglobe model into the scene
+  # Load the Maya .ma format starglobe model into the scene
   starglobe_mesh_file = cmds.file (StarglobeModelFile, i=True, type='mayaAscii')
 
-  #Create the mia_material + shading group
+  # Create the mia_material + shading group
   starglobe_mia_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='starglobe_materialSG' )
   starglobe_mia_shader_name = cmds.shadingNode( 'mia_material_x_passes', n='starglobe_material', asShader=True) 
 
@@ -1104,12 +1114,12 @@ def createStarglobe():
   starglobe_mr_tex = cmds.shadingNode( 'mentalrayTexture', n='starglobe_mentalrayTexture1', asTexture=True) 
   starglobe_remap_color = cmds.shadingNode( 'remapColor', n='starglobe_remapColor1', asTexture=True)
 
-  #Create the Lambert in-scene preview material
+  # Create the Lambert in-scene preview material
   starglobe_preview_shader_name = cmds.shadingNode( 'lambert', n='starglobe_preview_material', asShader=True) 
   starglobe_maya_tex = cmds.shadingNode( 'file', n='starglobe_FileTexture', asTexture=True) 
   starglobe_maya_placement = cmds.shadingNode( 'place2dTexture', n='starglobe_place2dTexture', asUtility=True) 
 
-  #Connect the place2D texture to the Maya starglobe file texture
+  # Connect the place2D texture to the Maya starglobe file texture
   cmds.connectAttr(starglobe_maya_placement+'.coverage', starglobe_maya_tex+'.coverage', f=True)
   cmds.connectAttr(starglobe_maya_placement+'.translateFrame', starglobe_maya_tex+'.translateFrame', f=True)
   cmds.connectAttr(starglobe_maya_placement+'.rotateFrame', starglobe_maya_tex+'.rotateFrame', f=True)
@@ -1166,25 +1176,25 @@ def createStarglobe():
   cmds.setAttr(starglobe_mia_shader_name+".diffuse_roughness", 0)
   cmds.setAttr(starglobe_mia_shader_name+".diffuse_weight", 1)
 
-  #Set the material to a black diffuse color
+  # Set the material to a black diffuse color
   cmds.setAttr(starglobe_mia_shader_name+".diffuse", 0, 0, 0, type="double3")
 
-  #note cutout opacity could be used to make the night sky alpha channel transparent or solid
+  # Note: the cutout opacity could be used to make the night sky alpha channel transparent or solid
 
-  #Optional Light Linking
+  # Optional Light Linking
 
-  #Set the mia_material_x_passes shader to ignore the illumination from the lights in the scene with "light linking"
+  # Set the mia_material_x_passes shader to ignore the illumination from the lights in the scene with "light linking"
   #starglobe_mia.mode 0 = Custom Linking
   #starglobe_mia.mode 1 = Inclusive Linking
   #starglobe_mia.mode 2 = Exclusive Linking
   #starglobe_mia.mode 4 = Maya Linking
 
-  #Note: All scene lights are skipped by default with "Exclusive linking" mode 2
+  # Note: All scene lights are skipped by default with "Exclusive linking" mode 2
   cmds.setAttr(starglobe_mia_shader_name+".mode", 2)
 
-  #End of Optional Light Linking
+  # End of Optional Light Linking
 
-  #Load the file texture maps
+  # Load the file texture maps
 
   # Set the filename for the mental ray texture nodes
   cmds.setAttr( starglobe_mr_tex+'.fileTextureName', StarglobeMapFileTexture , type="string")
@@ -1192,7 +1202,7 @@ def createStarglobe():
   # Set the filename for the maya file texture node
   cmds.setAttr( starglobe_maya_tex+'.fileTextureName', StarglobeMayaFileTexture , type="string")
 
-  #Connect the Lambert preview shader
+  # Connect the Lambert preview shader
 
   # Connect the Maya starglobe file texture to the lambert preview material color and incandescent shader inputs
   cmds.connectAttr(starglobe_maya_tex+'.outColor', starglobe_preview_shader_name+'.color', f=True)
@@ -1215,38 +1225,38 @@ def createStarglobe():
   # This ensures the preview material will be skipped from rendering in older versions of Maya.
   cmds.setAttr(starglobe_mia_shader_group_name+'.miExportMrMaterial', 1)
 
-  #Assign the starglobe surface material to the shape: polyStarglobe
+  # Assign the starglobe surface material to the shape: polyStarglobe
   #polyStarglobe
 
-  #Apply the shading group to the selected geometry
+  # Apply the shading group to the selected geometry
   cmds.select("polyStarglobe")
   cmds.hyperShade(assign=starglobe_mia_shader_group_name)
 
-  #set the default size (scale) of the starglobe backdrop
+  # Set the default size (scale) of the starglobe backdrop
   cmds.setAttr( "polyStarglobe.scaleZ", 25)
   cmds.setAttr( "polyStarglobe.scaleX", 25)
   cmds.setAttr( "polyStarglobe.scaleY", 25)
 
-  #Select the surface material
+  # Select the surface material
   #cmds.select(starglobe_mia_shader_name, r=True)
   
-  #Turn on hardware texturing and shading
+  # Turn on hardware texturing and shading
   cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
   cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
 
-  #Select the original objects
+  # Select the original objects
   if object_selection:
     cmds.select(object_selection)
     print("Selected: ")
     print(object_selection)
 
-  #No objects were selected
+  # No objects were selected
   if not object_selection:
     #print "No objects selected"
-    #Select the surface material
+    # Select the surface material
     cmds.select(starglobe_mia_shader_name, r=True)
 
-  #return the name of the starglobe
+  # Return the name of the starglobe
   return "polyStarglobe"
 
 
@@ -1266,31 +1276,31 @@ def createColorBumpMiaMaterial():
   forceMentalRayLoad()
 
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
 
-  #Set the file texture variables to "" if you don't want a file to be specified
+  # Set the file texture variables to "" if you don't want a file to be specified
   #ColorMapFileTexture = ""
   #BumpMapFileTexture = ""
 
   ColorMapFileTexture = getSourceImagesPath("checker.iff")
   BumpMapFileTexture = getSourceImagesPath("bumpChecker.iff")
 
-  #Get the selected geometry
+  # Get the selected geometry
   object_selection = cmds.ls(sl=True)
 
   # Create the render nodes
 
-  #Create the mia_material + shading group
+  # Create the mia_material + shading group
   dome_mia_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='dome_mia_materialSG' )
  
-  #Create a mia_material_x_passes shader
+  # Create a mia_material_x_passes shader
   dome_mia_shader_name = cmds.shadingNode( 'mia_material_x_passes', n='dome_mia_material', asShader=True) 
 
-  #Create a mia_material shader
+  # Create a mia_material shader
   #dome_mia_shader_name = cmds.shadingNode( 'mia_material', n='dome_mia_material', asShader=True)   
 
-  #Apply the shading group to the selected geometry
+  # Apply the shading group to the selected geometry
   if object_selection:
     print("Applying the "+dome_mia_shader_name+" surface material to:")
     for obj in object_selection: 
@@ -1368,7 +1378,7 @@ def createColorBumpMiaMaterial():
   cmds.setAttr( bump_mib_passthrough_bump_map+".stepY", 0.0)
   cmds.setAttr( bump_mib_passthrough_bump_map+".stepZ", 0.0)
 
-  #Set the bump factor default to 1 to make the bump map visible
+  # Set the bump factor default to 1 to make the bump map visible
   cmds.setAttr(bump_mib_passthrough_bump_map+".factor", 1)
 
   # Connect the nodes
@@ -1378,19 +1388,19 @@ def createColorBumpMiaMaterial():
   cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miShadowShader', f=True)
   cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miMaterialShader', f=True)
 
-  #Select the surface material
+  # Select the surface material
   #cmds.select(dome_mia_shader_name, r=True)
 
-  #Select the original objects
+  # Select the original objects
   if object_selection:
     cmds.select(object_selection)
     print("Selected: ")
     print(object_selection)
 
-  #No objects were selected
+  # No objects were selected
   if not object_selection:
     #print "No objects selected"
-    #Select the surface material
+    # Select the surface material
     cmds.select(dome_mia_shader_name, r=True)
 
 
@@ -1414,21 +1424,21 @@ def createColorMiaMaterial():
 
   ColorMapFileTexture = getSourceImagesPath("checker.iff")
 
-  #Get the selected geometry
+  # Get the selected geometry
   object_selection = cmds.ls(sl=True)
 
   # Create the render nodes
 
-  #Create the mia_material + shading group
+  # Create the mia_material + shading group
   dome_mia_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='dome_mia_materialSG' )
   
-  #Create a mia_material_x_passes shader
+  # Create a mia_material_x_passes shader
   dome_mia_shader_name = cmds.shadingNode( 'mia_material_x_passes', n='dome_mia_material', asShader=True) 
 
-  #Create a mia_material shader
+  # Create a mia_material shader
   #dome_mia_shader_name = cmds.shadingNode( 'mia_material', n='dome_mia_material', asShader=True)   
 
-  #Apply the shading group to the selected geometry
+  # Apply the shading group to the selected geometry
   if object_selection:
     print("Applying the "+dome_mia_shader_name+" surface material to:")
     for obj in object_selection: 
@@ -1480,16 +1490,16 @@ def createColorMiaMaterial():
   cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miShadowShader', f=True)
   cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miMaterialShader', f=True)
 
-  #Select the original objects
+  # Select the original objects
   if object_selection:
     cmds.select(object_selection)
     print("Selected: ")
     print(object_selection)
 
-  #No objects were selected
+  # No objects were selected
   if not object_selection:
     #print "No objects selected"
-    #Select the surface material
+    # Select the surface material
     cmds.select(dome_mia_shader_name, r=True)
   
 """
@@ -1508,27 +1518,27 @@ def createColorImageSequenceMiaMaterial():
   forceMentalRayLoad()
 
   # Texture variables
-  #Set the file texture variables to "" if you don't want a file to be specified
+  # Set the file texture variables to "" if you don't want a file to be specified
   #ColorMapFileTexture = ""
 
   ColorMapFileTexture = getSourceImagesPath("checker.iff")
   #ColorMapFileTexture = getSourceImagesPath("checker")
 
-  #Get the selected geometry
+  # Get the selected geometry
   object_selection = cmds.ls(sl=True)
 
   # Create the render nodes
 
-  #Create the mia_material + shading group
+  # Create the mia_material + shading group
   dome_mia_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='sequence_mia_material_x_passesSG' )
   
-  #Create a mia_material_x_passes shader
+  # Create a mia_material_x_passes shader
   dome_mia_shader_name = cmds.shadingNode( 'mia_material_x_passes', n='sequence_mia_material_x_passes', asShader=True)  
 
-  #Create a mia_material shader
+  # Create a mia_material shader
   #dome_mia_shader_name = cmds.shadingNode( 'mia_material', n='dome_mia_material', asShader=True)   
 
-  #Apply the shading group to the selected geometry
+  # Apply the shading group to the selected geometry
   if object_selection:
     print("Applying the "+dome_mia_shader_name+" surface material to:")
     for obj in object_selection: 
@@ -1581,7 +1591,7 @@ def createColorImageSequenceMiaMaterial():
   cmds.connectAttr(dome_mia_shader_name+'.message', dome_mia_shader_group_name+'.miMaterialShader', f=True)
 
   #-----------------------------------------------------------------------
-  #Start the sequence animation code here
+  # Start the sequence animation code here
   #-----------------------------------------------------------------------
 
   #---------------------------------------------------------------------------
@@ -1591,7 +1601,7 @@ def createColorImageSequenceMiaMaterial():
   createMentalrayTextureExtraAttrs(color_mr_tex, ColorMapFileTexture)
 
   #-----------------------------------------------------------------------
-  #Select the original objects
+  # Select the original objects
   #-----------------------------------------------------------------------
   """
   if object_selection:
@@ -1606,12 +1616,12 @@ def createColorImageSequenceMiaMaterial():
     cmds.select(color_mr_tex, r=True)
   """
 
-  #Select the File Texture node in the attribute editor
+  # Select the File Texture node in the attribute editor
   cmds.select(color_mr_tex, r=True)
   mel.eval ( ' showEditorExact("' + color_mr_tex + '") ' )
 
   #-----------------------------------------------------------------------
-  #output the name of the new fileTexture node
+  # Output the name of the new fileTexture node
   return color_mr_tex
 
 
@@ -1631,27 +1641,27 @@ def createHybridColorImageSequenceMiaMaterial():
   forceMentalRayLoad()
 
   # Texture variables
-  #Set the file texture variables to "" if you don't want a file to be specified
+  # Set the file texture variables to "" if you don't want a file to be specified
   #ColorMapFileTexture = ""
 
   ColorMapFileTexture = getSourceImagesPath("checker.iff")
   #ColorMapFileTexture = getSourceImagesPath("checker")
 
-  #Get the selected geometry
+  # Get the selected geometry
   object_selection = cmds.ls(sl=True)
 
   # Create the render nodes
 
-  #Create the mia_material + shading group
+  # Create the mia_material + shading group
   dome_mia_shader_group_name = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='sequence_mia_material_x_passesSG' )
   
-  #Create a mia_material_x_passes shader
+  # Create a mia_material_x_passes shader
   dome_mia_shader_name = cmds.shadingNode( 'mia_material_x_passes', n='sequence_mia_material_x_passes', asShader=True)  
 
-  #Create a mia_material shader
+  # Create a mia_material shader
   #dome_mia_shader_name = cmds.shadingNode( 'mia_material', n='dome_mia_material', asShader=True)   
 
-  #Apply the shading group to the selected geometry
+  # Apply the shading group to the selected geometry
   if object_selection:
     print("Applying the "+dome_mia_shader_name+" surface material to:")
     for obj in object_selection: 
@@ -1669,7 +1679,7 @@ def createHybridColorImageSequenceMiaMaterial():
   materialNamePrefix = 'sequence_'
   maya_tex = cmds.shadingNode( 'file', n=materialNamePrefix+'maya_file_texture', asTexture=True) 
 
-  #Create the Lambert in-scene preview material
+  # Create the Lambert in-scene preview material
   preview_shader_name = cmds.shadingNode( 'lambert', n=materialNamePrefix+'preview_material', asShader=True) 
   maya_placement = cmds.shadingNode( 'place2dTexture', n=materialNamePrefix+'place2dTexture', asUtility=True)
 
@@ -1760,7 +1770,7 @@ def createHybridColorImageSequenceMiaMaterial():
   createMentalrayTextureExtraAttrs(color_mr_tex, ColorMapFileTexture)
 
   #-----------------------------------------------------------------------
-  #Select the original objects
+  # Select the original objects
   #-----------------------------------------------------------------------
   """
   if object_selection:
@@ -1775,7 +1785,7 @@ def createHybridColorImageSequenceMiaMaterial():
     cmds.select(color_mr_tex, r=True)
   """
 
-  #Select the File Texture node in the attribute editor
+  # Select the File Texture node in the attribute editor
   cmds.select(color_mr_tex, r=True)
   mel.eval ( ' showEditorExact("' + color_mr_tex + '") ' )
 
@@ -1784,19 +1794,19 @@ def createHybridColorImageSequenceMiaMaterial():
   cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', displayTextures=True)
   
   #-----------------------------------------------------------------------
-  #output the name of the new fileTexture node
+  # Output the name of the new fileTexture node
   return color_mr_tex
 
 
 
-#Add extra attributes for animation to a mentalrayTexture node
+# Add extra attributes for animation to a mentalrayTexture node
 # Usage: createMentalrayTextureExtraAttrs("color_mentalrayTexture1", "fileTextureName")
 def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   import maya.cmds as cmds
   import maya.mel as mel
 
   # Texture variables
-  #Set the file texture variables to "" if you don't want a file to be specified
+  # Set the file texture variables to "" if you don't want a file to be specified
   #ColorMapFileTexture = ""
   
   #ColorMapFileTexture = getSourceImagesPath("NightSky_Domemaster.exr")
@@ -1809,9 +1819,9 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   baseNodeName = color_mr_tex
 
   #---------------------------------------------------------------------------
-  #Add a folder picker using the -usedAsFilename flag
+  # Add a folder picker using the -usedAsFilename flag
   #---------------------------------------------------------------------------
-  #Check if we are running Maya 2013+ and then enable the usedAsFilename mode
+  # Check if we are running Maya 2013+ and then enable the usedAsFilename mode
   mayaVersion = getMayaVersionDome()  
 
   if (mayaVersion >= 2013):
@@ -1826,7 +1836,7 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
     print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
 
   #---------------------------------------------------------------------------
-  #Add an Image Format options menu with a list of mentalrayTexture compatible image types
+  # Add an Image Format options menu with a list of mentalrayTexture compatible image types
   #---------------------------------------------------------------------------
   
   attrName = 'Image_Format'
@@ -1839,7 +1849,7 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   #defaultValue of 8 = exr
 
   #---------------------------------------------------------------------------
-  #Add a frame/animation extension options menu
+  # Add a frame/animation extension options menu
   #---------------------------------------------------------------------------
   
   attrName = 'Frame_Animation_Ext'
@@ -1850,7 +1860,7 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
 
   #---------------------------------------------------------------------------
-  #Add a frame padding attribute to choose how many leading zeros are on the filename's frame number section.
+  # Add a frame padding attribute to choose how many leading zeros are on the filename's frame number section.
   #---------------------------------------------------------------------------
   
   attrName = 'Frame_Padding';
@@ -1858,7 +1868,7 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
 
   #---------------------------------------------------------------------------
-  #Add a frame offset attribute to allow to the animated image's frame number to be offset ahead or behind the timeline's current frame value.
+  # Add a frame offset attribute to allow to the animated image's frame number to be offset ahead or behind the timeline's current frame value.
   #---------------------------------------------------------------------------
   
   attrName = 'Frame_Offset';
@@ -1866,12 +1876,12 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
 
   #---------------------------------------------------------------------------  
-  #Add a textureAnimation mode expression to the mentalrayTexture node
+  # Add a textureAnimation mode expression to the mentalrayTexture node
   #---------------------------------------------------------------------------
 
   exprName = ""
   animationAttrName = "Animation"
-  #The expression name is domeGrid_displayModeExpr
+  # The expression name is domeGrid_displayModeExpr
   exprName = color_mr_tex + "_" + animationAttrName + "Expr"
 
   animationNameExpr  = ""
@@ -2066,17 +2076,17 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   animationNameExpr += "  return $finalFrameName;\n"
   animationNameExpr += "}"
 
-  #Debug print the expression script output
+  # Debug print the expression script output
   print (color_mr_tex + " Extra Attribute Expressions:\n")
   print animationNameExpr
 
-  #Create the final assembled expression and attach it to the mentalrayTexture node object
+  # Create the final assembled expression and attach it to the mentalrayTexture node object
   cmds.expression( name=exprName, string=animationNameExpr, object=color_mr_tex, alwaysEvaluate=True, unitConversion=all)
 
-  #Set the Image Name value for the first time in case the Frame_Animation_Ext option is set to #7 Native Image Name (Passthrough)
+  # Set the Image Name value for the first time in case the Frame_Animation_Ext option is set to #7 Native Image Name (Passthrough)
   cmds.setAttr(color_mr_tex + ".fileTextureName",  fileTextureName, type="string")
 
-  #Force the new expression to evaluate once to update the mentalrayTexture filename field:
+  # Force the new expression to evaluate once to update the mentalrayTexture filename field:
   cmds.getAttr(exprName+'.evaluateNow')
 
   #---------------------------------------------------------------------------
@@ -2085,10 +2095,10 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
 
   noteMessage = "The mentalrayTexture based Extra Attribute image sequence feature requires this scene to be rendered with a single frame job distribution mode in your render farm / render queue software. This means the sequence should be rendered with 1 frame per render slice so Maya's Render.exe program will load a new texture for each frame of the animation."
 
-  #Write to the attribute editor note field
+  # Write to the attribute editor note field
   noteCommandString = 'setNotesAttribute( \"' + color_mr_tex + '\", "notes", "nts", "string", `scrollField -edit -text \"' + noteMessage + '\" AENotesScrollField`)'
 
-  #Write to the attribute editor note field
+  # Write to the attribute editor note field
   mel.eval(noteCommandString) 
   #print( noteCommandString )
 
@@ -2109,7 +2119,7 @@ def forceMentalRayLoad():
   #else:
   #  print("The Mental Ray plugin is already active.")
 
-  #Set the active renderer to mental ray to avoid Hypershade red node errors 
+  # Set the active renderer to mental ray to avoid Hypershade red node errors 
   #mel.eval("setCurrentRenderer mentalRay")
   #or
   melRunString = 'import maya.mel as mel \n'
@@ -2118,19 +2128,19 @@ def forceMentalRayLoad():
   cmds.evalDeferred(melRunString)
   
 
-#Check what version of Maya is active
+# Check what version of Maya is active
 def getMayaVersionDome():
   import maya.cmds as cmds
   import maya.mel as mel
 
-  #Check if we are running Maya 2011 or higher
+  # Check if we are running Maya 2011 or higher
   mayaVersion = mel.eval("getApplicationVersionAsFloat;")
 
   #Debug Test Mode
-  #Test this GUI using the Maya 2010 - non-docked GUI mode
+  # Test this GUI using the Maya 2010 - non-docked GUI mode
   #mayaVersion = 2010;
 
-  #Write out the current Maya version number
+  # Write out the current Maya version number
   print("Maya " + str(mayaVersion) + " detected.\n")
   
   return mayaVersion

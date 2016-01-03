@@ -7,11 +7,18 @@
   
   A Bradbury alignment grid is included for viewing calibrated fulldome imagery.
   
+  To use the Dome Viewer run the following MEL commands:
+  source "domeViewer.mel";
+  domeViewer();
+  
+  
   Version 1.9.2
   -------------
   2016-01-03
   
-  Added GearVR Mono Cube Support
+  Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+  Changed the DomeViewer "Show Focal Length in HUD" default state to off
+  Added a new DomeViewer "Connect Alpha Channel" checkbox to the Extra Controls section of the GUI. This checkbox tells the DomeViewer to connect the alpha channel from the DomeViewer loaded imagery to the surface material node. Th new "Connect Alpha Channel" checkbox is disabled by default so imagery with transparent mental ray rendered physical sky and sun and IBL based environment backdrops can be viewed in the viewport and you will still see the sky background.
   
   Version 1.7
   -------------
@@ -28,7 +35,7 @@
   July 7, 2014
 
   Updated file dialog list filter for .exr and .avi files.
-  Updated the lat long, Fulldome, and Angular 360 degree meshes for better UV mapping at the poles
+  Updated the LatLong, Fulldome, and Angular 360 degree meshes for better UV mapping at the poles
   Added a time control for adjusting the frame rate.
   Added an improved all quads based fulldome mesh with no pinch point, and 1:1, 4:3, and 16:9 ratio backgrounds
 
@@ -83,11 +90,7 @@
   /Applications/Domemaster3D/sourceimages/fulldome_2K.jpg
   
   Todo:
-  Auto replace the image field's windows \ forward directory slashes with UNIX / backward directory slashes
-
-  To use the Dome Viewer run the following MEL commands:
-  source "domeViewer.mel";
-  domeViewer();
+  Auto replace the image field's Windows based "\" forward directory slashes with UNIX "/" backward directory slashes
   
 */
 
@@ -705,6 +708,15 @@ global proc domeViewer(){
       columnLayout 
         //-width $domeWindowWidth
         -adjustableColumn true;  
+        
+        checkBoxGrp
+          -numberOfCheckBoxes 1
+          -label ""
+          -label1 "Connect Alpha Channel"
+          -value1 0
+          -annotation 
+          "Connect the alpha channel from the DomeViewer loaded imagery to the surface material. This is typically disabled so imagery with transparent mental ray rendered physical sky and sun environment backdrops can be viewed in the viewport."
+          checkGrpDomeViewerConnectAlpha;
 
         checkBoxGrp
           -numberOfCheckBoxes 1
@@ -737,7 +749,7 @@ global proc domeViewer(){
           -numberOfCheckBoxes 1
           -label ""
           -label1 "Show Focal Length in HUD"
-          -value1 1
+          -value1 0
           -annotation 
           "Display the current focal length in the HUD (Heads Up Display)."
           checkGrpDomeViewerFocalLength;

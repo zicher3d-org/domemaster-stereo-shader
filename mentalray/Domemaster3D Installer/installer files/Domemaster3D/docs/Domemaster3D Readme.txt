@@ -278,7 +278,10 @@ Version 1.9.2
 2016-01-03
 
 Maya
-  Added GearVR Mono Cube support to the Dome Viewer, and a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma"
+  Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+  Changed the DomeViewer "Show Focal Length in HUD" default state to off
+  Added a new DomeViewer "Connect Alpha Channel" checkbox to the Extra Controls section of the GUI. This checkbox tells the DomeViewer to connect the alpha channel from the DomeViewer loaded imagery to the surface material node. Th new "Connect Alpha Channel" checkbox is disabled by default so imagery with transparent mental ray rendered physical sky and sun and IBL based environment backdrops can be viewed in the viewport and you will still see the sky background.
+
   Updated the Dome Diagnostics tool to add detection for the environment variable "PYMEL_SKIP_MEL_INIT"
   Updated the Dome Diagnostics tool to add detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var
   

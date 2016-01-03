@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.9.2
-  2015-11-26 
+  2015-01-03
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -13,9 +13,10 @@
   
   Version V1.9.2
   --------------------
-  2015-11-26
+  2015-01-03
 
-  Added detection for the environment variable "PYMEL_SKIP_MEL_INIT".
+  Added detection for the environment variable "PYMEL_SKIP_MEL_INIT"
+  Added detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var
   
   
   Version V1.9.1
@@ -841,6 +842,9 @@ global proc domeDiagnostics(){
       case 15:
         $panoramaFormatString = "Perspective";
         break;
+      case 16:
+        $panoramaFormatString = "Gear VR Mono Cube";
+        break; 
     }  
   }
   

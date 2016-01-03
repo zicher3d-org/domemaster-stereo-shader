@@ -72,6 +72,7 @@ Version 1.9.2
 Maya
   Added GearVR Mono Cube support to the Dome Viewer, and a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma"
   Updated the Dome Diagnostics tool to add detection for the environment variable "PYMEL_SKIP_MEL_INIT"
+  Updated the Dome Diagnostics tool to add detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var
   
 Version 1.9.1
 -------------

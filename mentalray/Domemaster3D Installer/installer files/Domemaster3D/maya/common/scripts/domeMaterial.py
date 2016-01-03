@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.9
-2015-08-21
+Dome Material Script V1.9.2
+2016-01-03
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -15,6 +15,12 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+Version 1.9.2
+-------------
+2016-01-03
+
+Added GearVR Mono Cube Support
 
 Version 1.8
 -------------
@@ -137,19 +143,11 @@ Created first python script to create a domeAFL mental ray shading network
 Installation instructions
 
 Step 1.
-Place the python scripts "domeMaterial.py" and "__init__.py" 
-in your Maya scripts folder.
-
-Step 2.
-Copy the file textures bumpChecker.iff & checker.iff into your 
-current Maya project's sourceimages folder.
-
-Step 3.
 Source the python script in Maya using the python command:
 import domeMaterial as domeMaterial
 
-Step 4.
-Test your current domeAFL python script installation using the python command:
+Step 2.
+Test your current python script installation using the python command:
 import domeMaterial as domeMaterial
 reload(domeMaterial)
 domeMaterial.createColorBumpMiaMaterial()
@@ -224,7 +222,8 @@ domeMaterial.forceMentalRayLoad()
 Create a Starglobe
 A python function to create a 8K textured starglobe with a mental ray native mia_material_x_passes shading network.
 
-The starglobe meshes are stored in the /Program Files/Domemaster3D/sourceimages folder.
+The starglobe meshes are stored in the folder:
+C:/Program Files/Domemaster3D/sourceimages
 
 Run using the command:
 import domeMaterial as domeMaterial
@@ -236,7 +235,8 @@ domeMaterial.createStarglobe()
 Create a Dome Viewer
 A python function to create a fulldome image viewer with an incandescent lambert based shading network.
 
-The domeViewer mesh is stored in the /Program Files/Domemaster3D/sourceimages folder.
+The domeViewer mesh is stored in the folder:
+C:/Program Files/Domemaster3D/sourceimages
 
 Run using the command:
 import domeMaterial as domeMaterial
@@ -992,6 +992,10 @@ def createDomeViewer():
     #Quadsphere
     meshName = 'polyStarglobe'
     meshFileName = 'starglobe_mesh'
+  elif ( currentPanoFormat == 17 ):
+    #GearVR Mono Cube
+    meshName = 'gearVRMono'
+    meshFileName = 'gearVRCube_mesh'
   
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya

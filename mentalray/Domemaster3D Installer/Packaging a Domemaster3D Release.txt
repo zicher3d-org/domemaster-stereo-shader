@@ -40,7 +40,7 @@ This is the Domemaster3D Shader v1.9 release for Maya + 3DS Max on Windows 64-bi
 
 vX.XM
 Domemaster3D vX.X for Maya on Mac OS X
-This is the Domemaster3D Shader v1.9 release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D folder.
+This is the Domemaster3D Shader v1.9 release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
 
 vX.XL
 Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux
@@ -48,6 +48,5 @@ This is the Domemaster3D Shader vX.X manual install release for Maya + 3DS Max +
 
 
 Step 5. Update the GitHub based Version History Wiki page with the details from the Domemaster3D Readme-Short.txt file:
-
 https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Version-History
 

@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 1.9.1 - October 15, 2015
+Version 1.9.2 - January 3, 2016
 
 ## Render Farm Note ## 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
@@ -9,7 +9,6 @@ If you are running a commercial render farm service that offers Domemaster3D ren
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /opt/Domemaster3D/
-
 
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 

@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.9.1 - October 15, 2015
+Version 1.9.2 - January 3, 2016
 
 About This Shader
 ---------------------
@@ -266,7 +266,6 @@ http://thefulldomeblog.com/2013/07/30/customizing-a-close-up-sun/
 http://thefulldomeblog.com/2013/07/03/creating-a-star-field/
 http://thefulldomeblog.com/2013/08/20/the-nebula-challenge/
 
-
 Martin Watt for writing the original galaxies.mel script.
 
 -----------------------------------------------------------------------
@@ -274,6 +273,14 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 1.9.2
+-------------
+2016-01-03
+
+Maya
+  Added GearVR Mono Cube support to the Dome Viewer, and a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma"
+  Updated the Dome Diagnostics tool to add detection for the environment variable "PYMEL_SKIP_MEL_INIT"
+  
 Version 1.9.1
 -------------
 2015-10-15

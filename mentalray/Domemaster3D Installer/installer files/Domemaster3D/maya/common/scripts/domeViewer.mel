@@ -474,7 +474,7 @@ global proc domeViewer(){
     
       optionMenuGrp
         -label "Media Type" 
-       -annotation "Choose the type of media you want to load in the viewer"
+        -annotation "Choose the type of media you want to load in the viewer"
         menuDomeViewerMediaType;
         
       menuItem -label "Still Image";
@@ -529,8 +529,7 @@ global proc domeViewer(){
           -label "Image Name"
           -text $imageFilePath
           -adjustableColumn 2
-          -annotation 
-          "Choose an image in the PNG, TIFF, IFF, EXR, TGA, JPG, BMP or PSD image formats. \nYou can also choose a video file in either the .avi movie format on Windows, or \na Quicktime .mov, or .qt video on Mac OS X. By clicking on the folder \nicon you can choose an existing file on your hard drive."
+          -annotation "Choose an image in the PNG, TIFF, IFF, EXR, TGA, JPG, BMP or PSD image formats. \nYou can also choose a video file in either the .avi movie format on Windows, or \na Quicktime .mov, or .qt video on Mac OS X. By clicking on the folder \nicon you can choose an existing file on your hard drive."
           textDomeViewerImageOutputName;
           
         symbolButton 
@@ -714,8 +713,7 @@ global proc domeViewer(){
           -label ""
           -label1 "Connect Alpha Channel"
           -value1 0
-          -annotation 
-          "Connect the alpha channel from the DomeViewer loaded imagery to the surface material. \nThis is typically disabled so imagery with transparent mental ray rendered physical \nsky and sun environment backdrops can be viewed in the viewport."
+          -annotation "Connect the alpha channel from the DomeViewer loaded imagery to the surface material. \nThis is typically disabled so imagery with transparent mental ray rendered physical \nsky and sun environment backdrops can be viewed in the viewport."
           checkGrpDomeViewerConnectAlpha;
 
         checkBoxGrp
@@ -723,8 +721,7 @@ global proc domeViewer(){
           -label ""
           -label1 "Bradbury Alignment Grid"
           -value1 0
-          -annotation 
-          "Add a transparent dome grid overlay to the dome viewer. You can control the visibility and \ntransparency of the grid by selecting the domeViewerGrid object's transform node in the \noutliner and editing the values in the Attribute Editor's Extra Attributes section."
+          -annotation "Add a transparent dome grid overlay to the dome viewer. You can control the visibility and \ntransparency of the grid by selecting the domeViewerGrid object's transform node in the \noutliner and editing the values in the Attribute Editor's Extra Attributes section."
           checkGrpDomeViewerGridlinesOverlay;
 
         checkBoxGrp
@@ -732,8 +729,7 @@ global proc domeViewer(){
           -label ""
           -label1 "Link Panorama to Camera"  
           -value1 1
-          -annotation 
-          "Point constrain the panoramic background to the viewer camera. This checkbox will link the \npanoramic background's transform so it follows the camera's motion, while allowing the camera \nview to freely tumble and roll in the viewport."
+          -annotation "Point constrain the panoramic background to the viewer camera. This checkbox will link the \npanoramic background's transform so it follows the camera's motion, while allowing the camera \nview to freely tumble and roll in the viewport."
           checkGrpDomeViewerPointConstrain;
           
         /*
@@ -751,8 +747,7 @@ global proc domeViewer(){
           -label ""
           -label1 "Show Focal Length in HUD"
           -value1 0
-          -annotation 
-          "Display the current focal length in the HUD (Heads Up Display)."
+          -annotation "Display the current focal length in the HUD (Heads Up Display)."
           checkGrpDomeViewerFocalLength;
         
         checkBoxGrp
@@ -760,8 +755,7 @@ global proc domeViewer(){
           -label ""
           -label1 "Flip the Panoramic Image"
           -value1 0
-          -annotation 
-          "This checkbox causes a mirror effect on the panoramic image by\n flipping the panoramic texture so you are viewing the texture\n map as if it was an environmental reflection map viewed from\n the outside. This effect is done by scaling the domeViewer\n shape (scaleX * -1)."
+          -annotation "This checkbox causes a mirror effect on the panoramic image by\n flipping the panoramic texture so you are viewing the texture\n map as if it was an environmental reflection map viewed from\n the outside. This effect is done by scaling the domeViewer\n shape (scaleX * -1)."
           checkGrpDomeViewerFlipScale;
         
         
@@ -781,8 +775,7 @@ global proc domeViewer(){
       
     button
       -label "Load Image in Render View"
-      -annotation 
-      "This button loads the current image that is listed in the \"Image Name\" text field in the Render View\n window. The image is auto sized to fit the window size. You can view the image at the native resolution \nby pressing the 1:1 button in the Render View."
+      -annotation "This button loads the current image that is listed in the \"Image Name\" text field in the Render View\n window. The image is auto sized to fit the window size. You can view the image at the native resolution \nby pressing the 1:1 button in the Render View."
       -command "loadDomeViewerImageInRenderView()"; 
       
   setParent ..;

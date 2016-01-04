@@ -17,6 +17,11 @@ enum {
   pb_flip_y,
   pb_neck_offset,
   pb_zenithfov,
+  pb_poles_corr,
+  pb_poles_corr_start,
+  pb_poles_corr_end,
+  pb_horiz_neck,
+  pb_parall_cams,
   pb_fov
 };
 

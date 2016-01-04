@@ -1,8 +1,8 @@
 /**********************************************************************
   FILE: vraydomemasterstereo.cpp
   
-  vray DomemasterStereo Shader v0.5
-  2015-04-30
+  vray DomemasterStereo Shader v0.8
+  2016-01-04
 
   Ported to Vray 3.0 by Andrew Hazelden/Roberto Ziche
   Based upon the mental ray shader domeAFL_FOV_Stereo by Roberto Ziche
@@ -12,8 +12,9 @@
   [rz] Bool parameters (from int)
   [rz] Remove pb_fov (pb2 enum)
   [rz] Adjust default parameter values based on scene units?
-  [rz] Black outer frame.
-          Return false by GetScreenRay() does not work. Ray computed no matter what. Should render black.
+  [rz] Black outer frame. Return false by GetScreenRay() does not work. Ray computed no matter what. Should render black.
+  [rz] enable/disable controls - adjust start/end angles in UI
+  [rz] Use parallax distance to draw cam target
 
 **********************************************************************/
 
@@ -102,6 +103,8 @@ class VRayCamera: public GenCamera, public VR::VRayCamera {
   VR::PinholeCamera camera;
   VR::VRayRenderer *vray;
 
+  VR::Vector poleTarget;
+
 public:
   IParamBlock2 *pblock;
 
@@ -120,6 +123,11 @@ public:
   float neck_offset;
   int   flip_x;
   int   flip_y;
+  bool  horiz_neck;
+  bool  poles_corr;
+  float poles_corr_start = 0.785f;
+  float poles_corr_end = 1.483f;
+  bool  parallel_cams;
 
   // Constructor/destructor
   VRayCamera(void);
@@ -446,6 +454,38 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
     p_tooltip, "Flip Y",
   PB_END,
 
+  pb_poles_corr, _FT("poles_corr"), TYPE_BOOL, 0, IDS_DLG_POLES_CORR,
+    p_default, TRUE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_POLES,
+    p_tooltip, "Poles Correction",
+  PB_END,
+
+  pb_poles_corr_start, _FT("poles_corr_start"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_POLES_ST,
+    p_default, 0.785398163397448,   // 45 deg
+    p_range, 0.0f, 90.0f,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_POLEST_EDIT, IDC_POLEST_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Poles Correction Start Angle",
+  PB_END,
+
+  pb_poles_corr_end, _FT("poles_corr_end"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_POLES_EN,
+    p_default, 1.48352986419518,   // 85 deg
+    p_range, 45.0f, 90.0f,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_POLEEN_EDIT, IDC_POLEEN_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Poles Correction End Angle",
+  PB_END,
+
+  pb_horiz_neck, _FT("horiz_neck"), TYPE_BOOL, 0, IDS_DLG_HORIZ_NECK,
+    p_default, FALSE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_HORIZN,
+    p_tooltip, "Horizontal Neck",
+  PB_END,
+
+  pb_parall_cams, _FT("parall_cams"), TYPE_BOOL, 0, IDS_DLG_PARALL_CAMS,
+    p_default, TRUE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_PARALL,
+    p_tooltip, "Parallel Cameras",
+  PB_END,
+
 PB_END
 );
 
@@ -712,7 +752,7 @@ void VRayCamera::buildMesh(void) {
   mesh.setVert(8+7, Point3(  f,  f, len+l));
 
   Face* fbase = &mesh.faces[12];
-  MakeQuad(&fbase[0],0,2,3,1,   1, 8);
+  MakeQuad(&fbase[0], 0,2,3,1,  1, 8);
   MakeQuad(&fbase[2], 2,0,4,6,  2, 8);
   MakeQuad(&fbase[4], 3,2,6,7,  4, 8);
   MakeQuad(&fbase[6], 1,3,7,5,  8, 8);
@@ -784,6 +824,22 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
   vertical_mode = pblock->GetInt(pb_vertical_mode, t);
   flip_x = pblock->GetInt(pb_flip_x, t);
   flip_y = pblock->GetInt(pb_flip_y, t);
+
+  horiz_neck = pblock->GetInt(pb_horiz_neck, t);;
+  poles_corr = pblock->GetInt(pb_poles_corr, t);;
+  poles_corr_start = pblock->GetFloat(pb_poles_corr_start, t);
+  poles_corr_end = pblock->GetFloat(pb_poles_corr_end, t);
+  parallel_cams = pblock->GetInt(pb_parall_cams, t);
+
+  // check poles corr angles
+  if (poles_corr_end < poles_corr_start)
+    poles_corr_end = poles_corr_start;
+
+  // calculate vector to tilted dome pole
+  poleTarget.x = 0.0f;
+  poleTarget.y = (float)(sin(forward_tilt));
+  poleTarget.z = (float)(-cos(forward_tilt));
+
   //fov=pblock->GetFloat(pb_fov, fdata.t);
   fov = 1.0; // fov_angle/ 2.0f; // [rz] testing only. Need better approximation formula.
   targetDist = GetTDist((TimeValue) fdata.t);
@@ -810,7 +866,7 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
   double r, phi, theta, rot, tmp, tmpY, tmpZ;
   double sinP, cosP, sinT, cosT, sinR, cosR, sinD, cosD;
 
-  VR::Vector org, ray, target, htarget;
+  VR::Vector org, ray, target, htarget, neckTarget;
 
   // Head tilt transform matrix
   VR::Matrix tilt(1);
@@ -842,12 +898,20 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
     target.x = (float)(sinP * sinT);
     target.y = (float)(-cosP * sinT);
     target.z = (float)(-cosT);
+    if (horiz_neck) {
+      neckTarget.x = (float)sinP;
+      neckTarget.y = (float)-cosP;
+      neckTarget.z = 0.0f;
+    }
+    else
+      neckTarget = target;
 
     // Camera selection and initial position
     // 0=center, 1=Left, 2=Right
     if (stereo_camera != CENTERCAM) {
 
       float separation_mult = 1.0f;
+      float separation_mult_auto = 1.0f;
       float head_turn_mult = 1.0f;
       float head_tilt = 0.5f;
 
@@ -875,6 +939,29 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
         head_tilt = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
       }
 
+      // Additional automatic separation fade
+      if (poles_corr && !vertical_mode) {
+        float tmpTheta;
+        if (tilt_compensation) {
+          // angle between target vector and tilted dome pole vector
+          tmpTheta = acos(target*poleTarget);
+          tmpTheta = abs(DOME_PIOVER2 - tmpTheta);
+        } else {
+          // angle from zenith
+          tmpTheta = abs(DOME_PIOVER2 - theta);
+        }
+        if (tmpTheta > poles_corr_start) {
+          if (tmpTheta < poles_corr_end) {
+            float fadePos = (tmpTheta - poles_corr_start) / (poles_corr_end - poles_corr_start);
+            separation_mult_auto = (cos(fadePos*DOME_PI) + 1.0f) / 2.0f;
+          }
+          else
+            separation_mult_auto = 0.0f;
+        }
+      }
+      // combine both separation values
+      separation_mult *= separation_mult_auto;
+
       // camera selection and initial position
       if (stereo_camera == LEFTCAM) {
         org.x = (float)(-separation * separation_mult / 2.0);
@@ -883,8 +970,9 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
         org.x = (float)(separation * separation_mult / 2.0);
       }
 
-      // Tilted dome mode ON
       if(tilt_compensation) {
+        // Tilted dome mode ON
+
         // head rotation
         tmpY = target.y * cos(-forward_tilt) - target.z * sin(-forward_tilt);
         tmpZ = target.z * cos(-forward_tilt) + target.y * sin(-forward_tilt);
@@ -977,12 +1065,17 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
       org = org * tilt;
       
       // Adjust org for Neck offset
-      org = org + target * neck_offset;
+      org = org + neckTarget * neck_offset;
 
       // Compute ray from camera to target
-      target *= parallax_distance;
-      ray = target - org;
-      ray = normalize(ray);
+      if (parallel_cams) {
+        ray = target;
+      }
+      else {
+        target *= parallax_distance;
+        ray = target - org;
+        ray = normalize(ray);
+      }
 
     } else {
 

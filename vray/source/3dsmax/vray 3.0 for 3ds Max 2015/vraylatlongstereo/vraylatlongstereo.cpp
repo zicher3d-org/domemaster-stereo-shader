@@ -904,7 +904,11 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
 
     // Additional automatic separation fade
     if (poles_corr) {
-      float tmpTheta = abs(theta);
+      float tmpTheta;
+      if (zenith_mode)
+        tmpTheta = abs(DOME_PIOVER2 - theta);
+      else 
+        tmpTheta = abs(theta);
       if (tmpTheta > poles_corr_start) {
         if (tmpTheta < poles_corr_end) {
           float fadePos = (tmpTheta - poles_corr_start) / (poles_corr_end - poles_corr_start);

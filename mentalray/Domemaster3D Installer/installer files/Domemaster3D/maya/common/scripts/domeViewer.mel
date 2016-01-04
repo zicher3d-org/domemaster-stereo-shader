@@ -1,6 +1,6 @@
 /*
   Dome Viewer V1.9.2
-  2016-01-03
+  2016-01-04
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
@@ -14,7 +14,7 @@
   
   Version 1.9.2
   -------------
-  2016-01-03
+  2016-01-04
   
   Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
   Changed the DomeViewer "Show Focal Length in HUD" default state to off
@@ -715,7 +715,7 @@ global proc domeViewer(){
           -label1 "Connect Alpha Channel"
           -value1 0
           -annotation 
-          "Connect the alpha channel from the DomeViewer loaded imagery to the surface material. This is typically disabled so imagery with transparent mental ray rendered physical sky and sun environment backdrops can be viewed in the viewport."
+          "Connect the alpha channel from the DomeViewer loaded imagery to the surface material. \nThis is typically disabled so imagery with transparent mental ray rendered physical \nsky and sun environment backdrops can be viewed in the viewport."
           checkGrpDomeViewerConnectAlpha;
 
         checkBoxGrp
@@ -732,7 +732,8 @@ global proc domeViewer(){
           -label ""
           -label1 "Link Panorama to Camera"  
           -value1 1
-          -annotation "Point constrain the panoramic background to the viewer camera. This checkbox will link the panoramic background's transform so it follows the camera's motion, while allowing the camera view to freely tumble and roll in the viewport."
+          -annotation 
+          "Point constrain the panoramic background to the viewer camera. This checkbox will link the \npanoramic background's transform so it follows the camera's motion, while allowing the camera \nview to freely tumble and roll in the viewport."
           checkGrpDomeViewerPointConstrain;
           
         /*

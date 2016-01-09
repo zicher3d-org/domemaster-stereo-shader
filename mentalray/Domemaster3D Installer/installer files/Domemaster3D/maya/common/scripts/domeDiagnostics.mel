@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.9.2
-  2016-01-05 
+  2016-01-09 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -13,56 +13,69 @@
   
   Version V1.9.2
   --------------------
-  2016-01-05 
+  2016-01-09 
+
+  Listed the path for the current Dome Diagnostics MEL script. This is helpful if there are multiple copies of the script installed on your system.
 
   Added support for the following Maya environment variables:
-    PYMEL_SKIP_MEL_INIT
-    MAYA_TEXTURED_SCULPT
+    
+    ALIAS_RENDER_LIB_PATH
+    BIFROST_LOCATION
     ENABLE_DEFAULT_VIEWPORT_CAMERA_SETS
-    MAYA_VR_PER_SHAPE_ATTR
-    MAYA_BG_DEPTH_IMAGE
-    MAYA_ENABLE_VP2_SHAPE_INSTANCING
-    MAYA_OGS_DEVICE_OVERRIDE
-    MAYA_VP2_DEVICE_OVERRIDE
-    MAYA_OFFSCREEN_HRB
-    MAYA_ENABLE_LEGACY_HYPERSHADE
-    MAYA_SHADER_LIBRARY_PATH
-    MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER
-    MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL
-    MAYA_PLUG_IN_RESOURCE_PATH
+    IMF_PLUG_IN_PATH
+    MAYA_ADSK_ASSET_LIBS
     MAYA_BATCH_RENDERING_STOPS_ON_ERROR
+    MAYA_BG_DEPTH_IMAGE
     MAYA_BIFROST_COMPOUNDS
-    ONECLICK_TEMP_DIR
-    ONECLICK_SELECT_WHOLE_CHARACTER
-    ONECLICK_KEEP_TEMP_FILES
-    MAYA_PSEUDOTRANS_MODE
-    MAYA_DISABLE_VP2_WHEN_POSSIBLE
-    MAYA_TESTING_CLEANUP
     MAYA_COLOR_MANAGEMENT_POLICY_FILE
     MAYA_COLOR_MANAGEMENT_POLICY_LOCK
-    MAYA_REAL_WORLD_SIZE
-    WINEDITOR
-    MAYA_UI_LANGUAGE
-    MAYA_PROJECTS_DIR
-    MAYA_PROJECT
-    MAYA_EXPOSE_FACADE_NODES
-    MAYA_ENABLE_LEGACY_RIGID
-    MAYA_ENABLE_CLASSIC_HAIR
-    MAYA_ENABLE_LEGACY_PARTICLES
-    MAYA_ADSK_ASSET_LIBS
-    ALIAS_RENDER_LIB_PATH
-    MAYA_NO_INITIAL_AUTOLOAD_MT
-    MAYA_HELP_URL
-    NEX_DRINIT_PATH
     MAYA_CUSTOM_TEMPLATE_PATH
-    
+    MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER
+    MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL
+    MAYA_DISABLE_VP2_WHEN_POSSIBLE
+    MAYA_ENABLE_CLASSIC_HAIR
+    MAYA_ENABLE_LEGACY_HYPERSHADE
+    MAYA_ENABLE_LEGACY_PARTICLES
+    MAYA_ENABLE_LEGACY_RIGID
+    MAYA_ENABLE_VP2_SHAPE_INSTANCING
+    MAYA_EXPOSE_FACADE_NODES
+    MAYA_FBX_PLUGIN_LOCATION
+    MAYA_HELP_URL
+    MAYA_NO_INITIAL_AUTOLOAD_MT
+    MAYA_OFFSCREEN_HRB
+    MAYA_OGS_DEVICE_OVERRIDE
+    MAYA_PLUG_IN_RESOURCE_PATH
+    MAYA_PROJECT
+    MAYA_PROJECTS_DIR
+    MAYA_PSEUDOTRANS_MODE
+    MAYA_REAL_WORLD_SIZE
+    MAYA_REVERSE_FILEFORMAT_EXT
+    MAYA_SCRIPT_BASE
+    MAYA_SHADER_LIBRARY_PATH
+    MAYA_TESTING_CLEANUP
+    MAYA_TEXTURED_SCULPT
+    MAYA_UI_LANGUAGE
+    MAYA_VP2_DEVICE_OVERRIDE
+    MAYA_VR_PER_SHAPE_ATTR
+    NEX_DRINIT_PATH
+    ONECLICK_KEEP_TEMP_FILES
+    ONECLICK_SELECT_WHOLE_CHARACTER
+    ONECLICK_TEMP_DIR
+    PYMEL_SKIP_MEL_INIT
+    QT_MAC_NO_NATIVE_MENUBAR
+    SUBSTANCES_LOCATION
+    WINEDITOR
+    XPC_SERVICE_NAME
+
+  
   Added support for the following Vray env vars:
+    VRAY_ADVANCED_UI
     VRAY_FOR_MAYA_DRLISTS_PATH
     VRAY_FOR_MAYA_DRPORT
     VRAY_FOR_MAYA2012_SKIP_NODE_CATEGORIZATION
-    VRAY_ADVANCED_UI
-    VRAY_OSL_PATH_MAYA2016_x64
     VRAY_OSL_PATH_MAYA2016_PowerPC
+    VRAY_OSL_PATH_MAYA2016_x64
+    VRAY_PATH
   
   Added detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var.
   
@@ -79,7 +92,8 @@
   The environment variable "MAYA_TESTING_CLEANUP" will suppress user confirmation dialogs during automated testing
   The environment variable "MAYA_NO_INITIAL_AUTOLOAD_MT" can be used to exclude the autoloading of plugins like xgenToolkit and xgenMR that were added in Maya 2014+.
   The environment variable "MAYA_CUSTOM_TEMPLATE_PATH" is used to define the path for the Maya 2016 XML property editor templates.
-  
+  The environment variable "XPC_SERVICE_NAME" is typically set to a value like "com.autodesk.Maya.2016.226948"
+  The environment variable "IMF_PLUG_IN_PATH" lists the folder path for the mental ray tools like imf_display. On Maya 2016 on Mac OS X it is set to "/Applications/Autodesk/mentalrayForMaya2016/bin/image"
   
   Version V1.9.1
   --------------------
@@ -603,6 +617,9 @@ global proc domeDiagnostics(){
   string $scriptString = `getenv "MAYA_SCRIPT_PATH"`;
   $domeDebugText += "### `MAYA_SCRIPT_PATH` ###\r\n> " + $scriptString + "\r\n\r\n";
 
+  string $scriptString = `getenv "MAYA_SCRIPT_BASE"`;
+  $domeDebugText += "### `MAYA_SCRIPT_BASE` ###\r\n> " + $scriptString + "\r\n\r\n";
+
   string $scriptString = `getenv "SHARED_MAYA_DIR"`;
   $domeDebugText += "### `SHARED_MAYA_DIR` ###\r\n> " + $scriptString + "\r\n\r\n";
 
@@ -633,16 +650,30 @@ global proc domeDiagnostics(){
   string $qtString = `getenv "QT_HIGHDPI_AWARE"`;
   $domeDebugText += "### `QT_HIGHDPI_AWARE` ###\r\n> " + $qtString + "\r\n\r\n";
 
+  string $qtString = `getenv "QT_MAC_NO_NATIVE_MENUBAR"`;
+  $domeDebugText += "### `QT_MAC_NO_NATIVE_MENUBAR` ###\r\n> " + $qtString + "\r\n\r\n";
+
   string $qtString = `getenv "MAYA_ALIEN_WIDGETS"`;
   $domeDebugText += "### `MAYA_ALIEN_WIDGETS` ###\r\n> " + $qtString + "\r\n\r\n";
 
   string $domeTempString = `getenv "MAYA_QUICKTIME_ENCODING_GAMMA"`;
   $domeDebugText += "### `MAYA_QUICKTIME_ENCODING_GAMMA` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  string $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
+  $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  string $domeTempString = `getenv "MAYA_FBX_PLUGIN_LOCATION"`;
+  $domeDebugText += "### `MAYA_FBX_PLUGIN_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  string $domeTempString = `getenv "MAYA_REVERSE_FILEFORMAT_EXT"`;
+  $domeDebugText += "### `MAYA_REVERSE_FILEFORMAT_EXT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  string $domeTempString = `getenv "XPC_SERVICE_NAME"`;
+  $domeDebugText += "### `XPC_SERVICE_NAME` ###\r\n> " + $domeTempString + "\r\n\r\n";
 
   string $domeTempString = `getenv "PYMEL_SKIP_MEL_INIT"`;
   $domeDebugText += "### `PYMEL_SKIP_MEL_INIT` ###\r\n> " + $domeTempString + "\r\n\r\n";
 
-  
   string $domeTempString = `getenv "MAYA_TEXTURED_SCULPT"`;
   $domeDebugText += "### `MAYA_TEXTURED_SCULPT` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The MAYA_TEXTURED_SCULPT environment variable is defined in the MEL file:
@@ -744,13 +775,7 @@ global proc domeDiagnostics(){
   // The MAYA_BATCH_RENDERING_STOPS_ON_ERROR environment variable is defined in the MEL file:
   // C:\Program Files\Autodesk\Maya2016\scripts\others\mayaBatchRenderProcedure.mel 
   
-  
-  string $domeTempString = `getenv "MAYA_BIFROST_COMPOUNDS"`;
-  $domeDebugText += "### `MAYA_BIFROST_COMPOUNDS` ###\r\n> " + $domeTempString + "\r\n\r\n";
-  // The MAYA_BIFROST_COMPOUNDS environment variable is defined in the MEL file:
-  // C:\Program Files\Autodesk\Maya2016\scripts\others\nodeEditorPanel.mel 
-  
-  
+
   string $domeTempString = `getenv "ONECLICK_TEMP_DIR"`;
   $domeDebugText += "### `ONECLICK_TEMP_DIR` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The ONECLICK_TEMP_DIR environment variable is defined in the MEL file:
@@ -773,6 +798,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MAYA_PSEUDOTRANS_MODE` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The MAYA_PSEUDOTRANS_MODE environment variable is defined in the MEL file:
   // C:\Program Files\Autodesk\Maya2016\scripts\others\pluginResourceUtil.mel
+  
   
   string $domeTempString = `getenv "MAYA_DISABLE_VP2_WHEN_POSSIBLE"`;
   $domeDebugText += "### `MAYA_DISABLE_VP2_WHEN_POSSIBLE` ###\r\n> " + $domeTempString + "\r\n\r\n";
@@ -898,6 +924,9 @@ global proc domeDiagnostics(){
   string $domeFOVString = `getenv "DOMEMASTER3D_MAYA_REALTIME_FOV"`;
   $domeDebugText += "### `DOMEMASTER3D_MAYA_REALTIME_FOV` ###\r\n> " + $domeFOVString + "\r\n\r\n";
 
+  string $domeDiagScriptPath = substituteAllString(`whatIs domeDiagnostics`, "Mel procedure found in: ", "");
+  $domeDebugText += "### `Dome Diagnostics Script Path` ###\r\n> " + $domeDiagScriptPath + "\r\n\r\n";
+
   //------------------------------------------------------------
 
 	// List the active ENV vars
@@ -979,6 +1008,10 @@ global proc domeDiagnostics(){
     // Used as a pipe to the mr renderer
     string $mrTextString = `getenv "MAYATOMR"`;
     $domeDebugText += "### `MAYATOMR` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+
+    string $mrTextString = `getenv "IMF_PLUG_IN_PATH"`;
+    $domeDebugText += "### `IMF_PLUG_IN_PATH` ###\r\n> " + $mrTextString + "\r\n\r\n";
 
     //------------------------------------------------------------
 
@@ -1341,6 +1374,9 @@ global proc domeDiagnostics(){
 
   $vrayString = `getenv "VRAY_AUTH_CLIENT_FILE_PATH"`;
   $domeDebugText += "### `VRAY_AUTH_CLIENT_FILE_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
+  
+  $vrayString = `getenv "VRAY_PATH"`;
+  $domeDebugText += "### `VRAY_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
 
   if ($mayaVersion == 2010){
       if(getMayaPlatform() == "darwin") {
@@ -1518,12 +1554,20 @@ global proc domeDiagnostics(){
   // Maya Bifrost
   
 	$domeDebugText += "##  BIFROST Environment Variables ##\r\n\r\n";
-  
+	
+  string $domeTempString = `getenv "BIFROST_LOCATION"`;
+  $domeDebugText += "### `BIFROST_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
   string $bifrostString = `getenv "BIFROST_ECHO_GEOSHADER"`;
 	$domeDebugText += "### `BIFROST_ECHO_GEOSHADER` ###\r\n> " + $bifrostString + "\r\n\r\n";
   
   string $bifrostString = `getenv "BIFROST_ENABLE_GRAPH_EDITING"`;
 	$domeDebugText += "### `BIFROST_ENABLE_GRAPH_EDITING` ###\r\n> " + $bifrostString + "\r\n\r\n";
+  
+  string $domeTempString = `getenv "MAYA_BIFROST_COMPOUNDS"`;
+  $domeDebugText += "### `MAYA_BIFROST_COMPOUNDS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_BIFROST_COMPOUNDS environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\nodeEditorPanel.mel 
   
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 

@@ -81,7 +81,7 @@ Vray for 3DS Max
   Added a Hemirect control that lets you lock the top frame edge at the zenith for a cropped FOV in a LatLong frame rendering. This lets you render a vertically cropped 360x90 FOV LatLong image for example and then be able to convert it into a fulldome frame later as the top boundary of the "hemirect" is the zenith pole area.
 
 Maya
-  Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+  Updated the DomeViewer tool to add GearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
   
   Changed the DomeViewer "Show Focal Length in HUD" default state to off
   

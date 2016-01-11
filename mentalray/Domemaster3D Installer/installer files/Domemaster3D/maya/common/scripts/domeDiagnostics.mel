@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.9.2
-  2016-01-09 
+  2016-01-11 
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -13,9 +13,11 @@
   
   Version V1.9.2
   --------------------
-  2016-01-09 
+  2016-01-11
 
   Listed the path for the current Dome Diagnostics MEL script. This is helpful if there are multiple copies of the script installed on your system.
+
+  Added detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var.
 
   Added support for the following Maya environment variables:
     
@@ -76,8 +78,6 @@
     VRAY_OSL_PATH_MAYA2016_PowerPC
     VRAY_OSL_PATH_MAYA2016_x64
     VRAY_PATH
-  
-  Added detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var.
   
   The environment variable "MAYA_TEXTURED_SCULPT" that is used to enable/disable the texture sculpt deformer controls. It is off by default.
   The environment variable "MAYA_VR_PER_SHAPE_ATTR" is used to control vector rendering modes per shape.

@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.9.2 - January 3, 2016
+Version 1.9.2 - January 11, 2016
 
 About This Shader
 ---------------------
@@ -275,16 +275,87 @@ Version History
 
 Version 1.9.2
 -------------
-2016-01-03
+2016-01-11
+
+Vray for 3DS Max
+  Roberto Ziche updated the Vray Domemaster Stereo and LatLong Stereo shaders.
+  
+  Added a new automatic pole correction option for controlling the stereo effect that can be used in addition to the separation multiplier map. It uses a Start Angle and End Angle control to fade out the stereo.
+
+  Added a parallel camera option that skips the need to use the parallax distance control.
+
+  Improved Neck Offset for matching against live action rig camera nodal point offsets.
+
+  Added a Hemirect control that lets you lock the top frame edge at the zenith for a cropped FOV in a LatLong frame rendering. This lets you render a vertically cropped 360x90 FOV LatLong image for example and then be able to convert it into a fulldome frame later as the top boundary of the "hemirect" is the zenith pole area.
 
 Maya
   Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+  
   Changed the DomeViewer "Show Focal Length in HUD" default state to off
+  
   Added a new DomeViewer "Connect Alpha Channel" checkbox to the Extra Controls section of the GUI. This checkbox tells the DomeViewer to connect the alpha channel from the DomeViewer loaded imagery to the surface material node. Th new "Connect Alpha Channel" checkbox is disabled by default so imagery with transparent mental ray rendered physical sky and sun and IBL based environment backdrops can be viewed in the viewport and you will still see the sky background.
 
-  Updated the Dome Diagnostics tool to add detection for the environment variable "PYMEL_SKIP_MEL_INIT"
   Updated the Dome Diagnostics tool to add detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var
   
+  Added Dome Diagnostics support for the following Maya environment variables:
+    
+    ALIAS_RENDER_LIB_PATH
+    BIFROST_LOCATION
+    ENABLE_DEFAULT_VIEWPORT_CAMERA_SETS
+    IMF_PLUG_IN_PATH
+    MAYA_ADSK_ASSET_LIBS
+    MAYA_BATCH_RENDERING_STOPS_ON_ERROR
+    MAYA_BG_DEPTH_IMAGE
+    MAYA_BIFROST_COMPOUNDS
+    MAYA_COLOR_MANAGEMENT_POLICY_FILE
+    MAYA_COLOR_MANAGEMENT_POLICY_LOCK
+    MAYA_CUSTOM_TEMPLATE_PATH
+    MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER
+    MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL
+    MAYA_DISABLE_VP2_WHEN_POSSIBLE
+    MAYA_ENABLE_CLASSIC_HAIR
+    MAYA_ENABLE_LEGACY_HYPERSHADE
+    MAYA_ENABLE_LEGACY_PARTICLES
+    MAYA_ENABLE_LEGACY_RIGID
+    MAYA_ENABLE_VP2_SHAPE_INSTANCING
+    MAYA_EXPOSE_FACADE_NODES
+    MAYA_FBX_PLUGIN_LOCATION
+    MAYA_HELP_URL
+    MAYA_NO_INITIAL_AUTOLOAD_MT
+    MAYA_OFFSCREEN_HRB
+    MAYA_OGS_DEVICE_OVERRIDE
+    MAYA_PLUG_IN_RESOURCE_PATH
+    MAYA_PROJECT
+    MAYA_PROJECTS_DIR
+    MAYA_PSEUDOTRANS_MODE
+    MAYA_REAL_WORLD_SIZE
+    MAYA_REVERSE_FILEFORMAT_EXT
+    MAYA_SCRIPT_BASE
+    MAYA_SHADER_LIBRARY_PATH
+    MAYA_TESTING_CLEANUP
+    MAYA_TEXTURED_SCULPT
+    MAYA_UI_LANGUAGE
+    MAYA_VP2_DEVICE_OVERRIDE
+    MAYA_VR_PER_SHAPE_ATTR
+    NEX_DRINIT_PATH
+    ONECLICK_KEEP_TEMP_FILES
+    ONECLICK_SELECT_WHOLE_CHARACTER
+    ONECLICK_TEMP_DIR
+    PYMEL_SKIP_MEL_INIT
+    QT_MAC_NO_NATIVE_MENUBAR
+    SUBSTANCES_LOCATION
+    WINEDITOR
+    XPC_SERVICE_NAME
+
+  Added Dome Diagnostics support for the following Vray environment variables:
+    VRAY_ADVANCED_UI
+    VRAY_FOR_MAYA_DRLISTS_PATH
+    VRAY_FOR_MAYA_DRPORT
+    VRAY_FOR_MAYA2012_SKIP_NODE_CATEGORIZATION
+    VRAY_OSL_PATH_MAYA2016_PowerPC
+    VRAY_OSL_PATH_MAYA2016_x64
+    VRAY_PATH
+
 Version 1.9.1
 -------------
 2015-10-15

@@ -1,20 +1,17 @@
 /**********************************************************************
-  FILE: vraydomemasterstereo.cpp
+  FILE: vraylatlongstereo.cpp
   
-  vray DomemasterStereo Shader v0.8
-  2016-01-04
+  vray LatLongStereo Shader v0.5
+  2015-04-30
 
   Ported to Vray 3.0 by Andrew Hazelden/Roberto Ziche
-  Based upon the mental ray shader domeAFL_FOV_Stereo by Roberto Ziche
+  Based upon the mental ray shader LatLong_Stereo by Roberto Ziche
 
   Todo:
   [rz] Bitmap to Texmap
   [rz] Bool parameters (from int)
   [rz] Remove pb_fov (pb2 enum)
   [rz] Adjust default parameter values based on scene units?
-  [rz] Black outer frame. Return false by GetScreenRay() does not work. Ray computed no matter what. Should render black.
-  [rz] enable/disable controls - adjust start/end angles in UI
-  [rz] Use parallax distance to draw cam target
 
 **********************************************************************/
 
@@ -39,7 +36,7 @@
 #include "rayserver.h"
 #include "vraygeom.h"
 #include "raybunchcamera.h"
-#include "vraydomemasterstereo.h"
+#include "vraylatlongstereo.h"
 
 #include "resource.h"
 
@@ -52,7 +49,7 @@
 #define IS_PUBLIC 1
 #endif // _FREE_
 
-using namespace VRayDomemasterStereo;
+using namespace VRayLatLongStereo;
 
 //************************************************************
 // #defines
@@ -66,18 +63,18 @@ using namespace VRayDomemasterStereo;
 #define DOME_DTOR     0.0174532925199433
 #define DOME_RTOD     57.295779513082321
 #define DOME_PIOVER2  1.57079632679489661923
-#define DOME_EPSILON  0.00001
 
 #define GETDIR        0
 #define GETORG        1
 
-#define PLUGIN_CLASSID Class_ID(0x511a5e3e, 0x61393d01)
+#define PLUGIN_CLASSID Class_ID(0x5b6d4650, 0x21e1666f)
 
-#define STR_CLASSNAME _T("VRayDomemasterStereo")
-#define STR_INTERNALNAME _T("VRayDomemasterStereo")
-#define STR_LIBDESC _T("VRayDomemasterStereo plugin")
-#define STR_DLGTITLE _T("VRayDomemasterStereo Parameters")
+#define STR_CLASSNAME _T("VRayLatLongStereo")
+#define STR_INTERNALNAME _T("VRayLatLongStereo")
+#define STR_LIBDESC _T("VRayLatLongStereo plugin")
+#define STR_DLGTITLE _T("VRayLatLongStereo Parameters")
 #define STR_CATEGORY _T("VRay")
+
 
 //************************************************************
 // The definition of the VRayCamera
@@ -103,31 +100,22 @@ class VRayCamera: public GenCamera, public VR::VRayCamera {
   VR::PinholeCamera camera;
   VR::VRayRenderer *vray;
 
-  VR::Vector poleTarget;
-
 public:
   IParamBlock2 *pblock;
 
   int suspendSnap; // TRUE only during creation
-
+  
   int   stereo_camera;
-  float fov_angle; 
+  float fov_vert_angle;
+  float fov_horiz_angle;
   float parallax_distance;
   float separation;
-  float forward_tilt;
-  int   tilt_compensation;
-  int   vertical_mode;
   PBBitmap *separation_map;
-  PBBitmap *head_turn_map;
-  PBBitmap *head_tilt_map;
   float neck_offset;
+  int   zenith_mode;
   int   flip_x;
   int   flip_y;
-  bool  horiz_neck;
-  bool  poles_corr;
-  float poles_corr_start = 0.785f;
-  float poles_corr_end = 1.483f;
-  bool  parallel_cams;
+  bool  zenith_fov;
 
   // Constructor/destructor
   VRayCamera(void);
@@ -185,6 +173,7 @@ public:
   int DoOwnSelectHilite() { return TRUE; }
   Interval ObjectValidity(TimeValue time) { Interval res=FOREVER; pblock->GetValidity(time, res); return res; }
   BOOL UsesWireColor() { return TRUE; }
+
   int CanConvertToType(Class_ID obtype) { return FALSE; }
   Object* ConvertToType(TimeValue t, Class_ID obtype) { assert(0); return NULL; }
 
@@ -253,7 +242,7 @@ public:
   void renderEnd(VR::VRayRenderer *vray);
   void frameBegin(VR::VRayRenderer *vray);
   void frameEnd(VR::VRayRenderer *vray);
-  
+
   VR::Vector getDir(double xs, double ys, int rayVsOrgReturnMode) const;
 };
 
@@ -324,31 +313,19 @@ class VRayCamera_PBAccessor : public PBAccessor
     VRayCamera *cam = (VRayCamera*)owner;
     IParamMap2* pmap = cam->pblock->GetMap();
     TSTR p, f, e, name;
-
-    switch (id) {
-      case pb_separation_map: {
-        if (pmap) {
+    
+    switch (id)
+    {
+      case pb_separation_map:
+      {
+        if (pmap)
+        {
           TSTR sepname(v.bm->bi.Name());
           SplitFilename(sepname, &p, &f, &e);
           name = f + e;
           pmap->SetText(pb_separation_map, name.data());
-        } break;
-      }
-      case pb_head_turn_map: {
-        if (pmap) {
-          TSTR sepname(v.bm->bi.Name());
-          SplitFilename(sepname, &p, &f, &e);
-          name = f + e;
-          pmap->SetText(pb_head_turn_map, name.data());
-        } break;
-      }
-      case pb_head_tilt_map: {
-        if (pmap) {
-          TSTR sepname(v.bm->bi.Name());
-          SplitFilename(sepname, &p, &f, &e);
-          name = f + e;
-          pmap->SetText(pb_head_tilt_map, name.data());
-        } break;
+        }
+        break;
       }
       default: break;
     }
@@ -363,8 +340,8 @@ enum { camera_params };
 static int ctrlID = 100;
 int nextID(void) { return ctrlID++; }
 
-static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &cameraClassDesc,
-  P_AUTO_CONSTRUCT + P_AUTO_UI, REFNO_PBLOCK, IDD_DOMEMASTERUI, IDS_DOMEMASTERROLL, 0, 0, NULL,
+static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE, 0, &cameraClassDesc,
+  P_AUTO_CONSTRUCT + P_AUTO_UI, REFNO_PBLOCK, IDD_LATLONGUI, IDS_LATLONGROLL, 0, 0 , NULL,
   // Params
 
   pb_camera, _FT("stereo_camera"), TYPE_INT, 0, IDS_DLG_CAMERA,
@@ -374,11 +351,25 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
     p_tooltip, "Select Center, Left, or Right Camera Views",
   PB_END,
 
-  pb_fov_angle, _FT("fov_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV,
+  pb_fov_vert_angle, _FT("fov_vert_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_V,
     p_default, DOME_PI,
+    p_range, 0.0f, 180.0f, 
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_FOVV_EDIT, IDC_FOVV_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Field of View - Vertical",
+  PB_END,
+
+  pb_zenithfov, _FT("hemirect"), TYPE_BOOL, 0, IDS_DLG_ZENITHFOV,
+    p_default, FALSE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_ZENITHFOV,
+    p_tooltip, "Hemi-equirectangular (Zenith FOV)",
+  PB_END,
+
+  
+  pb_fov_horiz_angle, _FT("fov_horiz_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_H,
+    p_default, DOME_PI*2,
     p_range, 0.0f, 360.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_FOV_EDIT, IDC_FOV_SPIN, SPIN_AUTOSCALE,
-    p_tooltip, "Field of View",
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_FOVH_EDIT, IDC_FOVH_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Field of View - Horizontal",
   PB_END,
 
   pb_separation, _FT("separation"), TYPE_FLOAT, P_ANIMATABLE, IDS_DLG_SEPARATION,
@@ -402,13 +393,6 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
     p_tooltip, "Separation Map",
   PB_END,
 
-  pb_head_turn_map, _FT("head_turn_map"), TYPE_BITMAP, P_SHORT_LABELS, IDS_DLG_HEADMAP,
-    //p_default, 1.0f,
-    p_ui, TYPE_BITMAPBUTTON, IDC_HEADTURNMAP,
-    p_accessor, &pb_accessor,
-    p_tooltip, "Head Turn map",
-  PB_END,
-
   pb_parallax_distance, _FT("parallax_distance"), TYPE_FLOAT, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_PARALLAX,
     p_default, 400.0f,    // [rz] is there a way to adjust this based on the current scene unit?
     p_range, 0.0f, 999999.0f,
@@ -416,30 +400,10 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
     p_tooltip, "Zero Parallax Distance",
   PB_END,
 
-  pb_forward_tilt, _FT("forward_tilt"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FORWARD_TILT,
-    p_default, 0.0f,
-    p_range, 0.0f, 180.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_DOMETILT_EDIT, IDC_DOMETILT_SPIN, SPIN_AUTOSCALE,
-    p_tooltip, "Forward Tilt",
-  PB_END,
-
-  pb_tilt_compensation, _FT("tilt_compensation"), TYPE_BOOL, 0, IDS_DLG_TILT_COMPENSATION,
+  pb_zenith_mode, _FT("zenith_mode"), TYPE_BOOL, 0, IDS_DLG_ZENITH,
     p_default, FALSE,
-    p_ui, TYPE_SINGLECHEKBOX, IDC_DOMETILTCOMP,
-    p_tooltip, "Tilt Compensation Mode",
-  PB_END,
-
-  pb_head_tilt_map, _FT("head_tilt_map"), TYPE_BITMAP, P_SHORT_LABELS, IDS_DLG_TILTMAP,
-    //p_default, 0.5f,
-    p_ui, TYPE_BITMAPBUTTON, IDC_HEADTILTMAP,
-    p_accessor, &pb_accessor,
-    p_tooltip, "Head Tilt map",
-  PB_END,
-
-  pb_vertical_mode, _FT("vertical_mode"), TYPE_BOOL, 0, IDS_DLG_VERTICAL_MODE,
-    p_default, FALSE,
-    p_ui, TYPE_SINGLECHEKBOX, IDC_VERTICAL,
-    p_tooltip, "Vertical Mode",
+    p_ui, TYPE_SINGLECHEKBOX, IDC_ZENITH,
+    p_tooltip, "Zenith Mode",
   PB_END,
 
   pb_flip_x, _FT("flip_x"), TYPE_BOOL, 0, IDS_DLG_FLIP_X,
@@ -447,43 +411,11 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE,  0, &camera
     p_ui, TYPE_SINGLECHEKBOX, IDC_FLIPX,
     p_tooltip, "Flip X",
   PB_END,
-
+  
   pb_flip_y, _FT("flip_y"), TYPE_BOOL, 0, IDS_DLG_FLIP_Y,
     p_default, FALSE,
     p_ui, TYPE_SINGLECHEKBOX, IDC_FLIPY,
     p_tooltip, "Flip Y",
-  PB_END,
-
-  pb_poles_corr, _FT("poles_corr"), TYPE_BOOL, 0, IDS_DLG_POLES_CORR,
-    p_default, TRUE,
-    p_ui, TYPE_SINGLECHEKBOX, IDC_POLES,
-    p_tooltip, "Poles Correction",
-  PB_END,
-
-  pb_poles_corr_start, _FT("poles_corr_start"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_POLES_ST,
-    p_default, 0.785398163397448,   // 45 deg
-    p_range, 0.0f, 90.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_POLEST_EDIT, IDC_POLEST_SPIN, SPIN_AUTOSCALE,
-    p_tooltip, "Poles Correction Start Angle",
-  PB_END,
-
-  pb_poles_corr_end, _FT("poles_corr_end"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_POLES_EN,
-    p_default, 1.48352986419518,   // 85 deg
-    p_range, 45.0f, 90.0f,
-    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_POLEEN_EDIT, IDC_POLEEN_SPIN, SPIN_AUTOSCALE,
-    p_tooltip, "Poles Correction End Angle",
-  PB_END,
-
-  pb_horiz_neck, _FT("horiz_neck"), TYPE_BOOL, 0, IDS_DLG_HORIZ_NECK,
-    p_default, FALSE,
-    p_ui, TYPE_SINGLECHEKBOX, IDC_HORIZN,
-    p_tooltip, "Horizontal Neck",
-  PB_END,
-
-  pb_parall_cams, _FT("parall_cams"), TYPE_BOOL, 0, IDS_DLG_PARALL_CAMS,
-    p_default, TRUE,
-    p_ui, TYPE_SINGLECHEKBOX, IDC_PARALL,
-    p_tooltip, "Parallel Cameras",
   PB_END,
 
 PB_END
@@ -528,9 +460,8 @@ RefResult VRayCamera::EvalCameraState(TimeValue time, Interval &valid, CameraSta
   cs->isOrtho=FALSE;
   // [rz] pblock->GetValue(pb_fov, time, cs->fov, valid);
   // [rz] cs->fov = 1.0f;
-  pblock->GetValue(pb_fov_angle, time, cs->fov, valid); // [rz] better formula? [interactive viewport]
-  cs->fov = cs->fov * 0.75f;
-  if (cs->fov > DOME_PI * 0.75f) cs->fov = DOME_PI * 0.75f;
+  pblock->GetValue(pb_fov_vert_angle, time, cs->fov, valid);  // [rz] better formula? [interactive viewport]
+  cs->fov = abs(cs->fov) * 0.75f;    // [rz] can I make this one flip the camera 90 deg when negative? (zenith view)
   cs->tdist=100.0f;
   cs->horzLine=FALSE;
   cs->manualClip=FALSE;
@@ -646,7 +577,9 @@ int VRayCamera::Display(TimeValue t, INode* node, ViewExp *vpt, int flags) {
   }
 
   mesh.render(gw, gw->getMaterial(), NULL, COMP_ALL);
+
   drawLine(t, node, vpt);
+
   gw->setRndLimits(savedLimits);
   return 1;
 }
@@ -665,17 +598,17 @@ public:
 
     if (msg==MOUSE_POINT || msg==MOUSE_MOVE) {
       switch(point) {
-      case 0:
-        obj->suspendSnap=TRUE;
-        sp0=m;
-        p0=vpt->SnapPoint(m, m, NULL, SNAP_IN_3D);
-        mat.SetTrans(p0);
+        case 0:
+          obj->suspendSnap=TRUE;
+          sp0=m;
+          p0=vpt->SnapPoint(m, m, NULL, SNAP_IN_3D);
+          mat.SetTrans(p0);
 
-        if (msg==MOUSE_POINT) {
-          obj->suspendSnap=FALSE;
-          return CREATE_STOP;
-        }
-        break;
+          if (msg==MOUSE_POINT) {
+            obj->suspendSnap=FALSE;
+            return CREATE_STOP;
+          }
+          break;
       }
     } else {
       if (msg==MOUSE_ABORT) return CREATE_ABORT;
@@ -693,7 +626,7 @@ CreateMouseCallBack* VRayCamera::GetCreateMouseCallBack() {
 static Pb2TemplateGenerator templateGenerator;
 
 void VRayCamera::BeginEditParams(IObjParam *ip, ULONG flags, Animatable *prev) {
-  pmap = CreateCPParamMap2(pblock, ip, hInstance, MAKEINTRESOURCE(IDD_DOMEMASTERUI), GetString(IDS_DOMEMASTERROLL), 0);
+  pmap = CreateCPParamMap2(pblock, ip, hInstance, MAKEINTRESOURCE(IDD_LATLONGUI), GetString(IDS_LATLONGROLL), 0);
 }
 
 void VRayCamera::EndEditParams(IObjParam *ip, ULONG flags, Animatable *next) {
@@ -716,6 +649,7 @@ static void MakeQuad(Face *f, int a,  int b , int c , int d, int sg, int dv = 0)
 
 void VRayCamera::buildMesh(void) {
   if (meshBuilt) return;
+
   int nverts = 16;
   int nfaces = 24;
   mesh.setNumVerts(nverts);
@@ -752,7 +686,7 @@ void VRayCamera::buildMesh(void) {
   mesh.setVert(8+7, Point3(  f,  f, len+l));
 
   Face* fbase = &mesh.faces[12];
-  MakeQuad(&fbase[0], 0,2,3,1,  1, 8);
+  MakeQuad(&fbase[0],0,2,3,1,   1, 8);
   MakeQuad(&fbase[2], 2,0,4,6,  2, 8);
   MakeQuad(&fbase[4], 3,2,6,7,  4, 8);
   MakeQuad(&fbase[6], 1,3,7,5,  8, 8);
@@ -792,12 +726,13 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
   stereo_camera=pblock->GetInt(pb_camera, t);
 
   // angles in paramblock are automatically converted to radians, so no need to convert here
-  fov_angle = pblock->GetFloat(pb_fov_angle, t);
+  fov_vert_angle = pblock->GetFloat(pb_fov_vert_angle, t);
+  zenith_fov = pblock->GetInt(pb_zenithfov, t);
+  fov_horiz_angle = pblock->GetFloat(pb_fov_horiz_angle, t);
   parallax_distance = pblock->GetFloat(pb_parallax_distance, t);
   separation = pblock->GetFloat(pb_separation, t);
   neck_offset = pblock->GetFloat(pb_neck_offset, t);
-  forward_tilt = pblock->GetFloat(pb_forward_tilt, t);
-  tilt_compensation = pblock->GetInt(pb_tilt_compensation, t);
+  zenith_mode = pblock->GetInt(pb_zenith_mode, t);
 
   separation_map = pblock->GetBitmap(pb_separation_map, t);
   if (separation_map != NULL) {
@@ -806,42 +741,15 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
       separation_map->bm->SetFilter(BMM_FILTER_PYRAMID);
     }
   }
-  head_turn_map = pblock->GetBitmap(pb_head_turn_map, t);
-  if (head_turn_map != NULL) {
-    head_turn_map->Load();
-    if (head_turn_map->bm != NULL) {
-      head_turn_map->bm->SetFilter(BMM_FILTER_PYRAMID);
-    }
-  }
-  head_tilt_map = pblock->GetBitmap(pb_head_tilt_map, t);
-  if (head_tilt_map != NULL) {
-    head_tilt_map->Load();
-    if (head_tilt_map->bm != NULL) {
-      head_tilt_map->bm->SetFilter(BMM_FILTER_PYRAMID);
-    }
-  }
-
-  vertical_mode = pblock->GetInt(pb_vertical_mode, t);
+ 
   flip_x = pblock->GetInt(pb_flip_x, t);
   flip_y = pblock->GetInt(pb_flip_y, t);
 
-  horiz_neck = pblock->GetInt(pb_horiz_neck, t);;
-  poles_corr = pblock->GetInt(pb_poles_corr, t);;
-  poles_corr_start = pblock->GetFloat(pb_poles_corr_start, t);
-  poles_corr_end = pblock->GetFloat(pb_poles_corr_end, t);
-  parallel_cams = pblock->GetInt(pb_parall_cams, t);
-
-  // check poles corr angles
-  if (poles_corr_end < poles_corr_start)
-    poles_corr_end = poles_corr_start;
-
-  // calculate vector to tilted dome pole
-  poleTarget.x = 0.0f;
-  poleTarget.y = (float)(sin(forward_tilt));
-  poleTarget.z = (float)(-cos(forward_tilt));
+  //zenith_fov = (fov_vert_angle < 0.0f) ? TRUE : FALSE;
+  //fov_vert_angle = abs(fov_vert_angle);
 
   //fov=pblock->GetFloat(pb_fov, fdata.t);
-  fov = 1.0; // fov_angle/ 2.0f; // [rz] testing only. Need better approximation formula.
+  fov = 1.0; // fov_vert_angle / 2.0f;  // [rz] testing only. Need better approximation formula.
   targetDist = GetTDist((TimeValue) fdata.t);
   aperture = 0.0f;
 
@@ -858,256 +766,137 @@ void VRayCamera::frameEnd(VR::VRayRenderer *vray) {
 VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
 
   const VR::VRayFrameData &fdata = vray->getFrameData();
+
+  double rx = 2.0f * xs / fdata.imgWidth - 1.0f;
+  double ry = -2.0f * ys /fdata.imgHeight + 1.0f;
+
+  double phi, theta, tmp;
+  double sinP, cosP, sinT, cosT;
+
+  VR::Vector org, ray, target;
   
-  // Swap X-Y to rotate the cartesian axis 90 degrees CW
-  double ry = (xs-fdata.imgWidth*0.5f)/(fdata.imgWidth*0.5f);
-  double rx = (ys-fdata.imgHeight*0.5f)/(fdata.imgHeight*0.5f);
-  
-  double r, phi, theta, rot, tmp, tmpY, tmpZ;
-  double sinP, cosP, sinT, cosT, sinR, cosR, sinD, cosD;
-
-  VR::Vector org, ray, target, htarget, neckTarget;
-
-  // Head tilt transform matrix
-  VR::Matrix tilt(1);
-
-  // Compute radius
-  r = sqrt((rx * rx) + (ry * ry));
-
-  // Check if the shader should return black
-  if (r < 1.0) {
-    // Compute phi angle
-    if ((r > -DOME_EPSILON) && (r < DOME_EPSILON)) {
-      phi = 0.0;
-    } else {
-      phi = atan2(ry,rx);
+  // Calculate phi and theta...
+  phi = rx * (fov_horiz_angle / 2.0);
+  if (zenith_fov) {
+    // zenith FOV
+    if (zenith_mode){
+      theta = -(ry - 1.0f) * (fov_vert_angle / 2.0);
+      if (flip_y) theta = theta + (DOME_PI - fov_vert_angle);
     }
-    // Compute theta angle
-    theta = r * (fov_angle/ 2.0);
-    
-    // Start by matching camera (center camera)
-    org.x = org.y = org.z = 0.0;
+    else {
+      theta = DOME_PIOVER2 + (ry - 1.0f) * (fov_vert_angle / 2.0);
+      if (flip_y) theta = theta - (DOME_PI - fov_vert_angle);
+    }
+  } else {
+    // horizontal FOV
+    if (zenith_mode){
+      theta = DOME_PIOVER2 - ry * (fov_vert_angle / 2.0);
+    }
+    else {
+      theta = ry * (fov_vert_angle / 2.0);
+    }
+  }
 
-    // Compute commonly used values
-    sinP = sin(phi);
-    cosP = cos(phi);
-    sinT = sin(theta);
-    cosT = cos(theta);
-    
-    // Center camera target vector (normalized)
+  // Start by matching camera (center camera)
+  org.x = org.y = org.z = 0.0;
+
+  // Compute commonly used values
+  sinP = sin(phi);
+  cosP = cos(phi);
+  sinT = sin(theta);
+  cosT = cos(theta);
+
+  // Center camera target vector (normalized)
+  if (zenith_mode) {
     target.x = (float)(sinP * sinT);
     target.y = (float)(-cosP * sinT);
     target.z = (float)(-cosT);
-    if (horiz_neck) {
-      neckTarget.x = (float)sinP;
-      neckTarget.y = (float)-cosP;
-      neckTarget.z = 0.0f;
-    }
-    else
-      neckTarget = target;
+  } else {
+    target.x = (float)(sinP * cosT);
+    target.y = (float)(sinT);
+    target.z = (float)(-cosP * cosT);
+  }
 
-    // Camera selection and initial position
-    // 0=center, 1=Left, 2=Right
-    if (stereo_camera != CENTERCAM) {
+  // Camera selection and initial position
+  // 0=center, 1=Left, 2=Right
+  if (stereo_camera != CENTERCAM) {
 
-      float separation_mult = 1.0f;
-      float separation_mult_auto = 1.0f;
-      float head_turn_mult = 1.0f;
-      float head_tilt = 0.5f;
+    float separation_mult = 1.0f;
 
+    // get separation multiplier from map
+    if (separation_map != NULL && separation_map->bm != NULL) {
       // [rz] these could be moved to per-frame calculation
       float dx1 = 1.0f / (fdata.imgWidth * 2.0f);
       float dy1 = 1.0f / (fdata.imgHeight * 2.0f);
       float rx1 = xs / fdata.imgWidth - dx1;
       float ry1 = ys / fdata.imgHeight - dy1;
-
+ 
       BMM_Color_64 bCol;
+      separation_map->bm->GetFiltered(rx1,ry1,dx1,dy1, &bCol);
+      //if (separation_map->bm->HasFilter()) {
+        //separation_map->bm->GetFiltered(rx1,ry1,dx1,dy1, &bCol);
+      //}
 
       // [rz] not the right grayscale conversion formula, but ok assuming all input bitmaps are grayscale
-      if (separation_map != NULL && separation_map->bm != NULL) {
-        separation_map->bm->GetFiltered(rx1, ry1, dx1, dy1, &bCol);
-        separation_mult = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
-      }
+      separation_mult = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
+    }
 
-      if (head_turn_map != NULL && head_turn_map->bm != NULL) {
-        head_turn_map->bm->GetFiltered(rx1, ry1, dx1, dy1, &bCol);
-        head_turn_mult = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
-      }
+    // camera selection and initial position
+    if (stereo_camera == LEFTCAM) {
+      org.x = (float)(-separation * separation_mult / 2.0);
+    } else {  // RIGHTCAM
+      org.x = (float)(separation * separation_mult / 2.0);
+    }
 
-      if (head_tilt_map != NULL && head_tilt_map->bm != NULL) {
-        head_tilt_map->bm->GetFiltered(rx1, ry1, dx1, dy1, &bCol);
-        head_tilt = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
-      }
-
-      // Additional automatic separation fade
-      if (poles_corr && !vertical_mode) {
-        float tmpTheta;
-        if (tilt_compensation) {
-          // angle between target vector and tilted dome pole vector
-          tmpTheta = acos(target*poleTarget);
-          tmpTheta = abs(DOME_PIOVER2 - tmpTheta);
-        } else {
-          // angle from zenith
-          tmpTheta = abs(DOME_PIOVER2 - theta);
-        }
-        if (tmpTheta > poles_corr_start) {
-          if (tmpTheta < poles_corr_end) {
-            float fadePos = (tmpTheta - poles_corr_start) / (poles_corr_end - poles_corr_start);
-            separation_mult_auto = (cos(fadePos*DOME_PI) + 1.0f) / 2.0f;
-          }
-          else
-            separation_mult_auto = 0.0f;
-        }
-      }
-      // combine both separation values
-      separation_mult *= separation_mult_auto;
-
-      // camera selection and initial position
-      if (stereo_camera == LEFTCAM) {
-        org.x = (float)(-separation * separation_mult / 2.0);
-      }
-      else if (stereo_camera == RIGHTCAM) {
-        org.x = (float)(separation * separation_mult / 2.0);
-      }
-
-      if(tilt_compensation) {
-        // Tilted dome mode ON
-
-        // head rotation
-        tmpY = target.y * cos(-forward_tilt) - target.z * sin(-forward_tilt);
-        tmpZ = target.z * cos(-forward_tilt) + target.y * sin(-forward_tilt);
-        rot = atan2(target.x,-tmpY) * head_turn_mult;
-        
-        if (vertical_mode) {
-          rot *= fabs(sinP);
-        }
-        
-        sinR = sin(rot); 
-        cosR = cos(rot);
-        sinD = sin(forward_tilt);
-        cosD = cos(forward_tilt);
-        
-        // rotate camera
-        tmp = org.x * cosR - org.y * sinR;
-        org.y = (float)(org.y * cosR + org.x * sinR);
-        org.x = (float)tmp;
-        
-        // compensate for dome tilt
-        tmp = org.y * cosD - org.z * sinD;
-        org.z = (float)(org.z * cosD + org.y * sinD);
-        org.y = (float)tmp;
-
-        // calculate head target
-        tmp = sqrt(target.x * target.x + tmpY * tmpY);
-        htarget.x = (float)(sinR * tmp);
-        htarget.y = (float)(-cosR * tmp);
-        htarget.z = (float)tmpZ;
-        
-        // dome rotation again on head target
-        tmp = htarget.y * cosD - htarget.z * sinD;
-        htarget.z = (float)(htarget.z * cosD + htarget.y * sinD);
-        htarget.y = (float)tmp;
-      } else {
-        // Tilted dome mode OFF
-        
-        // Vertical Mode ON
-        if (vertical_mode) {
-          // head rotation
-          rot = atan2(target.x,-target.z) * head_turn_mult * fabs(sinP);
-          sinR = sin(rot);
-          cosR = cos(rot);
-          
-          // rotate camera
-          tmp = org.x * cosR - org.z * sinR;
-          org.z = (float)(org.z * cosR + org.x * sinR);
-          org.x = (float)tmp;
-          
-          // calculate head target
-          tmp = sqrt(target.x * target.x + target.z * target.z);
-          htarget.x = (float)(sinR * tmp);
-          htarget.y = (float)target.y;
-          htarget.z = (float)(-cosR * tmp);
-        } else {            
-          // Vertical Mode OFF  (horizontal dome mode)
-          
-          // Head rotation
-          rot = phi * head_turn_mult;
-          sinR = sin(rot);
-          cosR = cos(rot);
-          
-          // Rotate camera
-          tmp = (org.x * cosR) - (org.y * sinR);
-          org.y = (float)((org.y * cosR) + (org.x * sinR));
-          org.x = (float)tmp;
-          
-          // calculate head target
-          htarget.x = (float)(sinR * sinT);
-          htarget.y = (float)(-cosR * sinT);
-          htarget.z = (float)target.z;
-        }
-      }
-
-      // head tilt (in rad)
-      head_tilt = (float)((head_tilt - 0.5) * DOME_PI);
-
-      float cT = cos(head_tilt);
-      float sT = sin(head_tilt);
-      tilt[0][0] = cT + htarget.x*htarget.x*(1 - cT);
-      tilt[0][1] = htarget.x*htarget.y*(1 - cT) - htarget.z*sT;
-      tilt[0][2] = htarget.x*htarget.z*(1 - cT) + htarget.y*sT;
-      tilt[1][0] = htarget.y*htarget.x*(1 - cT) + htarget.z*sT;
-      tilt[1][1] = cT + htarget.y*htarget.y*(1 - cT);
-      tilt[1][2] = htarget.y*htarget.z*(1 - cT) - htarget.x*sT;
-      tilt[2][0] = htarget.z*htarget.x*(1 - cT) - htarget.y*sT;
-      tilt[2][1] = htarget.z*htarget.y*(1 - cT) + htarget.x*sT;
-      tilt[2][2] = cT + htarget.z*htarget.z*(1 - cT);
-
-      org = org * tilt;
-      
-      // Adjust org for Neck offset
-      org = org + neckTarget * neck_offset;
-
-      // Compute ray from camera to target
-      if (parallel_cams) {
-        ray = target;
-      }
-      else {
-        target *= parallax_distance;
-        ray = target - org;
-        ray = normalize(ray);
-      }
-
+    // head rotation = phi
+    // rotate camera
+    if (zenith_mode) {
+      tmp = (float)((org.x * cosP) - (org.y * sinP));
+      org.y = (float)((org.y * cosP) + (org.x * sinP));
+      org.x = (float)tmp;
     } else {
-
-      // center cam
-      ray = target;
-
+      tmp = (float)((org.x * cosP) - (org.z * sinP));
+      org.z = (float)((org.z * cosP) + (org.x * sinP));
+      org.x = (float)tmp;
     }
-    
-    // Flip the X ray direction about the Y-axis
-    if(flip_x) {
-      org.x = -org.x;
-      ray.x = -ray.x;
-    }
-    
-    // Flip the Y ray direction about the X-axis
-    if(flip_y) {
+
+    // Adjust org for Neck offset
+    org = org + target * neck_offset;
+
+    // Compute ray from camera to target
+    target *= parallax_distance;
+    ray = target - org;
+    ray = normalize(ray);
+
+  } else {
+
+    // center cam
+    ray = target;
+
+  }
+
+  // Flip the X ray direction about the Y-axis
+  if (flip_x) {
+    org.x = -org.x;
+    ray.x = -ray.x;
+  }
+
+  // Flip the Y ray direction about the X-axis
+  if (flip_y) {
+    if (zenith_mode) {
+      org.z = -org.z;
+      ray.z = -ray.z;
+    } else {
       org.y = -org.y;
       ray.y = -ray.y;
     }
+  }
 
-    if (rayVsOrgReturnMode == GETDIR){
-      return ray;
-    }
-    else {  // GETORG
-      return org;
-    }
-
-  } else {
-    // Outside image circular space
-    ray.x = ray.y = ray.z = 0.0f;
+  if (rayVsOrgReturnMode == GETDIR){
     return ray;
-  } 
+  } else {  // GETORG
+    return org;
+  }
 }
 
 // This is called to compute the actual ray:
@@ -1122,9 +911,6 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
 int VRayCamera::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, VR::TraceRay &ray, VR::Ireal &mint, VR::Ireal &maxt, VR::RayDeriv &rayDeriv, VR::Color &multResult) const {
 
   VR::Vector dir = getDir(xs, ys, GETDIR);   //Return the dir data from the getDir function
-  if (dir.x == 0.0f && dir.y == 0.0f && dir.z == 0.0f)  // outside circular image
-    return false;   // [rz] Not working. Does not render as black.
-
   VR::Vector org = getDir(xs, ys, GETORG);   //Return the org data from the getDir function
   
   rayDeriv.dPdx.makeZero();
@@ -1133,7 +919,7 @@ int VRayCamera::getScreenRay(double xs, double ys, double time, float dof_uc, fl
   double delta = 0.01f;
   rayDeriv.dDdx = (getDir(xs+delta, ys, GETDIR) - getDir(xs-delta, ys, GETDIR)) / float(delta*2.0f);
   rayDeriv.dDdy = (getDir(xs, ys+delta, GETDIR) - getDir(xs, ys-delta, GETDIR)) / float(delta*2.0f);
-  
+
   const VR::VRayFrameData &fdata = vray->getFrameData();
   ray.p = fdata.camToWorld.offs + fdata.camToWorld.m*org;
   ray.dir = fdata.camToWorld.m*dir;;
@@ -1165,13 +951,13 @@ int VRayCamera::getScreenRays(
     VR::RayDeriv deriv;
     VR::Color multResult( 1.0f, 1.0f, 1.0f );
     bool res = getScreenRay( xs[i], ys[i], 
-    raysbunch.times()[ i ], 
-    dof_uc[i], dof_vc[i], 
-    ray, 
-    raysbunch.mints()[i],
-    raysbunch.maxts()[i],
-    deriv,
-    multResult );
+                             raysbunch.times()[ i ], 
+                 dof_uc[i], dof_vc[i], 
+                 ray, 
+                             raysbunch.mints()[i],
+                 raysbunch.maxts()[i],
+                 deriv,
+                 multResult );
 
     // Scatter
     success &= res;

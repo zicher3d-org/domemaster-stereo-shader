@@ -1,8 +1,8 @@
 /**********************************************************************
   FILE: vraylatlongstereo.cpp
   
-  vray LatLongStereo Shader v0.5
-  2015-04-30
+  vray LatLongStereo Shader v0.8
+  2016-01-04
 
   Ported to Vray 3.0 by Andrew Hazelden/Roberto Ziche
   Based upon the mental ray shader LatLong_Stereo by Roberto Ziche
@@ -12,6 +12,8 @@
   [rz] Bool parameters (from int)
   [rz] Remove pb_fov (pb2 enum)
   [rz] Adjust default parameter values based on scene units?
+  [rz] enable/disable controls - adjust start/end angles in UI
+  [rz] Use parallax distance to draw cam target
 
 **********************************************************************/
 
@@ -116,6 +118,11 @@ public:
   int   flip_x;
   int   flip_y;
   bool  zenith_fov;
+  bool  horiz_neck;
+  bool  poles_corr;
+  float poles_corr_start = 0.785f;
+  float poles_corr_end = 1.483f;
+  bool  parallel_cams;
 
   // Constructor/destructor
   VRayCamera(void);
@@ -364,7 +371,6 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE, 0, &cameraC
     p_tooltip, "Hemi-equirectangular (Zenith FOV)",
   PB_END,
 
-  
   pb_fov_horiz_angle, _FT("fov_horiz_angle"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_FOV_H,
     p_default, DOME_PI*2,
     p_range, 0.0f, 360.0f,
@@ -418,7 +424,39 @@ static ParamBlockDesc2 camera_param_blk(camera_params, STR_DLGTITLE, 0, &cameraC
     p_tooltip, "Flip Y",
   PB_END,
 
-PB_END
+  pb_poles_corr, _FT("poles_corr"), TYPE_BOOL, 0, IDS_DLG_POLES_CORR,
+    p_default, TRUE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_POLES,
+    p_tooltip, "Poles Correction",
+  PB_END,
+
+  pb_poles_corr_start, _FT("poles_corr_start"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_POLES_ST,
+    p_default, 0.785398163397448,   // 45 deg
+    p_range, 0.0f, 90.0f,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_POLEST_EDIT, IDC_POLEST_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Poles Correction Start Angle",
+  PB_END,
+
+  pb_poles_corr_end, _FT("poles_corr_end"), TYPE_ANGLE, P_ANIMATABLE + P_RESET_DEFAULT, IDS_DLG_POLES_EN,
+    p_default, 1.48352986419518,   // 85 deg
+    p_range, 45.0f, 90.0f,
+    p_ui, TYPE_SPINNER, EDITTYPE_FLOAT, IDC_POLEEN_EDIT, IDC_POLEEN_SPIN, SPIN_AUTOSCALE,
+    p_tooltip, "Poles Correction End Angle",
+  PB_END,
+
+  pb_horiz_neck, _FT("horiz_neck"), TYPE_BOOL, 0, IDS_DLG_HORIZ_NECK,
+    p_default, TRUE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_HORIZN,
+    p_tooltip, "Horizontal Neck",
+  PB_END,
+  
+  pb_parall_cams, _FT("parall_cams"), TYPE_BOOL, 0, IDS_DLG_PARALL_CAMS,
+    p_default, TRUE,
+    p_ui, TYPE_SINGLECHEKBOX, IDC_PARALL,
+    p_tooltip, "Parallel Cameras",
+  PB_END,
+
+  PB_END
 );
 
 //************************************************************
@@ -686,7 +724,7 @@ void VRayCamera::buildMesh(void) {
   mesh.setVert(8+7, Point3(  f,  f, len+l));
 
   Face* fbase = &mesh.faces[12];
-  MakeQuad(&fbase[0],0,2,3,1,   1, 8);
+  MakeQuad(&fbase[0], 0,2,3,1,  1, 8);
   MakeQuad(&fbase[2], 2,0,4,6,  2, 8);
   MakeQuad(&fbase[4], 3,2,6,7,  4, 8);
   MakeQuad(&fbase[6], 1,3,7,5,  8, 8);
@@ -745,6 +783,16 @@ void VRayCamera::frameBegin(VR::VRayRenderer *vray) {
   flip_x = pblock->GetInt(pb_flip_x, t);
   flip_y = pblock->GetInt(pb_flip_y, t);
 
+  horiz_neck = pblock->GetInt(pb_horiz_neck, t);;
+  poles_corr = pblock->GetInt(pb_poles_corr, t);;
+  poles_corr_start = pblock->GetFloat(pb_poles_corr_start, t);
+  poles_corr_end = pblock->GetFloat(pb_poles_corr_end, t);
+  parallel_cams = pblock->GetInt(pb_parall_cams, t);
+
+  // check poles corr angles
+  if (poles_corr_end < poles_corr_start)
+    poles_corr_end = poles_corr_start;
+
   //zenith_fov = (fov_vert_angle < 0.0f) ? TRUE : FALSE;
   //fov_vert_angle = abs(fov_vert_angle);
 
@@ -773,7 +821,7 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
   double phi, theta, tmp;
   double sinP, cosP, sinT, cosT;
 
-  VR::Vector org, ray, target;
+  VR::Vector org, ray, target, neckTarget;
   
   // Calculate phi and theta...
   phi = rx * (fov_horiz_angle / 2.0);
@@ -811,10 +859,22 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
     target.x = (float)(sinP * sinT);
     target.y = (float)(-cosP * sinT);
     target.z = (float)(-cosT);
+    if (horiz_neck) {
+      neckTarget.x = (float)sinP;
+      neckTarget.y = (float)-cosP;
+      neckTarget.z = 0.0f;
+    } else
+      neckTarget = target;
   } else {
     target.x = (float)(sinP * cosT);
     target.y = (float)(sinT);
     target.z = (float)(-cosP * cosT);
+    if (horiz_neck) {
+      neckTarget.x = (float)sinP;
+      neckTarget.y = 0.0f;
+      neckTarget.z = (float)-cosP;
+    } else
+      neckTarget = target;
   }
 
   // Camera selection and initial position
@@ -822,6 +882,7 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
   if (stereo_camera != CENTERCAM) {
 
     float separation_mult = 1.0f;
+    float separation_mult_auto = 1.0f;
 
     // get separation multiplier from map
     if (separation_map != NULL && separation_map->bm != NULL) {
@@ -840,6 +901,24 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
       // [rz] not the right grayscale conversion formula, but ok assuming all input bitmaps are grayscale
       separation_mult = (bCol.r + bCol.g + bCol.b) / 3.0f / 65535.0f;
     }
+
+    // Additional automatic separation fade
+    if (poles_corr) {
+      float tmpTheta;
+      if (zenith_mode)
+        tmpTheta = abs(DOME_PIOVER2 - theta);
+      else 
+        tmpTheta = abs(theta);
+      if (tmpTheta > poles_corr_start) {
+        if (tmpTheta < poles_corr_end) {
+          float fadePos = (tmpTheta - poles_corr_start) / (poles_corr_end - poles_corr_start);
+            separation_mult_auto = (cos(fadePos*DOME_PI) + 1.0f) / 2.0f;
+        } else
+          separation_mult_auto = 0.0f;
+      }
+    }
+    // combine both separation values
+    separation_mult *= separation_mult_auto;
 
     // camera selection and initial position
     if (stereo_camera == LEFTCAM) {
@@ -861,12 +940,16 @@ VR::Vector VRayCamera::getDir(double xs, double ys, int rayVsOrgReturnMode) cons
     }
 
     // Adjust org for Neck offset
-    org = org + target * neck_offset;
+    org = org + neckTarget * neck_offset;
 
     // Compute ray from camera to target
-    target *= parallax_distance;
-    ray = target - org;
-    ray = normalize(ray);
+    if (parallel_cams) {
+      ray = target;
+    } else {
+      target *= parallax_distance;
+      ray = target - org;
+      ray = normalize(ray);
+    }
 
   } else {
 

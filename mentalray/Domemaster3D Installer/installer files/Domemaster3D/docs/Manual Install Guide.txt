@@ -1,9 +1,9 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
 Version 1.9.2 - January 11, 2016
 
-## Render Farm Note ## 
-If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
+## Render Farm Note ##
 
+If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
 
 ## Install Guide for Maya 2010 to 2016 on Linux ##
 
@@ -243,6 +243,8 @@ If the render farm customer is rendering a 2D fulldome Maya scene everything is 
 
 If the render farm customer is rendering a 3D fulldome or LatlongStereo scene have them run the following MEL command on their personal workstation before sending you the maya scene file: 
 source "domeRender.mel"; domemaster3DPreRenderMEL();
+
+This can also be acheived using the Domemaster3D "REM" shelf icon to remove the pre-render/post-render Mel scripts, or by running the Domemaster3D menu command "Remove Pre/Post Render Mel".
 
 This will make sure the camera's field of view is correct and the stereo rig is ready to render.
 

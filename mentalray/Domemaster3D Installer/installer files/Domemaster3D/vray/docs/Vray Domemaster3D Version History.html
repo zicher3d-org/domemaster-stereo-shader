@@ -323,6 +323,13 @@ img {
 <li>Generate a .vrscene file with screen space texture maps linked into the DomemasterStereo and LatLongStereo attributes. Verify the Maya/3DS Max/Softimage releases can all work with Vray Standalone.</li>
 </ul>
 <h2><a name="version-history"></a>Version History</h2>
+<h3>2016-01-01</h3>
+<p><strong>Vray for 3DS Max</strong></p>
+<p>Updated the Vray Domemaster Stereo and LatLong Stereo shaders.</p>
+<p>Added a new automatic pole correction option for controlling the stereo effect that can be used in addition to the separation multiplier map. It uses a Start Angle and End Angle control to fade out the stereo.</p>
+<p>Added a parallel camera option that skips the need to use the parallax distance control.</p>
+<p>Improved Neck Offset for matching against live action rig camera nodal point offsets.</p>
+<p>Added a Hemirect control that lets you lock the top frame edge at the zenith for a cropped FOV in a LatLong frame rendering. This lets you render a vertically cropped 360x90 FOV LatLong image for example and then be able to convert it into a fulldome frame later as the top boundary of the &quot;hemirect&quot; is the zenith pole area.</p>
 <h3>2015-08-10</h3>
 <ul>
 <li>
@@ -430,7 +437,7 @@ img {
 <h3>Version 0.2 - 2014-11-26</h3>
 <ul>
 <li>Updated the DomemasterStereo and LatLongStereo camera org code. Hopefully this fixed the stereo rendering issues</li>
-<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL_FOV_Stereo shader.</li>
+<li>Rotated the DomemasterStereo view by 90 degrees clockwise to match the mental ray domeAFL<em>FOV</em>Stereo shader.</li>
 </ul>
 <h3>Version 0.1 - 2014-11-14</h3>
 <ul>

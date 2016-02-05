@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V1.9.2
-  2016-01-11 
+  Dome Diagnostics Report Tool V1.9.3
+  2016-01-31
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,10 +10,15 @@
   Version History
   ----------------
   
+  Version V1.9.3
+  --------------------
+  2016-01-31
+  
+  Added support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
   
   Version V1.9.2
   --------------------
-  2016-01-11
+  2016-01-10
 
   Listed the path for the current Dome Diagnostics MEL script. This is helpful if there are multiple copies of the script installed on your system.
 
@@ -1009,9 +1014,11 @@ global proc domeDiagnostics(){
     string $mrTextString = `getenv "MAYATOMR"`;
     $domeDebugText += "### `MAYATOMR` ###\r\n> " + $mrTextString + "\r\n\r\n";
 
-
     string $mrTextString = `getenv "IMF_PLUG_IN_PATH"`;
     $domeDebugText += "### `IMF_PLUG_IN_PATH` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    string $mrTextString = `getenv "MAYA_MRFM_SHOW_CUSTOM_SHADERS"`;
+    $domeDebugText += "### `MAYA_MRFM_SHOW_CUSTOM_SHADERS` ###\r\n> " + $mrTextString + "\r\n\r\n";
 
     //------------------------------------------------------------
 

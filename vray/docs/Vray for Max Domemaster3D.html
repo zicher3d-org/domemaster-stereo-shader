@@ -6,7 +6,7 @@
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
 /* Author: Nicolas Hery - http://nicolashery.com */
-/* Version: 29d1c5bc36da364ad5aa86946d420b7bbc54a253 */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
 /* Source: https://github.com/nicolahery/markdownpad-github */
 
 /* RESET
@@ -212,6 +212,24 @@ pre code, pre tt {
   border: none;
 }
 
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
 /* QUOTES
 =============================================================================*/
 
@@ -278,26 +296,122 @@ img {
 <ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#known-issues">Known Issues</a></li>
+<li>
+<a href="#vray-for-3ds-max-lens-shaders">Vray for 3DS Max Lens Shaders</a>
+<ul>
+<li><a href="#domemaster-stereo">Domemaster Stereo Shader Controls</a></li>
+<li><a href="#latlong-stereo">LatLong Stereo Shader Controls</a></li>
+</ul>
+</li>
+<li><a href="#screen-space-textures">Screen Space Texture Maps</a></li>
 <li><a href="#vray-for-3ds-max-shader-installation">Vray for 3DS Max Shader Installation</a></li>
 <li><a href="#vray-rt-for-3ds-max-shader-installation">Vray RT for 3DS Max Shader Installation</a></li>
-<li><a href="#vray-for-3ds-max-lens-shaders">Vray for 3DS Max Lens Shaders</a></li>
 </ul>
 <h2><a name="overview"></a>Overview</h2>
-<p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.1+.</p>
+<p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, Vray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray, Vray, and Arnold, and comes integrated in Maxwell Render version 3.2+.</p>
 <p>This guide covers the Vray for 3DS Max version of the Domemaster3D Shaders.</p>
 <h2><a name="known-issues"></a>Known Issues</h2>
-<p>The current version of the Vray Domemaster3D shaders (as of 2015-05-23 ) is a development build.</p>
+<p>The current version of the Vray Domemaster3D shaders (as of 2016-02-05 ) is a development build.</p>
+<p>There is a new version of the Vray Domemaster3D shaders that has been compiled for Vray 3.X and it has an updated GUI with new controls like pole correction options and support for parallel stereo rendering.</p>
+<p>If you need access to the earlier version of the shaders builds for Vray 3.2 on 3DS Max 2015, Vray 3.0 on 3DS Max 2015 and 3DS Max 2014, and Vray 2.5 for 3DS Max 2015, and Vray 2.4 for 3DS Max 2013 you can find those shaders in the <code>C:\Program Files\Domemaster3D/vray/install/3dsmax/vray legacy builds\</code> folder.</p>
 <p>More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.</p>
-<p>The first working version of the 3DS Max source code has been added and there are development shader builds for Vray 3.0 on 3DS Max 2015 and 3DS Max 2014, and Vray 2.5 for 3DS Max 2015, and Vray 2.4 for 3DS Max 2013.</p>
+<h2><a name="vray-for-3ds-max-lens-shaders"></a>Vray for 3DS Max Lens Shaders</h2>
+<h3><a name="domemaster-stereo"></a>Domemaster Stereo Shader Controls</h3>
+<p>Here is a preview of the Domemaster Stereo shader's user interface:</p>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_domemaster_stereo_v1.9.2.png" alt="Vray for 3DS Max DomemasterStereo Shader" /></p>
+<h4>Camera Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_domemaster_stereo_camera.png" alt="Camera Controls" /></p>
+<p><strong>Type</strong>: Select the stereo camera view to use for rendering. You can choose between the <strong>Center<strong>/</strong>Left</strong>/<strong>Right</strong> camera views in this options menu. The <strong>Center</strong> option skips 90% of the calculations and gives you a highly optimized standard LatLong image.</p>
+<p><strong>Field of View Angle</strong>: Controls the field of view for the rendered angular fisheye image. A &quot;Domemaster&quot; formatted image has a 180 degree field of view, and a &quot;light probe&quot; style angular fisheye image has a 360 degree field of view.</p>
+<p><strong>Separation</strong>: The initial separation of the left and right cameras.</p>
+<p><strong>Vertical Mode</strong>: Enables the vertical dome mode which automatically adjusts the head turn setting and adds a turn compensation for the upper and lower part of the dome. It's a simplified and optimized version of the Dome Tilt Compensation with a 90 degree tilt angle, but with a different automatic handling of the top and bottom pinch correction. It is faster and easier to use.</p>
+<h4>Separation/Turn/Tilt Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_domemaster_stereo_sep_turn_tilt_control_maps.png" alt="Separation/Turn/Tilt Controls" /></p>
+<p><strong>Poles Correction</strong>: This checkbox allows you to enable an automatic zenith and nadir zone stereo falloff effect. This gives achieve another way to achieve the results you would typically need to use a separation map texture for.</p>
+<p><strong>Start Angle</strong>: This defines the beginning point for the &quot;zenith&quot; pole stereo falloff effect.</p>
+<p><strong>End Angle</strong>: This defines the beginning point for the &quot;nadir&quot; pole stereo falloff effect.</p>
+<p>When the Poles Correction checkbox is enabled the Start Angle and the End Angle controls allow you to specify the vertical FOV position where the stereo falloff starts to happen. The when the lens shader reaches the zenith and nadir zones the stereo effect is reduced to zero. You can combine the effects of the separation map and the pole correction options if you need more control over the stereo effects in the image.</p>
+<p><strong>Separation Multiplier</strong>: A value between 0-1 that multiples the <strong>Camera Separation</strong>. This attribute is meant to be used with a grayscale texture mapped to the screen space. It's used to control the amount of 3D effect, and eliminate it where desired.</p>
+<p><strong>Turn Multiplier</strong>: A value 0-1 that controls the amount of the head turn. This attribute is meant to be used with a grayscale texture mapped using the screen space. Typical use, keep the head straight while looking at the top of the dome.</p>
+<p><strong>Head Tilt</strong>: A value 0-1 (with 0.5 being the &quot;neutral&quot; value) that tilts the cameras (or head) left/right. This attribute is meant to be used with a grayscale texture mapped using the screen space. 0 means 90 degrees to the left, 1 means 90 degrees to the right.</p>
+<p>Important: Maps used for the various multipliers and tilt settings will have to be custom made for the proper dome tilt.</p>
+<h4>Parallax Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_parallax.png" alt="Parallax Controls" /></p>
+<p><strong>Parallel Cameras</strong>: This checkbox allow you to choose if you want the lens shader to operate in a converged or parallel stereo rendering mode. When the Parallel Cameras checkbox is disabled you get the typical converged stereo output that was present in previous Domemaster3D releases.</p>
+<p><strong>Parallax Distance</strong>: This is the zero parallax distance for the stereo rendering This is also known as the focus plane. This value is the distance at which the left and right camera's line of sight converges.</p>
+<h4>Dome Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_domemaster_stereo_dome_tilt.png" alt="Dome Controls" /></p>
+<p><strong>Forward Tilt</strong>: This control allows you to adjust the Dome forward tilt angle in degrees. This will keep the fulldome camera rig and the viewer's head vertical while the simulated dome is rotated forward. Note that this value is not used unless you enable <strong>Dome Tilt Compensation</strong> checkbox.</p>
+<p><strong>Dome Tilt Compensation</strong>: This option will activate the Forward Tilt option that will shift all the lens shader calculations by the number of degrees specified in <strong>Forward Tilt</strong>.</p>
+<h4>Neck Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_neck_controls.png" alt="Neck Controls" /></p>
+<p><strong>Forward Offset</strong>: This control allows you to simulate the &quot;neck offset&quot; effect of a physical 360&deg; panoramic live action camera rig where the lens nodal points are shifted away from the camera origin. Make sure to keep the Forward Offset value lower than the nearest geometry in the scene or the forward offset will cause the camera to be pushed inside of it.</p>
+<p><strong>Force Horizontal</strong>: This control allows you to change how the neck offset simulation is calculated and lock the neck offset to a flat plane.</p>
+<p><strong>Note</strong>: The neck offset feature is primarily used with the LatLong Stereo lens shader. It is available in the Domemaster Stereo shader but the Forward Offset checkbox is unchecked by default.</p>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/neck-offset.png" alt="Neck Offset" /></p>
+<h4>Image Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_image_controls.png" alt="Image Controls" /></p>
+<p><strong>Flip X</strong>: Flips the rendered view horizontally.</p>
+<p><strong>Flip Y</strong>: Flips the rendered view vertically.</p>
+<h3><a name="latlong-stereo"></a>LatLong Stereo Shader Controls</h3>
+<p>Here is a preview of the LatLong Stereo shader's user interface:</p>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_latlong_stereo_v1.9.2.png" alt="Vray for 3DS Max LatLong Stereo Shader" /></p>
+<h4>Camera Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_latlong_stereo_camera.png" alt="Camera Controls" /></p>
+<p><strong>Type</strong>: Select the stereo camera view to use for rendering. You can choose between the <strong>Center<strong>/</strong>Left</strong>/<strong>Right</strong> camera views in this options menu. The <strong>Center</strong> option skips 90% of the calculations and gives you a highly optimized standard LatLong image.</p>
+<p><strong>Separation</strong>: The initial separation of the left and right cameras.</p>
+<p><strong>Vertical Field of View</strong>: Controls the vertical FOV angle (in degrees) of the rendered Latitude/Longitude image. The default value is 180&deg;.</p>
+<p><strong>Hemirect</strong>: The Hemirect (hemi-equirectangular) checkbox lets you render a partial LatLong image where the top edge of the rendering starts aligned to the zenith pole region. This is useful if you want to render a cropped 360&deg; x 90&deg; LatLong image that could then be converted in a compositing package into a 180&deg; domemaster (angular fisheye) image with no unused/over-rendered areas in the source image.</p>
+<p><strong>Horizontal Field of View</strong>: Controls the horizontal FOV angle (in degrees) of the rendered Latitude/Longitude image. The default value is 360&deg;.</p>
+<p><strong>Zenith Mode</strong>: This attribute allows you to adjust the <code>LatLong Stereo</code> lens shader to work with either a horizontal orientation (Zenith Mode OFF), or an upwards / vertical orientation (Zenith Mode ON) that lines up with the upright view orientation of the <code>DomeAFL FOV</code> / <code>Domemaster Stereo Shader</code> shaders.</p>
+<h4>Separation Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_latlong_stereo_separation.png" alt="Separation Controls" /></p>
+<p><strong>Poles Correction</strong>: This checkbox allows you to enable an automatic zenith and nadir zone stereo falloff effect. This gives achieve another way to achieve the results you would typically need to use a separation map texture for.</p>
+<p><strong>Start Angle</strong>: This defines the beginning point for the &quot;zenith&quot; pole stereo falloff effect.</p>
+<p><strong>End Angle</strong>: This defines the beginning point for the &quot;nadir&quot; pole stereo falloff effect.</p>
+<p>When the Poles Correction checkbox is enabled the Start Angle and the End Angle controls allow you to specify the vertical FOV position where the stereo falloff starts to happen. The when the lens shader reaches the zenith and nadir zones the stereo effect is reduced to zero. You can combine the effects of the separation map and the pole correction options if you need more control over the stereo effects in the image.</p>
+<p><strong>Separation Multiplier</strong>: A value between 0-1 that multiples the <strong>Camera Separation</strong>. This attribute is meant to be used with a grayscale texture mapped to the screen space. It's used to control the amount of 3D effect, and eliminate it where desired.</p>
+<h4>Parallax Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_parallax.png" alt="Parallax Controls" /></p>
+<p><strong>Parallel Cameras</strong>: This checkbox allow you to choose if you want the lens shader to operate in a converged or parallel stereo rendering mode. When the Parallel Cameras checkbox is disabled you get the typical converged stereo output that was present in previous Domemaster3D releases.</p>
+<p><strong>Parallax Distance</strong>: This is the zero parallax distance for the stereo rendering This is also known as the focus plane. This value is the distance at which the left and right camera's line of sight converges.</p>
+<h4>Neck Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_neck_controls.png" /></p>
+<p><strong>Forward Offset</strong>: This control allows you to simulate the &quot;neck offset&quot; effect of a physical 360&deg; panoramic live action camera rig where the lens nodal points are shifted away from the camera origin. Make sure to keep the Forward Offset value lower than the nearest geometry in the scene or the forward offset will cause the camera to be pushed inside of it.</p>
+<p><strong>Force Horizontal</strong>: This control allows you to change how the neck offset simulation is calculated and lock the neck offset to a flat plane.</p>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/neck-offset.png" alt="Neck Offset" /></p>
+<h4>Image Controls</h4>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_image_controls.png" alt="Image Controls" /></p>
+<p><strong>Flip X</strong>: Flips the rendered view horizontally.</p>
+<p><strong>Flip Y</strong>: Flips the rendered view vertically.</p>
+<h2><a name="screen-space-textures"></a>Screen Space Texture Maps</h2>
+<p>You can control the stereoscopic effect seen in the LatLong Stereo and Domemaster Stereo shaders with the help of control texture maps. The <code>LatLong Stereo</code> shader's <strong>Separation Multiplier</strong>, and the <code>Domemaster Stereo Shader</code> shader's <strong>Separation Multiplier</strong>, <strong>Turn Multiplier</strong>, <strong>Head Tilt</strong> attributes support control texture mapping. The images have to be applied using screen space coordinates.</p>
+<p>This special screen space mapping is achieved in 3DS Max by opening up the bitmap texture's <strong>Coordinates</strong> section and enabling the <strong>Environ</strong> radio button. The mapping attribute is then set to <strong>Screen</strong>.</p>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/3dsmax/bitmaps-in-screen-mapping.png" alt="Mapping a texture Using Screen Space" /></p>
+<p>To get you started there is a collection of pre-made control texture maps for the Domemaster3D shaders in the following folder:  </p>
+<p><code>C:\Program Files\Domemaster3D\sourceimages\</code></p>
+<p>You can also create your own control map images if you want to precisely control the stereoscopic effect across your scene and sculpt the stereo depth in your renderings.</p>
+<p>Important: if you get jagged edges in your renderings where the maps have a gradient, make sure you have the proper map filtering or use 16-bit grayscale maps.</p>
+<h3>Domemaster Stereo Control Maps</h3>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/3dsmax/domemaster-control-maps.png" alt="Domemaster Stereo Control Maps" /></p>
+<p><code>head_tilt_map.png</code><br />
+<code>separation_map.png</code><br />
+<code>turn_map.png</code>  </p>
+<h3>LatLong Stereo Control Maps</h3>
+<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/3dsmax/latlong-control-maps.png" alt="LatLong Stereo Control Maps" /></p>
+<p><code>latlong_separation_map.png</code>  </p>
 <h2><a name="vray-for-3ds-max-shader-installation"></a>Vray for 3DS Max Shader Installation</h2>
-<p>There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015, and Vray 3.0 for 3DS Max 2014 builds of the Domemaster3D shaders.</p>
+<p>There are now Vray 2.4 for 3DS Max 2013, Vray 2.5 for 3DS Max 2015, Vray 3.0 for 3DS Max 2015 &amp; Vray 3.0 for 3DS Max 2014, and Vray 3.2 on 3DS Max 2016 builds of the Domemaster3D shaders.</p>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual Studio 2013 (VC++ 12.0) Redistributable Package</a>.</p>
 <p><strong>Step 2.</strong> Copy the .dlo files to the Vray for 3DS Max plugins directory.</p>
 <p><code>C:\Program Files\Autodesk\3ds Max &lt;Max Version&gt;\plugins\vrayplugins</code></p>
 <p>Note: Change <code>&lt;Max Version&gt;</code> to the release number of 3DS Max. Example: Write in 2015 for the <code>&lt;Max Version&gt;</code> if you are using 3DS Max 2015.</p>
-<p>Vray Plugin Files:  </p>
-<pre><code>vraylatlongstereo2015.dlo
+<p>Vray Plugin Files:</p>
+<pre><code>vraylatlongstereo2016.dlo
+vraydomemasterstereo2016.dlo
+
+vraylatlongstereo2015.dlo
 vraydomemasterstereo2015.dlo
 
 vraylatlongstereo2014.dlo
@@ -316,7 +430,7 @@ If you get an &quot;Error Loading Plugin-DLL&quot; error message in 3DS Max when
 <p><strong>Step 2.</strong> Copy the .dll files to the Vray RT plugins directory.</p>
 <p><code>C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max &lt;Max Version&gt; for x64\bin\plugins</code></p>
 <p>Note: Change <code>&lt;Max Version&gt;</code> to the release number of 3DS Max. Example: Write in 2015 for the <Max Version> if you are using 3DS Max 2015.</p>
-<p>Vray Plugin Files:  </p>
+<p>Vray Plugin Files:</p>
 <pre><code>vray_DomemasterStereo.dll (Not compiled yet)
 vray_LatLongStereo.dll
 </code></pre>
@@ -327,18 +441,6 @@ vray_LatLongStereo.dll
 <p><strong>Step 4.</strong> Edit the Windows ENV Path and add the VRay RT <code>Bin</code> folder to the list.</p>
 <p><code>;C:\Program Files\Chaos Group\V-Ray\RT for 3ds Max &lt;Max Version&gt; for x64\bin</code></p>
 <p>Note: Change <code>&lt;Max Version&gt;</code> to the release number of 3DS Max. Example: Write in 2015 for the <code>&lt;Max Version&gt;</code> if you are using 3DS Max 2015.</p>
-<h2><a name="vray-for-3ds-max-lens-shaders"></a>Vray for 3DS Max Lens Shaders</h2>
-<p>Here are two screenshots showing the Vray for 3DS Max beta versions of the Domemaster3D lens shaders.</p>
-<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_domemaster_stereo.png" alt="Vray for 3DS Max DomemasterStereo Shader" /></p>
-<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_max_latlong_stereo.png" alt="Vray for 3DS Max LatLongStereo Shader" /></p>
-<p>There are two new controls added for the first time in the Vray for 3DS Max lens shaders: </p>
-<ul>
-<li>A Neck Offset allows you to simulate the effect of a physical 360&deg; panoramic camera rig where the lens nodal points are shifted away from the camera origin.</li>
-</ul>
-<p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/neck-offset.png" alt="Neck Offset" /></p>
-<ul>
-<li>The hemirect (hemi-equirectangular) checkbox in the LatLongStereo shader that lets you render a partial LatLong image where the top edge of the rendering starts aligned to the zenith pole region. This is useful if you want to render a cropped 360&deg; x 90&deg; latlong image that could then be converted in post into a 180&deg; domemaster (angular fisheye) image with no unused/over-rendered areas in the source image.</li>
-</ul>
 
 </body>
 </html>

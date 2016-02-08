@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>1.9.3</version>
+    <version>1.9.2</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>

@@ -70,7 +70,9 @@ Version 1.9.3
 2016-02-08
 
 Maya
-  Updated the DomeViewer tool to add Ricoh Theta S support and included a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s.obj", and "ricoh_theta_s.ma" in the Domemaster3D sourceimages folder
+  Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemaster3D sourceimages folder
+
+  Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemaster3D sourceimages folder
 
   Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
 

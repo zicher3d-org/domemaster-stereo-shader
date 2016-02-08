@@ -15,7 +15,9 @@
   -------------
   2016-02-08
   
-  Updated the DomeViewer tool to add Ricoh Theta S support and included a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s.obj", and "ricoh_theta_s.ma" in the Domemaster3D sourceimages folder
+  Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemaster3D sourceimages folder
+
+  Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemaster3D sourceimages folder
   
   Version 1.9.2
   -------------
@@ -337,6 +339,10 @@ global proc setPanoramaPreview(){
     //Ricoh Theta S format
     picture -edit -image "ricohThetaS_120px" -width 212 -height 120 picturePanoramaPreview;
     break;
+  case 19:
+    //Facebook Cube Map 3x2
+    picture -edit -image "facebookCubemap3x2_120px.png" -width 180 -height 120 picturePanoramaPreview;
+    break;
   }
 }
 
@@ -459,6 +465,7 @@ global proc domeViewer(){
         menuItem -label "Quadsphere (Starglobe)";
         menuItem -label "Gear VR Mono Cube";
         menuItem -label "Ricoh Theta S";
+        menuItem -label "Facebook Cube Map 3x2";
  
         //Preselect the first option menu
         optionMenuGrp 

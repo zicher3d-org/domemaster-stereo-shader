@@ -21,14 +21,18 @@ Version 1.9.3
 -------------
 2016-02-08
 
-Updated the DomeViewer tool to add Ricoh Theta S support and included a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s.obj", and "ricoh_theta_s.ma" in the Domemaster3D sourceimages folder
+Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemaster3D sourceimages folder
+
+Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemaster3D sourceimages folder
 
 Version 1.9.2
 -------------
 2016-01-03
 
 Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+
 Changed the DomeViewer "Show Focal Length in HUD" default state to off
+
 Added a new DomeViewer "Connect Alpha Channel" checkbox to the Extra Controls section of the GUI. This checkbox tells the DomeViewer to connect the alpha channel from the DomeViewer loaded imagery to the surface material node. Th new "Connect Alpha Channel" checkbox is disabled by default so imagery with transparent mental ray rendered physical sky and sun and IBL based environment backdrops can be viewed in the viewport and you will still see the sky background.
 
 Version 1.8
@@ -1017,6 +1021,10 @@ def createDomeViewer():
     # Ricoh Theta S
     meshName = 'thetaViewer'
     meshFileName = 'ricoh_theta_s_mesh'
+  elif ( currentPanoFormat == 19 ):
+    # Facebook Cube Map 3x2
+    meshName = 'facebookCube3x2'
+    meshFileName = 'facebookCube3x2_mesh'
   
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya

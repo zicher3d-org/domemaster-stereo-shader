@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 1.9.2 - January 11, 2016
+Version 1.9.3 - February 8, 2016
 
 About This Shader
 ---------------------
@@ -29,6 +29,7 @@ Windows Notes
 -------------------
 The Domemaster3D v1.9 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
+
 
 Mac Notes
 ----------
@@ -273,6 +274,15 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 1.9.3
+-------------
+2016-02-08
+
+Maya
+  Updated the DomeViewer tool to add Ricoh Theta S support and included a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s.obj", and "ricoh_theta_s.ma" in the Domemaster3D sourceimages folder
+
+  Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
+  
 Version 1.9.2
 -------------
 2016-01-11

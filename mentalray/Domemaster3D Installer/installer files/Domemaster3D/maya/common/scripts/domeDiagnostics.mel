@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.9.3
-  2016-01-31
+  2016-02-08
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,9 +12,9 @@
   
   Version V1.9.3
   --------------------
-  2016-01-31
+  2016-02-08
   
-  Added support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
+  Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
   
   Version V1.9.2
   --------------------

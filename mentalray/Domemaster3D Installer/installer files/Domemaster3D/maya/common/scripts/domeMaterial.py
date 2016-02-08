@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.9.2
-2016-01-03
+Dome Material Script V1.9.3
+2016-02-08
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -15,6 +15,13 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+  
+Version 1.9.3
+-------------
+2016-02-08
+
+Updated the DomeViewer tool to add Ricoh Theta S support and included a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s.obj", and "ricoh_theta_s.ma" in the Domemaster3D sourceimages folder
 
 Version 1.9.2
 -------------
@@ -1006,6 +1013,10 @@ def createDomeViewer():
     # GearVR Mono Cube
     meshName = 'gearVRMono'
     meshFileName = 'gearVRCube_mesh'
+  elif ( currentPanoFormat == 18 ):
+    # Ricoh Theta S
+    meshName = 'thetaViewer'
+    meshFileName = 'ricoh_theta_s_mesh'
   
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya

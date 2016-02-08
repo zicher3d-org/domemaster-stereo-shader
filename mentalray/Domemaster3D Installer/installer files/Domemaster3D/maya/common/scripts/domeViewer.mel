@@ -1,6 +1,6 @@
 /*
-  Dome Viewer V1.9.2
-  2016-01-04
+  Dome Viewer V1.9.3
+  2016-02-08
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
@@ -11,6 +11,11 @@
   source "domeViewer.mel";
   domeViewer();
   
+  Version 1.9.3
+  -------------
+  2016-02-08
+  
+  Updated the DomeViewer tool to add Ricoh Theta S support and included a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s.obj", and "ricoh_theta_s.ma" in the Domemaster3D sourceimages folder
   
   Version 1.9.2
   -------------
@@ -328,6 +333,10 @@ global proc setPanoramaPreview(){
     //Gear VR Mono Cube format
     picture -edit -image "gearvrMono_38px.png" -width 228 -height 38 picturePanoramaPreview;
     break;
+  case 18:
+    //Ricoh Theta S format
+    picture -edit -image "ricohThetaS_120px" -width 212 -height 120 picturePanoramaPreview;
+    break;
   }
 }
 
@@ -449,6 +458,7 @@ global proc domeViewer(){
         menuItem -label "Mental Ray Horizontal Strip Cube1";
         menuItem -label "Quadsphere (Starglobe)";
         menuItem -label "Gear VR Mono Cube";
+        menuItem -label "Ricoh Theta S";
  
         //Preselect the first option menu
         optionMenuGrp 

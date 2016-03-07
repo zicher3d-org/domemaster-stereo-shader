@@ -1,6 +1,6 @@
 /*
 
-PanoView v1.0.4 for Maxwell Render - 2015-12-01
+PanoView v1.0.4 for Maxwell Render - 2016-03-07
 by Andrew Hazelden
 www.andrewhazelden.com
 andrew@andrewhazelden.com
@@ -9,14 +9,24 @@ This script will send the current Maxwell Render generated panoramic 360 image d
 
 
 PanoView Wiki Page:
-https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/PanoView-for-Maxwell-Render
+https://github.com/AndrewHazelden/Maxwell-Render-Toolbox/wiki/PanoView-for-Maxwell-Render
 
 
 Installation:
 
-Step 1. Place this Maxwell PanoView.ms javascript file in your Maxwell 3 scripts folder:
+Step 1.  The PanoView.ms script can be loaded and run from inside the MaxwellRenderToolbox's scripts folder, or if you want to, you can copy the PanoView.ms  script to your Maxwell Render program's "Next Limit/Maxwell 3/scripts" folder for easier access.
 
-C:\Program Files\Next Limit\Maxwell 3\scripts
+Windows
+C:\Program Files\MaxwellRenderToolbox\scripts\PanoView.ms
+
+Linux
+/opt/MaxwellRenderToolbox/scripts/PanoView.ms
+or
+/home/MaxwellRenderToolbox/scripts/PanoView.ms
+
+Mac
+/Applications/MaxwellRenderToolbox/scripts/PanoView.ms
+
 
 Step 2. Launch Maxwell Render, and then display the script window.
 
@@ -76,7 +86,7 @@ http://djv.sourceforge.net/
 */
 
 
-print("PanoView for Maxwell Render v1.0.2");
+print("PanoView for Maxwell Render v1.0.4");
 print("By Andrew Hazelden");
 
 // Find out the current operating system platform. The platform variable should be set to either "Windows", "Mac", or "Linux".
@@ -119,12 +129,14 @@ function kolorEyesViewer(mediaFileName){
   if(platform == "Windows"){
     // Running on Windows
     //viewerPath = "C:\Program Files\Kolor\KolorEyes 1.4\KolorEyes_x64.exe";
-    viewerPath = "C:\Program Files\Kolor\KolorEyes 1.5\KolorEyes_x64.exe";
+    //viewerPath = "C:\Program Files\Kolor\KolorEyes 1.5\KolorEyes_x64.exe";
+    viewerPath = "C:\Program Files\Kolor\Kolor Eyes 1.6\KolorEyes_x64.exe";
   }else if(platform == "Mac"){
     // Running on Mac
     //viewerPath = "/Applications/Kolor Eyes.app/Contents/MacOS/KolorEyes";
-   //viewerPath = "/Applications/Kolor Eyes 1.4.app/Contents/MacOS/KolorEyes";
-    viewerPath = "/Applications/Kolor Eyes 1.5.app/Contents/MacOS/KolorEyes"
+    //viewerPath = "/Applications/Kolor Eyes 1.4.app/Contents/MacOS/KolorEyes";
+    //viewerPath = "/Applications/Kolor Eyes 1.5.app/Contents/MacOS/KolorEyes";
+    viewerPath = "/Applications/Kolor Eyes 1.6.app/Contents/MacOS/KolorEyes";
   }else if(platform == "Linux"){
     // Running on Linux
     // Kolor Eyes is not available for Linux yet
@@ -154,7 +166,7 @@ function amaterasDomePlayerViewer(mediaFileName){
   
   if(platform == "Windows"){
     // Running on Windows
-    viewerPath = "C:\Program Files\amateras320\bin\AmaterasDomePlayer.exe";
+    viewerPath = "C:\Program Files\amateras324\bin\AmaterasDomePlayer.exe";
   }else if(platform == "Mac"){
     // Running on Mac
     viewerPath = "/Applications/Amateras3/Amateras.app/Contents/MacOS/Amateras";
@@ -188,13 +200,13 @@ function djvViewer(mediaFileName){
   
   if(platform == "Windows"){
     // Running on Windows
-    viewerPath = "C:\Program Files\djv-1.0.5-Windows-64\bin\djv_view.exe";
-    //viewerPath = "C:\Program Files\djv-1.1.0-Windows-64\bin\djv_view.exe";
+    //viewerPath = "C:\Program Files\djv-1.0.5-Windows-64\bin\djv_view.exe";
+    viewerPath = "C:\Program Files\djv-1.1.0-Windows-64\bin\djv_view.exe";
   }else if(platform == "Mac"){
     // Running on Mac
     //viewerPath = "/Applications/djv-OSX-64.app/Contents/MacOS/djv-1.0.5-OSX-64";
-    viewerPath = "/Applications/djv-1.0.5-OSX-64.app/Contents/MacOS/djv-1.0.5-OSX-64";
-    //viewerPath = "/Applications/djv-1.1.0-OSX-64.app/Contents/MacOS/djv-1.1.0-OSX-64";
+    //viewerPath = "/Applications/djv-1.0.5-OSX-64.app/Contents/MacOS/djv-1.0.5-OSX-64";
+    viewerPath = "/Applications/djv-1.1.0-OSX-64.app/Contents/MacOS/djv-1.1.0-OSX-64";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "djv-view";
@@ -284,14 +296,14 @@ function speedgradeViewer(mediaFileName){
 
   if(platform == "Windows"){
     // Running on Windows
-    viewerPath = "C:\Program Files\Adobe\Adobe SpeedGrade CS6\SpeedGradeCmd.exe";
-    viewerPath = "C:\Program Files\Adobe\Adobe SpeedGrade CC 2014\SpeedGradeCmd.exe";
-    //viewerPath = "C:\Program Files\Adobe\Adobe SpeedGrade CC 2015\SpeedGradeCmd.exe";
+    //viewerPath = "C:\Program Files\Adobe\Adobe SpeedGrade CS6\SpeedGradeCmd.exe";
+    //viewerPath = "C:\Program Files\Adobe\Adobe SpeedGrade CC 2014\SpeedGradeCmd.exe";
+    viewerPath = "C:\Program Files\Adobe\Adobe SpeedGrade CC 2015\SpeedGradeCmd.exe";
   }else if(platform == "Mac"){
     // Running on Mac
     //viewerPath = "/Applications/Adobe SpeedGrade CS6/Adobe SpeedGrade CS6.app/Contents/MacOS/bin/SpeedGradeCmd";
-    viewerPath = "/Applications/Adobe SpeedGrade CC 2014/Adobe SpeedGrade CS6.app/Contents/MacOS/bin/SpeedGradeCmd";
-    //viewerPath = "/Applications/Adobe SpeedGrade CC 2015/Adobe SpeedGrade CS6.app/Contents/MacOS/bin/SpeedGradeCmd";
+    //viewerPath = "/Applications/Adobe SpeedGrade CC 2014/Adobe SpeedGrade CC 2014.app/Contents/MacOS/bin/SpeedGradeCmd";
+    viewerPath = "/Applications/Adobe SpeedGrade CC 2015/Adobe SpeedGrade CC 2015.app/Contents/MacOS/bin/SpeedGradeCmd";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "SpeedGradeCmd";
@@ -387,7 +399,12 @@ function whirligigViewer(mediaFileName){
   
   if(platform == "Windows"){
     // Running on Windows
+    
+    // Whirligig for Oculus Rift
     viewerPath = "C:\Program Files\Whirligig\Whirligig64bit.exe";
+
+    // Whirligig for Steam VR / HTC VIVE / OSVR
+    //viewerPath = "C:\Program Files\Whirligig SteamVR\Whirligig SteamVR.exe";
   }else if(platform == "Mac"){
     // Running on Mac
     viewerPath = "/Applications/Whirligig.app/Contents/MacOS/Whirligig";
@@ -406,19 +423,19 @@ function whirligigViewer(mediaFileName){
   var projectionMode = "barrel360";
   
   // Angular Fisheye 140 degree
-  // var projectionMode = "fisheye140";  
+  //var projectionMode = "fisheye140";  
     
   // Angular Fisheye 180 degree / Domemaster 180
-  // var projectionMode = "fisheye180";  
+  //var projectionMode = "fisheye180";  
   
   // Angular Fisheye 240 degree
-  // var projectionMode = "fisheye240";
+  //var projectionMode = "fisheye240";
   
   // Angular Fisheye 360 degree
-  // var projectionMode = "fisheye360"; 
+  //var projectionMode = "fisheye360"; 
   
   // Rectangular
-  // var projectionMode = "flatscreen";
+  //var projectionMode = "flatscreen";
   
   var args = new Array;
   args[0] = "-feature";

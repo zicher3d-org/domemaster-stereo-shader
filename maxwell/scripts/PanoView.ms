@@ -302,8 +302,9 @@ function speedgradeViewer(mediaFileName){
   }else if(platform == "Mac"){
     // Running on Mac
     //viewerPath = "/Applications/Adobe SpeedGrade CS6/Adobe SpeedGrade CS6.app/Contents/MacOS/bin/SpeedGradeCmd";
-    //viewerPath = "/Applications/Adobe SpeedGrade CC 2014/Adobe SpeedGrade CC 2014.app/Contents/MacOS/bin/SpeedGradeCmd";
-    viewerPath = "/Applications/Adobe SpeedGrade CC 2015/Adobe SpeedGrade CC 2015.app/Contents/MacOS/bin/SpeedGradeCmd";
+    //viewerPath = "/Applications/Adobe SpeedGrade CC/Adobe SpeedGrade CC.app/Contents/MacOS/SpeedGradeCmd";
+    //viewerPath = "/Applications/Adobe SpeedGrade CC 2014/Adobe SpeedGrade CC 2014.app/Contents/MacOS/SpeedGradeCmd";
+    viewerPath = "/Applications/Adobe SpeedGrade CC 2015/Adobe SpeedGrade CC 2015.app/Contents/MacOS/SpeedGradeCmd";
   }else if(platform == "Linux"){
     // Running on Linux
     viewerPath = "SpeedGradeCmd";

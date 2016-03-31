@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.9.3
-  2016-02-08
+  2016-03-31
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -1176,6 +1176,15 @@ global proc domeDiagnostics(){
       case 16:
         $panoramaFormatString = "Gear VR Mono Cube";
         break; 
+      case 17:
+        $panoramaFormatString = "Facebook Cube Map 3x2";
+        break; 
+      case 18:
+        $panoramaFormatString = "Individual Cube Map Faces";
+        break; 
+      default:
+        $panoramaFormatString = "Unknown";
+        break;
     }  
   }
   

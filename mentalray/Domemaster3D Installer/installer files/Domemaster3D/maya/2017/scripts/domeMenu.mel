@@ -1,0 +1,530 @@
+/*
+Create the Domemaster3D Main Menu in the Rendering menu set
+Version 1.9
+2015-09-23 Maya 2011+
+------------------------------------------------------------------------------
+
+Notes:
+gMainRenderMenu
+gMainCreateMenu
+Create->Cameras
+
+//Find a menu bar command
+findMenuItem;
+
+//List menu sets:
+string $menuSets[] = `menuSet -allMenuSets`;
+//Result: commonMenuSet animationMenuSet polygonsMenuSet surfacesMenuSet dynamicsMenuSet renderingMenuSet nDynamicsMenuSet 
+ 
+//Remove old menu
+deleteUI mainDomemaster3DMenu;
+
+//Load the menus using:
+source "domeMenu.mel";
+createDomemaster3DMenu();
+
+*/
+
+
+//Check what Maya version is active
+global proc int getMayaVersionDome(){
+  // Check if we are running Maya 2011 or higher
+  float $mayaVersion = `getApplicationVersionAsFloat`;
+
+  // Test this GUI using the Maya 2010 - non-docked GUI mode
+  //float $mayaVersion = 2010;
+
+  // Write out the current Maya version number
+  //print("Maya " + $mayaVersion + " detected.\n");
+
+  return $mayaVersion;
+}
+
+  
+//Check the operating system
+global proc string getMayaPlatform(){
+  //-------------------------------------------------
+  //Get the current Maya Platform using python
+  //      The $mayaPlatform options are:
+  //          "windows", "darwin", "linux"
+  //-------------------------------------------------
+
+  string $mayaPlatform = "";
+  python("import sys");
+
+  if(python("sys.platform == 'win32'")){
+    $mayaPlatform = "windows";
+  }else if(python( "sys.platform == 'windows'")){
+    $mayaPlatform = "windows";
+  }else if(python( "sys.platform == 'darwin'")){
+    $mayaPlatform = "darwin";
+  }else{
+    $mayaPlatform = "linux";
+  }
+
+  //print("Running on " + $mayaPlatform + ".\n");
+  return $mayaPlatform;
+}
+
+
+
+//Create the "Choose a Default Stereo Rig" submenu
+global proc createDomeRigSubmenu(){
+
+	popupMenu -edit -deleteAllItems domeDefaultRigMenu;
+  setParent -menu domeDefaultRigMenu;
+  
+  //remove any existing submenus
+  // if (`menu -query -exists domeDefaultRigMenu`){
+    // print("Replacing the existing domeDefaultRigMenu item.\n");
+    // deleteUI domeDefaultRigMenu;
+  // }
+  
+  //remove any existing radio submenu collections
+  if(`menu -query -exists domeRigSubMenuCollection`){
+    print("Replacing the existing domeRigSubMenuCollection item.\n");
+    deleteUI domeRigSubMenuCollection;
+  }
+
+  radioMenuItemCollection	domeRigSubMenuCollection;
+  
+  //Create a sub menu using the list of active stereoRigManager rigs
+  int $i = 0;
+  global string $domeActiveRig;
+  string $rigs[] = `stereoRigManager -listRigs`;
+  string $defaultRig =  `stereoRigManager -query -defaultRig`;  
+  string $funcName = "";
+  int $isCurrent;
+  
+  for($domeActiveRig in $rigs){
+    //Check if this is the default rig
+    
+    if($defaultRig == $domeActiveRig){
+      $isCurrent = true;
+    }else{
+      $isCurrent = false;
+    }
+    
+    print("Camera Rig: " + $domeActiveRig + " Default: " + $isCurrent + "\n");
+    
+    //Build the radio button item's command string
+    $funcName = "";
+    $funcName += "print(\"Changing the default stereo rig to: " + $domeActiveRig + "\\n\");";
+    $funcName += "stereoRigManager -defaultRig " + $domeActiveRig + ";";
+
+    //Build the radio button menu item
+    menuItem 
+        -label $domeActiveRig
+        -radioButton ($isCurrent)
+        -collection domeRigSubMenuCollection
+        -parent domeDefaultRigMenu
+        -command $funcName
+        ("domeRadioSubMenu" + $i);
+        
+     $i += 1;
+  }
+  
+  setParent -menu DomeCamerasMenu;  
+}
+
+
+global proc editDomeDiagOpenMenuItems(){
+  // Get the current project folder name
+  string  $projPath = `workspace -q -rootDirectory`;
+  // Build the images directory path
+  string $imagesPath = $projPath + "images";
+  // Build the scene directory path
+  string $scenesPath = $projPath + "scenes";
+
+menuItem -edit 
+  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
+  DomeDiagOpenScenesMenu;
+
+menuItem -edit 
+  -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
+  DomeDiagOpenImagesMenu;
+
+}
+
+//Run the menu update command
+//editDomeDiagOpenMenuItems();
+
+// -----------------------------------------------------------------
+// Create the Domemaster3D Menu
+// -----------------------------------------------------------------
+global proc createDomemaster3DMenu() {
+
+  global string $gMainWindow;
+
+  //remove any existing Domemaster3D menus
+  if(`menu -query -exists mainDomemaster3DMenu`){
+    print("Replacing the existing Domemaster3D menu item.\n");
+    deleteUI mainDomemaster3DMenu;
+  }
+  
+  //Create the Domemaster3D Menu
+  //The postMenuCommand will run the function editDomeDiagOpenMenuItems() that refreshes the Open Scenes and Open Images menu items.
+  setParent $gMainWindow;
+  menu -label "Domemaster3D" 
+    -tearOff true 
+    -postMenuCommand "editDomeDiagOpenMenuItems();"
+    mainDomemaster3DMenu;
+
+  menuSet -currentMenuSet 
+    renderingMenuSet;
+  
+  menuSet -addMenu 
+    mainDomemaster3DMenu 
+    renderingMenuSet;
+
+  updateMenuMode;
+  updateMenuModeUI;
+  
+  setParent -menu 
+    mainDomemaster3DMenu;
+  
+  menuItem
+    -subMenu true 
+    -tearOff true 
+    -label "Dome Cameras" 
+    DomeCamerasMenu;
+    
+      menuItem
+        -label "LatLong Camera" 
+        -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
+        -image "render_latlong_lens.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
+      menuItem
+        -label "LatLong Stereo Camera" 
+        -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied."
+        -image "render_LatLong_Stereo.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoRig()\")"; 
+      menuItem
+        -label "LatLong Stereo Aim Camera" 
+        -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with an aim constraint and the LatLong_Stereo shader applied."
+        -image "render_LatLong_Stereo.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoAimRig()\")"; 
+      menuItem
+        -label "LatLong Stereo Zenith Camera" 
+        -annotation "Create a stereoscopic latlong / equirectangular / spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
+        -image "render_LatLong_Stereo.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
+
+      // Fulldome 2D Section
+
+      float $mayaVersion = getMayaVersionDome();
+      if($mayaVersion >=2015){
+        menuItem -divider true -dividerLabel "Fulldome 2D";
+      }else{
+        menuItem -divider true;
+      }
+
+      menuItem
+        -label "Domemaster WxH Camera" 
+        -annotation "Create a fulldome camera with the domeAFL_WxH lens shader applied. This shader uses a diameter and height setting instead of a field of view control."
+        -image "render_domeAFL_WxH.png" 
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_WxH_Camera()\")";
+      menuItem
+        -label "Domemaster FOV Camera" 
+        -annotation "Create a fulldome camera with the domeAFL_FOV lens shader applied."
+        -image "render_domeAFL_FOV.png" 
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_FOV_Camera()\")";
+
+      //Fulldome Stereo Section
+
+      float $mayaVersion = getMayaVersionDome();
+      if($mayaVersion >=2015){
+        menuItem -divider true -dividerLabel "Fulldome Stereo";
+      }else{
+        menuItem -divider true;
+      }
+
+      menuItem 
+        -label "Domemaster3D FOV Camera" 
+        -annotation "Create a stereo fulldome camera rig with the domeAFL_FOV_Stereo lens shader applied."
+        -image "render_domeAFL_FOV_Stereo.png" 
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeStereoRig()\")";
+               
+      menuItem 
+        -label "Dome Texture" 
+        -annotation "Create a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader." 
+        -image "render_rob_lookup_background.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createRobLookup()\")";
+      menuItem 
+        -label "Dome Ramp" 
+        -annotation "Create a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo."
+        -image "render_domeRamp.png"
+        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeRampTexture()\")";
+
+      menuItem -divider true;
+
+      // Check if we are running Maya 2011 or higher
+      float $mayaVersion = getMayaVersionDome();
+      if($mayaVersion >=2011){
+        menuItem 
+          -subMenu true 
+          -tearOff true 
+          -label "Choose a Default Stereo Rig"
+          -annotation "Set the active / default stereo camera rig."
+          -postMenuCommand "createDomeRigSubmenu()"
+          domeDefaultRigMenu;      
+          
+        setParent -menu ..;   
+      } //End of 2011+ check
+    
+    setParent -menu ..;
+    
+
+  //Lens Shader Compatible Materials Section
+
+  float $mayaVersion = getMayaVersionDome();
+  if($mayaVersion >=2015){
+    menuItem -divider true -dividerLabel "Lens Shader Compatible Materials";
+  }else{
+    menuItem -divider true;
+  }
+  
+  menuItem 
+    -label "Create Color Material" 
+    -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with a color texture map."
+    -image "colorMaterial.png"
+    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorMiaMaterial()\");";
+  menuItem 
+    -label "Create Color + Bump Material" 
+    -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with color and bump map textures."
+    -image "bumpMaterial.png"
+    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorBumpMiaMaterial()\")";
+  menuItem 
+    -label "Create Color Image Sequence Material" 
+    -annotation "Create a mia_material_x_passes / mentalrayTexture based image sequence shading network."
+    -image "mentalrayTextureAnimationMaterial.png" 
+    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorImageSequenceMiaMaterial()\")";
+  menuItem 
+    -label "Create Hybrid MR + Maya Color Material" 
+    -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
+    -image "hybridMaterial.png" 
+    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
+
+  //Image Based Lighting Section
+
+  float $mayaVersion = getMayaVersionDome();
+  if($mayaVersion >=2015){
+    menuItem -divider true -dividerLabel "Image Based Lighting";
+  }else{
+    menuItem -divider true;
+  }
+
+  menuItem 
+    -label "Create Fulldome IBL" 
+    -annotation "Create a fulldome 180 degree IBL (Image Based Lighting) shading network. This repositions a fulldome image as a mentalrayIblShape angular environment map."
+    -image "fulldomeIBL.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeIBL()\")";
+  menuItem 
+    -label "Create Hemirect IBL" 
+    -annotation "Create a hemi-equirectangular IBL (Image Based Lighting) shading network. This repositions the \"top half\" of a latlong / equirectangular panorama image as a mentalrayIblShape spherical environment map."
+    -image "hemirectIBL.png"
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createHemirectIBL()\")";
+
+  //Fulldome Tools Section
+
+  float $mayaVersion = getMayaVersionDome();
+  if($mayaVersion >=2015){
+    menuItem -divider true -dividerLabel "Fulldome Tools";
+  }else{
+    menuItem -divider true;
+  }
+
+  menuItem 
+    -label "Create Starglobe" 
+    -annotation "Create a starry background for your fulldome scenes."
+    -image "render_starglobe.png"
+    //-command "python(\"import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()\")";
+    -command "source \"domeStarglobe.mel\";\ncreateStarglobe();";
+  menuItem 
+    -label "Create Reference Grid" 
+    -annotation "Create a hemispherical wireframe reference grid."
+    -image "domeGrid.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeGrid()\")";
+  menuItem 
+    -label "Create Galaxy" 
+    -annotation "Create dynamic particle based galaxies."
+    -image "render_galaxy.png" 
+    -command "source \"galaxyCreator.mel\";galaxyCreator();";
+  menuItem 
+    -label "Create DomeText" 
+    -annotation "Create raster titles and scrolling credits using ImageMagick."
+    -image "domeText.png" 
+    -command "source \"domeText.mel\";domeText();";
+  menuItem 
+    -label "CrossBounce Simulation" 
+    -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
+    -image "domeCrossBounce.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
+  menuItem 
+    -label "Dome Viewer" 
+    -annotation "View immersive fulldome and panoramic images+movies in Maya."
+    -image "domeViewer.png" 
+    -command "source \"domeViewer.mel\";domeViewer();";
+
+  //Guard against Maya 2010 loading of the histogram item.
+  float $mayaVersion = getMayaVersionDome();
+  if ($mayaVersion >=2011){
+  menuItem 
+    -label "Dome Histogram" 
+    -annotation "Calculate a histogram analysis for the current image in the render view window."
+    -image "domeHistogram.png" 
+    -command "source \"domeHistogram.mel\";domeHistogram();";
+  }
+
+  //Diagnostics Section
+
+  float $mayaVersion = getMayaVersionDome();
+  if($mayaVersion >=2015){
+    menuItem -divider true -dividerLabel "Diagnostics";
+  }else{
+    menuItem -divider true;
+  }
+
+  //Open the render log
+  //Win Example:  C:/Users/hazelden/Documents/maya/mayaRenderLog.txt
+  //Mac Example:  /Users/hazelden/Library/Logs/Maya/mayaRender.log
+  //Linux Example:  /home/hazelden/maya/mayaRender.log
+
+  string $renderLogName = "";
+  string $domeMayaRenderLogPathString;
+
+  string $domeUserHomePathString;
+  string $domeMayaRenderLogPathString;
+
+  if(getMayaPlatform() == "windows"){
+    //Windows Log Filename
+    $renderLogName = "mayaRenderLog.txt";
+    //Win Example:  C:/Users/hazelden
+    $domeUserHomePathString = `getenv "USERPROFILE"`;
+    $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
+  }else if(getMayaPlatform() == "darwin") {
+    //Mac OS X Log Filename
+    $renderLogName = "mayaRender.log";
+    //Mac Example: $Home = /Users/hazelden
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
+  }else{
+    //Linux Log Filename
+    $renderLogName = "mayaRender.log";
+    //Linux Example: $Home = /home/hazelden
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/maya" + "/mayaRenderLog.txt";
+  }
+
+  // Get the current project folder name
+  string  $projPath = `workspace -q -rootDirectory`;
+  // Build the images directory path
+  string $imagesPath = $projPath + "images";
+  // Build the scene directory path
+  string $scenesPath = $projPath + "scenes";
+
+  
+  menuItem 
+    -label "Open Scenes Folder"
+    //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
+    -annotation "Opening the \"Scenes\" folder for the current project."
+    -imageOverlayLabel "SCN"
+    -image "dome_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
+    DomeDiagOpenScenesMenu;
+  menuItem 
+    -label "Open Sourceimages Folder"
+    //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
+    -annotation "Opening the \"Sourceimages\" folder for the current project."
+    -imageOverlayLabel "SRC"
+    -image "dome_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
+    DomeDiagOpenSourceImagesMenu;
+  menuItem 
+    -label "Open Images Folder"
+    //-annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
+    -annotation "Opening the \"Images\" folder for the current project."
+    -imageOverlayLabel "IMG"
+    -image "dome_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
+    DomeDiagOpenImagesMenu;
+  menuItem 
+    -label "Open TEMP Folder"
+    -annotation "Opening the temporary folder."
+    -imageOverlayLabel "TMP"
+    -image "dome_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();";
+  menuItem 
+    -label "Open MayaRenderLog"
+    //-label ("Open " + $renderLogName) 
+    //-label "Open MayaRenderLog.txt"
+    -annotation ("Opening the Maya Render Log file: " + $domeMayaRenderLogPathString)
+    -imageOverlayLabel "rLog"
+    -image "domeLog.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenMayaRenderLogFile();" ;
+  menuItem 
+    -label "Create Diagnostics Report" 
+    -annotation "Generate a Maya Diagnostics Report and save it to your desktop."
+    -imageOverlayLabel "DIAG"
+    -image "domeLog.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();";
+  menuItem
+    -label "Open Task Manager" 
+    -annotation "Open the Task Manager on Windows, or the Activity Monitor on Mac OS X."
+    -imageOverlayLabel "Task"
+    -image "task.png"
+    -command "source \"domeDiagnostics.mel\";\nopenTaskManager();";
+  menuItem 
+    -label "Upgrade Domemaster Node IDs" 
+    -annotation "Look for any \"unknown\" node types that match the names of domeAFL_FOV, domeAFL_FOV_Stereo, or domeAFL_WxH nodes and replace them with newly created nodes."
+    -imageOverlayLabel "Upgr"
+    -image "nodeUpgrade.png"
+    -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" ;
+  menuItem 
+    -label "Add Pre/Post Render Mel" 
+    -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
+    -image "domeMayaScript.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.addPrePostRenderScript()\");";
+  menuItem
+    -label "Remove Pre/Post Render Mel" 
+    -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
+    -image "domeMayaScript.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
+  menuItem
+    -label "Launch Another Maya Instance" 
+    -annotation "This tool will launch an additional copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time"
+    -image "domeMayaScript.png" 
+    -command "source \"domeDiagnostics.mel\"; domeLaunchMayaInstance();";
+  menuItem 
+    -label "Reload MentalRay Plugin" 
+    -annotation "Force mental ray to reload. This can fix issues if Maya didn't startup correctly."
+    -image "mentalray_load.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\");";
+
+  //Support Section
+  float $mayaVersion = getMayaVersionDome();
+  if($mayaVersion >=2015){
+    menuItem -divider true -dividerLabel "Support";
+  }else{
+    menuItem -divider true;
+  }
+  
+  menuItem 
+    -label "Load Domemaster3D Shelf" 
+    -annotation "Load the Domemaster3D Shelf into Maya."
+    -image "domeLog.png" 
+    -command "loadNewShelf(\"shelf_Domemaster3D.mel\");";
+  menuItem 
+    -label "Domemaster3D Wiki Help" 
+    -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
+    -image "domeHelp.png" 
+    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.openDomemasterWiki()\");";
+  menuItem 
+    -label "Domemaster3D Version Info" 
+    -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."
+    -image "domeInfo.png"
+    -command "source \"domeVersion.mel\";domeVersion();";
+} 
+
+//Create the menu
+//createDomemaster3DMenu();

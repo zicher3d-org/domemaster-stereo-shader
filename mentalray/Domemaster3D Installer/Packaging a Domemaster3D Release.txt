@@ -1,4 +1,4 @@
-Packaging a Domemaster3D Release - 2015-10-15
+Packaging a Domemaster3D Release - 2016-04-04
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
 Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files:
@@ -35,12 +35,12 @@ Step 4. Upload the new release to GitHub and use the following format for the Gi
 
 vX.XW
 Domemaster3D vX.X for Maya + 3DS Max on Windows 64-bit
-This is the Domemaster3D Shader v1.9 release for Maya + 3DS Max on Windows 64-bit systems. This installer is compatible with 3DS Max 2009-2016 and Maya 2010-2016. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+This is the Domemaster3D Shader vX.X release for Maya + 3DS Max on Windows 64-bit systems. This installer is compatible with 3DS Max 2009-2016 and Maya 2010-2016. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
 
 
 vX.XM
 Domemaster3D vX.X for Maya on Mac OS X
-This is the Domemaster3D Shader v1.9 release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
+This is the Domemaster3D Shader vX.X release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
 
 vX.XL
 Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux

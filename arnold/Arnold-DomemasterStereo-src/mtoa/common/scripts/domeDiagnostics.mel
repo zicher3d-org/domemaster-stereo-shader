@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V1.9.3
-  2016-03-31
+  2016-04-04
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,9 +12,11 @@
   
   Version V1.9.3
   --------------------
-  2016-02-08
+  2016-04-04
   
   Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
+  
+  Updated the PlayblastVR panoramic format support.
   
   Version V1.9.2
   --------------------
@@ -1169,19 +1171,19 @@ global proc domeDiagnostics(){
         break;
       case 14:
         $panoramaFormatString = "Quadsphere";
-        break;    
+        break;
       case 15:
         $panoramaFormatString = "Perspective";
         break;
       case 16:
         $panoramaFormatString = "Gear VR Mono Cube";
-        break; 
+        break;
       case 17:
         $panoramaFormatString = "Facebook Cube Map 3x2";
-        break; 
+        break;
       case 18:
         $panoramaFormatString = "Individual Cube Map Faces";
-        break; 
+        break;
       default:
         $panoramaFormatString = "Unknown";
         break;

@@ -2,7 +2,7 @@
 // Mental Ray Indirect Lighting Tab
 //==================================================================
 
-// Note: Updated on April 16, 2015 by Andrew Hazelden to connect the 
+// Note: Updated on April 4, 2016 by Andrew Hazelden to connect the 
 // exposure lens shader to the first input on the lens shader list 
 // .miLensShaderList[0]
 
@@ -175,10 +175,10 @@ global proc miCreateSunSky()
 	string $cameras[] = `ls -type camera`;
 	for ($camera in $cameras) {
 		if (!`getAttr ($camera + ".orthographic")`) {
+		  // New connection to the first input on the lens shader list (ACH)   
 			connectAttr -force ($exposureControl + ".message") ($camera + ".miLensShaderList[0]");
-			// New connection to the first input on the lens shader list (AH)   
-        		
-        	
+			// [ACH] VR Lens Shader Compatibility Edit
+      
 			connectAttr -force
 				($skyShader + ".message")
 				($camera + ".miEnvironmentShader");

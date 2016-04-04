@@ -11,7 +11,7 @@
 //	None
 //
 
-// Note: Updated on April 16, 2015 by Andrew Hazelden to connect the 
+// Note: Updated on April 4, 2016 by Andrew Hazelden to connect the 
 // exposure lens shader to the first input on the lens shader list 
 // .miLensShaderList[0]
 
@@ -34,9 +34,9 @@ global proc miUpdateSkyCameras(string $skyShader)
 			
 			if(size($exposureControl))
 			{
-				// New connection to the first input on the lens shader list (AH)  
+				// New connection to the first input on the lens shader list (ACH)  
 				$cmd = ("connectAttr -force " + $exposureControl + ".message " + $camera + ".miLensShaderList[0]");
-				// [ACH] Fulldome Lens Shader Compatibility Edit
+				// [ACH] VR Lens Shader Compatibility Edit
 				catchQuiet(`eval $cmd`);
 			}
 		}

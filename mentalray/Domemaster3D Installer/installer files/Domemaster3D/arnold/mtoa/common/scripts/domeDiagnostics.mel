@@ -1,5 +1,5 @@
 /*
-  Dome Diagnostics Report Tool V1.9.3
+  Dome Diagnostics Report Tool V2.0
   2016-04-04
   by Andrew Hazelden
   
@@ -10,13 +10,15 @@
   Version History
   ----------------
   
-  Version V1.9.3
+  Version V2.0
   --------------------
   2016-04-04
   
   Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
   
-  Updated the PlayblastVR panoramic format support.
+  Updated the PlayblastVR 2.0 panoramic format support.
+  
+  Updated the Vray for Maya 2017 support
   
   Version V1.9.2
   --------------------
@@ -347,7 +349,7 @@ global proc domeDiagnostics(){
   }
   
   int $domeTotalMemory;
-  if ($mayaVersion >=2014){
+  if($mayaVersion >=2014){
     //RAM - Maya 2015 returns values using an int
     $domeTotalMemory = `memory -physicalMemory -gigaByte`;
     $domeDebugText += "> Physical Memory " + $domeTotalMemory + "GB" + "  \r\n";
@@ -362,7 +364,7 @@ global proc domeDiagnostics(){
   //Only list RAM if running on Windows - Maya on Mac lists the free RAM as 0 MB!!!
 	if(getMayaPlatform() == "windows"){
     //Memory check as an int in Maya 2015+
-    if ($mayaVersion >=2014){
+    if($mayaVersion >=2014){
       //RAM - Maya 2015 returns values using an int
       $domeFreeMemory = `memory -freeMemory -gigaByte`;
       $domeDebugText += "> Free System Memory " + $domeFreeMemory + "GB" + "  \r\n";
@@ -393,7 +395,7 @@ global proc domeDiagnostics(){
   }
 
   //GPU memory check exists in Maya 2015+
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     //GPU RAM
     $domeDebugText += "> Free GPU Memory " + `ogs -gpuMemoryUsed` + "MB" + "  \r\n";
   }
@@ -421,7 +423,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "## Maya ##\r\n\r\n";
   
   string $fancyMayaVersion;
-  if ($mayaVersion >=2015){
+  if($mayaVersion >=2015){
     //Example: Autodesk Maya 2015 SP2
     $fancyMayaVersion = `about -installedVersion`;
   } else {
@@ -469,21 +471,21 @@ global proc domeDiagnostics(){
   $domeDebugText += "### Active Renderer ###\r\n";
   if($rendererString == "maxwell"){
     $domeDebugText += "> The Maxwell renderer is active.\r\n";
-  } else if ($rendererString == "arnold"){
+  }else if($rendererString == "arnold"){
     $domeDebugText += "> The Arnold renderer is active.\r\n";
-  } else if ($rendererString == "mentalRay"){
+  }else if($rendererString == "mentalRay"){
     $domeDebugText += "> The mental ray renderer is active.\r\n";
-  } else if ($rendererString == "vray"){
+  }else if($rendererString == "vray"){
     $domeDebugText += "> The V-Ray for Maya renderer is active.\r\n";
-  } else if ($rendererString == "mayaSoftware"){
+  }else if($rendererString == "mayaSoftware"){
     $domeDebugText += "> The Maya Software renderer is active.\r\n";
-  }else if ($rendererString == "mayaHardware"){
+  }else if($rendererString == "mayaHardware"){
    $domeDebugText += "> The Maya Hardware renderer is active.\r\n";
-  }else if ($rendererString == "mayaHardware2"){
+  }else if($rendererString == "mayaHardware2"){
     $domeDebugText += "> The Maya Hardware 2.0 renderer is active.\r\n";
-  }else if ($rendererString == "mayaVector"){
+  }else if($rendererString == "mayaVector"){
     $domeDebugText += "> The Maya Vector renderer is active.\r\n";
-  }else if ($rendererString == "PlayblastVR"){
+  }else if($rendererString == "PlayblastVR"){
     $domeDebugText += "> The PlayblastVR immersive hardware renderer is active.\r\n";
   }
   $domeDebugText += "\r\n";
@@ -982,8 +984,8 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MI_LIBRARY_PATH` ###\r\n> " + $mrCustomlibraryString + "\r\n\r\n";
 
   //Add the extra MR detail if you are running a recent version of Maya
-  //if ($mayaVersion >=2015){
-  if ($rendererString == "mentalRay"){
+  //if($mayaVersion >=2015){
+  if($rendererString == "mentalRay"){
     string $mrLocationString = `getenv "MENTALRAY_LOCATION"`;
     $domeDebugText += "### `MENTALRAY_LOCATION` ###\r\n> " + $mrLocationString + "\r\n\r\n";
 
@@ -1121,7 +1123,7 @@ global proc domeDiagnostics(){
   if(`optionVar -exists "playblastVRPanoramaFormat"`){
   
     //Check for a PlayblastVR module if the playblastVRPanoramaFormat exists
-    if ($mayaVersion >= 2013){
+    if($mayaVersion >= 2013){
       $playblastVRModuleString = `getModulePath -moduleName "PlayblastVR"`;
       $domeDebugText += "### `PLAYBLASTVR Module` ###\r\n> " + $playblastVRModuleString + "\r\n\r\n";
     }
@@ -1396,7 +1398,7 @@ global proc domeDiagnostics(){
   $vrayString = `getenv "VRAY_PATH"`;
   $domeDebugText += "### `VRAY_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
 
-  if ($mayaVersion == 2010){
+  if($mayaVersion == 2010){
       if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1412,7 +1414,7 @@ global proc domeDiagnostics(){
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2010_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2010_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
- } else if ($mayaVersion == 2011){
+ }else if($mayaVersion == 2011){
      if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1428,7 +1430,7 @@ global proc domeDiagnostics(){
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2011_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2011_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
- } else if ($mayaVersion == 2012){
+ }else if($mayaVersion == 2012){
      if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1444,7 +1446,7 @@ global proc domeDiagnostics(){
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2012_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2012_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
- } else if ($mayaVersion == 2013){
+ }else if($mayaVersion == 2013){
      if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1460,7 +1462,7 @@ global proc domeDiagnostics(){
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2013_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2013_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
- } else if ($mayaVersion == 2014){
+ }else if($mayaVersion == 2014){
      if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1476,7 +1478,7 @@ global proc domeDiagnostics(){
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2014_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2014_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
-  } else if ($mayaVersion == 2015){
+  }else if($mayaVersion == 2015){
     if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1493,7 +1495,7 @@ global proc domeDiagnostics(){
 
     $vrayString = `getenv "VRAY_TOOLS_MAYA2015_x64"`;
     $domeDebugText += "### `VRAY_TOOLS_MAYA2015_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
-  } else if ($mayaVersion == 2016){
+  }else if($mayaVersion == 2016){
       if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2016_MAIN_PowerPC"`;
       $domeDebugText += "### `VRAY_FOR_MAYA2016_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1516,6 +1518,29 @@ global proc domeDiagnostics(){
     
     $vrayString = `getenv "VRAY_OSL_PATH_MAYA2016_x64"`;
     $domeDebugText += "### `VRAY_OSL_PATH_MAYA2016_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }else if($mayaVersion == 2017){
+      if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2017_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2017_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2017_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2017_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+      
+      $vrayString = `getenv "VRAY_OSL_PATH_MAYA2017_PowerPC"`;
+      $domeDebugText += "### `VRAY_OSL_PATH_MAYA2017_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2017_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2017_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2017_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2017_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2017_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2017_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_OSL_PATH_MAYA2017_x64"`;
+    $domeDebugText += "### `VRAY_OSL_PATH_MAYA2017_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   }
   
   $vrayString = `getenv "VRAY_FOR_MAYA_DRLISTS_PATH"`;
@@ -1679,7 +1704,7 @@ global proc domeShowLogFolder(){
     $commandString  = "cmd /k start /D \"" + toNativePath( $folderPath ) +"\" .";
     system($commandString);
     print ("Open Folder Command: " + $commandString + "\r\n");
-  } else if (getMayaPlatform() == "darwin"){
+  }else if(getMayaPlatform() == "darwin"){
 		$commandString  = "open -a Finder \"" + toNativePath( $folderPath ) +"\"";
 		system($commandString);
 		print ("Open Folder Command: " + $commandString + "\r\n");
@@ -1916,10 +1941,10 @@ global proc string domeProcessesInfo(){
     }
 
     $formattedProcessesInfo += "\r\n\r\n";
-  } else if (getMayaPlatform() == "darwin"){ 
+  }else if(getMayaPlatform() == "darwin"){ 
     //ToDo - list items in top
     $formattedProcessesInfo = "";
-  } else if (getMayaPlatform() == "linux"){
+  }else if(getMayaPlatform() == "linux"){
      $formattedProcessesInfo = "";
   } else {
      $formattedProcessesInfo = "";
@@ -1941,7 +1966,7 @@ global proc string domeStorageInfo(){
 
     //Add an ending newline after the volumes
     $formattedStorageInfo += "\r\n";
-  } else if (getMayaPlatform() == "darwin"){ 
+  }else if(getMayaPlatform() == "darwin"){ 
     //List items in /Volumes folder
     $storageInfo = `system("ls /Volumes")`;
     //Add a starting newline before the volumes
@@ -1950,7 +1975,7 @@ global proc string domeStorageInfo(){
     //Add an ending newline after the volumes
     $formattedStorageInfo += "\r\n";
     //$formattedStorageInfo = "";
-  } else if (getMayaPlatform() == "linux"){
+  }else if(getMayaPlatform() == "linux"){
     //List items in /mnt folder
     $storageInfo = `system("ls /mnt")`;
     //Add a starting newline before the volumes
@@ -1990,11 +2015,11 @@ global proc string domeNetworkInfo(){
 
   if(getMayaPlatform() == "windows"){
     $networkInfo = `system("ipconfig")`;
-  } else if (getMayaPlatform() == "darwin"){
+  }else if(getMayaPlatform() == "darwin"){
      $networkInfo =  `system("ifconfig")`; 
      //$networkInfo =  `system("ifconfig en0")`; 
      //$networkInfo = "";
-  } else if (getMayaPlatform() == "linux"){
+  }else if(getMayaPlatform() == "linux"){
      $networkInfo =  `system("ifconfig")`; 
      //$networkInfo = "";
   } else {
@@ -2022,10 +2047,10 @@ global proc domeOpenSceneDirectory(){
 
   string $runCommand = "";
   int $dirExists = `filetest -d $path`;
-  if ($dirExists == 1){
-    if (getMayaPlatform() == "windows"){
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
       $runCommand = "explorer \"";
-    } else if (getMayaPlatform() == "darwin"){
+    }else if(getMayaPlatform() == "darwin"){
       $runCommand = "open \"";
     } else {
     //Linux assumed
@@ -2062,10 +2087,10 @@ global proc domeOpenImagesDirectory(){
 
   string $runCommand = "";
   int $dirExists = `filetest -d $path`;
-  if ($dirExists == 1){
-    if (getMayaPlatform() == "windows"){
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
       $runCommand = "explorer \"";
-    } else if (getMayaPlatform() == "darwin"){
+    }else if(getMayaPlatform() == "darwin"){
       $runCommand = "open \"";
     } else {
     //Linux assumed
@@ -2103,10 +2128,10 @@ global proc domeOpenSourceImagesDirectory(){
 
   string $runCommand = "";
   int $dirExists = `filetest -d $path`;
-  if ($dirExists == 1){
-    if (getMayaPlatform() == "windows"){
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
       $runCommand = "explorer \"";
-    } else if (getMayaPlatform() == "darwin"){
+    }else if(getMayaPlatform() == "darwin"){
       $runCommand = "open \"";
     } else {
     //Linux assumed
@@ -2149,10 +2174,10 @@ global proc domeOpenTempDirectory(){
   }
   
   int $dirExists = `filetest -d $path`;
-  if ($dirExists == 1){
-    if (getMayaPlatform() == "windows"){
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
       $runCommand = "explorer \"";
-    } else if (getMayaPlatform() == "darwin"){
+    }else if(getMayaPlatform() == "darwin"){
       $runCommand = "open \"";
     } else {
     //Linux assumed
@@ -2271,10 +2296,10 @@ global proc string getMayaPlatform(){
 
 //Show the task manager utility
 global proc openTaskManager(){
-  if (getMayaPlatform() == "windows"){
+  if(getMayaPlatform() == "windows"){
     print("Opening the Windows Task Manager\n");
     system("start C:\\Windows\\System32\\Taskmgr.exe");
-  } else if  (getMayaPlatform() == "darwin"){
+  }else if(getMayaPlatform() == "darwin"){
     print("Opening the Activity Monitor\n");
     system("open \"/Applications/Utilities/Activity Monitor.app\"");
   } else {

@@ -1,6 +1,6 @@
 """
-Dome Material Script V1.9.3
-2016-02-08
+Dome Material Script V2.0
+2016-04-25
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -16,6 +16,11 @@ You can set the file textures to an empty path if you don't want a default textu
 Version History
 ----------------
 
+Version 2.0
+-------------
+2016-04-25
+  
+Added Facebook 360 Pyramid panoramic projection viewing support
   
 Version 1.9.3
 -------------
@@ -1025,7 +1030,11 @@ def createDomeViewer():
     # Facebook Cube Map 3x2
     meshName = 'facebookCube3x2'
     meshFileName = 'facebookCube3x2_mesh'
-  
+  elif ( currentPanoFormat == 20 ):
+    # Facebook Pyramid
+    meshName = 'facebookPyramid'
+    meshFileName = 'facebookPyramid'
+    
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya
   #---------------------------------------------------------------------------

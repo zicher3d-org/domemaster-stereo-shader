@@ -1033,7 +1033,7 @@ def createDomeViewer():
   elif ( currentPanoFormat == 20 ):
     # Facebook Pyramid
     meshName = 'facebookPyramid'
-    meshFileName = 'facebookPyramid'
+    meshFileName = 'facebookPyramid_mesh'
     
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya

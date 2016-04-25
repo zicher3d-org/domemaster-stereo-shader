@@ -299,17 +299,17 @@
             <show>1</show>
             <componentList>
             
-                <!-- Maya 2017 Install files -->
+                <!-- Maya 2016.5 Install files -->
                 <componentGroup>
-                    <name>Maya2017</name>
-                    <description>Maya 2017 Support</description>
+                    <name>Maya2016_5</name>
+                    <description>Maya 2016.5 Support</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
                         <component>
-                            <name>Maya_2017_env</name>
+                            <name>Maya_2016_5_env</name>
                             <description>Maya Environment File</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -317,7 +317,7 @@
                             <folderList>
                                 <folder>
                                     <description>Maya.env File</description>
-                                    <destination>~/Library/Preferences/Autodesk/maya/2017/</destination>
+                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/</destination>
                                     <name>env_mac</name>
                                     <platforms>osx</platforms>
                                     <actionList>
@@ -328,13 +328,13 @@
                                     </actionList>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2017/mac/Maya.env</origin>
+                                            <origin>installer files/maya2016.5/mac/Maya.env</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
                                 <folder>
                                     <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2017</destination>
+                                    <destination>${windows_folder_personal}/maya/2016.5</destination>
                                     <name>env_linux</name>
                                     <platforms>linux</platforms>
                                     <actionList>
@@ -345,18 +345,18 @@
                                     </actionList>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2017/linux/Maya.env</origin>
+                                            <origin>installer files/maya2016.5/linux/Maya.env</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
                                 <folder>
                                     <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2017</destination>
+                                    <destination>${windows_folder_personal}/maya/2016.5</destination>
                                     <name>env_win</name>
                                     <platforms>windows</platforms>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2017/win/Maya.env</origin>
+                                            <origin>installer files/maya2016.5/win/Maya.env</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>

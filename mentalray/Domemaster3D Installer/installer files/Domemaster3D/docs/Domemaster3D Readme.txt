@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.0 - April 25, 2016
+Version 2.0 - May 5, 2016
 
 About This Shader
 ---------------------
@@ -58,7 +58,7 @@ Maya Manual Installation
 The base Maya files are all inside this folder:
 C:\Program Files\Domemaster3D\maya
 
-The Domemaster3D for Maya common icons, presets, and scripts that work across Maya 2010-2015 are stored in the following folder:
+The Domemaster3D for Maya common icons, presets, and scripts that work across Maya 2010-2016.5 are stored in the following folder:
 C:\Program Files\Domemaster3D\maya\common
 
 The specific scripts that work with each Maya release are stored in a folder with the Maya version number in the name. For example, Maya 2015 specific files like the shelves, mental ray physical sky & sun override scripts, and Maya.env backup files are stored in:
@@ -276,14 +276,14 @@ Version History
 
 Version 2.0
 -------------
-2016-04-25
+2016-05-05
 
 3DS Max
   Added Max 2017 Support
 
 Maya
   Added Maya 2016.5 Support
-  Updated the DomeViewer tool to add Facebook Pyramid support.
+  Updated the DomeViewer tool to add support for displaying the Facebook Pyramid image projection.
 
 Version 1.9.3
 -------------

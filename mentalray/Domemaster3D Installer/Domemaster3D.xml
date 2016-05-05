@@ -298,7 +298,6 @@
             <selected>1</selected>
             <show>1</show>
             <componentList>
-            
                 <!-- Maya 2016.5 Install files -->
                 <componentGroup>
                     <name>Maya2016_5</name>
@@ -952,7 +951,6 @@
             <selected>1</selected>
             <show>1</show>
             <componentList>
-            
                 <!-- Max 2017 Install files -->
                 <componentGroup>
                     <name>max_2017</name>
@@ -1056,7 +1054,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2016 Install files -->
                 <componentGroup>
                     <name>max_2016</name>
@@ -1160,7 +1158,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2015 Install files -->
                 <componentGroup>
                     <name>max_2015</name>
@@ -1264,7 +1262,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2014 Install files -->
                 <componentGroup>
                     <name>max_2014</name>
@@ -1368,7 +1366,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2013 Install files -->
                 <componentGroup>
                     <name>max_2013</name>
@@ -1472,7 +1470,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2012 Install files -->
                 <componentGroup>
                     <name>max_2012</name>
@@ -1576,7 +1574,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2011 Install files -->
                 <componentGroup>
                     <name>max_2011</name>
@@ -1680,7 +1678,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2010 Install files -->
                 <componentGroup>
                     <name>max_2010</name>
@@ -1784,7 +1782,7 @@
                         </directoryParameter>
                     </parameterList>
                 </componentGroup>
-                
+
                 <!-- Max 2009 Install files -->
                 <componentGroup>
                     <name>max_2009</name>

@@ -1030,7 +1030,7 @@
                             <description>Mental Ray Shaders Directory</description>
                             <explanation>Please specify the directory requested</explanation>
                             <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\shaders_autoload\mentalray\shaders</default>
+                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\shaders</default>
                             <allowEmptyValue>0</allowEmptyValue>
                             <cliOptionName>max2017_shaders</cliOptionName>
                             <insertAfter>welcome_label</insertAfter>
@@ -1044,7 +1044,7 @@
                             <description>Mental Ray Include Directory</description>
                             <explanation>Please specify the directory requested</explanation>
                             <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\shaders_autoload\mentalray\include</default>
+                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\include</default>
                             <allowEmptyValue>0</allowEmptyValue>
                             <cliOptionName>max2017_include</cliOptionName>
                             <insertAfter>welcome_label</insertAfter>

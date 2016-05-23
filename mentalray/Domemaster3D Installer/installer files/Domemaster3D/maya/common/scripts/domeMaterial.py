@@ -1,6 +1,6 @@
 """
 Dome Material Script V2.0
-2016-04-25
+2016-05-23
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -18,9 +18,11 @@ Version History
 
 Version 2.0
 -------------
-2016-04-25
+2016-05-23
   
 Added Facebook 360 Pyramid panoramic projection viewing support
+
+Added LG360 panoramic projection viewing support
   
 Version 1.9.3
 -------------
@@ -1034,6 +1036,10 @@ def createDomeViewer():
     # Facebook Pyramid
     meshName = 'facebookPyramid'
     meshFileName = 'facebookPyramid_mesh'
+  elif ( currentPanoFormat == 21 ):
+    # LG360
+    meshName = 'lg360Viewer'
+    meshFileName = 'lg360_mesh'
     
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya

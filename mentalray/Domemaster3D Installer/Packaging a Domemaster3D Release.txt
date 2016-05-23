@@ -1,10 +1,12 @@
 Packaging a Domemaster3D Release - 2016-04-04
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
-Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files:
+Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files and Windows thumbnails, too:
 
-cd /cygdrive/c/Users/Administrator/Documents/GitHub/domemaster-stereo-shader
+cd /cygdrive/x/GitHub/domemaster-stereo-shader
 find . -name '*.DS_Store' -type f -delete
+find . -name '*Thumbs.db' -type f -delete
+
 
 
 Step 2. Build the Bitrock Install Builder based installers for Mac & Windows using the file:

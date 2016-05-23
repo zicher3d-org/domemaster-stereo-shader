@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 1.9.3 - February 8, 2016
+Version 2.0 - March 23, 2016
 
 ## Render Farm Note ##
 
@@ -13,7 +13,7 @@ Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 
 Maya Module Approach
-If you are using Maya 2013-2016 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2016.5 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
 $HOME/maya/<Maya Version Number>/modules/
@@ -47,14 +47,14 @@ sudo apt-get update
 sudo apt-get install imagemagick
 
 ## Notes ##
-The Domemaster3D shader v1.9 was compiled using CentOS Linux 6.4. 
+The Domemaster3D shader v2.0 was compiled using CentOS Linux 6.4. 
 
 If there are any issues with running the shader, the developer can be reached at: 
 andrew@andrewhazelden.com
 
 
 
-## Install Guide for Maya 2010 to 2016 x64 on Windows ##
+## Install Guide for Maya 2010 to 2016.5 x64 on Windows ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 C:\Program Files\Domemaster3D\
@@ -63,7 +63,7 @@ C:\Program Files\Domemaster3D\
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 
 Maya Module Approach
-If you are using Maya 2013-2016 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2016.5 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from C:\Program Files\Domemaster3D\maya\modules\Domemaster3D.mod to your user account's Maya modules folder:
 C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\modules\
@@ -98,7 +98,7 @@ Step 4. The Domemaster3D v1.9 release for Windows has been compiled with Visual 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 
-## Install Guide for Maya 2011 to 2016 x64 on Mac OS X ##
+## Install Guide for Maya 2011 to 2016.5 x64 on Mac OS X ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /Applications/Domemaster3D/
@@ -139,7 +139,7 @@ sudo ports install ImageMagick
 
 
 
-## Install Guide for 3DS Max 2009 to 2016 x64 ##
+## Install Guide for 3DS Max 2009 to 2017 x64 ##
 
 Step 1.  Extract the ZIP file and copy the included "Domemaster3D" folder to:
 C:\Program Files\Domemaster3D\

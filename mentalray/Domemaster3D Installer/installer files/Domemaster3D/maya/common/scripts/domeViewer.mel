@@ -1,6 +1,6 @@
 /*
   Dome Viewer V2.0
-  2016-04-25
+  2016-05-23
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
@@ -13,9 +13,12 @@
   
   Version 2.0
   -------------
-  2016-04-25
+  2016-05-23
   
   Added Facebook 360 Pyramid panoramic projection viewing support
+  
+  Added LG360 panoramic projection viewing support
+  
   
   Version 1.9.3
   -------------
@@ -353,6 +356,10 @@ global proc setPanoramaPreview(){
     // Facebook Pyramid
     picture -edit -image "facebookPyramid_120px.png" -width 120 -height 120 picturePanoramaPreview;
     break;
+  case 21:
+    // LG360
+    picture -edit -image "lg360_120px" -width 212 -height 120 picturePanoramaPreview;
+    break;
   }
 }
 
@@ -477,6 +484,7 @@ global proc domeViewer(){
         menuItem -label "Ricoh Theta S";
         menuItem -label "Facebook Cube Map 3x2";
         menuItem -label "Facebook Pyramid";
+        menuItem -label "LG360";
 
         // Preselect the first option menu
         optionMenuGrp 

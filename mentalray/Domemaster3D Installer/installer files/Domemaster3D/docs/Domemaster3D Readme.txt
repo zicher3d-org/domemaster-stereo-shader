@@ -27,10 +27,11 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.0 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-Domemaster3D v2.0 for Vray was compiled using Visual Studio 2013.
+The Domemaster3D v2.0 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 Mac Notes
 ----------

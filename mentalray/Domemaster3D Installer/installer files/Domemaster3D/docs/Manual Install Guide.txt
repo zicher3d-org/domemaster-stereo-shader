@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.0 - March 23, 2016
+Version 2.0 - May 23, 2016
 
 ## Render Farm Note ##
 
@@ -94,8 +94,11 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 4. The Domemaster3D v1.9 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 4. The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
+
+The Domemaster3D v2.0 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 
 ## Install Guide for Maya 2011 to 2016.5 x64 on Mac OS X ##
@@ -184,8 +187,11 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 5. The Domemaster3D v1.9 release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
+
+The Domemaster3D v2.0 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 
 ## Install Guide for Mental Ray Standalone and Maya Satellite ##

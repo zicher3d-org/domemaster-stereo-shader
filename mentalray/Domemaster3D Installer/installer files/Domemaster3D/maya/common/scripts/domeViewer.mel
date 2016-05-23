@@ -481,10 +481,10 @@ global proc domeViewer(){
         menuItem -label "Mental Ray Horizontal Strip Cube1";
         menuItem -label "Quadsphere (Starglobe)";
         menuItem -label "Gear VR Mono Cube";
-        menuItem -label "Ricoh Theta S";
+        menuItem -label "Ricoh Theta S Camera";
         menuItem -label "Facebook Cube Map 3x2";
         menuItem -label "Facebook Pyramid";
-        menuItem -label "LG360";
+        menuItem -label "LG360 Camera";
 
         // Preselect the first option menu
         optionMenuGrp 

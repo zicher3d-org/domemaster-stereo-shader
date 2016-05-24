@@ -1901,13 +1901,13 @@
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
-            <path>${windows_folder_personal}/maya/2017/Maya.env</path>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
             <ruleList>
                 <platformTest>
                     <type>windows</type>
                 </platformTest>
-                <fileTest condition="exists" path="${windows_folder_personal}/maya/2017/Maya.env"/>
-                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2017/Maya.env"/>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
             </ruleList>
         </createBackupFile>
         <createBackupFile>
@@ -2011,13 +2011,13 @@
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
-            <path>~/Library/Preferences/Autodesk/maya/2017/Maya.env</path>
+            <path>~/Library/Preferences/Autodesk/maya/2016.5/Maya.env</path>
             <ruleList>
                 <platformTest>
                     <type>osx</type>
                 </platformTest>
-                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2017/Maya.env"/>
-                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2017/Maya.env"/>
+                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
             </ruleList>
         </createBackupFile>
         <createBackupFile>

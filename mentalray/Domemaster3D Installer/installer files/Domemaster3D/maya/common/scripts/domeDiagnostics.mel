@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V2.0
-  2016-04-23 6.51 AM
+  2016-05-28 07.38 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,7 +12,13 @@
   
   Version V2.0
   --------------------
-  2016-04-23
+  2016-05-28
+  
+  Added a directory listing of the Maya user scripts and user preferences script folder
+  
+  Added an inline printing of the userSetup.mel and userSetup.py files in the Maya user scripts and user preferences script folder
+  
+  Added Maya network connection check and Maya build version details
   
   Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
   
@@ -349,7 +355,7 @@ global proc domeDiagnostics(){
   }
   
   int $domeTotalMemory;
-  if($mayaVersion >=2014){
+  if($mayaVersion >= 2014){
     // RAM - Maya 2015 returns values using an int
     $domeTotalMemory = `memory -physicalMemory -gigaByte`;
     $domeDebugText += "> Physical Memory " + $domeTotalMemory + "GB" + "  \r\n";
@@ -364,7 +370,7 @@ global proc domeDiagnostics(){
   // Only list RAM if running on Windows - Maya on Mac lists the free RAM as 0 MB!!!
 	if(getMayaPlatform() == "windows"){
     // Memory check as an int in Maya 2015+
-    if($mayaVersion >=2014){
+    if($mayaVersion >= 2014){
       // RAM - Maya 2015 returns values using an int
       $domeFreeMemory = `memory -freeMemory -gigaByte`;
       $domeDebugText += "> Free System Memory " + $domeFreeMemory + "GB" + "  \r\n";
@@ -395,7 +401,7 @@ global proc domeDiagnostics(){
   }
 
   // GPU memory check exists in Maya 2015+
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     // GPU RAM
     $domeDebugText += "> Free GPU Memory " + `ogs -gpuMemoryUsed` + "MB" + "  \r\n";
   }
@@ -423,7 +429,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "## Maya ##\r\n\r\n";
   
   string $fancyMayaVersion;
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     // Example: Autodesk Maya 2015 SP2
     $fancyMayaVersion = `about -installedVersion`;
   } else {
@@ -434,13 +440,23 @@ global proc domeDiagnostics(){
   $domeDebugText += "> " + $fancyMayaVersion + " on " + getMayaPlatformFancy() + "  \r\n";
   $domeDebugText += "> " + `getenv "MAYA_LOCATION"` + "  \r\n\r\n";
 
+  // What Build version of Maya is this? (Release, etc...)
+  if($mayaVersion >= 2014){
+  $domeDebugText += "### `MAYA Build Version` ###\r\n> " + `about -buildVariant` + "\r\n\r\n";
+  }
+
   // Maya localization format - en_US, ja_JP, etc...
   $domeDebugText += "### `MAYA UI Language Format` ###\r\n> " + `about -uiLanguage` + "\r\n\r\n";
 
- // Maya language locale (codeset) format (UTF8, 1252, etc..)
+  // Maya language locale (codeset) format (UTF8, 1252, etc..)
   $domeDebugText += "### `MAYA Locale (Codeset) Format` ###\r\n> " + `about -codeset` + "\r\n\r\n";
+  
+	// Does Maya have an internet connection?
+  if($mayaVersion >= 2012){
+  $domeDebugText += "### `MAYA Network Connection Status` ###\r\n> " + `about -connected` + "\r\n\r\n";
+  }
 
- // Maya License Timeout
+  // Maya License Timeout
   $domeDebugText += "### `MAYA_DISABLE_IDLE_LICENSE` ###\r\n> " +`getenv "MAYA_DISABLE_IDLE_LICENSE"`+ "\r\n\r\n";
 
   // Example: unlimited
@@ -613,6 +629,217 @@ global proc domeDiagnostics(){
     $domeDebugText +=  "------------------------------------------------\r\n";
 		$domeDebugText +=  "\r\n";
   }
+
+
+	// ------------------------------------------------
+	// Scan through the Maya Scripts Folders:
+
+
+	// Make sure Maya 2015 or newer is running for the about preferences command
+	if($mayaVersion >= 2016){
+		int $emptyString;
+		string $scriptsFolderString;
+		string $userSetupPath;
+		string $fileCheck;
+		string $preferencesFolderString = `about -preferences`;
+		// Result: /Users/andrew/Library/Preferences/Autodesk/maya/2016.5 // 
+
+
+		string $osSeparator;
+	
+		if(getMayaPlatform() == "windows"){
+			// Windows
+			//$osSeparator = "\\\\";
+			$osSeparator = "/";
+		}else if(getMayaPlatform() == "darwin"){
+			// Mac
+			$osSeparator = "/";
+		}else{
+			// Linux
+			$osSeparator = "/";
+		}
+
+		//------------------------------------------------------------
+		// Maya User Scripts Directory Contents
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/scripts/
+		
+		// List the Maya scripts folder files by adding the extra trailing slash
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "scripts" +  $osSeparator;
+		
+		$emptyString = size($scriptsFolderString);
+		if($emptyString){
+			$domeDebugText += "\r\n";
+			$domeDebugText += "## Maya User Scripts Directory Contents ##\r\n";
+			$domeDebugText += "`" + $scriptsFolderString + "`\r\n\r\n";
+			
+			
+			string $mayaScriptsList[] = `getFileList -folder $scriptsFolderString`;
+			string $scriptsLine;
+			for($scriptsLine in $mayaScriptsList)
+			{
+				$domeDebugText += "> `"  + $scriptsLine + "`  \r\n";
+			}
+		} // End of the make sure the directory exists check
+		
+		$domeDebugText +=  "\r\n";
+		
+		//------------------------------------------------------------
+		// Maya User Prefs Scripts Directory Contents
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/prefs/scripts/
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "prefs" + $osSeparator + "scripts" + $osSeparator;
+		
+		$emptyString = size($scriptsFolderString);
+		if($emptyString){
+			$domeDebugText += "------------------------------------------------\r\n";
+			$domeDebugText += "\r\n";
+			
+			$domeDebugText += "## Maya User Prefs Scripts Directory Contents ##\r\n";
+			$domeDebugText += "`" + $scriptsFolderString + "`\r\n\r\n";
+			
+
+			string $mayaScriptsList[] = `getFileList -folder $scriptsFolderString`;
+			string $scriptsLine;
+			for($scriptsLine in $mayaScriptsList)
+			{
+				$domeDebugText += "> `"  + $scriptsLine + "`  \r\n";
+			}
+		} // End of the make sure the directory exists check
+		
+		$domeDebugText +=  "\r\n";
+    $domeDebugText +=  "------------------------------------------------\r\n";
+		$domeDebugText +=  "\r\n";
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.mel file in the Maya User Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/scripts/userSetup.mel
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.mel";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya User Scripts userSetup.mel Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "    "  + $cleanLine + "  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.mel file in the Maya User Prefs Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/prefs/scripts/userSetup.mel
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "prefs" + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.mel";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya User Prefs Scripts userSetup.mel Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "    "  + $cleanLine + "  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.py file in the Maya User Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/scripts/userSetup.py
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.py";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya userSetup.py Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "    "  + $cleanLine + "  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.py file in the Maya User Prefs Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/prefs/scripts/userSetup.py
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "prefs" + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.py";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya userSetup.py Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "`"  + $cleanLine + "`  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+	}
 
   //------------------------------------------------------------
 
@@ -984,7 +1211,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MI_LIBRARY_PATH` ###\r\n> " + $mrCustomlibraryString + "\r\n\r\n";
 
   // Add the extra MR detail if you are running a recent version of Maya
-  //if($mayaVersion >=2015){
+  //if($mayaVersion >= 2015){
   if($rendererString == "mentalRay"){
     string $mrLocationString = `getenv "MENTALRAY_LOCATION"`;
     $domeDebugText += "### `MENTALRAY_LOCATION` ###\r\n> " + $mrLocationString + "\r\n\r\n";
@@ -1103,6 +1330,7 @@ global proc domeDiagnostics(){
 
     } // End of the make sure the directory exists check
   } // End of mental ray check
+  
   $domeDebugText +=  "\r\n";
   $domeDebugText +=  "------------------------------------------------\r\n\r\n";
 

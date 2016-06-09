@@ -308,16 +308,16 @@
                     <show>1</show>
                     <componentList>
                         <component>
-                            <name>Maya_2016_5_env</name>
-                            <description>Maya Environment File</description>
+                            <name>Maya_2016_5_module</name>
+                            <description>Maya Module File</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
                             <show>0</show>
                             <folderList>
                                 <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/</destination>
-                                    <name>env_mac</name>
+                                    <description>Maya Module File</description>
+                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/modules</destination>
+                                    <name>module_mac</name>
                                     <platforms>osx</platforms>
                                     <actionList>
                                         <changePermissions>
@@ -327,14 +327,14 @@
                                     </actionList>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2016.5/mac/Maya.env</origin>
+                                            <origin>installer files/Domemaster3D/maya/modules/Domemaster3D.mod</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
                                 <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016.5</destination>
-                                    <name>env_linux</name>
+                                    <description>Maya Module File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/modules</destination>
+                                    <name>module_linux</name>
                                     <platforms>linux</platforms>
                                     <actionList>
                                         <changePermissions>
@@ -344,18 +344,72 @@
                                     </actionList>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2016.5/linux/Maya.env</origin>
+                                            <origin>installer files/Domemaster3D/maya/modules/Domemaster3D.mod</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
                                 <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016.5</destination>
-                                    <name>env_win</name>
+                                    <description>Maya Modules File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/modules</destination>
+                                    <name>module_win</name>
                                     <platforms>windows</platforms>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2016.5/win/Maya.env</origin>
+                                            <origin>installer files/Domemaster3D/maya/modules/Domemaster3D.mod</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                        <component>
+                            <name>Maya_2016_5_shelf</name>
+                            <description>Maya Shelf File</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>Maya Shelf File</description>
+                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/prefs/shelves</destination>
+                                    <name>shelf_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Maya Shelf File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/prefs/shelves</destination>
+                                    <name>shelf_linux</name>
+                                    <platforms>linux</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Maya Shelfs File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/prefs/shelves</destination>
+                                    <name>module_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>

@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V2.0
-  2016-05-28 07.38 AM
+  2016-06-17 03.44 PM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,7 +12,7 @@
   
   Version V2.0
   --------------------
-  2016-05-28
+  2016-06-17
   
   Added a directory listing of the Maya user scripts and user preferences script folder
   
@@ -22,10 +22,12 @@
   
   Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
   
+  Added the new Maya 2016.5 environment variables "MAYA_RUNNING_TESTS" and "MAYA_ENABLE_LEGACY_RENDER_LAYERS". The "MAYA_ENABLE_LEGACY_RENDER_LAYERS" variable is used to choose if you want to use the old render layer system or the new Maya 2016.5 Render Setup editor.
+  
   Updated the PlayblastVR 2.0 panoramic format support.
   
-  Todo: Need to check Vray 2016.5 support vars
-  
+  Added the Vray 2016.5 Environment variables.
+
   Version V1.9.2
   --------------------
   2016-01-10
@@ -312,7 +314,7 @@ global proc domeDiagnostics(){
   string $domeDebugText = "";
   print ("Writing Domemaster3D Diagnostics Report to: " + $domeDebugLogPathString + "\r\n");
 
-  $domeDebugText += "# Domemaster3D Diagnostics Tool V1 #\r\n";
+  $domeDebugText += "# Domemaster3D Diagnostics Tool V2 #\r\n";
   $domeDebugText +=  "-----------------------------------------\r\n\r\n";
   $domeDebugText += "Log Creation: " + `date` + "  \r\n";
   $domeDebugText += "Computer: " + $computerName + "  \r\n";
@@ -894,6 +896,15 @@ global proc domeDiagnostics(){
 
   string $domeTempString = `getenv "MAYA_QUICKTIME_ENCODING_GAMMA"`;
   $domeDebugText += "### `MAYA_QUICKTIME_ENCODING_GAMMA` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_RUNNING_TESTS"`;
+  $domeDebugText += "### `MAYA_RUNNING_TESTS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+	// This Environment variable was added in Maya 2016.5 and it controls if the new Render Setup system or the previous render layers approach is used.
+	// Referenced at: /Applications/Autodesk/maya2016.5/Maya.app/Contents/scripts/others/mayaHasRenderSetup.mel
+
+	$domeTempString = `getenv "MAYA_ENABLE_LEGACY_RENDER_LAYERS"`;
+  $domeDebugText += "### `MAYA_ENABLE_LEGACY_RENDER_LAYERS` ###\r\n> " + $domeTempString + "\r\n\r\n";
   
   $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
   $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
@@ -1745,6 +1756,23 @@ global proc domeDiagnostics(){
     
     $vrayString = `getenv "VRAY_OSL_PATH_MAYA2016_x64"`;
     $domeDebugText += "### `VRAY_OSL_PATH_MAYA2016_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    // Maya 2016.5
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_MAIN_PowerPC"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_PLUGINS_PowerPC"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2016_5_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2016_5_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   }else if($mayaVersion == 2017){
       if(getMayaPlatform() == "darwin") {
       $vrayString = `getenv "VRAY_FOR_MAYA2017_MAIN_PowerPC"`;

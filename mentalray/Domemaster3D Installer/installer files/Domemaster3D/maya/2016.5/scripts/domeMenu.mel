@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
 Version 2.0
-2016-05-28 Maya 2011+
+2016-06-21 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -394,9 +394,7 @@ global proc createDomemaster3DMenu() {
 
   string $renderLogName = "";
   string $domeMayaRenderLogPathString;
-
   string $domeUserHomePathString;
-  string $domeMayaRenderLogPathString;
 
   if(getMayaPlatform() == "windows"){
     //Windows Log Filename

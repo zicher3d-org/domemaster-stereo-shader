@@ -2261,7 +2261,7 @@
     <description>Domemaster3D is a fulldome rendering shader for mental ray.</description>
     <enableRollback>1</enableRollback>
     <enableTimestamp>1</enableTimestamp>
-    <osxApplicationBundleIdentifier>com.domemaster.appinstaller</osxApplicationBundleIdentifier>
+		<osxApplicationBundleIdentifier>com.domemaster.appinstaller</osxApplicationBundleIdentifier>
     <productComments>Domemaster3D is a fulldome rendering shader for mental ray.</productComments>
     <productContact>andrew@andrewhazelden.com</productContact>
     <productUrlHelpLink>http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images</productUrlHelpLink>

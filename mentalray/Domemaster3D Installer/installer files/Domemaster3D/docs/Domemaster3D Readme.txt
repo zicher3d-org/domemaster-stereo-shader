@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.0 - May 27, 2016
+Version 2.0 - June 21, 2016
 
 About This Shader
 ---------------------
@@ -278,7 +278,7 @@ Version History
 
 Version 2.0
 -------------
-2016-05-27
+2016-06-21
 
 3DS Max
   Added Max 2017 Support
@@ -286,7 +286,13 @@ Version 2.0
 Maya
   Added Maya 2016.5 Support
   
+  Updated the Domemaster3D Menus
+  
+  Added the "DOMEMASTER3D_MAYA_REALTIME_FOV" attribute to the Domemaster3D.mod Module file.
+  
   Added DomeViewer image projection support for the Facebook 360 Pyramid, LG360 Camera, and the Samsung Gear 360 Camera image projections.
+  
+  Updated the Dome Diagnostics script.
 
 Version 1.9.3
 -------------

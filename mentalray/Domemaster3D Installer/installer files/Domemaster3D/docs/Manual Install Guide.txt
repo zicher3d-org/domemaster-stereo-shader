@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.0 - May 27, 2016
+Version 2.0 - June 22, 2016
 
 ## Render Farm Note ##
 
@@ -36,7 +36,16 @@ for your platform, rename it to "Maya.env", and copy it to your user
 account's "Maya version-x64" folder:
 $HOME/maya/<Maya Version Number>/
 
-Step 3. Make sure you have ImageMagick Installed. The Domemaster3D shader uses ImageMagick to power the DomeText and Dome Histogram tools in Maya.
+
+Step 3. Install the Maya shelf file. 
+
+The Domemaster3D shelf file is located at:
+/opt/Domemaster3D/maya/<Maya Version Number>/shelves/shelf_Domemaster3D.mel
+
+Copy the shelf to your user account's "Maya version" specific folder:
+$HOME/maya/<Maya Version Number>/prefs/shelves/
+
+Step 4. Make sure you have ImageMagick Installed. The Domemaster3D shader uses ImageMagick to power the DomeText and Dome Histogram tools in Maya.
 
 If you don't have ImageMagick, you can install it on Redhat / CentOS / Fedora Linux using the following terminal commands:
 sudo yum update 
@@ -87,14 +96,23 @@ account's "Maya version-x64" folder:
 C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\
 
 
-Step 3. Add the Domemaster3D "bin" folder to your Windows System path:
+Step 3. Install the Maya shelf file. 
+
+The Domemaster3D shelf file is located at:
+C:\Program Files\Domemaster3D\maya\<Maya Version Number>\shelves\shelf_Domemaster3D.mel
+
+Copy the shelf to your user account's "Maya version" specific folder:
+C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\prefs\shelves\
+
+
+Step 4. Add the Domemaster3D "bin" folder to your Windows System path:
 C:\Program Files\Domemaster3D\bin
 
 This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 4. The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 The Domemaster3D v2.0 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
@@ -109,7 +127,7 @@ Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 
 Maya Module Approach
-If you are using Maya 2013-2016 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2016.5 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
 /Applications/Domemaster3D/<Maya Version Number>/modules/
@@ -120,26 +138,30 @@ Maya ENV Approach
 Copy the Maya.env file to the user's  maya version specific settings folder. A Maya.env file is used to specify the custom shader path for the Domemaster3D mental ray shaders, the location of the Maya shelf, the scripts folder, the attrPresets folder, and the icons folders.
 
 The Domemaster3D shader's Maya.env files are located in:
-/Applications/Domemaster3D/<Maya Version Number>/
+/Applications/Domemaster3D/maya/<Maya Version Number>/
 
 The Maya.env files for each specific Maya version are named:
 Maya.env.linux
 Maya.env.osx
 Maya.env.win
 
-To use the appropriate Maya.env file you need to select the right one
-for your platform, rename it to "Maya.env", and copy it to your user
-account's "Maya version-x64" folder:
+To use the appropriate Maya.env file you need to select the right one for your platform, rename it to "Maya.env", and copy it to your user account's "Maya version" folder:
 ~/Library/Preferences/Autodesk/maya/<Maya Version Number>/Maya.env
 
+Step 3. Install the Maya shelf file. 
 
-Step 3. If you are running Mac OS X 10.9, 10.10, or 10.11 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
+The Domemaster3D shelf file is located at:
+/Applications/Domemaster3D/maya/<Maya Version Number>/shelves/shelf_Domemaster3D.mel
 
-Step 4. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on Mac OS X, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
+Copy the shelf to your user account's "Maya version" specific folder:
+~/Library/Preferences/Autodesk/maya/<Maya Version Number>/prefs/shelves/
+
+Step 4. If you are running Mac OS X 10.9, 10.10, or 10.11 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
+
+Step 5. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on Mac OS X, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
 
 For the technically inclined Mac user you can install ImageMagick using Xcode and the Mac Ports tool ( https://www.macports.org/ ) with the terminal command: 
 sudo ports install ImageMagick
-
 
 
 ## Install Guide for 3DS Max 2009 to 2017 x64 ##
@@ -172,13 +194,21 @@ C:\Program Files\Domemaster3D\max\shaders\lib\
 
 The Domemaster3D mental ray shader .dll files should be copied in one of the following the 3DS Max folders:
 C:\Program Files\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\shaders
+
 C:\Program Files\Autodesk\3ds Max 2010\mentalray\shaders_autoload\shaders
+
 C:\Program Files\Autodesk\3ds Max 2009\mentalray\shaders_autoload\shaders
 
 

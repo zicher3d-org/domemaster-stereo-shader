@@ -1,12 +1,17 @@
-Packaging a Domemaster3D Release - 2016-04-04
+Packaging a Domemaster3D Release - 2016-06-22
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
 Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files and Windows thumbnails, too:
 
 cd /cygdrive/x/GitHub/domemaster-stereo-shader
+
+# or 
+
+cd "/Personal Documents/GitHub/domemaster-stereo-shader/mentalray/Domemaster3D Installer/"
+
+
 find . -name '*.DS_Store' -type f -delete
 find . -name '*Thumbs.db' -type f -delete
-
 
 
 Step 2. Build the Bitrock Install Builder based installers for Mac & Windows using the file:
@@ -16,22 +21,33 @@ Step 2. Build the Bitrock Install Builder based installers for Mac & Windows usi
 
 Step 3. Create the following ZIP archives:
 
+cd "/Applications/BitRock InstallBuilder Enterprise 16.4.0/output"
+
 Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip
     Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
         Domemaster3D
         Domemaster3D Readme-Short.txt
         Mac OS X Installation Notes.txt
         Manual Install Guide.txt
-        
+
+zip -r Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
+
+* * *
+
 Domemaster3D-X.X-osx-installer.zip
     Domemaster3D-X.X-osx-installer.app
     Domemaster3D Readme-Short.txt
     Mac OS X Installation Notes.txt
 
+zip -r Domemaster3D-X.X-windows-installer.zip "Domemaster3D-X.X-osx-installer.app" "Domemaster3D Readme-Short.txt" "Mac OS X Installation Notes.txt"
+
+* * *
+
 Domemaster3D-X.X-windows-installer.zip
     Domemaster3D Readme-Short.txt
     Domemaster3D-X.X-windows-installer.exe
 
+zip -r Domemaster3D-X.X-windows-installer.zip "Domemaster3D Readme-Short.txt" "Domemaster3D-X.X-windows-installer.exe"
 
 Step 4. Upload the new release to GitHub and use the following format for the GitHub Releases Descriptions:
 

@@ -6,7 +6,7 @@
 
 	Version History
 	----------------
-	Domemaster3D V2.0 - May 27, 2016
+	Domemaster3D V2.0 - June 22, 2016
 	Domemaster3D V1.9.3 - February 8, 2016
   Domemaster3D V1.9.2 - January 11, 2016
 	Domemaster3D V1.9.1 - October 15, 2015
@@ -95,7 +95,7 @@ global proc string getMayaPlatform(){
 global proc domeVersion(){
   string $dialogButtonSelected = "";
   string $domemaster3D_version = "2.0";
-  string $release_date = "May 27, 2016";
+  string $release_date = "June 22, 2016";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Maya" + " - Version " + $domemaster3D_version + "\n";

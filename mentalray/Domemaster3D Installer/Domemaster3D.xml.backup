@@ -308,16 +308,16 @@
                     <show>1</show>
                     <componentList>
                         <component>
-                            <name>Maya_2016_5_env</name>
-                            <description>Maya Environment File</description>
+                            <name>Maya_2016_5_module</name>
+                            <description>Maya Module File</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
                             <show>0</show>
                             <folderList>
                                 <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/</destination>
-                                    <name>env_mac</name>
+                                    <description>Maya Module File</description>
+                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/modules</destination>
+                                    <name>module_mac</name>
                                     <platforms>osx</platforms>
                                     <actionList>
                                         <changePermissions>
@@ -327,14 +327,14 @@
                                     </actionList>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2016.5/mac/Maya.env</origin>
+                                            <origin>installer files/Domemaster3D/maya/modules/Domemaster3D.mod</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
                                 <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016.5</destination>
-                                    <name>env_linux</name>
+                                    <description>Maya Module File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/modules</destination>
+                                    <name>module_linux</name>
                                     <platforms>linux</platforms>
                                     <actionList>
                                         <changePermissions>
@@ -344,18 +344,72 @@
                                     </actionList>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2016.5/linux/Maya.env</origin>
+                                            <origin>installer files/Domemaster3D/maya/modules/Domemaster3D.mod</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
                                 <folder>
-                                    <description>Maya.env File</description>
-                                    <destination>${windows_folder_personal}/maya/2016.5</destination>
-                                    <name>env_win</name>
+                                    <description>Maya Modules File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/modules</destination>
+                                    <name>module_win</name>
                                     <platforms>windows</platforms>
                                     <distributionFileList>
                                         <distributionFile>
-                                            <origin>installer files/maya2016.5/win/Maya.env</origin>
+                                            <origin>installer files/Domemaster3D/maya/modules/Domemaster3D.mod</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                        <component>
+                            <name>Maya_2016_5_shelf</name>
+                            <description>Maya Shelf File</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>Maya Shelf File</description>
+                                    <destination>~/Library/Preferences/Autodesk/maya/2016.5/prefs/shelves</destination>
+                                    <name>shelf_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Maya Shelf File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/prefs/shelves</destination>
+                                    <name>shelf_linux</name>
+                                    <platforms>linux</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Maya Shelfs File</description>
+                                    <destination>${windows_folder_personal}/maya/2016.5/prefs/shelves</destination>
+                                    <name>module_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
                                         </distributionFile>
                                     </distributionFileList>
                                 </folder>
@@ -1030,7 +1084,7 @@
                             <description>Mental Ray Shaders Directory</description>
                             <explanation>Please specify the directory requested</explanation>
                             <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\shaders_autoload\mentalray\shaders</default>
+                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\shaders</default>
                             <allowEmptyValue>0</allowEmptyValue>
                             <cliOptionName>max2017_shaders</cliOptionName>
                             <insertAfter>welcome_label</insertAfter>
@@ -1044,7 +1098,7 @@
                             <description>Mental Ray Include Directory</description>
                             <explanation>Please specify the directory requested</explanation>
                             <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\shaders_autoload\mentalray\include</default>
+                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\include</default>
                             <allowEmptyValue>0</allowEmptyValue>
                             <cliOptionName>max2017_include</cliOptionName>
                             <insertAfter>welcome_label</insertAfter>
@@ -1901,13 +1955,13 @@
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
-            <path>${windows_folder_personal}/maya/2017/Maya.env</path>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
             <ruleList>
                 <platformTest>
                     <type>windows</type>
                 </platformTest>
-                <fileTest condition="exists" path="${windows_folder_personal}/maya/2017/Maya.env"/>
-                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2017/Maya.env"/>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
             </ruleList>
         </createBackupFile>
         <createBackupFile>
@@ -2011,13 +2065,13 @@
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
-            <path>~/Library/Preferences/Autodesk/maya/2017/Maya.env</path>
+            <path>~/Library/Preferences/Autodesk/maya/2016.5/Maya.env</path>
             <ruleList>
                 <platformTest>
                     <type>osx</type>
                 </platformTest>
-                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2017/Maya.env"/>
-                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2017/Maya.env"/>
+                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
             </ruleList>
         </createBackupFile>
         <createBackupFile>
@@ -2109,6 +2163,18 @@
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </createBackupFile>
+        <createBackupFile>
+            <destination></destination>
+            <explanation>Backing up Maya.env</explanation>
             <path>${windows_folder_personal}/maya/2015-x64/Maya.env</path>
             <ruleList>
                 <platformTest>
@@ -2191,6 +2257,92 @@
             </ruleList>
         </createBackupFile>
     </preInstallationActionList>
+    <postInstallationActionList>
+        <readFile>
+            <name>maya-env-2016.5-windows</name>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </readFile>
+        <writeFile>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <progressText>Cleaning up Maya.env File</progressText>
+            <text></text>
+            <ruleList>
+                <compareText>
+                    <logic>contains</logic>
+                    <text>maya-env-2016.5-windows</text>
+                    <value>str.contains("DOMEMASTER3D_DIR")</value>
+                </compareText>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </writeFile>
+        <readFile>
+            <name>maya-env-2016.5-osx</name>
+            <path>~/Library/Preferences/Autodesk/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </readFile>
+        <writeFile>
+            <path>~/Library/Preferences/Autodesk/maya/2016.5/Maya.env</path>
+            <progressText>Cleaning up Maya.env File</progressText>
+            <text></text>
+            <ruleList>
+                <compareText>
+                    <logic>contains</logic>
+                    <text>maya-env-2016.5-osx</text>
+                    <value>str.contains("DOMEMASTER3D_DIR")</value>
+                </compareText>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </writeFile>
+        <readFile>
+            <name>maya-env-2016.5-linux</name>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </readFile>
+        <writeFile>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <progressText>Cleaning up Maya.env File</progressText>
+            <text></text>
+            <ruleList>
+                <compareText>
+                    <logic>contains</logic>
+                    <text>maya-env-2016.5-linux</text>
+                    <value>str.contains("DOMEMASTER3D_DIR")</value>
+                </compareText>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </writeFile>
+    </postInstallationActionList>
     <postUninstallationActionList>
         <removeDirectoryFromPath>
             <path>${installdir}/sourceimages</path>

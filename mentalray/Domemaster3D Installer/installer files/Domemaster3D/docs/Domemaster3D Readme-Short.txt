@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.0 - June 21, 2016
+Version 2.0 - June 22, 2016
 
 About This Shader
 ---------------------
@@ -75,7 +75,7 @@ Version 2.0
   Added Max 2017 Support
 
 Maya
-  Added Maya 2016.5 Support
+  Added Maya 2016.5 Support. Switched the Domemaster3D for Maya 2016/2016.5 installer options from using a Maya.env approach to a Domemaster3D.mod file.
   
   Updated the Domemaster3D Menus
   

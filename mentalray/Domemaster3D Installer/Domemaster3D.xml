@@ -2163,6 +2163,18 @@
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </createBackupFile>
+        <createBackupFile>
+            <destination></destination>
+            <explanation>Backing up Maya.env</explanation>
             <path>${windows_folder_personal}/maya/2015-x64/Maya.env</path>
             <ruleList>
                 <platformTest>
@@ -2245,6 +2257,92 @@
             </ruleList>
         </createBackupFile>
     </preInstallationActionList>
+    <postInstallationActionList>
+        <readFile>
+            <name>maya-env-2016.5-windows</name>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </readFile>
+        <writeFile>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <progressText>Cleaning up Maya.env File</progressText>
+            <text></text>
+            <ruleList>
+                <compareText>
+                    <logic>contains</logic>
+                    <text>${maya-env-2016.5-windows}</text>
+                    <value>str.contains("DOMEMASTER3D")</value>
+                </compareText>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </writeFile>
+        <readFile>
+            <name>maya-env-2016.5-osx</name>
+            <path>~/Library/Preferences/Autodesk/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </readFile>
+        <writeFile>
+            <path>~/Library/Preferences/Autodesk/maya/2016.5/Maya.env</path>
+            <progressText>Cleaning up Maya.env File</progressText>
+            <text></text>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="exists" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="~/Library/Preferences/Autodesk/maya/2016.5/Maya.env"/>
+                <regExMatch>
+                    <logic>matches</logic>
+                    <pattern>DOMEMASTER3D</pattern>
+                    <text>${maya-env-2016.5-osx}</text>
+                </regExMatch>
+            </ruleList>
+        </writeFile>
+        <readFile>
+            <name>maya-env-2016.5-linux</name>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </readFile>
+        <writeFile>
+            <path>${windows_folder_personal}/maya/2016.5/Maya.env</path>
+            <progressText>Cleaning up Maya.env File</progressText>
+            <text></text>
+            <ruleList>
+                <compareText>
+                    <logic>contains</logic>
+                    <text>${maya-env-2016.5-linux}</text>
+                    <value>str.contains("DOMEMASTER3D")</value>
+                </compareText>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="exists" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+                <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2016.5/Maya.env"/>
+            </ruleList>
+        </writeFile>
+    </postInstallationActionList>
     <postUninstallationActionList>
         <removeDirectoryFromPath>
             <path>${installdir}/sourceimages</path>
@@ -2261,7 +2359,7 @@
     <description>Domemaster3D is a fulldome rendering shader for mental ray.</description>
     <enableRollback>1</enableRollback>
     <enableTimestamp>1</enableTimestamp>
-		<osxApplicationBundleIdentifier>com.domemaster.appinstaller</osxApplicationBundleIdentifier>
+    <osxApplicationBundleIdentifier>com.domemaster.appinstaller</osxApplicationBundleIdentifier>
     <productComments>Domemaster3D is a fulldome rendering shader for mental ray.</productComments>
     <productContact>andrew@andrewhazelden.com</productContact>
     <productUrlHelpLink>http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images</productUrlHelpLink>

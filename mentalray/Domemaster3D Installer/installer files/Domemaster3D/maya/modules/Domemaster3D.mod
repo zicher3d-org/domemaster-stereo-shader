@@ -142,6 +142,42 @@ MAYA_SCRIPT_PATH+:=../2014/scripts
 MAYA_SCRIPT_PATH+:=../2014/shelves
 DOMEMASTER3D_MAYA_REALTIME_FOV=4
 
++ MAYAVERSION:2013.5 PLATFORM:win64 Domemaster3D any C:\Program Files\Domemaster3D\maya\common
+DOMEMASTER3D_DIR:=../..
+DOMEMASTER3D_MAYA_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2013.5/scripts
+MI_CUSTOM_SHADER_PATH+:=../shaders/include
+MI_LIBRARY_PATH+:=../shaders
+MAYA_SCRIPT_PATH+:=../2013.5/scripts
+MAYA_SCRIPT_PATH+:=../2013.5/shelves
+DOMEMASTER3D_MAYA_REALTIME_FOV=4
+
++ MAYAVERSION:2013.5 PLATFORM:mac Domemaster3D any /Applications/Domemaster3D/maya/common
+DOMEMASTER3D_DIR:=../..
+DOMEMASTER3D_MAYA_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2013.5/scripts
+MI_CUSTOM_SHADER_PATH+:=../shaders/include
+MI_LIBRARY_PATH+:=../shaders
+MAYA_SCRIPT_PATH+:=../2013.5/scripts
+MAYA_SCRIPT_PATH+:=../2013.5/shelves
+DOMEMASTER3D_MAYA_REALTIME_FOV=4
+
++ MAYAVERSION:2013.5 PLATFORM:linux Domemaster3D any /opt/Domemaster3D/maya/common
+DOMEMASTER3D_DIR:=../..
+DOMEMASTER3D_MAYA_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2013.5/scripts
+MI_CUSTOM_SHADER_PATH+:=../shaders/include
+MI_LIBRARY_PATH+:=../shaders
+MAYA_SCRIPT_PATH+:=../2013.5/scripts
+MAYA_SCRIPT_PATH+:=../2013.5/shelves
+DOMEMASTER3D_MAYA_REALTIME_FOV=4
+
 + MAYAVERSION:2013 PLATFORM:win64 Domemaster3D any C:\Program Files\Domemaster3D\maya\common
 DOMEMASTER3D_DIR:=../..
 DOMEMASTER3D_MAYA_DIR:=..

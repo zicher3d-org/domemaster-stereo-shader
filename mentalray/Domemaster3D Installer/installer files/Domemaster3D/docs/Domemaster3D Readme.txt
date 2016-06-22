@@ -278,13 +278,15 @@ Version History
 
 Version 2.0
 -------------
-2016-06-21
+2016-06-22
 
 3DS Max
   Added Max 2017 Support
 
 Maya
-  Added Maya 2016.5 Support. Switched the Domemaster3D for Maya 2016/2016.5 installer options from using a Maya.env approach to a Domemaster3D.mod file.
+  Added Maya 2016.5 Support
+  
+  Switched the Domemaster3D for Maya 2016.5-2013 installer options from using a Maya.env approach to a Domemaster3D.mod file.
   
   Updated the Domemaster3D Menus
   
@@ -292,7 +294,7 @@ Maya
   
   Added DomeViewer image projection support for the Facebook 360 Pyramid, LG360 Camera, and the Samsung Gear 360 Camera image projections.
   
-  Updated the Dome Diagnostics script.
+  Updated the Dome Diagnostics script
 
 Version 1.9.3
 -------------

@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V2.0
-  2016-06-17 03.44 PM
+  Dome Diagnostics Report Tool V2.0.1
+  2016-06-27 09.39 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  Version 2.0.1
+  ------------------
+  2016-06-27
+  
+  Added Maya 2016.5 Env Vars "MAYA_DISABLE_LEGACY_VIEWPORT", and "MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE".
   
   Version V2.0
   --------------------
@@ -905,6 +911,18 @@ global proc domeDiagnostics(){
 
 	$domeTempString = `getenv "MAYA_ENABLE_LEGACY_RENDER_LAYERS"`;
   $domeDebugText += "### `MAYA_ENABLE_LEGACY_RENDER_LAYERS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  // Added in Maya 2016.5
+	// Referenced at: /Applications/Autodesk/maya2016.5/Maya.app/Contents/scripts/others/isLegacyViewportEnable.mel
+  
+  $domeTempString = `getenv "MAYA_DISABLE_LEGACY_VIEWPORT"`;
+  $domeDebugText += "### `MAYA_DISABLE_LEGACY_VIEWPORT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  // Added in Maya 2016.5
+	// Referenced at: /Applications/Autodesk/maya2016.5/Maya.app/Contents/scripts/startup/createPreferencesOptVars.mel
+  
+  $domeTempString = `getenv "MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE"`;
+  $domeDebugText += "### `MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE` ###\r\n> " + $domeTempString + "\r\n\r\n";
   
   $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
   $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";

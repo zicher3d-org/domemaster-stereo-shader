@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V2.0.1
-  2016-06-27 09.39 AM
+  2016-07-03 02.09 PM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,9 +12,11 @@
   
   Version 2.0.1
   ------------------
-  2016-06-27
+  2016-07-03
   
   Added Maya 2016.5 Env Vars "MAYA_DISABLE_LEGACY_VIEWPORT", and "MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE".
+  
+  Added the PlayblastVR Env Var "PLAYBLASTVR_INSTALL_PATH".
   
   Version V2.0
   --------------------
@@ -1368,8 +1370,8 @@ global proc domeDiagnostics(){
 	$domeDebugText += "##  PlayblastVR Variables ##\r\n\r\n";
   
   // PlayblastVR
-  //string $playblastVRShaderString = `getenv "PLAYBLASTVR_LOCATION"`;
-  //$domeDebugText += "### `PLAYBLASTVR_LOCATION` ###\r\n> " + $playblastVRShaderString + "\r\n\r\n";
+  string $playblastVRString = `getenv "PLAYBLASTVR_INSTALL_PATH"`;
+  $domeDebugText += "### `PLAYBLASTVR_INSTALL_PATH` ###\r\n> " + $playblastVRString + "\r\n\r\n";
   
   string $playblastVRModuleString;
   

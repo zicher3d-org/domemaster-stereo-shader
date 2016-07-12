@@ -35,7 +35,7 @@
  
 #define EPSILON 0.00001
 
-/* Data Structure used store attribute values from Maya...*/
+/* Data Structure used store attribute values from Maya... */
 struct dsDomeAFL_FOV {
   miScalar  FOV_Angle;  /* Fisheye FOV angle in degrees */
   miVector  View_Offset;  /* View offset location x,y,z are members of [-1,1] */

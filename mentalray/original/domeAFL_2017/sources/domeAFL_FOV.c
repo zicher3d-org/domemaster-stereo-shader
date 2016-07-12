@@ -167,7 +167,7 @@ DLLEXPORT miBoolean domeAFL_FOV(
       ray.y = (-ray.y);   
     }
 
-#if 1
+#if 0
     /* adjust the ray differentials */
     rotate_ray_differentials(state, ray);
 #endif

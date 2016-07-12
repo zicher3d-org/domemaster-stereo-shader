@@ -293,7 +293,7 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
       ray.z = (-ray.z);
     }
 
-#if 1
+#if 0
     /* adjust the ray differentials */
     rotate_ray_differentials(state, ray);
 #endif

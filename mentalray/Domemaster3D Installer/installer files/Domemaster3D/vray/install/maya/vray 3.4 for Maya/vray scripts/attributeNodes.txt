@@ -1,0 +1,358 @@
+Node kMesh {
+  group_0 = vray_subdivision
+  group_1 = vray_subquality
+  group_2 = vray_displacement
+  group_3 = vray_opensubdiv
+  group_4 = vray_roundedges
+  group_5 = vray_user_attributes
+  group_6 = vray_objectID
+  group_7 = vray_fogFadeOut
+  group_8 = vray_localrayserver
+}
+
+Node xgmSubdPatch {
+  group_0 = vray_subdivision
+  group_1 = vray_subquality
+  group_2 = vray_displacement
+  group_3 = vray_opensubdiv
+  group_4 = vray_user_attributes
+  group_5 = vray_objectID
+  group_6 = vray_localrayserver
+}
+
+Node kSubdiv {
+  group_0 = vray_subquality
+  group_1 = vray_displacement
+  group_2 = vray_objectID
+  group_3 = vray_user_attributes
+}
+
+Node kParticle {
+  group_0 = vray_particle_export_attributes
+  group_1 = vray_sprite_orient
+  group_2 = vray_point_size;
+}
+
+Node kNParticle {
+  group_0 = vray_particle_export_attributes
+  group_1 = vray_sprite_orient
+  group_2 = vray_point_size;
+  group_3 = vray_particle_cache;
+  group_4 = vray_instancer_overrides;
+}
+
+Node kSpotLight {
+  group_0 = vray_pointLight
+}
+Node kAreaLight {
+  group_0 = vray_arealight
+}
+Node kPointLight {
+  group_0 = vray_pointLight
+}
+Node kDirectionalLight {
+  group_0 = vray_directlight
+}
+Node kAmbientLight {
+  group_0 = vray_light
+}
+
+Node kNurbsSurface {
+  group_0 = vray_nusrbsStaticGeom
+  group_1 = vray_objectID
+  group_2 = vray_user_attributes
+}
+
+Node kBlinn {
+  group_0 = vray_materialsGlossiness
+  group_1 = vray_material_id
+  group_2 = vray_specific_mtl
+}
+Node kPhong {
+  group_0 = vray_materialsGlossiness
+  group_1 = vray_material_id
+  group_2 = vray_specific_mtl
+}
+Node kPhongExplorer {
+  group_0 = vray_materialsGlossiness
+  group_1 = vray_material_id
+  group_2 = vray_specific_mtl
+}
+
+Node kLambert {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node kAnisotropy {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node kRampShader {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node kSurfaceShader {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node kAssembly {
+  group_0 = vray_scene_assembly
+}
+
+Node VRayMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+  group_2 = vray_closed_volume
+}
+
+Node VRayMtl2Sided {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayLightMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayFastSSS2 {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRaySkinMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayBlendMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRaySimbiont {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayBumpMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayCarPaintMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayFlakesMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayMtlWrapper {
+  group_0 = vray_material_id
+}
+
+Node VRayMtlRenderStats {
+  group_0 = vray_material_id
+}
+
+Node VRayMeshMaterial {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayPluginNodeMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayMtlGLSL {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayMtlHair2 {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayMtlHair3 {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node VRayVismatMtl {
+  group_0 = vray_material_id
+  group_1 = vray_specific_mtl
+}
+
+Node bifrostLiquidMaterial {
+  group_0 = vray_bifrost_mtl
+  group_1 = vray_material_id
+  group_2 = vray_specific_mtl
+}
+
+Node bifrostShape {
+  group_0 = vray_bifrost_shape
+  group_1 = vray_fluid_shading_quality
+}
+
+Node kCamera {
+  group_0 = vray_cameraPhysical
+  group_1 = vray_cameraOverrides
+  group_2 = vray_cameraDome
+  group_3 = vray_cameraStereoscopic
+  group_4 = vray_cameraShademap
+  group_5 = vray_DomemasterStereo
+  group_6 = vray_LatLongStereo
+}
+
+Node kStereoCameraMaster {
+  group_0 = vray_cameraPhysical
+  group_1 = vray_cameraOverrides
+  group_2 = vray_cameraDome
+  group_3 = vray_cameraStereoscopic
+  group_4 = vray_cameraShademap
+  group_5 = vray_DomemasterStereo
+  group_6 = vray_LatLongStereo
+}
+
+Node kShadingEngine {
+  group_0 = vray_specific_mtl
+  group_1 = vray_material_id
+  group_2 = vray_roundedges
+}
+
+Node kTransform {
+  group_0 = vray_skip_export
+  group_1 = vray_objectID
+  group_2 = vray_user_attributes
+}
+
+Node kLodGroup {
+  group_0 = vray_skip_export
+  group_1 = vray_objectID
+}
+
+Node VRayDisplacement {
+  group_0 = vray_subdivision
+  group_1 = vray_displacement
+  group_2 = vray_opensubdiv
+  group_3 = vray_subquality
+  group_4 = vray_localrayserver
+}
+
+Node VRayPtex {
+  group_0 = vray_file_gamma;
+  group_1 = vray_file_ifl;
+}
+
+Node kFileTexture {
+  group_0 = vray_file_gamma
+  group_1 = vray_file_allow_neg_colors
+  group_2 = vray_file_ifl
+  group_3 = vray_texture_filter
+}
+
+Node substance {
+  group_0 = vray_file_gamma
+  group_1 = vray_file_allow_neg_colors
+  group_2 = vray_texture_filter
+  group_3 = vray_texture_format
+}
+
+Node kImagePlane {
+	group_0 = vray_file_gamma
+	group_1 = vray_file_allow_neg_colors
+	group_2 = vray_texture_filter
+}
+
+Node kFluid {
+  group_0 = vray_fluid_shading_quality
+}
+
+Node kNurbsCurve {
+  group_0 = vray_nurbscurve_renderable
+}
+
+Node kSamplerInfo {
+  group_0 = vray_samplerinfo_extra_tex
+  group_1 = vray_2d_placement_options
+}
+
+Node VRayLightRect {
+  group_0 = vray_objectID
+}
+
+Node VRayLightSphere {
+  group_0 = vray_objectID
+}
+
+Node VRayLightDome {
+  group_0 = vray_objectID
+}
+
+Node kProjection {
+  group_0 = vray_projection_options
+}
+
+Node kPlace2dTexture {
+  group_0 = vray_2d_placement_options
+}
+
+Node kPlace3dTexture {
+  group_0 = vray_3d_placement_options
+}
+
+Node kHairSystem {
+  group_0 = vray_hair_shader
+  group_1 = vray_hair_geom
+}
+
+Node HairShape {
+  group_0 = vray_hair_geom
+}
+
+Node kSurfaceLuminance {
+	group_0 = vray_surface_luminance
+}
+
+Node gpuCache {
+  group_0 = vray_subdivision
+  group_1 = vray_subquality
+  group_2 = vray_displacement
+  group_3 = vray_roundedges
+  group_4 = vray_user_attributes
+  group_5 = vray_objectID
+  group_6 = vray_fogFadeOut
+}
+
+Node VRayVolumeGrid {
+  group_0 = vray_pointLight
+}
+
+Node VRayMetaball {
+  group_0 = vray_objectID
+}
+
+Node rfrk_particler4 {
+  group_0 = vray_rfrk_particler
+}
+
+Node rfrk_particler5 {
+  group_0 = vray_rfrk_particler
+}
+
+Node partioVisualizer {
+  group_0 = vray_partio
+}
+
+Node partioInstancer {
+  group_0 = vray_partio
+}

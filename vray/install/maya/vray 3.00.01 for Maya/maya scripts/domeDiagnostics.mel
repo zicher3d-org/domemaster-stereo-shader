@@ -1,0 +1,2631 @@
+/*
+  Dome Diagnostics Report Tool V2.0.1
+  2016-07-08 12.34 PM
+  by Andrew Hazelden
+  
+  The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
+  
+  There are also functions for opening a desktop view that shows your project's scenes and images folders.
+
+  Version History
+  ----------------
+  
+  Version 2.0.1
+  ------------------
+  2016-07-08
+  
+  Added Maya 2016.5 Env Vars "MAYA_DISABLE_LEGACY_VIEWPORT", and "MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE".
+  
+  Added the PlayblastVR Env Var "PLAYBLASTVR_INSTALL_PATH".
+  
+  Added Go Pro VR Player to the list of PlayblastVR viewer tools. 
+  
+  Version V2.0
+  --------------------
+  2016-06-17
+  
+  Added a directory listing of the Maya user scripts and user preferences script folder
+  
+  Added an inline printing of the userSetup.mel and userSetup.py files in the Maya user scripts and user preferences script folder
+  
+  Added Maya network connection check and Maya build version details
+  
+  Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
+  
+  Added the new Maya 2016.5 environment variables "MAYA_RUNNING_TESTS" and "MAYA_ENABLE_LEGACY_RENDER_LAYERS". The "MAYA_ENABLE_LEGACY_RENDER_LAYERS" variable is used to choose if you want to use the old render layer system or the new Maya 2016.5 Render Setup editor.
+  
+  Updated the PlayblastVR 2.0 panoramic format support.
+  
+  Added the Vray 2016.5 Environment variables.
+
+  Version V1.9.2
+  --------------------
+  2016-01-10
+
+  Listed the path for the current Dome Diagnostics MEL script. This is helpful if there are multiple copies of the script installed on your system.
+
+  Added detection for the PlayblastVR Panoramic Format "Gear VR Mono Cube" option var.
+
+  Added support for the following Maya environment variables:
+    
+    ALIAS_RENDER_LIB_PATH
+    BIFROST_LOCATION
+    ENABLE_DEFAULT_VIEWPORT_CAMERA_SETS
+    IMF_PLUG_IN_PATH
+    MAYA_ADSK_ASSET_LIBS
+    MAYA_BATCH_RENDERING_STOPS_ON_ERROR
+    MAYA_BG_DEPTH_IMAGE
+    MAYA_BIFROST_COMPOUNDS
+    MAYA_COLOR_MANAGEMENT_POLICY_FILE
+    MAYA_COLOR_MANAGEMENT_POLICY_LOCK
+    MAYA_CUSTOM_TEMPLATE_PATH
+    MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER
+    MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL
+    MAYA_DISABLE_VP2_WHEN_POSSIBLE
+    MAYA_ENABLE_CLASSIC_HAIR
+    MAYA_ENABLE_LEGACY_HYPERSHADE
+    MAYA_ENABLE_LEGACY_PARTICLES
+    MAYA_ENABLE_LEGACY_RIGID
+    MAYA_ENABLE_VP2_SHAPE_INSTANCING
+    MAYA_EXPOSE_FACADE_NODES
+    MAYA_FBX_PLUGIN_LOCATION
+    MAYA_HELP_URL
+    MAYA_NO_INITIAL_AUTOLOAD_MT
+    MAYA_OFFSCREEN_HRB
+    MAYA_OGS_DEVICE_OVERRIDE
+    MAYA_PLUG_IN_RESOURCE_PATH
+    MAYA_PROJECT
+    MAYA_PROJECTS_DIR
+    MAYA_PSEUDOTRANS_MODE
+    MAYA_REAL_WORLD_SIZE
+    MAYA_REVERSE_FILEFORMAT_EXT
+    MAYA_SCRIPT_BASE
+    MAYA_SHADER_LIBRARY_PATH
+    MAYA_TESTING_CLEANUP
+    MAYA_TEXTURED_SCULPT
+    MAYA_UI_LANGUAGE
+    MAYA_VP2_DEVICE_OVERRIDE
+    MAYA_VR_PER_SHAPE_ATTR
+    NEX_DRINIT_PATH
+    ONECLICK_KEEP_TEMP_FILES
+    ONECLICK_SELECT_WHOLE_CHARACTER
+    ONECLICK_TEMP_DIR
+    PYMEL_SKIP_MEL_INIT
+    QT_MAC_NO_NATIVE_MENUBAR
+    SUBSTANCES_LOCATION
+    WINEDITOR
+    XPC_SERVICE_NAME
+
+  
+  Added support for the following Vray env vars:
+    VRAY_ADVANCED_UI
+    VRAY_FOR_MAYA_DRLISTS_PATH
+    VRAY_FOR_MAYA_DRPORT
+    VRAY_FOR_MAYA2012_SKIP_NODE_CATEGORIZATION
+    VRAY_OSL_PATH_MAYA2016_PowerPC
+    VRAY_OSL_PATH_MAYA2016_x64
+    VRAY_PATH
+  
+  The environment variable "MAYA_TEXTURED_SCULPT" that is used to enable/disable the texture sculpt deformer controls. It is off by default.
+  The environment variable "MAYA_VR_PER_SHAPE_ATTR" is used to control vector rendering modes per shape.
+  The environment variable "MAYA_ENABLE_VP2_SHAPE_INSTANCING" is used to override the globals node hwInstancing attribute setting. By setting the variable to 1 the hardware instancing is enabled. Setting the variable to any other value with disable the hardware instancing.
+  The environment variable "MAYA_OGS_DEVICE_OVERRIDE" can be set to "VirtualDeviceDx11" to override the Viewport 2.0 rendering engine.
+  The environment variable "MAYA_VP2_DEVICE_OVERRIDE" can be set to "VirtualDeviceDx11", "VirtualDeviceGLCore", or "VirtualDeviceGL"
+  The environment variable "WINEDITOR" is used to control the expression editor window. It can be set to a value like Expression, emacs, gvim, vi, vim, xedit, xemacs.
+  The environment variable "MAYA_OFFSCREEN_HRB" is used to control offscreen hardware rendering.
+  The environment variable "MAYA_SHADER_LIBRARY_PATH" can be set to 1 to enable the control.
+  The environment variable "MAYA_PLUG_IN_RESOURCE_PATH" is used to specifiy a language-dependent resource file when Maya is running using a localized language.
+  The environment variable "MAYA_BATCH_RENDERING_STOPS_ON_ERROR" allows clients to receive the error codes from the command engine when it terminates.
+  The environment variable "MAYA_TESTING_CLEANUP" will suppress user confirmation dialogs during automated testing
+  The environment variable "MAYA_NO_INITIAL_AUTOLOAD_MT" can be used to exclude the autoloading of plugins like xgenToolkit and xgenMR that were added in Maya 2014+.
+  The environment variable "MAYA_CUSTOM_TEMPLATE_PATH" is used to define the path for the Maya 2016 XML property editor templates.
+  The environment variable "XPC_SERVICE_NAME" is typically set to a value like "com.autodesk.Maya.2016.226948"
+  The environment variable "IMF_PLUG_IN_PATH" lists the folder path for the mental ray tools like imf_display. On Maya 2016 on Mac OS X it is set to "/Applications/Autodesk/mentalrayForMaya2016/bin/image"
+  
+  Version V1.9.1
+  --------------------
+  2015-09-23 
+  
+  Added detection for the Domemaster3D for Maya Realtime FOV Override environment variable. This env var is used to specify a different default FOV value when a DomeAFL_FOV, DomeAFL_FOV_Stereo, and LatLong_Stereo camera is added to the Maya scene. This value is also used when the Domemaster3D Pre/Post Render MEL script is run on a DomeAFL_FOV_Stereo, and LatLong_Stereo camera rig at render time.
+  
+  Version V1.9
+  --------------------
+  2015-09-23 
+  
+  Added detection for the Maya quicktime video encoding environment variable MAYA_QUICKTIME_ENCODING_GAMMA.
+  
+  Added detection for the MAYA_NO_CONSOLE_WINDOW environment variable. This environment variable lets you turn off the display of the Maya console window. It can effect the stability of batch renders that are launched with mayabatch if the console is disabled and anything is printed directly to the console window.
+
+  Updated the PlayblastVR optionVar list for the batch sequence viewers
+
+  Added the Environment variable detection for the following Maya 3rd party modules and plugins:
+  
+  Bifrost Env Vars:
+    BIFROST_ECHO_GEOSHADER
+    BIFROST_ENABLE_GRAPH_EDITING
+  
+  QT Support Env Vars:
+    QT_HIGHDPI_AWARE
+    MAYA_ALIEN_WIDGETS
+  
+  Mental Ray Env Vars:
+    MI_MAYA_BATCH_OPTIONS
+    MI_CUSTOM_SHADER_PATH
+    MI_CUSTOM_SHADER_SUPPRESS - do not load suppressed files
+    MAYATOMR   - used for a pipe to the renderer
+  
+  Arnold Env Vars:
+    MTOA_SILENT_MODE 
+    MTOA_COMMAND_PORT
+    ARNOLD_LICENSE_ATTEMPTS
+    ARNOLD_LICENSE_ATTEMPT_DELAY
+    K_SEARCH_PATH
+      
+  XGEN Env Vars:
+    XGEN_CONFIG_PATH
+    XGEN_EXPORT_ARCHIVE_STANDALONE
+    XGEN_LOCATION
+    XGEN_ROOT
+    HDF5_DISABLE_VERSION_CHECK
+    
+  SEEXPR Software Env Vars:  
+    SE_EXPR_PLUGINS
+  
+  Mac & Linux Env Vars:
+    LD_LIBRARY_PATH
+    
+  Version V1.8.3
+  --------------------
+  2015-08-27
+
+  Added a new function "domeLaunchMayaInstance()" that will launch a 2nd copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time. The MEL command to use this tool is: 
+  
+    source "domeDiagnostics.mel"; domeLaunchMayaInstance();
+  
+  Version V1.8.2
+  --------------------
+  
+  Added Maya "MAYA_DISABLE_IDLE_LICENSE" env variable detection to the dome diagnostics tool.
+  
+  Added a domeOpenSourceImagesDirectory() function to open the source images directory. This is used by the Domemaster3D Maya shelf tool "SRC".
+  
+  Version 1.7.5 Alpha
+  --------------------
+  
+  Added Arnold "MTOA_TEMPLATES_PATH" env variable detection
+  
+  Version 1.7.4
+  -------------
+  2015-06-12 
+  
+  Updated the Domemaster3D shelf directory buttons "SCN", "IMG", and "TMP" so they open and run a Nautilus file browser window as a non blocking task on Linux
+  
+  Version 1.7.3
+  -------------
+  2015-04-14 
+  
+  Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
+  
+  Version 1.7.2
+  -------------
+  2015-04-12  
+  
+  Updated the dome diagnostics tool to support RLM environment variables
+  
+  Updated the dome diagnostics tool PlayblastVR OptionVar reading code
+  
+  Updated the dome diagnostics tool Arnold MtoA environment variables
+  
+  Version 1.7
+  -----------
+  2015-03-07
+  
+  
+  Version 1.6.2
+  ------------------
+  February 28, 2015
+  
+  Added support for detecting the PlayblastVR renderer and Vray for Maya 2016.
+  Updated Arnold environment variable diagnostic code 
+  
+  Version 1.6
+  ------------------
+  October 3, 2014
+  
+  Updated the Maya Domemaster3D env var listing code
+  Updated the Mental Ray Include & Shaders directory listing code
+
+  Version 1.5.0.2
+  ------------------
+  Aug 19, 2014
+  
+  Added vray diagnostics support
+  Added linux support for the "Task" shelf button. When the Task shelf tool is run on linux the /usr/bin/gnome-system-monitor program will be launched.
+
+  Version 1.5
+  ------------------
+  July 12, 2014
+  
+  First version of the tool
+
+
+  Usage
+  -------
+
+  To run the dome diagnostics script:
+  source "domeDiagnostics.mel"; domeDiagnostics();
+
+  To open the mayaRenderLog in Notepad++ use:
+  source "domeDiagnostics.mel"; domeOpenMayaRenderLogFile();
+
+  To open the existing diagnostics log in Notepad++ use:
+  source "domeDiagnostics.mel"; domeOpenDiagnosticsLogFile();
+
+  To open the scenes folder for the current project use:
+  source "domeDiagnostics.mel"; domeOpenSceneDirectory();
+
+  To open the images folder for the current project use:
+  source "domeDiagnostics.mel"; domeOpenImagesDirectory();
+  
+  To open the sourceimages folder for the current project use:
+  source "domeDiagnostics.mel"; domeOpenSourceImagesDirectory();
+
+  To open the Mac OS X Activity Monitor / Windows Task Manager use:
+  source "domeDiagnostics.mel"; openTaskManager();
+
+*/
+
+
+global proc string domeGetDiagnosticsLogFilename(){
+  int $mayaVersion = getMayaVersionDome();
+  string $computerName;
+  string $userName;
+  string $domeDebugLogPathString = "";
+      
+  if(getMayaPlatform() == "windows"){
+		$computerName = `getenv "COMPUTERNAME"`;
+		$userName = `getenv "USERNAME"`;
+		// Example: C:/Users/hazelden/Desktop/Domemaster3D_Report_HP_hazelden.md
+    $domeDebugLogPathString = `getenv "USERPROFILE"` + "/Desktop/Domemaster3D_Report_" + $computerName + "_" + $userName + ".md";
+	} else {
+		//$computerName = `getenv "HOSTNAME"`;
+		$computerName = `system("echo $HOSTNAME")`;
+		$computerName = substituteAllString($computerName, "\n", "");
+		$userName = `getenv "USER"`;
+		// Example: /Users/hazelden/Desktop/Domemaster3D_Report_iMac_hazelden.md
+    $domeDebugLogPathString = `getenv "HOME"` + "/Desktop/Domemaster3D_Report_" + $computerName + "_" + $userName + ".md";
+  }
+  return $domeDebugLogPathString;
+}
+
+// Get the env variables in Maya
+global proc domeDiagnostics(){
+
+  int $mayaVersion = getMayaVersionDome();
+  string $computerName;
+  string $userName;
+  
+  
+	if(getMayaPlatform() == "windows"){
+		$computerName = `getenv "COMPUTERNAME"`;
+		$userName = `getenv "USERNAME"`;
+	} else {
+		//$computerName = `getenv "HOSTNAME"`;
+		$computerName = `system("echo $HOSTNAME")`;
+		$computerName = substituteAllString($computerName, "\n", "");
+		$userName = `getenv "USER"`;
+  }
+
+  // Win Example: C:/Users/hazelden/Desktop/Domemaster3D_Report_HP_hazelden.md
+  // Mac Example: /Users/hazelden/Desktop/Domemaster3D_Report_iMac_hazelden.md
+  string $domeDebugLogPathString = domeGetDiagnosticsLogFilename();
+  $domeLogFileId = `fopen $domeDebugLogPathString "w"`;
+
+  string $domeDebugText = "";
+  print ("Writing Domemaster3D Diagnostics Report to: " + $domeDebugLogPathString + "\r\n");
+
+  $domeDebugText += "# Domemaster3D Diagnostics Tool V2 #\r\n";
+  $domeDebugText +=  "-----------------------------------------\r\n\r\n";
+  $domeDebugText += "Log Creation: " + `date` + "  \r\n";
+  $domeDebugText += "Computer: " + $computerName + "  \r\n";
+  $domeDebugText += "User Account: " + $userName + "  \r\n";
+
+  $domeDebugText += "\r\n";
+  $domeDebugText += "## Hardware ##\r\n";
+
+  // CPU Type
+  string $domeHardwareAllLines[] = `hardware -cpu`;
+  string $hardwareLine;
+  for($hardwareLine in $domeHardwareAllLines)
+  {
+    $domeDebugText += "> Processor Type "  + $hardwareLine + "  \r\n";
+  }
+
+  // Number of Processors
+  $domeHardwareAllLines = `hardware -npr`;
+  int $NumProcessors;
+  for($hardwareLine in $domeHardwareAllLines)
+  {
+  	$NumProcessors = $hardwareLine;
+
+  }
+
+  // Number of Processors
+  $domeHardwareAllLines = `hardware -mhz`;
+  float $cpuSpeedGHZ;
+  for($hardwareLine in $domeHardwareAllLines)
+  {
+  	$cpuSpeedGHZ = ((float)$hardwareLine / 1000);
+  }
+  $domeDebugText += "> Number of Processors "  + $NumProcessors + " @ " + $cpuSpeedGHZ + " GHz / Core  \r\n";
+	
+  // Motherboard
+  $domeHardwareAllLines = `hardware -brd`;
+  for($hardwareLine in $domeHardwareAllLines)
+  {
+    $domeDebugText += "> Motherboard "  + $hardwareLine + "  \r\n";
+  }
+  
+  int $domeTotalMemory;
+  if($mayaVersion >= 2014){
+    // RAM - Maya 2015 returns values using an int
+    $domeTotalMemory = `memory -physicalMemory -gigaByte`;
+    $domeDebugText += "> Physical Memory " + $domeTotalMemory + "GB" + "  \r\n";
+  } else {
+     // RAM - Maya 2011 returns values using a float
+    float $domeTotalMemoryAsFloat[] = `memory -physicalMemory`;
+    $domeTotalMemory = $domeTotalMemoryAsFloat[0]/1000;
+    $domeDebugText += "> Physical Memory " + $domeTotalMemory + "GB" + "  \r\n";
+  }
+
+  int $domeFreeMemory;
+  // Only list RAM if running on Windows - Maya on Mac lists the free RAM as 0 MB!!!
+	if(getMayaPlatform() == "windows"){
+    // Memory check as an int in Maya 2015+
+    if($mayaVersion >= 2014){
+      // RAM - Maya 2015 returns values using an int
+      $domeFreeMemory = `memory -freeMemory -gigaByte`;
+      $domeDebugText += "> Free System Memory " + $domeFreeMemory + "GB" + "  \r\n";
+    } else {
+     // RAM - Maya 2011 returns values using a float
+    float $domeFreeMemoryAsFloat[] = `memory -freeMemory`;
+    $domeFreeMemory = $domeFreeMemoryAsFloat[0]/1000;
+    $domeDebugText += "> Free System Memory " + $domeFreeMemory + "GB" + "  \r\n";
+    }
+  }
+
+  $domeDebugText += "\r\n";
+
+  $domeDebugText += "## Networking ##\r\n";
+  $domeDebugText += "    "  + domeNetworkInfo() + "  \r\n\r\n";
+
+  $domeDebugText += "## Hard Disks ##";
+  $domeDebugText += domeStorageInfo();
+  //$domeDebugText += domeStorageInfo() + "  \r\n";
+
+  $domeDebugText += "## Graphics ##\r\n";
+
+  // Graphics Cards
+  $domeHardwareAllLines = `hardware -gfx`;
+  for($hardwareLine in $domeHardwareAllLines)
+  {
+    $domeDebugText += "> Graphics "  + $hardwareLine + "  \r\n";
+  }
+
+  // GPU memory check exists in Maya 2015+
+  if($mayaVersion >= 2015){
+    // GPU RAM
+    $domeDebugText += "> Free GPU Memory " + `ogs -gpuMemoryUsed` + "MB" + "  \r\n";
+  }
+  $domeDebugText += "\r\n";
+
+  $domeDebugText += "## OpenGL ##\r\n";
+
+  // OpenGL version
+  $domeDebugText += "> OpenGL Version  " + `openGLExtension -version` + "  \r\n";
+  $domeDebugText += "\r\n";
+
+  // OpenGL extensions add unneeded bloat
+  //$domeDebugText += "### OpenGL Extensions###\r\n";
+
+  //$domeDebugText += "> " + domeOpenglExtensionsInfo() + "  \r\n";
+  //$domeDebugText += "\r\n";
+
+  $domeDebugText += "## Active Processes ##\r\n";
+  $domeDebugText += domeProcessesInfo();
+  //$domeDebugText += domeProcessesInfo()+ "  \r\n";
+
+
+  $domeDebugText +=  "-----------------------------------------\r\n\r\n";
+
+  $domeDebugText += "## Maya ##\r\n\r\n";
+  
+  string $fancyMayaVersion;
+  if($mayaVersion >= 2015){
+    // Example: Autodesk Maya 2015 SP2
+    $fancyMayaVersion = `about -installedVersion`;
+  } else {
+    $fancyMayaVersion =  "Autodesk Maya " + getMayaVersionDome();
+  }
+
+  // Example: Maya 2015 on Windows
+  $domeDebugText += "> " + $fancyMayaVersion + " on " + getMayaPlatformFancy() + "  \r\n";
+  $domeDebugText += "> " + `getenv "MAYA_LOCATION"` + "  \r\n\r\n";
+
+  // What Build version of Maya is this? (Release, etc...)
+  if($mayaVersion >= 2014){
+  $domeDebugText += "### `MAYA Build Version` ###\r\n> " + `about -buildVariant` + "\r\n\r\n";
+  }
+
+  // Maya localization format - en_US, ja_JP, etc...
+  $domeDebugText += "### `MAYA UI Language Format` ###\r\n> " + `about -uiLanguage` + "\r\n\r\n";
+
+  // Maya language locale (codeset) format (UTF8, 1252, etc..)
+  $domeDebugText += "### `MAYA Locale (Codeset) Format` ###\r\n> " + `about -codeset` + "\r\n\r\n";
+  
+	// Does Maya have an internet connection?
+  if($mayaVersion >= 2012){
+  $domeDebugText += "### `MAYA Network Connection Status` ###\r\n> " + `about -connected` + "\r\n\r\n";
+  }
+
+  // Maya License Timeout
+  $domeDebugText += "### `MAYA_DISABLE_IDLE_LICENSE` ###\r\n> " +`getenv "MAYA_DISABLE_IDLE_LICENSE"`+ "\r\n\r\n";
+
+  // Example: unlimited
+  $domeDebugText += "### `MAYA_LICENSE` ###\r\n> " +`getenv "MAYA_LICENSE"`+ "\r\n\r\n";
+
+  // Example: standalone
+  $domeDebugText += "### `MAYA_LICENSE_METHOD` ###\r\n> " +`getenv "MAYA_LICENSE_METHOD"`+ "\r\n\r\n";
+
+  // Example: Alternate flexlm license path 
+  $domeDebugText += "### `MAYA_ALT_EN` ###\r\n> " +`getenv "MAYA_ALT_EN"`+ "\r\n\r\n";
+
+  $domeDebugText += "### Rendering Software Available ###\r\n";
+
+  // Check the current rendering engine:
+  string $rendererString = `currentRenderer`;
+
+  // Check what rendering engines are loaded
+  string $domeRenderersAllLines[] = `renderer -query -namesOfAvailableRenderers`;
+  string $rendererLine;
+  for($rendererLine in $domeRenderersAllLines)
+  {
+    $domeDebugText += "> "  + $rendererLine + "  \r\n";
+  }
+
+  $domeDebugText += "\r\n";
+
+  // List the active rendering program
+  $domeDebugText += "### Active Renderer ###\r\n";
+  if($rendererString == "maxwell"){
+    $domeDebugText += "> The Maxwell renderer is active.\r\n";
+  }else if($rendererString == "arnold"){
+    $domeDebugText += "> The Arnold renderer is active.\r\n";
+  }else if($rendererString == "mentalRay"){
+    $domeDebugText += "> The mental ray renderer is active.\r\n";
+  }else if($rendererString == "vray"){
+    $domeDebugText += "> The V-Ray for Maya renderer is active.\r\n";
+  }else if($rendererString == "mayaSoftware"){
+    $domeDebugText += "> The Maya Software renderer is active.\r\n";
+  }else if($rendererString == "mayaHardware"){
+   $domeDebugText += "> The Maya Hardware renderer is active.\r\n";
+  }else if($rendererString == "mayaHardware2"){
+    $domeDebugText += "> The Maya Hardware 2.0 renderer is active.\r\n";
+  }else if($rendererString == "mayaVector"){
+    $domeDebugText += "> The Maya Vector renderer is active.\r\n";
+  }else if($rendererString == "PlayblastVR"){
+    $domeDebugText += "> The PlayblastVR immersive hardware renderer is active.\r\n";
+  }
+  $domeDebugText += "\r\n";
+
+  $domeDebugText += "### Current Scene ###\r\n";
+  $domeDebugText += "> `" + `file -q -sn`+ "`  \r\n"; 
+  $domeDebugText += "\r\n";
+
+  $domeDebugText += "### Recent Scenes ###\r\n";
+
+  // Catch the error that happens if this is the first time running Maya and there are no recent scenes
+  int $hasRecentFiles = `optionVar -exists "RecentFilesList"`;
+  if  ($hasRecentFiles){
+    string $domeRecentScenesAllLines[] = `optionVar -query "RecentFilesList"`;
+    string $recentScenesLine;
+    for($recentScenesLine in $domeRecentScenesAllLines)
+    {
+      $domeDebugText += "> `"  + $recentScenesLine + "`  \r\n";
+    }
+  } else {
+    // There are no recent files
+    $domeDebugText += "> (none)  \r\n";
+  }
+
+  $domeDebugText += "\r\n";
+
+  $domeDebugText += "### Current Workspace ###\r\n";
+  $domeDebugText += "> `" + `workspace -q -rootDirectory`+ "`  \r\n"; 
+  $domeDebugText += "\r\n";
+
+  $domeDebugText += "### Recent Workspaces ###\r\n";
+  string $domeWorkspaceAllLines[] = `workspace -listWorkspaces`;
+  string $workspaceLine;
+  for($workspaceLine in $domeWorkspaceAllLines)
+  {
+    $domeDebugText += "> `"  + $workspaceLine + "`  \r\n";
+  }
+  $domeDebugText += "\r\n";
+
+  // Check for the cameras in the scene
+  $domeDebugText += "### Renderable Cameras ###\r\n";
+  string $cameras[] = `ls -type camera`;
+  string $cam = "";
+  int $state = 0;
+
+  for($cam in $cameras){
+    $state = `getAttr ($cam + ".renderable")`;
+    if($state){
+     $domeDebugText += "> `"  +`getObjectParentNode($cam)` + "`  \r\n";
+    }
+  }
+
+  $domeDebugText += "\r\n";
+  $domeDebugText +=  "-----------------------------------------\r\n\r\n";
+
+
+  // User Account's Maya Folder
+  // Example:  C:/Users/hazelden/Documents/maya
+  string $domeMayaHomePathString = `getenv "MAYA_APP_DIR"`;
+  $domeDebugText += "### `MAYA HOME FOLDER PATH` ###\r\n> " + $domeMayaHomePathString + "\r\n\r\n";
+
+  // Maya Render Log filepath
+  // Win Example:  C:/Users/hazelden/Documents/maya/mayaRenderLog.txt
+  // Mac Example:  /Users/hazelden/Library/Logs/Maya/mayaRender.log
+  // Linux Example:  /home/hazelden/maya/mayaRender.log
+  string $domeMayaRenderLogPathString;
+
+  if(getMayaPlatform() == "windows"){
+    // Win Example:  C:/Users/hazelden
+    $domeUserHomePathString = `getenv "USERPROFILE"`;
+    $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
+  } else if(getMayaPlatform() == "darwin") {
+    // Mac Example: $Home = /Users/hazelden
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
+  } else {
+    // Linux Example: $Home = /home/hazelden
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/maya" + "/mayaRenderLog.txt";
+  }
+  
+  $domeDebugText += "### `MAYA RENDER LOG FILEPATH` ###\r\n> " + $domeMayaRenderLogPathString + "\r\n\r\n";
+
+  // Maya.env file contents
+  // Example:  C:/Users/hazelden/Documents/maya/2015-x64/Maya.env
+  //string $domeMayaDotEnvPathString = `getenv "MAYA_APP_DIR"` + "/" + $mayaVersion + "-x64/Maya.env" ;
+  string $domeMayaDotEnvPathString = `about -environmentFile`;
+  $domeDebugText += "### `Maya.env FILEPATH` ###\r\n> " + $domeMayaDotEnvPathString + "\r\n\r\n";
+
+  $domeDebugText +=  "------------------------------------------------\r\n";
+  $domeDebugText +=  "\r\n";
+
+  $domeDebugText += "# Maya.env File Contents #\r\n";
+
+  // Read in the contents of the maya.env file
+  $mayaVersion = getMayaVersionDome();
+
+  // Maya.env Location A:
+  // ~/Library/Preferences/Autodesk/maya/2015-x64/Maya.env
+  //  C:/Users/hazelden/Documents/maya/2015-x64/Maya.env
+
+  // Maya.env Location B:
+  // ~/Library/Preferences/Autodesk/maya/2015-x64/prefs/Maya.env
+  // C:/Users/hazelden/Documents/maya/2015-x64/prefs/Maya.env
+
+  //string $domeMayaDotEnvPathString = `getenv "MAYA_APP_DIR"` + "/" + $mayaVersion + "-x64/Maya.env" ;
+
+  // File Path List
+  string $fileCheck = `file -query -exists $domeMayaDotEnvPathString`; 
+  if($fileCheck == 1){
+    $domeDebugText += "`" + $domeMayaDotEnvPathString + "`  \r\n\r\n";
+    $mayaEnvFileId = `fopen $domeMayaDotEnvPathString "r"` ;  
+    string $nextLine = `fgetline $mayaEnvFileId` ;  
+    // Loop Until EOF is reached (size = 0)
+    //while (size($nextLine) > 0) {  
+    while (! `feof $mayaEnvFileId`) {  
+      // Strip Whitespace From The Beginning And End Of The Line  
+      string $cleanLine = strip($nextLine) ;  
+      //print ($cleanLine+"\r\n") ; 
+      $domeDebugText += "    "  + $cleanLine + "\r\n";
+      $nextLine = `fgetline $mayaEnvFileId` ;  
+    }
+    fclose $mayaEnvFileId;
+    $domeDebugText +=  "\r\n";
+    $domeDebugText +=  "------------------------------------------------\r\n";
+		$domeDebugText +=  "\r\n";
+  }
+
+
+	// ------------------------------------------------
+	// Scan through the Maya Scripts Folders:
+
+
+	// Make sure Maya 2015 or newer is running for the about preferences command
+	if($mayaVersion >= 2016){
+		int $emptyString;
+		string $scriptsFolderString;
+		string $userSetupPath;
+		string $fileCheck;
+		string $preferencesFolderString = `about -preferences`;
+		// Result: /Users/andrew/Library/Preferences/Autodesk/maya/2016.5 // 
+
+
+		string $osSeparator;
+	
+		if(getMayaPlatform() == "windows"){
+			// Windows
+			//$osSeparator = "\\\\";
+			$osSeparator = "/";
+		}else if(getMayaPlatform() == "darwin"){
+			// Mac
+			$osSeparator = "/";
+		}else{
+			// Linux
+			$osSeparator = "/";
+		}
+
+		//------------------------------------------------------------
+		// Maya User Scripts Directory Contents
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/scripts/
+		
+		// List the Maya scripts folder files by adding the extra trailing slash
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "scripts" +  $osSeparator;
+		
+		$emptyString = size($scriptsFolderString);
+		if($emptyString){
+			$domeDebugText += "\r\n";
+			$domeDebugText += "## Maya User Scripts Directory Contents ##\r\n";
+			$domeDebugText += "`" + $scriptsFolderString + "`\r\n\r\n";
+			
+			
+			string $mayaScriptsList[] = `getFileList -folder $scriptsFolderString`;
+			string $scriptsLine;
+			for($scriptsLine in $mayaScriptsList)
+			{
+				$domeDebugText += "> `"  + $scriptsLine + "`  \r\n";
+			}
+		} // End of the make sure the directory exists check
+		
+		$domeDebugText +=  "\r\n";
+		
+		//------------------------------------------------------------
+		// Maya User Prefs Scripts Directory Contents
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/prefs/scripts/
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "prefs" + $osSeparator + "scripts" + $osSeparator;
+		
+		$emptyString = size($scriptsFolderString);
+		if($emptyString){
+			$domeDebugText += "------------------------------------------------\r\n";
+			$domeDebugText += "\r\n";
+			
+			$domeDebugText += "## Maya User Prefs Scripts Directory Contents ##\r\n";
+			$domeDebugText += "`" + $scriptsFolderString + "`\r\n\r\n";
+			
+
+			string $mayaScriptsList[] = `getFileList -folder $scriptsFolderString`;
+			string $scriptsLine;
+			for($scriptsLine in $mayaScriptsList)
+			{
+				$domeDebugText += "> `"  + $scriptsLine + "`  \r\n";
+			}
+		} // End of the make sure the directory exists check
+		
+		$domeDebugText +=  "\r\n";
+    $domeDebugText +=  "------------------------------------------------\r\n";
+		$domeDebugText +=  "\r\n";
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.mel file in the Maya User Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/scripts/userSetup.mel
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.mel";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya User Scripts userSetup.mel Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "    "  + $cleanLine + "  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.mel file in the Maya User Prefs Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/prefs/scripts/userSetup.mel
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "prefs" + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.mel";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya User Prefs Scripts userSetup.mel Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "    "  + $cleanLine + "  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.py file in the Maya User Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/scripts/userSetup.py
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.py";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya userSetup.py Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "    "  + $cleanLine + "  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+		
+		//------------------------------------------------------------
+		// Check for a userSetup.py file in the Maya User Prefs Scripts Directory
+		//------------------------------------------------------------
+		// /Users/andrew/Library/Preferences/Autodesk/maya/2016.5/prefs/scripts/userSetup.py
+		
+		$scriptsFolderString = $preferencesFolderString + $osSeparator + "prefs" + $osSeparator + "scripts" + $osSeparator;
+		
+		$userSetupPath = $scriptsFolderString + "userSetup.py";
+		
+		// File Path List
+		$fileCheck = `file -query -exists $userSetupPath `; 
+		if($fileCheck == 1){
+			$domeDebugText += "## Maya userSetup.py Contents ##\r\n";
+			$domeDebugText += "`" + $userSetupPath  + "`  \r\n\r\n";
+			$mayaUserSetupFileId = `fopen $userSetupPath  "r"` ;  
+			string $nextLine = `fgetline $mayaUserSetupFileId` ;  
+			// Loop Until EOF is reached (size = 0)
+			//while (size($nextLine) > 0) {  
+			while (! `feof $mayaUserSetupFileId`) {  
+				// Strip Whitespace From The Beginning And End Of The Line  
+				string $cleanLine = strip($nextLine) ;  
+				//print ($cleanLine+"\r\n") ; 
+				$domeDebugText += "`"  + $cleanLine + "`  \r\n";
+				$nextLine = `fgetline $mayaUserSetupFileId` ;  
+			}
+			fclose $mayaUserSetupFileId;
+			$domeDebugText +=  "\r\n";
+			$domeDebugText +=  "------------------------------------------------\r\n";
+			$domeDebugText +=  "\r\n";
+		}
+		
+	}
+
+  //------------------------------------------------------------
+
+  // Custom Maya & Domemaster3D Resource Loading Paths
+  string $modulesString = `getenv "MAYA_MODULE_PATH"`;
+  $domeDebugText += "### `MAYA_MODULE_PATH` ###\r\n> " + $modulesString + "\r\n\r\n";
+
+  string $shelfString = `getenv "MAYA_SHELF_PATH"`;
+  $domeDebugText += "### `MAYA_SHELF_PATH` ###\r\n> " + $shelfString + "\r\n\r\n";
+
+  string $scriptString = `getenv "MAYA_SCRIPT_PATH"`;
+  $domeDebugText += "### `MAYA_SCRIPT_PATH` ###\r\n> " + $scriptString + "\r\n\r\n";
+
+  $scriptString = `getenv "MAYA_SCRIPT_BASE"`;
+  $domeDebugText += "### `MAYA_SCRIPT_BASE` ###\r\n> " + $scriptString + "\r\n\r\n";
+
+  $scriptString = `getenv "SHARED_MAYA_DIR"`;
+  $domeDebugText += "### `SHARED_MAYA_DIR` ###\r\n> " + $scriptString + "\r\n\r\n";
+
+  string $pythonPathString = `getenv "PYTHONPATH"`;
+  $domeDebugText += "### `PYTHONPATH` ###\r\n> " + $pythonPathString + "\r\n\r\n";
+
+  string $presetsString = `getenv "MAYA_PRESET_PATH"`;
+  $domeDebugText += "### `MAYA_PRESET_PATH` ###\r\n> " + $presetsString + "\r\n\r\n";
+
+  string $imageString = `getenv "XBMLANGPATH"`;
+  $domeDebugText += "### `XBMLANGPATH` ###\r\n> " + $imageString + "\r\n\r\n";
+
+  //------------------------------------------------------------
+
+  string $pluginString = `getenv "MAYA_PLUG_IN_PATH"`;
+  $domeDebugText += "### `MAYA_PLUG_IN_PATH` ###\r\n> " + $pluginString + "\r\n\r\n";
+
+  string $renderString = `getenv "MAYA_RENDER_DESC_PATH"`;
+  $domeDebugText += "### `MAYA_RENDER_DESC_PATH` ###\r\n> " + $renderString + "\r\n\r\n";
+  
+  
+  // This environment variable lets you turn off the display of the Maya console window. It can effect the stability of batch renders that are launched with mayabatch if the console is disabled and anything is printed directly to the console window.
+  // Referenced at: https://groups.google.com/d/topic/maya_he3d/rrAUrP5fF34/discussion
+  string $consoleString = `getenv "MAYA_NO_CONSOLE_WINDOW"`;
+  $domeDebugText += "### `MAYA_NO_CONSOLE_WINDOW` ###\r\n> " + $consoleString + "\r\n\r\n";
+  
+  // QT Window Manager
+  string $qtString = `getenv "QT_HIGHDPI_AWARE"`;
+  $domeDebugText += "### `QT_HIGHDPI_AWARE` ###\r\n> " + $qtString + "\r\n\r\n";
+
+   $qtString = `getenv "QT_MAC_NO_NATIVE_MENUBAR"`;
+  $domeDebugText += "### `QT_MAC_NO_NATIVE_MENUBAR` ###\r\n> " + $qtString + "\r\n\r\n";
+
+  $qtString = `getenv "MAYA_ALIEN_WIDGETS"`;
+  $domeDebugText += "### `MAYA_ALIEN_WIDGETS` ###\r\n> " + $qtString + "\r\n\r\n";
+
+  string $domeTempString = `getenv "MAYA_QUICKTIME_ENCODING_GAMMA"`;
+  $domeDebugText += "### `MAYA_QUICKTIME_ENCODING_GAMMA` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_RUNNING_TESTS"`;
+  $domeDebugText += "### `MAYA_RUNNING_TESTS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+	// This Environment variable was added in Maya 2016.5 and it controls if the new Render Setup system or the previous render layers approach is used.
+	// Referenced at: /Applications/Autodesk/maya2016.5/Maya.app/Contents/scripts/others/mayaHasRenderSetup.mel
+
+	$domeTempString = `getenv "MAYA_ENABLE_LEGACY_RENDER_LAYERS"`;
+  $domeDebugText += "### `MAYA_ENABLE_LEGACY_RENDER_LAYERS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  // Added in Maya 2016.5
+	// Referenced at: /Applications/Autodesk/maya2016.5/Maya.app/Contents/scripts/others/isLegacyViewportEnable.mel
+  
+  $domeTempString = `getenv "MAYA_DISABLE_LEGACY_VIEWPORT"`;
+  $domeDebugText += "### `MAYA_DISABLE_LEGACY_VIEWPORT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  // Added in Maya 2016.5
+	// Referenced at: /Applications/Autodesk/maya2016.5/Maya.app/Contents/scripts/startup/createPreferencesOptVars.mel
+  
+  $domeTempString = `getenv "MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE"`;
+  $domeDebugText += "### `MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
+  $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_FBX_PLUGIN_LOCATION"`;
+  $domeDebugText += "### `MAYA_FBX_PLUGIN_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_REVERSE_FILEFORMAT_EXT"`;
+  $domeDebugText += "### `MAYA_REVERSE_FILEFORMAT_EXT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "XPC_SERVICE_NAME"`;
+  $domeDebugText += "### `XPC_SERVICE_NAME` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
+  $domeTempString = `getenv "PYMEL_SKIP_MEL_INIT"`;
+  $domeDebugText += "### `PYMEL_SKIP_MEL_INIT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
+  $domeTempString = `getenv "MAYA_TEXTURED_SCULPT"`;
+  $domeDebugText += "### `MAYA_TEXTURED_SCULPT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_TEXTURED_SCULPT environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\AETemplates\AEsculptTemplate.mel
+  
+  
+  $domeTempString = `getenv "ENABLE_DEFAULT_VIEWPORT_CAMERA_SETS"`;
+  $domeDebugText += "### `ENABLE_DEFAULT_VIEWPORT_CAMERA_SETS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The ENABLE_DEFAULT_VIEWPORT_CAMERA_SETS environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\buildPanelPopupMenu.mel 
+  // C:\Program Files\Domemaster3D\maya\common\scripts\domeDiagnostics.mel
+  
+  
+  $domeTempString = `getenv "MAYA_VR_PER_SHAPE_ATTR"`;
+  $domeDebugText += "### `MAYA_VR_PER_SHAPE_ATTR` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_VR_PER_SHAPE_ATTR environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\buildPanelPopupMenu.mel
+  
+  
+  $domeTempString = `getenv "MAYA_HELP_URL"`;
+  $domeDebugText += "### `MAYA_HELP_URL` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_HELP_URL environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\obsolete\doBrowserHelp.mel
+  
+  
+  $domeTempString = `getenv "MAYA_ENABLE_VP2_SHAPE_INSTANCING"`;
+  $domeDebugText += "### `MAYA_ENABLE_VP2_SHAPE_INSTANCING` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ENABLE_VP2_SHAPE_INSTANCING environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\createMayaHardware2GlobalsTab.mel
+  
+  
+  $domeTempString = `getenv "MAYA_BG_DEPTH_IMAGE"`;
+  $domeDebugText += "### `MAYA_BG_DEPTH_IMAGE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_BG_DEPTH_IMAGE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\createMayaSoftwareGlobalsTab.mel
+  
+  
+  $domeTempString = `getenv "MAYA_OGS_DEVICE_OVERRIDE"`;
+  $domeDebugText += "### `MAYA_OGS_DEVICE_OVERRIDE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_OGS_DEVICE_OVERRIDE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\createModelPanelMenu.mel
+  
+  
+  $domeTempString = `getenv "MAYA_VP2_DEVICE_OVERRIDE"`;
+  $domeDebugText += "### `MAYA_VP2_DEVICE_OVERRIDE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_VP2_DEVICE_OVERRIDE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel 
+  
+  $domeTempString = `getenv "NEX_DRINIT_PATH"`;
+  $domeDebugText += "### `NEX_DRINIT_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The NEX_DRINIT_PATH environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\drInit.mel
+  
+  
+  $domeTempString = `getenv "WINEDITOR"`;
+  $domeDebugText += "### `WINEDITOR` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The WINEDITOR environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\expressionEdCallbacks.mel
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel 
+  
+  $domeTempString = `getenv "MAYA_OFFSCREEN_HRB"`;
+  $domeDebugText += "### `MAYA_OFFSCREEN_HRB` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_OFFSCREEN_HRB environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\glRenderWin.mel
+  
+  
+  $domeTempString = `getenv "MAYA_ENABLE_LEGACY_HYPERSHADE"`;
+  $domeDebugText += "### `MAYA_ENABLE_LEGACY_HYPERSHADE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ENABLE_LEGACY_HYPERSHADE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\hyperShadePanel.mel
+  
+  
+  $domeTempString = `getenv "MAYA_SHADER_LIBRARY_PATH"`;
+  $domeDebugText += "### `MAYA_SHADER_LIBRARY_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_SHADER_LIBRARY_PATH environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\hyperShadePanel.mel
+  
+  
+  $domeTempString = `getenv "MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER"`;
+  $domeDebugText += "### `MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_DISABLE_LOOKDEV_MATERIAL_VIEWER environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\hyperShadePanel.mel
+  
+  
+  $domeTempString = `getenv "MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL"`;
+  $domeDebugText += "### `MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_DISABLE_LOOKDEV_PROPERTY_PANEL environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\hyperShadePanel.mel
+  
+  
+  $domeTempString = `getenv "MAYA_PLUG_IN_RESOURCE_PATH"`;
+  $domeDebugText += "### `MAYA_PLUG_IN_RESOURCE_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_PLUG_IN_RESOURCE_PATH environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\loadPluginLanguageResources.mel
+  
+  
+  $domeTempString = `getenv "MAYA_BATCH_RENDERING_STOPS_ON_ERROR"`;
+  $domeDebugText += "### `MAYA_BATCH_RENDERING_STOPS_ON_ERROR` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_BATCH_RENDERING_STOPS_ON_ERROR environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\mayaBatchRenderProcedure.mel 
+  
+
+  $domeTempString = `getenv "ONECLICK_TEMP_DIR"`;
+  $domeDebugText += "### `ONECLICK_TEMP_DIR` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The ONECLICK_TEMP_DIR environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\oneClickUtilities.mel
+  
+  
+  $domeTempString = `getenv "ONECLICK_SELECT_WHOLE_CHARACTER"`;
+  $domeDebugText += "### `ONECLICK_SELECT_WHOLE_CHARACTER` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The ONECLICK_SELECT_WHOLE_CHARACTER environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\oneClickUtilities.mel
+  
+    
+  $domeTempString = `getenv "ONECLICK_KEEP_TEMP_FILES"`;
+  $domeDebugText += "### `ONECLICK_KEEP_TEMP_FILES` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The ONECLICK_KEEP_TEMP_FILES environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\oneClickUtilities.mel
+  
+  
+  $domeTempString = `getenv "MAYA_PSEUDOTRANS_MODE"`;
+  $domeDebugText += "### `MAYA_PSEUDOTRANS_MODE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_PSEUDOTRANS_MODE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\pluginResourceUtil.mel
+  
+  
+  $domeTempString = `getenv "MAYA_DISABLE_VP2_WHEN_POSSIBLE"`;
+  $domeDebugText += "### `MAYA_DISABLE_VP2_WHEN_POSSIBLE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_DISABLE_VP2_WHEN_POSSIBLE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\setRendererInModelPanel.mel
+  
+  
+  $domeTempString = `getenv "MAYA_TESTING_CLEANUP"`;
+  $domeDebugText += "### `MAYA_TESTING_CLEANUP` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_TESTING_CLEANUP environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\cleanUpScene.mel
+
+  
+  $domeTempString = `getenv "MAYA_COLOR_MANAGEMENT_POLICY_FILE"`;
+  $domeDebugText += "### `MAYA_COLOR_MANAGEMENT_POLICY_FILE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_COLOR_MANAGEMENT_POLICY_FILE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\colorManagementUtilities.mel
+  
+  
+  $domeTempString = `getenv "MAYA_COLOR_MANAGEMENT_POLICY_LOCK"`;
+  $domeDebugText += "### `MAYA_COLOR_MANAGEMENT_POLICY_LOCK` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_COLOR_MANAGEMENT_POLICY_LOCK environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\colorManagementUtilities.mel
+  
+  
+  $domeTempString = `getenv "MAYA_REAL_WORLD_SIZE"`;
+  $domeDebugText += "### `MAYA_REAL_WORLD_SIZE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_REAL_WORLD_SIZE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createGlobalOptVars.mel
+  
+  
+  $domeTempString = `getenv "MAYA_UI_LANGUAGE"`;
+  $domeDebugText += "### `MAYA_UI_LANGUAGE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_UI_LANGUAGE environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel
+  
+
+  $domeTempString = `getenv "MAYA_PROJECTS_DIR"`;
+  $domeDebugText += "### `MAYA_PROJECTS_DIR` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_PROJECTS_DIR environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel 
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\updatePrefWndUI.mel
+  
+  $domeTempString = `getenv "MAYA_PROJECT"`;
+  $domeDebugText += "### `MAYA_PROJECT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_PROJECT environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel 
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\updatePrefWndUI.mel
+  
+  $domeTempString = `getenv "MAYA_EXPOSE_FACADE_NODES"`;
+  $domeDebugText += "### `MAYA_EXPOSE_FACADE_NODES` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_EXPOSE_FACADE_NODES environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\shouldAppearInNodeCreateUI.mel 
+  
+  
+  $domeTempString = `getenv "MAYA_ENABLE_LEGACY_RIGID"`;
+  $domeDebugText += "### `MAYA_ENABLE_LEGACY_RIGID` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ENABLE_LEGACY_RIGID environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel
+  
+  
+  $domeTempString = `getenv "MAYA_ENABLE_CLASSIC_HAIR"`;
+  $domeDebugText += "### `MAYA_ENABLE_CLASSIC_HAIR` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ENABLE_CLASSIC_HAIR environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\DynCreateHairMenu.mel
+  
+  
+  $domeTempString = `getenv "MAYA_ENABLE_LEGACY_PARTICLES"`;
+  $domeDebugText += "### `MAYA_ENABLE_LEGACY_PARTICLES` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ENABLE_LEGACY_PARTICLES environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\DynParticlesMenu.mel
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\NucleusCacheMenu.mel 
+  
+  
+  $domeTempString = `getenv "MAYA_ADSK_ASSET_LIBS"`;
+  $domeDebugText += "### `MAYA_ADSK_ASSET_LIBS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ADSK_ASSET_LIBS environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\initAdskAsset.mel
+  
+  
+  $domeTempString = `getenv "ALIAS_RENDER_LIB_PATH"`;
+  $domeDebugText += "### `ALIAS_RENDER_LIB_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The ALIAS_RENDER_LIB_PATH environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\initDefaultFilters.mel
+  
+  
+  $domeTempString = `getenv "MAYA_NO_INITIAL_AUTOLOAD_MT"`;
+  $domeDebugText += "### `MAYA_NO_INITIAL_AUTOLOAD_MT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_NO_INITIAL_AUTOLOAD_MT environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\startup\initialPluginLoad.mel 
+  
+  
+  $domeTempString = `getenv "MAYA_CUSTOM_TEMPLATE_PATH"`;
+  $domeDebugText += "### `MAYA_CUSTOM_TEMPLATE_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_CUSTOM_TEMPLATE_PATH environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\vray\scripts\vrayInit.mel 
+ 
+ 
+  //------------------------------------------------------------
+
+	// List the active Domemaster3D Maya ENV vars
+	$domeDebugText += "##  Domemaster3D Environment Variables ##\r\n\r\n";
+
+  // Domemaster3D Install Path
+  // Example: C:\Program Files\Domemaster3D\maya
+  string $domeDirPathString = `getenv "DOMEMASTER3D_DIR"`;
+  $domeDebugText += "### `DOMEMASTER3D_DIR` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
+  
+  // Example: C:\Program Files\Domemaster3D\maya
+  $domeDirPathString = `getenv "DOMEMASTER3D_MAYA_DIR"`;
+  $domeDebugText += "### `DOMEMASTER3D_MAYA_DIR` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
+  
+  // Example: C:\Program Files\Domemaster3D\maya
+  $domeDirPathString = `getenv "DOMEMASTER3D_SOURCEIMAGES_DIR"`;
+  $domeDebugText += "### `DOMEMASTER3D_SOURCEIMAGES_DIR` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
+
+  // Domemaster3D for Maya compatibility mode - used in Maya.env file for loading custom scripts
+  // Example: 2015
+  $domeDirPathString = `getenv "DOMEMASTER3D_MAYA_TARGET"`;
+  $domeDebugText += "### `DOMEMASTER3D_MAYA_TARGET` ###\r\n> " + $domeDirPathString + "\r\n\r\n";
+  
+  // Domemaster3D for Maya Realtime FOV Override
+  string $domeFOVString = `getenv "DOMEMASTER3D_MAYA_REALTIME_FOV"`;
+  $domeDebugText += "### `DOMEMASTER3D_MAYA_REALTIME_FOV` ###\r\n> " + $domeFOVString + "\r\n\r\n";
+
+  string $domeDiagScriptPath = substituteAllString(`whatIs domeDiagnostics`, "Mel procedure found in: ", "");
+  $domeDebugText += "### `Dome Diagnostics Script Path` ###\r\n> " + $domeDiagScriptPath + "\r\n\r\n";
+
+  //------------------------------------------------------------
+
+	// List the active ENV vars
+	$domeDebugText += "##  OS Environment Variables ##\r\n\r\n";
+
+  // System wide environment path
+  string $pathString = `getenv "PATH"`;
+  $domeDebugText += "### `PATH` ###\r\n> " + $pathString + "\r\n\r\n";
+
+  // Mac & Linux library loading path
+  $pathString = `getenv "LD_LIBRARY_PATH"`;
+  $domeDebugText += "### `LD_LIBRARY_PATH` ###\r\n> " + $pathString + "\r\n\r\n";
+
+  // TEMP directory
+  string $tmpString;
+  
+	if(getMayaPlatform() == "windows"){
+		$tmpString = `getenv "TEMP"`;
+    $domeDebugText += "### `TEMP` ###\r\n> " + $tmpString + "\r\n\r\n";
+  } else {
+		$tmpString = `getenv "TMPDIR"`;
+    $domeDebugText += "### `TMPDIR` ###\r\n> " + $tmpString + "\r\n\r\n";
+  }
+  
+  // User's Home Folder
+  // Example: C:/Users/hazelden
+  string $domeUserHomePathString;
+	if(getMayaPlatform() == "windows"){
+		$domeUserHomePathString = `getenv "USERPROFILE"`;
+  } else {
+		$domeUserHomePathString = `getenv "HOME"`;
+  }
+  $domeDebugText += "### `USERPROFILE PATH`###\r\n> " + $domeUserHomePathString + "\r\n\r\n";  
+
+
+
+  // ------------------------------------------------------------
+
+	$domeDebugText += "##  Mental Ray Environment Variables ##\r\n\r\n";
+
+  // Mental Ray 
+  string $mrCustomShaderString = `getenv "MI_CUSTOM_SHADER_PATH"`;
+  $domeDebugText += "### `MI_CUSTOM_SHADER_PATH` ###\r\n> " + $mrCustomShaderString + "\r\n\r\n";
+
+  string $mrCustomlibraryString = `getenv "MI_LIBRARY_PATH"`;
+  $domeDebugText += "### `MI_LIBRARY_PATH` ###\r\n> " + $mrCustomlibraryString + "\r\n\r\n";
+
+  // Add the extra MR detail if you are running a recent version of Maya
+  //if($mayaVersion >= 2015){
+  if($rendererString == "mentalRay"){
+    string $mrLocationString = `getenv "MENTALRAY_LOCATION"`;
+    $domeDebugText += "### `MENTALRAY_LOCATION` ###\r\n> " + $mrLocationString + "\r\n\r\n";
+
+    string $mrBinString = `getenv "MENTALRAY_BIN_LOCATION"`;
+    $domeDebugText += "### `MENTALRAY_BIN_LOCATION` ###\r\n> " + $mrBinString + "\r\n\r\n";
+
+    string $mrShaderString = `getenv "MENTALRAY_SHADERS_LOCATION"`;
+    $domeDebugText += "### `MENTALRAY_SHADERS_LOCATION` ###\r\n> " + $mrShaderString + "\r\n\r\n";
+
+    string $mrIncludeString = `getenv "MENTALRAY_INCLUDE_LOCATION"`;
+    $domeDebugText += "### `MENTALRAY_INCLUDE_LOCATION` ###\r\n> " + $mrIncludeString + "\r\n\r\n";
+
+    string $mrSocketsString = `getenv "MI_MAYA_SOCKETS"`;
+    $domeDebugText += "### `MI_MAYA_SOCKETS` ###\r\n> " + $mrSocketsString + "\r\n\r\n";
+
+    string $mrTextString = `getenv "MAYA_EXR_LONGNAME"`;
+    $domeDebugText += "### `MAYA_EXR_LONGNAME` ###\r\n> " + $mrTextString + "\r\n\r\n";
+    
+    $mrTextString = `getenv "MI_MAYA_BATCH_OPTIONS"`;
+    $domeDebugText += "### `MI_MAYA_BATCH_OPTIONS` ###\r\n> " + $mrTextString + "\r\n\r\n";
+    
+    $mrTextString = `getenv "MI_CUSTOM_SHADER_PATH"`;
+    $domeDebugText += "### `MI_CUSTOM_SHADER_PATH` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    // Skip loading suppressed files
+    $mrTextString = `getenv "MI_CUSTOM_SHADER_SUPPRESS"`;
+    $domeDebugText += "### `MI_CUSTOM_SHADER_SUPPRESS` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    // Used as a pipe to the mr renderer
+    $mrTextString = `getenv "MAYATOMR"`;
+    $domeDebugText += "### `MAYATOMR` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    $mrTextString = `getenv "IMF_PLUG_IN_PATH"`;
+    $domeDebugText += "### `IMF_PLUG_IN_PATH` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    $mrTextString = `getenv "MAYA_MRFM_SHOW_CUSTOM_SHADERS"`;
+    $domeDebugText += "### `MAYA_MRFM_SHOW_CUSTOM_SHADERS` ###\r\n> " + $mrTextString + "\r\n\r\n";
+
+    //------------------------------------------------------------
+
+    // Make sure the directory exists
+    int $emptyString;
+    $emptyString = size($mrIncludeString);
+    if($emptyString){
+      $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+      $domeDebugText += "## Mental Ray Include Directory Contents ##\r\n\r\n";
+
+      // List the Mental Ray .mi include files:
+
+      // Standard MR include files in Maya 2015:
+      // abcimport.mi
+      // AdskShaderSDK.mi
+      // AdskShaderSDKWrappers.mi
+      // architectural.mi
+      // base.mi
+      // basehair.mi
+      // bifrostMR.mi
+      // bifrostphenMR.mi
+      // builtin_bsdf.mi
+      // builtin_object_light.mi
+      // contour.mi
+      // layering.mi
+      // layering_phen.mi
+      // mayabase.mi
+      // mayahair.mi
+      // MayaShaders.mi
+      // mrptex.mi
+      // paint.mi
+      // physics.mi
+      // production.mi
+      // subsurface.mi
+      // surfaceSampler.mi
+      // userdata.mi
+      // useribl.mi
+      // xgenMR.mi
+
+      // Make a folder listing by adding the extra slash
+      if(getMayaPlatform() == "windows"){
+        $mrIncludeString += "/";
+      } else {
+        $mrIncludeString += "/";
+      }
+
+      string $miInlcudeList[] = `getFileList -folder $mrIncludeString -filespec "*.mi"`;
+      string $includeLine;
+      for($includeLine in $miInlcudeList)
+      {
+        $domeDebugText += "> `"  + $includeLine + "`  \r\n";
+      }
+
+    $domeDebugText +=  "\r\n";
+    }  // End of the make sure the directory exists check
+
+    //------------------------------------------------------------
+
+    $emptyString = size($mrShaderString);
+    if($emptyString){
+      $domeDebugText += "------------------------------------------------\r\n\r\n";
+      $domeDebugText += "## Mental Ray Shader Directory Contents ##\r\n\r\n";
+
+      // List the Mental Ray shader files:
+      // Make a folder listing by adding the extra slash
+      if(getMayaPlatform() == "windows"){
+        $mrShaderString += "/";
+      } else {
+        $mrShaderString += "/";
+      }
+
+      string $miShaderList[] = `getFileList -folder $mrShaderString`;
+      string $shaderLine;
+      for($shaderLine in $miShaderList)
+      {
+        $domeDebugText += "> `"  + $shaderLine + "`  \r\n";
+      }
+
+    } // End of the make sure the directory exists check
+  } // End of mental ray check
+  
+  $domeDebugText +=  "\r\n";
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  PlayblastVR Variables ##\r\n\r\n";
+  
+  // PlayblastVR
+  string $playblastVRString = `getenv "PLAYBLASTVR_INSTALL_PATH"`;
+  $domeDebugText += "### `PLAYBLASTVR_INSTALL_PATH` ###\r\n> " + $playblastVRString + "\r\n\r\n";
+  
+  string $playblastVRModuleString;
+  
+  string $panoramaFormatString;
+  
+  // Query the PlayblastVR optionVar value
+  if(`optionVar -exists "playblastVRPanoramaFormat"`){
+  
+    // Check for a PlayblastVR module if the playblastVRPanoramaFormat exists
+    if($mayaVersion >= 2013){
+      $playblastVRModuleString = `getModulePath -moduleName "PlayblastVR"`;
+      $domeDebugText += "### `PLAYBLASTVR Module` ###\r\n> " + $playblastVRModuleString + "\r\n\r\n";
+    }
+  
+    // Read the previous playblastVRPanoramaFormat optionVar setting
+    int $panoramaFormat = `optionVar -query "playblastVRPanoramaFormat"`;
+    
+    switch($panoramaFormat){
+      case 1:
+        $panoramaFormatString = "Angular Fisheye";
+        break;
+      case 2:
+        $panoramaFormatString = "Angular Fisheye with 4:3 Ratio Background";
+        break;
+      case 3:
+        $panoramaFormatString = "Angular Fisheye with 16:9 Ratio Background";
+        break;
+      case 4:
+        $panoramaFormatString = "LatLong";
+        break;
+      case 5:
+        $panoramaFormatString = "Cylindrical";
+        break;
+      case 6:
+        $panoramaFormatString = "Cubemap 3x2";
+        break;
+      case 7:
+        $panoramaFormatString = "Vertical Cross Cube";
+        break;
+      case 8:
+        $panoramaFormatString = "Horizontal Cross Cube";
+        break;
+      case 9:
+        $panoramaFormatString = "Vertical Tee Cube";
+        break;
+      case 10:
+        $panoramaFormatString = "Horizontal Tee Cube";
+        break;
+      case 11:
+        $panoramaFormatString = "Vertical Strip Cube";
+        break;
+      case 12:
+        $panoramaFormatString = "Horizontal Strip Cube";
+        break;
+      case 13:
+        $panoramaFormatString = "Mental Ray Horizontal Strip Cube 1";
+        break;
+      case 14:
+        $panoramaFormatString = "Quadsphere";
+        break;
+      case 15:
+        $panoramaFormatString = "Perspective";
+        break;
+      case 16:
+        $panoramaFormatString = "Gear VR Mono Cube";
+        break;
+      case 17:
+        $panoramaFormatString = "Facebook Cube Map 3x2";
+        break;
+      case 18:
+        $panoramaFormatString = "Individual Cube Map Faces";
+        break;
+      default:
+        $panoramaFormatString = "Unknown";
+        break;
+    }  
+  }
+  
+  $domeDebugText += "### `PlayblastVR Panorama Format` ###\r\n> " + $panoramaFormatString + "\r\n\r\n";
+  
+  string $batchSequenceString;
+  
+  // Query the PlayblastVR optionVar value
+  if(`optionVar -exists "playblastVRShowBatchSequence"`){
+    // Read the previous playblastVRShowBatchSequence optionVar setting
+    int $ShowBatchSequence = `optionVar -query "playblastVRShowBatchSequence"`;
+    switch($ShowBatchSequence){
+    case 1:
+      // None
+      $batchSequenceString = "None";
+      break;
+    case 2:
+      // FCheck
+      $batchSequenceString = "FCheck";
+      break;
+    case 3:
+      // IMF Display
+      $batchSequenceString = "IMF Display";
+      break;
+    case 4:
+      // DJV Viewer
+      $batchSequenceString = "DJV Viewer";
+      break;
+    case 5:
+      // Adobe SpeedGrade
+      $batchSequenceString = "Adobe SpeedGrade";
+      break;
+    case 6:
+      // Kolor Eyes
+      $batchSequenceString = "Kolor Eyes";
+      break;
+    case 7:
+      // Scratch Player
+      $batchSequenceString = "Scratch Player";
+      break;
+    case 8:
+      // Domemaster3D DomeViewer
+      $batchSequenceString = "Domemaster3D DomeViewer";
+      break;
+    case 9:
+      // Whirligig
+      $batchSequenceString = "Whirligig";
+      break;
+    case 10:
+      // VLC
+      $batchSequenceString = "VLC";
+      break;
+    case 11:
+      // RV
+      $batchSequenceString = "RV";
+      break;
+    case 12:
+      // Amateras Dome Player
+      $batchSequenceString = "Amateras Dome Player";
+      break;
+    case 13:
+      // Live View Rift
+      $batchSequenceString = "Live View Rift";
+      break;
+    case 14:
+      // GoPro VR Player
+      $batchSequenceString = "GoPro VR Player";
+      break;
+    default:
+      $batchSequenceString = "None";
+      break;
+    }
+  }
+  
+  $domeDebugText += "### `Show Batch Sequence viewer` ###\r\n> " + $batchSequenceString + "\r\n\r\n";
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  Arnold Environment Variables ##\r\n\r\n";
+
+  // Arnold
+  string $arnoldLicenseString = `getenv "solidangle_LICENSE"`;
+  $domeDebugText += "### `solidangle_LICENSE` ###\r\n> " + $arnoldLicenseString + "\r\n\r\n";
+  
+  string $mtoaShaderString = `getenv "ARNOLD_PATH"`;
+  $domeDebugText += "### `ARNOLD_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  string $arnoldShaderString = `getenv "ARNOLD_PLUGIN_PATH"`;
+  $domeDebugText += "### `ARNOLD_PLUGIN_PATH` ###\r\n> " + $arnoldShaderString + "\r\n\r\n";
+  
+  $arnoldShaderString = `getenv "MTOA_TEMPLATES_PATH"`;
+  $domeDebugText += "### `MTOA_TEMPLATES_PATH` ###\r\n> " + $arnoldShaderString + "\r\n\r\n";
+
+  $mtoaShaderString = `getenv "MTOA_EXTENSIONS_PATH"`;
+  $domeDebugText += "### `MTOA_EXTENSIONS_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+
+  $mtoaShaderString = `getenv "MTOA_PATH"`;
+  $domeDebugText += "### `MTOA_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  $mtoaShaderString = `getenv "MTOA_LOG_PATH"`;
+  $domeDebugText += "### `MTOA_LOG_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  // Ask if you want to start a potentially long batch rendering task in Maya
+  $mtoaShaderString = `getenv "MTOA_SILENT_MODE"`;
+  $domeDebugText += "### `MTOA_SILENT_MODE` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  // Choose a custom command port number for communication of batch render progress messages
+  $mtoaShaderString = `getenv "MTOA_COMMAND_PORT"`;
+  $domeDebugText += "### `MTOA_COMMAND_PORT` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  $mtoaShaderString = `getenv "ARNOLD_LICENSE_ATTEMPTS"`;
+  $domeDebugText += "### `ARNOLD_LICENSE_ATTEMPTS` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  $mtoaShaderString = `getenv "ARNOLD_LICENSE_ATTEMPT_DELAY"`;
+  $domeDebugText += "### `ARNOLD_LICENSE_ATTEMPT_DELAY` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  // Custom search path for the Arnold Kick library files
+  $mtoaShaderString = `getenv "K_SEARCH_PATH"`;
+  $domeDebugText += "### `K_SEARCH_PATH` ###\r\n> " + $mtoaShaderString + "\r\n\r\n";
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  Maxwell Environment Variables ##\r\n\r\n";
+
+  // Maxwell
+  string $maxwellShaderString = `getenv "MAXWELL3_ROOT"`;
+  $domeDebugText += "### `MAXWELL3_ROOT` ###\r\n> " + $maxwellShaderString + "\r\n\r\n";
+
+  string $maxwellLicenseString = `getenv "MAXWELL3_LICENSE_SERVER"`;
+  $domeDebugText += "### `MAXWELL3_LICENSE_SERVER` ###\r\n> " + $maxwellLicenseString + "\r\n\r\n";
+
+  string $maxwellMaterialsDBString = `getenv "MAXWELL3_MATERIALS_DATABASE"`;
+  $domeDebugText += "### `MAXWELL3_MATERIALS_DATABASE` ###\r\n> " + $maxwellMaterialsDBString + "\r\n\r\n";
+
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  RLM License Manager Environment Variables ##\r\n\r\n";
+  
+  // From RLM Documentation Guide:
+  // http://www.reprisesoftware.com/RLM_License_Administration.pdf
+  
+  string $rlmString = `getenv "HTTP_PROXY"`;
+  $domeDebugText += "### `HTTP_PROXY` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_COMM_TIMEOUT"`;
+  $domeDebugText += "### `RLM_COMM_TIMEOUT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_CONNECT_TIMEOUT"`;
+  $domeDebugText += "### `RLM_CONNECT_TIMEOUT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_DEBUG"`;
+  $domeDebugText += "### `RLM_DEBUG` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_DIAGNOSTICS"`;
+  $domeDebugText += "### `RLM_DIAGNOSTICS` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_EXTENDED_ERROR_MESSAGES"`;
+  $domeDebugText += "### `RLM_EXTENDED_ERROR_MESSAGES` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_LICENSE"`;
+  $domeDebugText += "### `RLM_LICENSE` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_NO_UNLIMIT"`;
+  $domeDebugText += "### `RLM_NO_UNLIMIT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_LICENSE_PASSWORD"`;
+  $domeDebugText += "### `RLM_LICENSE_PASSWORD` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_PATH_RANDOMIZE"`;
+  $domeDebugText += "### `RLM_PATH_RANDOMIZE` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_PROJECT"`;
+  $domeDebugText += "### `RLM_PROJECT` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_QUEUE"`;
+  $domeDebugText += "### `RLM_QUEUE` ###\r\n> " + $rlmString + "\r\n\r\n";
+  
+  $rlmString = `getenv "RLM_ROAM"`;
+  $domeDebugText += "### `RLM_ROAM` ###\r\n> " + $rlmString + "\r\n\r\n";
+    
+  $rlmString = `getenv "RLMSTAT"`;
+  $domeDebugText += "### `RLMSTAT` ###\r\n> " + $rlmString + "\r\n\r\n";
+
+  // Optional additions: 
+  
+  // Run the terminal command to check for licenses:
+  // rlmstat -avail
+  
+  // Run the command to check the status of RLM and ISV servers:
+  // rlmstat -a
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
+  //------------------------------------------------------------
+
+	$domeDebugText += "##  VRAY Environment Variables ##\r\n\r\n";
+
+  // VRAY for Maya
+  string $vrayString = `getenv "VRAY_PLUGINS_x64"`;
+  $domeDebugText += "### `VRAY_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+  $vrayString = `getenv "VRAY_AUTH_CLIENT_FILE_PATH"`;
+  $domeDebugText += "### `VRAY_AUTH_CLIENT_FILE_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
+  
+  $vrayString = `getenv "VRAY_PATH"`;
+  $domeDebugText += "### `VRAY_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+  if($mayaVersion == 2010){
+      if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA20150_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA20150_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    $vrayString = `getenv "VRAY_FOR_MAYA2010_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2010_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2010_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2010_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2010_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2010_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ }else if($mayaVersion == 2011){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2011_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2011_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    $vrayString = `getenv "VRAY_FOR_MAYA2011_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2011_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2011_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2011_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2011_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2011_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ }else if($mayaVersion == 2012){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2012_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2012_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    $vrayString = `getenv "VRAY_FOR_MAYA2012_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2012_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2012_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2012_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2012_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2012_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ }else if($mayaVersion == 2013){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2013_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2013_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    $vrayString = `getenv "VRAY_FOR_MAYA2013_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2013_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2013_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2013_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2013_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2013_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+ }else if($mayaVersion == 2014){
+     if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2014_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2014_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    $vrayString = `getenv "VRAY_FOR_MAYA2014_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2014_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2014_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2014_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2014_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2014_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }else if($mayaVersion == 2015){
+    if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2015_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2015_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2015_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2015_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2015_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2015_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2015_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2015_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }else if($mayaVersion == 2016){
+      if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2016_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2016_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2016_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2016_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+      
+      $vrayString = `getenv "VRAY_OSL_PATH_MAYA2016_PowerPC"`;
+      $domeDebugText += "### `VRAY_OSL_PATH_MAYA2016_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2016_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2016_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_OSL_PATH_MAYA2016_x64"`;
+    $domeDebugText += "### `VRAY_OSL_PATH_MAYA2016_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    // Maya 2016.5
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_MAIN_PowerPC"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2016_5_PLUGINS_PowerPC"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2016_5_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2016_5_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2016_5_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }else if($mayaVersion == 2017){
+      if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2017_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2017_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2017_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2017_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+      
+      $vrayString = `getenv "VRAY_OSL_PATH_MAYA2017_PowerPC"`;
+      $domeDebugText += "### `VRAY_OSL_PATH_MAYA2017_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2017_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2017_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2017_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2017_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2017_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2017_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_OSL_PATH_MAYA2017_x64"`;
+    $domeDebugText += "### `VRAY_OSL_PATH_MAYA2017_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }
+  
+  $vrayString = `getenv "VRAY_FOR_MAYA_DRLISTS_PATH"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA_DRLISTS_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
+  // C:\Program Files\Autodesk\Maya2016\vray\scripts\vrayDR.mel 
+  
+  $vrayString = `getenv "VRAY_FOR_MAYA_DRPORT"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA_DRPORT` ###\r\n> " + $vrayString + "\r\n\r\n";
+  // C:\Program Files\Autodesk\Maya2016\vray\scripts\vrayDR.mel 
+  
+  $vrayString = `getenv "VRAY_FOR_MAYA2012_SKIP_NODE_CATEGORIZATION"`;
+  $domeDebugText += "### `VRAY_FOR_MAYA2012_SKIP_NODE_CATEGORIZATION` ###\r\n> " + $vrayString + "\r\n\r\n";
+  // C:\Program Files\Autodesk\Maya2016\vray\scripts\vrayHypershadeCallbacks.mel
+  
+  $vrayString = `getenv "VRAY_ADVANCED_UI"`;
+  $domeDebugText += "### `VRAY_ADVANCED_UI` ###\r\n> " + $vrayString + "\r\n\r\n";
+  // C:\Program Files\Autodesk\Maya2016\vray\scripts\vrayInit.mel 
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  
+  //------------------------------------------------------------
+  // Disney XGEN
+  
+	$domeDebugText += "##  XGEN Environment Variables ##\r\n\r\n";
+  
+	string $xgenString = `getenv "XGEN_CONFIG_PATH"`;
+	$domeDebugText += "### `XGEN_CONFIG_PATH` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	$xgenString = `getenv "XGEN_EXPORT_ARCHIVE_STANDALONE"`;
+	$domeDebugText += "### `XGEN_EXPORT_ARCHIVE_STANDALONE` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	$xgenString = `getenv "XGEN_LOCATION"`;
+	$domeDebugText += "### `XGEN_LOCATION` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	$xgenString = `getenv "XGEN_ROOT"`;
+	$domeDebugText += "### `XGEN_ROOT` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	$xgenString = `getenv "HDF5_DISABLE_VERSION_CHECK"`;
+	$domeDebugText += "### `HDF5_DISABLE_VERSION_CHECK` ###\r\n> " + $xgenString + "\r\n\r\n";
+	
+	$domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+  // Disney SEEXPR
+  
+	$domeDebugText += "##  Disney SEEXPR Environment Variables ##\r\n\r\n";
+	
+	string $seExprString = `getenv "SE_EXPR_PLUGINS"`;
+	$domeDebugText += "### `SE_EXPR_PLUGINS` ###\r\n> " + $seExprString + "\r\n\r\n";
+	
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+  // Maya Bifrost
+  
+	$domeDebugText += "##  BIFROST Environment Variables ##\r\n\r\n";
+	
+  $domeTempString = `getenv "BIFROST_LOCATION"`;
+  $domeDebugText += "### `BIFROST_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
+
+  string $bifrostString = `getenv "BIFROST_ECHO_GEOSHADER"`;
+	$domeDebugText += "### `BIFROST_ECHO_GEOSHADER` ###\r\n> " + $bifrostString + "\r\n\r\n";
+  
+  $bifrostString = `getenv "BIFROST_ENABLE_GRAPH_EDITING"`;
+	$domeDebugText += "### `BIFROST_ENABLE_GRAPH_EDITING` ###\r\n> " + $bifrostString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_BIFROST_COMPOUNDS"`;
+  $domeDebugText += "### `MAYA_BIFROST_COMPOUNDS` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_BIFROST_COMPOUNDS environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\nodeEditorPanel.mel 
+  
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+  // Fabric Engine
+  
+	$domeDebugText += "##  Fabric Engine Environment Variables ##\r\n\r\n";
+	
+	string $fabricCapiString = `getenv "FABRIC_CAPI_DIR"`;
+	$domeDebugText += "### `FABRIC_CAPI_DIR` ###\r\n> " + $fabricCapiString + "\r\n\r\n";
+	
+	string $fabricDirString = `getenv "FABRIC_DIR"`;
+	$domeDebugText += "### `FABRIC_DIR` ###\r\n> " + $fabricDirString + "\r\n\r\n";
+	
+	string $fabricDocsString = `getenv "FABRIC_DOCUMENTATION_DIR"`;
+	$domeDebugText += "### `FABRIC_DOCUMENTATION_DIR` ###\r\n> " + $fabricDocsString + "\r\n\r\n";
+	
+	string $fabricEDKString = `getenv "FABRIC_EDK_DIR"`;
+	$domeDebugText += "### `FABRIC_EDK_DIR` ###\r\n> " + $fabricEDKString + "\r\n\r\n";
+	
+	string $fabricPythonString = `getenv "FABRIC_PYTHON_MODULE_DIR"`;
+	$domeDebugText += "### `FABRIC_PYTHON_MODULE_DIR` ###\r\n> " + $fabricPythonString + "\r\n\r\n";
+
+	string $fabricToolsString = `getenv "FABRIC_TOOLS_DIR"`;
+	$domeDebugText += "### `FABRIC_TOOLS_DIR` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+
+	$fabricToolsString = `getenv "FABRIC_EXTS_PATH"`;
+	$domeDebugText += "### `FABRIC_EXTS_PATH` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+
+	$fabricToolsString = `getenv "FABRIC_SPLICE_UNGUARDED"`;
+	$domeDebugText += "### `FABRIC_SPLICE_UNGUARDED` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+
+	$fabricToolsString = `getenv "FABRIC_CUDA_LOG"`;
+	$domeDebugText += "### `FABRIC_CUDA_LOG` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+
+  $domeDebugText += "# Loaded Maya Plugins #\r\n";
+  
+  string $domePluginsAllLines[] = `pluginInfo -query -listPlugins`;
+  string $pluginLine;
+  for($pluginLine in $domePluginsAllLines){
+    $domeDebugText += "    "  + $pluginLine + "\r\n";
+  }
+
+  $domeDebugText += "\r\n";
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+
+  $domeDebugText += "# Image Formats #\r\n";
+  string $domeIMFAllLines[] = `imfPlugins -q`;
+  string $imfLine;
+  for($imfLine in $domeIMFAllLines){
+    $domeDebugText += "    "  + $imfLine + "\r\n";
+  }
+
+  $domeDebugText += "\r\n";
+  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+
+  //------------------------------------------------------------
+
+  // Output the debugging text to a file on the desktop
+  fprint $domeLogFileId $domeDebugText;
+
+  // Close the log file pointer before opening the log in notepad++
+  fclose $domeLogFileId;
+
+  // Open the diagnostics log file in notepad++
+  domeOpenDiagnosticsLogFile();
+  
+  // Open an explorer view to the log file path
+  //domeShowLogFolder();
+}
+
+// Open an explorer view with the current path string value
+global proc domeShowLogFolder(){
+  string $commandString = "";
+
+  string $folderPath;
+	if(getMayaPlatform() == "windows"){
+		$folderPath = `getenv "USERPROFILE"` + "/Desktop/";
+  } else {
+		$folderPath = `getenv "HOME"` + "/Desktop/";;
+  }
+
+  if(getMayaPlatform() == "windows"){
+    //To open a quoted folder name use: start /D "C:\Program Files" .
+    $commandString  = "cmd /k start /D \"" + toNativePath( $folderPath ) +"\" .";
+    system($commandString);
+    print ("Open Folder Command: " + $commandString + "\r\n");
+  }else if(getMayaPlatform() == "darwin"){
+		$commandString  = "open -a Finder \"" + toNativePath( $folderPath ) +"\"";
+		system($commandString);
+		print ("Open Folder Command: " + $commandString + "\r\n");
+  }
+}
+
+// Open the MayaRenderLog file in a text editor
+global proc domeOpenDiagnosticsLogFile(){
+  string $editorProgram = "";
+  string $logPathString = toNativePath( domeGetDiagnosticsLogFilename() );
+  string $textEditorPathString;
+  int $fileCheck;
+  // Choose a default text editor
+  if(getMayaPlatform() == "windows"){
+
+    // Notepad++ Check
+    $textEditorPathString = "C:\\Program Files (x86)\\Notepad++\\";
+    $editorProgram = "start \"" + $textEditorPathString + "notepad++.exe\"";
+    //$editorProgram = "notepad++";
+    //$editorProgram = "notepad";
+    //$editorProgram = "wordpad";
+  
+    // Make sure the notepad++ directory exists
+    string $fileCheck = `file -query -exists $textEditorPathString`; 
+    if($fileCheck == 1){
+      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+      // Open the log file for viewing
+      system($commandString);
+      //print ("System Command: " + $commandString + "\r\n");
+      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    } else {
+      // Fallback to the Windows notepad app if Notepad++ isn't present
+      $editorProgram = "notepad";
+      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+      // Open the log file for viewing
+      system($commandString);
+      //print ("System Command: " + $commandString + "\r\n");
+      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    }
+  } else if(getMayaPlatform() == "darwin") {
+
+    // Mac Platform
+    
+    //$editorProgram = "edit";
+
+
+    // Note: Mavericks uses a terminal session for edit so it needs to be avoided 
+    $editorProgram = "open";
+
+
+    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+    // Open the log file for viewing
+    system($commandString);
+    //print ("System Command: " + $commandString + "\r\n");
+    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  }          else {
+    // Linux Platform
+    //$editorProgram = "edit";
+    $editorProgram = "gedit";
+    //$editorProgram = "vi";
+    //$editorProgram = "vim";
+
+    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    // Open the log file for viewing
+    system($commandString);
+    //print ("System Command: " + $commandString + "\r\n");
+    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  }
+
+}
+
+// Open the MayaRenderLog file in a text editor
+global proc domeOpenMayaRenderLogFile(){
+  string $domeMayaRenderLogPathString;
+  if(getMayaPlatform() == "windows"){
+    // Win Example:  C:/Users/hazelden
+    $domeUserHomePathString = `getenv "USERPROFILE"`;
+    $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
+  } else if(getMayaPlatform() == "darwin") {
+    // Mac Example: $Home = /Users/hazelden 
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
+  } else {
+    // Linux Example: $Home = /home/hazelden 
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/maya" + "/mayaRenderLog.txt";
+  }
+
+  string $editorProgram = "";
+  string $textEditorPathString;
+  string $logPathString = toNativePath($domeMayaRenderLogPathString);
+
+  // Choose a default text editor
+  if(getMayaPlatform() == "windows"){
+    $textEditorPathString = "C:\\Program Files (x86)\\Notepad++\\";
+    $editorProgram = "start \"" + $textEditorPathString + "notepad++.exe\"";
+    //$editorProgram = "notepad++.exe";
+    //$editorProgram = "notepad";
+    //$editorProgram = "wordpad";
+    string $fileCheck = `file -query -exists $textEditorPathString`; 
+    if($fileCheck == 1){
+      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+      // Open the log file for viewing
+      system($commandString);
+      //print ("System Command: " + $commandString + "\r\n");
+      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    } else {
+      // Fallback to the Windows notepad app if Notepad++ isn't present
+      $editorProgram = "start notepad ";
+      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+      // Open the log file for viewing
+      system($commandString);
+      //print ("System Command: " + $commandString + "\r\n");
+      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    }
+  } else if(getMayaPlatform() == "darwin") {
+    
+    // Mac Platform
+    
+    //$editorProgram = "edit";
+
+
+    // Note: Mavericks uses a terminal session for edit so it needs to be avoided 
+    $editorProgram = "open";
+
+
+    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+    // Open the log file for viewing
+    system($commandString);
+    print ("System Command: " + $commandString + "\r\n");
+    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  } else {
+    // Linux Platform
+    //$editorProgram = "edit";
+    $editorProgram = "gedit";
+    //$editorProgram = "vi";
+    //$editorProgram = "vim";
+
+    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    // Open the log file for viewing
+    system($commandString);
+    //print ("System Command: " + $commandString + "\r\n");
+    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  }
+
+}
+
+// Open a text document in notepad or notepad++
+global proc domeOpenTextFile(string $textFilename){
+  string $editorProgram = "";
+  string $logPathString = toNativePath($textFilename);
+  string $textEditorPathString;
+  int $fileCheck;
+  // Choose a default text editor
+  if(getMayaPlatform() == "windows"){
+    // Notepad++ Check
+    $textEditorPathString = "C:\\Program Files (x86)\\Notepad++\\";
+    $editorProgram = "start \"" + $textEditorPathString + "notepad++.exe\"";
+
+    //$editorProgram = "notepad++";
+    //$editorProgram = "notepad";
+    //$editorProgram = "wordpad";
+  
+    // Make sure the notepad++ directory exists
+    string $fileCheck = `file -query -exists $textEditorPathString`; 
+    if($fileCheck == 1){
+      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+      // Open the log file for viewing
+      system($commandString);
+      //print ("System Command: " + $commandString + "\r\n");
+      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    } else {
+      // Fallback to the Windows notepad app if Notepad++ isn't present
+      $editorProgram = "start notepad ";
+      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+      // Open the log file for viewing
+      system($commandString);
+      //print ("System Command: " + $commandString + "\r\n");
+      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    }
+  } else if(getMayaPlatform() == "darwin") {
+    
+    // Mac Platform
+    //$editorProgram = "edit";
+
+    // Note: Mavericks uses a terminal session for edit so it needs to be avoided 
+    $editorProgram = "open";
+
+    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
+    // Open the log file for viewing
+    system($commandString);
+    print ("System Command: " + $commandString + "\r\n");
+    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  
+  } else {
+
+    // Linux Platform
+    $editorProgram = "gedit";
+    //$editorProgram = "edit";
+    //$editorProgram = "vi";
+    //$editorProgram = "vim";
+
+    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
+    // Open the log file for viewing
+    system($commandString);
+    //print ("System Command: " + $commandString + "\r\n");
+    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+  }
+}
+
+
+// Get the currently running processes
+global proc string domeProcessesInfo(){
+  string $processesInfo = "";
+  string $processListTokenized[];
+  string $formattedProcessesInfo = "> "; 
+
+  string $line;
+
+ if(getMayaPlatform() == "windows"){
+    $processesInfo = system("WMIC path win32_process get Caption");
+    // Markdown formatting - indent each drive - 4 spaces, and add 2 trailing spaces for newline forcing
+    tokenizeList($processesInfo, $processListTokenized);
+
+    for($line in $processListTokenized)
+    {
+      $formattedProcessesInfo += "`" + strip ($line) + "` ";
+    }
+
+    $formattedProcessesInfo += "\r\n\r\n";
+  }else if(getMayaPlatform() == "darwin"){ 
+    // ToDo - list items in top
+    $formattedProcessesInfo = "";
+  }else if(getMayaPlatform() == "linux"){
+     $formattedProcessesInfo = "";
+  } else {
+     $formattedProcessesInfo = "";
+  }
+
+  return $formattedProcessesInfo;
+}
+
+// Get the currently attached storage devices
+global proc string domeStorageInfo(){
+  string $storageInfo = "";
+  string $formattedStorageInfo = ""; 
+
+  if(getMayaPlatform() == "windows"){
+    $storageInfo = `system("fsutil fsinfo drives")`;
+    // Markdown formatting - indent each drive - 4 spaces, and add 2 trailing spaces for newline forcing
+    $formattedStorageInfo = substituteAllString($storageInfo, "Drives:", "");
+    $formattedStorageInfo = substituteAllString($formattedStorageInfo, " ", "  \n    ");
+
+    // Add an ending newline after the volumes
+    $formattedStorageInfo += "\r\n";
+  }else if(getMayaPlatform() == "darwin"){ 
+    // List items in /Volumes folder
+    $storageInfo = `system("ls /Volumes")`;
+    // Add a starting newline before the volumes
+    $formattedStorageInfo = "\r\n    ";
+    $formattedStorageInfo += substituteAllString($storageInfo, "\n", "  \r\n    ");
+    // Add an ending newline after the volumes
+    $formattedStorageInfo += "\r\n";
+    //$formattedStorageInfo = "";
+  }else if(getMayaPlatform() == "linux"){
+    // List items in /mnt folder
+    $storageInfo = `system("ls /mnt")`;
+    // Add a starting newline before the volumes
+    $formattedStorageInfo = "\r\n    ";
+    $formattedStorageInfo += substituteAllString($storageInfo, "\n", "  \r\n    ");
+    // Add an ending newline after the volumes
+    $formattedStorageInfo += "\r\n";
+    //$formattedStorageInfo = "";
+  }
+
+  return $formattedStorageInfo;
+}
+
+// Get the current open gl extension list
+global proc string domeOpenglExtensionsInfo(){
+  string $extensionsInfo = "";
+
+  // Add a starting quote escaper
+  string $formattedextensionsInfo = "`"; 
+
+  $extensionsInfo = `openGLExtension -extension ""`;
+
+  // Markdown formatting - wrap each extension in underscore escape`tags`
+  $formattedextensionsInfo += substituteAllString($extensionsInfo, " ", "` `");
+
+  // Add an ending quote escaper
+  $formattedextensionsInfo += "`"; 
+
+  return $formattedextensionsInfo;
+}
+
+
+// Get the current IP address
+global proc string domeNetworkInfo(){
+  string $networkInfo = "";
+  string $formattedNetworkInfo = "";
+
+  if(getMayaPlatform() == "windows"){
+    $networkInfo = `system("ipconfig")`;
+  }else if(getMayaPlatform() == "darwin"){
+     $networkInfo =  `system("ifconfig")`; 
+     //$networkInfo =  `system("ifconfig en0")`; 
+     //$networkInfo = "";
+  }else if(getMayaPlatform() == "linux"){
+     $networkInfo =  `system("ifconfig")`; 
+     //$networkInfo = "";
+  } else {
+     $networkInfo = "";
+  }
+
+  // Markdown formatting - indent each newline with 4 spaces
+  $formattedNetworkInfo = substituteAllString($networkInfo, "\n", "\n    ");
+
+  return $formattedNetworkInfo;
+}
+
+
+
+
+global proc domeOpenSceneDirectory(){
+  // Open the current project/scenes folder
+  int $mayaVersion = getMayaVersionDome();
+
+  // Get the current project folder name
+  string  $projPath = `workspace -q -rootDirectory`;
+
+  // Build the scene directory path
+  string $path = $projPath + "scenes";
+
+  string $runCommand = "";
+  int $dirExists = `filetest -d $path`;
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
+      $runCommand = "explorer \"";
+    }else if(getMayaPlatform() == "darwin"){
+      $runCommand = "open \"";
+    } else {
+    // Linux assumed
+      $runCommand = "nautilus \"";
+    }
+
+    $runCommand += toNativePath($path);
+    $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
+
+    // Open a new explorer window
+    print ("Running command:\n" + $runCommand + "\n");
+    system ($runCommand);
+
+    print ("Opening the " + $path + " folder.\n");
+  } else {
+    print ("The " + $path + " folder doesn't exist yet!\n");
+  }
+}
+
+global proc domeOpenImagesDirectory(){
+  // Open the current project/images folder
+  int $mayaVersion = getMayaVersionDome();
+
+  // Get the current project folder name
+  string  $projPath = `workspace -q -rootDirectory`;
+
+  // Build the images directory path
+  string $path = $projPath + "images";
+
+  string $runCommand = "";
+  int $dirExists = `filetest -d $path`;
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
+      $runCommand = "explorer \"";
+    }else if(getMayaPlatform() == "darwin"){
+      $runCommand = "open \"";
+    } else {
+    // Linux assumed
+      $runCommand = "nautilus \"";
+    }
+
+    $runCommand += toNativePath($path);
+    $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
+
+    // Open a new explorer window
+    print ("Running command:\n" + $runCommand + "\n");
+    system ($runCommand);
+
+    print ("Opening the " + $path + " folder.\n");
+  } else {
+    print ("The " + $path + " folder doesn't exist yet!\n");
+  }
+}
+
+
+global proc domeOpenSourceImagesDirectory(){
+  // Open the current project/images folder
+  int $mayaVersion = getMayaVersionDome();
+
+  // Get the current project folder name
+  string  $projPath = `workspace -q -rootDirectory`;
+
+  // Build the images directory path
+  string $path = $projPath + "sourceimages";
+
+  string $runCommand = "";
+  int $dirExists = `filetest -d $path`;
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
+      $runCommand = "explorer \"";
+    }else if(getMayaPlatform() == "darwin"){
+      $runCommand = "open \"";
+    } else {
+    // Linux assumed
+      $runCommand = "nautilus \"";
+    }
+
+    $runCommand += toNativePath($path);
+    $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
+
+    // Open a new explorer window
+    print ("Running command:\n" + $runCommand + "\n");
+    system ($runCommand);
+
+    print ("Opening the " + $path + " folder.\n");
+  } else {
+    print ("The " + $path + " folder doesn't exist yet!\n");
+  }
+}
+
+
+global proc domeOpenTempDirectory(){
+  // Open the operating system's TEMP folder
+  int $mayaVersion = getMayaVersionDome();
+
+  // Build the images directory path
+  string $path;
+  string $runCommand = "";
+  
+  if(getMayaPlatform() == "windows"){
+		$path = toNativePath(`getenv "TEMP"`) + "\\" ;
+    print ($path + "\n");
+  } else {
+		$path = toNativePath(`getenv "TMPDIR"`) + "/";
+    print ($path + "\n");
+  }
+  
+  int $dirExists = `filetest -d $path`;
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
+      $runCommand = "explorer \"";
+    }else if(getMayaPlatform() == "darwin"){
+      $runCommand = "open \"";
+    } else {
+    // Linux assumed
+      $runCommand = "nautilus \"";
+    }
+
+    $runCommand += toNativePath($path);
+    $runCommand += "\"";
+    
+    // Run as a non blocking task
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
+
+    // Open a new explorer window
+    print ("Running command:\n" + $runCommand + "\n");
+    system ($runCommand);
+
+    print ("Opening the " + $path + " folder.\n");
+  } else {
+    print ("The " + $path + " folder doesn't exist yet!\n");
+  }
+}
+
+
+// Launch a 2nd instance of Maya:
+// Example: source "domeDiagnostics.mel"; domeLaunchMayaInstance();
+global proc domeLaunchMayaInstance(){
+
+	string $osSeparator;
+	
+	if(getMayaPlatform() == "windows"){
+    // Windows
+    $osSeparator = "\\";
+    //$osSeparator = "/";
+  }else if(getMayaPlatform() == "darwin"){
+    // Mac
+    $osSeparator = "/";
+  }else{
+    // Linux
+    $osSeparator = "/";
+  }
+
+  // The environment variable "MAYA_LOCATION" is the path to the current Maya program folder
+  // Mac MAYA_LOCATION=/Applications/Autodesk/maya2016/Maya.app/Contents
+  string $mayaDirPathString = `getenv "MAYA_LOCATION"`;
+  
+  string $runCommand = "";
+  int $dirExists = `filetest -d $mayaDirPathString`;
+  if($dirExists == 1){
+    if(getMayaPlatform() == "windows"){
+      // Windows
+      $runCommand = "start \"" + toNativePath($mayaDirPathString) + $osSeparator + "bin" + $osSeparator + "maya.exe" + "\"";
+    }else if(getMayaPlatform() == "darwin"){
+      // Mac
+      //$runCommand = "\"" + $mayaDirPathString + $osSeparator + "bin" + $osSeparator + "maya" + "\"" + " &";
+      $runCommand = "open -a \"" + $mayaDirPathString + $osSeparator + "bin" + $osSeparator + "maya" + "\"";
+    }else{
+      // Linux assumed
+      $runCommand = "\"" + $mayaDirPathString + $osSeparator + "bin" + $osSeparator + "maya" + "\"";
+    }
+    
+
+    if(getMayaPlatform() == "linux"){
+      $runCommand += " &";
+    }
+
+    // Open a new explorer window
+    print("Maya Launch Command:\n" + $runCommand + "\n");
+    system ($runCommand);
+  }else{
+    print("Maya Program Directory Variable \"MAYA_LOCATION\" Not Found:\n" + $mayaDirPathString + "\n");
+  }
+}
+
+
+// Check what Maya version is active
+global proc int getMayaVersionDome(){
+  // Check if we are running Maya 2011 or higher
+  float $mayaVersion = `getApplicationVersionAsFloat`;
+
+  // Test this GUI using the Maya 2010 - non-docked GUI mode
+  //float $mayaVersion = 2010;
+
+  // Write out the current Maya version number
+  //print("Maya " + $mayaVersion + " detected.\r\n");
+
+  return $mayaVersion;
+}
+
+
+// Check the operating system
+global proc string getMayaPlatform(){
+  //-------------------------------------------------
+  // Get the current Maya Platform using python
+  //      The $mayaPlatform options are:
+  //          "windows", "darwin", "linux"
+  //-------------------------------------------------
+
+  string $mayaPlatform = "";
+  python( "import sys" );
+
+  if( python( "sys.platform == 'win32'" ) ){
+    $mayaPlatform = "windows";
+  }else if( python( "sys.platform == 'windows'" ) ){
+    $mayaPlatform = "windows";
+  }else if( python( "sys.platform == 'darwin'" ) ){
+    $mayaPlatform = "darwin";
+  }else {
+    $mayaPlatform = "linux";
+  }
+
+  //print("Running on " + $mayaPlatform + ".\r\n");
+  return $mayaPlatform;
+}
+
+// Show the task manager utility
+global proc openTaskManager(){
+  if(getMayaPlatform() == "windows"){
+    print("Opening the Windows Task Manager\n");
+    system("start C:\\Windows\\System32\\Taskmgr.exe");
+  }else if(getMayaPlatform() == "darwin"){
+    print("Opening the Activity Monitor\n");
+    system("open \"/Applications/Utilities/Activity Monitor.app\"");
+  } else {
+    print("Opening the Gnome System Monitor\n");
+    system("/usr/bin/gnome-system-monitor" + " &");
+  }
+}
+
+
+// Check the operating system
+global proc string getMayaPlatformFancy(){
+  //-------------------------------------------------
+  // Get the current Maya Platform using python
+  //      The $mayaPlatform options are:
+  //          "windows", "darwin", "linux"
+  //-------------------------------------------------
+
+  string $mayaPlatform = "";
+  python( "import sys" );
+
+  if( python( "sys.platform == 'win32'" ) ){
+    $mayaPlatform = "Windows";
+  }else if( python( "sys.platform == 'windows'" ) ){
+    $mayaPlatform = "Windows";
+  }else if( python( "sys.platform == 'darwin'" ) ){
+    $mayaPlatform = "Mac OS X";
+  }else {
+    $mayaPlatform = "Linux";
+  }
+
+  //print("Running on " + $mayaPlatform + ".\r\n");
+  return $mayaPlatform;
+}
+
+// Find the shape node
+// Example: print `getObjectShapeNode( "persp")`;
+global proc string getObjectShapeNode ( string $object ) {
+  string $shapes[] = `listRelatives -children -shapes $object`;
+  return $shapes[0];
+}
+
+// Find the object's parent node
+// Example: print `getObjectParentNode( "perspShape")`;
+global proc string getObjectParentNode ( string $object ) {
+  string $shapes[] = `listRelatives -parent -shapes $object`;
+  return $shapes[0];
+}
+
+
+// Run the script automatically
+//domeDiagnostics();

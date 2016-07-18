@@ -358,6 +358,32 @@ global proc shelf_VrayDomemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Maya Diagnostics Report" 
+        -enableBackground 0
+        -align "center" 
+        -label "Diagnostics" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Diag" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_log.png" 
+        -image1 "domeVray_log.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Load the Vray Plugin" 
         -enableBackground 0
         -align "center" 

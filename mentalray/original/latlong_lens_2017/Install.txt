@@ -1,0 +1,40 @@
+
+latlong_lens for Mental Ray v1.0 by Ralf Habel 
+ralf.habel@vi-motion.de
+
+Installation:
+
+  Copy latlong_lens.mi to the /Mayax.x/mentalray/include directory.
+
+  Copy latlong_lens.dll to the /Mayax.x/mentalray/lib directory.
+   (Or latlong_lens.so for Linux.)
+
+  Copy render_latlong_lens.xpm and latlong_lens.fti to the /Mayax.x/icons directory.
+
+
+
+  Add to your maya.rayrc file the lines
+  
+  link	"{MAYABASE}/lib/latlong_lens.{DSO}"
+ 
+  mi 	"{MAYABASE}/include/latlong_lens.mi"
+
+  after similar declarations.
+
+  The shader will show up in the Mental Ray Lenses tab.
+
+
+For standalone use:
+
+  The lens shader has one parameter which mirrors the output 
+  on a centered vertical line:
+
+  lens "latlong_lens" ("m_vmirror" [0,1])
+
+  Be sure to turn off scanline rendering.
+
+
+
+A tutorial on how to use the shader can be found at:
+
+  http://www.vi-motion.de/latlong_Tutorial/

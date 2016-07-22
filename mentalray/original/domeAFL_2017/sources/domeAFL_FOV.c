@@ -46,8 +46,6 @@ struct dsDomeAFL_FOV {
   miBoolean Flip_Ray_Y; /* Flag for flipping image about the y-axis */
 };
 
-DLLEXPORT int domeAFL_FOV_version(void) {return(1);}
-
 /*
  * return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
  * around an axis that is perpendicular to both directions
@@ -108,6 +106,8 @@ static void rotate_ray_differentials(
     mi_ray_differential_transform(state, rot_transform);
 }
 
+DLLEXPORT int domeAFL_FOV_version(void) {return(1);}
+
 DLLEXPORT miBoolean domeAFL_FOV(
   miColor *result,
   miState *state,
@@ -167,7 +167,7 @@ DLLEXPORT miBoolean domeAFL_FOV(
       ray.y = (-ray.y);   
     }
 
-#if 0
+#if 1
     /* adjust the ray differentials */
     rotate_ray_differentials(state, ray);
 #endif

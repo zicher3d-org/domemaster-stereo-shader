@@ -52,8 +52,6 @@ struct dsDomeAFL_FOV_Stereo {
   miBoolean Vertical_Mode;
 };
 
-DLLEXPORT int domeAFL_FOV_Stereo_version(void) {return(1);}
-
 /*
  * return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
  * around an axis that is perpendicular to both directions
@@ -113,6 +111,8 @@ static void rotate_ray_differentials(
     /* applies the computed transform to the ray differentials */
     mi_ray_differential_transform(state, rot_transform);
 }
+
+DLLEXPORT int domeAFL_FOV_Stereo_version(void) {return(1);}
 
 DLLEXPORT miBoolean domeAFL_FOV_Stereo(
                   miColor *result,
@@ -293,7 +293,7 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
       ray.z = (-ray.z);
     }
 
-#if 0
+#if 1
     /* adjust the ray differentials */
     rotate_ray_differentials(state, ray);
 #endif

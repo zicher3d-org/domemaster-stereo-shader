@@ -1,5 +1,5 @@
 /*
-Create the Vray Domemaster3D Main Menu in the Rendering menu set
+Create the VRay Domemaster3D Main Menu in the Rendering menu set
 Version 2.1
 2016-07-26 Maya 2011+
 ------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ menuItem -edit
 // editVrayDomeDiagOpenMenuItems();
 
 // -----------------------------------------------------------------
-// Create the Domemaster3D Menu
+// Create the VRay Domemaster3D Menu
 // -----------------------------------------------------------------
 global proc createVrayDomemaster3DMenu() {
 
@@ -160,16 +160,16 @@ global proc createVrayDomemaster3DMenu() {
 
   global string $gMainWindow;
 
-  // Remove any existing Vray Domemaster3D menus
+  // Remove any existing VRay Domemaster3D menus
   if(`menu -query -exists mainVrayDomemaster3DMenu`){
     print("Replacing the existing Vray Domemaster3D menu item.\n");
     deleteUI mainVrayDomemaster3DMenu;
   }
   
-  // Create the Vray Domemaster3D Menu
+  // Create the VRay Domemaster3D Menu
   // The postMenuCommand will run the function editVrayDomeDiagOpenMenuItems() that refreshes the Open Scenes and Open Images menu items.
   setParent $gMainWindow;
-  menu -label "Vray Domemaster3D" 
+  menu -label "VRay Domemaster3D" 
     -tearOff true 
     -postMenuCommand "editVrayDomeDiagOpenMenuItems();"
     mainVrayDomemaster3DMenu;
@@ -210,7 +210,7 @@ global proc createVrayDomemaster3DMenu() {
       }
     
       menuItem
-        -label "LatLongStereo Camera" 
+        -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLongStereo shader applied."
         -image "domeVray_LatLongStereo.png"
         -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.createVrayFulldomeStereoRig()\")"; 
@@ -237,7 +237,7 @@ global proc createVrayDomemaster3DMenu() {
       }
 
       menuItem 
-        -label "DomemasterStereo" 
+        -label "Domemaster Stereo Camera" 
         -annotation "Create a stereo fulldome camera rig."
         -image "domeVray_DomemasterStereo.png" 
         -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.createVrayFulldomeStereoRig()\")";

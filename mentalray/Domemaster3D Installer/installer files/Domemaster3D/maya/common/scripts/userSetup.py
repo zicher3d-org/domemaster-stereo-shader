@@ -1,10 +1,10 @@
 """
-Domemaster3D Startup Code Version 1.9
-2015-08-21
+Domemaster3D Startup Code Version 2.1
+2016-07-26
 by Andrew Hazelden
 """
 
-#Find the name of the stereo camera rig
+# Find the name of the stereo camera rig
 def findDomeRig():
   import maya.cmds as cmds
 
@@ -13,13 +13,13 @@ def findDomeRig():
   for rig in rigs:
     defs = cmds.stereoRigManager(rigDefinition=rig)
     print 'Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1]
-    #Check for
+    # Check for rig
     if (rig == "DomeStereoCamera"):
       return 1
       
   return 0
 
-#Find the name of the stereo camera rig
+# Find the name of the stereo camera rig
 def findLatLongRig():
   import maya.cmds as cmds
 
@@ -28,7 +28,7 @@ def findLatLongRig():
   for rig in rigs:
     defs = cmds.stereoRigManager(rigDefinition=rig)
     print 'Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1]
-    #Check for
+    # Check for rig
     if (rig == "LatLongStereoCamera"):
       return 1
       
@@ -38,18 +38,18 @@ def getMayaVersionDome():
   import maya.mel as mel
   import maya.cmds as cmds
 
-  #Check what Maya version is active
-  #Check if we are running Maya 2011 or higher
+  # Check what Maya version is active
+  # Check if we are running Maya 2011 or higher
   mayaVersion = mel.eval("getApplicationVersionAsFloat;")
-  #Test this GUI using the Maya 2010 - non-docked GUI mode
+  # Test this GUI using the Maya 2010 - non-docked GUI mode
   #mayaVersion = 2010;
 
-  #Write out the current Maya version number
+  # Write out the current Maya version number
   print("Maya " + str(mayaVersion) + " detected.\n")
   return mayaVersion
 
 
-#Check if a DomeStereoCamera rig exists in the scene  
+# Check if a DomeStereoCamera rig exists in the scene  
 def addNewDomeRig():
   import maya.mel as mel
   import maya.cmds as cmds
@@ -67,7 +67,7 @@ def addNewDomeRig():
     if (mayaVersion >= 2011):
       cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['DomeStereoCamera','domeStereoRig.attachToCameraSet'] )")
     
-    #Make the new rig the default rig
+    # Make the new rig the default rig
     cmds.evalDeferred("cmds.stereoRigManager(defaultRig='DomeStereoCamera')")
   else:
     print ("A DomeStereoCamera rig already exists in the stereoRigManager.")
@@ -75,7 +75,7 @@ def addNewDomeRig():
    # Maya 2010 or older was detected
    #print ("The Domemaster3D stereo rig feature requires Maya 2011 and newer.")
 
-#Check if a LatLongStereoCamera rig exists in the scene  
+# Check if a LatLongStereoCamera rig exists in the scene  
 def addNewLatLongRig():
   import maya.mel as mel
   import maya.cmds as cmds
@@ -93,7 +93,7 @@ def addNewLatLongRig():
     if (mayaVersion >= 2011):
       cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['LatLongStereoCamera','LatLongStereoRig.attachToCameraSet'] )")
     
-    #Make the new rig the default rig
+    # Make the new rig the default rig
     cmds.evalDeferred("cmds.stereoRigManager(defaultRig='LatLongStereoCamera')")
   else:
     print ("A LatLongStereoCamera rig already exists in the stereoRigManager.")

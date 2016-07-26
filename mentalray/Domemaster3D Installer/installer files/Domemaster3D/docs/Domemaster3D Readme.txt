@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.0 - June 22, 2016
+Version 2.1 - July 25, 2016
 
 About This Shader
 ---------------------
@@ -27,10 +27,10 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.1 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.0 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 Mac Notes
@@ -60,11 +60,11 @@ Maya Manual Installation
 The base Maya files are all inside this folder:
 C:\Program Files\Domemaster3D\maya
 
-The Domemaster3D for Maya common icons, presets, and scripts that work across Maya 2010-2016.5 are stored in the following folder:
+The Domemaster3D for Maya common icons, presets, and scripts that work across Maya 2010-2017 are stored in the following folder:
 C:\Program Files\Domemaster3D\maya\common
 
-The specific scripts that work with each Maya release are stored in a folder with the Maya version number in the name. For example, Maya 2015 specific files like the shelves, mental ray physical sky & sun override scripts, and Maya.env backup files are stored in:
-C:\Program Files\Domemaster3D\maya\2015
+The specific scripts that work with each Maya release are stored in a folder with the Maya version number in the name. For example, Maya 2016 specific files like the shelves, mental ray physical sky & sun override scripts, and Maya.env backup files are stored in:
+C:\Program Files\Domemaster3D\maya\2016
 
 The Maya.env files for each specific Maya version are named:
 Maya.env.linux
@@ -276,6 +276,15 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 2.1
+-------------
+2016-07-25
+
+Maya
+  Added initial Maya 2017 Support
+  
+  Updated the Dome Diagnostics script to use Maya workspace based file paths
+  
 Version 2.0
 -------------
 2016-06-22

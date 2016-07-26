@@ -1,11 +1,11 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.0 - June 22, 2016
+Version 2.1 - July 25, 2016
 
 ## Render Farm Note ##
 
 If you are running a commercial render farm service that offers Domemaster3D rendering for Maya, 3DS Max, or XSI, contact Andrew Hazelden ( andrew@andrewhazelden.com) and he will include you on the public list of Domemaster3D enabled render farms.
 
-## Install Guide for Maya 2010 to 2016.5 on Linux ##
+## Install Guide for Maya 2010 to 2017 on Linux ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /opt/Domemaster3D/
@@ -56,14 +56,14 @@ sudo apt-get update
 sudo apt-get install imagemagick
 
 ## Notes ##
-The Domemaster3D shader v2.0 was compiled using CentOS Linux 6.4. 
+The Domemaster3D shader v2.1 was compiled using CentOS Linux 6.4. 
 
 If there are any issues with running the shader, the developer can be reached at: 
 andrew@andrewhazelden.com
 
 
 
-## Install Guide for Maya 2010 to 2016.5 x64 on Windows ##
+## Install Guide for Maya 2010 to 2017 x64 on Windows ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 C:\Program Files\Domemaster3D\
@@ -112,14 +112,14 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 5. The Domemaster3D v2.0 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.1 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.0 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 
-## Install Guide for Maya 2011 to 2016.5 x64 on Mac OS X ##
+## Install Guide for Maya 2011 to 2017 x64 on Mac OS X ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /Applications/Domemaster3D/

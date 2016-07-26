@@ -303,7 +303,7 @@
                     <name>Maya2017</name>
                     <description>Maya 2017 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -423,7 +423,7 @@
                     <name>Maya2016_5</name>
                     <description>Maya 2016.5 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -543,7 +543,7 @@
                     <name>Maya2016</name>
                     <description>Maya 2016 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -663,7 +663,7 @@
                     <name>Maya2015</name>
                     <description>Maya 2015 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -783,7 +783,7 @@
                     <name>Maya2014</name>
                     <description>Maya 2014 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -903,7 +903,7 @@
                     <name>Maya2013_5</name>
                     <description>Maya 2013.5 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -1023,7 +1023,7 @@
                     <name>Maya2013</name>
                     <description>Maya 2013 Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D customized Maya.env file into your user account's Maya settings folder.</detailedDescription>
+                    <detailedDescription>This option will install the Domemaster3D customized Maya Module file into your user account's Maya settings folder.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>

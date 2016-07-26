@@ -1,11 +1,12 @@
 /*
-	Dome Version Checker V2.0
+	Dome Version Checker V2.1
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
+	Domemaster3D V2.1 - July 25, 2016
 	Domemaster3D V2.0 - June 22, 2016
 	Domemaster3D V1.9.3 - February 8, 2016
   Domemaster3D V1.9.2 - January 11, 2016
@@ -74,15 +75,15 @@ global proc string getMayaPlatform(){
   //-------------------------------------------------
 
   string $mayaPlatform = "";
-  python( "import sys" );
+  python("import sys");
 
-  if( python( "sys.platform == 'win32'" ) ){
+  if(python( "sys.platform == 'win32'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'windows'" ) ){
+  }else if(python( "sys.platform == 'windows'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'darwin'" ) ){
+  }else if(python( "sys.platform == 'darwin'")){
     $mayaPlatform = "darwin";
-  }else {
+  }else{
     $mayaPlatform = "linux";
   }
 
@@ -94,8 +95,8 @@ global proc string getMayaPlatform(){
 // Show the version info window
 global proc domeVersion(){
   string $dialogButtonSelected = "";
-  string $domemaster3D_version = "2.0";
-  string $release_date = "June 22, 2016";
+  string $domemaster3D_version = "2.1";
+  string $release_date = "June 25, 2016";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Maya" + " - Version " + $domemaster3D_version + "\n";
@@ -108,7 +109,7 @@ global proc domeVersion(){
   // Check if we are running Maya 2011 or higher
   float $mayaVersion = getMayaVersionDome();
   
-  if ($mayaVersion >=2011){
+  if($mayaVersion >=2011){
     // Maya 2011 or newer detected
     $dialogButtonSelected = `confirmDialog 
       -title "About Domemaster3D for Maya"
@@ -120,7 +121,7 @@ global proc domeVersion(){
       -button "Report a Bug"
       -button "Close"
       -defaultButton "Close"`;
-  } else {
+  }else{
     // Maya 2010 or older detected
     $dialogButtonSelected = `confirmDialog 
       -title "About Domemaster3D for Maya"
@@ -140,6 +141,5 @@ global proc domeVersion(){
   }else if($dialogButtonSelected == "Report a Bug"){
     python("import domeCamera as domeCamera\ndomeCamera.openDomemasterBugReport()"); 
   }
-
 }
 

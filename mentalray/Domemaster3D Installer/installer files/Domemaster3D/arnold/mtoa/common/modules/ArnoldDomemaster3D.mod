@@ -1,3 +1,69 @@
++ MAYAVERSION:2017 PLATFORM:win64 ArnoldDomemaster3D any C:\Program Files\Domemaster3D\arnold\mtoa\common
+DOMEMASTER3D_DIR:=../../..
+DOMEMASTER3D_ARNOLD_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2017/scripts
+ARNOLD_PLUGIN_PATH+:=../shaders
+MTOA_TEMPLATES_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=../2017/scripts
+MAYA_SCRIPT_PATH+:=../2017/shelves
+
++ MAYAVERSION:2017 PLATFORM:mac ArnoldDomemaster3D any /Applications/Domemaster3D/arnold/mtoa/common
+DOMEMASTER3D_DIR:=../../..
+DOMEMASTER3D_ARNOLD_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2017/scripts
+ARNOLD_PLUGIN_PATH+:=../shaders
+MTOA_TEMPLATES_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=../2017/scripts
+MAYA_SCRIPT_PATH+:=../2017/shelves
+
++ MAYAVERSION:2017 PLATFORM:linux ArnoldDomemaster3D any /opt/Domemaster3D/arnold/mtoa/common
+DOMEMASTER3D_DIR:=../../..
+DOMEMASTER3D_ARNOLD_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2017/scripts
+ARNOLD_PLUGIN_PATH+:=../shaders
+MTOA_TEMPLATES_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=../2017/scripts
+MAYA_SCRIPT_PATH+:=../2017/shelves
+
++ MAYAVERSION:2016.5 PLATFORM:win64 ArnoldDomemaster3D any C:\Program Files\Domemaster3D\arnold\mtoa\common
+DOMEMASTER3D_DIR:=../../..
+DOMEMASTER3D_ARNOLD_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2016.5/scripts
+ARNOLD_PLUGIN_PATH+:=../shaders
+MTOA_TEMPLATES_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=../2016.5/scripts
+MAYA_SCRIPT_PATH+:=../2016.5/shelves
+
++ MAYAVERSION:2016.5 PLATFORM:mac ArnoldDomemaster3D any /Applications/Domemaster3D/arnold/mtoa/common
+DOMEMASTER3D_DIR:=../../..
+DOMEMASTER3D_ARNOLD_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2016.5/scripts
+ARNOLD_PLUGIN_PATH+:=../shaders
+MTOA_TEMPLATES_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=../2016.5/scripts
+MAYA_SCRIPT_PATH+:=../2016.5/shelves
+
++ MAYAVERSION:2016.5 PLATFORM:linux ArnoldDomemaster3D any /opt/Domemaster3D/arnold/mtoa/common
+DOMEMASTER3D_DIR:=../../..
+DOMEMASTER3D_ARNOLD_DIR:=..
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../../sourceimages
+PYTHONPATH+:=scripts
+PYTHONPATH+:=../2016.5/scripts
+ARNOLD_PLUGIN_PATH+:=../shaders
+MTOA_TEMPLATES_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=../2016.5/scripts
+MAYA_SCRIPT_PATH+:=../2016.5/shelves
+
 + MAYAVERSION:2016 PLATFORM:win64 ArnoldDomemaster3D any C:\Program Files\Domemaster3D\arnold\mtoa\common
 DOMEMASTER3D_DIR:=../../..
 DOMEMASTER3D_ARNOLD_DIR:=..

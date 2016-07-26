@@ -51,7 +51,8 @@
 */
 
 
-// Check what Maya version is active
+// Check what Maya version is active:
+// Example: float $mayaVersion = getMayaVersionDome();
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
   float $mayaVersion = `getApplicationVersionAsFloat`;
@@ -66,7 +67,8 @@ global proc int getMayaVersionDome(){
 }
 
   
-// Check the operating system
+// Check the operating system:
+// Example: string $mayaPlatform = getMayaPlatform();
 global proc string getMayaPlatform(){
   //-------------------------------------------------
   // Get the current Maya Platform using python
@@ -77,11 +79,11 @@ global proc string getMayaPlatform(){
   string $mayaPlatform = "";
   python("import sys");
 
-  if(python( "sys.platform == 'win32'")){
+  if(python("sys.platform == 'win32'")){
     $mayaPlatform = "windows";
-  }else if(python( "sys.platform == 'windows'")){
+  }else if(python("sys.platform == 'windows'")){
     $mayaPlatform = "windows";
-  }else if(python( "sys.platform == 'darwin'")){
+  }else if(python("sys.platform == 'darwin'")){
     $mayaPlatform = "darwin";
   }else{
     $mayaPlatform = "linux";

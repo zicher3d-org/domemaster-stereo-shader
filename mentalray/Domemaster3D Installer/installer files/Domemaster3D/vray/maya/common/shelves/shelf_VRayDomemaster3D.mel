@@ -1,0 +1,587 @@
+global proc shelf_VRayDomemaster3D () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 37
+        -height 37
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Script Editor Persp View Layout" 
+        -enableBackground 0
+        -align "center" 
+        -label "ScriptEditor" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "scriptEdPersp.png" 
+        -image1 "scriptEdPersp.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "setNamedPanelLayout \"Script Editor/Persp\";" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AutoMagic Fulldome 3D Scene" 
+        -enableBackground 0
+        -align "center" 
+        -label "AutoMagic Dome" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_magicdome.png" 
+        -image1 "domeVray_magicdome.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\nvrayDomeCamera.setRenderRes()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+        shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AutoMagic LatLong 3D Scene" 
+        -enableBackground 0
+        -align "center" 
+        -label "AutoMagic LatLong" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_magiclatlong.png" 
+        -image1 "domeVray_magiclatlong.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "DomemasterStereo" 
+        -enableBackground 0
+        -align "center" 
+        -label "DomemasterStereo" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_DomemasterStereo.png" 
+        -image1 "domeVray_DomemasterStereo.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "LatLongStereo" 
+        -enableBackground 0
+        -align "center" 
+        -label "LatLongStereo" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_LatLongStereo.png" 
+        -image1 "domeVray_LatLongStereo.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 0.5k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 0.5k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "0.5k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(512)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 1k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 1k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "1k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(1024)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 2k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 2k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "2k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(2048)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 4k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 4k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "4k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(4096)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 8k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 8k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "8k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(8192)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 2x1k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 2x1k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "2x1k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution_wide.png" 
+        -image1 "domeVray_render_resolution_wide.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 4x2k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 4x2k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "4x2k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution_wide.png" 
+        -image1 "domeVray_render_resolution_wide.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(4096,2048)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Render 8x4k" 
+        -enableBackground 0
+        -align "center" 
+        -label "Render 8x4k" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "8x4k" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_render_resolution_wide.png" 
+        -image1 "domeVray_render_resolution_wide.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(8192,4096)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the scenes folder for the current project." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Scenes Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SCN" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the sourceimages folder for the current project." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Sourceimages Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SRC" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the images folder for the current project." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Images Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "IMG" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the TEMP folder." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open TEMP Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "TMP" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Maya Diagnostics Report" 
+        -enableBackground 0
+        -align "center" 
+        -label "Diagnostics" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Diag" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_log.png" 
+        -image1 "domeVray_log.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Task Manager" 
+        -enableBackground 0
+        -align "center" 
+        -label "Task Manager" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Task" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_task.png" 
+        -image1 "domeVray_task.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\nopenTaskManager();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Load the Vray Plugin" 
+        -enableBackground 0
+        -align "center" 
+        -label "Reload Vray" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_load.png" 
+        -image1 "domeVray_load.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Version Info" 
+        -enableBackground 0
+        -align "center" 
+        -label "Version Info" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_info.png" 
+        -image1 "domeVray_info.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"vrayDomeVersion.mel\";\nvrayDomeVersion();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Wiki Help" 
+        -enableBackground 0
+        -align "center" 
+        -label "Wiki Help" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeVray_help.png" 
+        -image1 "domeVray_help.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+} 

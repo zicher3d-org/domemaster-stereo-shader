@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.1 - July 25, 2016
+Version 2.1 - July 28, 2016
 
 ## Render Farm Note ##
 
@@ -13,7 +13,7 @@ Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 
 Maya Module Approach
-If you are using Maya 2013-2016.5 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
 $HOME/maya/<Maya Version Number>/modules/
@@ -72,7 +72,7 @@ C:\Program Files\Domemaster3D\
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 
 Maya Module Approach
-If you are using Maya 2013-2016.5 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from C:\Program Files\Domemaster3D\maya\modules\Domemaster3D.mod to your user account's Maya modules folder:
 C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\modules\
@@ -127,7 +127,7 @@ Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 Step 2. You can choose to use the classical Maya.env file or the new Maya Module approach to load the Domemaster3D shader in Maya.
 
 Maya Module Approach
-If you are using Maya 2013-2016.5 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
 /Applications/Domemaster3D/<Maya Version Number>/modules/

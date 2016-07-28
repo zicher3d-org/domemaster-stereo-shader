@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V2.0.2
-  2016-07-25 10.16 PM
+  2016-07-28 08.08 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,14 +9,20 @@
 
   Version History
   ----------------
-  
+
   Version 2.0.2
   ------------------
-  2016-07-25
+  2016-07-28
   
   Added Maya workspaces support for filepaths
   
   Reformatted code
+  
+  Added a function for opening the VRay for Maya render log in a text editor:
+  source "domeDiagnostics.mel"; domeOpenVrayRenderLogFile();
+  
+  Updated the log file opening functions
+  
   
   Version 2.0.1
   ------------------
@@ -258,13 +264,16 @@
 
 
   Script Usage
-  -------
+  ------------
 
   To run the dome diagnostics script:
   source "domeDiagnostics.mel"; domeDiagnostics();
 
   To open the mayaRenderLog in Notepad++ use:
   source "domeDiagnostics.mel"; domeOpenMayaRenderLogFile();
+
+  To open the Vray for Maya log file in a text editor:
+  source "domeDiagnostics.mel"; domeOpenVrayRenderLogFile();
 
   To open the existing diagnostics log in Notepad++ use:
   source "domeDiagnostics.mel"; domeOpenDiagnosticsLogFile();
@@ -1942,63 +1951,10 @@ global proc domeShowLogFolder(){
 // Open the MayaRenderLog file in a text editor:
 // Example: source "domeDiagnostics.mel"; domeOpenDiagnosticsLogFile();
 global proc domeOpenDiagnosticsLogFile(){
-  string $editorProgram = "";
-  string $logPathString = toNativePath( domeGetDiagnosticsLogFilename() );
-  string $textEditorPathString;
-  int $fileCheck;
-  // Choose a default text editor
-  if(getMayaPlatform() == "windows"){
-    // Notepad++ Check
-    $textEditorPathString = "C:\\Program Files (x86)\\Notepad++\\";
-    $editorProgram = "start \"" + $textEditorPathString + "notepad++.exe\"";
-    //$editorProgram = "notepad++";
-    //$editorProgram = "notepad";
-    //$editorProgram = "wordpad";
+  string $logPathString = toNativePath(domeGetDiagnosticsLogFilename());
   
-    // Make sure the notepad++ directory exists
-    string $fileCheck = `file -query -exists $textEditorPathString`; 
-    if($fileCheck == 1){
-      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
-      // Open the log file for viewing
-      system($commandString);
-      //print ("System Command: " + $commandString + "\r\n");
-      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
-    }else{
-      // Fallback to the Windows notepad app if Notepad++ isn't present
-      $editorProgram = "notepad";
-      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
-      // Open the log file for viewing
-      system($commandString);
-      //print ("System Command: " + $commandString + "\r\n");
-      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
-    }
-  }else if(getMayaPlatform() == "darwin"){
-
-    // Mac Platform
-    //$editorProgram = "edit";
-
-    // Note: Mavericks uses a terminal session for edit so it needs to be avoided 
-    $editorProgram = "open";
-
-    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
-    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
-    // Open the log file for viewing
-    system($commandString);
-    //print ("System Command: " + $commandString + "\r\n");
-    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
-  }else{
-    // Linux Platform
-    //$editorProgram = "edit";
-    $editorProgram = "gedit";
-    //$editorProgram = "vi";
-    //$editorProgram = "vim";
-
-    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
-    // Open the log file for viewing
-    system($commandString);
-    //print ("System Command: " + $commandString + "\r\n");
-    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
-  }
+  // Open the text file
+  domeOpenTextFile($logPathString);
 }
 
 // Open the MayaRenderLog file in a text editor:
@@ -2023,61 +1979,80 @@ global proc domeOpenMayaRenderLogFile(){
   string $textEditorPathString;
   string $logPathString = toNativePath($domeMayaRenderLogPathString);
 
-  // Choose a default text editor
+  // Open the text file
+  domeOpenTextFile($logPathString);
+}
+
+// Open the Vray for Maya log file in a text editor:
+// Example: source "domeDiagnostics.mel"; domeOpenVrayRenderLogFile();
+global proc domeOpenVrayRenderLogFile(){
+  string $vrayLogFilenameString;
+  string $vrayLogDirString;
+  string $vrayLogFullPathString;
+
+  string $vrayCustomLogFile = `getenv VRAY_FOR_MAYA_LOG_FILE_NAME`;
+	string $vrayCustomLogDirectory = `getenv VRAY_FOR_MAYA_LOG_FILE_PATH`;
+	
+
   if(getMayaPlatform() == "windows"){
-    $textEditorPathString = "C:\\Program Files (x86)\\Notepad++\\";
-    $editorProgram = "start \"" + $textEditorPathString + "notepad++.exe\"";
-    //$editorProgram = "notepad++.exe";
-    //$editorProgram = "notepad";
-    //$editorProgram = "wordpad";
-    string $fileCheck = `file -query -exists $textEditorPathString`; 
-    if($fileCheck == 1){
-      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
-      // Open the log file for viewing
-      system($commandString);
-      //print ("System Command: " + $commandString + "\r\n");
-      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    // Win
+    
+    // Check if a custom environment file path override was defined
+    if($vrayCustomLogFile != ""){
+      $vrayLogFilenameString = $vrayCustomLogFile;
     }else{
-      // Fallback to the Windows notepad app if Notepad++ isn't present
-      $editorProgram = "start notepad ";
-      string $commandString = $editorProgram + " \"" + $logPathString +"\"";
-      // Open the log file for viewing
-      system($commandString);
-      //print ("System Command: " + $commandString + "\r\n");
-      print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+      $vrayLogFilenameString = "\\vray4maya_log.txt";
     }
-  }else if(getMayaPlatform() == "darwin"){
     
-    // Mac Platform
+    // Check if a custom environment directory override was defined
+    if($vrayCustomLogDirectory != ""){
+      $vrayLogDirString = $vrayCustomLogDirectory;
+    }else{
+      $vrayLogDirString = `getenv "TEMP"`;
+    }
     
-    //$editorProgram = "edit";
-
-
-    // Note: Mavericks uses a terminal session for edit so it needs to be avoided 
-    $editorProgram = "open";
-
-
-    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
-    //string $commandString = $editorProgram + " \"" + $logPathString +"\"";
-    // Open the log file for viewing
-    system($commandString);
-    print ("System Command: " + $commandString + "\r\n");
-    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    $vrayLogFullPathString = $vrayLogDirString + $vrayLogFilenameString;
+  }else if(getMayaPlatform() == "darwin") {
+    // Mac
+    
+    // Check if a custom environment file path override was defined
+    if($vrayCustomLogFile != ""){
+      $vrayLogFilenameString = $vrayCustomLogFile;
+    }else{
+      $vrayLogFilenameString = "vray4maya_log.txt";
+    }
+    
+    // Check if a custom environment directory override was defined
+    if($vrayCustomLogDirectory != ""){
+      $vrayLogDirString = $vrayCustomLogDirectory;
+    }else{
+      $vrayLogDirString = `getenv "TMPDIR"`;
+    }
+    
+    $vrayLogFullPathString = $vrayLogDirString + $vrayLogFilenameString;
   }else{
-    // Linux Platform
-    //$editorProgram = "edit";
-    $editorProgram = "gedit";
-    //$editorProgram = "vi";
-    //$editorProgram = "vim";
-
-    string $commandString = $editorProgram + " \"" + $logPathString +"\"" + " &";
-    // Open the log file for viewing
-    system($commandString);
-    //print ("System Command: " + $commandString + "\r\n");
-    print("Opening the " + $logPathString + " file using " + $editorProgram + ".\r\n");
+    // Linux 
+    // Check if a custom environment file path override was defined
+    if($vrayCustomLogFile != ""){
+      $vrayLogFilenameString = $vrayCustomLogFile;
+    }else{
+      $vrayLogFilenameString = "vray4maya_log.txt";
+    }
+    
+    // Check if a custom environment directory override was defined
+    if($vrayCustomLogDirectory != ""){
+      $vrayLogDirString = $vrayCustomLogDirectory;
+    }else{
+      $vrayLogDirString = `getenv "TMPDIR"`;
+    }
+    
+    $vrayLogFullPathString = $vrayLogDirString + $vrayLogFilenameString;
   }
 
+  // Open the text file
+  domeOpenTextFile($vrayLogFullPathString);
 }
+
 
 // Open a text document in notepad or notepad++:
 // Example: source "domeDiagnostics.mel"; domeOpenTextFile("/file.txt");
@@ -2264,10 +2239,11 @@ global proc domeOpenSceneDirectory(){
   int $mayaVersion = getMayaVersionDome();
 
   // Get the current project folder name
-  string  $projPath = `workspace -q -rootDirectory`;
+  string $projPath = `workspace -q -rootDirectory`;
 
   // Build the scene directory path
-  string $path = $projPath + "scenes";
+  string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
+	string $path = `workspace -expandName $scenesWorkspace`;
 
   string $runCommand = "";
   int $dirExists = `filetest -d $path`;
@@ -2306,10 +2282,11 @@ global proc domeOpenImagesDirectory(){
   int $mayaVersion = getMayaVersionDome();
 
   // Get the current project folder name
-  string  $projPath = `workspace -q -rootDirectory`;
+  string $projPath = `workspace -q -rootDirectory`;
 
   // Build the images directory path
-  string $path = $projPath + "images";
+  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
+  string $path = `workspace -expandName $imageWorkspace`;
 
   string $runCommand = "";
   int $dirExists = `filetest -d $path`;
@@ -2348,10 +2325,11 @@ global proc domeOpenSourceImagesDirectory(){
   int $mayaVersion = getMayaVersionDome();
 
   // Get the current project folder name
-  string  $projPath = `workspace -q -rootDirectory`;
+  string $projPath = `workspace -q -rootDirectory`;
 
-  // Build the images directory path
-  string $path = $projPath + "sourceimages";
+  // Get the Maya project's sourceimages folder
+  string $sourceimagesWorkspace = `workspace -query -fileRuleEntry "sourceImages"`;
+  string $path = `workspace -expandName $sourceimagesWorkspace`;
 
   string $runCommand = "";
   int $dirExists = `filetest -d $path`;

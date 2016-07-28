@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1 - July 26, 2016
+Version 2.1 - July 28, 2016
 
 About This Shader
 ---------------------
@@ -70,7 +70,7 @@ Version History
 
 Version 2.1
 -------------
-2016-07-26
+2016-07-28
 
 Maya
   Added initial Maya 2017 Support
@@ -81,9 +81,9 @@ Maya
     /Applications/Domemaster3D/docs/Maya_Examples/
     /opt/Domemaster3D/docs/Maya_Examples/
   
-  Updated the Dome Diagnostics script to use Maya workspace based file paths
+  Updated the Dome Diagnostics script to use Maya workspace based file paths. Added a "domeOpenVrayRenderLogFile();" function for opening the Vray for Maya render log file.
   
-  Started improving the Domemaster3D/Vray for Maya integration. Added a new "vrayDomemaster3D.mod" Maya module file, updated the shelf tool items, and added new "Vray Domemaster3D" menu in the Maya Rendering menu set. 
+  Started improving the Domemaster3D/Vray for Maya integration. Added a new "VrayDomemaster3D.mod" Maya module file, updated the shelf tool items, and added new "VRay Domemaster3D" menu in the Maya Rendering menu set. 
   
   Started improving the Domemaster3D/Arnold for Maya integration. Updated the "ArnoldDomemaster3D.mod" Maya module file, and also updated the shelf tool items too.
   

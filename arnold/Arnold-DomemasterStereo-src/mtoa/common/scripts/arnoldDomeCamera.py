@@ -1,12 +1,21 @@
 """
-Arnold Domemaster3D Camera Setup Script V1.7.4
-2015-05-07 09.06 am
+Arnold Domemaster3D Camera Setup Script V2.1
+2016-07-28 01.39 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 2.1
+------------
+2016-07-28
+
+Updated Arnold camera shape names
+
+Updated the DomemasterWxH function name
+
 
 Version 1.7.4
 ------------
@@ -48,6 +57,16 @@ import arnoldDomeCamera as arnoldDomeCamera
 reload(arnoldDomeCamera)
 arnoldDomeCamera.createArnoldFulldomeStereoRig()
 
+------------------------------------------------------------------------------
+
+Domemaster3D Fulldome WxH Camera
+
+A python function to create a fulldome 2D camera in Maya.
+
+Run using the command:
+import arnoldDomeCamera as arnoldDomeCamera
+reload(arnoldDomeCamera)
+arnoldDomeCamera.createArnoldDomemasterWxH_Camera()
 ------------------------------------------------------------------------------
 
 Domemaster3D createArnoldLatLongStereoRig
@@ -479,7 +498,7 @@ Domemaster3D createDomemasterWxH_Camera
 ----------------------
 A python function to set up an arnold DomemasterWxH based camera.
 """
-def createDomemasterWxH_Camera():
+def createArnoldDomemasterWxH_Camera():
   import maya.cmds as cmds
   #import maya.mel as mel 
   
@@ -498,7 +517,7 @@ def createDomemasterWxH_Camera():
   # ---------------------------------------------------------------------
 
   # Create a camera and get the shape name.
-  cameraName = cmds.camera(name='domemasterWxH_Camera')
+  cameraName = cmds.camera(name='ArnoldDomemasterWxH_Camera')
   cameraShape = cameraName[1]
 
   # ---------------------------------------------------------------------

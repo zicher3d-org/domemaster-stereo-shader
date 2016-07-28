@@ -1,4 +1,4 @@
-global proc shelf_ArnoldDomemaster3D () {
+global proc shelf_VRayDomemaster3D () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -46,12 +46,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_magicdome.png" 
-        -image1 "renderArnold_magicdome.png" 
+        -image "domeVray_magicdome.png" 
+        -image1 "domeVray_magicdome.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldFulldomeStereoRig()\narnoldDomeCamera.createDomeGrid()\narnoldDomeCamera.createTestShapes()\narnoldDomeCamera.setRenderRes()" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\nvrayDomeCamera.setRenderRes()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -72,12 +72,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_magiclatlong.png" 
-        -image1 "renderArnold_magiclatlong.png" 
+        -image "domeVray_magiclatlong.png" 
+        -image1 "domeVray_magiclatlong.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLongStereoRig()\narnoldDomeCamera.createDomeGrid()\narnoldDomeCamera.createTestShapes()\narnoldDomeCamera.changeRenderResWH(2048,1024)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -98,12 +98,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_domemasterStereo.png" 
-        -image1 "renderArnold_domemasterStereo.png" 
+        -image "domeVray_DomemasterStereo.png" 
+        -image1 "domeVray_DomemasterStereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldFulldomeStereoRig()\n" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\n" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -124,64 +124,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_latlongStereo.png" 
-        -image1 "renderArnold_latlongStereo.png" 
+        -image "domeVray_LatLongStereo.png" 
+        -image1 "domeVray_LatLongStereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLongStereoRig()\n" 
-        -sourceType "python" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "DomemasterWxH" 
-        -enableBackground 0
-        -align "center" 
-        -label "DomemasterWxH" 
-        -labelOffset 0
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_domemasterWxH.png" 
-        -image1 "renderArnold_domemasterWxH.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldDomemasterWxH_Camera()" 
-        -sourceType "python" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Reference Grid" 
-        -enableBackground 0
-        -align "center" 
-        -label "DomeGrid" 
-        -labelOffset 0
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_grid.png" 
-        -image1 "domeArnold_grid.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createDomeGrid()" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\n" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -203,12 +151,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "0.5k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolution.png" 
-        -image1 "domeArnold_renderResolution.png" 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderRes(512)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(512)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -230,12 +178,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolution.png" 
-        -image1 "domeArnold_renderResolution.png" 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderRes(1024)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -257,12 +205,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolution.png" 
-        -image1 "domeArnold_renderResolution.png" 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderRes(2048)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(2048)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -284,12 +232,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolution.png" 
-        -image1 "domeArnold_renderResolution.png" 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderRes(4096)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(4096)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -311,12 +259,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "8k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolution.png" 
-        -image1 "domeArnold_renderResolution.png" 
+        -image "domeVray_render_resolution.png" 
+        -image1 "domeVray_render_resolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderRes(8192)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(8192)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -338,12 +286,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "2x1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolutionWide.png" 
-        -image1 "domeArnold_renderResolutionWide.png" 
+        -image "domeVray_render_resolution_wide.png" 
+        -image1 "domeVray_render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderResWH(2048,1024)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -365,12 +313,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "4x2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolutionWide.png" 
-        -image1 "domeArnold_renderResolutionWide.png" 
+        -image "domeVray_render_resolution_wide.png" 
+        -image1 "domeVray_render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderResWH(4096,2048)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(4096,2048)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -392,17 +340,16 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "8x4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_renderResolutionWide.png" 
-        -image1 "domeArnold_renderResolutionWide.png" 
+        -image "domeVray_render_resolution_wide.png" 
+        -image1 "domeVray_render_resolution_wide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.changeRenderResWH(8192,4096)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(8192,4096)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
-    
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -420,8 +367,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "SCN" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_directory.png" 
-        -image1 "domeArnold_directory.png" 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -446,8 +393,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "SRC" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_directory.png" 
-        -image1 "domeArnold_directory.png" 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -472,8 +419,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "IMG" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_directory.png" 
-        -image1 "domeArnold_directory.png" 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -498,8 +445,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "TMP" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_directory.png" 
-        -image1 "domeArnold_directory.png" 
+        -image "domeVray_directory.png" 
+        -image1 "domeVray_directory.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -515,7 +462,7 @@ global proc shelf_ArnoldDomemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Open the Maya Render Log" 
+        -annotation "Open the Vray for Maya Render Log" 
         -enableBackground 0
         -align "center" 
         -label "Render Log" 
@@ -524,12 +471,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "rLOG" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_log.png" 
-        -image1 "domeArnold_log.png" 
+        -image "domeVray_log.png" 
+        -image1 "domeVray_log.png"
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "source \"domeDiagnostics.mel\";\ndomeOpenMayaRenderLogFile();" 
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenVrayRenderLogFile();" 
         -sourceType "mel" 
         -commandRepeatable 1
     ;
@@ -550,8 +497,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "Diag" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_log.png" 
-        -image1 "domeArnold_log.png" 
+        -image "domeVray_log.png" 
+        -image1 "domeVray_log.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -576,8 +523,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "Task" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_task.png" 
-        -image1 "domeArnold_task.png" 
+        -image "domeVray_task.png" 
+        -image1 "domeVray_task.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -585,7 +532,7 @@ global proc shelf_ArnoldDomemaster3D () {
         -sourceType "mel" 
         -commandRepeatable 1
     ;
-    shelfButton
+        shelfButton
         -enableCommandRepeat 1
         -enable 1
         -width 35
@@ -595,21 +542,27 @@ global proc shelf_ArnoldDomemaster3D () {
         -preventOverride 0
         -annotation "Launch Another Maya Instance" 
         -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
         -label "Maya" 
         -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
         -font "plainLabelFont" 
         -imageOverlayLabel "MAYA" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_mayaScript.png" 
-        -image1 "domeArnold_mayaScript.png" 
+        -image "domeVray_mayaScript.png" 
+        -image1 "domeVray_mayaScript.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
         -command "source \"domeDiagnostics.mel\"; domeLaunchMayaInstance();" 
         -sourceType "mel" 
         -commandRepeatable 1
+        -flat 1
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -619,20 +572,20 @@ global proc shelf_ArnoldDomemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Load the Arnold Plugin" 
+        -annotation "Load the Vray Plugin" 
         -enableBackground 0
         -align "center" 
-        -label "Reload Arnold" 
+        -label "Reload Vray" 
         -labelOffset 0
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_load.png" 
-        -image1 "domeArnold_load.png" 
+        -image "domeVray_load.png" 
+        -image1 "domeVray_load.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.forceArnoldLoad()" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -653,12 +606,12 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_info.png" 
-        -image1 "domeArnold_info.png" 
+        -image "domeVray_info.png" 
+        -image1 "domeVray_info.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "source \"arnoldDomeVersion.mel\";\narnoldDomeVersion();" 
+        -command "source \"vrayDomeVersion.mel\";\nvrayDomeVersion();" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -679,15 +632,14 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_help.png" 
-        -image1 "domeArnold_help.png" 
+        -image "domeVray_help.png" 
+        -image1 "domeVray_help.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.openDomemasterWiki()" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
-
 } 

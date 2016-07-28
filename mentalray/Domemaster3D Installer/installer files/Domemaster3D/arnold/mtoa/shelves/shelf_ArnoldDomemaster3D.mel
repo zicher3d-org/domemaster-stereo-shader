@@ -124,8 +124,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "renderArnold_LatLongStereo.png" 
-        -image1 "renderArnold_LatLongStereo.png" 
+        -image "renderArnold_latlongStereo.png" 
+        -image1 "renderArnold_latlongStereo.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -155,7 +155,7 @@ global proc shelf_ArnoldDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createDomemasterWxH_Camera()" 
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldDomemasterWxH_Camera()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -203,8 +203,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "0.5k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.png" 
-        -image1 "domeArnold_render_resolution.png" 
+        -image "domeArnold_renderResolution.png" 
+        -image1 "domeArnold_renderResolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -230,8 +230,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.png" 
-        -image1 "domeArnold_render_resolution.png" 
+        -image "domeArnold_renderResolution.png" 
+        -image1 "domeArnold_renderResolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -257,8 +257,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.png" 
-        -image1 "domeArnold_render_resolution.png" 
+        -image "domeArnold_renderResolution.png" 
+        -image1 "domeArnold_renderResolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -284,8 +284,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.png" 
-        -image1 "domeArnold_render_resolution.png" 
+        -image "domeArnold_renderResolution.png" 
+        -image1 "domeArnold_renderResolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -311,8 +311,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "8k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution.png" 
-        -image1 "domeArnold_render_resolution.png" 
+        -image "domeArnold_renderResolution.png" 
+        -image1 "domeArnold_renderResolution.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -338,8 +338,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "2x1k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution_wide.png" 
-        -image1 "domeArnold_render_resolution_wide.png" 
+        -image "domeArnold_renderResolutionWide.png" 
+        -image1 "domeArnold_renderResolutionWide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -365,8 +365,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "4x2k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution_wide.png" 
-        -image1 "domeArnold_render_resolution_wide.png" 
+        -image "domeArnold_renderResolutionWide.png" 
+        -image1 "domeArnold_renderResolutionWide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -392,8 +392,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "8x4k" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeArnold_render_resolution_wide.png" 
-        -image1 "domeArnold_render_resolution_wide.png" 
+        -image "domeArnold_renderResolutionWide.png" 
+        -image1 "domeArnold_renderResolutionWide.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -602,8 +602,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -imageOverlayLabel "MAYA" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "domeMayaScript.png" 
-        -image1 "domeMayaScript.png" 
+        -image "domeArnold_mayaScript.png" 
+        -image1 "domeArnold_mayaScript.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -627,8 +627,8 @@ global proc shelf_ArnoldDomemaster3D () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "arnold_load.png" 
-        -image1 "arnold_load.png" 
+        -image "domeArnold_load.png" 
+        -image1 "domeArnold_load.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1

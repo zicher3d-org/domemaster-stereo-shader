@@ -6,7 +6,7 @@
 
 	Version History
 	----------------
-	Domemaster3D V2.1 - July 25, 2016
+	Domemaster3D V2.1 - August 2, 2016
 	Domemaster3D V2.0 - June 22, 2016
 	Domemaster3D V1.9.3 - February 8, 2016
   Domemaster3D V1.9.2 - January 11, 2016
@@ -52,13 +52,13 @@
 
 
 // Check what Maya version is active:
-// Example: float $mayaVersion = getMayaVersionDome();
+// Example: int $mayaVersion = getMayaVersionDome();
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
-  float $mayaVersion = `getApplicationVersionAsFloat`;
+  int $mayaVersion = `getApplicationVersionAsFloat`;
 
   // Test this GUI using the Maya 2010 - non-docked GUI mode
-  //float $mayaVersion = 2010;
+  //int $mayaVersion = 2010;
 
   // Write out the current Maya version number
   //print("Maya " + $mayaVersion + " detected.\n");
@@ -98,7 +98,7 @@ global proc string getMayaPlatform(){
 global proc domeVersion(){
   string $dialogButtonSelected = "";
   string $domemaster3D_version = "2.1";
-  string $release_date = "June 25, 2016";
+  string $release_date = "August 2, 2016";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Maya" + " - Version " + $domemaster3D_version + "\n";

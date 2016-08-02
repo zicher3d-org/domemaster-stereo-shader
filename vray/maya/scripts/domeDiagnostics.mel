@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V2.0.2
-  2016-07-28 10.17 AM
+  2016-08-02 11.56 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -2449,22 +2449,23 @@ global proc domeLaunchMayaInstance(){
 }
 
 // Check what Maya version is active:
-// Example: source "domeDiagnostics.mel"; float $mayaVersion = getMayaVersionDome();
+// Example: int $mayaVersion = getMayaVersionDome();
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
-  float $mayaVersion = `getApplicationVersionAsFloat`;
+  int $mayaVersion = `getApplicationVersionAsFloat`;
 
   // Test this GUI using the Maya 2010 - non-docked GUI mode
-  //float $mayaVersion = 2010;
+  //int $mayaVersion = 2010;
 
   // Write out the current Maya version number
-  //print("Maya " + $mayaVersion + " detected.\r\n");
+  //print("Maya " + $mayaVersion + " detected.\n");
 
   return $mayaVersion;
 }
 
+  
 // Check the operating system:
-// Example: source "domeDiagnostics.mel"; string $mayaPlatform = getMayaPlatform();
+// Example: string $mayaPlatform = getMayaPlatform();
 global proc string getMayaPlatform(){
   //-------------------------------------------------
   // Get the current Maya Platform using python
@@ -2473,19 +2474,19 @@ global proc string getMayaPlatform(){
   //-------------------------------------------------
 
   string $mayaPlatform = "";
-  python( "import sys" );
+  python("import sys");
 
-  if( python( "sys.platform == 'win32'" ) ){
+  if(python("sys.platform == 'win32'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'windows'" ) ){
+  }else if(python("sys.platform == 'windows'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'darwin'" ) ){
+  }else if(python("sys.platform == 'darwin'")){
     $mayaPlatform = "darwin";
-  }else {
+  }else{
     $mayaPlatform = "linux";
   }
 
-  //print("Running on " + $mayaPlatform + ".\r\n");
+  //print("Running on " + $mayaPlatform + ".\n");
   return $mayaPlatform;
 }
 

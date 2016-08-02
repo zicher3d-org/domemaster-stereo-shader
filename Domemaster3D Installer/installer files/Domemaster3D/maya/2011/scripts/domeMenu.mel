@@ -1,7 +1,9 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
 Version 2.0
-2016-06-21 Maya 2011+
+2016-08-02 Maya 2011 - Maya 2017+ Compatible Menu
+
+Note: Disabled the mentalrayTexture based tools for Mental Ray 3.14/Maya 2017+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -26,13 +28,14 @@ createDomemaster3DMenu();
 */
 
 
-// Check what Maya version is active
+// Check what Maya version is active:
+// Example: int $mayaVersion = getMayaVersionDome();
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
-  float $mayaVersion = `getApplicationVersionAsFloat`;
+  int $mayaVersion = `getApplicationVersionAsFloat`;
 
   // Test this GUI using the Maya 2010 - non-docked GUI mode
-  //float $mayaVersion = 2010;
+  //int $mayaVersion = 2010;
 
   // Write out the current Maya version number
   //print("Maya " + $mayaVersion + " detected.\n");
@@ -41,7 +44,8 @@ global proc int getMayaVersionDome(){
 }
 
   
-// Check the operating system
+// Check the operating system:
+// Example: string $mayaPlatform = getMayaPlatform();
 global proc string getMayaPlatform(){
   //-------------------------------------------------
   // Get the current Maya Platform using python
@@ -67,14 +71,12 @@ global proc string getMayaPlatform(){
 }
 
 
-
 // Create the "Choose a Default Stereo Rig" submenu
 global proc createDomeRigSubmenu(){
-
 	popupMenu -edit -deleteAllItems domeDefaultRigMenu;
   setParent -menu domeDefaultRigMenu;
   
-  //remove any existing submenus
+  // Remove any existing submenus
   // if (`menu -query -exists domeDefaultRigMenu`){
     // print("Replacing the existing domeDefaultRigMenu item.\n");
     // deleteUI domeDefaultRigMenu;
@@ -130,11 +132,15 @@ global proc createDomeRigSubmenu(){
 
 global proc editDomeDiagOpenMenuItems(){
   // Get the current project folder name
-  string  $projPath = `workspace -q -rootDirectory`;
+  string $projPath = `workspace -q -rootDirectory`;
+  
   // Build the images directory path
-  string $imagesPath = $projPath + "images";
+  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
+  string $imagesPath = `workspace -expandName $imageWorkspace`;
+
   // Build the scene directory path
-  string $scenesPath = $projPath + "scenes";
+  string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
+	string $scenesPath = `workspace -expandName $scenesWorkspace`;
 
 menuItem -edit 
   -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
@@ -154,7 +160,7 @@ menuItem -edit
 // -----------------------------------------------------------------
 global proc createDomemaster3DMenu() {
 
-	float $mayaVersion = getMayaVersionDome();
+	int $mayaVersion = getMayaVersionDome();
 
   global string $gMainWindow;
 
@@ -213,8 +219,6 @@ global proc createDomemaster3DMenu() {
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
 
       // Fulldome 2D Section
-
-      $mayaVersion = getMayaVersionDome();
       if($mayaVersion >=2015){
         menuItem -divider true -dividerLabel "Fulldome 2D";
       }else{
@@ -234,7 +238,6 @@ global proc createDomemaster3DMenu() {
 
       // Fulldome Stereo Section
 
-      $mayaVersion = getMayaVersionDome();
       if($mayaVersion >=2015){
         menuItem -divider true -dividerLabel "Fulldome Stereo";
       }else{
@@ -261,7 +264,6 @@ global proc createDomemaster3DMenu() {
       menuItem -divider true;
 
       // Check if we are running Maya 2011 or higher
-      $mayaVersion = getMayaVersionDome();
       if($mayaVersion >=2011){
         menuItem 
           -subMenu true 
@@ -276,72 +278,73 @@ global proc createDomemaster3DMenu() {
     
     setParent -menu ..;
     
+  // Only show the materials if we are on Maya 2011-2016.5
+  if($mayaVersion <=2016){
+    // Lens Shader Compatible Materials Section
+    if($mayaVersion >=2015){
+      menuItem -divider true -dividerLabel "Lens Shader Compatible Materials";
+    }else{
+      menuItem -divider true;
+    }
+  
+    menuItem 
+      -label "Create Color Material" 
+      -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with a color texture map."
+      -image "colorMaterial.png"
+      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorMiaMaterial()\");";
+    menuItem 
+      -label "Create Color + Bump Material" 
+      -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with color and bump map textures."
+      -image "bumpMaterial.png"
+      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorBumpMiaMaterial()\")";
+    menuItem 
+      -label "Create Color Image Sequence Material" 
+      -annotation "Create a mia_material_x_passes / mentalrayTexture based image sequence shading network."
+      -image "mentalrayTextureAnimationMaterial.png" 
+      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorImageSequenceMiaMaterial()\")";
+    menuItem 
+      -label "Create Hybrid MR + Maya Color Material" 
+      -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
+      -image "hybridMaterial.png" 
+      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
 
-  // Lens Shader Compatible Materials Section
+    // Image Based Lighting Section
+    if($mayaVersion >=2015){
+      menuItem -divider true -dividerLabel "Image Based Lighting";
+    }else{
+      menuItem -divider true;
+    }
 
-  $mayaVersion = getMayaVersionDome();
-  if($mayaVersion >=2015){
-    menuItem -divider true -dividerLabel "Lens Shader Compatible Materials";
-  }else{
-    menuItem -divider true;
+    menuItem 
+      -label "Create Fulldome IBL" 
+      -annotation "Create a fulldome 180 degree IBL (Image Based Lighting) shading network. This repositions a fulldome image as a mentalrayIblShape angular environment map."
+      -image "fulldomeIBL.png" 
+      -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeIBL()\")";
+    menuItem 
+      -label "Create Hemirect IBL" 
+      -annotation "Create a hemi-equirectangular IBL (Image Based Lighting) shading network. This repositions the \"top half\" of a latlong / equirectangular panorama image as a mentalrayIblShape spherical environment map."
+      -image "hemirectIBL.png"
+      -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createHemirectIBL()\")";
+
   }
   
-  menuItem 
-    -label "Create Color Material" 
-    -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with a color texture map."
-    -image "colorMaterial.png"
-    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorMiaMaterial()\");";
-  menuItem 
-    -label "Create Color + Bump Material" 
-    -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with color and bump map textures."
-    -image "bumpMaterial.png"
-    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorBumpMiaMaterial()\")";
-  menuItem 
-    -label "Create Color Image Sequence Material" 
-    -annotation "Create a mia_material_x_passes / mentalrayTexture based image sequence shading network."
-    -image "mentalrayTextureAnimationMaterial.png" 
-    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorImageSequenceMiaMaterial()\")";
-  menuItem 
-    -label "Create Hybrid MR + Maya Color Material" 
-    -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
-    -image "hybridMaterial.png" 
-    -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
-
-  // Image Based Lighting Section
-
-  $mayaVersion = getMayaVersionDome();
-  if($mayaVersion >=2015){
-    menuItem -divider true -dividerLabel "Image Based Lighting";
-  }else{
-    menuItem -divider true;
-  }
-
-  menuItem 
-    -label "Create Fulldome IBL" 
-    -annotation "Create a fulldome 180 degree IBL (Image Based Lighting) shading network. This repositions a fulldome image as a mentalrayIblShape angular environment map."
-    -image "fulldomeIBL.png" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeIBL()\")";
-  menuItem 
-    -label "Create Hemirect IBL" 
-    -annotation "Create a hemi-equirectangular IBL (Image Based Lighting) shading network. This repositions the \"top half\" of a latlong / equirectangular panorama image as a mentalrayIblShape spherical environment map."
-    -image "hemirectIBL.png"
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createHemirectIBL()\")";
-
   // Fulldome Tools Section
-
-  $mayaVersion = getMayaVersionDome();
   if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Fulldome Tools";
   }else{
     menuItem -divider true;
   }
 
-  menuItem 
-    -label "Create Starglobe" 
-    -annotation "Create a starry background for your fulldome scenes."
-    -image "render_starglobe.png"
-    //-command "python(\"import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()\")";
-    -command "source \"domeStarglobe.mel\";\ncreateStarglobe();";
+  // Only show the starglobe if we are on Maya 2011-2016.5
+  if($mayaVersion <=2016){
+    menuItem 
+      -label "Create Starglobe" 
+      -annotation "Create a starry background for your fulldome scenes."
+      -image "render_starglobe.png"
+      //-command "python(\"import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()\")";
+      -command "source \"domeStarglobe.mel\";\ncreateStarglobe();";  
+  }
+  
   menuItem 
     -label "Create Reference Grid" 
     -annotation "Create a hemispherical wireframe reference grid."
@@ -357,11 +360,16 @@ global proc createDomemaster3DMenu() {
     -annotation "Create raster titles and scrolling credits using ImageMagick."
     -image "domeText.png" 
     -command "source \"domeText.mel\";domeText();";
-  menuItem 
-    -label "CrossBounce Simulation" 
-    -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
-    -image "domeCrossBounce.png" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
+    
+  // Only show the crossbounce tool if we are on Maya 2011-2016.5
+  if($mayaVersion <=2016){
+    menuItem 
+      -label "CrossBounce Simulation" 
+      -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
+      -image "domeCrossBounce.png" 
+      -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
+  }
+  
   menuItem 
     -label "Dome Viewer" 
     -annotation "View immersive fulldome and panoramic images+movies in Maya."
@@ -369,7 +377,6 @@ global proc createDomemaster3DMenu() {
     -command "source \"domeViewer.mel\";domeViewer();";
 
   // Guard against Maya 2010 loading of the histogram item.
-  $mayaVersion = getMayaVersionDome();
   if ($mayaVersion >=2011){
   menuItem 
     -label "Dome Histogram" 
@@ -379,8 +386,6 @@ global proc createDomemaster3DMenu() {
   }
 
   // Diagnostics Section
-
-  $mayaVersion = getMayaVersionDome();
   if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Diagnostics";
   }else{
@@ -417,12 +422,15 @@ global proc createDomemaster3DMenu() {
   }
 
   // Get the current project folder name
-  string  $projPath = `workspace -q -rootDirectory`;
+  string $projPath = `workspace -q -rootDirectory`;
+  
   // Build the images directory path
-  string $imagesPath = $projPath + "images";
-  // Build the scene directory path
-  string $scenesPath = $projPath + "scenes";
+  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
+  string $imagesPath = `workspace -expandName $imageWorkspace`;
 
+  // Build the scene directory path
+  string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
+	string $scenesPath = `workspace -expandName $scenesWorkspace`;
   
   menuItem 
     -label "Open Scenes Folder"
@@ -502,7 +510,7 @@ global proc createDomemaster3DMenu() {
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\");";
 
   // Support Section
-  $mayaVersion = getMayaVersionDome();
+
   if($mayaVersion >=2015){
     menuItem -divider true -dividerLabel "Support";
   }else{

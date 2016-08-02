@@ -7,26 +7,38 @@
   Version History
   ----------------
 
-  Version 1.7 - 2015-03-07
-  -------------------------
-  
-  Version 1.5 - July 6, 2014
-  ------------------------------------
+  Version 2.1
+  -----------
+  2016-08-02
 
-  Version 1.4 Beta 9 - Dec 6, 2013
-  ------------------------------------------
+  Version 1.7 
+  -----------
+  2015-03-07
+  
+  Version 1.5 
+  ------------
+  July 6, 2014
+  
+  Version 1.4 Beta 9 
+  ------------------
+  Dec 6, 2013
+  
   Updated the window's dock controls so the docked vs floating, and docked left/right window settings are restored
 
   Changed the default particle type setting for the Galaxy Creator GUI to MultiPoint particles
 
   
-  Version 1.4 Build 10 - Oct 10, 2013
-  ------------------------------------------
+  Version 1.4 Build 10 
+  --------------------
+  Oct 10, 2013
+  
   Changed the caption for the Copy Node Settings menu to "Copy Particle Settings From"
   
 
-  Version 1.4 Build 10 - Oct 6, 2013
-  ------------------------------------------
+  Version 1.4 Build 10 
+  --------------------
+  Oct 6, 2013
+  
   Added "Open the Hardware Render Buffer window" button and hardware rendering presets
 
   Adjusted the default color brightness of the Multipoint, MultiStreak, and Cloud particles
@@ -56,13 +68,17 @@
   Working on the galaxy "Particle Type" setting that supports Cloud, MultiPoint, and MultiStreak rendering.
 
   
-  Version 1.2 Build 2 - Aug 15, 2013 8.23pm  
-  -----------------------------------------------
+  Version 1.2 Build 2 
+  --------------------
+  Aug 15, 2013 8.23pm 
+  
   Added Glow Intensity control to GUI
 
 
-  Version 1.1 - May 29, 2013
-  ------------------------------
+  Version 1.1
+  ------------
+  May 29, 2013
+  
   Initial GUI release
 
 
@@ -170,17 +186,19 @@ global proc showMultistreakShadingOptions(){
 }
 
 
-//Check what Maya version is active
+
+// Check what Maya version is active:
+// Example: int $mayaVersion = getMayaVersionDome();
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
-  float $mayaVersion = `getApplicationVersionAsFloat`;
+  int $mayaVersion = `getApplicationVersionAsFloat`;
 
   // Test this GUI using the Maya 2010 - non-docked GUI mode
-  //float $mayaVersion = 2010;
+  //int $mayaVersion = 2010;
 
   // Write out the current Maya version number
   //print("Maya " + $mayaVersion + " detected.\n");
-  
+
   return $mayaVersion;
 }
 
@@ -1059,25 +1077,28 @@ global proc SaveDockedGalaxyWindowPos(){
 }
 
   
-//Check the operating system
+// Check the operating system:
+// Example: string $mayaPlatform = getMayaPlatform();
 global proc string getMayaPlatform(){
   //-------------------------------------------------
-  //Get the current Maya Platform using python
+  // Get the current Maya Platform using python
   //      The $mayaPlatform options are:
   //          "windows", "darwin", "linux"
   //-------------------------------------------------
 
   string $mayaPlatform = "";
-  python( "import sys" );
-  if( python( "sys.platform == 'win32'" ) ){
+  python("import sys");
+
+  if(python("sys.platform == 'win32'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'windows'" ) ){
+  }else if(python("sys.platform == 'windows'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'darwin'" ) ){
+  }else if(python("sys.platform == 'darwin'")){
     $mayaPlatform = "darwin";
-  }else {
+  }else{
     $mayaPlatform = "linux";
   }
+
   //print("Running on " + $mayaPlatform + ".\n");
   return $mayaPlatform;
 }

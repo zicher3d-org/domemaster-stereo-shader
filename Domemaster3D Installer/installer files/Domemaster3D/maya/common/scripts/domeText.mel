@@ -1,6 +1,6 @@
 /*
-  Dome Text V1.9
-  2015-08-21
+  Dome Text V2.1
+  2016-08-02
   by Andrew Hazelden
 
   The DomeText script is a title generator that creates raster title graphics in the png, tif, tga, bmp, and psd formats.
@@ -17,11 +17,14 @@
 
   Version History
   ----------------
-
+  
+  Version 2.1
+  -------------
+  2016-08-02
+  
   Version 1.7
   -------------
-  2015-03-07 
-  
+  2015-03-07
   
   Version 1.5
   ------------------
@@ -101,13 +104,14 @@
  system("echo $PATH");
 */
 
-//Check what Maya version is active
+// Check what Maya version is active:
+// Example: int $mayaVersion = getMayaVersionDome();
 global proc int getMayaVersionDome(){
   // Check if we are running Maya 2011 or higher
-  float $mayaVersion = `getApplicationVersionAsFloat`;
+  int $mayaVersion = `getApplicationVersionAsFloat`;
 
   // Test this GUI using the Maya 2010 - non-docked GUI mode
-  //float $mayaVersion = 2010;
+  //int $mayaVersion = 2010;
 
   // Write out the current Maya version number
   //print("Maya " + $mayaVersion + " detected.\n");
@@ -116,24 +120,25 @@ global proc int getMayaVersionDome(){
 }
 
   
-//Check the operating system
+// Check the operating system:
+// Example: string $mayaPlatform = getMayaPlatform();
 global proc string getMayaPlatform(){
   //-------------------------------------------------
-  //Get the current Maya Platform using python
+  // Get the current Maya Platform using python
   //      The $mayaPlatform options are:
   //          "windows", "darwin", "linux"
   //-------------------------------------------------
 
   string $mayaPlatform = "";
-  python( "import sys" );
+  python("import sys");
 
-  if( python( "sys.platform == 'win32'" ) ){
+  if(python("sys.platform == 'win32'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'windows'" ) ){
+  }else if(python("sys.platform == 'windows'")){
     $mayaPlatform = "windows";
-  }else if( python( "sys.platform == 'darwin'" ) ){
+  }else if(python("sys.platform == 'darwin'")){
     $mayaPlatform = "darwin";
-  }else {
+  }else{
     $mayaPlatform = "linux";
   }
 

@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1 - July 28, 2016
+Version 2.1 - August 3, 2016
 
 About This Shader
 ---------------------
@@ -73,7 +73,7 @@ Version 2.1
 
 Maya
   Added initial Maya 2017 Support
-  
+
   Added a mental ray native texture based Maya example project file named "Domemaster3D_transparent_materials_project.zip" that shows how to map a color material with a separate alpha channel to an mia_material. It is stored in the folder:
   
     C:\Program Files\Domemaster3D\docs\Maya_Examples\
@@ -84,8 +84,10 @@ Maya
   
   Started improving the Domemaster3D/Vray for Maya integration. Added a new "VrayDomemaster3D.mod" Maya module file, updated the shelf tool items, and added new "VRay Domemaster3D" menu in the Maya Rendering menu set. 
   
-  Started improving the Domemaster3D/Arnold for Maya integration. Updated the "ArnoldDomemaster3D.mod" Maya module file, and also updated the shelf tool items too.
+  Started improving the Domemaster3D/Arnold for Maya integration. Updated the "ArnoldDomemaster3D.mod" Maya module file, updated the shelf tool items, and added a new "Arnold Domemaster3D" menu in the Maya rendering menu set.
   
+  Added support in Maya 2016/2017 for creating Maya file node based screen space texture maps in the LatLong_Stereo and domeAFL_FOV_Stereo shaders, and in the screen space texture map shelf tool with the help of a mib_texture_vector node and a place2Dtexture node. This replaces the previous mentalrayTexture node based approach that has been depreciated in the Maya 2017/mental ray 3.14 beta releases.
+
 Version 2.0
 -------------
 2016-06-22

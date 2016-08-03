@@ -1,6 +1,6 @@
 /*
   Dome Diagnostics Report Tool V2.0.2
-  2016-08-02 11.56 AM
+  2016-08-03 08.57 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -12,7 +12,7 @@
 
   Version 2.0.2
   ------------------
-  2016-07-28
+  2016-08-03
   
   Added Maya workspaces support for filepaths
   
@@ -2510,10 +2510,10 @@ global proc openTaskManager(){
 global proc string dome_osSeparator(){
   string $osSeparator;
   
-  if(rc_getMayaPlatform() == "windows"){
+  if(getMayaPlatform() == "windows"){
     // Windows
     $osSeparator = "\\";
-  }else if(rc_getMayaPlatform() == "darwin"){
+  }else if(getMayaPlatform() == "darwin"){
     // Mac
     $osSeparator = "/";
   }else{
@@ -2534,15 +2534,15 @@ global proc string getMayaPlatformFancy(){
   //-------------------------------------------------
 
   string $mayaPlatform = "";
-  python( "import sys" );
+  python("import sys");
 
-  if( python( "sys.platform == 'win32'" ) ){
+  if(python("sys.platform == 'win32'")){
     $mayaPlatform = "Windows";
-  }else if( python( "sys.platform == 'windows'" ) ){
+  }else if(python("sys.platform == 'windows'")){
     $mayaPlatform = "Windows";
-  }else if( python( "sys.platform == 'darwin'" ) ){
+  }else if(python("sys.platform == 'darwin'")){
     $mayaPlatform = "Mac OS X";
-  }else {
+  }else{
     $mayaPlatform = "Linux";
   }
 
@@ -2552,14 +2552,14 @@ global proc string getMayaPlatformFancy(){
 
 // Find the shape node:
 // Example: source "domeDiagnostics.mel"; print `getObjectShapeNode( "persp")`;
-global proc string getObjectShapeNode ( string $object ) {
+global proc string getObjectShapeNode(string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 // Find the object's parent node:
 // Example: source "domeDiagnostics.mel"; print `getObjectParentNode( "perspShape")`;
-global proc string getObjectParentNode ( string $object ) {
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }

@@ -1,6 +1,6 @@
 """
  Domemaster3D Fulldome Stereo Rig V2.1
- 2016-08-02 10.14 PM
+ 2016-08-02 11.58 PM
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
@@ -44,6 +44,8 @@ In a Maya.env file you would change this environment variable by adding a line l
 
  Modified the stereo camera name to have a random uppercase letter addon so each camera rig name is unique:
  This turns: DomeStereoCamera into DomeStereoCameraX
+
+The sepration, turn, and tilt source images are loaded using the DOMEMASTER3D_SOURCEIMAGES_DIR value defined in your maya.env file.
 
  Stereo Rig Script Notes
  --------------------------
@@ -92,9 +94,8 @@ def getSourceImagesPath(imageFileName):
   import os
   import maya.cmds as cmds
   import maya.mel as mel
-  
   # ---------------------------------------------------------------------
-  # Setup the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
 
   # Check OS platform for Windows/Mac/Linux Paths
@@ -106,7 +107,7 @@ def getSourceImagesPath(imageFileName):
   # Try and read the value from the current Maya.env file's environment variables
   baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
   # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
-
+  
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
@@ -152,13 +153,13 @@ def createLensShaders(centerCam, leftCam, rightCam):
   # Create the fulldome nodes for the rig
   # ---------------------------------------------------------------------
   centerCamLens = cmds.shadingNode('domeAFL_FOV_Stereo', n='center_domeAFL_FOV_Stereo', asUtility=True)
-  cmds.setAttr(centerCamLens+'.Camera', 0) #Set the view to center
+  cmds.setAttr(centerCamLens+'.Camera', 0) # Set the view to center
   
   leftCamLens = cmds.shadingNode('domeAFL_FOV_Stereo', n='left_domeAFL_FOV_Stereo', asUtility=True)
-  cmds.setAttr(leftCamLens+'.Camera', 1) #Set the view to left
+  cmds.setAttr(leftCamLens+'.Camera', 1) # Set the view to left
   
   rightCamLens = cmds.shadingNode('domeAFL_FOV_Stereo', n='right_domeAFL_FOV_Stereo', asUtility=True)
-  cmds.setAttr(rightCamLens+'.Camera', 2) #Set the view to right
+  cmds.setAttr(rightCamLens+'.Camera', 2) # Set the view to right
 
   # ---------------------------------------------------------------------
   # Connect the lens shaders
@@ -275,8 +276,8 @@ def createLensShaders(centerCam, leftCam, rightCam):
     turn_map_tex_filter = cmds.shadingNode('mib_texture_filter_lookup', n='turn_map_mib_texture_filter_lookup1', asTexture=True)
     tilt_map_tex_filter = cmds.shadingNode('mib_texture_filter_lookup', n='tilt_map_mib_texture_filter_lookup1', asTexture=True)
 
-    dome_tex_vector = cmds.shadingNode('mib_texture_vector', n='domemaster_mib_texture_vector1', asUtility=True)
-    dome_tex_remap = cmds.shadingNode('mib_texture_remap', n='domemaster_mib_texture_remap1',  asUtility=True)
+    dome_tex_vector = cmds.shadingNode('mib_texture_vector', n='dome_mib_texture_vector1', asUtility=True)
+    dome_tex_remap = cmds.shadingNode('mib_texture_remap', n='dome_mib_texture_remap1',  asUtility=True)
 
     separation_map_mr_tex = cmds.shadingNode('mentalrayTexture', n='separation_map_mentalrayTexture1', asTexture=True)
     turn_map_mr_tex = cmds.shadingNode('mentalrayTexture', n='turn_map_mentalrayTexture1', asTexture=True)
@@ -308,7 +309,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
     # Maya 2017+ uses a maya file node based screen space texture approach
 
     # Create the nodes
-    dome_tex_vector = cmds.shadingNode('mib_texture_vector', n='domemaster_mib_texture_vector1', asUtility=True)
+    dome_tex_vector = cmds.shadingNode('mib_texture_vector', n='dome_mib_texture_vector1', asUtility=True)
 
     # Set the node to use mode (4) which is screen space
     cmds.setAttr(dome_tex_vector+'.selspace', 4)
@@ -348,9 +349,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
       cmds.connectAttr(dome_tex_vector+'.outValueY', tex+'.vCoord', f=True)
 
       # End of the "for tex" loop section
-      
-      
-      
+    
     # Assign an initial texture maps to the file nodes
     cmds.setAttr(separation_map_maya_tex+'.fileTextureName', separationMapFileTexture, type="string")
     cmds.setAttr(turn_map_maya_tex+'.fileTextureName', turnMapFileTexture, type="string")
@@ -487,7 +486,7 @@ def createRig(unusedBasename='DomeStereoCamera'):
 
   # Put a temp throwaway value of unusedBasename as the createRig input variable
   # Define basename here instead of the regular createRig() variable
-  basename='DomeStereoCamera' + randomLetterPostfix
+  basename = 'DomeStereoCamera' + randomLetterPostfix
 
   # Create the root of the rig
   # 
@@ -595,7 +594,7 @@ def createRig(unusedBasename='DomeStereoCamera'):
   cmds.addAttr(root, longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.01)
   cmds.setAttr(root+'.Cam_Locator_Scale', keyable=False, channelBox=True)
   
-  # Result: Connected DomeStereoCamera.Cam_Locator_Scale to DomeStereoCameraLeftShape.locatorScale. // 
+  # Result: Connected DomeStereoCamera.Cam_Locator_Scale to DomeStereoCameraLeftShape.locatorScale. # 
   cmds.connectAttr(root+'.Cam_Locator_Scale', centerCam+'.locatorScale', force=True)
   cmds.connectAttr(root+'.Cam_Locator_Scale', leftCam+'.locatorScale', force=True)
   cmds.connectAttr(root+'.Cam_Locator_Scale', rightCam+'.locatorScale', force=True)
@@ -619,7 +618,6 @@ def registerThisRig():
   """
   Registers the rig in Maya's database
   """
-
   mayaVersion = getMayaVersionDome()
   if(mayaVersion >= 2011):
     global rigTypeName 
@@ -627,6 +625,7 @@ def registerThisRig():
     cmds.stereoRigManager(cameraSetFunc=[rigTypeName, 'domeStereoRig.attachToCameraSet'])
   else:
     cmds.stereoRigManager(add=['StereoCamera', 'Python', 'maya.app.stereo.stereoCameraDefaultRig.createRig'])
+
 
 """
 A python function to get the current object's shape node
@@ -636,11 +635,11 @@ getObjectShapeNode("stereoCamera")
 """
 
 def getObjectShapeNode(object):
-    shape = cmds.listRelatives(object, children=True, shapes=True)
-    print('Shape: ')
-    print(shape)
-    
-    return shape
+  shape = cmds.listRelatives(object, children=True, shapes=True)
+  print('Shape: ')
+  print(shape)
+
+  return shape
 
 """
 A python function to get the current object's parent node
@@ -650,10 +649,10 @@ getObjectParentNode("nurbsSphereShape1")
 """
 
 def getObjectParentNode(object):
-    import maya.cmds as cmds
-    parent = cmds.listRelatives(object, parent=True)
-    
-    print('Parent: ')
-    print(parent)
-    
-    return parent
+  import maya.cmds as cmds
+  parent = cmds.listRelatives(object, parent=True)
+
+  print('Parent: ')
+  print(parent)
+
+  return parent

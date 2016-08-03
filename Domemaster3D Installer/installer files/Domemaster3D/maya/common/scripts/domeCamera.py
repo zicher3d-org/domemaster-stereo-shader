@@ -1,6 +1,6 @@
 """
 Domemaster3D Camera Setup Script V2.1
-2016-08-02 07.52 PM
+2016-08-02 09.51 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -1990,8 +1990,9 @@ def createRobLookup():
   # ---------------------------------------------------------------------
 
   mayaVersion = getMayaVersionDome()
-  #if (mayaVersion <= 2016):
   if (mayaVersion <= 2015):
+    # Temporary: Do the dev testing for Maya 2017 using Maya 2016
+  #if (mayaVersion <= 2016):
     # Maya 2010-2016.5 uses a stock mentalrayTexture approach
       
     # Create the nodes
@@ -2570,7 +2571,12 @@ getObjectShapeNode("stereoCamera")
 
 def getObjectShapeNode(object):
     import maya.cmds as cmds
-    return cmds.listRelatives( object, children=True , shapes=True)
+    
+    shape = cmds.listRelatives(object, children=True, shapes=True)
+    print('Shape: ')
+    print(shape)
+    
+    return shape
 
 
 """
@@ -2583,4 +2589,9 @@ getObjectParentNode("nurbsSphereShape1")
 
 def getObjectParentNode(object):
     import maya.cmds as cmds
-    return cmds.listRelatives( object, parent=True)
+    parent = cmds.listRelatives(object, parent=True)
+    
+    print('Parent: ')
+    print(parent)
+    
+    return parent

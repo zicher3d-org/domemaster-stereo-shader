@@ -13,15 +13,17 @@ CC=g++
 # Which version of Maya you are running with Arnold?
 #MAYA_VERSION=2012
 #MAYA_VERSION=2013
-# Current Build Version = 2014
-MAYA_VERSION=2014
+#MAYA_VERSION=2014
 #MAYA_VERSION=2015
+#MAYA_VERSION=2016
+# Current Build Version = 2017
+MAYA_VERSION=2017
 
 MTOA_SHADERS_DIR=$(HOME)/solidangle/mtoa/$(MAYA_VERSION)/shaders
 MTOA_TEMPLATE_DIR=$(HOME)/solidangle/mtoa/$(MAYA_VERSION)/scripts/mtoa/ui/ae
 
 # Which version of the Arnold API Devkit are you using?
-MTOA_API_VERSION=4.2.3.1
+MTOA_API_VERSION=4.2.14.0
 
 MTOA_DEV_DIR=$(HOME)/solidangle/Arnold-$(MTOA_API_VERSION)-linux
 MTOA_INCLUDE_DIR=$(MTOA_DEV_DIR)/include

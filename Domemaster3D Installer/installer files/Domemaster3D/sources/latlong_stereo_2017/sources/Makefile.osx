@@ -1,4 +1,4 @@
-# Mac OS X - latlong_lens Mental Ray Shader Makefile
+# Mac OS X - LatLong_Stereo Mental Ray Shader Makefile
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
@@ -8,13 +8,14 @@
 # You can install the files using the command
 # sudo make -f Makefile.osx install
 
-CC=g++
+CC = gcc
 
 #MAYA_DIR=/Applications/Autodesk/maya2011
 #MAYA_DIR=/Applications/Autodesk/maya2012
 #MAYA_DIR=/Applications/Autodesk/maya2013
 #MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2014
-MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
+#MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
+MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2016.5
 
 DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
 
@@ -24,39 +25,39 @@ DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
 # Maya 2013's mental ray directory:
 #MENTALRAY_DEV_DIR=/mentalray/devkit/include
 
-# Maya 2014/2015's mental ray devkit directory:
+# Maya 2014/2015/2016's mental ray devkit directory:
 MENTALRAY_DEV_DIR=/devkit/include
 
-INC=-I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
-LIB= 
-LIB_STATIC=
-CFLAGS=-c -O3 -fPIC -DBIT64 -dynamic -fno-common
-LIBTOOL=libtool
+INC = -I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
+LIB = 
+LIB_STATIC = 
+CFLAGS = -c -O3 -fPIC -DBIT64 -dynamic -fno-common
+LIBTOOL = libtool
 LDEXECFLAGS=-macosx_version_min 10.6
 
-OBJS = latlong_lens.o
-SRCS = latlong_lens.cpp
+OBJS = LatLong_Stereo.o 
+SRCS = LatLong_Stereo.c
 
-all: latlong_lens.dylib
+all: LatLong_Stereo.dylib 
 
 $(OBJS): 
 	$(CC) $(CFLAGS) $(INC) $(LIB) $(SRCS) $(LIB_STATIC)
 
-latlong_lens.dylib : $(OBJS) 
-	$(LIBTOOL) -flat_namespace -undefined suppress -dynamic $(LDEXECFLAGS) -o latlong_lens.dylib $(OBJS)
+LatLong_Stereo.dylib : $(OBJS) 
+	$(LIBTOOL) -flat_namespace -undefined suppress -dynamic $(LDEXECFLAGS) -o LatLong_Stereo.dylib  $(OBJS)
 
 clean: 
 	rm -rf $(OBJS) 
-	rm -rf latlong_lens.dylib
+	rm -rf LatLong_Stereo.dylib
 
 install:	
 	# MR Shaders Folder
-	#cp ./latlong_lens.dylib $(MAYA_DIR)/mentalray/shaders
-	#cp ./latlong_lens.mi $(MAYA_DIR)/mentalray/shaders/include
+	cp ./LatLong_Stereo.dylib $(MAYA_DIR)/mentalray/shaders
+	cp ./LatLong_Stereo.mi $(MAYA_DIR)/mentalray/shaders/include
   
   # Domemaster3D Shaders Folder
-	cp ./latlong_lens.dylib $(DOMEMASTER_DIR)
-	cp ./latlong_lens.mi $(DOMEMASTER_DIR )/include
+	cp ./LatLong_Stereo.dylib $(DOMEMASTER_DIR)
+	cp ./LatLong_Stereo.mi $(DOMEMASTER_DIR )/include
+
 
 go: clean all install
-

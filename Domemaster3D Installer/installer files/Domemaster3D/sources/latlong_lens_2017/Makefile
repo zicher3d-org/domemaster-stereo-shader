@@ -8,8 +8,9 @@ CC=g++
 #MAYA_DIR=/usr/autodesk/maya2011-x64
 #MAYA_DIR=/usr/autodesk/maya2012-x64
 #MAYA_DIR=/usr/autodesk/maya2013-x64
-MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
+#MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2015
+MAYA_DIR=/usr/autodesk/mentalrayForMaya2016.5
 
 DOMEMASTER_DIR=/opt/Domemaster3D/maya/shaders
 

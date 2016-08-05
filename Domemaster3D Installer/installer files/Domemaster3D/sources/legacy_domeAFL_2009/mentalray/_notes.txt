@@ -1,0 +1,2 @@
+Use this folder to copy includes and lib if you want to compile on a machine w/o 3ds Max.
+need to update project folders to point here.

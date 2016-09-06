@@ -21,7 +21,7 @@ Step 2. Build the Bitrock Install Builder based installers for Mac & Windows usi
 
 Step 3. Create the following ZIP archives:
 
-cd "/Applications/BitRock InstallBuilder Enterprise 16.4.0/output"
+cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output"
 
 Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip
     Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
@@ -50,6 +50,12 @@ Domemaster3D-X.X-windows-installer.zip
 zip -r Domemaster3D-X.X-windows-installer.zip "Domemaster3D Readme-Short.txt" "Domemaster3D-X.X-windows-installer.exe"
 
 Step 4. Upload the new release to GitHub and use the following format for the GitHub Releases Descriptions:
+
+Combined Download
+vX.X Domemaster3D vX.X for Maya + 3DS Max
+
+This is the Domemaster3D Shader vX.X release for Windows, Mac, and Linux. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2017. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+
 
 vX.XW
 Domemaster3D vX.X for Maya + 3DS Max on Windows 64-bit

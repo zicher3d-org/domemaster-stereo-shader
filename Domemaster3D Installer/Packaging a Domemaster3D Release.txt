@@ -21,8 +21,6 @@ Step 2. Build the Bitrock Install Builder based installers for Mac & Windows usi
 
 Step 3. Create the following ZIP archives:
 
-cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output"
-
 Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip
     Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
         Domemaster3D
@@ -30,6 +28,22 @@ Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip
         Mac OS X Installation Notes.txt
         Manual Install Guide.txt
 
+# Add the install notes
+cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+mkdir "Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install"
+
+cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Domemaster3D Readme-Short.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+
+cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Mac OS X Installation Notes.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+
+cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Manual Install Guide.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+
+cp -R "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+
+# Move the files into the "Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install" sub-folder manually and double check the release dates on the notes
+
+# Zip the files
+cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
 zip -r Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
 
 * * *
@@ -47,6 +61,10 @@ Domemaster3D-X.X-windows-installer.zip
     Domemaster3D Readme-Short.txt
     Domemaster3D-X.X-windows-installer.exe
 
+# Add the install notes
+cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Domemaster3D Readme-Short.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+
+cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
 zip -r Domemaster3D-X.X-windows-installer.zip "Domemaster3D Readme-Short.txt" "Domemaster3D-X.X-windows-installer.exe"
 
 Step 4. Upload the new release to GitHub and use the following format for the GitHub Releases Descriptions:

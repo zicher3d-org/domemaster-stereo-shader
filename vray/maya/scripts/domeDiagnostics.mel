@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V2.0.2
-  2016-08-12 02.15 PM
+  Dome Diagnostics Report Tool V2.1
+  2016-09-06 07.41 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,9 +10,9 @@
   Version History
   ----------------
 
-  Version 2.0.2
+  Version 2.1
   ------------------
-  2016-08-12
+  2016-09-06
   
   Added Maya workspaces support for filepaths
   
@@ -22,7 +22,7 @@
   source "domeDiagnostics.mel"; domeOpenVrayRenderLogFile();
   
   Added a function for opening the current Maya project folder:
-  source "domeDiagnostics.mel"; domeOpenSceneDirectory();
+  source "domeDiagnostics.mel"; domeOpenProjectDirectory();
   
   Updated the log file opening functions
   
@@ -350,7 +350,7 @@ global proc domeDiagnostics(){
   string $domeDebugText = "";
   print ("Writing Domemaster3D Diagnostics Report to: " + $domeDebugLogPathString + "\r\n");
 
-  $domeDebugText += "# Domemaster3D Diagnostics Tool V2 #\r\n";
+  $domeDebugText += "# Domemaster3D Diagnostics Tool V2.1 #\r\n";
   $domeDebugText +=  "-----------------------------------------\r\n\r\n";
   $domeDebugText += "Log Creation: " + `date` + "  \r\n";
   $domeDebugText += "Computer: " + $computerName + "  \r\n";

@@ -293,14 +293,14 @@ img {
 <body>
 <h1>Arnold Domemaster3D Guide</h1>
 <hr />
-<p>2015-10-09 </p>
+<p>2016-09-06</p>
 <p><img src="http://www.andrewhazelden.com/projects/domemaster3D/wiki/arnold/mtoa_domemasterstereo.png" alt="Domemaster3D Shader Running on MtoA" /></p>
 <h2>Overview</h2>
 <p>The Domemaster Stereo Shader is a set of fulldome stereo and latlong stereo production lens shaders for 3DS Max, Maya, Softimage, Houdini, Maxwell Studio, Mental Ray Standalone, and Arnold Standalone. The lens shaders are available for Mental Ray and Arnold, and comes integrated in Maxwell Render version 3.2+.</p>
 <p>This guide covers the Arnold version of the Domemaster Stereo Shader.</p>
 <p><strong>Tip:</strong> After you use the Maya shelf tools to add a fulldome or latlong stereo camera rig to your scene, you need to adjust the left camera in the stereo rig to change the &quot;linked&quot; lens shader attributes for the <strong>LatLongStereo</strong> or <strong>DomemasterStereo</strong> rigs.</p>
 <h2>Known Issues</h2>
-<p>The current version of the Arnold Domemaster3D shaders (as of 2015-10-09) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.</p>
+<p>The current version of the Arnold Domemaster3D shaders (as of 2016-09-06) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.</p>
 <p>The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. </p>
 <p>The LatLongStereo shader should be rendered with a 2:1 aspect ratio to avoid vertically over-rendering the scene's FOV angle.</p>
 <p>At this point, the DomemasterStereo shader will render a stereo fulldome image but you will notice something that looks like a small &quot;swirly region&quot; in the zenith part of the fulldome frame. This is due to a lack of a screen space turn map texture. </p>
@@ -317,21 +317,10 @@ img {
 <h2>Maya Shader Installation</h2>
 <h3>Windows 64-bit</h3>
 <p><strong>Step 1.</strong> Download and install the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">Visual Studio 2012 (VC++ 11.0) Redistributable Package</a>.</p>
-<p><strong>Step 2.</strong> Download and install the file &quot;Domemaster3D v1.9 for Maya + 3DS Max on Windows 64-bit&quot; from the <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/releases">Domemaster Project's GitHub Releases</a> page or from <a href="http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/">Andrew Hazelden's blog</a>.</p>
+<p><strong>Step 2.</strong> Download and install the file &quot;Domemaster3D v2.1 for Maya + 3DS Max on Windows 64-bit&quot; from the <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/releases">Domemaster Project's GitHub Releases</a> page or from <a href="http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/">Andrew Hazelden's blog</a>.</p>
 <p><strong>Step 3.</strong> Open up the new Domemaster3D folder:</p>
-<p><code>C:\Program Files\Domemaster3D\arnold\mtoa\</code></p>
-<p>Then copy the .dll and .mtd files from to the Domemaster3D mtoa &quot;Shaders&quot; folder to the Arnold shaders directory:</p>
-<p><code>C:\solidangle\mtoa\&lt;Version&gt;\shaders\</code></p>
-<p>Maya Shader Files:</p>
-<pre><code>DomemasterStereo.dll
-DomemasterStereo.mtd
-DomemasterWxH.dll
-DomemasterWxH.mtd
-LatLongStereo.dll
-LatLongStereo.mtd
-</code></pre>
-
-<p><strong>Step 4.</strong> Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D &quot;modules&quot; folder to:</p>
+<p><code>C:\Program Files\Domemaster3D\arnold\mtoa\modules</code></p>
+<p>Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D &quot;modules&quot; folder to:</p>
 <p>(Single User Modules Install)</p>
 <p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Maya Version&gt;\modules\</code></p>
 <p>If the modules folder doesn't exist in the destination folder path, then create the modules directory too.</p>
@@ -341,10 +330,11 @@ LatLongStereo.mtd
 <p><strong>Step 5.</strong> Copy the Maya shelf file from the Domemaster3D MtoA &quot;common\shelves&quot; folder to your user account's Maya shelves folder.</p>
 <p><code>C:\Users\&lt;User Account&gt;\Documents\maya\&lt;Maya Version&gt;\prefs\shelves\</code></p>
 <p><strong>Step 6.</strong>
-Edit your Windows Environment variables using the System Control Panel to include Arnold's env vars and path:  </p>
-<pre><code>PATH=C:\solidangle\mtoadeploy\2016\bin\
-ARNOLD_PLUGIN_PATH=C:\solidangle\mtoadeploy\2016\shaders
-MAYA_RENDER_DESC_PATH=C:\solidangle\mtoadeploy\2016\
+Edit your Windows Environment variables using the System Control Panel to include Arnold's env vars and path:  
+</p>
+<pre><code>PATH=C:\solidangle\mtoadeploy\2017\bin\
+ARNOLD_PLUGIN_PATH=C:\solidangle\mtoadeploy\2017\shaders;C:\Program Files\Domemaster3D\arnold\mtoa\shaders
+MAYA_RENDER_DESC_PATH=C:\solidangle\mtoadeploy\2017\
 solidangle_LICENSE=5053@&lt;Write Your RLM Server Address Here&gt;
 </code></pre>
 
@@ -355,21 +345,8 @@ solidangle_LICENSE=5053@&lt;Write Your RLM Server Address Here&gt;
 <h3>Mac 64-bit</h3>
 <p><strong>Step 1.</strong> Download and install the file &quot;Domemaster3D for Maya on Mac OS X&quot; from the <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/releases">Domemaster Project's GitHub Releases</a> page or from <a href="http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/">Andrew Hazelden's blog</a>.</p>
 <p><strong>Step 2.</strong> Open up the new Domemaster3D folder:
-<code>/Applications/Domemaster3D/arnold/mtoa/</code></p>
-<p>Then copy the .dylib and .mtd files from to the Domemaster3D mtoa &quot;Shaders&quot; folder to the Arnold shaders directory:</p>
-<p><code>/Applications/solidangle/mtoa/&lt;Version&gt;/shaders/</code></p>
-<p>or</p>
-<p><code>~/solidangle/mtoa/&lt;Version&gt;/shaders/</code></p>
-<p>Maya Shader Files:</p>
-<pre><code>DomemasterStereo.dylib
-DomemasterStereo.mtd
-DomemasterWxH.dylib
-DomemasterWxH.mtd
-LatLongStereo.dylib
-LatLongStereo.mtd
-</code></pre>
-
-<p><strong>Step 3.</strong> Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D mtoa &quot;common/modules&quot; folder to:</p>
+<code>/Applications/Domemaster3D/arnold/mtoa/modules</code></p>
+<p>Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D mtoa &quot;common/modules&quot; folder to:</p>
 <p>(Single User Modules Install)</p>
 <p><code>/Users/&lt;User Account&gt;/Library/Preferences/Autodesk/maya/&lt;Maya Version&gt;/modules/</code></p>
 <p>or</p>
@@ -380,9 +357,9 @@ LatLongStereo.mtd
 <p><code>/Users/&lt;User Account&gt;/Library/Preferences/Autodesk/maya/&lt;Maya Version&gt;/prefs/shelves/</code></p>
 <p><strong>Step 5.</strong> (Optional) Edit your <code>.bash_profile</code> to include Arnold's env vars and path:</p>
 <pre><code># Arnold Settings
-export PATH=&quot;$PATH:/Applications/solidangle/mtoa/2016/bin/&quot;
-export ARNOLD_PLUGIN_PATH=&quot;/Applications/solidangle/mtoa/2016/shaders&quot;
-export MAYA_RENDER_DESC_PATH=&quot;/Applications/solidangle/mtoa/2016/&quot;
+export PATH=&quot;$PATH:/Applications/solidangle/mtoa/2017/bin/&quot;
+export ARNOLD_PLUGIN_PATH=&quot;/Applications/solidangle/mtoa/2017/shaders:/Applications/Domemaster3D/arnold/mtoa/shaders&quot;
+export MAYA_RENDER_DESC_PATH=&quot;/Applications/solidangle/mtoa/2017/&quot;
 export solidangle_LICENSE=5053@&lt;Write Your RLM Server Address Here&gt;
 </code></pre>
 
@@ -393,19 +370,8 @@ export solidangle_LICENSE=5053@&lt;Write Your RLM Server Address Here&gt;
 <h3>Linux 64-bit</h3>
 <p><strong>Step 1.</strong> Download and install the file &quot;Domemaster3D Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux&quot; from the <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/releases">Domemaster Project's GitHub Releases</a> page or from <a href="http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/">Andrew Hazelden's blog</a>.</p>
 <p><strong>Step 2.</strong> Open up the new Domemaster3D folder:</p>
-<p><code>/opt/Domemaster3D/arnold/mtoa/</code></p>
-<p>Copy the .so and .mtd files from to the Domemaster3D mtoa &quot;Shaders&quot; folder to the Arnold shaders directory:</p>
-<p><code>/opt/solidangle/mtoa/&lt;Version&gt;/shaders/</code></p>
-<p>Maya Shader Files:</p>
-<pre><code>DomemasterStereo.so
-DomemasterStereo.mtd
-DomemasterWxH.so
-DomemasterWxH.mtd
-LatLongStereo.so
-LatLongStereo.mtd
-</code></pre>
-
-<p><strong>Step 3.</strong> Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D &quot;modules&quot; folder to:</p>
+<p><code>/opt/Domemaster3D/arnold/mtoa/modules</code></p>
+<p>Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D &quot;modules&quot; folder to:</p>
 <p>(Single User Modules Install)</p>
 <p><code>~/maya/&lt;Maya Version&gt;/modules/</code></p>
 <p>If the modules folder doesn't exist in the destination folder path, then create the modules directory too.</p>
@@ -413,9 +379,9 @@ LatLongStereo.mtd
 <p><code>~/maya/&lt;Maya Version&gt;/prefs/shelves/</code></p>
 <p><strong>Step 6.</strong> Edit your .bash_profile to include Arnold's env vars and path:</p>
 <pre><code># Arnold Settings
-export PATH=&quot;$PATH:/opt/solidangle/mtoa/2016/bin/&quot;
-export ARNOLD_PLUGIN_PATH=&quot;/opt/solidangle/mtoa/2016/shaders&quot;
-export MAYA_RENDER_DESC_PATH=&quot;/opt/solidangle/mtoa/2016/&quot;
+export PATH=&quot;$PATH:/opt/solidangle/mtoa/2017/bin/&quot;
+export ARNOLD_PLUGIN_PATH=&quot;/opt/solidangle/mtoa/2017/shaders:/opt/Domemaster3D/arnold/mtoa/shaders&quot;
+export MAYA_RENDER_DESC_PATH=&quot;/opt/solidangle/mtoa/2017/&quot;
 export solidangle_LICENSE=&quot;5053@&lt;Write Your RLM Server Address Here&gt;&quot;
 </code></pre>
 
@@ -557,6 +523,8 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 <li>Daniel Ott created the original 2D <code>domeAFL_FOV</code>, and <code>domeAFL_WxH</code> lens shaders for mental ray.</li>
 </ul>
 <h2>Version History</h2>
+<h3>Version 2.1 - 2016-09-06</h3>
+<p>Improved the Domemaster3D/Arnold for Maya integration. Updated the &quot;ArnoldDomemaster3D.mod&quot; Maya module file, updated the shelf tool items, and added a new &quot;Arnold Domemaster3D&quot; menu in the Maya rendering menu set.</p>
 <h3>Version 1.7 - 2015-05-07</h3>
 <p>Updated the Maya shelf tools to add a new Automagic LatLong Stereo option</p>
 <p>Updated the python script that creates the Arnold LatLongStereo and DomeStereo cameras. The stereo rig manager defaultRig value is now switched automatically when a LatLongStereo or DomeStereo camera is created. This fixes an alignment issue that happened when the wrong stereo camera defaultRig was active when creating a new camera in Arnold.</p>

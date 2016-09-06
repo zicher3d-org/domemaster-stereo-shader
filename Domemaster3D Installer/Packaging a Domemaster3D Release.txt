@@ -7,7 +7,7 @@ cd /cygdrive/x/GitHub/domemaster-stereo-shader
 
 # or 
 
-cd "/Personal Documents/GitHub/domemaster-stereo-shader/mentalray/Domemaster3D Installer/"
+cd "/Personal Documents/GitHub/domemaster-stereo-shader/"
 
 
 find . -name '*.DS_Store' -type f -delete

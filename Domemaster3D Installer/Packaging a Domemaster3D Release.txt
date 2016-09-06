@@ -1,4 +1,4 @@
-Packaging a Domemaster3D Release - 2016-06-22
+Packaging a Domemaster3D Release - 2016-09-06
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
 Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files and Windows thumbnails, too:
@@ -53,20 +53,20 @@ Step 4. Upload the new release to GitHub and use the following format for the Gi
 
 vX.XW
 Domemaster3D vX.X for Maya + 3DS Max on Windows 64-bit
-This is the Domemaster3D Shader vX.X release for Maya + 3DS Max on Windows 64-bit systems. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2016.5. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+This is the Domemaster3D Shader vX.X release for Maya + 3DS Max on Windows 64-bit systems. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2017. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
 
 
 vX.XM
 Domemaster3D vX.X for Maya on Mac OS X
 This is the Domemaster3D Shader vX.X release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
 
-This update adds support for Maya 2016.5.
+This update adds support for Maya 2017.
 
 vX.XL
 Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux
 This is the Domemaster3D Shader vX.X manual install release for Maya + 3DS Max + Mental Ray Standalone. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders.
 
-This update adds support for Maya 2016.5 and 3DS Max 2017.
+This update adds support for Maya 2017.
 
 Step 5. Update the GitHub based Version History Wiki page with the details from the Domemaster3D Readme-Short.txt file:
 https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Version-History

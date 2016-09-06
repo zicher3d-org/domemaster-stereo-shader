@@ -1,7 +1,7 @@
 /*
 Create the VRay Domemaster3D Main Menu in the Rendering menu set
 Version 2.1
-2016-07-28 Maya 2011+
+2016-09-06 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -142,7 +142,7 @@ global proc editVrayDomeDiagOpenMenuItems(){
 
 menuItem -edit 
   -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
-  DomeDiagOpenScenesMenu;
+  VrayDomeDiagOpenScenesMenu;
 
 menuItem -edit 
   -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
@@ -387,13 +387,21 @@ global proc createVrayDomemaster3DMenu() {
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
   
   menuItem 
+    -label "Open Maya Project Folder"
+    //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
+    -annotation "Opening the folder for the current project."
+    -imageOverlayLabel "PRO"
+    -image "domeVray_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
+    VrayDomeDiagOpenProjectsMenu;
+  menuItem 
     -label "Open Scenes Folder"
     //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
     -annotation "Opening the \"Scenes\" folder for the current project."
     -imageOverlayLabel "SCN"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
-    DomeDiagOpenScenesMenu;
+    VrayDomeDiagOpenScenesMenu;
   menuItem 
     -label "Open Sourceimages Folder"
     //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
@@ -401,7 +409,7 @@ global proc createVrayDomemaster3DMenu() {
     -imageOverlayLabel "SRC"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
-    DomeDiagOpenSourceImagesMenu;
+    VrayDomeDiagOpenSourceImagesMenu;
   menuItem 
     -label "Open Images Folder"
     -annotation "Opening the \"Images\" folder for the current project."

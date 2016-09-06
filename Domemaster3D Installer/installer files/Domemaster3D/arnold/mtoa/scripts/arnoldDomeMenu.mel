@@ -1,7 +1,7 @@
 /*
 Create the Arnold Domemaster3D Main Menu in the Rendering menu set
 Version 2.1
-2016-07-28 Maya 2011+
+2016-09-06 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -142,7 +142,7 @@ global proc editArnoldDomeDiagOpenMenuItems(){
 
 menuItem -edit 
   -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
-  DomeDiagOpenScenesMenu;
+  ArnoldDomeDiagOpenScenesMenu;
 
 menuItem -edit 
   -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
@@ -357,7 +357,15 @@ global proc createArnoldDomemaster3DMenu() {
   // Build the scene directory path
   string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
-  
+	
+  menuItem 
+    -label "Open Maya Project Folder"
+    //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
+    -annotation "Opening the folder for the current project."
+    -imageOverlayLabel "PRO"
+    -image "domeArnold_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
+    ArnoldDomeDiagOpenProjectsMenu;
   menuItem 
     -label "Open Scenes Folder"
     //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
@@ -365,7 +373,7 @@ global proc createArnoldDomemaster3DMenu() {
     -imageOverlayLabel "SCN"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
-    DomeDiagOpenScenesMenu;
+    ArnoldDomeDiagOpenScenesMenu;
   menuItem 
     -label "Open Sourceimages Folder"
     //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
@@ -373,7 +381,7 @@ global proc createArnoldDomemaster3DMenu() {
     -imageOverlayLabel "SRC"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
-    DomeDiagOpenSourceImagesMenu;
+    ArnoldDomeDiagOpenSourceImagesMenu;
   menuItem 
     -label "Open Images Folder"
     -annotation "Opening the \"Images\" folder for the current project."

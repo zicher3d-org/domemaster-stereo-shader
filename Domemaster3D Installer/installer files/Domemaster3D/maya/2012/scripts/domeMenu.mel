@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
 Version 2.0
-2016-08-02 Maya 2011 - Maya 2017+ Compatible Menu
+2016-09-06 Maya 2011 - Maya 2017+ Compatible Menu
 
 Note: Disabled the mentalrayTexture based tools for Mental Ray 3.14/Maya 2017+
 ------------------------------------------------------------------------------
@@ -132,24 +132,23 @@ global proc createDomeRigSubmenu(){
 
 global proc editDomeDiagOpenMenuItems(){
   // Get the current project folder name
-  string $projPath = `workspace -q -rootDirectory`;
+  string  $projPath = `workspace -q -rootDirectory`;
   
-  // Build the images directory path
-  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
-  string $imagesPath = `workspace -expandName $imageWorkspace`;
-
-  // Build the scene directory path
+  // Get the Maya project's scenes folder
   string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
-	string $scenesPath = `workspace -expandName $scenesWorkspace`;
+  string $scenesDirPath = `workspace -expandName $scenesWorkspace`;
+
+  // Get the Maya project's images folder
+  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
+  string $imageDirPath = `workspace -expandName $imageWorkspace`;
 
 menuItem -edit 
-  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
+  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesDirPath)
   DomeDiagOpenScenesMenu;
 
 menuItem -edit 
-  -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
+  -annotation ("Opening the \"Images\" folder for the current project: " + $imageDirPath)
   DomeDiagOpenImagesMenu;
-
 }
 
 // Run the menu update command
@@ -433,6 +432,14 @@ global proc createDomemaster3DMenu() {
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
   
   menuItem 
+    -label "Open Maya Project Folder"
+    //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
+    -annotation "Opening the folder for the current project."
+    -imageOverlayLabel "PRO"
+    -image "dome_directory.png"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
+    DomeDiagOpenProjectsMenu;
+  menuItem
     -label "Open Scenes Folder"
     //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
     -annotation "Opening the \"Scenes\" folder for the current project."

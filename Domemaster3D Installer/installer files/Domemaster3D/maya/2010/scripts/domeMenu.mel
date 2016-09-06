@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
 Version 1.9
-2015-09-23 Maya 2010
+2016-09-06 Maya 2010
 ------------------------------------------------------------------------------
 
 Notes:
@@ -146,19 +146,22 @@ global proc createDomeRigSubmenu(){
 global proc editDomeDiagOpenMenuItems(){
   // Get the current project folder name
   string  $projPath = `workspace -q -rootDirectory`;
-  // Build the images directory path
-  string $imagesPath = $projPath + "images";
-  // Build the scene directory path
-  string $scenesPath = $projPath + "scenes";
+  
+  // Get the Maya project's scenes folder
+  string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
+  string $scenesDirPath = `workspace -expandName $scenesWorkspace`;
+
+  // Get the Maya project's images folder
+  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
+  string $imageDirPath = `workspace -expandName $imageWorkspace`;
 
 menuItem -edit 
-  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
+  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesDirPath)
   DomeDiagOpenScenesMenu;
 
 menuItem -edit 
-  -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
+  -annotation ("Opening the \"Images\" folder for the current project: " + $imageDirPath)
   DomeDiagOpenImagesMenu;
-
 }
 
 //Run the menu update command
@@ -433,12 +436,23 @@ global proc createDomemaster3DMenu() {
 
   // Get the current project folder name
   string  $projPath = `workspace -q -rootDirectory`;
-  // Build the images directory path
-  string $imagesPath = $projPath + "images";
-  // Build the scene directory path
-  string $scenesPath = $projPath + "scenes";
-
   
+  // Build the images directory path
+  string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
+  string $imagesPath = `workspace -expandName $imageWorkspace`;
+
+  // Build the scene directory path
+  string $scenesWorkspace = `workspace -query -fileRuleEntry "scene"`;
+	string $scenesPath = `workspace -expandName $scenesWorkspace`;
+  
+  menuItem 
+    -label "Open Maya Project Folder"
+    //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
+    -annotation "Opening the folder for the current project."
+    -imageOverlayLabel "PRO"
+    -image "dome_directory.xpm"
+    -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
+    DomeDiagOpenProjectsMenu;
   menuItem 
     -label "Open Scenes Folder"
     //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)

@@ -90,7 +90,9 @@ Maya
   Added support in Maya 2016/2017 for creating Maya file node based screen space texture maps in the LatLong_Stereo and domeAFL_FOV_Stereo shaders, and in the screen space texture map shelf tool with the help of a mib_texture_vector node and a place2Dtexture node. This replaces the previous mentalrayTexture node based approach that has been depreciated in the Maya 2017/mental ray 3.14 beta releases.
 
   Updated the mental ray shader source code to create a new mental ray 3.14 version of the code that will support the new ray differential texture sampling mode. This new rendering mode will hopefully eliminate the "blurry streak" lens shader artifact seen on Maya file node based textures in panoramic scenes and remove the need to use mental ray native textures as a work around. This ray differential based lens shader feature can't be enabled until the beta 9 release of mental ray for Maya 2017 is released.
-
+  
+  Added a new Open Maya Project Folder "PRO" shelf button and Domemaster3D menu item. This button makes it easy to open the current Maya project folder in a new Finder/Explorer/Nautilus file browser window.
+  
 Version 2.0
 -------------
 2016-06-22

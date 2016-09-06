@@ -402,7 +402,32 @@ global proc shelf_ArnoldDomemaster3D () {
         -commandRepeatable 1
         -flat 1
     ;
-    
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the current Maya project folder." 
+        -enableBackground 0
+        -align "center" 
+        -label "Open Maya Project Folder" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "PRO" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeArnold_directory.png" 
+        -image1 "domeArnold_directory.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1

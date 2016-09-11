@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1 - September 6, 2016
+Version 2.1.1 - September 11, 2016
 
 About This Shader
 ---------------------
@@ -66,6 +66,13 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 
 Version History
 -----------------
+
+Version 2.1.1
+-------------
+2016-09-11
+
+Arnold
+  Updated the LatLong Stereo shader defaults for the camera orientation and enabled the Zenith Mode checkbox
 
 Version 2.1
 -------------

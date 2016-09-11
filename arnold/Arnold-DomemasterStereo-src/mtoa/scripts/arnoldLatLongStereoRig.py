@@ -1,10 +1,16 @@
 """
- Arnold LatLong_Stereo Camera Rig V1.7
- 2015-05-08 11.30 pm
+ Arnold LatLong_Stereo Camera Rig V2.1.1
+ 2016-09-11 10.49 AM
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
+ 
+Version 2.1.1
+ ---------------
+ 2016-09-11
+ 
+ Switched the LatLong Stereo camera rig to use a Y-axis upright orientation by default with the Zenith Mode checkbox enabled.
  
  Version 1.6
  ---------------
@@ -26,25 +32,25 @@ def getMayaVersionDome():
   import maya.mel as mel
   import maya.cmds as cmds
 
-  #Check what Maya version is active
+  # Check what Maya version is active
 
-  #Check if we are running Maya 2011 or higher
+  # Check if we are running Maya 2011 or higher
   mayaVersion = mel.eval("getApplicationVersionAsFloat;")
 
-  #Test this GUI using the Maya 2010 - non-docked GUI mode
+  # Test this GUI using the Maya 2010 - non-docked GUI mode
   #mayaVersion = 2010;
 
-  #Write out the current Maya version number
+  # Write out the current Maya version number
   print("Maya " + str(mayaVersion) + " detected.\n")
   
   return mayaVersion
 
 #-----------------------------------------------------------------------------
 
-#Setup the stereo rig libraries
+# Setup the stereo rig libraries
 import maya.cmds as cmds
 
-#Check if we are running Maya 2011+ and then add the stereoCameraSets module
+# Check if we are running Maya 2011+ and then add the stereoCameraSets module
 mayaVersion = getMayaVersionDome()
 if (mayaVersion >= 2011):
   from maya.app.stereo import stereoCameraSets
@@ -65,13 +71,13 @@ def getSourceImagesPath(imageFileName):
   import maya.mel as mel
   
   # ---------------------------------------------------------------------
-  #Setup the base folder path for the Domemaster3D control maps
+  # Setup the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
 
-  #Check OS platform for Windows/Mac/Linux Paths
+  # Check OS platform for Windows/Mac/Linux Paths
   import platform
 
-  #This is the base path for the images folder
+  # This is the base path for the images folder
   baseImagesFolder = ""
   
   # Try and read the value from the current Maya.env file's environment variables
@@ -112,10 +118,10 @@ def createLensShaders(centerCam, leftCam, rightCam):
   import maya.cmds as cmds
   print "[Center] " + centerCam + " [Left] " + leftCam + " [Right] " + rightCam
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------
   
-  #Variables
+  # Variables
   # separationMapFileTexture = getSourceImagesPath("latlong_separation_map.png") 
   # turnMapFileTexture = getSourceImagesPath("latlong_turn_map.png")
   # tiltMapFileTexture = getSourceImagesPath("latlong_head_tilt_map.png")
@@ -131,12 +137,14 @@ def createLensShaders(centerCam, leftCam, rightCam):
     cmds.setAttr( rightCam+'.ai_translator', cameraType, type='string')
     
     # ---------------------------------------------------------------------
-    # Create the fulldome nodes for the rig
+    # Create the LatLong nodes for the rig
     # ---------------------------------------------------------------------
-    #cmds.setAttr( centerCam+'.aiCamera', 0 ) #Set the view to center
+    #cmds.setAttr( centerCam+'.aiCamera', 0 ) # Set the view to center
     
-    cmds.setAttr( leftCam+'.aiCamera', 1 ) #Set the view to left
-    cmds.setAttr( rightCam+'.aiCamera', 2 ) #Set the view to right
+    cmds.setAttr( leftCam+'.aiCamera', 1 ) # Set the view to left
+    cmds.setAttr( rightCam+'.aiCamera', 2 ) # Set the view to right
+
+    cmds.setAttr( leftCam+'.aiZenithMode', 1 ) # Set the Zenith Mode to ON
 
     # ---------------------------------------------------------------------
     # Link the common left and right camera attributes to the center camera
@@ -166,7 +174,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
     cmds.connectAttr( leftCam+'.aiParallaxDistance', centerCam+'.zeroParallax', force=True )
     cmds.connectAttr( leftCam+'.aiSeparation', centerCam+'.interaxialSeparation', force=True )
 
-    #Turn off the Stereo 3D effect on the native Maya camera rig
+    # Turn off the Stereo 3D effect on the native Maya camera rig
     # This skips the need for a pre-render and post-render mel script.
     cmds.setAttr( centerCam+'.stereo',  0 )
   
@@ -260,14 +268,14 @@ def createRig(unusedBasename='ArnoldLatLongStereoCamera'):
   object that will be created.
   """
 
-  #Create a random camera letter "extension" to fix the unique camera issue with the camera aim, and aim+up add-on bug
+  # Create a random camera letter "extension" to fix the unique camera issue with the camera aim, and aim+up add-on bug
   import string
   import random
   randomLetterPostfix = random.choice(string.ascii_uppercase)
   #print ("The StereoCameraRig Random letter extension is: ArnoldLatLongStereoCamera" + randomLetterPostfix)
 
-  #Put a temp throwaway value of unusedBasename as the createRig input variable
-  #Define basename here instead of the regular createRig() variable
+  # Put a temp throwaway value of unusedBasename as the createRig input variable
+  # Define basename here instead of the regular createRig() variable
   basename='ArnoldLatLongStereoCamera' + randomLetterPostfix
 
   # Create the root of the rig
@@ -343,12 +351,13 @@ def createRig(unusedBasename='ArnoldLatLongStereoCamera'):
   #cmds.setAttr( centerCam + '.zeroParallax', 0.1 )
   #cmds.setAttr( centerCam + '.interaxialSeparation', 0 )
   
-  # Create the fulldome stereo lens shaders
+  # Create the LatLong stereo lens shaders
   createLensShaders(centerCam, leftCam, rightCam)
   
-  #Align the base camera to point upwards
-  #cmds.setAttr( root+'.rotateX', 90)
-  cmds.setAttr( root+'.rotateX', 0)
+  # Align the base camera to point upwards
+  cmds.setAttr( root+'.rotateX', 90)
+  
+  # cmds.setAttr( root+'.rotateX', 0)
   cmds.setAttr( root+'.rotateY', 0)
   cmds.setAttr( root+'.rotateZ', 0)
   

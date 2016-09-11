@@ -4,7 +4,7 @@
 # the Production of immersive spherical animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2015-08-12 01.00 pm
+# 2016-09-11 10.36 AM
 
 [node LatLongStereo]
     desc                        STRING "LatLong Stereo Shader"
@@ -68,7 +68,7 @@
     [attr zenith_mode]
       label                      STRING "Zenith Mode"
       desc                       STRING "Zenith Mode"
-      default                    BOOL   False
+      default                    BOOL   True
       maya.channelbox            BOOL   False
     [attr separation_map]
       label                      STRING "Separation Map"

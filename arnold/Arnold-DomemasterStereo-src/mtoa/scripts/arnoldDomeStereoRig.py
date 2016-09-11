@@ -1,10 +1,16 @@
 """
- Arnold Domemaster3D Fulldome Stereo Rig V1.7
- 2015-05-08 11.30 pm
+ Arnold Domemaster3D Fulldome Stereo Rig V2.1.1
+2016-09-11 10.45 AM
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
+ 
+ Version 2.1.1
+ ---------------
+ 2016-09-11
+ 
+ Code reformatting
  
  Version 1.6
  ---------------

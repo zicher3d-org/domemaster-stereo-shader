@@ -1,6 +1,6 @@
 """
-Dome Material Script V2.0
-2016-05-27
+Dome Material Script V2.1
+2016-09-15
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -15,6 +15,11 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+Version 2.1 - 2016-09-15
+-------------------------------
+Improved the domeMaterial.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings.
+
 
 Version 2.0
 -------------
@@ -685,6 +690,7 @@ def createDomeViewerTexture( meshName, isGrid ):
   PreviewShapeExpr += domeViewer_maya_tex + ".colorGainB = " + domeRadiusTransform+ ".colorTintColorB" + " * " + domeRadiusTransform+ ".exposure;"+ "\n\n"
 
   # Visibility Controls
+  PreviewShapeExpr += "string $currentPanel;\n"
   PreviewShapeExpr += "if (  " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  //Off Mode\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -698,10 +704,10 @@ def createDomeViewerTexture( meshName, isGrid ):
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
   PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 2 ){\n"
   PreviewShapeExpr += "  //Shaded Mode\n"
-  PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
-  PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -710,10 +716,10 @@ def createDomeViewerTexture( meshName, isGrid ):
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
   PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 3 ){\n"
   PreviewShapeExpr += "  //Wireframe on Shaded Mode\n"
-  PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
-  PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"

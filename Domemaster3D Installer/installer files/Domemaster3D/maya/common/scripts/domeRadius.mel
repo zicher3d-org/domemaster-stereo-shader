@@ -1,5 +1,5 @@
 /*
-  domeRadius V1.9
+  domeRadius V2.1
   by Andrew Hazelden
 
   This is a Maya MEL script for creating the preview shape for the DomeAFL_FOV
@@ -10,6 +10,10 @@
 
   Version History
   ----------------
+
+  Version 2.1 - 2016-09-15
+  -------------------------------
+  Improved the domeRadius.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings.
 
   Version 1.8 - 2015-07-27 
   -------------------------------
@@ -271,9 +275,9 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     }
     
     // Add the NURBS preview curve name
-    string $attrName ="previewCurve";
+    $attrName ="previewCurve";
     //string $shapeName ="DomeStereoCameraPreviewCurve";
-    string $shapeName = ($domeRadiusCurveName[0]);
+    $shapeName = ($domeRadiusCurveName[0]);
     if (!`attributeExists $attrName $nodeName`) {
       addAttr -ln $attrName -dt "string" $nodeName;
       setAttr -e-channelBox true ($nodeName+"."+$attrName);
@@ -406,6 +410,7 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     string $PreviewShapeExpr = "";
 
     $PreviewShapeExpr += "// Custom " + $previewAttrName + " Preview Shape Expressions\n\n";
+    $PreviewShapeExpr += "string $currentPanel;\n";
     $PreviewShapeExpr += "if (  " + $lensShaderName + "." + $previewAttrName + " == 0){\n";
     $PreviewShapeExpr += "  //Off Mode\n";
     $PreviewShapeExpr += "  " + $domeSurfaceShape + ".overrideDisplayType = 2;\n";
@@ -417,10 +422,10 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     $PreviewShapeExpr += "  " + $domeRadiusTransform + ".visibility = 1;\n";
     $PreviewShapeExpr += "} else if (" + $lensShaderName + "." + $previewAttrName + " == 2 ){\n";
     $PreviewShapeExpr += "  //Shaded Mode\n";
-    $PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n";
+    $PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n";
     $PreviewShapeExpr += "  if ( `modelEditor -exists $currentPanel` )\n";
     $PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 $currentPanel;\n";
-    $PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n";
+    $PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n";
     $PreviewShapeExpr += "  if ( `modelEditor -exists $currentPanel` )\n";
     $PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 $currentPanel;\n";
     $PreviewShapeExpr += "  " + $domeSurfaceShape + ".overrideDisplayType = 2;\n";
@@ -428,10 +433,10 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
     $PreviewShapeExpr += "  " + $domeRadiusTransform + ".visibility = 1;\n";
     $PreviewShapeExpr += "} else if (" + $lensShaderName + "." + $previewAttrName + " == 3 ){\n";
     $PreviewShapeExpr += "  //Wireframe on Shaded Mode\n";
-    $PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n";
+    $PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n";
     $PreviewShapeExpr += "  if ( `modelEditor -exists $currentPanel` )\n";
     $PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 $currentPanel;\n";
-    $PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n";
+    $PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n";
     $PreviewShapeExpr += "  if ( `modelEditor -exists $currentPanel` )\n";
     $PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 $currentPanel;\n";
     $PreviewShapeExpr += "  " + $domeSurfaceShape + ".overrideDisplayType = 2;\n";
@@ -493,16 +498,16 @@ global proc addDomePreviewRig (string $cameraName, string $lensShaderName){
 
 
 // Find the shape node
-// Example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
-global proc string getObjectShapeNode ( string $object ) {
+// Example: print `getObjectShapeNode("domeAFL_FOV_Camera1")`;
+global proc string getObjectShapeNode(string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
 // Find the object's parent node
-// Example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
-global proc string getObjectParentNode ( string $object ) {
+// Example: print `getObjectParentNode("domeAFL_FOV_CameraShape2")`;
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }

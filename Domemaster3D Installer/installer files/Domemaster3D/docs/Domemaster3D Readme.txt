@@ -288,6 +288,8 @@ Maya
   
   Updated mental ray shader source code + makefiles for mental ray 3.14 ray differential texture sampling
   
+  Improved the domeRadius.mel, domeCamera.py, and domeMaterial.py script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
+  
 Version 2.1.1
 -------------
 2016-09-11

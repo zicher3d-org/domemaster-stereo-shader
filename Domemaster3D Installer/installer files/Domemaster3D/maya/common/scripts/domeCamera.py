@@ -1,6 +1,6 @@
 """
 Domemaster3D Camera Setup Script V2.1
-2016-08-02 09.51 PM
+2016-09-15 12.38 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -8,9 +8,9 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 2.1
--------------
-2016-08-02
+Version 2.1 - 2016-09-15
+-------------------------------
+Improved the domeCamera.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings.
 
 Added Maya 2017+ support for creating Maya file node based screen space texture maps with the help of a mib_texture_vector node and a place2Dtexture node. This replaces the previous mentalrayTexture node based approach that has been depreciated in Maya 2017.
 
@@ -1827,6 +1827,7 @@ def createDomeGrid():
   PreviewShapeExpr = ""
 
   PreviewShapeExpr += "// Custom " + previewAttrName + " Preview Shape Expressions\n\n"
+  PreviewShapeExpr += "string $currentPanel;\n"
   PreviewShapeExpr += "if (  " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  //Off Mode\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -1842,10 +1843,10 @@ def createDomeGrid():
   PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
   PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 2 ){\n"
   PreviewShapeExpr += "  //Shaded Mode\n"
-  PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
-  PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -1855,10 +1856,10 @@ def createDomeGrid():
   PreviewShapeExpr += "  MeshGroup.visibility = 1;\n"
   PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 3 ){\n"
   PreviewShapeExpr += "  //Wireframe on Shaded Mode\n"
-  PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
-  PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
   PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"

@@ -47,8 +47,8 @@ struct dsDomeAFL_FOV {
 };
 
 /*
- * return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
- * around an axis that is perpendicular to both directions
+ * Return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
+ * around an axis that is perpendicular to both directions.
  */
 
 static void build_rot_matrix(
@@ -67,42 +67,42 @@ static void build_rot_matrix(
 }
 
 /*
- * apply to the ray differentials a rotation transform that corresponds to the rotation
+ * Apply to the ray differentials a rotation transform that corresponds to the rotation
  * from the old direction ('state->dir', which is in world space) to the new one ('new_dir',
  * which is in camera space). The transform to apply has to be in world space, so it will
- * be built from the product of world-to-camera, rotation and camera-to-world transforms
+ * be built from the product of world-to-camera, rotation and camera-to-world transforms.
  */
 
 static void rotate_ray_differentials(
     miState *state,
     miVector new_dir)
 {
-    /* compute the old direction in camera space */
+    /* Compute the old direction in camera space */
     miVector old_dir;
     mi_vector_to_camera(state, &old_dir, &state->dir);
     mi_vector_normalize(&old_dir);
 
-    /* normalize the new direction as well */
+    /* Normalize the new direction as well */
     mi_vector_normalize(&new_dir);
 
-    /* compute the transform matrix in camera space from 'old_dir' to 'new_dir' */
+    /* Compute the transform matrix in camera space from 'old_dir' to 'new_dir' */
     miMatrix cs_rot_transform;
     build_rot_matrix(&old_dir, &new_dir, cs_rot_transform);
 
-    /* get pointers to the world-to-camera and camera-to-world transforms */
+    /* Get pointers to the world-to-camera and camera-to-world transforms */
     miScalar *p_world_to_camera;
     mi_query(miQ_TRANS_WORLD_TO_CAMERA, state, 0, &p_world_to_camera);
 
     miScalar *p_camera_to_world;
     mi_query(miQ_TRANS_CAMERA_TO_WORLD, state, 0, &p_camera_to_world);
 
-    /* compute the complete transform matrix in world space   */
+    /* Compute the complete transform matrix in world space   */
     /* (world-to-camera, then rotation, then camera-to-world) */
     miMatrix rot_transform;
     mi_matrix_prod(rot_transform, p_world_to_camera, cs_rot_transform);
     mi_matrix_prod(rot_transform, rot_transform, p_camera_to_world);
 
-    /* applies the computed transform to the ray differentials */
+    /* Applies the computed transform to the ray differentials */
     mi_ray_differential_transform(state, rot_transform);
 }
 
@@ -121,7 +121,7 @@ DLLEXPORT miBoolean domeAFL_FOV(
 
   miGeoScalar x, y, r, phi, theta;
 
-  /* normalize image coordinates btwn [-1,1]... */
+  /* Normalize image coordinates btwn [-1,1]... */
   /* [ah] Rotate the cartesian axis 90 deg CW   */
   x = -2.0*state->raster_y/state->camera->y_resolution+1.0;
   y = 2.0*state->raster_x/state->camera->x_resolution-1.0;
@@ -168,7 +168,7 @@ DLLEXPORT miBoolean domeAFL_FOV(
     }
 
 #if 1
-    /* adjust the ray differentials */
+    /* Adjust the ray differentials */
     rotate_ray_differentials(state, ray);
 #endif
 
@@ -183,4 +183,4 @@ DLLEXPORT miBoolean domeAFL_FOV(
     return(miFALSE);
   }
 
-} /* end of dome_FOV_AFL() */
+} /* End of dome_FOV_AFL() */

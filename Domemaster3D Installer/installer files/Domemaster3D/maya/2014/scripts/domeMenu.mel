@@ -1,7 +1,7 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 2.0
-2016-09-06 Maya 2011 - Maya 2017+ Compatible Menu
+Version 2.1
+2016-09-15 Maya 2011 - Maya 2017+ Compatible Menu
 
 Note: Disabled the mentalrayTexture based tools for Mental Ray 3.14/Maya 2017+
 ------------------------------------------------------------------------------
@@ -263,7 +263,7 @@ global proc createDomemaster3DMenu() {
       menuItem -divider true;
 
       // Check if we are running Maya 2011 or higher
-      if($mayaVersion >=2011){
+      if($mayaVersion >= 2011){
         menuItem 
           -subMenu true 
           -tearOff true 
@@ -278,7 +278,7 @@ global proc createDomemaster3DMenu() {
     setParent -menu ..;
     
   // Only show the materials if we are on Maya 2011-2016.5
-  if($mayaVersion <=2016){
+  //if($mayaVersion <=2016){
     // Lens Shader Compatible Materials Section
     if($mayaVersion >=2015){
       menuItem -divider true -dividerLabel "Lens Shader Compatible Materials";
@@ -325,7 +325,7 @@ global proc createDomemaster3DMenu() {
       -image "hemirectIBL.png"
       -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createHemirectIBL()\")";
 
-  }
+  //} end of only show the materials if we are on Maya 2011-2016.5
   
   // Fulldome Tools Section
   if($mayaVersion >=2015){
@@ -335,14 +335,14 @@ global proc createDomemaster3DMenu() {
   }
 
   // Only show the starglobe if we are on Maya 2011-2016.5
-  if($mayaVersion <=2016){
+  //if($mayaVersion <=2016){
     menuItem 
       -label "Create Starglobe" 
       -annotation "Create a starry background for your fulldome scenes."
       -image "render_starglobe.png"
       //-command "python(\"import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()\")";
       -command "source \"domeStarglobe.mel\";\ncreateStarglobe();";  
-  }
+  //}
   
   menuItem 
     -label "Create Reference Grid" 
@@ -361,13 +361,13 @@ global proc createDomemaster3DMenu() {
     -command "source \"domeText.mel\";domeText();";
     
   // Only show the crossbounce tool if we are on Maya 2011-2016.5
-  if($mayaVersion <=2016){
+  //if($mayaVersion <=2016){
     menuItem 
       -label "CrossBounce Simulation" 
       -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
       -image "domeCrossBounce.png" 
       -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
-  }
+  //}
   
   menuItem 
     -label "Dome Viewer" 

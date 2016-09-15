@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1.1 - September 11, 2016
+Version 2.1.2 - September 15, 2016
 
 About This Shader
 ---------------------
@@ -67,6 +67,15 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 
 Version History
 -----------------
+
+Version 2.1.2
+-------------
+2016-09-15
+
+Maya
+  Updated Domemaster3D menu for compatibility with Maya 2017 + mental ray 3.14 beta 9
+  
+  Updated mental ray shader source code + makefiles for mental ray 3.14 ray differential texture sampling
 
 Version 2.1.1
 -------------

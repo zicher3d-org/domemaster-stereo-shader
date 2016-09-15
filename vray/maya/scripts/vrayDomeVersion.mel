@@ -1,11 +1,12 @@
 /*
-	Dome Vray Version Checker v2.1.1
+	Dome Vray Version Checker v2.1.2
 	by Andrew Hazelden
 
 	This tool displays the version number and lets you download an update.
 
 	Version History
 	----------------
+	Domemaster3D v2.1.2 - 2016-09-15
 	Domemaster3D v2.1.1 - 2016-09-11
 	Domemaster3D v2.1 - 2016-09-06
   Domemaster3D v1.7 - 2015-05-08
@@ -62,8 +63,8 @@ global proc string getMayaPlatform(){
 //Show the version info window
 global proc vrayDomeVersion(){
   string $dialogButtonSelected = "";
-  string $domemaster3D_version = "2.1.1";
-  string $release_date = "September 11, 2016";
+  string $domemaster3D_version = "2.1.2";
+  string $release_date = "September 15, 2016";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Vray for Maya" + " - Version " + $domemaster3D_version + "\n";

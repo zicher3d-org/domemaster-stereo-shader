@@ -1,0 +1,35 @@
+# MI declarations for latlong_lens Mental Ray shader
+# by Ralf Habel (ralf.habel@vi-motion.de)
+#
+# 3DS MAX GUI controls added by Andrew Hazelden (andrew@andrewhazelden.com)
+#
+# ------------------------------------------------------
+# Version 2.1 - July 5, 2014 
+# Update by Andrew Hazelden
+# ------------------------------------------------------
+# The Maya Node IDs are being updated to use the newly 
+# registered robertoZiche block range.
+# 
+# Updated Node IDs
+#    New Node ID = 1185224
+#    Old Node ID = 58675
+
+declare shader
+	color "latlong_lens" (
+			boolean "flipHorizontal"          #: default 0
+	)
+  #: nodeid 1185224
+	version 1
+	apply lens
+	scanline off
+	trace on
+	gui "gui_latlong_lens" {
+		control "Global"  "Global" (
+			"uiName" "LatLong Shader"	#, "hidden"
+		)
+		control	"flipHorizontal" "boolean" (
+			"uiName" "Flip Horizontal", "value" 0,
+			"nonConnectable"
+		)
+		}
+end declare

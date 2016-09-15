@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V2.1
-  2016-09-06 07.41 AM
+  Dome Diagnostics Report Tool V2.1.1
+  2016-09-15 11.47 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,16 @@
 
   Version History
   ----------------
+
+  Version 2.1.1
+  ------------------
+  2016-09-15
+
+  Added the PlayblastVR Env Var "PLAYBLASTVR_DEFAULT_FILENAME_PREFIX"
+
+  Updated the PlayblastVR "Show Batch Render Using" code to add entries for QuickTime Player and BVIEW
+  
+  Removed a duplicate "MI_CUSTOM_SHADER_PATH" entry.
 
   Version 2.1
   ------------------
@@ -1232,9 +1242,6 @@ global proc domeDiagnostics(){
     $mrTextString = `getenv "MI_MAYA_BATCH_OPTIONS"`;
     $domeDebugText += "### `MI_MAYA_BATCH_OPTIONS` ###\r\n> " + $mrTextString + "\r\n\r\n";
     
-    $mrTextString = `getenv "MI_CUSTOM_SHADER_PATH"`;
-    $domeDebugText += "### `MI_CUSTOM_SHADER_PATH` ###\r\n> " + $mrTextString + "\r\n\r\n";
-
     // Skip loading suppressed files
     $mrTextString = `getenv "MI_CUSTOM_SHADER_SUPPRESS"`;
     $domeDebugText += "### `MI_CUSTOM_SHADER_SUPPRESS` ###\r\n> " + $mrTextString + "\r\n\r\n";
@@ -1340,6 +1347,9 @@ global proc domeDiagnostics(){
   
   $playblastVRString = `getenv "PLAYBLASTVR_TEMP_PATH"`;
   $domeDebugText += "### `PLAYBLASTVR_TEMP_PATH` ###\r\n> " + $playblastVRString + "\r\n\r\n";
+  
+  $playblastVRString = `getenv "PLAYBLASTVR_DEFAULT_FILENAME_PREFIX"`;
+  $domeDebugText += "### `PLAYBLASTVR_DEFAULT_FILENAME_PREFIX` ###\r\n> " + $playblastVRString + "\r\n\r\n";
   
   string $playblastVRModuleString;
   string $panoramaFormatString;
@@ -1481,6 +1491,14 @@ global proc domeDiagnostics(){
     case 14:
       // GoPro VR Player
       $batchSequenceString = "GoPro VR Player";
+      break;
+    case 15:
+      // BIVEW
+      $batchSequenceString = "BVIEW";
+      break;
+    case 16:
+      // QuickTime Player
+      $batchSequenceString = "QuickTime Player";
       break;
     default:
       $batchSequenceString = "None";

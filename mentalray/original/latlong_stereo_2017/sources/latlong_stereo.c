@@ -23,7 +23,7 @@
 
 #define EPSILON	0.00001
 
-// Static evaluate-once shader parameters
+// static evaluate-once shader parameters
 static	miScalar	fov_vert_angle, fov_horiz_angle;
 static	miInteger	camera;
 static	miScalar	parallax_distance;
@@ -47,8 +47,8 @@ struct dsLatLong_Stereo {
 
 
 /*
- * Return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
- * around an axis that is perpendicular to both directions.
+ * return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
+ * around an axis that is perpendicular to both directions
  */
 
 static void build_rot_matrix(
@@ -67,42 +67,42 @@ static void build_rot_matrix(
 }
 
 /*
- * Apply to the ray differentials a rotation transform that corresponds to the rotation
+ * apply to the ray differentials a rotation transform that corresponds to the rotation
  * from the old direction ('state->dir', which is in world space) to the new one ('new_dir',
  * which is in camera space). The transform to apply has to be in world space, so it will
- * be built from the product of world-to-camera, rotation and camera-to-world transforms.
+ * be built from the product of world-to-camera, rotation and camera-to-world transforms
  */
 
 static void rotate_ray_differentials(
     miState *state,
     miVector new_dir)
 {
-    /* Compute the old direction in camera space */
+    /* compute the old direction in camera space */
     miVector old_dir;
     mi_vector_to_camera(state, &old_dir, &state->dir);
     mi_vector_normalize(&old_dir);
 
-    /* Normalize the new direction as well */
+    /* normalize the new direction as well */
     mi_vector_normalize(&new_dir);
 
-    /* Compute the transform matrix in camera space from 'old_dir' to 'new_dir' */
+    /* compute the transform matrix in camera space from 'old_dir' to 'new_dir' */
     miMatrix cs_rot_transform;
     build_rot_matrix(&old_dir, &new_dir, cs_rot_transform);
 
-    /* Get pointers to the world-to-camera and camera-to-world transforms */
+    /* get pointers to the world-to-camera and camera-to-world transforms */
     miScalar *p_world_to_camera;
     mi_query(miQ_TRANS_WORLD_TO_CAMERA, state, 0, &p_world_to_camera);
 
     miScalar *p_camera_to_world;
     mi_query(miQ_TRANS_CAMERA_TO_WORLD, state, 0, &p_camera_to_world);
 
-    /* Compute the complete transform matrix in world space   */
+    /* compute the complete transform matrix in world space   */
     /* (world-to-camera, then rotation, then camera-to-world) */
     miMatrix rot_transform;
     mi_matrix_prod(rot_transform, p_world_to_camera, cs_rot_transform);
     mi_matrix_prod(rot_transform, rot_transform, p_camera_to_world);
 
-    /* Applies the computed transform to the ray differentials */
+    /* applies the computed transform to the ray differentials */
     mi_ray_differential_transform(state, rot_transform);
 }
 
@@ -123,7 +123,7 @@ DLLEXPORT miBoolean LatLong_Stereo(
 
 	miBoolean	zenithMode = *mi_eval_boolean(&params->Zenith_Mode);
 
-	// Normalize image coordinates btwn [-1,-1] and [1,1]...
+	// normalize image coordinates btwn [-1,-1] and [1,1]...
 	x = 2.0*state->raster_x/state->camera->x_resolution-1.0;
 	y = 2.0*state->raster_y/state->camera->y_resolution-1.0;
 
@@ -134,15 +134,15 @@ DLLEXPORT miBoolean LatLong_Stereo(
 	else
 		theta = y*(fov_vert_angle/2.0);
 
-	// Start by matching camera (center camera)
+	// start by matching camera (center camera)
 	// mi_point_to_camera(state, &org, &state->org);
 	org.x = org.y = org.z = 0.0;
 
-	// Saves common used values for performance reasons
+	// saves common used values for performance reasons
 	sinP = sin(phi); cosP = cos(phi);
 	sinT = sin(theta); cosT = cos(theta);
 
-	// Center camera target vector (normalized)
+	// center camera target vector (normalized)
 	if (zenithMode) {
 		target.x = (miScalar)(sinP*sinT);
 		target.y = (miScalar)(-cosP*sinT);
@@ -154,15 +154,16 @@ DLLEXPORT miBoolean LatLong_Stereo(
 	}
 
 	if (camera != CENTERCAM) {
-		// Camera selection and initial position
+		// camera selection and initial position
 		if (camera == LEFTCAM) {
 			org.x = (miScalar)(-cameras_separation*cameras_separation_multiplier/2);
 		} else if (camera == RIGHTCAM) {
 			org.x = (miScalar)(cameras_separation*cameras_separation_multiplier/2);
 		}
 
-		// Head rotation = phi
-		// Rotate camera
+
+		// head rotation = phi
+		// rotate camera
 		if (zenithMode) {
 			tmp = org.x*cosP-org.y*sinP;
 			org.y = (miScalar)(org.y*cosP+org.x*sinP);
@@ -173,18 +174,18 @@ DLLEXPORT miBoolean LatLong_Stereo(
 			org.x = (miScalar)tmp;
 		}
 
-		// Calculate head target
+		// calculate head target
 		htarget.x = (miScalar)(sinP*sinT);
 		htarget.y = (miScalar)(-cosP*sinT);
 		htarget.z = (miScalar)target.z;
 
-		// Head tilt
+		// head tilt
 		head_tilt = (miScalar)((head_tilt-0.5)*M_PI);
 		mi_matrix_ident(tilt);
 		mi_matrix_rotate_axis(tilt, &htarget, head_tilt);
 		mi_vector_transform(&org, &org, tilt);
 
-		// Calculate ray from camera to target
+		// calculate ray from camera to target
 		target.x *= parallax_distance;
 		target.y *= parallax_distance;
 		target.z *= parallax_distance;
@@ -192,8 +193,8 @@ DLLEXPORT miBoolean LatLong_Stereo(
 		ray.y = target.y-org.y;
 		ray.z = target.z-org.z;
 		mi_vector_normalize(&ray);
-	} else{		
-    // Center camera
+	} else {		
+    // center camera
     ray = target;
 	}
 
@@ -206,7 +207,7 @@ DLLEXPORT miBoolean LatLong_Stereo(
 	}
 	// Flip the Y ray direction about the X-axis
 	if(*mi_eval_boolean(&params->Flip_Ray_Y)) {
-		if(zenithMode) {
+		if (zenithMode) {
 			org.z = (-org.z);
 			ray.z = (-ray.z);
 		} else {
@@ -216,7 +217,7 @@ DLLEXPORT miBoolean LatLong_Stereo(
 	}
 
   #if 1
-    /* Adjust the ray differentials */
+    /* adjust the ray differentials */
     rotate_ray_differentials(state, ray);
   #endif
   
@@ -235,7 +236,7 @@ DLLEXPORT void LatLong_Stereo_init(
 	miBoolean *inst_init_req)
 {
 	if (!params) {
-		// Version output
+		// version output
 		mi_info(_VER_);
 		*inst_init_req = miTRUE;
 	} else {

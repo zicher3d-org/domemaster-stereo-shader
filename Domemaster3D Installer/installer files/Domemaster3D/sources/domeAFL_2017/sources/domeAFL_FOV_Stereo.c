@@ -24,7 +24,7 @@
 
 #define EPSILON 0.00001
 
-// Static evaluate-once shader parameters
+// static evaluate-once shader parameters
 static  miScalar  fov_angle;
 static  miVector  viewport_offset;
 static  miInteger camera;
@@ -53,8 +53,8 @@ struct dsDomeAFL_FOV_Stereo {
 };
 
 /*
- * Return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
- * around an axis that is perpendicular to both directions.
+ * return in 'rot_transform' a transform matrix that rotates 'old_dir' to 'new_dir'
+ * around an axis that is perpendicular to both directions
  */
 
 static void build_rot_matrix(
@@ -73,42 +73,42 @@ static void build_rot_matrix(
 }
 
 /*
- * Apply to the ray differentials a rotation transform that corresponds to the rotation
+ * apply to the ray differentials a rotation transform that corresponds to the rotation
  * from the old direction ('state->dir', which is in world space) to the new one ('new_dir',
  * which is in camera space). The transform to apply has to be in world space, so it will
- * be built from the product of world-to-camera, rotation and camera-to-world transforms.
+ * be built from the product of world-to-camera, rotation and camera-to-world transforms
  */
 
 static void rotate_ray_differentials(
     miState *state,
     miVector new_dir)
 {
-    /* Compute the old direction in camera space */
+    /* compute the old direction in camera space */
     miVector old_dir;
     mi_vector_to_camera(state, &old_dir, &state->dir);
     mi_vector_normalize(&old_dir);
 
-    /* Normalize the new direction as well */
+    /* normalize the new direction as well */
     mi_vector_normalize(&new_dir);
 
-    /* Compute the transform matrix in camera space from 'old_dir' to 'new_dir' */
+    /* compute the transform matrix in camera space from 'old_dir' to 'new_dir' */
     miMatrix cs_rot_transform;
     build_rot_matrix(&old_dir, &new_dir, cs_rot_transform);
 
-    /* Get pointers to the world-to-camera and camera-to-world transforms */
+    /* get pointers to the world-to-camera and camera-to-world transforms */
     miScalar *p_world_to_camera;
     mi_query(miQ_TRANS_WORLD_TO_CAMERA, state, 0, &p_world_to_camera);
 
     miScalar *p_camera_to_world;
     mi_query(miQ_TRANS_CAMERA_TO_WORLD, state, 0, &p_camera_to_world);
 
-    /* Compute the complete transform matrix in world space   */
+    /* compute the complete transform matrix in world space   */
     /* (world-to-camera, then rotation, then camera-to-world) */
     miMatrix rot_transform;
     mi_matrix_prod(rot_transform, p_world_to_camera, cs_rot_transform);
     mi_matrix_prod(rot_transform, rot_transform, p_camera_to_world);
 
-    /* Applies the computed transform to the ray differentials */
+    /* applies the computed transform to the ray differentials */
     mi_ray_differential_transform(state, rot_transform);
 }
 
@@ -128,7 +128,7 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
   double    x, y, r, phi, theta, rot, tmp, tmpY, tmpZ;
   double    sinP, cosP, sinT, cosT, sinR, cosR, sinD, cosD;
   
-  // Normalize image coordinates btwn [-1,1]...
+  // normalize image coordinates btwn [-1,1]...
   // [rz] swap X-Y to match camera view and apply a vertical symmetry
   // [rz] basically, we rotate the cartesian axis 90deg CW
   x = -2.0*state->raster_y/state->camera->y_resolution+1.0;
@@ -147,20 +147,20 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
     // Calculate theta...
     theta = r*(fov_angle/2.0);
     
-    // Start by matching camera (center camera)
+    // start by matching camera (center camera)
     // mi_point_to_camera(state, &org, &state->org);
     org.x = org.y = org.z = 0.0;
     
-    // Saves common used values for performance reasons
+    // saves common used values for performance reasons
     sinP = sin(phi); cosP = cos(phi);
     sinT = sin(theta); cosT = cos(theta);
     
-    // Center camera target vector (normalized)
+    // center camera target vector (normalized)
     target.x = (miScalar)(sinP*sinT);
     target.y = (miScalar)(-cosP*sinT);
     target.z = (miScalar)(-cosT);
     
-    // Camera selection and initial position
+    // camera selection and initial position
     switch (camera)
     {
       case CENTERCAM:
@@ -183,10 +183,9 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
     
     if (camera != CENTERCAM)
     {
-      if (dome_tilt_compensation) {   
-        // Tilted dome mode
+      if (dome_tilt_compensation) {   // tilted dome mode
         
-        // Head rotation
+        // head rotation
         // @@@ need to check atan2 params for 0 values?
         tmpY = target.y*cos(-dome_tilt)-target.z*sin(-dome_tilt);
         tmpZ = target.z*cos(-dome_tilt)+target.y*sin(-dome_tilt);
@@ -196,73 +195,73 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
         sinR = sin(rot); cosR = cos(rot);
         sinD = sin(dome_tilt); cosD = cos(dome_tilt);
         
-        // Rotate camera
+        // rotate camera
         tmp = org.x*cosR-org.y*sinR;
         org.y = (miScalar)(org.y*cosR+org.x*sinR);
         org.x = (miScalar)tmp;
         
-        // Compensate for dome tilt
+        // compensate for dome tilt
         tmp = org.y*cosD-org.z*sinD;
         org.z = (miScalar)(org.z*cosD+org.y*sinD);
         org.y = (miScalar)tmp;
         
-        // Calculate head target
+        // calculate head target
         tmp = sqrt(target.x*target.x+tmpY*tmpY);
         htarget.x = (miScalar)(sinR*tmp);
         htarget.y = (miScalar)(-cosR*tmp);
         htarget.z = (miScalar)tmpZ;
         
-        // Dome rotation again on head target
+        // dome rotation again on head target
         tmp = htarget.y*cosD-htarget.z*sinD;
         htarget.z = (miScalar)(htarget.z*cosD+htarget.y*sinD);
         htarget.y = (miScalar)tmp;
       } else {
         if (vertical_mode) {      
-          // Vertical mode
+          // vertical mode
           
-          // Head rotation
+          // head rotation
           // @@@ need to check atan2 params for 0 values?
           rot = atan2(target.x,-target.z)*head_turn_multiplier*fabs(sinP);
           sinR = sin(rot); cosR = cos(rot);
           
-          // Rotate camera
+          // rotate camera
           tmp = org.x*cosR-org.z*sinR;
           org.z = (miScalar)(org.z*cosR+org.x*sinR);
           org.x = (miScalar)tmp;
           
-          // Calculate head target
+          // calculate head target
           tmp = sqrt(target.x*target.x+target.z*target.z);
           htarget.x = (miScalar)(sinR*tmp);
           htarget.y = (miScalar)target.y;
           htarget.z = (miScalar)(-cosR*tmp);
           
         } else {            
-          // Horizontal mode
+          // horizontal mode
           
-          // Head rotation
+          // head rotation
           rot = phi*head_turn_multiplier;
           sinR = sin(rot); cosR = cos(rot);
           
-          // Rotate camera
+          // rotate camera
           tmp = org.x*cosR-org.y*sinR;
           org.y = (miScalar)(org.y*cosR+org.x*sinR);
           org.x = (miScalar)tmp;
           
-          // Calculate head target
+          // calculate head target
           htarget.x = (miScalar)(sinR*sinT);
           htarget.y = (miScalar)(-cosR*sinT);
           htarget.z = (miScalar)target.z;
         }
       }
       
-      // Head tilt
+      // head tilt
       head_tilt = (miScalar)((head_tilt-0.5)*M_PI);
       mi_matrix_ident(tilt);
       mi_matrix_rotate_axis(tilt, &htarget, head_tilt);
       mi_vector_transform(&org, &org, tilt);
       
       
-      // Calculate ray from camera to target
+      // calculate ray from camera to target
       target.x *= dome_radius;
       target.y *= dome_radius;
       target.z *= dome_radius;
@@ -295,7 +294,7 @@ DLLEXPORT miBoolean domeAFL_FOV_Stereo(
     }
 
 #if 1
-    /* Adjust the ray differentials */
+    /* adjust the ray differentials */
     rotate_ray_differentials(state, ray);
 #endif
 
@@ -318,7 +317,7 @@ DLLEXPORT void domeAFL_FOV_Stereo_init(
                   miBoolean *inst_init_req)
 {
   if (!params) {
-    // Version output
+    // version output
     mi_info(_VER_);
     *inst_init_req = miTRUE;
   } else {

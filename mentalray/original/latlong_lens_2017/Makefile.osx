@@ -15,15 +15,9 @@ CC=g++
 #MAYA_DIR=/Applications/Autodesk/maya2013
 #MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2014
 #MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
-#MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2016.5
-#MAYA_DIR=/Applications/NVIDIA\ Corporation/mentalrayForMaya2016.5-3.14
-MAYA_DIR=/Applications/NVIDIA\ Corporation/mentalrayForMaya2017-3.14
+MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2016.5
 
-# Domemaster3D Maya 2016-2016 Shaders
-#DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
-
-# Domemaster3D Maya 2016.5-2017 Shaders
-DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders/mr3.14
+DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders
 
 # Maya 2012's mental ray directory:
 #MENTALRAY_DEV_DIR=/devkit/mentalray/include
@@ -31,7 +25,7 @@ DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders/mr3.14
 # Maya 2013's mental ray directory:
 #MENTALRAY_DEV_DIR=/mentalray/devkit/include
 
-# Maya 2014/2015/2016/2016.5/2017's mental ray devkit directory:
+# Maya 2014/2015/2016's mental ray devkit directory:
 MENTALRAY_DEV_DIR=/devkit/include
 
 INC=-I$(MAYA_DIR)$(MENTALRAY_DEV_DIR)
@@ -63,7 +57,7 @@ install:
   
   # Domemaster3D Shaders Folder
 	cp ./latlong_lens.dylib $(DOMEMASTER_DIR)
-	cp ./latlong_lens.mi $(DOMEMASTER_DIR)/include
+	cp ./latlong_lens.mi $(DOMEMASTER_DIR )/include
 
 go: clean all install
 

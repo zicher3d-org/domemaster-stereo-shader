@@ -1,6 +1,6 @@
 /*
-  Version 1.9
-
+  Version 2.1
+  
   Procedure Name:
   AEdomeAFL_FOVTemplate
 
@@ -10,11 +10,15 @@
   Version History
   -----------------
   
-  Version 1.8 - 2015-07-27 
+  Version 2.1 - 2016-09-15
+  ------------------------------------
+  Improved the script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
+  
+  Version 1.8 - 2015-07-27
   ------------------------------------
   Fixed the preview hemisphere mesh alignment when linking the lens shader to an existing camera that is tipped away from the upright initial position.
   
-  Version 1.7 - 2015-03-07 
+  Version 1.7 - 2015-03-07
 
   Version 1.5 - July 6, 2014
   ------------------------------------
@@ -22,13 +26,13 @@
 
   Version 1.4 - Build 4
   -----------------------
-  Dec 6, 2013 
+  Dec 6, 2013
 
   Changed the default for the domeAFL_FOV node's preview shape to wireframe.
 
   Version 1.4 - Build 3
   -----------------------
-  Oct 6, 2013 
+  Oct 6, 2013
   Initial Release 
 
   Copied base AE template file from domeAFL_FOV_Stereo node
@@ -177,8 +181,8 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   */
   
   // FOV Display Mode
-  string $attrName ="fovDisplayMode";
-   if (!`attributeExists $attrName $baseNodeName`) {
+  $attrName ="fovDisplayMode";
+  if (!`attributeExists $attrName $baseNodeName`) {
     addAttr -ln $attrName  -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -defaultValue 1 -keyable true $baseNodeName;
     print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }

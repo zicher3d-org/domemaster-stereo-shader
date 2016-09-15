@@ -66,7 +66,13 @@ C:\Program Files\Domemaster3D\maya\common
 The specific scripts that work with each Maya release are stored in a folder with the Maya version number in the name. For example, Maya 2016 specific files like the shelves, mental ray physical sky & sun override scripts, and Maya.env backup files are stored in:
 C:\Program Files\Domemaster3D\maya\2016
 
-The Maya.env files for each specific Maya version are named:
+The Domemaster3D Maya Module file is located at:
+C:\Program Files\Domemaster3D\maya\modules\Domemaster3D.mod
+
+To use the Maya Module file you need to copy it to your user account's "Maya version" folder:
+C:\Users\<Your User Account>\Documents\Maya\<Maya Version>\modules\
+
+As an alternate installation approach, the Maya.env files for each specific Maya version are named:
 Maya.env.linux
 Maya.env.osx
 Maya.env.win
@@ -288,7 +294,7 @@ Maya
   
   Updated mental ray shader source code + makefiles for mental ray 3.14 ray differential texture sampling
   
-  Improved the domeRadius.mel, domeCamera.py, and domeMaterial.py script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
+  Improved the domeRadius.mel, domeCamera.py, domeMaterial.py, AEdomeAFL_FOV_StereoTemplate.mel, AEdomeAFL_FOVTemplate.mel, and domeHistogram.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
   
 Version 2.1.1
 -------------

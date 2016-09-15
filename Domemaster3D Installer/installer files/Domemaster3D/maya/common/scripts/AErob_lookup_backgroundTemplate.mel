@@ -1,6 +1,6 @@
 /*
-  Version 1.9
-  2015-08-21 
+  Version 2.1
+  2016-09-15 
 
   Procedure Name:
   AErob_lookup_backgroundTemplate
@@ -34,59 +34,56 @@
 // New Dome Radius GUI Controls
 //---------------------------------------------------------------------------------
 
-//Return the name of the Node's Attr
-global proc string dome_AEStripNodeName (string $nodeName)
-{
+// Return the name of the Node's Attr
+global proc string dome_AEStripNodeName(string $nodeName){
 	string $buffer[];
 	tokenize $nodeName "." $buffer;
 	return $buffer[1];
 }
 
 
-//Return the base name of the Node
-global proc string dome_AEStripAttrName (string $nodeName)
-{
+// Return the base name of the Node
+global proc string dome_AEStripAttrName(string $nodeName){
 	string $buffer[];
 	tokenize $nodeName "." $buffer;
 	return $buffer[0];
 }
 
 
-//Find the shape node
-//example: print `getObjectShapeNode( "rob_lookup_background_Camera1")`;
-global proc string getObjectShapeNode ( string $object ) {
+// Find the shape node
+// Example: print `getObjectShapeNode("rob_lookup_background_Camera1")`;
+global proc string getObjectShapeNode( string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
-//Find the object's parent node
-//example: print `getObjectParentNode( "rob_lookup_background_CameraShape2")`;
-global proc string getObjectParentNode ( string $object ) {
+// Find the object's parent node
+// Example: print `getObjectParentNode("rob_lookup_background_CameraShape2")`;
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }
 
 
-//This creates the controls in the attribute editor
-global proc AErob_lookup_background_AddDynamicAttrs( string $nodeName )
-{
-  //separate the node name from the node.attribute name
+// This creates the controls in the attribute editor
+global proc AErob_lookup_background_AddDynamicAttrs(string $nodeName){
+  // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
   
   int $NewDomeSetup = 0;
   
-  //Add a version number attribute to the extra attribute fields
+  // Add a version number attribute to the extra attribute fields
   string $attrName ="domeVersion";
   int $domeVersion = 1;
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName -at long -min 0 $baseNodeName;
     setAttr ($baseNodeName+"."+$attrName) $domeVersion;
     print("Adding custom attribute " + $baseNodeName +"." +$attrName + "\n");
     
     $NewDomeSetup = 1;
     
-    //Add the Attribute Editor node "help menu" link
+    // Add the Attribute Editor node "help menu" link
     addAttributeEditorNodeHelp(
       $baseNodeName,
       "showHelp -absolute \"https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages\"");
@@ -94,16 +91,15 @@ global proc AErob_lookup_background_AddDynamicAttrs( string $nodeName )
 }
 
 
-//Create the attribute editor view for the rob_lookup_background node
-global proc AErob_lookup_backgroundTemplate( string $nodeName )
-{
+// Create the attribute editor view for the rob_lookup_background node
+global proc AErob_lookup_backgroundTemplate(string $nodeName){
 	AEswatchDisplay $nodeName;
 	editorTemplate -beginScrollLayout;
 
     editorTemplate -beginLayout "Domemaster Lookup Background Shader" -collapse 0;
       editorTemplate 	-beginNoOptimize;
       
-      //Add the custom dynamic attributes to the node
+      // Add the custom dynamic attributes to the node
       editorTemplate -callCustom "AErob_lookup_background_AddDynamicAttrs" "AErob_lookup_background_AddDynamicAttrs" "tex";
       
       editorTemplate -label "Texture" -annotation "The \"Texture\" attribute allows you to preview a screen space texture map." -addControl "tex";
@@ -111,7 +107,7 @@ global proc AErob_lookup_backgroundTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
 
-    //Hide the raw numerical camera and view offset fields
+    // Hide the raw numerical camera and view offset fields
     editorTemplate -suppress "caching";
     editorTemplate -suppress "nodeState";
     editorTemplate -suppress "zoom";
@@ -121,7 +117,7 @@ global proc AErob_lookup_backgroundTemplate( string $nodeName )
     
     AEdependNodeTemplate $nodeName;
     
-    //Add any new controls that aren't listed above to the bottom of the attribute editor window 
+    // Add any new controls that aren't listed above to the bottom of the attribute editor window 
     editorTemplate -addExtraControls;
     
   editorTemplate -endScrollLayout;

@@ -1,6 +1,6 @@
 /*
-  Domemaster Node ID Upgrader V1.9
-  2015-08-21 
+  Domemaster Node ID Upgrader V2.1
+  2016-09-15 
   by Andrew Hazelden
   
   The this tool allows you to upgrade any Domemaster nodes that have a legacy Domemaster3D Node ID
@@ -9,9 +9,11 @@
   Version History
   ----------------
   
-  Version 1.7
+  Version 2.1
   -------------
-  2015-03-07 
+  2016-09-15
+
+  Improved the script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
 
   Version 1.5
   ------------------
@@ -20,6 +22,10 @@
   Created mental ray phenom shaders to handle the old Node IDs.:
   domeAFL_FOV_Stereo_Legacy_Pheno.mi
   latlong_lens_Legacy_Pheno.mi
+  
+  
+  Script Usage
+  --------------
 
   First version of the tool completed
 
@@ -45,140 +51,141 @@
 */
 
 
-//Clean up the old Attrs before the shader upgrade
+// Clean up the old Attrs before the shader upgrade
 global proc removeOldDomemasterAttrs(string $baseNodeName){
+  string $attrName;
 
-  //Static element
+  // Static element
   // string $attrName ="S00";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
 
-  //Clean out the old settings
-  string $attrName ="zeroParallaxDisplayMode";
+  // Clean out the old settings
+  $attrName ="zeroParallaxDisplayMode";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="previewShape";
+  $attrName ="previewShape";
   if (`attributeExists $attrName $baseNodeName`) {
     //string $shapeName = `getAttr ($baseNodeName+"."+$attrName)`;
     //print("Old preview shape name: " + $shapeName + "\n");
-    //remove the old attribute after deleting the shape
+    // Remove the old attribute after deleting the shape
     deleteAttr -attribute $attrName $baseNodeName;
   }
-  //Remove the old preview shapes from the scene
+  // Remove the old preview shapes from the scene
   deleteSelectedDomePreviewGeometry("*domeAFL*PreviewHemisphere*");
   deleteSelectedDomePreviewGeometry("*DomeStereoCamera*PreviewHemisphere*");
 
-  string $attrName ="previewCurve";
+  $attrName ="previewCurve";
   if (`attributeExists $attrName $baseNodeName`) {
     //string $curveName = `getAttr ($baseNodeName+"."+$attrName)`;
     //print("Old preview curve name: " + $curveName + "\n");
 
-    //remove the old attribute after deleting the curve
+    // Remove the old attribute after deleting the curve
     deleteAttr -attribute $attrName $baseNodeName;
   }
-  //Remove the old preview shapes from the scene
+  // Remove the old preview shapes from the scene
   deleteSelectedDomePreviewGeometry("domeAFL*PreviewCurve");
   deleteSelectedDomePreviewGeometry("*DomeStereoCamera*PreviewCurve");
 
-  string $attrName ="zeroParallaxDisplayMode";
+  $attrName ="zeroParallaxDisplayMode";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  //Check to see if the node is an FOV 2D or 3D node before deleting the Dome_Radius attr
+  // Check to see if the node is an FOV 2D or 3D node before deleting the Dome_Radius attr
   if (!`gmatch $baseNodeName "*domeAFL_FOV_Stereo*"`) {
-    string $attrName ="Dome_Radius";
+    $attrName ="Dome_Radius";
     if (`attributeExists $attrName $baseNodeName`) {
      deleteAttr -attribute $attrName $baseNodeName;
     }
   }
-  // string $attrName ="zeroParallaxColorR";
+  // $attrName ="zeroParallaxColorR";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
-  // string $attrName ="zeroParallaxColorG";
+  // $attrName ="zeroParallaxColorG";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
-  // string $attrName ="zeroParallaxColorB";
+  // $attrName ="zeroParallaxColorB";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
-  string $attrName ="zeroParallaxColor";
+  $attrName ="zeroParallaxColor";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="zeroParallaxTransparency";
+  $attrName ="zeroParallaxTransparency";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="doubleSidedShading";
+  $attrName ="doubleSidedShading";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="safeViewingDisplayMode";
+  $attrName ="safeViewingDisplayMode";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  // string $attrName ="safeViewingColorR";
+  // $attrName ="safeViewingColorR";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
-  // string $attrName ="safeViewingColorG";
+  // $attrName ="safeViewingColorG";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
-  // string $attrName ="safeViewingColorB";
+  // $attrName ="safeViewingColorB";
   // if (`attributeExists $attrName $baseNodeName`) {
     // deleteAttr -attribute $attrName $baseNodeName;
   // }
-  string $attrName ="safeViewingColor";
+  $attrName ="safeViewingColor";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="safeViewingTransparency";
+  $attrName ="safeViewingTransparency";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="safeStereo";
+  $attrName ="safeStereo";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  string $attrName ="domeVersion";
+  $attrName ="domeVersion";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  //Display the node in the attribute editor to force a refresh of the expression nodes
+  // Display the node in the attribute editor to force a refresh of the expression nodes
   showEditorExact( $baseNodeName );
 
-  string $attrName ="domeVersion";
+  $attrName ="domeVersion";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 
-  //Display the node in the attribute editor to force a refresh of the expression nodes
+  // Display the node in the attribute editor to force a refresh of the expression nodes
   showEditorExact( $baseNodeName );
 
-  string $attrName ="domeVersion";
+  $attrName ="domeVersion";
   if (`attributeExists $attrName $baseNodeName`) {
     deleteAttr -attribute $attrName $baseNodeName;
   }
 }
 
 
-//Remove a specific set of objects from the scene
-//Example: deleteSelectedDomePreviewGeometry("*domeAFL*PreviewHemisphere*");
+// Remove a specific set of objects from the scene
+// Example: deleteSelectedDomePreviewGeometry("*domeAFL*PreviewHemisphere*");
 global proc deleteSelectedDomePreviewGeometry(string $shapeName){
   string $deleteList[] = `ls -transforms $shapeName`;
 
@@ -192,11 +199,11 @@ global proc deleteSelectedDomePreviewGeometry(string $shapeName){
 }
 
 
-//Reverse the direction of a string array
-//Example: domeReverseArray({"z", "a", "r", "c", "h", "z"});
+// Reverse the direction of a string array
+// Example: domeReverseArray({"z", "a", "r", "c", "h", "z"});
 global proc string[] domeReverseArray( string $array[] ){
-  //Based upon cg-society tip:
-  //http://forums.cgsociety.org/showthread.php?t=190195
+  // Based upon cg-society tip:
+  // http://forums.cgsociety.org/showthread.php?t=190195
 
  	string $reversedArray[];
  	int $arraySize = `size($array)`;
@@ -210,11 +217,11 @@ global proc string[] domeReverseArray( string $array[] ){
 }
 
 
-//Sort then reverse the direction of a string array
-//Example: domeReverseSortArray({"z", "a", "r", "c", "h", "z"});
+// Sort then reverse the direction of a string array
+// Example: domeReverseSortArray({"z", "a", "r", "c", "h", "z"});
 global proc string[] domeReverseSortArray( string $array[] ){
-  //Based upon cg-society tip:
-  //http://forums.cgsociety.org/showthread.php?t=190195
+  // Based upon cg-society tip:
+  // http://forums.cgsociety.org/showthread.php?t=190195
   
   string $sortedArray[] = sort($array);
   
@@ -229,42 +236,44 @@ global proc string[] domeReverseSortArray( string $array[] ){
  	return $reversedArray;
 }
 
-//Upgrade Pre Domemaster v1.5 shaders to use the new Node IDs
+// Upgrade Pre Domemaster v1.5 shaders to use the new Node IDs
 global proc upgradeDomemasterNodeID(){
 
   source "AEupgradeMiShader";
 
-  //Note: The AEupgradeMiShader Script found in: C:/Program Files/Autodesk/mentalrayForMaya2015/scripts/AETemplates/AEupgradeMiShader.mel // 
+  // Note: The AEupgradeMiShader Script found in: C:/Program Files/Autodesk/mentalrayForMaya2015/scripts/AETemplates/AEupgradeMiShader.mel // 
 
-  //Note: The AEdoMiShaderConversion function used the function "upgradeMentalRayShader" internally which is a script found in: C:/Program Files/Autodesk/mentalrayForMaya2015/scripts/upgradeMentalRayShader.mel
+  // Note: The AEdoMiShaderConversion function used the function "upgradeMentalRayShader" internally which is a script found in: C:/Program Files/Autodesk/mentalrayForMaya2015/scripts/upgradeMentalRayShader.mel
 
   print("Domemaster Node Updater Tool v1.5\n");
+  string $UnknownNodes[];
+  string $tmp;
 
-  //List all unknown nodes
-  string $UnknownNodes[] = domeReverseSortArray(`ls -typ "unknown"`);
+  // List all unknown nodes
+  $UnknownNodes = domeReverseSortArray(`ls -typ "unknown"`);
   print(`size($UnknownNodes)` + " Unknown Nodes:\n");
   print($UnknownNodes);
   print("\n");
 
-  //domeAFL_FOV_Stereo_Legacy
+  // domeAFL_FOV_Stereo_Legacy
   string $FOV_StereoLegacyNodes[] = domeReverseSortArray(`ls -typ "domeAFL_FOV_Stereo_Legacy"`);
   print(`size($FOV_StereoLegacyNodes)` + " domeAFL_FOV_Stereo_Legacy Nodes:\n");
   print($FOV_StereoLegacyNodes);
   print("\n");
 
-  //domeAFL_FOV_Legacy
+  // domeAFL_FOV_Legacy
   string $FOVLegacyNodes[] = domeReverseSortArray(`ls -typ "domeAFL_FOV_Legacy"`);
   print(`size($FOVLegacyNodes)` + " domeAFL_FOV_Legacy Nodes:\n");
   print($FOVLegacyNodes);
   print("\n");
 
-  //domeAFL_WxH_Legacy
+  // domeAFL_WxH_Legacy
   string $WxhLegacyNodes[] = domeReverseSortArray(`ls -typ "domeAFL_WxH_Legacy"`);
   print(`size($WxhLegacyNodes)` + " domeAFL_WxH_Legacy Nodes:\n");
   print($WxhLegacyNodes);
   print("\n");
 
-  //rob_lookup_background_Legacy
+  // rob_lookup_background_Legacy
   string $robLegacyNodes[] = domeReverseSortArray(`ls -typ "rob_lookup_background_Legacy"`);
   print(`size($robLegacyNodes)` + " rob_lookup_background_Legacy Nodes:\n");
   print($robLegacyNodes);
@@ -272,82 +281,77 @@ global proc upgradeDomemasterNodeID(){
 
   int $upgradedNodes = 0;
 
-  //Round 1 - look for domeAFL_FOV_Legacy nodes
-  string $UnknownNodes[] = domeReverseSortArray(`ls -typ "domeAFL_FOV_Stereo_Legacy"`);
-  string $tmp;
-  for ($tmp in $UnknownNodes) {
+  // Round 1 - look for domeAFL_FOV_Legacy nodes
+  $UnknownNodes = domeReverseSortArray(`ls -typ "domeAFL_FOV_Stereo_Legacy"`);
+  for($tmp in $UnknownNodes){
     print($tmp + " was matched as a domeAFL_FOV_Stereo_Legacy node.\n");
 
-    //Regenerate the mental ray node
+    // Regenerate the mental ray node
     AEdoMiShaderConversion $tmp "domeAFL_FOV_Stereo" "_upgraded";
     $upgradedNodes+=1;
 
-    //Regenerate the Extra Attributes so they are now dynamic again
+    // Regenerate the Extra Attributes so they are now dynamic again
     removeOldDomemasterAttrs($tmp+"_upgraded");
   }
 
-  //Round 2 - look for domeAFL_WxH_Legacy nodes
-  string $UnknownNodes[] = domeReverseSortArray(`ls -typ "domeAFL_WxH_Legacy"`);
-  string $tmp;
-  for ($tmp in $UnknownNodes) {
+  // Round 2 - look for domeAFL_WxH_Legacy nodes
+  $UnknownNodes = domeReverseSortArray(`ls -typ "domeAFL_WxH_Legacy"`);
+  for($tmp in $UnknownNodes){
     print($tmp + " was matched as an unknown domeAFL_WxH node.\n");
 
-    //Regenerate the mental ray node
+    // Regenerate the mental ray node
     AEdoMiShaderConversion $tmp "domeAFL_WxH" "_upgraded";
     $upgradedNodes+=1;
 
-    //Regenerate the Extra Attributes so they are now dynamic again
+    // Regenerate the Extra Attributes so they are now dynamic again
     removeOldDomemasterAttrs($tmp+"_upgraded");
   }
 
-  //Round 3 - look for rob_lookup_background_Legacy nodes
-  string $UnknownNodes[] = domeReverseSortArray(`ls -typ "rob_lookup_background_Legacy"`);
-  string $tmp;
-  for ($tmp in $UnknownNodes) {
+  // Round 3 - look for rob_lookup_background_Legacy nodes
+  $UnknownNodes = domeReverseSortArray(`ls -typ "rob_lookup_background_Legacy"`);
+  for($tmp in $UnknownNodes){
     print($tmp + " was matched as a rob_lookup_background_Legacy node.\n");
 
-    //Regenerate the mental ray node
+    // Regenerate the mental ray node
     AEdoMiShaderConversion $tmp "rob_lookup_background" "_upgraded";
     $upgradedNodes+=1;
 
-    //Regenerate the Extra Attributes so they are now dynamic again
+    // Regenerate the Extra Attributes so they are now dynamic again
     removeOldDomemasterAttrs($tmp+"_upgraded");
   }
 
-  //Round 4 - look for domeAFL_FOV_Legacy nodes
-  string $UnknownNodes[] = domeReverseSortArray(`ls -typ "domeAFL_FOV_Legacy"`);
-  string $tmp;
-  for ($tmp in $UnknownNodes) {
+  // Round 4 - look for domeAFL_FOV_Legacy nodes
+  $UnknownNodes = domeReverseSortArray(`ls -typ "domeAFL_FOV_Legacy"`);
+  for($tmp in $UnknownNodes){
     print($tmp + " was matched as a domeAFL_FOV_Legacy node.\n");
 
-    //Regenerate the mental ray node
+    // Regenerate the mental ray node
     AEdoMiShaderConversion $tmp "domeAFL_FOV" "_upgraded";
     $upgradedNodes+=1;
 
-    //Regenerate the Extra Attributes so they are now dynamic again
+    // Regenerate the Extra Attributes so they are now dynamic again
     removeOldDomemasterAttrs($tmp+"_upgraded");
   }
 
-  //Round 5 - look for latlong_lens_Legacy nodes
-  string $UnknownNodes[] = domeReverseSortArray(`ls -typ "latlong_lens_Legacy"`);
-  string $tmp;
-  for ($tmp in $UnknownNodes) {
+  // Round 5 - look for latlong_lens_Legacy nodes
+  $UnknownNodes = domeReverseSortArray(`ls -typ "latlong_lens_Legacy"`);
+  for($tmp in $UnknownNodes){
     print($tmp + " was matched as a latlong_lens_Legacy node.\n");
 
-    //Regenerate the mental ray node
+    // Regenerate the mental ray node
     AEdoMiShaderConversion $tmp "latlong_lens" "_upgraded";
     $upgradedNodes+=1; 
 
-    //Regenerate the Extra Attributes so they are now dynamic again
+    // Regenerate the Extra Attributes so they are now dynamic again
     removeOldDomemasterAttrs($tmp+"_upgraded");
   }
 
-  if ($upgradedNodes){
+  if($upgradedNodes){
     print( $upgradedNodes + " Node Upgrades Completed.\n");
-  } else {
+  }else{
     print("No upgrades are required since all of the Domemaster nodes are up-to-date. \n");
   }
 }
 
-//Run the script
+// Run the script
 //upgradeDomemasterNodeID();

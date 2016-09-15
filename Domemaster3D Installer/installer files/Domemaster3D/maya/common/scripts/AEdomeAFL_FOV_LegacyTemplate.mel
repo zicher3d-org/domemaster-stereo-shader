@@ -48,8 +48,7 @@
 //---------------------------------------------------------------------------------
 
 // Return the name of the Node's Attr
-global proc string dome_AEStripNodeName (string $nodeName)
-{
+global proc string dome_AEStripNodeName(string $nodeName){
 	string $buffer[];
 	tokenize $nodeName "." $buffer;
 	return $buffer[1];
@@ -57,8 +56,7 @@ global proc string dome_AEStripNodeName (string $nodeName)
 
 
 // Return the base name of the Node
-global proc string dome_AEStripAttrName (string $nodeName)
-{
+global proc string dome_AEStripAttrName(string $nodeName){
 	string $buffer[];
 	tokenize $nodeName "." $buffer;
 	return $buffer[0];
@@ -66,24 +64,23 @@ global proc string dome_AEStripAttrName (string $nodeName)
 
 
 // Find the shape node
-// Example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
-global proc string getObjectShapeNode ( string $object ) {
+// Example: print `getObjectShapeNode("domeAFL_FOV_Camera1")`;
+global proc string getObjectShapeNode(string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
 // Find the object's parent node
-// Example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
-global proc string getObjectParentNode ( string $object ) {
+// Example: print `getObjectParentNode("domeAFL_FOV_CameraShape2")`;
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }
 
 
 // This creates the Double Sided Preview Shape checkbox in the attribute editor
-global proc domeAFL_FOV_DoubleSidedPreviewShapeNew( string $attrName )
-{
+global proc domeAFL_FOV_DoubleSidedPreviewShapeNew(string $attrName){
   string $menuName = "Double Sided Shading" ;
   // Double Sided Preview Shape Menu
   attrEnumOptionMenuGrp
@@ -99,16 +96,14 @@ global proc domeAFL_FOV_DoubleSidedPreviewShapeNew( string $attrName )
 
 
 // Double Sided Preview Shape
-global proc domeAFL_FOV_DoubleSidedPreviewShapeReplace( string $attrName )
-{
+global proc domeAFL_FOV_DoubleSidedPreviewShapeReplace(string $attrName){
   // Install connection between the doubleSidedPreviewShape attribute and the options Menu
  attrEnumOptionMenuGrp -edit -attribute $attrName domeAFL_FOV_DoubleSidedPreviewShape;
 }
 
 
 // Create the field of view and dome radius preview shape 
-global proc AEdomeAFL_FOV_AddPreviewShape (string $nodeName)
-{
+global proc AEdomeAFL_FOV_AddPreviewShape(string $nodeName){
   // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
 
@@ -130,8 +125,7 @@ global proc AEdomeAFL_FOV_AddPreviewShape (string $nodeName)
 
 
 // This creates the controls in the attribute editor
-global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
-{
+global proc AEdomeAFL_FOV_AddDynamicAttrs(string $nodeName){
   // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
   
@@ -140,13 +134,12 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   // Add a version number attribute to the extra attribute fields
   string $attrName ="domeVersion";
   int $domeVersion = 1;
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName -at long -min 0 $baseNodeName;
     setAttr ($baseNodeName+"."+$attrName) $domeVersion;
     print("Adding custom attribute " + $baseNodeName +"." +$attrName + "\n");
     
     $NewDomeSetup = 1;
-    
     
     string $nodeType = "domeAFL_FOV";
     // Add the Attribute Editor node "help menu" link
@@ -161,9 +154,9 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   
   // Dome_Radius Control for scaling the preview shape
   $attrName ="Dome_Radius";
-  if (!`attributeExists $attrName $baseNodeName`) {
-  addAttr -ln $attrName -at double  -min 0.1 -max 1000000.0 -hasSoftMaxValue true -softMaxValue  360 -defaultValue 2.0 -keyable true $baseNodeName;
-  print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  if(!`attributeExists $attrName $baseNodeName`){
+    addAttr -ln $attrName -at double  -min 0.1 -max 1000000.0 -hasSoftMaxValue true -softMaxValue  360 -defaultValue 2.0 -keyable true $baseNodeName;
+    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
   
   /*
@@ -177,7 +170,7 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   
   // FOV Display Mode
   $attrName ="fovDisplayMode";
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName  -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -defaultValue 1 -keyable true $baseNodeName;
     print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
@@ -187,7 +180,7 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
   string $attrRName = "fovPreviewColorR";
   string $attrGName = "fovPreviewColorG";
   string $attrBName = "fovPreviewColorB";
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName -at float3 -uac -keyable true $baseNodeName;
     addAttr -ln $attrRName -at "float" -p $attrName -keyable true $baseNodeName;
     addAttr -ln $attrGName -at "float" -p $attrName -keyable true $baseNodeName;
@@ -198,20 +191,20 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
 
   // FOV Preview Transparency
   $attrName ="fovPreviewTransparency";
-  if (!`attributeExists $attrName $baseNodeName`) {
-  addAttr -ln "fovPreviewTransparency"  -at double  -min 0 -max 1 -defaultValue 0.25 -keyable true $baseNodeName;
-  print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
+  if(!`attributeExists $attrName $baseNodeName`){
+    addAttr -ln "fovPreviewTransparency"  -at double  -min 0 -max 1 -defaultValue 0.25 -keyable true $baseNodeName;
+    print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
   
   // Double Sided Rendering
   $attrName ="doubleSidedShading";
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName  -nn "Double Sided Shading" -at "enum" -en "Double Sided:Show Frontfaces:Show Backfaces" -min 0 -keyable true -defaultValue 2 $baseNodeName;
     print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
   
   if($NewDomeSetup){
-  // Add the dome preview shape to the camera via the connected lens shader
+    // Add the dome preview shape to the camera via the connected lens shader
     AEdomeAFL_FOV_AddPreviewShape($nodeName);
   }
   
@@ -219,8 +212,7 @@ global proc AEdomeAFL_FOV_AddDynamicAttrs( string $nodeName )
 
 
 // Create the attribute editor view for the domeAFL_FOV_Legacy node
-global proc AEdomeAFL_FOV_LegacyTemplate( string $nodeName )
-{
+global proc AEdomeAFL_FOV_LegacyTemplate(string $nodeName){
 	AEswatchDisplay $nodeName;
 	editorTemplate -beginScrollLayout;
 

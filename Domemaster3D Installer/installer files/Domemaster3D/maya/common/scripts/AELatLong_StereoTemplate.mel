@@ -1,5 +1,5 @@
 /*
-  Version 1.9
+  Version 2.1
 
   Procedure Name:
   AELatLong_StereoTemplate
@@ -55,9 +55,8 @@
 //
 */
 
-//This creates the Parallax_Distance non mappable sliders in the attribute editor
-global proc AELatLong_Stereo_Parallax_DistanceNew( string $attrName )
-{
+// This creates the Parallax_Distance non mappable sliders in the attribute editor
+global proc AELatLong_Stereo_Parallax_DistanceNew(string $attrName){
     floatSliderGrp
       -label "Zero Parallax Distance"
       -annotation "Zero Parallax Distance (focus plane)"
@@ -73,9 +72,8 @@ global proc AELatLong_Stereo_Parallax_DistanceNew( string $attrName )
 }
 
 
-//This creates the Dome_Tilt non mappable sliders in the attribute editor
-global proc AELatLong_Stereo_TiltNew( string $attrName )
-{
+// This creates the Dome_Tilt non mappable sliders in the attribute editor
+global proc AELatLong_Stereo_TiltNew(string $attrName){
 	floatSliderGrp
     -label "Dome Forward Tilt"
     -annotation "Dome Forward Tilt"
@@ -92,9 +90,8 @@ global proc AELatLong_Stereo_TiltNew( string $attrName )
 }
 
 
-//This creates the Cameras_Separation non mappable sliders in the attribute editor
-global proc AELatLong_Stereo_SeparationNew( string $attrName )
-{
+// This creates the Cameras_Separation non mappable sliders in the attribute editor
+global proc AELatLong_Stereo_SeparationNew(string $attrName){
 	floatSliderGrp 
     -label "Cameras Separation" 
     -annotation "Cameras Separation" 
@@ -110,9 +107,8 @@ global proc AELatLong_Stereo_SeparationNew( string $attrName )
 }
 
 
-//This creates the FOV_Vert_Angle non mappable sliders in the attribute editor
-global proc AELatLong_Stereo_FOV_Vert_AngleNew( string $attrName )
-{
+// This creates the FOV_Vert_Angle non mappable sliders in the attribute editor
+global proc AELatLong_Stereo_FOV_Vert_AngleNew(string $attrName){
 	floatSliderGrp 
     -label "Field Of View (Vert)" 
     -annotation "Field of View Vertical (degrees)" 
@@ -130,9 +126,8 @@ global proc AELatLong_Stereo_FOV_Vert_AngleNew( string $attrName )
 }
 
 
-//This creates the FOV_Horiz_Angle non mappable sliders in the attribute editor
-global proc AELatLong_Stereo_FOV_Horiz_AngleNew( string $attrName )
-{
+// This creates the FOV_Horiz_Angle non mappable sliders in the attribute editor
+global proc AELatLong_Stereo_FOV_Horiz_AngleNew(string $attrName){
 	floatSliderGrp 
     -label "Field Of View (Horiz)" 
     -annotation "Field of View Horizontal (degrees)" 
@@ -150,49 +145,42 @@ global proc AELatLong_Stereo_FOV_Horiz_AngleNew( string $attrName )
 }
 
 
-
-//Replace an existing item
-global proc AELatLong_Stereo_SeparationReplace( string $attrName )
-{
+// Replace an existing item
+global proc AELatLong_Stereo_SeparationReplace(string $attrName){
   // Install connection between the floatSliderGrp and the Cameras_Separation attribute
 	connectControl LatLong_Stereo_Cameras_Separation $attrName;
 }
 
 
-//Replace an existing item
-global proc AELatLong_Stereo_Parallax_DistanceReplace( string $attrName )
-{
+// Replace an existing item
+global proc AELatLong_Stereo_Parallax_DistanceReplace(string $attrName){
   // Install connection between the floatSliderGrp and the Parallax_Distance attribute
 	connectControl LatLong_Stereo_Parallax_Distance $attrName;
 }
 
 
-//Replace an existing item
-global proc AELatLong_Stereo_TiltReplace( string $attrName )
-{
+// Replace an existing item
+global proc AELatLong_Stereo_TiltReplace(string $attrName){
   // Install connection between the floatSliderGrp and the Dome_Tilt attribute
 	connectControl LatLong_Stereo_Dome_Tilt $attrName;
 }
 
 
-//Replace an existing item
-global proc AELatLong_Stereo_FOV_Vert_AngleReplace( string $attrName )
-{
+// Replace an existing item
+global proc AELatLong_Stereo_FOV_Vert_AngleReplace(string $attrName){
   // Install connection between the floatSliderGrp and the FOV_Vert_Angle attribute
 	connectControl LatLong_Stereo_FOV_Vert_Angle $attrName;
 }
 
-//Replace an existing item
-global proc AELatLong_Stereo_FOV_Horiz_AngleReplace( string $attrName )
-{
+// Replace an existing item
+global proc AELatLong_Stereo_FOV_Horiz_AngleReplace(string $attrName){
   // Install connection between the floatSliderGrp and the FOV_Horiz_Angle attribute
 	connectControl LatLong_Stereo_FOV_Horiz_Angle $attrName;
 }
 
 
-//This creates the zeroParallaxDisplayMode menu in the attribute editor
-global proc LatLong_Stereo_ZeroParallaxDisplayModeNew( string $attrName )
-{
+// This creates the zeroParallaxDisplayMode menu in the attribute editor
+global proc LatLong_Stereo_ZeroParallaxDisplayModeNew(string $attrName){
   string $menuName = "FOV Display Mode";
   
   //"Off:Wireframe:Shaded:Wireframe on Shaded"
@@ -208,18 +196,15 @@ global proc LatLong_Stereo_ZeroParallaxDisplayModeNew( string $attrName )
 }
 
 
-//zeroParallaxDisplayMode
-global proc LatLong_Stereo_ZeroParallaxDisplayModeReplace( string $attrName )
-{
+// zeroParallaxDisplayMode
+global proc LatLong_Stereo_ZeroParallaxDisplayModeReplace(string $attrName){
   // Install connection between the zero parallax display mode attribute and the options menu
   attrEnumOptionMenuGrp -edit -attribute $attrName LatLong_Stereo_ZeroParallaxDisplayMode;
 }
 
 
-//This creates the Double Sided Preview Shape checkbox in the attribute editor
-global proc LatLong_Stereo_DoubleSidedPreviewShapeNew( string $attrName )
-{
-
+// This creates the Double Sided Preview Shape checkbox in the attribute editor
+global proc LatLong_Stereo_DoubleSidedPreviewShapeNew(string $attrName){
   string $menuName = "Double Sided Shading" ;
   // Double Sided Preview Shape Menu
   attrEnumOptionMenuGrp
@@ -235,8 +220,7 @@ global proc LatLong_Stereo_DoubleSidedPreviewShapeNew( string $attrName )
 
 
 //Double Sided Preview Shape
-global proc LatLong_Stereo_DoubleSidedPreviewShapeReplace( string $attrName )
-{
+global proc LatLong_Stereo_DoubleSidedPreviewShapeReplace(string $attrName){
   // Install connection between the doubleSidedPreviewShape attribute and the options Menu
  attrEnumOptionMenuGrp -edit -attribute $attrName LatLong_Stereo_DoubleSidedPreviewShape;
 }
@@ -247,44 +231,41 @@ global proc LatLong_Stereo_DoubleSidedPreviewShapeReplace( string $attrName )
 //---------------------------------------------------------------------
 
 
-//Return the name of the Node's Attr
-global proc string dome_AEStripNodeName (string $nodeName)
-{
+// Return the name of the Node's Attr
+global proc string dome_AEStripNodeName(string $nodeName){
 	string $buffer[];
 	tokenize $nodeName "." $buffer;
 	return $buffer[1];
 }
 
 
-//Return the base name of the Node
-global proc string dome_AEStripAttrName (string $nodeName)
-{
+// Return the base name of the Node
+global proc string dome_AEStripAttrName(string $nodeName){
 	string $buffer[];
 	tokenize $nodeName "." $buffer;
 	return $buffer[0];
 }
 
 
-//Find the shape node
-//example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
-global proc string getObjectShapeNode ( string $object ) {
+// Find the shape node
+// Example: print `getObjectShapeNode("domeAFL_FOV_Camera1")`;
+global proc string getObjectShapeNode(string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
-//Find the object's parent node
-//example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
-global proc string getObjectParentNode ( string $object ) {
+// Find the object's parent node
+// Example: print `getObjectParentNode("domeAFL_FOV_CameraShape2")`;
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }
 
 
-//Create the field of view and parallax distance preview shape 
-global proc AELatLong_Stereo_AddPreviewShape (string $nodeName)
-{
-  //separate the node name from the node.attribute name
+// Create the field of view and parallax distance preview shape 
+global proc AELatLong_Stereo_AddPreviewShape(string $nodeName){
+  // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
 
  //string $baseNodeName = "LatLong_Stereo";
@@ -298,24 +279,23 @@ global proc AELatLong_Stereo_AddPreviewShape (string $nodeName)
   //  //domeRadius("LatLong_Stereo");
   //domeRadius($baseNodeName);
   
-  //Reselect the LatLong_Stereo node after creating the preview shape
+  // Reselect the LatLong_Stereo node after creating the preview shape
   select -cl;
   select $baseNodeName;
 }
 
 
-//This creates the controls in the attribute editor
-global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
-{
-  //separate the node name from the node.attribute name
+// This creates the controls in the attribute editor
+global proc LatLong_Stereo_AddDynamicAttrs(string $nodeName){
+  // Separate the node name from the node.attribute name
   string $baseNodeName = dome_AEStripAttrName($nodeName);
   
   int $NewDomeSetup = 0;
   
-  //Add a version number attribute to the extra attribute fields
+  // Add a version number attribute to the extra attribute fields
   string $attrName ="domeVersion";
   int $domeVersion = 1;
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName -at long -min 0 $baseNodeName;
     setAttr ($baseNodeName+"."+$attrName) $domeVersion;
     print("Adding custom attribute " + $baseNodeName +"." +$attrName + "\n");
@@ -323,18 +303,18 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
     $NewDomeSetup = 1;
     
     string $nodeType = "LatLong_Stereo";
-    //Add the Attribute Editor node "help menu" link
+    // Add the Attribute Editor node "help menu" link
     addAttributeEditorNodeHelp(
       $nodeType,
       "showHelp -absolute \"https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages\"");
   }
   
   //---------------------------------------------------------------------
-  //Add Zero Parallax Controls
+  // Add Zero Parallax Controls
   //---------------------------------------------------------------------
   
   /*
-  //Field of View Preview
+  // Field of View Preview
   $attrName ="fovPreview";
   if (!`attributeExists $attrName $baseNodeName`) {
     addAttr -ln $attrName -nn "FOV Preview" -at bool -defaultValue true -keyable true $baseNodeName;
@@ -342,20 +322,20 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
   }
   */
   
-  //Zero Parallax Display Mode
+  // Zero Parallax Display Mode
   // string $attrName ="zeroParallaxDisplayMode";
   // if (!`attributeExists $attrName $baseNodeName`) {
     // addAttr -ln $attrName  -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -defaultValue 1 -keyable true $baseNodeName;
     // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   // }
   
-  //Zero Parallax Color
+  // Zero Parallax Color
   $attrName ="zeroParallaxColor";
   string $attrRName = "zeroParallaxColorR";
   string $attrGName = "zeroParallaxColorG";
   string $attrBName = "zeroParallaxColorB";
 
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
     addAttr -ln $attrName -at float3 -uac -keyable true $baseNodeName;
     addAttr -ln $attrRName -at "float" -p $attrName -keyable true $baseNodeName;
     addAttr -ln $attrGName -at "float" -p $attrName -keyable true $baseNodeName;
@@ -364,15 +344,15 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
     print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
 
-  //Zero Parallax Transparency
+  // Zero Parallax Transparency
   $attrName ="zeroParallaxTransparency";
-  if (!`attributeExists $attrName $baseNodeName`) {
+  if(!`attributeExists $attrName $baseNodeName`){
   addAttr -ln "zeroParallaxTransparency" -at double  -min 0 -max 1 -defaultValue 0.25 -keyable true $baseNodeName;
   print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   }
   
 
-   //Double Sided Rendering
+  // Double Sided Rendering
   // $attrName ="doubleSidedShading";
   // if (!`attributeExists $attrName $baseNodeName`) {
     // addAttr -ln $attrName  -nn "Double Sided Shading" -at "enum" -en "Double Sided:Show Frontfaces:Show Backfaces" -min 0 -defaultValue 2 -keyable true $baseNodeName;
@@ -380,23 +360,23 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
   // }
   
   //---------------------------------------------------------------------
-  //Add Save Viewing Controls
+  // Add Save Viewing Controls
   //---------------------------------------------------------------------
   
-  //Safe Viewing Display Mode
+  // Safe Viewing Display Mode
   // $attrName ="safeViewingDisplayMode";
-   // if (!`attributeExists $attrName $baseNodeName`) {
+   // if(!`attributeExists $attrName $baseNodeName`){
     // addAttr -ln $attrName -at "enum" -en "Off:Wireframe:Shaded:Wireframe on Shaded" -keyable true $baseNodeName;
     // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   // }
   
-  //Safe Viewing Color
+  // Safe Viewing Color
   // $attrName ="safeViewingColor";
   // $attrRName = "safeViewingColorR";
   // $attrGName = "safeViewingColorG";
   // $attrBName = "safeViewingColorB";
 
-  // if (!`attributeExists $attrName $baseNodeName`) {
+  // if(!`attributeExists $attrName $baseNodeName`){
     // addAttr -ln $attrName -at float3 -uac -keyable true $baseNodeName;
     // addAttr -ln $attrRName -at "float" -p $attrName -keyable true $baseNodeName;
     // addAttr -ln $attrGName -at "float" -p $attrName -keyable true $baseNodeName;
@@ -405,14 +385,14 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
     // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   // }
   
-  //Safe Viewing Transparency
+  // Safe Viewing Transparency
   // $attrName ="safeViewingTransparency";
   // if (!`attributeExists $attrName $baseNodeName`) {
   // addAttr -ln "safeViewingTransparency"  -at double  -min 0 -max 1 -dv 0.25 -keyable true $baseNodeName;
   // print("Adding custom Attributes " + $baseNodeName +"." +$attrName + "\n");
   // }
 
-  //Safe Stereo Mode
+  // Safe Stereo Mode
   // $attrName ="safeStereo";
   // if (!`attributeExists $attrName $baseNodeName`) {
     // addAttr -ln $attrName -nn "Safe Stereo" -at bool -keyable true $baseNodeName;
@@ -420,15 +400,14 @@ global proc LatLong_Stereo_AddDynamicAttrs( string $nodeName )
   // }
   
   if($NewDomeSetup){
-    //Add the dome preview shape to the camera via the connected lens shader
+    // Add the dome preview shape to the camera via the connected lens shader
     AELatLong_Stereo_AddPreviewShape($baseNodeName);
   }  
 }
 
 
-//Create the attribute editor view for the LatLong_Stereo node
-global proc AELatLong_StereoTemplate( string $nodeName )
-{
+// Create the attribute editor view for the LatLong_Stereo node
+global proc AELatLong_StereoTemplate(string $nodeName){
 	AEswatchDisplay $nodeName;
 	editorTemplate -beginScrollLayout;
 
@@ -449,7 +428,6 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       
       editorTemplate -callCustom 	"AELatLong_Stereo_Parallax_DistanceNew" "AELatLong_Stereo_Parallax_DistanceReplace" "Parallax_Distance";   
       
-
       //editorTemplate -addSeparator;
        
       editorTemplate -label "Zenith Mode" -annotation "Switch the camera orientation from a horizontal to vertical mode." -addControl "Zenith_Mode";
@@ -457,12 +435,12 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
     
-    //Define the Stereo Display Controls
+    // Define the Stereo Display Controls
     //editorTemplate -beginLayout "Stereo Display Controls" -collapse 0;
     editorTemplate -beginLayout "Stereo Display Controls" -collapse 1;
     editorTemplate 	-beginNoOptimize;
     
-      //Add the custom dynamic attributes to the node
+      // Add the custom dynamic attributes to the node
       editorTemplate -callCustom "LatLong_Stereo_AddDynamicAttrs" "LatLong_Stereo_AddDynamicAttrs" "zeroParallaxColor";  
     
       //editorTemplate -callCustom "LatLong_Stereo_ZeroParallaxDisplayModeNew" "LatLong_Stereo_ZeroParallaxDisplayModeReplace" "zeroParallaxDisplayMode"; 
@@ -488,7 +466,7 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
 
-    //Define the mappable attributes
+    // Define the mappable attributes
     editorTemplate -beginLayout "Custom Maps" -collapse 0;
       editorTemplate -beginNoOptimize;
       
@@ -499,7 +477,7 @@ global proc AELatLong_StereoTemplate( string $nodeName )
       editorTemplate -endNoOptimize;
     editorTemplate -endLayout;
     
-    //Define the image orientation attributes
+    // Define the image orientation attributes
     editorTemplate -beginLayout "Image Orientation" -collapse 0;
       editorTemplate 	-beginNoOptimize;
       editorTemplate -label "Flip X" -annotation "Flips the image horizontally" -addControl "Flip_Ray_X";	
@@ -509,7 +487,7 @@ global proc AELatLong_StereoTemplate( string $nodeName )
     
     AEdependNodeTemplate $nodeName;
     
-    //Hide the raw numerical camera and view offset fields
+    // Hide the raw numerical camera and view offset fields
     editorTemplate -suppress "Camera";
     editorTemplate -suppress "View_Offset";
     editorTemplate -suppress "caching";
@@ -519,7 +497,7 @@ global proc AELatLong_StereoTemplate( string $nodeName )
     editorTemplate -suppress "Head_Tilt_Map";
     //editorTemplate -suppress "domeVersion";
 
-    //Add any new controls that aren't listed above to the bottom of the attribute editor window 
+    // Add any new controls that aren't listed above to the bottom of the attribute editor window 
     editorTemplate -addExtraControls;
 
   editorTemplate -endScrollLayout;

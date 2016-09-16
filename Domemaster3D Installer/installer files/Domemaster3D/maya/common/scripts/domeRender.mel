@@ -1,6 +1,6 @@
 /*
-  Dome Render V1.9.1
-  2015-10-15
+  Dome Render V2.1
+  2016-09-16
   by Andrew Hazelden
   
   A set of pre and post render MEL scripts that set the focal length and openGL stereo3D display modes based upon the rendering or interactive use of Maya. 
@@ -9,12 +9,17 @@
   
   Note: You can change the default focal length values from 500mm and 4mm on the first two lines of the domeScanLensShaders() function.
   
+  Version 2.1
+  ------------
+  2016-09-16
   
-	Version 1.9.1
-	------------
-	2015-10-15 
+  Added code for switching mental ray 3.14 based Maya file nodes to use the new mental ray elliptical filtering mode. This works to eliminate the blurry streak artifacts in Maya 2017.
+  
+  Version 1.9.1
+  ------------
+  2015-10-15 
 
-	Changed the field of view value from the default 90 degree FOV to a wide angle setting.
+  Changed the field of view value from the default 90 degree FOV to a wide angle setting.
   
   Version 1.7
   -------------
@@ -50,54 +55,77 @@
   
   
   Add the following commands to your render settings window
-  //PreRender MEL:
+  // PreRender MEL:
   source "domeRender.mel"; domemaster3DPreRenderMEL();
   
-  //PostRender MEL:
+  // PostRender MEL:
   source "domeRender.mel"; domemaster3DPostRenderMEL();
   
   -----------------------------------------------------------------------
   
   Automatic MEL command to add render controls:
   
-  //PreRender MEL:
+  // PreRender MEL:
   setAttr -type "string" defaultRenderGlobals.preMel "source \"domeRender.mel\"; domemaster3DPreRenderMEL();";
   
-  //PostRender MEL:
+  // PostRender MEL:
   setAttr -type "string" defaultRenderGlobals.postMel "source \"domeRender.mel\"; domemaster3DPostRenderMEL();";
+  
+  -----------------------------------------------------------------------
+  List all of the Maya file nodes and examine the new mental ray elliptical filtering modes
+
+  // List the selected file nodes
+  source "domeRender.mel";
+  domeListMayaFileNodes(1);
+
+  // List all file nodes in the scene
+  source "domeRender.mel";
+  domeListMayaFileNodes(0);
+
+  -----------------------------------------------------------------------
+  Update all of the Maya file nodes to use the new mental ray elliptical filtering modes
+  
+  // Update the selected file nodes
+  source "domeRender.mel";
+  domeUpdateMayaFileNodes(1);
+  
+  // Update all file nodes in the scene
+  source "domeRender.mel";
+  domeUpdateMayaFileNodes(0);
+  
+  
   
 */
 
 
 global proc domemaster3DPreRenderMEL(){
-  //Setup the domeAFL_FOV, domeAFL_FOV_Stereo, and domeAFL_WxH cameras for rendering
-  //Save the current cameraShape focalLength
-  //Set the cameraShape focal length to 500 mm 
-  //Toggle off the default Maya stereo rig controls
+  // Setup the domeAFL_FOV, domeAFL_FOV_Stereo, and domeAFL_WxH cameras for rendering
+  // Save the current cameraShape focalLength
+  // Set the cameraShape focal length to 500 mm 
+  // Toggle off the default Maya stereo rig controls
   
-  //Set up the blurry line texture fix focalLength
+  // Set up the blurry line texture fix focalLength
   
-  //Set the Domemaster3D cameras to the rendering mode
-  domeScanLensShaders( true );
+  // Set the Domemaster3D cameras to the rendering mode
+  domeScanLensShaders(true);
 }
 
 
 global proc domemaster3DPostRenderMEL(){
-  //Restore the current cameraShape focalLength
-  //Toggle on the default Maya stereo rig controls
+  // Restore the current cameraShape focalLength
+  // Toggle on the default Maya stereo rig controls
  
-  //Note check for a "center" stereoRigCamera connection when scanning the domeAFL_FOV_Stereo nodes
+  // Note check for a "center" stereoRigCamera connection when scanning the domeAFL_FOV_Stereo nodes
   
-  //Restore the settings after the blurry line texture fix
+  // Restore the settings after the blurry line texture fix
   
-  //Set the Domemaster3D cameras to the non-rendering mode
-  domeScanLensShaders( false );
+  // Set the Domemaster3D cameras to the non-rendering mode
+  domeScanLensShaders(false);
 }
 
 
-//List all of the lens shaders in the scene
-global proc domeScanLensShaders( string $renderMode ){
-
+// List all of the lens shaders in the scene
+global proc domeScanLensShaders(string $renderMode){
   // Check for a Domemaster3D Realtime FOV Override
   // 18 mm focal length = 90 degree FOV
   int $defaultRealtimeFOV = 18;
@@ -106,19 +134,19 @@ global proc domeScanLensShaders( string $renderMode ){
   
   int $domeOverrideFOV = $defaultRealtimeFOV;
   
-	string $domeOverrideFOVString = `getenv "DOMEMASTER3D_MAYA_REALTIME_FOV"`;
-	// Check if the env variable exists
-	if($domeOverrideFOVString != ""){
-		// Make sure the value is not a null string
-		$domeOverrideFOV = $domeOverrideFOVString;
-		if(($domeOverrideFOV >= 3) && ($domeOverrideFOV <= 3500)){
-			print ("A \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable was specified. Using an overridden FOV Value of " + $domeOverrideFOV + "\n");
-		}else{
-			print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + $domeOverrideFOV + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + $defaultRealtimeFOV + " will be used instead.\n");
-			$domeOverrideFOV = $defaultRealtimeFOV;
-		}
-	}
-	
+  string $domeOverrideFOVString = `getenv "DOMEMASTER3D_MAYA_REALTIME_FOV"`;
+  // Check if the env variable exists
+  if($domeOverrideFOVString != ""){
+    // Make sure the value is not a null string
+    $domeOverrideFOV = $domeOverrideFOVString;
+    if(($domeOverrideFOV >= 3) && ($domeOverrideFOV <= 3500)){
+      print ("A \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable was specified. Using an overridden FOV Value of " + $domeOverrideFOV + "\n");
+    }else{
+      print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + $domeOverrideFOV + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + $defaultRealtimeFOV + " will be used instead.\n");
+      $domeOverrideFOV = $defaultRealtimeFOV;
+    }
+  }
+  
   // Rendering Started - "Blury Streak Override" focal length
   int $domePreRenderFocalLength = 500;
   int $latlongPreRenderFocalLength = 18;
@@ -137,7 +165,7 @@ global proc domeScanLensShaders( string $renderMode ){
   int $domePostRenderFocalLength = $domeOverrideFOV;
   int $latlongPostRenderFocalLength = $domeOverrideFOV;
   
-  //Scan the lens shaders in the scene
+  // Scan the lens shaders in the scene
   string $domeAFL_FOV_lenses[] = `lsType("domeAFL_FOV")`;
   string $domeAFL_FOV_Stereo_lenses[] = `lsType("domeAFL_FOV_Stereo")`;
   string $domeAFL_WxH_lenses[] = `lsType("domeAFL_WxH")`;
@@ -145,23 +173,23 @@ global proc domeScanLensShaders( string $renderMode ){
   string $domeNodeItems = "";
   string $cameraNodeItems = "";
   
-  //List of all the lens shader cameras in the scene
+  // List of all the lens shader cameras in the scene
   string $activeDomeCameras[];
 
-  int $i = 1; //track the total number of nodes
+  int $i = 1; // Track the total number of nodes
   
   //--------------------------------------------------------------------------
     
   print("\n\nDomemaster3D Camera > Lens Shader Connections:\n");
   
-  //Scan domeAFL_FOV Nodes
+  // Scan domeAFL_FOV Nodes
   for ( $domeNodeItems in $domeAFL_FOV_lenses )
   {
      // Look for the last item <done> in the array
      if ( $domeNodeItems != "<done>" ){
         string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
         $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
-        //Print out the camera and lens connections
+        // Print out the camera and lens connections
         for ( $cameraNodeItems in $cameras){
           print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
           $i += 1;
@@ -170,45 +198,42 @@ global proc domeScanLensShaders( string $renderMode ){
   }
 
   //Scan domeAFL_FOV_Stereo Nodes
-  for ( $domeNodeItems in $domeAFL_FOV_Stereo_lenses )
-  {
+  for ($domeNodeItems in $domeAFL_FOV_Stereo_lenses){
      // Look for the last item <done> in the array
-     if ( $domeNodeItems != "<done>" ){
+     if($domeNodeItems != "<done>"){
         string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
         $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
-        //Print out the camera and lens connections
-        for ( $cameraNodeItems in $cameras){
-          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+        // Print out the camera and lens connections
+        for($cameraNodeItems in $cameras){
+          print( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
           $i += 1;
         }
      }
   }
 
-  //Scan domeAFL_WxH Nodes
-  for ( $domeNodeItems in $domeAFL_WxH_lenses )
-  {
+  // Scan domeAFL_WxH Nodes
+  for($domeNodeItems in $domeAFL_WxH_lenses){
      // Look for the last item <done> in the array
-     if ( $domeNodeItems != "<done>" ){
+     if($domeNodeItems != "<done>"){
         string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
         $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
-        //Print out the camera and lens connections
-        for ( $cameraNodeItems in $cameras){
-          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+        // Print out the camera and lens connections
+        for($cameraNodeItems in $cameras){
+          print("[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
           $i += 1;
         }
      }
   }
 
-    //Scan LatLong_Stereo Nodes
-  for ( $domeNodeItems in $LatLong_Stereo_lenses )
-  {
+  // Scan LatLong_Stereo Nodes
+  for($domeNodeItems in $LatLong_Stereo_lenses){
      // Look for the last item <done> in the array
-     if ( $domeNodeItems != "<done>" ){
-        string $cameras[] = `listConnections -type "camera"  ($domeNodeItems+".message")`;
+     if($domeNodeItems != "<done>"){
+        string $cameras[] = `listConnections -type "camera" ($domeNodeItems+".message")`;
         $activeDomeCameras = stringArrayCatenate($activeDomeCameras, $cameras);
-        //Print out the camera and lens connections
-        for ( $cameraNodeItems in $cameras){
-          print ( "[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
+        // Print out the camera and lens connections
+        for($cameraNodeItems in $cameras){
+          print("[" + $i + "] " + $cameraNodeItems + " > " + $domeNodeItems + "\n");
           $i += 1;
         }
      }
@@ -217,67 +242,65 @@ global proc domeScanLensShaders( string $renderMode ){
   
   print("\n\nList of Domemaster3D cameras:\n");
   int $c = 1;
-  for ( $cameraNodeItems in $activeDomeCameras){
-    print ( "[" + $c+ "] " + $cameraNodeItems + "\n");
-    $c  += 1;
+  for($cameraNodeItems in $activeDomeCameras){
+    print("[" + $c+ "] " + $cameraNodeItems + "\n");
+    $c += 1;
   }
   
   print("\n\n");
   print("Total Domemaster3D Cameras: " + ($c-1) + "\n\n");
   
   //--------------------------------------------------------------------------
-  //Change the Field of view for the cameras
+  // Change the Field of view for the cameras
   //--------------------------------------------------------------------------
   
-  for ( $cameraNodeItems in $activeDomeCameras){
-    if ($renderMode == 0){
-      //Rendering Done Post Render Mel Stuff
+  for($cameraNodeItems in $activeDomeCameras){
+    if($renderMode == 0){
+      // Rendering Done Post Render Mel Stuff
       
-      //Check if the Focal Length attribute is locked - then skip the setAttr if it's locked
+      // Check if the Focal Length attribute is locked - then skip the setAttr if it's locked
       // int $isFocalLengthLocked = `getAttr -lock ($cameraNodeItems+".focalLength")`;
       // if($isFocalLengthLocked){
         //Set up the blurry line texture fix
         //setAttr ($cameraNodeItems+".focalLength") 500;
         //print("Setting the attribute: " + ($cameraNodeItems+".focalLength") + " to " + 500 + "mm.\n");
-      // }
-      // else{
+      // }else{
         // print("The attribute: " + ($cameraNodeItems+".focalLength") + " is locked.\n");
       // }
       
-      //Check if this camera is the stereo rig
+      // Check if this camera is the stereo rig
       string $cameraShapeNode = getObjectShapeNode($cameraNodeItems);
-      if (`nodeType($cameraShapeNode)`== "stereoRigCamera"){
+      if(`nodeType($cameraShapeNode)`== "stereoRigCamera"){
         print("Adjusting the stereo settings on the " + $cameraShapeNode + " rig\n");
 
         string $activeLensShader[];
         float $domeActiveZeroParallaxDistance;
         float $domeActiveInteraxialSeparation;
 
-
         // LatLong Stereo
-        //Scan the lens shader connections
+        // Scan the lens shader connections
         $activeLensShader = `listConnections -type "LatLong_Stereo"  ($cameraShapeNode+".miLensShader")`;
-        if (`size($activeLensShader)`){
+        if(`size($activeLensShader)`){
           print("Setting the Post Render MEL attribute: " + ($cameraNodeItems+".focalLength") + " to " + $latlongPostRenderFocalLength + "mm.\n");
           setAttr ($cameraNodeItems+".focalLength") $latlongPostRenderFocalLength;
         }
 
         // Fulldome Stereo
-        //Scan the lens shader connections
+        // Scan the lens shader connections
         $activeLensShader = `listConnections -type "domeAFL_FOV_Stereo"  ($cameraShapeNode+".miLensShader")`;
-        if (`size($activeLensShader)`){
+        if(`size($activeLensShader)`){
           print("Setting the Post Render MEL attribute: " + ($cameraNodeItems+".focalLength") + " to " + $domePostRenderFocalLength + "mm.\n");
           setAttr ($cameraNodeItems+".focalLength") $domePostRenderFocalLength;
         }
 
-        //Enable the default Maya stereo rig
+        // Enable the default Maya stereo rig
         setAttr ($cameraShapeNode+".stereo") 1;
       } // End of checking if a stereo rig is connected
 
-    } else {
-      //Rendering Started PreRenderMel stuff
+    }else{
+      // Rendering Started PreRenderMel stuff
       
-      //Check if the Focal Length attribute is locked - then skip the setAttr if it's locked
+      // Check if the Focal Length attribute is locked - then skip the setAttr if it's locked
       // int $isFocalLengthLocked = `getAttr -lock ($cameraNodeItems+".focalLength")`;
       // if($isFocalLengthLocked){
         //Restore the cameraShapes's default FOV
@@ -294,46 +317,317 @@ global proc domeScanLensShaders( string $renderMode ){
         // print("The attribute: " + ($cameraNodeItems+".focalLength") + " is locked.\n");
       // }
       
-      //Check if this camera is the stereo rig
+      // Check if this camera is the stereo rig
       string $cameraShapeNode = getObjectShapeNode($cameraNodeItems);
-      if (`nodeType($cameraShapeNode)`== "stereoRigCamera"){
-      
+      if(`nodeType($cameraShapeNode)`== "stereoRigCamera"){
         // LatLong Stereo
-        //Scan the lens shader connections
+        // Scan the lens shader connections
         $activeLensShader = `listConnections -type "LatLong_Stereo"  ($cameraShapeNode+".miLensShader")`;
-        if (`size($activeLensShader)`){
+        if(`size($activeLensShader)`){
           print("Setting the Pre Render MEL attribute: " + ($cameraNodeItems+".focalLength") + " to " + $latlongPreRenderFocalLength + "mm.\n");
           setAttr ($cameraNodeItems+".focalLength") $latlongPreRenderFocalLength;
         }
 
         // Fulldome Stereo
-        //Scan the lens shader connections
+        // Scan the lens shader connections
         $activeLensShader = `listConnections -type "domeAFL_FOV_Stereo"  ($cameraShapeNode+".miLensShader")`;
-        if (`size($activeLensShader)`){
+        if(`size($activeLensShader)`){
           print("Setting the Pre Render MEL attribute: " + ($cameraNodeItems+".focalLength") + " to " + $domePreRenderFocalLength + "mm.\n");
           setAttr ($cameraNodeItems+".focalLength") $domePreRenderFocalLength;
         }
 
         print("Adjusting the stereo settings on the " + $cameraShapeNode + " rig\n");
-        //Disable the default Maya stereo rig
+        // Disable the default Maya stereo rig
         setAttr ($cameraShapeNode+".stereo") 0;
       }
     }
   } 
 }
+// Update all of the Maya file nodes to use the new mental ray elliptical filtering mode
+// source "UpdateMayaFileNodes.mel";
+// Example: MayaFileNodeEllipticalFiltering(1); // Update the selected file nodes
+// Example: MayaFileNodeEllipticalFiltering(0); // Update all file nodes in the scene
+global proc string [] MayaFileNodeEllipticalFiltering(int $selected){
+  string $selectedNodes[];
+  string $sel;
+  
+  int $nodeCount = 0;
+  string $updatedNodes[];
+  
+  print("--------------------------------------------------------------------\n");
+  
+  if($selected){
+    // List the selected file nodes
+    $selectedNodes = `ls -type file -selection`;
+    print("Updating the selected Maya file nodes to use the new mental ray elliptical filtering mode.\n\n");
+  }else{
+    // List all of the nodes
+    $selectedNodes = `lsType("file")`;
+    print("Updating all of the Maya file nodes to use the new mental ray elliptical filtering mode.\n\n");
+  }
 
 
-//Find the shape node
-//example: print `getObjectShapeNode( "domeAFL_FOV_Camera1")`;
-global proc string getObjectShapeNode ( string $object ) {
+  for($sel in $selectedNodes){
+    if($sel != "<done>"){      
+      // Enable the Mipmap filtering atribute
+      setAttr ($sel+".filterType") 1;
+
+      // Enable the mental ray Advanced Elliptical Filtering attribute
+      if(`attributeExists "miUseEllipticalFilter" $sel`){
+        setAttr ($sel+".miUseEllipticalFilter") 1;
+        $nodeCount += 1;
+        
+        // Enable an "Elliptical Filter Type" attribute
+        if(`attributeExists "miEllipticalBilinear" $sel`){
+          // Use Bilinear filtering
+          setAttr ($sel+".miEllipticalBilinear") 1;
+          // Use Bicubic filtering
+          //setAttr ($sel+".miEllipticalBilinear") 0;
+        }
+        
+        // Adjust the "MI Elliptical Max Minor" extra attribute
+        if(`attributeExists "miEllipticalMaxMinor" $sel`){
+          setAttr ($sel+".miEllipticalMaxMinor") 8.0;
+        }
+        
+        // Track how many nodes were updated
+        print("[" + $nodeCount + "] " + $sel + "\n");
+        $updatedNodes[$nodeCount] = $sel;
+      }else{
+        print("The attribute \"miUseEllipticalFilter\" does not exist on " + $sel + "!\n");
+      }
+    }
+  }
+  print("--------------------------------------------------------------------\n");
+  print("[Updated " + $nodeCount + " File Nodes]\n");
+  
+  // Return a list of the updated file nodes
+  return $updatedNodes;
+}
+
+
+// List all of the Maya file nodes and examine the new mental ray elliptical filtering modes
+// Example: source "domeRender.mel";domeListMayaFileNodes(1); // List the selected file nodes
+// Example: source "domeRender.mel";domeListMayaFileNodes(0); // List all file nodes in the scene
+global proc string [] domeListMayaFileNodes(int $selected){
+  string $selectedNodes[];
+  string $sel;
+  
+  int $nodeCount = 0;
+  string $updatedNodes[];
+  
+  // Activate mental ray if required
+  if(`pluginInfo -query -loaded "Mayatomr"`){
+    //print("The Mental Ray plugin is already active.\n");
+  }else{
+    loadPlugin "Mayatomr";
+    print("The Mental Ray plugin was loaded.\n");
+  }
+  
+  // Make mental ray the active renderer
+  setCurrentRenderer mentalRay;
+  
+  print("\n");
+  print("List Maya File Nodes\n");
+  print("By Andrew Hazelden <andrew@andrewhazelden.com>\n");
+  print("--------------------------------------------------------------------\n");
+  
+  if($selected){
+    // List the selected file nodes
+    $selectedNodes = `ls -type file -selection`;
+    print("Listing the selected Maya file nodes:\n\n");
+  }else{
+    // List all of the nodes
+    $selectedNodes = `lsType("file")`;
+    print("Listing all of the Maya file nodes:\n\n");
+  }
+
+  
+  for($sel in $selectedNodes){
+    if($sel != "<done>"){
+    
+      int $filterType = 0;
+      string $filterTypeString;
+      int $useEllipticalFilter = 0;
+      string $useEllipticalFilterString;
+      int $miEllipticalBilinear = 0;
+      string $miEllipticalBilinearString;
+      float $miEllipticalMaxMinor = 0;
+      
+      // Enable the Mipmap filtering atribute
+      $filterType = `getAttr ($sel+".filterType")`;
+      switch($filterType){
+        case 0:
+          $filterTypeString = "Off";
+          break;
+        case 1:
+          $filterTypeString = "Mipmap";
+          break;
+        case 2:
+          $filterTypeString = "Box";
+          break;
+        case 3:
+          $filterTypeString = "Quadratic";
+          break;
+        case 4:
+          $filterTypeString = "Quartic";
+          break;
+        case 5:
+          $filterTypeString = "Gaussian";
+          break;
+        default:
+          $filterTypeString = "Unknown";
+          break;
+      }
+        
+      // Build a string with each of the elliptical filter attributes
+      string $nodeAttrs;
+      $nodeAttrs += "[" + $nodeCount + "] " + $sel;
+      $nodeAttrs += "\t[Filter Type] " + $filterTypeString;
+      
+      // Track how many nodes were listed
+      $nodeCount += 1;
+
+      // Enable the mental ray Advanced Elliptical Filtering attribute
+      if(`attributeExists "miUseEllipticalFilter" $sel`){
+        $useEllipticalFilter = `getAttr ($sel+".miUseEllipticalFilter")`;
+        
+        if($useEllipticalFilter == true){
+          $useEllipticalFilterString = "On";
+        }else{
+          $useEllipticalFilterString = "Off";
+        }
+        
+        $nodeAttrs += "\t[Use Elliptical Filter] " + $useEllipticalFilterString;
+        
+        // Enable an "Elliptical Filter Type" attribute
+        if(`attributeExists "miEllipticalBilinear" $sel`){
+          // Use Bilinear filtering
+          $miEllipticalBilinear = `getAttr ($sel+".miEllipticalBilinear")`;
+          // Use Bicubic filtering
+          //setAttr ($sel+".miEllipticalBilinear") 0;
+  
+          if($miEllipticalBilinear == true){
+            $miEllipticalBilinearString = "Bilinear";
+          }else{
+            $miEllipticalBilinearString = "Bicubic";
+          }
+          $nodeAttrs += "\t[Elliptical Filter Type] " + $miEllipticalBilinearString;
+        }
+        
+        // Adjust the "MI Elliptical Max Minor" extra attribute
+        if(`attributeExists "miEllipticalMaxMinor" $sel`){
+          $miEllipticalMaxMinor = `getAttr ($sel+".miEllipticalMaxMinor")`;
+          
+          $nodeAttrs += "\t[Elliptical Max Minor] " + $miEllipticalMaxMinor;
+        }
+        
+      }else{
+        $nodeAttrs += "\t[Use Elliptical Filter] No Attributes " ;
+      }
+      
+      // List the current node details
+      $nodeAttrs += "\n";
+      print($nodeAttrs);
+    }
+  }
+  
+  print("--------------------------------------------------------------------\n");
+  print("[Listed " + $nodeCount + " File Nodes]\n");
+  
+  // Return a list of the Maya file nodes
+  return $selectedNodes;
+}
+
+
+// Update all of the Maya file nodes to use the new mental ray elliptical filtering modes
+// Example: source "domeRender.mel";domeUpdateMayaFileNodes(1); // Update the selected file nodes
+// Example: source "domeRender.mel";domeUpdateMayaFileNodes(0); // Update all file nodes in the scene
+global proc string [] domeUpdateMayaFileNodes(int $selected){
+  string $selectedNodes[];
+  string $sel;
+  
+  int $nodeCount = 0;
+  string $updatedNodes[];
+  
+  // Activate mental ray if required
+  if(`pluginInfo -query -loaded "Mayatomr"`){
+    //print("The Mental Ray plugin is already active.\n");
+  }else{
+    loadPlugin "Mayatomr";
+    print("The Mental Ray plugin was loaded.\n");
+  }
+  
+  // Make mental ray the active renderer
+  setCurrentRenderer mentalRay;
+  
+  print("\n");
+  print("Update Maya File Nodes\n");
+  print("By Andrew Hazelden <andrew@andrewhazelden.com>\n");
+  print("--------------------------------------------------------------------\n");
+  
+  if($selected){
+    // List the selected file nodes
+    $selectedNodes = `ls -type file -selection`;
+    print("Updating the selected Maya file nodes to use the new mental ray 3.14 elliptical filtering modes:\n\n");
+  }else{
+    // List all of the nodes
+    $selectedNodes = `lsType("file")`;
+    print("Updating all of the Maya file nodes to use the new mental ray 3.14 elliptical filtering modes:\n\n");
+  }
+
+
+  for($sel in $selectedNodes){
+    if($sel != "<done>"){      
+      // Enable the Mipmap filtering atribute
+      setAttr ($sel+".filterType") 1;
+
+      // Enable the mental ray Advanced Elliptical Filtering attribute
+      if(`attributeExists "miUseEllipticalFilter" $sel`){
+        setAttr ($sel+".miUseEllipticalFilter") 1;
+        $nodeCount += 1;
+        
+        // Enable an "Elliptical Filter Type" attribute
+        if(`attributeExists "miEllipticalBilinear" $sel`){
+          // Use Bilinear filtering
+          setAttr ($sel+".miEllipticalBilinear") 1;
+          // Use Bicubic filtering
+          //setAttr ($sel+".miEllipticalBilinear") 0;
+        }
+        
+        // Adjust the "MI Elliptical Max Minor" extra attribute
+        if(`attributeExists "miEllipticalMaxMinor" $sel`){
+          setAttr ($sel+".miEllipticalMaxMinor") 8.0;
+        }
+        
+        // Track how many nodes were updated
+        print("[" + $nodeCount + "] " + $sel + "\n");
+        $updatedNodes[$nodeCount] = $sel;
+      }else{
+        print("The attribute \"miUseEllipticalFilter\" does not exist on " + $sel + "!\n");
+      }
+    }
+  }
+  
+  print("--------------------------------------------------------------------\n");
+  print("[Updated " + $nodeCount + " File Nodes]\n");
+  
+  // Return a list of the updated file nodes
+  return $updatedNodes;
+}
+
+
+// Find the shape node
+// Example: print `getObjectShapeNode("domeAFL_FOV_Camera1")`;
+global proc string getObjectShapeNode(string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
 
-//Find the object's parent node
-//example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
-global proc string getObjectParentNode ( string $object ) {
+// Find the object's parent node
+// Example: print `getObjectParentNode("domeAFL_FOV_CameraShape2")`;
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }

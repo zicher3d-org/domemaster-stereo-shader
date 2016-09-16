@@ -1,9 +1,8 @@
 /*
 Create the Domemaster3D Main Menu in the Rendering menu set
-Version 2.1
-2016-09-15 Maya 2011 - Maya 2017+ Compatible Menu
+Version 2.1.2
+2016-09-16 Maya 2010 - Maya 2017+ Compatible Menu
 
-Note: Disabled the mentalrayTexture based tools for Mental Ray 3.14/Maya 2017+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -116,12 +115,12 @@ global proc createDomeRigSubmenu(){
 
     // Build the radio button menu item
     menuItem 
-        -label $domeActiveRig
-        -radioButton ($isCurrent)
-        -collection domeRigSubMenuCollection
-        -parent domeDefaultRigMenu
-        -command $funcName
-        ("domeRadioSubMenu" + $i);
+      -label $domeActiveRig
+      -radioButton ($isCurrent)
+      -collection domeRigSubMenuCollection
+      -parent domeDefaultRigMenu
+      -command $funcName
+      ("domeRadioSubMenu" + $i);
         
      $i += 1;
   }
@@ -142,13 +141,13 @@ global proc editDomeDiagOpenMenuItems(){
   string $imageWorkspace = `workspace -query -fileRuleEntry "images"`;
   string $imageDirPath = `workspace -expandName $imageWorkspace`;
 
-menuItem -edit 
-  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesDirPath)
-  DomeDiagOpenScenesMenu;
+  menuItem -edit 
+    -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesDirPath)
+    DomeDiagOpenScenesMenu;
 
-menuItem -edit 
-  -annotation ("Opening the \"Images\" folder for the current project: " + $imageDirPath)
-  DomeDiagOpenImagesMenu;
+  menuItem -edit 
+    -annotation ("Opening the \"Images\" folder for the current project: " + $imageDirPath)
+    DomeDiagOpenImagesMenu;
 }
 
 // Run the menu update command
@@ -158,15 +157,25 @@ menuItem -edit
 // Create the Domemaster3D Menu
 // -----------------------------------------------------------------
 global proc createDomemaster3DMenu() {
-
-	int $mayaVersion = getMayaVersionDome();
-
   global string $gMainWindow;
+  
+  // Check what version of Maya is active
+	int $mayaVersion = getMayaVersionDome();
 
   // Remove any existing Domemaster3D menus
   if(`menu -query -exists mainDomemaster3DMenu`){
     print("Replacing the existing Domemaster3D menu item.\n");
     deleteUI mainDomemaster3DMenu;
+  }
+  
+  // Choose the correct shelf icon image format
+  string $imageExt;
+  if($mayaVersion < 2011){
+    // Maya 2010 and earlier uses XPM shelf icon images
+    $imageExt = ".xpm";
+  }else{
+    // Maya 2011 and newer uses PNG shelf icon images
+    $imageExt = ".png";
   }
   
   // Create the Domemaster3D Menu
@@ -187,8 +196,7 @@ global proc createDomemaster3DMenu() {
   updateMenuMode;
   updateMenuModeUI;
   
-  setParent -menu 
-    mainDomemaster3DMenu;
+  setParent -menu mainDomemaster3DMenu;
   
   menuItem
     -subMenu true 
@@ -199,22 +207,22 @@ global proc createDomemaster3DMenu() {
       menuItem
         -label "LatLong Camera" 
         -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
-        -image "render_latlong_lens.png"
+        -image ("render_latlong_lens" + $imageExt)
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
       menuItem
         -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied."
-        -image "render_LatLong_Stereo.png"
+        -image ("render_LatLong_Stereo" + $imageExt)
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoRig()\")"; 
       menuItem
         -label "LatLong Stereo Aim Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with an aim constraint and the LatLong_Stereo shader applied."
-        -image "render_LatLong_Stereo.png"
+        -image ("render_LatLong_Stereo" + $imageExt)
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoAimRig()\")"; 
       menuItem
         -label "LatLong Stereo Zenith Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
-        -image "render_LatLong_Stereo.png"
+        -image ("render_LatLong_Stereo" + $imageExt)
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
 
       // Fulldome 2D Section
@@ -227,12 +235,12 @@ global proc createDomemaster3DMenu() {
       menuItem
         -label "Domemaster WxH Camera" 
         -annotation "Create a fulldome camera with the domeAFL_WxH lens shader applied. This shader uses a diameter and height setting instead of a field of view control."
-        -image "render_domeAFL_WxH.png" 
+        -image ("render_domeAFL_WxH" + $imageExt) 
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_WxH_Camera()\")";
       menuItem
         -label "Domemaster FOV Camera" 
         -annotation "Create a fulldome camera with the domeAFL_FOV lens shader applied."
-        -image "render_domeAFL_FOV.png" 
+        -image ("render_domeAFL_FOV" + $imageExt) 
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_FOV_Camera()\")";
 
       // Fulldome Stereo Section
@@ -246,18 +254,18 @@ global proc createDomemaster3DMenu() {
       menuItem 
         -label "Domemaster3D FOV Camera" 
         -annotation "Create a stereo fulldome camera rig with the domeAFL_FOV_Stereo lens shader applied."
-        -image "render_domeAFL_FOV_Stereo.png" 
+        -image ("render_domeAFL_FOV_Stereo" + $imageExt) 
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeStereoRig()\")";
                
       menuItem 
         -label "Dome Texture" 
         -annotation "Create a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader." 
-        -image "render_rob_lookup_background.png"
+        -image ("render_rob_lookup_background" + $imageExt)
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createRobLookup()\")";
       menuItem 
         -label "Dome Ramp" 
         -annotation "Create a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo."
-        -image "render_domeRamp.png"
+        -image ("render_domeRamp" + $imageExt)
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeRampTexture()\")";
 
       menuItem -divider true;
@@ -289,23 +297,37 @@ global proc createDomemaster3DMenu() {
     menuItem 
       -label "Create Color Material" 
       -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with a color texture map."
-      -image "colorMaterial.png"
+      -image ("colorMaterial" + $imageExt)
       -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorMiaMaterial()\");";
     menuItem 
       -label "Create Color + Bump Material" 
       -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with color and bump map textures."
-      -image "bumpMaterial.png"
+      -image ("bumpMaterial" + $imageExt)
       -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorBumpMiaMaterial()\")";
     menuItem 
       -label "Create Color Image Sequence Material" 
       -annotation "Create a mia_material_x_passes / mentalrayTexture based image sequence shading network."
-      -image "mentalrayTextureAnimationMaterial.png" 
+      -image ("mentalrayTextureAnimationMaterial" + $imageExt) 
       -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorImageSequenceMiaMaterial()\")";
     menuItem 
       -label "Create Hybrid MR + Maya Color Material" 
       -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
-      -image "hybridMaterial.png" 
+      -image ("hybridMaterial" + $imageExt) 
       -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
+
+    // Mental Ray Elliptical Filtering
+    if($mayaVersion >=2016){
+      menuItem 
+        -label "Enable Elliptical Filtering on Maya File Nodes" 
+        -annotation "Enable the mental ray 3.14+ compatible elliptical filtering mode on all Maya file texture nodes in the scene."
+        //-image ("mrEllipticalFiltering" + $imageExt) 
+        -command "source \"domeRender.mel\";domeUpdateMayaFileNodes(0);";
+      menuItem 
+        -label "List Elliptical Filtering Details on Maya File Nodes" 
+        -annotation "Create a report in the Script Editor window that lists all of the Maya file node's elliptical texture filtering settings."
+        //-image ("mrEllipticalFilteringReport" + $imageExt) 
+        -command "source \"domeRender.mel\";domeListMayaFileNodes(0);";
+    }
 
     // Image Based Lighting Section
     if($mayaVersion >=2015){
@@ -317,12 +339,12 @@ global proc createDomemaster3DMenu() {
     menuItem 
       -label "Create Fulldome IBL" 
       -annotation "Create a fulldome 180 degree IBL (Image Based Lighting) shading network. This repositions a fulldome image as a mentalrayIblShape angular environment map."
-      -image "fulldomeIBL.png" 
+      -image ("fulldomeIBL" + $imageExt) 
       -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeIBL()\")";
     menuItem 
       -label "Create Hemirect IBL" 
       -annotation "Create a hemi-equirectangular IBL (Image Based Lighting) shading network. This repositions the \"top half\" of a latlong / equirectangular panorama image as a mentalrayIblShape spherical environment map."
-      -image "hemirectIBL.png"
+      -image ("hemirectIBL" + $imageExt)
       -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createHemirectIBL()\")";
 
   //} end of only show the materials if we are on Maya 2011-2016.5
@@ -339,7 +361,7 @@ global proc createDomemaster3DMenu() {
     menuItem 
       -label "Create Starglobe" 
       -annotation "Create a starry background for your fulldome scenes."
-      -image "render_starglobe.png"
+      -image ("render_starglobe" + $imageExt)
       //-command "python(\"import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()\")";
       -command "source \"domeStarglobe.mel\";\ncreateStarglobe();";  
   //}
@@ -347,17 +369,17 @@ global proc createDomemaster3DMenu() {
   menuItem 
     -label "Create Reference Grid" 
     -annotation "Create a hemispherical wireframe reference grid."
-    -image "domeGrid.png" 
+    -image ("domeGrid" + $imageExt) 
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeGrid()\")";
   menuItem 
     -label "Create Galaxy" 
     -annotation "Create dynamic particle based galaxies."
-    -image "render_galaxy.png" 
+    -image ("render_galaxy" + $imageExt) 
     -command "source \"galaxyCreator.mel\";galaxyCreator();";
   menuItem 
     -label "Create DomeText" 
     -annotation "Create raster titles and scrolling credits using ImageMagick."
-    -image "domeText.png" 
+    -image ("domeText" + $imageExt) 
     -command "source \"domeText.mel\";domeText();";
     
   // Only show the crossbounce tool if we are on Maya 2011-2016.5
@@ -365,14 +387,14 @@ global proc createDomemaster3DMenu() {
     menuItem 
       -label "CrossBounce Simulation" 
       -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
-      -image "domeCrossBounce.png" 
+      -image ("domeCrossBounce" + $imageExt) 
       -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
   //}
   
   menuItem 
     -label "Dome Viewer" 
     -annotation "View immersive fulldome and panoramic images+movies in Maya."
-    -image "domeViewer.png" 
+    -image ("domeViewer" + $imageExt) 
     -command "source \"domeViewer.mel\";domeViewer();";
 
   // Guard against Maya 2010 loading of the histogram item.
@@ -380,7 +402,7 @@ global proc createDomemaster3DMenu() {
   menuItem 
     -label "Dome Histogram" 
     -annotation "Calculate a histogram analysis for the current image in the render view window."
-    -image "domeHistogram.png" 
+    -image ("domeHistogram" + $imageExt) 
     -command "source \"domeHistogram.mel\";domeHistogram();";
   }
 
@@ -436,7 +458,7 @@ global proc createDomemaster3DMenu() {
     //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
     -annotation "Opening the folder for the current project."
     -imageOverlayLabel "PRO"
-    -image "dome_directory.png"
+    -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
     DomeDiagOpenProjectsMenu;
   menuItem
@@ -444,7 +466,7 @@ global proc createDomemaster3DMenu() {
     //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
     -annotation "Opening the \"Scenes\" folder for the current project."
     -imageOverlayLabel "SCN"
-    -image "dome_directory.png"
+    -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     DomeDiagOpenScenesMenu;
   menuItem 
@@ -452,7 +474,7 @@ global proc createDomemaster3DMenu() {
     //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
     -annotation "Opening the \"Sourceimages\" folder for the current project."
     -imageOverlayLabel "SRC"
-    -image "dome_directory.png"
+    -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
     DomeDiagOpenSourceImagesMenu;
   menuItem 
@@ -460,14 +482,14 @@ global proc createDomemaster3DMenu() {
     //-annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
     -annotation "Opening the \"Images\" folder for the current project."
     -imageOverlayLabel "IMG"
-    -image "dome_directory.png"
+    -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
     DomeDiagOpenImagesMenu;
   menuItem 
     -label "Open TEMP Folder"
     -annotation "Opening the temporary folder."
     -imageOverlayLabel "TMP"
-    -image "dome_directory.png"
+    -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();";
   menuItem 
     -label "Open MayaRenderLog"
@@ -475,45 +497,45 @@ global proc createDomemaster3DMenu() {
     //-label "Open MayaRenderLog.txt"
     -annotation ("Opening the Maya Render Log file: " + $domeMayaRenderLogPathString)
     -imageOverlayLabel "rLog"
-    -image "domeLog.png"
+    -image ("domeLog" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenMayaRenderLogFile();" ;
   menuItem 
     -label "Create Diagnostics Report" 
     -annotation "Generate a Maya Diagnostics Report and save it to your desktop."
     -imageOverlayLabel "DIAG"
-    -image "domeLog.png"
+    -image ("domeLog" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();";
   menuItem
     -label "Open Task Manager" 
     -annotation "Open the Task Manager on Windows, or the Activity Monitor on Mac OS X."
     -imageOverlayLabel "Task"
-    -image "task.png"
+    -image ("task" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\nopenTaskManager();";
   menuItem 
     -label "Upgrade Domemaster Node IDs" 
     -annotation "Look for any \"unknown\" node types that match the names of domeAFL_FOV, domeAFL_FOV_Stereo, or domeAFL_WxH nodes and replace them with newly created nodes."
     -imageOverlayLabel "Upgr"
-    -image "nodeUpgrade.png"
+    -image ("nodeUpgrade" + $imageExt)
     -command "source \"upgradeDomemasterNodeID.mel\"; upgradeDomemasterNodeID();" ;
   menuItem 
     -label "Add Pre/Post Render Mel" 
     -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
-    -image "domeMayaScript.png" 
+    -image ("domeMayaScript" + $imageExt) 
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.addPrePostRenderScript()\");";
   menuItem
     -label "Remove Pre/Post Render Mel" 
     -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
-    -image "domeMayaScript.png" 
+    -image ("domeMayaScript" + $imageExt) 
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
   menuItem
     -label "Launch Another Maya Instance" 
     -annotation "This tool will launch an additional copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time"
-    -image "domeMayaScript.png" 
+    -image ("domeMayaScript" + $imageExt) 
     -command "source \"domeDiagnostics.mel\"; domeLaunchMayaInstance();";
   menuItem 
     -label "Reload MentalRay Plugin" 
     -annotation "Force mental ray to reload. This can fix issues if Maya didn't startup correctly."
-    -image "mentalray_load.png" 
+    -image ("mentalray_load" + $imageExt) 
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\");";
 
   // Support Section
@@ -527,17 +549,17 @@ global proc createDomemaster3DMenu() {
   menuItem 
     -label "Load Domemaster3D Shelf" 
     -annotation "Load the Domemaster3D Shelf into Maya."
-    -image "domeLog.png" 
+    -image ("domeLog" + $imageExt) 
     -command "loadNewShelf(\"shelf_Domemaster3D.mel\");";
   menuItem 
     -label "Domemaster3D Wiki Help" 
     -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
-    -image "domeHelp.png" 
+    -image ("domeHelp" + $imageExt) 
     -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.openDomemasterWiki()\");";
   menuItem 
     -label "Domemaster3D Version Info" 
     -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."
-    -image "domeInfo.png"
+    -image ("domeInfo" + $imageExt)
     -command "source \"domeVersion.mel\";domeVersion();";
 } 
 

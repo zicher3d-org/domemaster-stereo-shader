@@ -343,67 +343,6 @@ global proc domeScanLensShaders(string $renderMode){
     }
   } 
 }
-// Update all of the Maya file nodes to use the new mental ray elliptical filtering mode
-// source "UpdateMayaFileNodes.mel";
-// Example: MayaFileNodeEllipticalFiltering(1); // Update the selected file nodes
-// Example: MayaFileNodeEllipticalFiltering(0); // Update all file nodes in the scene
-global proc string [] MayaFileNodeEllipticalFiltering(int $selected){
-  string $selectedNodes[];
-  string $sel;
-  
-  int $nodeCount = 0;
-  string $updatedNodes[];
-  
-  print("--------------------------------------------------------------------\n");
-  
-  if($selected){
-    // List the selected file nodes
-    $selectedNodes = `ls -type file -selection`;
-    print("Updating the selected Maya file nodes to use the new mental ray elliptical filtering mode.\n\n");
-  }else{
-    // List all of the nodes
-    $selectedNodes = `lsType("file")`;
-    print("Updating all of the Maya file nodes to use the new mental ray elliptical filtering mode.\n\n");
-  }
-
-
-  for($sel in $selectedNodes){
-    if($sel != "<done>"){      
-      // Enable the Mipmap filtering atribute
-      setAttr ($sel+".filterType") 1;
-
-      // Enable the mental ray Advanced Elliptical Filtering attribute
-      if(`attributeExists "miUseEllipticalFilter" $sel`){
-        setAttr ($sel+".miUseEllipticalFilter") 1;
-        $nodeCount += 1;
-        
-        // Enable an "Elliptical Filter Type" attribute
-        if(`attributeExists "miEllipticalBilinear" $sel`){
-          // Use Bilinear filtering
-          setAttr ($sel+".miEllipticalBilinear") 1;
-          // Use Bicubic filtering
-          //setAttr ($sel+".miEllipticalBilinear") 0;
-        }
-        
-        // Adjust the "MI Elliptical Max Minor" extra attribute
-        if(`attributeExists "miEllipticalMaxMinor" $sel`){
-          setAttr ($sel+".miEllipticalMaxMinor") 8.0;
-        }
-        
-        // Track how many nodes were updated
-        print("[" + $nodeCount + "] " + $sel + "\n");
-        $updatedNodes[$nodeCount] = $sel;
-      }else{
-        print("The attribute \"miUseEllipticalFilter\" does not exist on " + $sel + "!\n");
-      }
-    }
-  }
-  print("--------------------------------------------------------------------\n");
-  print("[Updated " + $nodeCount + " File Nodes]\n");
-  
-  // Return a list of the updated file nodes
-  return $updatedNodes;
-}
 
 
 // List all of the Maya file nodes and examine the new mental ray elliptical filtering modes

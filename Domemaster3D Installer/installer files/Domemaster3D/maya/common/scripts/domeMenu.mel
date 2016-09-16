@@ -1,7 +1,8 @@
 /*
-Create the Domemaster3D Main Menu in the Rendering menu set
-Version 2.1.2
-2016-09-16 Maya 2010 - Maya 2017+ Compatible Menu
+Create the "Domemaster3D" Entry in the Rendering Menu Set V2.1.2
+2016-09-16 01.53 PM
+
+This file provides a Maya 2010 - Maya 2017+ Compatible Menu
 
 ------------------------------------------------------------------------------
 
@@ -320,12 +321,12 @@ global proc createDomemaster3DMenu() {
       menuItem 
         -label "Enable Elliptical Filtering on Maya File Nodes" 
         -annotation "Enable the mental ray 3.14+ compatible elliptical filtering mode on all Maya file texture nodes in the scene."
-        //-image ("mrEllipticalFiltering" + $imageExt) 
+        -image ("domeMayaScript" + $imageExt) 
         -command "source \"domeRender.mel\";domeUpdateMayaFileNodes(0);";
       menuItem 
         -label "List Elliptical Filtering Details on Maya File Nodes" 
         -annotation "Create a report in the Script Editor window that lists all of the Maya file node's elliptical texture filtering settings."
-        //-image ("mrEllipticalFilteringReport" + $imageExt) 
+        -image ("domeMayaScript" + $imageExt) 
         -command "source \"domeRender.mel\";domeListMayaFileNodes(0);";
     }
 

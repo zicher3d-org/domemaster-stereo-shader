@@ -1,7 +1,7 @@
 /*
 Create the VRay Domemaster3D Main Menu in the Rendering menu set
 Version 2.1
-2016-09-06 Maya 2011+
+2016-09-17 Maya 2011+
 ------------------------------------------------------------------------------
 
 Notes:
@@ -141,11 +141,11 @@ global proc editVrayDomeDiagOpenMenuItems(){
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
 
 menuItem -edit 
-  -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
+  -annotation ("Show the \"Scenes\" directory for the current project: " + $scenesPath)
   VrayDomeDiagOpenScenesMenu;
 
 menuItem -edit 
-  -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
+  -annotation ("Show the \"Images\" directory for the current project: " + $imagesPath)
   VrayDomeDiagOpenImagesMenu;
 
 }
@@ -157,10 +157,10 @@ menuItem -edit
 // Create the VRay Domemaster3D Menu
 // -----------------------------------------------------------------
 global proc createVrayDomemaster3DMenu() {
-
-	int $mayaVersion = getMayaVersionDome();
-
   global string $gMainWindow;
+
+  // Check the current Maya version
+	int $mayaVersion = getMayaVersionDome();
 
   // Remove any existing VRay Domemaster3D menus
   if(`menu -query -exists mainVrayDomemaster3DMenu`){
@@ -261,7 +261,7 @@ global proc createVrayDomemaster3DMenu() {
       menuItem -divider true;
 
       // Check if we are running Maya 2011 or higher
-      if($mayaVersion >=2011){
+      if($mayaVersion >= 2011){
         menuItem 
           -subMenu true 
           -tearOff true 
@@ -305,8 +305,8 @@ global proc createVrayDomemaster3DMenu() {
 
   // Diagnostics Section
 
-  if($mayaVersion >=2015){
-    menuItem -divider true -dividerLabel "Diagnostics";
+  if($mayaVersion >= 2015){
+    menuItem -divider true -dividerLabel "Open Directories";
   }else{
     menuItem -divider true;
   }
@@ -387,42 +387,50 @@ global proc createVrayDomemaster3DMenu() {
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
   
   menuItem 
-    -label "Open Maya Project Folder"
-    //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
-    -annotation "Opening the folder for the current project."
+    -label "Show Maya Project Directory"
+    //-annotation ("Show the directory for the current project: " + $sceneprojPathsPath)
+    -annotation "Show the directory for the current project."
     -imageOverlayLabel "PROJ"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
     VrayDomeDiagOpenProjectsMenu;
   menuItem 
-    -label "Open Scenes Folder"
-    //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
-    -annotation "Opening the \"Scenes\" folder for the current project."
+    -label "Show Scenes Directory"
+    //-annotation ("Show the \"Scenes\" directory for the current project: " + $scenesPath)
+    -annotation "Show the \"Scenes\" directory for the current project."
     -imageOverlayLabel "SCN"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     VrayDomeDiagOpenScenesMenu;
   menuItem 
-    -label "Open Sourceimages Folder"
-    //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
-    -annotation "Opening the \"Sourceimages\" folder for the current project."
+    -label "Show Sourceimages Directory"
+    //-annotation ("Show the \"Sourceimages\" directory for the current project: " + $imagesPath)
+    -annotation "Show the \"Sourceimages\" directory for the current project."
     -imageOverlayLabel "SRC"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
     VrayDomeDiagOpenSourceImagesMenu;
   menuItem 
-    -label "Open Images Folder"
-    -annotation "Opening the \"Images\" folder for the current project."
+    -label "Show Images Directory"
+    -annotation "Show the \"Images\" directory for the current project."
     -imageOverlayLabel "IMG"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
     VrayDomeDiagOpenImagesMenu;
   menuItem 
-    -label "Open TEMP Folder"
-    -annotation "Opening the temporary folder."
+    -label "Show TEMP Directory"
+    -annotation "Show the temporary directory."
     -imageOverlayLabel "TMP"
     -image "domeVray_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();";
+    
+  // Diagnostics Section
+  if($mayaVersion >= 2015){
+    menuItem -divider true -dividerLabel "Diagnostics";
+  }else{
+    menuItem -divider true;
+  }
+  
   menuItem 
     -label "Open Vray for Maya Render Log"
     -annotation ("Opening the Vray for Maya Render Log file: " + $vrayLogFullPathString)
@@ -467,7 +475,7 @@ global proc createVrayDomemaster3DMenu() {
     -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.forceVrayLoad()\");";
 
   // Support Section
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Support";
   }else{
     menuItem -divider true;

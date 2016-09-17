@@ -25,7 +25,7 @@ This guide covers the Vray for Maya version of the Domemaster3D Shaders.
 
 ## <a name="known-issues"></a>Known Issues ##
 
-The current version of the Vray Domemaster3D shaders (as of 2015-08-10) is a development build.
+The current version of the Vray Domemaster3D shaders (as of 2016-09-17) is a development build.
 
 More work needs to be done to apply a black overlay to the circular outside area of the domemaster frame. Right now the DomemasterStereo shader will fill the outside circular area in the frame with a solid color based upon the current data at the 0/0/0 X/Y/Z ray angle. Also the shader doesn't apply a circular alpha channel overlay yet.
 
@@ -82,9 +82,29 @@ You can also delete the python code in the **Mel/Python Callbacks** `Post Transl
 
 ### <a name="windows-64-bit"></a>Windows 64-bit ###
 
-**Step 1.** Download the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
+**Step 1.** Download and install the [Visual Studio 2013 (VC++ 12.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=40784).
 
-**Step 2.** Copy the .dll files to the vray-plugins directory:  
+**Step 2.** Download and install the file "Domemaster3D for Maya + 3DS Max on Windows 64-bit" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+
+**Step 3.** Open up the new Domemaster3D modules folder:
+
+`C:\Program Files\Domemaster3D\vray\maya\modules`
+
+Copy the Maya module file "VrayDomemaster3D.mod" from the Domemaster3D "modules" folder to:
+
+(Single User Modules Install)
+
+`C:\Users\<User Account>\Documents\maya\<Maya Version>\modules\`
+
+If the modules folder doesn't exist in the destination folder path, then create the modules directory too.
+
+or
+
+(System Wide Modules Install)
+
+`C:\Program Files\Common Files\Autodesk Shared\Modules\Maya\<Maya Version>\`
+
+**Step 4.** Copy the .dll files to the vray-plugins directory:  
 
 `C:\Program Files\Autodesk\Maya<Version>\vray\vrayplugins\`
 
@@ -93,7 +113,7 @@ Vray Plugin Files:
     vray_DomemasterStereo.dll
     vray_LatLongStereo.dll
 
-**Step 3.** Copy the Vray script files to the Vray scripts folder:  
+**Step 5.** Copy the Vray script files to the Vray scripts folder:  
 
 `C:\Program Files\Autodesk\Maya<Version>\vray\scripts`
 
@@ -108,25 +128,32 @@ Vray Script Files:
 
 **Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
-**Step 3.**
-Copy the icon files to your user account's Maya icon folder:
-
-`C:\Users\<User Account>\Documents\maya\<Version>\prefs\icons`
-
-**Step 4.**
-Copy the Maya script files to your user account's Maya scripts folder, or a shared Maya scripts folder:
-
-`C:\Users\<User Account>\Documents\maya\<Version>\scripts`
-
 **Step 5.**
 Copy the Maya shelf files to your user account's Maya shelf folder:
 
 `C:\Users\<User Account>\Documents\maya\<Version>\prefs\shelves`
 
-
 ### <a name="mac-64-bit"></a>Mac 64-bit ###
+**Step 1.** Download and install the file "Domemaster3D for Maya on Mac OS X" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
-**Step 1.**
+**Step 2.** Open up the new Domemaster3D modules folder:
+`/Applications/Domemaster3D/ray/maya/modules`
+
+Copy the Maya module file "VrayDomemaster3D.mod" from the Domemaster3D "modules" folder to:
+
+(Single User Modules Install)
+
+`/Users/<User Account>/Library/Preferences/Autodesk/maya/<Maya Version>/modules/`
+
+or
+
+(System Wide Modules Install)
+
+`/Users/Shared/Autodesk/modules/maya/<Maya Version>/`
+
+If the modules folder doesn't exist in the destination folder path, then create the modules directory too.
+
+**Step 3.**
 Copy the .so files to the vray-plugins directory:  
 
 `/Applications/Autodesk/maya<Version>/vray/vrayplugins`
@@ -136,7 +163,7 @@ Vray Plugin Files:
     vray_DomemasterStereo.so
     vray_LatLongStereo.so
 
-**Step 2.**
+**Step 4.**
 Copy the Vray script files to the Vray scripts folder:  
 
 `/Applications/Autodesk/maya<Version>/vray/scripts`
@@ -152,26 +179,28 @@ Vray Script Files:
 
 **Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
 
-**Step 3.**
-Copy the icon files to your user account's Maya icon folder:
-
-`~/Library/Preferences/Autodesk/maya/<Version>/prefs/icons`
-
-**Step 4.**
-Copy the Maya script files to your user account's Maya scripts folder, or a shared Maya scripts folder:
-
-`~/Library/Preferences/Autodesk/maya/<Version>/scripts`
-
 **Step 5.**
 Copy the Maya shelf files to your user account's Maya shelf folder:
 
 `~/Library/Preferences/Autodesk/maya/<Version>/prefs/shelves`
 
 
-
 ### <a name="linux-64-bit"></a>Linux 64-bit ###
+**Step 1.** Download and install the file "Domemaster3D Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
-**Step 1.**
+**Step 2.** Open up the new Domemaster3D modules folder:
+
+`/opt/Domemaster3D/vray/maya/modules`
+
+Copy the Maya module file "VrayDomemaster3D.mod" from the Domemaster3D "modules" folder to:
+
+(Single User Modules Install)
+
+`~/maya/<Maya Version>/modules/`
+
+If the modules folder doesn't exist in the destination folder path, then create the modules directory too.
+
+**Step 3.**
 Copy the .so files to the vray-plugins directory:  
 
 `/usr/Autodesk/Maya<Version>/vray/vrayplugins/`
@@ -181,7 +210,7 @@ Vray Plugin Files:
     vray_DomemasterStereo.so
     vray_LatLongStereo.so
 
-**Step 2.**
+**Step 4.**
 Copy the Vray script files to the Vray scripts folder:  
 
 `/usr/Autodesk/Maya<Version>/vray/scripts`
@@ -195,16 +224,6 @@ Vray Script Files:
     domeVrayRender.py
     
 **Note:** Several of the vray script files listed above already exist in the standard vray install. Those items need to be replaced with new ones that have the DomemasterStereo and LatLongStereo modules integrated in the settings. You should make a backup copy of the original files so you can restore them if required.
-
-**Step 3.**
-Copy the icon files to your user account's Maya icon folder:
-
-`~/maya/<Version>/prefs/icons`
-
-**Step 4.**
-Copy the Maya script files to your user account's Maya scripts folder, or a shared Maya scripts folder:
-
-`~/maya/<Version>/scripts`
 
 **Step 5.**
 Copy the Maya shelf files to your user account's Maya shelf folder:

@@ -47,7 +47,7 @@ Here are a few screenshots of the Maya Shelf tools and the Arnold based **Domema
 
 **Step 1.** Download and install the [Visual Studio 2012 (VC++ 11.0) Redistributable Package](http://www.microsoft.com/en-us/download/details.aspx?id=30679).
 
-**Step 2.** Download and install the file "Domemaster3D v2.1 for Maya + 3DS Max on Windows 64-bit" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+**Step 2.** Download and install the file "Domemaster3D for Maya + 3DS Max on Windows 64-bit" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
 **Step 3.** Open up the new Domemaster3D folder:
 

@@ -6,7 +6,7 @@
 
 	Version History
 	----------------
-	Domemaster3D v2.1.2 - 2016-09-15
+	Domemaster3D v2.1.2 - 2016-09-17
 	Domemaster3D v2.1.1 - 2016-09-11
 	Domemaster3D v2.1 - 2016-09-06
   Domemaster3D v1.7 - 2015-05-08
@@ -64,7 +64,7 @@ global proc string getMayaPlatform(){
 global proc vrayDomeVersion(){
   string $dialogButtonSelected = "";
   string $domemaster3D_version = "2.1.2";
-  string $release_date = "September 15, 2016";
+  string $release_date = "September 17, 2016";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Vray for Maya" + " - Version " + $domemaster3D_version + "\n";

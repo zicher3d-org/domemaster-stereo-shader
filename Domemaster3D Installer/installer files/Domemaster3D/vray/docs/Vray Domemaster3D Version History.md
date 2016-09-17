@@ -35,6 +35,12 @@
 
 ## <a name="version-history"></a>Version History ##
 
+### 2016-09-17 ###
+
+- Updated the Vray for Maya Domemaster3D installation approach to use a new Vray for Maya Domemaster3D module file named "VRayDomemaster3D.mod".
+
+- Added a new Vray Domemaster3D menu to the rendering menu set.
+
 ### 2015-08-10 ###
 
 - Added Vray 3.1 for Maya support.

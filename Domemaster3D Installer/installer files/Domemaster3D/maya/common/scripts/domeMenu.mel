@@ -1,6 +1,6 @@
 /*
 Create the "Domemaster3D" Entry in the Rendering Menu Set V2.1.2
-2016-09-16 01.53 PM
+2016-09-17 10.39 AM
 
 This file provides a Maya 2010 - Maya 2017+ Compatible Menu
 
@@ -143,11 +143,11 @@ global proc editDomeDiagOpenMenuItems(){
   string $imageDirPath = `workspace -expandName $imageWorkspace`;
 
   menuItem -edit 
-    -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesDirPath)
+    -annotation ("Show the \"Scenes\" directory for the current project: " + $scenesDirPath)
     DomeDiagOpenScenesMenu;
 
   menuItem -edit 
-    -annotation ("Opening the \"Images\" folder for the current project: " + $imageDirPath)
+    -annotation ("Show the \"Images\" directory for the current project: " + $imageDirPath)
     DomeDiagOpenImagesMenu;
 }
 
@@ -227,7 +227,7 @@ global proc createDomemaster3DMenu() {
         -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
 
       // Fulldome 2D Section
-      if($mayaVersion >=2015){
+      if($mayaVersion >= 2015){
         menuItem -divider true -dividerLabel "Fulldome 2D";
       }else{
         menuItem -divider true;
@@ -246,7 +246,7 @@ global proc createDomemaster3DMenu() {
 
       // Fulldome Stereo Section
 
-      if($mayaVersion >=2015){
+      if($mayaVersion >= 2015){
         menuItem -divider true -dividerLabel "Fulldome Stereo";
       }else{
         menuItem -divider true;
@@ -287,9 +287,9 @@ global proc createDomemaster3DMenu() {
     setParent -menu ..;
     
   // Only show the materials if we are on Maya 2011-2016.5
-  //if($mayaVersion <=2016){
+  //if($mayaVersion <= 2016){
     // Lens Shader Compatible Materials Section
-    if($mayaVersion >=2015){
+    if($mayaVersion >= 2015){
       menuItem -divider true -dividerLabel "Lens Shader Compatible Materials";
     }else{
       menuItem -divider true;
@@ -317,7 +317,7 @@ global proc createDomemaster3DMenu() {
       -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
 
     // Mental Ray Elliptical Filtering
-    if($mayaVersion >=2016){
+    if($mayaVersion >= 2016){
       menuItem 
         -label "Enable Elliptical Filtering on Maya File Nodes" 
         -annotation "Enable the mental ray 3.14+ compatible elliptical filtering mode on all Maya file texture nodes in the scene."
@@ -331,7 +331,7 @@ global proc createDomemaster3DMenu() {
     }
 
     // Image Based Lighting Section
-    if($mayaVersion >=2015){
+    if($mayaVersion >= 2015){
       menuItem -divider true -dividerLabel "Image Based Lighting";
     }else{
       menuItem -divider true;
@@ -351,14 +351,14 @@ global proc createDomemaster3DMenu() {
   //} end of only show the materials if we are on Maya 2011-2016.5
   
   // Fulldome Tools Section
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Fulldome Tools";
   }else{
     menuItem -divider true;
   }
 
   // Only show the starglobe if we are on Maya 2011-2016.5
-  //if($mayaVersion <=2016){
+  //if($mayaVersion <= 2016){
     menuItem 
       -label "Create Starglobe" 
       -annotation "Create a starry background for your fulldome scenes."
@@ -384,7 +384,7 @@ global proc createDomemaster3DMenu() {
     -command "source \"domeText.mel\";domeText();";
     
   // Only show the crossbounce tool if we are on Maya 2011-2016.5
-  //if($mayaVersion <=2016){
+  //if($mayaVersion <= 2016){
     menuItem 
       -label "CrossBounce Simulation" 
       -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
@@ -399,7 +399,7 @@ global proc createDomemaster3DMenu() {
     -command "source \"domeViewer.mel\";domeViewer();";
 
   // Guard against Maya 2010 loading of the histogram item.
-  if ($mayaVersion >=2011){
+  if ($mayaVersion >= 2011){
   menuItem 
     -label "Dome Histogram" 
     -annotation "Calculate a histogram analysis for the current image in the render view window."
@@ -408,8 +408,8 @@ global proc createDomemaster3DMenu() {
   }
 
   // Diagnostics Section
-  if($mayaVersion >=2015){
-    menuItem -divider true -dividerLabel "Diagnostics";
+  if($mayaVersion >= 2015){
+    menuItem -divider true -dividerLabel "Open Directories";
   }else{
     menuItem -divider true;
   }
@@ -455,43 +455,53 @@ global proc createDomemaster3DMenu() {
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
   
   menuItem 
-    -label "Open Maya Project Folder"
+    -label "Show Maya Project Directory"
     //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
-    -annotation "Opening the folder for the current project."
+    -annotation "Show the current Maya project directory."
     -imageOverlayLabel "PROJ"
     -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
     DomeDiagOpenProjectsMenu;
   menuItem
-    -label "Open Scenes Folder"
-    //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
-    -annotation "Opening the \"Scenes\" folder for the current project."
+    -label "Show Scenes Directory"
+    //-annotation ("Show the \"Scenes\" directory for the current project: " + $scenesPath)
+    -annotation "Show the \"Scenes\" directory for the current project."
     -imageOverlayLabel "SCN"
     -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     DomeDiagOpenScenesMenu;
   menuItem 
-    -label "Open Sourceimages Folder"
-    //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
-    -annotation "Opening the \"Sourceimages\" folder for the current project."
+    -label "Show Sourceimages Directory"
+    //-annotation ("Show the \"Sourceimages\" directory for the current project: " + $imagesPath)
+    -annotation "Show the \"Sourceimages\" directory for the current project."
     -imageOverlayLabel "SRC"
     -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
     DomeDiagOpenSourceImagesMenu;
   menuItem 
-    -label "Open Images Folder"
-    //-annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
-    -annotation "Opening the \"Images\" folder for the current project."
+    -label "Show Images Directory"
+    //-annotation ("Show the \"Images\" directory for the current project: " + $imagesPath)
+    -annotation "Show the \"Images\" directory for the current project."
     -imageOverlayLabel "IMG"
     -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
     DomeDiagOpenImagesMenu;
   menuItem 
-    -label "Open TEMP Folder"
-    -annotation "Opening the temporary folder."
+    -label "Show TEMP Directory"
+    -annotation "Show the temporary directory."
     -imageOverlayLabel "TMP"
     -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();";
+    
+  
+  // Diagnostics Section
+  if($mayaVersion >= 2015){
+    menuItem -divider true -dividerLabel "Diagnostics";
+  }else{
+    menuItem -divider true;
+  }
+  
+    
   menuItem 
     -label "Open MayaRenderLog"
     //-label ("Open " + $renderLogName) 
@@ -541,7 +551,7 @@ global proc createDomemaster3DMenu() {
 
   // Support Section
 
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Support";
   }else{
     menuItem -divider true;

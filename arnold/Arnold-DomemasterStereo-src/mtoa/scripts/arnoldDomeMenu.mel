@@ -141,11 +141,11 @@ global proc editArnoldDomeDiagOpenMenuItems(){
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
 
   menuItem -edit 
-    -annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
+    -annotation ("Show the \"Scenes\" directory for the current project: " + $scenesPath)
     ArnoldDomeDiagOpenScenesMenu;
 
   menuItem -edit 
-    -annotation ("Opening the \"Images\" folder for the current project: " + $imagesPath)
+    -annotation ("Show the \"Images\" directory for the current project: " + $imagesPath)
     ArnoldDomeDiagOpenImagesMenu;
 }
 
@@ -282,7 +282,7 @@ global proc createArnoldDomemaster3DMenu() {
       menuItem -divider true;
       
       // Check if we are running Maya 2011 or higher
-      if($mayaVersion >=2011){
+      if($mayaVersion >= 2011){
         menuItem 
           -subMenu true 
           -tearOff true 
@@ -300,7 +300,7 @@ global proc createArnoldDomemaster3DMenu() {
   
   
 /*
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Fulldome Tools";
   }else{
     menuItem -divider true;
@@ -324,10 +324,10 @@ global proc createArnoldDomemaster3DMenu() {
 
 */
 
-  // Diagnostics Section
 
-  if($mayaVersion >=2015){
-    menuItem -divider true -dividerLabel "Diagnostics";
+  // Diagnostics Section
+  if($mayaVersion >= 2015){
+    menuItem -divider true -dividerLabel "Open Directories";
   }else{
     menuItem -divider true;
   }
@@ -369,42 +369,50 @@ global proc createArnoldDomemaster3DMenu() {
 	string $scenesPath = `workspace -expandName $scenesWorkspace`;
 	
   menuItem 
-    -label "Open Maya Project Folder"
-    //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
-    -annotation "Opening the folder for the current project."
-    -imageOverlayLabel "PRO"
+    -label "Show Maya Project Directory"
+    //-annotation ("Opening the directory for the current project: " + $sceneprojPathsPath)
+    -annotation "Show the current Maya project directory."
+    -imageOverlayLabel "PROJ"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
     ArnoldDomeDiagOpenProjectsMenu;
   menuItem 
-    -label "Open Scenes Folder"
-    //-annotation ("Opening the \"Scenes\" folder for the current project: " + $scenesPath)
-    -annotation "Opening the \"Scenes\" folder for the current project."
+    -label "Show Scenes Directory"
+    //-annotation ("Opening the \"Scenes\" directory for the current project: " + $scenesPath)
+    -annotation "Show the \"Scenes\" directory for the current project."
     -imageOverlayLabel "SCN"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSceneDirectory();" 
     ArnoldDomeDiagOpenScenesMenu;
   menuItem 
-    -label "Open Sourceimages Folder"
-    //-annotation ("Opening the \"Sourceimages\" folder for the current project: " + $imagesPath)
-    -annotation "Opening the \"Sourceimages\" folder for the current project."
+    -label "Show Sourceimages Directory"
+    //-annotation ("Show the \"Sourceimages\" directory for the current project: " + $imagesPath)
+    -annotation "Show the \"Sourceimages\" directory for the current project."
     -imageOverlayLabel "SRC"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenSourceImagesDirectory();" 
     ArnoldDomeDiagOpenSourceImagesMenu;
   menuItem 
-    -label "Open Images Folder"
-    -annotation "Opening the \"Images\" folder for the current project."
+    -label "Show Images Directory"
+    -annotation "Show the \"Images\" directory for the current project."
     -imageOverlayLabel "IMG"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenImagesDirectory();" 
     ArnoldDomeDiagOpenImagesMenu;
   menuItem 
-    -label "Open TEMP Folder"
-    -annotation "Opening the temporary folder."
+    -label "Show TEMP Directory"
+    -annotation "Show the temporary directory."
     -imageOverlayLabel "TMP"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenTempDirectory();";
+    
+  // Diagnostics Section
+  if($mayaVersion >= 2015){
+    menuItem -divider true -dividerLabel "Diagnostics";
+  }else{
+    menuItem -divider true;
+  }
+
   menuItem 
     -label "Open the Maya Render Log"
     -annotation ("Opening the Maya Render Log file: " + $domeMayaRenderLogPathString)
@@ -449,7 +457,7 @@ global proc createArnoldDomemaster3DMenu() {
     -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.forceArnoldLoad()\");";
 
   // Support Section
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Support";
   }else{
     menuItem -divider true;

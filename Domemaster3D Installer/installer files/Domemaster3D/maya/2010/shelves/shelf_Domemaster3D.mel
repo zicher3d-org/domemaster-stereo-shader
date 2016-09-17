@@ -575,7 +575,7 @@ global proc shelf_Domemaster3D () {
         -label "Open Maya Project Folder" 
         -labelOffset 0
         -font "tinyBoldLabelFont" 
-        -imageOverlayLabel "PRO" 
+        -imageOverlayLabel "PROJ" 
         -image "dome_directory.xpm" 
         -image1 "dome_directory.xpm" 
         -style "iconOnly" 

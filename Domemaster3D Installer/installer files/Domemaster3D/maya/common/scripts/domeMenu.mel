@@ -458,7 +458,7 @@ global proc createDomemaster3DMenu() {
     -label "Open Maya Project Folder"
     //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
     -annotation "Opening the folder for the current project."
-    -imageOverlayLabel "PRO"
+    -imageOverlayLabel "PROJ"
     -image ("dome_directory" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
     DomeDiagOpenProjectsMenu;

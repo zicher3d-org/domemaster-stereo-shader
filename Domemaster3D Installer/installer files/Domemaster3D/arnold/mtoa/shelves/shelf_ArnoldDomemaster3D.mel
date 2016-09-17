@@ -468,7 +468,7 @@ global proc shelf_ArnoldDomemaster3D () {
         -label "Open Maya Project Folder" 
         -labelOffset 0
         -font "plainLabelFont" 
-        -imageOverlayLabel "PRO" 
+        -imageOverlayLabel "PROJ" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
         -image "domeArnold_directory.png" 

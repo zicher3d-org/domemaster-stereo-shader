@@ -372,7 +372,7 @@ global proc createArnoldDomemaster3DMenu() {
     -label "Open Maya Project Folder"
     //-annotation ("Opening the folder for the current project: " + $sceneprojPathsPath)
     -annotation "Opening the folder for the current project."
-    -imageOverlayLabel "PRO"
+    -imageOverlayLabel "PROJ"
     -image "domeArnold_directory.png"
     -command "source \"domeDiagnostics.mel\";\ndomeOpenProjectDirectory();" 
     ArnoldDomeDiagOpenProjectsMenu;

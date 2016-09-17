@@ -83,6 +83,8 @@ Maya
   
   The domeMenu.mel script has been unified so Maya 2010-2017 use the same MEL script file that is now stored in the Domemaster3D/maya/common/scripts folder
   
+  Renamed the Domemaster3D shelf open project button text from "PRO" to "PROJ"
+  
   Added new MEL functions to the domeRender.mel script to enable the mental ray 3.14 ray differential based elliptical filtering mode on Maya file node based texture maps:
   
   // List all of the Maya file nodes and examine the new mental ray elliptical filtering modes:

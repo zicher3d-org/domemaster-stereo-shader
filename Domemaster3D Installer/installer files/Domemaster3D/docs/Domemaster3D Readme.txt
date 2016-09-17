@@ -164,7 +164,7 @@ The 4x2k button sets the render resolution to 4096x2048 pixels.
 The 8x4k button sets the render resolution to 8192x4096 pixels.
 
 Open Maya Project Folder Button
-The PRO button opens the current maya project folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+The PROJ button opens the current maya project folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
 
 Open Scenes Folder Button
 The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
@@ -300,6 +300,8 @@ Maya
   Improved the domeRadius.mel, domeCamera.py, domeMaterial.py, AEdomeAFL_FOV_StereoTemplate.mel, AEdomeAFL_FOVTemplate.mel, and domeHistogram.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
   
   The domeMenu.mel script has been unified so Maya 2010-2017 use the same MEL script file that is now stored in the Domemaster3D/maya/common/scripts folder
+  
+  Renamed the Domemaster3D shelf open project button text from "PRO" to "PROJ"
   
   Added new MEL functions to the domeRender.mel script to enable the mental ray 3.14 ray differential based elliptical filtering mode on Maya file node based texture maps:
   

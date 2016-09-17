@@ -1,6 +1,6 @@
 """
 Vray Domemaster3D Camera Setup Script V2.1
-2016-07-26 04.26 PM
+2016-07-26 04.55 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -8,7 +8,7 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 2.1  2016-07-26
+Version 2.1  2016-09-17
 -------------------------------------
 Vray for Maya 2017 Update
 
@@ -16,7 +16,7 @@ Added the DomeGrid function createDomeGrid() to create a spherical yellow test g
 
 Updated the Vray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
 
-Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
+Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.  Adjusted the line thickness, default light brightness setting, and the shadow settings on the Dome Grid.
 
 Version 1.7.1  2015-08-10
 -------------------------------------
@@ -563,7 +563,8 @@ def createLatLongGrid():
   # Set the grid to a full 360 degree FOV sphere
   cmds.setAttr('domeGrid.fieldOfView', 360)
 
-
+  # Change the grid from 12 spans (fulldome) to 24 spans (sphere) to cover the full 360 degree FOV with more uniform square patches.
+  cmds.setAttr('domeGrid.Dome_Spans', 24)
 
 """
 Domemaster3D DomeGrid test background 
@@ -896,7 +897,7 @@ def createDomeGrid():
   
   #  180 degree dome default value = 12
   #  360 degree dome default value = 24
-  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=120, hasSoftMaxValue=True, softMaxValue=40, defaultValue=24 , keyable=True)
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=120, hasSoftMaxValue=True, softMaxValue=40, defaultValue=12 , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   # Connect the domeGrid dome radius control to the sphere's makeNurbCircle sections attribute:
@@ -937,8 +938,11 @@ def createDomeGrid():
   attrName = 'gridLineThickness'
 
   # This is the default starting value for the grid line strokes
-  initialGridLineThickness = 0.05
+  #initialGridLineThickness = 0.05
   #previous setting 0.035
+  
+  # PlayblastVR compatible thicker lines
+  initialGridLineThickness = 0.200
 
   # Check if the attribute exists on the domeGrid node
   #if(mel.attributeExists(attrName, baseNodeName)== 0):

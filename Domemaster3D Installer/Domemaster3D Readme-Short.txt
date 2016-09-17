@@ -74,14 +74,14 @@ Version 2.1.2
 Arnold
   Updated the Maya based "Arnold Domemaster3D" menu and shelf to add 2D rendering style entries for creating Domemaster FOV 2D and LatLong 2D renderings using the center camera view in the existing stereo lens shaders.
 
-  Added the DomeGrid function createDomeGrid() to create a spherical yellow test grid in Maya.
+  Added the DomeGrid function createDomeGrid() to create a spherical yellow reference grid in Maya.
   
   Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
 
   Updated the Arnold Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
 Vray
-  Added the DomeGrid function createDomeGrid() to create a spherical yellow test grid in Maya.
+  Added the DomeGrid function createDomeGrid() to create a spherical yellow reference grid in Maya.
 
   Updated the Vray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
 
@@ -96,11 +96,11 @@ Maya
   
   Improved the domeRadius.mel, domeCamera.py, domeMaterial.py, AEdomeAFL_FOV_StereoTemplate.mel, AEdomeAFL_FOVTemplate.mel, and domeHistogram.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
   
-  The domeMenu.mel script has been unified so Maya 2010-2017 use the same MEL script file that is now stored in the Domemaster3D/maya/common/scripts folder
+  The domeMenu.mel script has been unified so Maya 2010-2017 all use the same MEL script file that is now stored in the Domemaster3D/maya/common/scripts folder
   
   Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
   
-  Renamed the Domemaster3D shelf open project icon text from "PRO" to "PROJ"
+  Renamed the Domemaster3D shelf open project icon label text from "PRO" to "PROJ"
   
   Updated the Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
   

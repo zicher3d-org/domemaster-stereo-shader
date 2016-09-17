@@ -22,7 +22,7 @@
 
 ### Vray for 3DS Max To Dos ###
 
-- Test the new Vray for 3DS Max shader builds.
+- Done at the moment
 
 ### Vray for Softimage To Dos ###
 
@@ -37,9 +37,13 @@
 
 ### 2016-09-17 ###
 
-- Updated the Vray for Maya Domemaster3D installation approach to use a new Vray for Maya Domemaster3D module file named "VRayDomemaster3D.mod".
+- Added the DomeGrid function createDomeGrid() to create a spherical yellow reference grid in Maya.
 
-- Added a new Vray Domemaster3D menu to the rendering menu set.
+- Updated the Vray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
+
+- Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute. Adjusted the line thickness on the Dome Grid.
+
+- Updated the Vray Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
 ### 2015-08-10 ###
 

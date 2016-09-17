@@ -76,7 +76,7 @@ Arnold
 
   Added the DomeGrid function createDomeGrid() to create a spherical yellow reference grid in Maya.
   
-  Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
+  Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute. Adjusted the line thickness, default light brightness setting, and the shadow settings on the Dome Grid.
 
   Updated the Arnold Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
@@ -85,7 +85,7 @@ Vray
 
   Updated the Vray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
 
-  Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
+  Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute. Adjusted the line thickness on the Dome Grid.
 
   Updated the Vray Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
@@ -100,7 +100,7 @@ Maya
   
   The domeMenu.mel script has been unified so Maya 2010-2017 all use the same MEL script file that is now stored in the Domemaster3D/maya/common/scripts folder
   
-  Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
+  Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute. Adjusted the line thickness on the Dome Grid.
   
   Renamed the Domemaster3D shelf open project icon label text from "PRO" to "PROJ"
   

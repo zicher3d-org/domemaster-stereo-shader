@@ -351,7 +351,13 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 
 ### Version 2.1.2 - 2016-09-17 ###
 
-Updated the "Arnold Domemaster3D" menu and shelf to add a 2D rendering capable "Domemaster FOV" and "LatLong" version of the shaders that render the scene in a 2D way through the center camera view on the existing stereo lens shaders.
+Updated the Maya based "Arnold Domemaster3D" menu and shelf to add 2D rendering style entries for creating Domemaster FOV 2D and LatLong 2D renderings using the center camera view in the existing stereo lens shaders.
+
+Added the DomeGrid function createDomeGrid() to create a spherical yellow reference grid in Maya.
+
+Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute. Adjusted the line thickness, default light brightness setting, and the shadow settings on the Dome Grid.
+
+Updated the Arnold Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
 ### Version 2.1 - 2016-09-06 ###
 

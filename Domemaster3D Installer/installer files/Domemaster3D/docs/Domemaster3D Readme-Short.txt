@@ -92,6 +92,8 @@ Vray
 Maya
   Updated Domemaster3D menu for compatibility with Maya 2017 + mental ray 3.14 beta 9
   
+  Added an Automagic LatLong 3D Scene shelf button to the mental ray Domemaster3D shelf that creates a LatLong_Stereo based test scene
+  
   Updated mental ray shader source code + makefiles for mental ray 3.14 ray differential texture sampling
   
   Improved the domeRadius.mel, domeCamera.py, domeMaterial.py, AEdomeAFL_FOV_StereoTemplate.mel, AEdomeAFL_FOVTemplate.mel, and domeHistogram.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings

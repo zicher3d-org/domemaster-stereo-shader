@@ -87,8 +87,11 @@ The Maya version of the Domemaster3D shader comes with a custom shelf with 29 to
 
 Domemaster3D Shelf Tools
 
-Automagic Button
+Automagic Dome 3D Button
 The AutoMagic tool creates a domeAFL_FOV_Stereo based fulldome stereo camera rig and adds a hemispherical reference grid to the scene.
+
+Automagic LatLong 3D Button
+The AutoMagic tool creates a LatLong_Stereo based stereo camera rig and adds a spherical reference grid to the scene.
 
 Stereo Rig button
 The Stereo Rig tool create a stereo fulldome camera rig with the domeAFL_FOV_Stereo lens shader applied.
@@ -309,6 +312,8 @@ Vray
 
 Maya
   Updated Domemaster3D menu for compatibility with Maya 2017 + mental ray 3.14 beta 9
+  
+  Added an Automagic LatLong 3D Scene shelf button to the mental ray Domemaster3D shelf that creates a LatLong_Stereo based test scene
   
   Updated mental ray shader source code + makefiles for mental ray 3.14 ray differential texture sampling
   

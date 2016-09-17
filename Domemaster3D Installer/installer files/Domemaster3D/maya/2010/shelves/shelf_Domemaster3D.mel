@@ -14,7 +14,7 @@ global proc shelf_Domemaster3D () {
         -preventOverride 0
         -annotation "AutoMagic Fulldome 3D Scene" 
         -align "center" 
-        -label "AutoMagic" 
+        -label "AutoMagic Dome" 
         -labelOffset 0
         -font "tinyBoldLabelFont" 
         -image "render_magicDome.xpm" 
@@ -23,6 +23,29 @@ global proc shelf_Domemaster3D () {
         -marginWidth 1
         -marginHeight 1
         -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()\ndomeCamera.createDomeGrid()\ndomeCamera.createTestShapes()\ndomeCamera.setRenderRes()" 
+        -sourceType "python" 
+        -actionIsSubstitute 0
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AutoMagic LatLong 3D Scene" 
+        -align "center" 
+        -label "AutoMagic LatLong" 
+        -labelOffset 0
+        -font "tinyBoldLabelFont" 
+        -image "render_magicLatLong.xpm" 
+        -image1 "render_magicLatLong.xpm" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoRig()\ndomeCamera.createLatLongGrid()\ndomeCamera.createTestShapes()\ndomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -actionIsSubstitute 0
         -commandRepeatable 1

@@ -1,6 +1,6 @@
 """
 Arnold Domemaster3D Camera Setup Script V2.1.2
-2016-09-17 04.55 PM
+2016-09-17 05.27 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -109,7 +109,7 @@ arnoldDomeCamera.createArnoldLatLongStereoRig()
 ------------------------------------------------------------------------------
 
 Domemaster3D DomeGrid test background 
-A python function to create a spherical yellow test grid in Maya. 
+A python function to create a hemispherical yellow test grid in Maya. 
 
 Run using the command:
 import arnoldDomeCamera as arnoldDomeCamera
@@ -1154,7 +1154,6 @@ def createDomeGrid():
 
   # This is the default starting value for the grid line strokes
   #initialGridLineThickness = 0.05
-  #previous setting 0.035
   
   # PlayblastVR compatible thicker lines
   initialGridLineThickness = 0.200

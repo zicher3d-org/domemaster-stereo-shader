@@ -1,6 +1,6 @@
 """
-Domemaster3D Camera Setup Script V2.1
-2016-09-17 12.23 PM
+Domemaster3D Camera Setup Script V2.1.2
+2016-09-17 05.27 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -8,7 +8,7 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 2.1 - 2016-09-17
+Version 2.1.2 - 2016-09-17
 -------------------------------
 Improved the domeCamera.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings.
 
@@ -267,6 +267,16 @@ Run using the command:
 import domeCamera as domeCamera
 reload(domeCamera)
 domeCamera.createDomeGrid()
+
+------------------------------------------------------------------------------
+
+Domemaster3D LatLongGrid test background 
+A python function to create a spherical yellow test grid in Maya. 
+
+Run using the command:
+import domeCamera as domeCamera
+reload(domeCamera)
+domeCamera.createLatLongGrid()
 
 ------------------------------------------------------------------------------
 
@@ -1377,6 +1387,28 @@ def createLatLongStereoZenithRig():
   return rig
 
 
+"""
+Domemaster3D LatLongGrid test background 
+--------------------------------------
+A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
+
+"""
+  
+def createLatLongGrid():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  # Create a spherical yellow test grid in Maya. 
+  createDomeGrid()
+  
+  # Align the grid on the horizontal axis
+  #cmds.setAttr('domeGridSurface.rotateX', 90)
+  
+  # Set the grid to a full 360 degree FOV sphere
+  cmds.setAttr('domeGrid.fieldOfView', 360)
+  
+  # Change the grid from 12 spans (fulldome) to 24 spans (sphere) to cover the full 360 degree FOV with more uniform square patches.
+  cmds.setAttr('domeGrid.Dome_Spans', 24)
 
 
 """
@@ -1676,7 +1708,7 @@ def createDomeGrid():
   print "DomeGrid FOV Extra Attribute Expressions:"
   print expressionBuilderString
 
-  cmds.expression( name=gridFOVRadiusExpressionName, string=expressionBuilderString, object=baseNodeName, alwaysEvaluate=True, unitConversion=all)
+  cmds.expression(name=gridFOVRadiusExpressionName, string=expressionBuilderString, object=baseNodeName, alwaysEvaluate=True, unitConversion=all)
   
   # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute:
   #cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.sweep', force=True)
@@ -1702,6 +1734,9 @@ def createDomeGrid():
 
   # Check if the attribute exists on the domeGrid node
   #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  
+  #  180 degree dome default value = 12
+  #  360 degree dome default value = 24
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=120, hasSoftMaxValue=True, softMaxValue=40, defaultValue=12 , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   

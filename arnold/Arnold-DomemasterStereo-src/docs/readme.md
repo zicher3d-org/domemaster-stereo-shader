@@ -1,6 +1,6 @@
 # Arnold Domemaster3D Guide #
 -------------------------
-2016-09-06
+2016-09-17
 
 ![Domemaster3D Shader Running on MtoA](http://www.andrewhazelden.com/projects/domemaster3D/wiki/arnold/mtoa_domemasterstereo.png)
 
@@ -14,7 +14,7 @@ This guide covers the Arnold version of the Domemaster Stereo Shader.
 
 ## Known Issues ##
 
-The current version of the Arnold Domemaster3D shaders (as of 2016-09-06) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+The current version of the Arnold Domemaster3D shaders (as of 2016-09-17) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's MtoA and SItoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
 
 The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. 
 
@@ -348,6 +348,10 @@ Use the linux makefile to compile a new DomemasterStereo.so shader:
 - Daniel Ott created the original 2D `domeAFL_FOV`, and `domeAFL_WxH` lens shaders for mental ray.
 
 ## Version History ##
+
+### Version 2.1.2 - 2016-09-17 ###
+
+Updated the "Arnold Domemaster3D" menu and shelf to add a 2D rendering capable "Domemaster FOV" and "LatLong" version of the shaders that render the scene in a 2D way through the center camera view on the existing stereo lens shaders.
 
 ### Version 2.1 - 2016-09-06 ###
 

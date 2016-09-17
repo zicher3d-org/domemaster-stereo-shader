@@ -1,6 +1,6 @@
 """
-Arnold Domemaster3D Camera Setup Script V2.1.1
-2016-09-11 10.44 AM
+Arnold Domemaster3D Camera Setup Script V2.1.2
+2016-09-17 06.12 AM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -10,7 +10,7 @@ Version History
 
 Version 2.1.1
 ------------
-2016-09-11
+2016-09-17
 
 Code reformatting
 
@@ -64,6 +64,16 @@ reload(arnoldDomeCamera)
 arnoldDomeCamera.createArnoldFulldomeStereoRig()
 
 ------------------------------------------------------------------------------
+Domemaster3D Fulldome FOV Camera
+
+A python function to create a fulldome 2D FOV style camera in Maya using a single Arnold DomemasterStereo based camera.
+
+Run using the command:
+import arnoldDomeCamera as arnoldDomeCamera
+reload(arnoldDomeCamera)
+arnoldDomeCamera.createArnoldDomemasterFOV_Camera()
+
+------------------------------------------------------------------------------
 
 Domemaster3D Fulldome WxH Camera
 
@@ -73,6 +83,17 @@ Run using the command:
 import arnoldDomeCamera as arnoldDomeCamera
 reload(arnoldDomeCamera)
 arnoldDomeCamera.createArnoldDomemasterWxH_Camera()
+
+------------------------------------------------------------------------------
+
+Domemaster3D createArnoldLatLong_Camera
+A python function to create a 2D LatLong / Equirectangular / Spherical camera.  This option uses the LatLong Stereo shader applied in a 2D center camera viewing mode.
+
+Run using the command:
+import arnoldDomeCamera as arnoldDomeCamera
+reload(arnoldDomeCamera)
+arnoldDomeCamera.createArnoldLatLong_Camera()
+
 ------------------------------------------------------------------------------
 
 Domemaster3D createArnoldLatLongStereoRig
@@ -183,7 +204,7 @@ def getSourceImagesPath(imageFileName):
   baseImagesFolder = ""
   
   # Try and read the value from the current Maya.env file's environment variables
-  baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
+  baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR')+ "/"
   # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
   
   # Use a fixed value if the env var is empty
@@ -193,7 +214,7 @@ def getSourceImagesPath(imageFileName):
       baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files(x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on Mac OS X
       baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
@@ -209,7 +230,7 @@ def getSourceImagesPath(imageFileName):
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Domemaster3D is running on a " + platform.system()+ " System]"
   print "[Requesting the image file]: " + combinedFileAndImagePath
 
   return combinedFileAndImagePath
@@ -267,10 +288,10 @@ def setRenderRes():
   #---------------------------------------------------------------------
   # Setup the default render settings for a square domemaster image output
   # ---------------------------------------------------------------------
-  cmds.setAttr( 'defaultResolution.width', fulldomeRenderWidth )
-  cmds.setAttr( 'defaultResolution.height', fulldomeRenderHeight )
-  cmds.setAttr( 'defaultResolution.deviceAspectRatio', 1)
-  cmds.setAttr( 'defaultResolution.pixelAspect', 1)
+  cmds.setAttr('defaultResolution.width', fulldomeRenderWidth)
+  cmds.setAttr('defaultResolution.height', fulldomeRenderHeight)
+  cmds.setAttr('defaultResolution.deviceAspectRatio', 1)
+  cmds.setAttr('defaultResolution.pixelAspect', 1)
   
 
 
@@ -281,7 +302,7 @@ A python function to change the basic resolution square render settings.
 
 """
 
-def changeRenderRes( renderSizePx ):
+def changeRenderRes(renderSizePx):
   import maya.mel as mel
   import maya.cmds as cmds
   
@@ -296,12 +317,12 @@ def changeRenderRes( renderSizePx ):
   #---------------------------------------------------------------------
   # Setup the default render settings for a square domemaster image output
   # ---------------------------------------------------------------------
-  cmds.setAttr( 'defaultResolution.width', fulldomeRenderWidth )
-  cmds.setAttr( 'defaultResolution.height', fulldomeRenderHeight )
-  cmds.setAttr( 'defaultResolution.deviceAspectRatio', 1)
-  cmds.setAttr( 'defaultResolution.pixelAspect', 1)
+  cmds.setAttr('defaultResolution.width', fulldomeRenderWidth)
+  cmds.setAttr('defaultResolution.height', fulldomeRenderHeight)
+  cmds.setAttr('defaultResolution.deviceAspectRatio', 1)
+  cmds.setAttr('defaultResolution.pixelAspect', 1)
 
-  print ("Changed the render settings to output a " + str(renderSizePx) + "x" + str(renderSizePx) + " image.")
+  print("Changed the render settings to output a " + str(renderSizePx)+ "x" + str(renderSizePx)+ " image.")
 
   
 """
@@ -311,7 +332,7 @@ A python function to change the basic resolution render settings.
 
 """
 
-def changeRenderResWH( renderSizeW,  renderSizeH):
+def changeRenderResWH(renderSizeW,  renderSizeH):
   import maya.mel as mel
   import maya.cmds as cmds
 
@@ -327,12 +348,12 @@ def changeRenderResWH( renderSizeW,  renderSizeH):
   #---------------------------------------------------------------------
   # Setup the default render settings for a square domemaster image output
   # ---------------------------------------------------------------------
-  cmds.setAttr( 'defaultResolution.width', domeRenderWidth )
-  cmds.setAttr( 'defaultResolution.height', domeRenderHeight )
-  cmds.setAttr( 'defaultResolution.deviceAspectRatio', domeDeviceAspectRatio)
-  cmds.setAttr( 'defaultResolution.pixelAspect', 1)
+  cmds.setAttr('defaultResolution.width', domeRenderWidth)
+  cmds.setAttr('defaultResolution.height', domeRenderHeight)
+  cmds.setAttr('defaultResolution.deviceAspectRatio', domeDeviceAspectRatio)
+  cmds.setAttr('defaultResolution.pixelAspect', 1)
 
-  print ("Changed the render settings to output a " + str(renderSizeW) + "x" + str(renderSizeW) + " image.")
+  print("Changed the render settings to output a " + str(renderSizeW)+ "x" + str(renderSizeW)+ " image.")
 
 
 
@@ -349,7 +370,7 @@ def createArnoldFulldomeStereoRig():
   # ---------------------------------------------------------------------
   # Setup the default Maya Settings
   # ---------------------------------------------------------------------
-  cmds.loadPlugin( "stereoCamera", qt=True )
+  cmds.loadPlugin("stereoCamera", qt=True)
   
   # Make sure the Arnold plugin was loaded
   forceArnoldLoad()
@@ -383,19 +404,19 @@ def createArnoldFulldomeStereoRig():
   # Result: [u'stereoCameraRightShape'] #
   
   """
-  cmds.setAttr( rig[0]+'.rotateX', 90)
-  cmds.setAttr( rig[0]+'.rotateY', 0)
-  cmds.setAttr( rig[0]+'.rotateZ', 0)
+  cmds.setAttr(rig[0]+'.rotateX', 90)
+  cmds.setAttr(rig[0]+'.rotateY', 0)
+  cmds.setAttr(rig[0]+'.rotateZ', 0)
   
   """
   
   # Changes the render settings to set the stereo camera to be a renderable camera
-  cmds.setAttr( rig_left_shape_name[0]+'.renderable', 1) #stereoCameraLeftShape
-  cmds.setAttr( rig_right_shape_name[0]+'.renderable', 1) #stereoCameraRightShape
-  cmds.setAttr( 'topShape.renderable', 0)
-  cmds.setAttr( 'sideShape.renderable', 0)
-  cmds.setAttr( 'frontShape.renderable', 0)
-  cmds.setAttr( 'perspShape.renderable', 0)
+  cmds.setAttr(rig_left_shape_name[0]+'.renderable', 1)#stereoCameraLeftShape
+  cmds.setAttr(rig_right_shape_name[0]+'.renderable', 1)#stereoCameraRightShape
+  cmds.setAttr('topShape.renderable', 0)
+  cmds.setAttr('sideShape.renderable', 0)
+  cmds.setAttr('frontShape.renderable', 0)
+  cmds.setAttr('perspShape.renderable', 0)
 
   # Set up the default AA sampling quality
   setDomeSamplingQuality()
@@ -408,9 +429,9 @@ def createArnoldFulldomeStereoRig():
   #import maya.cmds as cmds
 
   # PreRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
   # PostRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
 
   # Enable realtime 3D
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
@@ -431,7 +452,7 @@ def createArnoldLatLongStereoRig():
   # ---------------------------------------------------------------------
   # Setup the default Maya Settings
   # ---------------------------------------------------------------------
-  cmds.loadPlugin( "stereoCamera", qt=True )
+  cmds.loadPlugin("stereoCamera", qt=True)
   
   # Make sure the Arnold plugin was loaded
   forceArnoldLoad()
@@ -465,19 +486,19 @@ def createArnoldLatLongStereoRig():
   # Result: [u'stereoCameraRightShape'] #
   
   """
-  cmds.setAttr( rig[0]+'.rotateX', 90)
-  cmds.setAttr( rig[0]+'.rotateY', 0)
-  cmds.setAttr( rig[0]+'.rotateZ', 0)
+  cmds.setAttr(rig[0]+'.rotateX', 90)
+  cmds.setAttr(rig[0]+'.rotateY', 0)
+  cmds.setAttr(rig[0]+'.rotateZ', 0)
   
   """
   
   # Changes the render settings to set the stereo camera to be a renderable camera
-  cmds.setAttr( rig_left_shape_name[0]+'.renderable', 1) #stereoCameraLeftShape
-  cmds.setAttr( rig_right_shape_name[0]+'.renderable', 1) #stereoCameraRightShape
-  cmds.setAttr( 'topShape.renderable', 0)
-  cmds.setAttr( 'sideShape.renderable', 0)
-  cmds.setAttr( 'frontShape.renderable', 0)
-  cmds.setAttr( 'perspShape.renderable', 0)
+  cmds.setAttr(rig_left_shape_name[0]+'.renderable', 1)#stereoCameraLeftShape
+  cmds.setAttr(rig_right_shape_name[0]+'.renderable', 1)#stereoCameraRightShape
+  cmds.setAttr('topShape.renderable', 0)
+  cmds.setAttr('sideShape.renderable', 0)
+  cmds.setAttr('frontShape.renderable', 0)
+  cmds.setAttr('perspShape.renderable', 0)
 
   # Set up the default AA sampling quality
   setDomeSamplingQuality()
@@ -489,9 +510,9 @@ def createArnoldLatLongStereoRig():
   #import maya.cmds as cmds
 
   # PreRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
   # PostRender MEL:
-  #cmds.setAttr( 'defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
 
   # Enable realtime 3D
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
@@ -500,9 +521,81 @@ def createArnoldLatLongStereoRig():
 
 
 """
+Domemaster3D createDomemasterFOV_Camera
+----------------------
+A python function to create a fulldome 2D FOV style camera in Maya using a single Arnold DomemasterStereo based camera.
+"""
+def createArnoldDomemasterFOV_Camera():
+  import maya.cmds as cmds
+  #import maya.mel as mel 
+  
+  # Make sure the Arnold plugin was loaded
+  forceArnoldLoad()
+
+  # ---------------------------------------------------------------------
+  # Variables
+  # ---------------------------------------------------------------------
+  
+  # Arnold camera type
+  cameraType = 'DomemasterStereo'
+  
+  # ---------------------------------------------------------------------
+  # Create the stereo rig
+  # ---------------------------------------------------------------------
+
+  # Create a camera and get the shape name.
+  cameraName = cmds.camera(name='ArnoldDomemasterFOV_Camera')
+  cameraShape = cameraName[1]
+
+  # ---------------------------------------------------------------------
+  # Assign the Arnold DomemasterStereo camera type
+  # ---------------------------------------------------------------------
+  cmds.setAttr(cameraShape+'.ai_translator', cameraType, type='string')
+  
+  # Scale the stereo camera rig locator larger 
+  #cmds.setAttr(cameraShape+'.locatorScale', 1)# Scale Camera icon
+
+  # Link the new attribute 'Cam Locator Scale' to the dome camera's locator size control
+  cmds.addAttr(cameraName[0], longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.001)
+  cmds.setAttr(cameraName[0]+'.Cam_Locator_Scale', keyable=False, channelBox=True)
+  cmds.connectAttr(cameraName[0]+'.Cam_Locator_Scale', cameraShape+'.locatorScale', force=True)
+
+  # Set the view to center
+  cmds.setAttr(cameraShape+'.aiCamera', 0)
+  
+  # Adjust the stereo settings
+  # cmds.setAttr(cameraShape+'.aiZeroParallaxSphere', 360)
+  cmds.setAttr(cameraShape+'.aiSeparation', 0)
+  
+  # Align the base camera to point upwards
+  cmds.setAttr(cameraName[0]+'.rotateX', 90)
+  cmds.setAttr(cameraName[0]+'.rotateY', 0)
+  cmds.setAttr(cameraName[0]+'.rotateZ', 0)
+
+  # Changes the render settings to set the stereo camera to be a renderable camera
+  cmds.setAttr(cameraShape+'.renderable', 1)# ArnoldDomemasterFOV_Camera
+  cmds.setAttr('topShape.renderable', 0)
+  cmds.setAttr('sideShape.renderable', 0)
+  cmds.setAttr('frontShape.renderable', 0)
+  cmds.setAttr('perspShape.renderable', 0)
+
+  # Set up the default mental ray AA sampling quality
+  #setDomeSamplingQuality()
+
+  # ---------------------------------------------------------------------
+  # Setup the stereo rig camera attributes
+  # ---------------------------------------------------------------------
+  # 4 mm focal length = 160 degree FOV
+  #cmds.setAttr(cameraShape+'.focalLength', 4)
+
+  # 18 mm focal length = 90 degree FOV
+  cmds.setAttr(cameraShape+'.focalLength', 18)
+
+
+"""
 Domemaster3D createDomemasterWxH_Camera
 ----------------------
-A python function to set up an arnold DomemasterWxH based camera.
+A python function to set up an Arnold DomemasterWxH based camera.
 """
 def createArnoldDomemasterWxH_Camera():
   import maya.cmds as cmds
@@ -529,28 +622,27 @@ def createArnoldDomemasterWxH_Camera():
   # ---------------------------------------------------------------------
   # Assign the Arnold domemasterWxH camera type
   # ---------------------------------------------------------------------
-  cmds.setAttr( cameraShape+'.ai_translator', cameraType, type='string')
+  cmds.setAttr(cameraShape+'.ai_translator', cameraType, type='string')
   
-
   # Scale the stereo camera rig locator larger 
-  #cmds.setAttr(cameraShape+'.locatorScale', 1) #Scale Camera icon
+  #cmds.setAttr(cameraShape+'.locatorScale', 1)#Scale Camera icon
 
   # Link the new attribute 'Cam Locator Scale' to the dome camera's locator size control
-  cmds.addAttr( cameraName[0], longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.001)
-  cmds.setAttr( cameraName[0]+'.Cam_Locator_Scale', keyable=False, channelBox=True)
-  cmds.connectAttr ( cameraName[0]+'.Cam_Locator_Scale', cameraShape+'.locatorScale', force=True)
+  cmds.addAttr(cameraName[0], longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.001)
+  cmds.setAttr(cameraName[0]+'.Cam_Locator_Scale', keyable=False, channelBox=True)
+  cmds.connectAttr(cameraName[0]+'.Cam_Locator_Scale', cameraShape+'.locatorScale', force=True)
 
-
-  cmds.setAttr( cameraName[0]+'.rotateX', 90)
-  cmds.setAttr( cameraName[0]+'.rotateY', 0)
-  cmds.setAttr( cameraName[0]+'.rotateZ', 0)
+  # Align the base camera to point upwards
+  cmds.setAttr(cameraName[0]+'.rotateX', 90)
+  cmds.setAttr(cameraName[0]+'.rotateY', 0)
+  cmds.setAttr(cameraName[0]+'.rotateZ', 0)
 
   # Changes the render settings to set the stereo camera to be a renderable camera
-  cmds.setAttr( cameraShape+'.renderable', 1) #domeAFL_WxH_CameraShape
-  cmds.setAttr( 'topShape.renderable', 0)
-  cmds.setAttr( 'sideShape.renderable', 0)
-  cmds.setAttr( 'frontShape.renderable', 0)
-  cmds.setAttr( 'perspShape.renderable', 0)
+  cmds.setAttr(cameraShape+'.renderable', 1)#domeAFL_WxH_CameraShape
+  cmds.setAttr('topShape.renderable', 0)
+  cmds.setAttr('sideShape.renderable', 0)
+  cmds.setAttr('frontShape.renderable', 0)
+  cmds.setAttr('perspShape.renderable', 0)
 
   # Set up the default mental ray AA sampling quality
   #setDomeSamplingQuality()
@@ -559,10 +651,85 @@ def createArnoldDomemasterWxH_Camera():
   # Setup the stereo rig camera attributes
   # ---------------------------------------------------------------------
   # 4 mm focal length = 160 degree FOV
-  #cmds.setAttr( cameraShape+'.focalLength', 4 )
+  #cmds.setAttr(cameraShape+'.focalLength', 4)
 
   # 18 mm focal length = 90 degree FOV
-  cmds.setAttr( cameraShape+'.focalLength', 18 )
+  cmds.setAttr(cameraShape+'.focalLength', 18)
+
+
+"""
+Domemaster3D createArnoldLatLong_Camera
+----------------------
+A python function to create a 2D LatLong / Equirectangular / Spherical camera.  This option uses the LatLong Stereo shader applied in a 2D center camera viewing mode.
+"""
+def createArnoldLatLong_Camera():
+  import maya.cmds as cmds
+  #import maya.mel as mel 
+  
+  # Make sure the Arnold plugin was loaded
+  forceArnoldLoad()
+
+  # ---------------------------------------------------------------------
+  # Variables
+  # ---------------------------------------------------------------------
+  
+  # Arnold camera type
+  cameraType = 'LatLongStereo'
+  
+  # ---------------------------------------------------------------------
+  # Create the stereo rig
+  # ---------------------------------------------------------------------
+
+  # Create a camera and get the shape name.
+  cameraName = cmds.camera(name='ArnoldLatLong_Camera')
+  cameraShape = cameraName[1]
+
+  # ---------------------------------------------------------------------
+  # Assign the Arnold LatLongStereo camera type
+  # ---------------------------------------------------------------------
+  cmds.setAttr(cameraShape+'.ai_translator', cameraType, type='string')
+  
+  # Scale the stereo camera rig locator larger 
+  #cmds.setAttr(cameraShape+'.locatorScale', 1)# Scale Camera icon
+
+  # Link the new attribute 'Cam Locator Scale' to the dome camera's locator size control
+  cmds.addAttr(cameraName[0], longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.001)
+  cmds.setAttr(cameraName[0]+'.Cam_Locator_Scale', keyable=False, channelBox=True)
+  cmds.connectAttr(cameraName[0]+'.Cam_Locator_Scale', cameraShape+'.locatorScale', force=True)
+
+  # Set the view to center
+  cmds.setAttr(cameraShape+'.aiCamera', 0)
+  
+  # Adjust the stereo settings
+  # cmds.setAttr(cameraShape+'.aiZeroParallaxSphere', 360)
+  cmds.setAttr(cameraShape+'.aiSeparation', 0)
+  
+  # Set the Zenith Mode to ON
+  cmds.setAttr(cameraShape+'.aiZenithMode', 1)
+  
+  # Align the base camera to point upwards
+  cmds.setAttr(cameraName[0]+'.rotateX', 90)
+  cmds.setAttr(cameraName[0]+'.rotateY', 0)
+  cmds.setAttr(cameraName[0]+'.rotateZ', 0)
+
+  # Changes the render settings to set the stereo camera to be a renderable camera
+  cmds.setAttr(cameraShape+'.renderable', 1)# ArnoldLatLong_Camera
+  cmds.setAttr('topShape.renderable', 0)
+  cmds.setAttr('sideShape.renderable', 0)
+  cmds.setAttr('frontShape.renderable', 0)
+  cmds.setAttr('perspShape.renderable', 0)
+
+  # Set up the default mental ray AA sampling quality
+  #setDomeSamplingQuality()
+
+  # ---------------------------------------------------------------------
+  # Setup the stereo rig camera attributes
+  # ---------------------------------------------------------------------
+  # 4 mm focal length = 160 degree FOV
+  #cmds.setAttr(cameraShape+'.focalLength', 4)
+
+  # 18 mm focal length = 90 degree FOV
+  cmds.setAttr(cameraShape+'.focalLength', 18)
 
 
 """
@@ -620,27 +787,27 @@ def createDomeGrid():
   
   if cmds.objExists('domeGrid'): 
     print('Removing existing Domemaster3D object: domeGrid')
-    cmds.select( 'domeGrid', replace=True)
+    cmds.select('domeGrid', replace=True)
     cmds.delete()
 
   if cmds.objExists('MeshGroup'): 
     print('Removing existing Domemaster3D object: MeshGroup')
-    cmds.select( 'MeshGroup', replace=True)
-    cmds.delete() 
+    cmds.select('MeshGroup', replace=True)
+    cmds.delete()
   
   if cmds.objExists(domeGridSurface): 
     print('Removing existing Domemaster3D object: ' + domeGridSurface)
-    cmds.select( domeGridSurface, replace=True)
+    cmds.select(domeGridSurface, replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridToon'): 
     print('Removing existing Domemaster3D object: domeGridToon')
-    cmds.select( 'domeGridToon', replace=True)
+    cmds.select('domeGridToon', replace=True)
     cmds.delete()
     
   if cmds.objExists('domeGrid_displayModeExpr'): 
     print('Removing existing Domemaster3D object: domeGrid_displayModeExpr')
-    cmds.select( 'domeGrid_displayModeExpr', replace=True)
+    cmds.select('domeGrid_displayModeExpr', replace=True)
     cmds.delete()
   
   #--------------------------------------------------------------------------
@@ -649,22 +816,22 @@ def createDomeGrid():
   
   if cmds.objExists('domeGridLinesSurfaceShader'): 
     print('Removing existing Domemaster3D object: domeGridLinesSurfaceShader')
-    cmds.select( 'domeGridLinesSurfaceShader', replace=True)
+    cmds.select('domeGridLinesSurfaceShader', replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridLinesSurfaceShaderSG'): 
     print('Removing existing Domemaster3D object: domeGridLinesSurfaceShaderSG')
-    cmds.select( 'domeGridLinesSurfaceShaderSG', replace=True)
+    cmds.select('domeGridLinesSurfaceShaderSG', replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridSurfaceShaderSG'): 
     print('Removing existing Domemaster3D object: domeGridSurfaceShaderSG')
-    cmds.select( 'domeGridSurfaceShaderSG', replace=True)
+    cmds.select('domeGridSurfaceShaderSG', replace=True)
     cmds.delete()
     
   if cmds.objExists('domeGridSurfaceShader'): 
     print('Removing existing Domemaster3D object: domeGridSurfaceShader')
-    cmds.select( 'domeGridSurfaceShader', replace=True)
+    cmds.select('domeGridSurfaceShader', replace=True)
     cmds.delete()
   
   #--------------------------------------------------------------------------
@@ -673,11 +840,11 @@ def createDomeGrid():
     
   if cmds.objExists('surfaceShader1SG'): 
     print('Renaming existing  object: surfaceShader1SG')
-    cmds.rename( 'surfaceShader1SG', 'aSurfaceShader1SG' )
+    cmds.rename('surfaceShader1SG', 'aSurfaceShader1SG')
     
   if cmds.objExists('surfaceShader1'): 
     print('Renaming existing  object: surfaceShader1')
-    cmds.rename( 'surfaceShader1', 'aSurfaceShader1' )
+    cmds.rename('surfaceShader1', 'aSurfaceShader1')
   
   #--------------------------------------------------------------------------
   # Make the dome mesh
@@ -708,7 +875,7 @@ def createDomeGrid():
   int $un = `nurbsToPolygonsPref -q -un`;
   int $vt = `nurbsToPolygonsPref -q -vt`;
   int $vn = `nurbsToPolygonsPref -q -vn`;
-  print ($f + " " + $ut + " " + $un+ " " + $vt+ " " + $vn);
+  print($f + " " + $ut + " " + $un+ " " + $vt+ " " + $vn);
   """
 
   # Revolve the base 90 degree arc curve into a NURBS dome shape
@@ -724,7 +891,7 @@ def createDomeGrid():
 
   # Find out the preview curve's makeNurbCircle node name
   makeCurveShapeName = domeCurveShape
-  makeCurveObject = cmds.listConnections( makeCurveShapeName[0]+'.create', type='makeNurbCircle')
+  makeCurveObject = cmds.listConnections(makeCurveShapeName[0]+'.create', type='makeNurbCircle')
   makeCurveNodeName = makeCurveObject[0]
   print("The NURBS circle creation node is: ")
   print(makeCurveNodeName)
@@ -734,7 +901,7 @@ def createDomeGrid():
   #-----------------------------------------------------------------------------
       
   # Find out the name of the "makeNurbCircle" node that is used to create the domeGridPreviewCurve shape
-  makeRevolveObjects= cmds.listConnections(  makeCurveShapeName[0]+'.worldSpace', type='revolve')
+  makeRevolveObjects= cmds.listConnections( makeCurveShapeName[0]+'.worldSpace', type='revolve')
   makeRevolveNodeName = makeRevolveObjects[0];
   print("The circle creation node is: ")
   print(makeRevolveNodeName)
@@ -742,7 +909,7 @@ def createDomeGrid():
   # Reconnect the curve to the revolve node using local space
   # This replaces the curve's previous .worldSpace connection that inhibited the
   # ability to move the curve without effecting the revolve
-  cmds.connectAttr( makeCurveShapeName[0]+".local", makeRevolveNodeName+".inputCurve",  f=True);
+  cmds.connectAttr(makeCurveShapeName[0]+".local", makeRevolveNodeName+".inputCurve",  f=True);
 
   # Put the domeSurface "PreviewShape" inside the domeGrid group
   # Have the revolved shape aligned relative to the domeGrid
@@ -752,12 +919,12 @@ def createDomeGrid():
   #cmds.parent(domeRadiusCurveName[0], domeRadiusTransform)
   
   # Create the base sphere with a 1 unit scale
-  #domeGridName = cmds.polySphere( name=domeGridSurface, radius = 1, subdivisionsX=36, subdivisionsY=20, axis=(0, 1, 0),  createUVs=2, constructionHistory=True )
+  #domeGridName = cmds.polySphere(name=domeGridSurface, radius = 1, subdivisionsX=36, subdivisionsY=20, axis=(0, 1, 0),  createUVs=2, constructionHistory=True)
   
   # Chop the polysphere into a hemispherical dome
   #domeGridTransform = domeGridName[0]
-  #domeGridShape = getObjectShapeNode( domeGridName[0] )
-  #cmds.select( domeGridTransform+'.f[0:323]', domeGridTransform+'.f[648:683]', replace=True )
+  #domeGridShape = getObjectShapeNode(domeGridName[0])
+  #cmds.select(domeGridTransform+'.f[0:323]', domeGridTransform+'.f[648:683]', replace=True)
   #cmds.delete()
   
   domeGridTransform = domeRadiusSurfaceName[0];
@@ -773,7 +940,7 @@ def createDomeGrid():
   # Create the PaintFX Toon stroke outlines
   # --------------------------------------------------------------------------
   
-  cmds.select( domeGridTransform, replace=True )
+  cmds.select(domeGridTransform, replace=True)
   
   # Assign the paint effects toon outlines
   mel.eval('assignNewPfxToon;')
@@ -781,48 +948,48 @@ def createDomeGrid():
   # Rename the toon shader
   domeToonShader = 'domeGridToon'
   domeToonShaderShape = 'domeGridToonShape'
-  cmds.rename( 'pfxToon1', domeToonShader )
+  cmds.rename('pfxToon1', domeToonShader)
   
   # Define the new toon shader controls
-  cmds.setAttr( domeToonShaderShape+'.profileLines', 0 )
-  cmds.setAttr( domeToonShaderShape+'.borderLines', 0 )
-  cmds.setAttr( domeToonShaderShape+'.creaseLineWidth', 15 )
-  cmds.setAttr( domeToonShaderShape+'.creaseColor', 1, 1, 0, type='double3' )
-  cmds.setAttr( domeToonShaderShape+'.hardCreasesOnly', 0 )
-  cmds.setAttr( domeToonShaderShape+'.creaseBreakAngle', 0 )
-  cmds.setAttr( domeToonShaderShape+'.creaseAngleMin', 0 )
-  cmds.setAttr( domeToonShaderShape+'.creaseAngleMax', 0 )
-  cmds.setAttr( domeToonShaderShape+'.meshVertexColorMode', 1 )
-  cmds.setAttr( domeToonShaderShape+'.meshQuadOutput', 1 )
-  cmds.setAttr( domeToonShaderShape+'.meshHardEdges', 1 )
+  cmds.setAttr(domeToonShaderShape+'.profileLines', 0)
+  cmds.setAttr(domeToonShaderShape+'.borderLines', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseLineWidth', 15)
+  cmds.setAttr(domeToonShaderShape+'.creaseColor', 1, 1, 0, type='double3')
+  cmds.setAttr(domeToonShaderShape+'.hardCreasesOnly', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseBreakAngle', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseAngleMin', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseAngleMax', 0)
+  cmds.setAttr(domeToonShaderShape+'.meshVertexColorMode', 1)
+  cmds.setAttr(domeToonShaderShape+'.meshQuadOutput', 1)
+  cmds.setAttr(domeToonShaderShape+'.meshHardEdges', 1)
   
   # Create a polygon paint effects stroke output
-  cmds.select( domeToonShader, replace=True );
-  mel.eval('doPaintEffectsToPoly( 1,1,1,1,100000);')
+  cmds.select(domeToonShader, replace=True);
+  mel.eval('doPaintEffectsToPoly(1,1,1,1,100000);')
   
   # Make a local space mesh connection to fix the grouped node double translation issue
   #connectAttr -f domeGridToonShape.outMainMesh MainShape.inMesh;
   # Result: Connected domeGridToonShape.outMainMesh to MainShape.inMesh. // 
-  cmds.connectAttr( domeToonShaderShape+'.outMainMesh', 'MainShape.inMesh', force=True)
+  cmds.connectAttr(domeToonShaderShape+'.outMainMesh', 'MainShape.inMesh', force=True)
   
   if cmds.objExists('MeshGroup'): 
     print('Unlinking the Toon shader\'s inheritsTransform attribute')
-    cmds.setAttr( 'MeshGroup.inheritsTransform', 0)
+    cmds.setAttr('MeshGroup.inheritsTransform', 0)
   
   # --------------------------------------------------------------------------
   # Adjust the grid lines shader
   #---------------------------------------------------------------------------
   
-  #domeGridlineShadingGroup = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='domeGridLinesSurfaceShaderSG' )
+  #domeGridlineShadingGroup = cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='domeGridLinesSurfaceShaderSG')
   domeGridlineMaterial = 'domeGridLinesSurfaceShader'
   domeGridlineShadingGroup  = 'domeGridLinesSurfaceShaderSG'
   
   # Rename the default gridlines shader
-  cmds.rename( 'surfaceShader1', domeGridlineMaterial )
-  cmds.rename( 'surfaceShader1SG', domeGridlineShadingGroup )
+  cmds.rename('surfaceShader1', domeGridlineMaterial)
+  cmds.rename('surfaceShader1SG', domeGridlineShadingGroup)
   
   # Standard Yellow Color
-  #cmds.setAttr( 'surfaceShader1.outColor', 1, 1, 0, type='double3')
+  #cmds.setAttr('surfaceShader1.outColor', 1, 1, 0, type='double3')
   
   # Super Bright Yellow Color for Physical Sky Compatibility
   #cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
@@ -833,13 +1000,13 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   
   # Create the dome Grid surface shader + shading group
-  domeGridShadingGroup = cmds.sets( renderable=True, noSurfaceShader=True, empty=True, name='domeSurfaceShaderSG' )
-  domeGridMaterial = cmds.shadingNode( 'surfaceShader', name='domeGridSurfaceShader', asShader=True) 
+  domeGridShadingGroup = cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='domeSurfaceShaderSG')
+  domeGridMaterial = cmds.shadingNode('surfaceShader', name='domeGridSurfaceShader', asShader=True)
   
   # Make the surface shader black
-  cmds.setAttr( domeGridMaterial+'.outColor', 0, 0, 0, type='double3')
+  cmds.setAttr(domeGridMaterial+'.outColor', 0, 0, 0, type='double3')
   #Set the polygon surface to be transparent
-  cmds.setAttr( domeGridMaterial+'.outTransparency', 1, 1, 1, type='double3')
+  cmds.setAttr(domeGridMaterial+'.outTransparency', 1, 1, 1, type='double3')
   
   # Connect the surface shader to the shading group and the polygon surface
   cmds.connectAttr(domeGridMaterial+'.outColor', domeGridShadingGroup+'.surfaceShader')
@@ -849,8 +1016,8 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   # Group the domeGrid surfaces under a node called "domeGrid"
   #---------------------------------------------------------------------------
-  #cmds.group( 'domeGridSurface', 'domeGridToon', 'MeshGroup', name='domeGrid' )
-  cmds.group( domeRadiusCurveName[0], domeRadiusSurfaceName[0], 'domeGridToon', 'MeshGroup', name='domeGrid' )
+  #cmds.group('domeGridSurface', 'domeGridToon', 'MeshGroup', name='domeGrid')
+  cmds.group(domeRadiusCurveName[0], domeRadiusSurfaceName[0], 'domeGridToon', 'MeshGroup', name='domeGrid')
        
   #---------------------------------------------------------------------------
   # Add Extra Attrs to the domeGrid shape
@@ -863,7 +1030,7 @@ def createDomeGrid():
   attrName = 'fieldOfView'
   
   # Check if the attribute exists on the domeGrid node
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   
   # 180 degree default = 180
   # 360 degree default = 360
@@ -875,16 +1042,16 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   
   # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute
-  expressionBuilderString = makeCurveNodeName + ".sweep = " + (baseNodeName+'.'+attrName) + "/2;"
+  expressionBuilderString = makeCurveNodeName + ".sweep = " +(baseNodeName+'.'+attrName)+ "/2;"
   gridFOVRadiusExpressionName = 'domeGrid_FOVExpr'
   
   print "DomeGrid FOV Extra Attribute Expressions:"
   print expressionBuilderString
 
-  cmds.expression( name=gridFOVRadiusExpressionName, string=expressionBuilderString, object=baseNodeName, alwaysEvaluate=True, unitConversion=all)
+  cmds.expression(name=gridFOVRadiusExpressionName, string=expressionBuilderString, object=baseNodeName, alwaysEvaluate=True, unitConversion=all)
   
   # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute:
-  #cmds.connectAttr( (baseNodeName+'.'+attrName), makeCurveObject[0]+'.sweep', force=True)
+  #cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.sweep', force=True)
     
 
   #---------------------------------------------------------------------------  
@@ -893,12 +1060,12 @@ def createDomeGrid():
   attrName = 'Dome_Radius'
 
   # Check if the attribute exists on the domeGrid node
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=1000000, hasSoftMaxValue=True, softMaxValue=360, defaultValue=startingDomeDiameter , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute:
-  cmds.connectAttr( (baseNodeName+'.'+attrName), makeCurveObject[0]+'.radius', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.radius', force=True)
 
   #---------------------------------------------------------------------------  
   # Add a Dome Height Spans control to the domeGrid's transform node
@@ -906,7 +1073,7 @@ def createDomeGrid():
   attrName = 'Dome_Spans'
 
   # Check if the attribute exists on the domeGrid node
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   
   #  180 degree dome default value = 12
   #  360 degree dome default value = 24
@@ -914,7 +1081,7 @@ def createDomeGrid():
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   # Connect the domeGrid dome radius control to the sphere's makeNurbCircle sections attribute:
-  cmds.connectAttr( (baseNodeName+'.'+attrName), makeCurveObject[0]+'.sections', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.sections', force=True)
     
   #---------------------------------------------------------------------------  
   # Add a Dome Width Sections control to the domeGrid's transform node
@@ -922,18 +1089,18 @@ def createDomeGrid():
   attrName = 'Dome_Sections'
 
   # Check if the attribute exists on the domeGrid node
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=240, hasSoftMaxValue=True, softMaxValue=120, defaultValue=42 , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   # Connect the domeGrid dome radius control to the sphere's revolve sections attribute:
-  cmds.connectAttr( (baseNodeName+'.'+attrName), makeRevolveNodeName+'.sections', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), makeRevolveNodeName+'.sections', force=True)
   
   #---------------------------------------------------------------------------
   # Add a Display Mode control to the domeGrid's transform node
   #---------------------------------------------------------------------------
   attrName = 'displayMode'
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="enum", en="Off:Wireframe:Shaded:Wireframe on Shaded", defaultValue=2, keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
@@ -941,7 +1108,7 @@ def createDomeGrid():
   # Add a Double Sided Rendering control to the domeGrid's transform node
   #---------------------------------------------------------------------------
   attrName = 'doubleSidedShading'
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="enum", en="Double Sided:Show Frontfaces:Show Backfaces", defaultValue=2, min=0, keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
@@ -955,12 +1122,12 @@ def createDomeGrid():
   #previous setting 0.035
 
   # Check if the attribute exists on the domeGrid node
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.001, max=50, hasSoftMaxValue=True, softMaxValue=2, defaultValue=initialGridLineThickness, keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   # Connect the domeGrid Grid Line Thickness to the toon shader line width attribute:
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeToonShaderShape+'.lineWidth', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeToonShaderShape+'.lineWidth', force=True)
 
   #---------------------------------------------------------------------------
   # Add a Grid Line Color control to the domeGrid's transform node - Default color 1,1,0 = Yellow
@@ -969,7 +1136,7 @@ def createDomeGrid():
   attrRName = "gridLineColorR";
   attrGName = "gridLineColorG";
   attrBName = "gridLineColorB";
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="float3", usedAsColor=True, keyable=True)
   
   # Super Bright Yellow Color
@@ -984,7 +1151,7 @@ def createDomeGrid():
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   # Connect the Grid Line Color swatch to the surface shader
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridlineMaterial+'.outColor', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outColor', force=True)
   #---------------------------------------------------------------------------
   # Add a Grid Line Transparency control to the domeGrid's transform node - Default value 0.25
   #---------------------------------------------------------------------------
@@ -992,9 +1159,9 @@ def createDomeGrid():
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", keyable=True, defaultValue=0.0, min=0, max=1)
   
   # Connect the Grid Line transparency swatch to the surface shader
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyR', force=True)
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyG', force=True)
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyB', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyR', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyG', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyB', force=True)
 
   #---------------------------------------------------------------------------
   # Add a Grid Surface Color control to the domeGrid's transform node - Default color 0,0,0 = Black
@@ -1003,7 +1170,7 @@ def createDomeGrid():
   attrRName = "gridSurfaceColorR";
   attrGName = "gridSurfaceColorG";
   attrBName = "gridSurfaceColorB";
-  #if(mel.attributeExists(attrName, baseNodeName) == 0):
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="float3", usedAsColor=True, keyable=True)
   cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=0)
   cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=0)
@@ -1012,7 +1179,7 @@ def createDomeGrid():
   
   
   # Connect the Grid Surface Color swatch to the surface shader
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridMaterial+'.outColor', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outColor', force=True)
   #---------------------------------------------------------------------------
   # Add a Grid Surface Transparency control to the domeGrid's transform node - Default value 0.25
   #---------------------------------------------------------------------------
@@ -1020,9 +1187,9 @@ def createDomeGrid():
   cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", keyable=True, defaultValue=.5, min=0, max=1)
   
   # Connect the Grid Surface transparency swatch to the surface shader
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyR', force=True)
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyG', force=True)
-  cmds.connectAttr( (baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyB', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyR', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyG', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyB', force=True)
 
 
   #---------------------------------------------------------------------------  
@@ -1042,39 +1209,39 @@ def createDomeGrid():
   PreviewShapeExpr = ""
 
   PreviewShapeExpr += "// Custom " + previewAttrName + " Preview Shape Expressions\n\n"
-  PreviewShapeExpr += "if (  " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
+  PreviewShapeExpr += "if( " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  //Off Mode\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 0;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 0;\n"
   PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
-  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 1 ){\n"
+  PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 1){\n"
   PreviewShapeExpr += "  //Wireframe Mode\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 0;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
   PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
-  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 2 ){\n"
+  PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 2){\n"
   PreviewShapeExpr += "  //Shaded Mode\n"
   PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
   PreviewShapeExpr += "  MeshGroup.visibility = 1;\n"
-  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 3 ){\n"
+  PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 3){\n"
   PreviewShapeExpr += "  //Wireframe on Shaded Mode\n"
   PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
@@ -1092,15 +1259,15 @@ def createDomeGrid():
   previewAttrName = "doubleSidedShading";
 
   PreviewShapeExpr += "// Custom Double Sided Shading Expressions\n\n"
-  PreviewShapeExpr += "if (" + previewAttrName + " == 0 ){\n"
+  PreviewShapeExpr += "if(" + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  print(\"Double Sided Shading Enabled\\n\");\n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 1; \n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 0; \n"
-  PreviewShapeExpr += "} else if (" + previewAttrName + " == 1 ){\n"
+  PreviewShapeExpr += "} else if(" + previewAttrName + " == 1){\n"
   PreviewShapeExpr += "  print(\"Backface Shading Enabled\\n\");\n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 0; \n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 0; \n"
-  PreviewShapeExpr += "} else if (" + previewAttrName + " == 2 ){\n"
+  PreviewShapeExpr += "} else if(" + previewAttrName + " == 2){\n"
   PreviewShapeExpr += "  print(\"Frontface Shading Enabled\\n\");\n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 0; \n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 1; \n"
@@ -1109,15 +1276,15 @@ def createDomeGrid():
   print "DomeGrid Extra Attribute Expressions:"
   print PreviewShapeExpr
 
-  cmds.expression( name=exprName, string=PreviewShapeExpr, object='domeGrid', alwaysEvaluate=True, unitConversion=all)
+  cmds.expression(name=exprName, string=PreviewShapeExpr, object='domeGrid', alwaysEvaluate=True, unitConversion=all)
 
   # Force a first value into the double sided shading attribute
-  cmds.setAttr( (domeRadiusTransform+".doubleSidedShading"), 0)
+  cmds.setAttr((domeRadiusTransform+".doubleSidedShading"), 0)
   
   #---------------------------------------------------------------------------  
   # Select the domeGrid node in the Attribute Editor
   #---------------------------------------------------------------------------  
-  mel.eval ( ' showEditorExact("' + domeRadiusTransform + '") ' )
+  mel.eval(' showEditorExact("' + domeRadiusTransform + '")')
   
   
 """
@@ -1131,27 +1298,27 @@ def  createTestShapes():
 
   if cmds.objExists('domeTestLight'): 
     print('Removing existing Domemaster3D object: domeTestLight')
-    cmds.select( 'domeTestLight', replace=True)
+    cmds.select('domeTestLight', replace=True)
     cmds.delete()
 
   if cmds.objExists('polyTestSphere'): 
     print('Removing existing Domemaster3D object: polyTestSphere')
-    cmds.select( 'polyTestSphere', replace=True)
+    cmds.select('polyTestSphere', replace=True)
     cmds.delete()
 
   if cmds.objExists('polyTestCube'): 
     print('Removing existing Domemaster3D object: polyTestCube')
-    cmds.select( 'polyTestCube', replace=True)
+    cmds.select('polyTestCube', replace=True)
     cmds.delete()
 
-  test_sphere_name = cmds.polySphere( name='polyTestSphere', radius=24, subdivisionsX=20, subdivisionsY=20, axis=(0, 1, 0),  createUVs=2, constructionHistory=True)
+  test_sphere_name = cmds.polySphere(name='polyTestSphere', radius=24, subdivisionsX=20, subdivisionsY=20, axis=(0, 1, 0),  createUVs=2, constructionHistory=True)
   cmds.setAttr(test_sphere_name[0]+'.translateX', 80)
   cmds.setAttr(test_sphere_name[0]+'.translateY', 75)
 
   # Smooth the render time polygon sphere shape
-  cmds.displaySmoothness( test_sphere_name, divisionsU=3, divisionsV=3, pointsWire=16, pointsShaded=4, polygonObject=3 )
+  cmds.displaySmoothness(test_sphere_name, divisionsU=3, divisionsV=3, pointsWire=16, pointsShaded=4, polygonObject=3)
 
-  test_cube_name = cmds.polyCube( name='polyTestCube', width=40, height=40, depth=40, subdivisionsX=1, subdivisionsY=1, subdivisionsZ=1, axis=(0, 1, 0),  createUVs=4, constructionHistory=True)
+  test_cube_name = cmds.polyCube(name='polyTestCube', width=40, height=40, depth=40, subdivisionsX=1, subdivisionsY=1, subdivisionsZ=1, axis=(0, 1, 0),  createUVs=4, constructionHistory=True)
   cmds.setAttr(test_cube_name[0]+'.translateX', 0)
   cmds.setAttr(test_cube_name[0]+'.translateY', 75)
   cmds.setAttr(test_cube_name[0]+'.translateZ', -80)
@@ -1160,13 +1327,13 @@ def  createTestShapes():
   cmds.setAttr(test_cube_name[0]+'.rotateZ', 0)
 
   dome_light_shape_name = cmds.directionalLight()
-  dome_light_name = getObjectParentNode( dome_light_shape_name )
-  dome_light_name = cmds.rename (dome_light_name, "domeTestLight")
+  dome_light_name = getObjectParentNode(dome_light_shape_name)
+  dome_light_name = cmds.rename(dome_light_name, "domeTestLight")
 
-  cmds.setAttr( (dome_light_name+'.translateX'), -32)
-  cmds.setAttr( (dome_light_name+'.rotateX'), 38)
-  cmds.setAttr( (dome_light_name+'.rotateY'), 47)
-  cmds.setAttr( (dome_light_name+'.rotateZ'), -62)
+  cmds.setAttr((dome_light_name+'.translateX'), -32)
+  cmds.setAttr((dome_light_name+'.rotateX'), 38)
+  cmds.setAttr((dome_light_name+'.rotateY'), 47)
+  cmds.setAttr((dome_light_name+'.rotateZ'), -62)
 
 
 """
@@ -1178,7 +1345,7 @@ def forceArnoldLoad():
   import maya.mel as mel
 
   # Make sure the Arnold plugin was loaded
-  if not (cmds.pluginInfo("mtoa",q=True,loaded=True)):
+  if not(cmds.pluginInfo("mtoa",q=True,loaded=True)):
     cmds.loadPlugin("mtoa")
     print("The Arnold plugin was loaded.")
   #else:
@@ -1206,7 +1373,7 @@ def getMayaVersionDome():
   #mayaVersion = 2010;
 
   # Write out the current Maya version number
-  print("Maya " + str(mayaVersion) + " detected.\n")
+  print("Maya " + str(mayaVersion)+ " detected.\n")
   
   return mayaVersion
 
@@ -1219,9 +1386,9 @@ getObjectShapeNode("stereoCamera")
 
 """
 
-def getObjectShapeNode ( object ) :
+def getObjectShapeNode(object):
     import maya.cmds as cmds
-    return cmds.listRelatives( object, children=True , shapes=True)
+    return cmds.listRelatives(object, children=True , shapes=True)
 
 
 """
@@ -1232,6 +1399,6 @@ getObjectParentNode("nurbsSphereShape1")
 
 """
 
-def getObjectParentNode ( object ) :
+def getObjectParentNode(object):
     import maya.cmds as cmds
-    return cmds.listRelatives( object, parent=True)
+    return cmds.listRelatives(object, parent=True)

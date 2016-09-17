@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1.2 - September 16, 2016
+Version 2.1.2 - September 17, 2016
 
 About This Shader
 ---------------------
@@ -69,7 +69,10 @@ Version History
 
 Version 2.1.2
 -------------
-2016-09-16
+2016-09-17
+
+Arnold
+  Updated the Maya based "Arnold Domemaster3D" menu and shelf to add 2D rendering style entries for creating Domemaster FOV 2D and LatLong 2D renderings using the center camera view in the existing stereo lens shaders.
 
 Maya
   Updated Domemaster3D menu for compatibility with Maya 2017 + mental ray 3.14 beta 9
@@ -77,6 +80,8 @@ Maya
   Updated mental ray shader source code + makefiles for mental ray 3.14 ray differential texture sampling
   
   Improved the domeRadius.mel, domeCamera.py, domeMaterial.py, AEdomeAFL_FOV_StereoTemplate.mel, AEdomeAFL_FOVTemplate.mel, and domeHistogram.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings
+  
+  The domeMenu.mel script has been unified so Maya 2010-2017 use the same MEL script file that is now stored in the Domemaster3D/maya/common/scripts folder
   
   Added new MEL functions to the domeRender.mel script to enable the mental ray 3.14 ray differential based elliptical filtering mode on Maya file node based texture maps:
   

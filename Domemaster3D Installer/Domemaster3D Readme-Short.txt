@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1.2 - September 16, 2016
+Version 2.1.2 - September 17, 2016
 
 About This Shader
 ---------------------
@@ -69,7 +69,10 @@ Version History
 
 Version 2.1.2
 -------------
-2016-09-16
+2016-09-17
+
+Arnold
+  Updated the Maya based "Arnold Domemaster3D" menu and shelf to add 2D rendering style entries for creating Domemaster FOV 2D and LatLong 2D renderings using the center camera view in the existing stereo lens shaders.
 
 Maya
   Updated Domemaster3D menu for compatibility with Maya 2017 + mental ray 3.14 beta 9

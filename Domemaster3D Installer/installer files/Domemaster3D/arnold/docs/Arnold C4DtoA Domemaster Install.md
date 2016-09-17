@@ -8,7 +8,7 @@ This guide covers the Cinema4D + [Arnold C4DtoA plugin renderer](https://www.sol
 
 ## Known Issues ##
 
-The current version of the Arnold Domemaster3D shaders (as of 2015-11-05) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's C4DtoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
+The current version of the Arnold Domemaster3D shaders (as of 2016-09-17) are a development build. At this point in time there is no easy way to create stereoscopic production centric screen space texture maps using Arnold's C4DtoA render nodes. This means a solution has to be developed inside the Domemaster3D shaders that will remap an existing texture map into screen space coordinates.
 
 The LatLongStereo shader generally works fine. The only thing to note is that there is no way to feather out the stereo effect in the zenith and nadir zones using the separation map attribute. 
 

@@ -12,6 +12,11 @@ Version 2.1  2016-07-26
 -------------------------------------
 Vray for Maya 2017 Update
 
+Added the DomeGrid function createDomeGrid() to create a spherical yellow test grid in Maya.
+
+Updated the Vray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
+
+Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
 
 Version 1.7.1  2015-08-10
 -------------------------------------
@@ -53,8 +58,37 @@ vrayDomeCamera.createVrayLatLongStereoRig()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D getMayaVersionDome
+Domemaster3D DomeGrid test background 
+A python function to create a spherical yellow test grid in Maya. 
 
+Run using the command:
+import vrayDomeCamera as vrayDomeCamera
+reload(vrayDomeCamera)
+vrayDomeCamera.createDomeGrid()
+
+------------------------------------------------------------------------------
+
+Domemaster3D LatLongGrid test background 
+A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
+
+Run using the command:
+import vrayDomeCamera as vrayDomeCamera
+reload(vrayDomeCamera)
+vrayDomeCamera.createLatLongGrid()
+
+------------------------------------------------------------------------------
+
+Domemaster3D createTestShapes
+A python function to create a test sphere and cube in Maya. 
+
+Run using the command:
+import vrayDomeCamera as vrayDomeCamera
+reload(vrayDomeCamera)
+vrayDomeCamera.createTestShapes()
+
+------------------------------------------------------------------------------
+
+Domemaster3D getMayaVersionDome
 A python function to check what Maya version is active.
 
 import vrayDomeCamera
@@ -63,10 +97,7 @@ vrayDomeCamera.getMayaVersionDome()
 
 ------------------------------------------------------------------------------
 
-"""
 
-
-"""
 Show the Domemaster Wiki
 --------------------------------
 Loads the wiki page in your default web browser
@@ -87,7 +118,6 @@ vrayDomeCamera.openDomemasterDownloads()
 print("Open the Domemaster Bug Reporter")
 import vrayDomeCamera as vrayDomeCamera
 vrayDomeCamera.openDomemasterBugReport()
-
 
 """
 
@@ -194,6 +224,8 @@ def Autosetup():
   setRenderRes()
   setDomeSamplingQuality()
   createVrayFulldomeStereoRig()
+  createDomeGrid()
+  createTestShapes()
 
 """
 Domemaster3D setDomeSamplingQuality
@@ -508,6 +540,620 @@ def createVrayLatLongStereoRig():
   #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
   
   return rig
+
+
+
+"""
+Domemaster3D LatLongGrid test background 
+--------------------------------------
+A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
+
+"""
+  
+def createLatLongGrid():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  # Create a spherical yellow test grid in Maya. 
+  createDomeGrid()
+  
+  # Align the grid on the horizontal axis
+  #cmds.setAttr('domeGridSurface.rotateX', 90)
+  
+  # Set the grid to a full 360 degree FOV sphere
+  cmds.setAttr('domeGrid.fieldOfView', 360)
+
+
+
+"""
+Domemaster3D DomeGrid test background 
+--------------------------------------
+A python function to create a spherical yellow test grid in Maya. 
+
+"""
+
+# Suggested Maya Scene Grid Settings:
+# Length and Width: 360 units
+# Grid lines every: 180 units
+# Subdivisions: 2
+
+def createDomeGrid():
+  import maya.cmds as cmds
+  import maya.mel as mel
+  
+  #---------------------------------------------------------------------------
+  # Variables
+  #---------------------------------------------------------------------------
+  
+  # Reference Grid Meshes
+  #domeGridSurface = 'domeGridSurface'
+  domeGridSurface = 'domeGridSurface'
+  domeGridlineSurface = 'domeGridlineSurface'
+  
+  # Set the diameter of the dome shape
+  startingDomeDiameter = 360
+  
+  #---------------------------------------------------------------------------
+  # Remove any existing domeGrid elements
+  #---------------------------------------------------------------------------
+  
+  #---------------------------------------------------------------------------
+  # Remove old geometry and paint effects nodes
+  #---------------------------------------------------------------------------
+  
+  if cmds.objExists('domeGrid'): 
+    print('Removing existing Domemaster3D object: domeGrid')
+    cmds.select('domeGrid', replace=True)
+    cmds.delete()
+
+  if cmds.objExists('MeshGroup'): 
+    print('Removing existing Domemaster3D object: MeshGroup')
+    cmds.select('MeshGroup', replace=True)
+    cmds.delete()
+  
+  if cmds.objExists(domeGridSurface): 
+    print('Removing existing Domemaster3D object: ' + domeGridSurface)
+    cmds.select(domeGridSurface, replace=True)
+    cmds.delete()
+  
+  if cmds.objExists('domeGridToon'): 
+    print('Removing existing Domemaster3D object: domeGridToon')
+    cmds.select('domeGridToon', replace=True)
+    cmds.delete()
+    
+  if cmds.objExists('domeGrid_displayModeExpr'): 
+    print('Removing existing Domemaster3D object: domeGrid_displayModeExpr')
+    cmds.select('domeGrid_displayModeExpr', replace=True)
+    cmds.delete()
+  
+  #--------------------------------------------------------------------------
+  #Remove old dome Grid surface materials
+  #---------------------------------------------------------------------------
+  
+  if cmds.objExists('domeGridLinesSurfaceShader'): 
+    print('Removing existing Domemaster3D object: domeGridLinesSurfaceShader')
+    cmds.select('domeGridLinesSurfaceShader', replace=True)
+    cmds.delete()
+  
+  if cmds.objExists('domeGridLinesSurfaceShaderSG'): 
+    print('Removing existing Domemaster3D object: domeGridLinesSurfaceShaderSG')
+    cmds.select('domeGridLinesSurfaceShaderSG', replace=True)
+    cmds.delete()
+  
+  if cmds.objExists('domeGridSurfaceShaderSG'): 
+    print('Removing existing Domemaster3D object: domeGridSurfaceShaderSG')
+    cmds.select('domeGridSurfaceShaderSG', replace=True)
+    cmds.delete()
+    
+  if cmds.objExists('domeGridSurfaceShader'): 
+    print('Removing existing Domemaster3D object: domeGridSurfaceShader')
+    cmds.select('domeGridSurfaceShader', replace=True)
+    cmds.delete()
+  
+  #--------------------------------------------------------------------------
+  # Protect any existing surface shaders from the paint effects node
+  #---------------------------------------------------------------------------
+    
+  if cmds.objExists('surfaceShader1SG'): 
+    print('Renaming existing  object: surfaceShader1SG')
+    cmds.rename('surfaceShader1SG', 'aSurfaceShader1SG')
+    
+  if cmds.objExists('surfaceShader1'): 
+    print('Renaming existing  object: surfaceShader1')
+    cmds.rename('surfaceShader1', 'aSurfaceShader1')
+  
+  #--------------------------------------------------------------------------
+  # Make the dome mesh
+  #--------------------------------------------------------------------------
+  
+  #-----------------------------------------------------------------------------
+  # Create a hybrid NURBS/Polygon Paint effects Toon Surface
+  #-----------------------------------------------------------------------------
+
+  startingCurveRadius = 1.0
+  
+  #startingToonThickness = 0.1
+    
+  # Create the base curve with a 90 degree arc
+  domeRadiusCurveName = cmds.circle(name='domeGridSurfaceCurve', c=(0, 0, 0), nr=(0, 0, 1), sw=90, r=startingCurveRadius, d=3, ut=0, tol=0.01, s=10, ch=1)
+
+  # Get the curve's shape node name
+  domeCurveShape = getObjectShapeNode(domeRadiusCurveName[0])
+
+  # Setup the NURBS to Poly conversion prefs
+  #nurbsToPolygonsPref -q -f;
+  cmds.nurbsToPolygonsPref(format=3, uType=3, uNumber=1, vType=3, vNumber=1)
+
+  """
+  #MEL Code to debug NURBS to polygon conversion:
+  int $f = `nurbsToPolygonsPref -q -f`;
+  int $ut = `nurbsToPolygonsPref -q -ut`;
+  int $un = `nurbsToPolygonsPref -q -un`;
+  int $vt = `nurbsToPolygonsPref -q -vt`;
+  int $vn = `nurbsToPolygonsPref -q -vn`;
+  print($f + " " + $ut + " " + $un+ " " + $vt+ " " + $vn);
+  """
+
+  # Revolve the base 90 degree arc curve into a NURBS dome shape
+  domeRadiusSurfaceName = cmds.revolve(domeCurveShape, name='domeGridSurface', ch=1, po=0, rn=0, ssw=0, esw=360, ut=0, tol=0.01, degree=3, s=40, ulp=1, ax=(0, 1, 0), polygon=1)
+
+  domeSurfaceShape = getObjectShapeNode(domeRadiusSurfaceName[0]);
+
+  print "\nDome Preview elements:"
+  print domeRadiusSurfaceName
+  print "Dome Preview shape node:"
+  print domeSurfaceShape
+  print "\n"
+
+  # Find out the preview curve's makeNurbCircle node name
+  makeCurveShapeName = domeCurveShape
+  makeCurveObject = cmds.listConnections(makeCurveShapeName[0]+'.create', type='makeNurbCircle')
+  makeCurveNodeName = makeCurveObject[0]
+  print("The NURBS circle creation node is: ")
+  print(makeCurveNodeName)
+
+  #-----------------------------------------------------------------------------
+  # Make the NURBS Curve able to be moved without effecting the revolves
+  #-----------------------------------------------------------------------------
+      
+  # Find out the name of the "makeNurbCircle" node that is used to create the domeGridPreviewCurve shape
+  makeRevolveObjects= cmds.listConnections( makeCurveShapeName[0]+'.worldSpace', type='revolve')
+  makeRevolveNodeName = makeRevolveObjects[0];
+  print("The circle creation node is: ")
+  print(makeRevolveNodeName)
+
+  # Reconnect the curve to the revolve node using local space
+  # This replaces the curve's previous .worldSpace connection that inhibited the
+  # ability to move the curve without effecting the revolve
+  cmds.connectAttr(makeCurveShapeName[0]+".local", makeRevolveNodeName+".inputCurve",  f=True);
+
+  # Put the domeSurface "PreviewShape" inside the domeGrid group
+  # Have the revolved shape aligned relative to the domeGrid
+  #cmds.parent(domeRadiusSurfaceName[0], domeRadiusTransform)
+
+  # Parent the NURBS revolve curve to the domeGrid
+  #cmds.parent(domeRadiusCurveName[0], domeRadiusTransform)
+  
+  # Create the base sphere with a 1 unit scale
+  #domeGridName = cmds.polySphere(name=domeGridSurface, radius = 1, subdivisionsX=36, subdivisionsY=20, axis=(0, 1, 0),  createUVs=2, constructionHistory=True)
+  
+  # Chop the polysphere into a hemispherical dome
+  #domeGridTransform = domeGridName[0]
+  #domeGridShape = getObjectShapeNode(domeGridName[0])
+  #cmds.select(domeGridTransform+'.f[0:323]', domeGridTransform+'.f[648:683]', replace=True)
+  #cmds.delete()
+  
+  domeGridTransform = domeRadiusSurfaceName[0];
+  
+  # Make the curve an intermediate shape
+  cmds.setAttr(domeCurveShape[0]+'.intermediateObject', 1)
+
+  # Tell the domeGridSurface to move with the domeGrid group node
+  cmds.setAttr(domeGridTransform+'.inheritsTransform', 1)
+  
+ 
+  # ---------------------------------------------------------------------------
+  # Create the PaintFX Toon stroke outlines
+  # --------------------------------------------------------------------------
+  
+  cmds.select(domeGridTransform, replace=True)
+  
+  # Assign the paint effects toon outlines
+  mel.eval('assignNewPfxToon;')
+  
+  # Rename the toon shader
+  domeToonShader = 'domeGridToon'
+  domeToonShaderShape = 'domeGridToonShape'
+  cmds.rename('pfxToon1', domeToonShader)
+  
+  # Define the new toon shader controls
+  cmds.setAttr(domeToonShaderShape+'.profileLines', 0)
+  cmds.setAttr(domeToonShaderShape+'.borderLines', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseLineWidth', 15)
+  cmds.setAttr(domeToonShaderShape+'.creaseColor', 1, 1, 0, type='double3')
+  cmds.setAttr(domeToonShaderShape+'.hardCreasesOnly', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseBreakAngle', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseAngleMin', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseAngleMax', 0)
+  cmds.setAttr(domeToonShaderShape+'.meshVertexColorMode', 1)
+  cmds.setAttr(domeToonShaderShape+'.meshQuadOutput', 1)
+  cmds.setAttr(domeToonShaderShape+'.meshHardEdges', 1)
+  
+  # Create a polygon paint effects stroke output
+  cmds.select(domeToonShader, replace=True)
+  # The catchQuiet command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute...
+  mel.eval('catch(doPaintEffectsToPoly(1,1,1,1,100000));')
+  #mel.eval('catchQuiet(doPaintEffectsToPoly(1,1,1,1,100000));')
+  
+  
+  # Make a local space mesh connection to fix the grouped node double translation issue
+  #connectAttr -f domeGridToonShape.outMainMesh MainShape.inMesh;
+  # Result: Connected domeGridToonShape.outMainMesh to MainShape.inMesh. // 
+  cmds.connectAttr(domeToonShaderShape+'.outMainMesh', 'MainShape.inMesh', force=True)
+  
+  if cmds.objExists('MeshGroup'): 
+    print('Unlinking the Toon shader\'s inheritsTransform attribute')
+    cmds.setAttr('MeshGroup.inheritsTransform', 0)
+  
+  # --------------------------------------------------------------------------
+  # Adjust the grid lines shader
+  #---------------------------------------------------------------------------
+  
+  #domeGridlineShadingGroup = cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='domeGridLinesSurfaceShaderSG')
+  domeGridlineMaterial = 'domeGridLinesSurfaceShader'
+  domeGridlineShadingGroup  = 'domeGridLinesSurfaceShaderSG'
+  
+  # Rename the default gridlines shader
+  cmds.rename('surfaceShader1', domeGridlineMaterial)
+  cmds.rename('surfaceShader1SG', domeGridlineShadingGroup)
+  
+  # Standard Yellow Color
+  #cmds.setAttr('surfaceShader1.outColor', 1, 1, 0, type='double3')
+  
+  # Super Bright Yellow Color for Physical Sky Compatibility
+  #cmds.setAttr(domeGridlineMaterial+'.outColor', 15, 15, 0, type='double3')
+  cmds.setAttr(domeGridlineMaterial+'.outColor', 1, 1, 0, type='double3')
+    
+  #---------------------------------------------------------------------------
+  # Adjust the grid surface shader
+  #---------------------------------------------------------------------------
+  
+  # Create the dome Grid surface shader + shading group
+  domeGridShadingGroup = cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='domeSurfaceShaderSG')
+  domeGridMaterial = cmds.shadingNode('surfaceShader', name='domeGridSurfaceShader', asShader=True)
+  
+  # Make the surface shader black
+  cmds.setAttr(domeGridMaterial+'.outColor', 0, 0, 0, type='double3')
+  #Set the polygon surface to be transparent
+  cmds.setAttr(domeGridMaterial+'.outTransparency', 1, 1, 1, type='double3')
+  
+  # Connect the surface shader to the shading group and the polygon surface
+  cmds.connectAttr(domeGridMaterial+'.outColor', domeGridShadingGroup+'.surfaceShader')
+  cmds.select(domeGridSurface)
+  cmds.hyperShade(assign=domeGridShadingGroup)
+
+  #---------------------------------------------------------------------------
+  # Group the domeGrid surfaces under a node called "domeGrid"
+  #---------------------------------------------------------------------------
+  #cmds.group('domeGridSurface', 'domeGridToon', 'MeshGroup', name='domeGrid')
+  cmds.group(domeRadiusCurveName[0], domeRadiusSurfaceName[0], 'domeGridToon', 'MeshGroup', name='domeGrid')
+       
+  #---------------------------------------------------------------------------
+  # Add Extra Attrs to the domeGrid shape
+  #---------------------------------------------------------------------------
+  baseNodeName = 'domeGrid'
+    
+  #---------------------------------------------------------------------------  
+  # Add a Field of View control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'fieldOfView'
+  
+  # Check if the attribute exists on the domeGrid node
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  
+  # 180 degree default = 180
+  # 360 degree default = 360
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=360, defaultValue=180 , keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  #---------------------------------------------------------------------------  
+  # Add a Field of View expression
+  #---------------------------------------------------------------------------
+  
+  # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute
+  expressionBuilderString = makeCurveNodeName + ".sweep = " +(baseNodeName+'.'+attrName)+ "/2;"
+  gridFOVRadiusExpressionName = 'domeGrid_FOVExpr'
+  
+  print "DomeGrid FOV Extra Attribute Expressions:"
+  print expressionBuilderString
+
+  cmds.expression(name=gridFOVRadiusExpressionName, string=expressionBuilderString, object=baseNodeName, alwaysEvaluate=True, unitConversion=all)
+  
+  # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute:
+  #cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.sweep', force=True)
+    
+
+  #---------------------------------------------------------------------------  
+  # Add a dome Radius control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'Dome_Radius'
+
+  # Check if the attribute exists on the domeGrid node
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=1000000, hasSoftMaxValue=True, softMaxValue=360, defaultValue=startingDomeDiameter , keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  # Connect the domeGrid dome radius control to the sphere's makeNurbCircle radius attribute:
+  cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.radius', force=True)
+
+  #---------------------------------------------------------------------------  
+  # Add a Dome Height Spans control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'Dome_Spans'
+
+  # Check if the attribute exists on the domeGrid node
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  
+  #  180 degree dome default value = 12
+  #  360 degree dome default value = 24
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=120, hasSoftMaxValue=True, softMaxValue=40, defaultValue=24 , keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  # Connect the domeGrid dome radius control to the sphere's makeNurbCircle sections attribute:
+  cmds.connectAttr((baseNodeName+'.'+attrName), makeCurveObject[0]+'.sections', force=True)
+    
+  #---------------------------------------------------------------------------  
+  # Add a Dome Width Sections control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'Dome_Sections'
+
+  # Check if the attribute exists on the domeGrid node
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=4, max=240, hasSoftMaxValue=True, softMaxValue=120, defaultValue=42 , keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  # Connect the domeGrid dome radius control to the sphere's revolve sections attribute:
+  cmds.connectAttr((baseNodeName+'.'+attrName), makeRevolveNodeName+'.sections', force=True)
+  
+  #---------------------------------------------------------------------------
+  # Add a Display Mode control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'displayMode'
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="enum", en="Off:Wireframe:Shaded:Wireframe on Shaded", defaultValue=2, keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  #---------------------------------------------------------------------------
+  # Add a Double Sided Rendering control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'doubleSidedShading'
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="enum", en="Double Sided:Show Frontfaces:Show Backfaces", defaultValue=2, min=0, keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  #---------------------------------------------------------------------------
+  # Add a Grid Line Thickness control to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  attrName = 'gridLineThickness'
+
+  # This is the default starting value for the grid line strokes
+  initialGridLineThickness = 0.05
+  #previous setting 0.035
+
+  # Check if the attribute exists on the domeGrid node
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.001, max=50, hasSoftMaxValue=True, softMaxValue=2, defaultValue=initialGridLineThickness, keyable=True)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  # Connect the domeGrid Grid Line Thickness to the toon shader line width attribute:
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeToonShaderShape+'.lineWidth', force=True)
+
+  #---------------------------------------------------------------------------
+  # Add a Grid Line Color control to the domeGrid's transform node - Default color 1,1,0 = Yellow
+  #---------------------------------------------------------------------------
+  attrName = 'gridLineColor'
+  attrRName = "gridLineColorR";
+  attrGName = "gridLineColorG";
+  attrBName = "gridLineColorB";
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="float3", usedAsColor=True, keyable=True)
+  
+  # Super Bright Yellow Color
+  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=15)
+  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=15)
+  # cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
+
+  # Normal Yellow Color
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=1)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=1)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  # Connect the Grid Line Color swatch to the surface shader
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outColor', force=True)
+  #---------------------------------------------------------------------------
+  # Add a Grid Line Transparency control to the domeGrid's transform node - Default value 0.25
+  #---------------------------------------------------------------------------
+  attrName = 'gridLineTransparency'
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", keyable=True, defaultValue=0.0, min=0, max=1)
+  
+  # Connect the Grid Line transparency swatch to the surface shader
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyR', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyG', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridlineMaterial+'.outTransparencyB', force=True)
+
+  #---------------------------------------------------------------------------
+  # Add a Grid Surface Color control to the domeGrid's transform node - Default color 0,0,0 = Black
+  #---------------------------------------------------------------------------
+  attrName = 'gridSurfaceColor'
+  attrRName = "gridSurfaceColorR";
+  attrGName = "gridSurfaceColorG";
+  attrBName = "gridSurfaceColorB";
+  #if(mel.attributeExists(attrName, baseNodeName)== 0):
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="float3", usedAsColor=True, keyable=True)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrRName, attributeType="float", keyable=True, defaultValue=0)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrGName, attributeType="float", keyable=True, defaultValue=0)
+  cmds.addAttr(baseNodeName, parent=attrName, longName=attrBName, attributeType="float", keyable=True, defaultValue=0)
+  print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
+  
+  
+  # Connect the Grid Surface Color swatch to the surface shader
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outColor', force=True)
+  #---------------------------------------------------------------------------
+  # Add a Grid Surface Transparency control to the domeGrid's transform node - Default value 0.25
+  #---------------------------------------------------------------------------
+  attrName = 'gridSurfaceTransparency'
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", keyable=True, defaultValue=.5, min=0, max=1)
+  
+  # Connect the Grid Surface transparency swatch to the surface shader
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyR', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyG', force=True)
+  cmds.connectAttr((baseNodeName+'.'+attrName), domeGridMaterial+'.outTransparencyB', force=True)
+
+
+  #---------------------------------------------------------------------------  
+  # Add a display mode expression to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+  
+  domeRadiusTransform =  "domeGrid"
+  domeSurfaceShape = "domeGridSurface"
+  domeSurfaceShapeNode = getObjectShapeNode(domeSurfaceShape)
+  
+  
+  exprName = ""
+  previewAttrName = "displayMode"
+  #The expression name is domeGrid_displayModeExpr
+  exprName = domeRadiusTransform + "_" + previewAttrName + "Expr"
+ 
+  PreviewShapeExpr = ""
+
+  PreviewShapeExpr += "// Custom " + previewAttrName + " Preview Shape Expressions\n\n"
+  PreviewShapeExpr += "string $currentPanel;\n"
+  PreviewShapeExpr += "if( " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
+  PreviewShapeExpr += "  //Off Mode\n"
+  PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 0;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 0;\n"
+  PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
+  PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 1){\n"
+  PreviewShapeExpr += "  //Wireframe Mode\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 0;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
+  PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
+  PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 2){\n"
+  PreviewShapeExpr += "  //Shaded Mode\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
+  PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
+  PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
+  PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 1;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
+  PreviewShapeExpr += "  MeshGroup.visibility = 1;\n"
+  PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 3){\n"
+  PreviewShapeExpr += "  //Wireframe on Shaded Mode\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
+  PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
+  PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
+  PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 1;\n"
+  PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
+  PreviewShapeExpr += "  MeshGroup.visibility = 1;\n"
+  PreviewShapeExpr += "}\n"
+  PreviewShapeExpr += "\n"
+  PreviewShapeExpr += "\n"
+
+  #---------------------------------------------------------------------------  
+  # Add a Double Sided Shading expression to the domeGrid's transform node
+  #---------------------------------------------------------------------------
+
+  previewAttrName = "doubleSidedShading";
+
+  PreviewShapeExpr += "// Custom Double Sided Shading Expressions\n\n"
+  PreviewShapeExpr += "if(" + previewAttrName + " == 0){\n"
+  PreviewShapeExpr += "  print(\"Double Sided Shading Enabled\\n\");\n"
+  PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 1; \n"
+  PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 0; \n"
+  PreviewShapeExpr += "} else if(" + previewAttrName + " == 1){\n"
+  PreviewShapeExpr += "  print(\"Backface Shading Enabled\\n\");\n"
+  PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 0; \n"
+  PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 0; \n"
+  PreviewShapeExpr += "} else if(" + previewAttrName + " == 2){\n"
+  PreviewShapeExpr += "  print(\"Frontface Shading Enabled\\n\");\n"
+  PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 0; \n"
+  PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 1; \n"
+  PreviewShapeExpr += "}\n"
+
+  print "DomeGrid Extra Attribute Expressions:"
+  print PreviewShapeExpr
+
+  cmds.expression(name=exprName, string=PreviewShapeExpr, object='domeGrid', alwaysEvaluate=True, unitConversion=all)
+
+  # Force a first value into the double sided shading attribute
+  cmds.setAttr((domeRadiusTransform+".doubleSidedShading"), 0)
+  
+  #---------------------------------------------------------------------------  
+  # Select the domeGrid node in the Attribute Editor
+  #---------------------------------------------------------------------------  
+  mel.eval(' showEditorExact("' + domeRadiusTransform + '")')
+
+
+"""
+Domemaster3D createTestShapes
+----------------------
+A python function to create a test sphere and cube in Maya. 
+"""
+
+def createTestShapes():
+  import maya.cmds as cmds
+
+  if cmds.objExists('domeTestLight'): 
+    print('Removing existing Domemaster3D object: domeTestLight')
+    cmds.select('domeTestLight', replace=True)
+    cmds.delete()
+
+  if cmds.objExists('polyTestSphere'): 
+    print('Removing existing Domemaster3D object: polyTestSphere')
+    cmds.select('polyTestSphere', replace=True)
+    cmds.delete()
+
+  if cmds.objExists('polyTestCube'): 
+    print('Removing existing Domemaster3D object: polyTestCube')
+    cmds.select('polyTestCube', replace=True)
+    cmds.delete()
+
+  test_sphere_name = cmds.polySphere(name='polyTestSphere', radius=24, subdivisionsX=20, subdivisionsY=20, axis=(0, 1, 0),  createUVs=2, constructionHistory=True)
+  cmds.setAttr(test_sphere_name[0]+'.translateX', 80)
+  cmds.setAttr(test_sphere_name[0]+'.translateY', 75)
+
+  # Smooth the render time polygon sphere shape
+  cmds.displaySmoothness(test_sphere_name, divisionsU=3, divisionsV=3, pointsWire=16, pointsShaded=4, polygonObject=3)
+
+  test_cube_name = cmds.polyCube(name='polyTestCube', width=40, height=40, depth=40, subdivisionsX=1, subdivisionsY=1, subdivisionsZ=1, axis=(0, 1, 0),  createUVs=4, constructionHistory=True)
+  cmds.setAttr(test_cube_name[0]+'.translateX', 0)
+  cmds.setAttr(test_cube_name[0]+'.translateY', 75)
+  cmds.setAttr(test_cube_name[0]+'.translateZ', -80)
+  cmds.setAttr(test_cube_name[0]+'.rotateX', 88)
+  cmds.setAttr(test_cube_name[0]+'.rotateY', 0)
+  cmds.setAttr(test_cube_name[0]+'.rotateZ', 0)
+
+  dome_light_shape_name = cmds.directionalLight()
+  dome_light_name = getObjectParentNode(dome_light_shape_name)
+  dome_light_name = cmds.rename(dome_light_name, "domeTestLight")
+
+  cmds.setAttr((dome_light_name+'.translateX'), -32)
+  cmds.setAttr((dome_light_name+'.rotateX'), 38)
+  cmds.setAttr((dome_light_name+'.rotateY'), 47)
+  cmds.setAttr((dome_light_name+'.rotateZ'), -62)
 
 
 """

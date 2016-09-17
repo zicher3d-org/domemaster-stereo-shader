@@ -200,7 +200,8 @@ global proc createVrayDomemaster3DMenu() {
         -label "LatLong Camera" 
         -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
         -image "render_latlong_lens.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()";
         
     */
     
@@ -215,20 +216,22 @@ global proc createVrayDomemaster3DMenu() {
         -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLongStereo shader applied."
         -image "domeVray_LatLongStereo.png"
-        -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.createVrayLatLongStereoRig()\")"; 
+        -sourceType "python"
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()"; 
      
       /*
-       
       menuItem
         -label "LatLong Stereo Aim Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with an aim constraint and the LatLong_Stereo shader applied."
         -image "render_LatLong_Stereo.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoAimRig()\")"; 
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoAimRig()"; 
       menuItem
         -label "LatLong Stereo Zenith Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
         -image "render_LatLong_Stereo.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoZenithRig()";
       */
 
       // Fulldome Stereo Section
@@ -242,7 +245,8 @@ global proc createVrayDomemaster3DMenu() {
         -label "Domemaster Stereo Camera" 
         -annotation "Create a stereo fulldome camera rig."
         -image "domeVray_DomemasterStereo.png" 
-        -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.createVrayFulldomeStereoRig()\")";
+        -sourceType "python"
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()";
                
                
       /*
@@ -250,12 +254,14 @@ global proc createVrayDomemaster3DMenu() {
         -label "Dome Texture" 
         -annotation "Create a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader." 
         -image "render_rob_lookup_background.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createRobLookup()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()";
       menuItem 
         -label "Dome Ramp" 
         -annotation "Create a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo."
         -image "domeVrayRamp.png.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeRampTexture()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()";
 */
 
       menuItem -divider true;
@@ -276,15 +282,20 @@ global proc createVrayDomemaster3DMenu() {
     setParent -menu ..;
     
   // Fulldome Tools Section
-  
-  
-/*
-  if($mayaVersion >=2015){
+  if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Fulldome Tools";
   }else{
     menuItem -divider true;
   }
+  
+  menuItem 
+    -label "Create Reference Grid" 
+    -annotation "Create a hemispherical wireframe reference grid."
+    -image "domeVray_grid.png"
+    -sourceType "python"
+    -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createDomeGrid()";
 
+/*
   menuItem 
     -label "Create Galaxy" 
     -annotation "Create dynamic particle based galaxies."
@@ -300,7 +311,6 @@ global proc createVrayDomemaster3DMenu() {
     -annotation "View immersive fulldome and panoramic images+movies in Maya."
     -image "domeViewer.png" 
     -command "source \"domeViewer.mel\";domeViewer();";
-
 */
 
   // Diagnostics Section
@@ -455,12 +465,14 @@ global proc createVrayDomemaster3DMenu() {
     -label "Add Pre/Post Render Mel" 
     -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
     -image "domeVray_mayaScript.png" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.addPrePostRenderScript()\");";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.addPrePostRenderScript()";
   menuItem
     -label "Remove Pre/Post Render Mel" 
     -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
-    -image "domeVray_mayaScript.png" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
+    -image "domeVray_mayaScript.png"
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()";
     */
     
   menuItem
@@ -472,7 +484,8 @@ global proc createVrayDomemaster3DMenu() {
     -label "Reload Vray Plugin" 
     -annotation "Vray to reload. This can fix issues if Maya didn't startup correctly."
     -image "domeVray_load.png" 
-    -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.forceVrayLoad()\");";
+    -sourceType "python"
+    -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()";
 
   // Support Section
   if($mayaVersion >= 2015){
@@ -490,7 +503,8 @@ global proc createVrayDomemaster3DMenu() {
     -label "Domemaster3D Wiki Help" 
     -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
     -image "domeVray_help.png" 
-    -command "python(\"import vrayDomeCamera\\nreload(vrayDomeCamera)\\nvrayDomeCamera.openDomemasterWiki()\");";
+    -sourceType "python"
+    -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()";
   menuItem 
     -label "Domemaster3D Version Info" 
     -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."

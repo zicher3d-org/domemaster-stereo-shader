@@ -77,7 +77,7 @@ global proc shelf_ArnoldDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLongStereoRig()\narnoldDomeCamera.createDomeGrid()\narnoldDomeCamera.createTestShapes()\narnoldDomeCamera.changeRenderResWH(2048,1024)" 
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLongStereoRig()\narnoldDomeCamera.createLatLongGrid()\narnoldDomeCamera.createTestShapes()\narnoldDomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

@@ -1,6 +1,6 @@
 """
 Domemaster3D Camera Setup Script V2.1
-2016-09-15 12.38 PM
+2016-09-17 12.23 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
@@ -8,11 +8,13 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 2.1 - 2016-09-15
+Version 2.1 - 2016-09-17
 -------------------------------
 Improved the domeCamera.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings.
 
 Added Maya 2017+ support for creating Maya file node based screen space texture maps with the help of a mib_texture_vector node and a place2Dtexture node. This replaces the previous mentalrayTexture node based approach that has been depreciated in Maya 2017.
+
+Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
 
 Code Reformatting
 
@@ -1593,7 +1595,9 @@ def createDomeGrid():
   
   # Create a polygon paint effects stroke output
   cmds.select(domeToonShader, replace=True)
-  mel.eval('doPaintEffectsToPoly(1,1,1,1,100000);')
+  # The catchQuiet command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute...
+  mel.eval('catch(doPaintEffectsToPoly(1,1,1,1,100000));')
+  #mel.eval('catchQuiet(doPaintEffectsToPoly(1,1,1,1,100000));')
   
   # Make a local space mesh connection to fix the grouped node double translation issue
   #connectAttr -f domeGridToonShape.outMainMesh MainShape.inMesh;

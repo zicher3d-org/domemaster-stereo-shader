@@ -205,7 +205,8 @@ global proc createArnoldDomemaster3DMenu() {
         -label "LatLong Camera" 
         -annotation "Create a 2D LatLong / Equirectangular / Spherical camera.  This option uses the LatLong Stereo shader applied in a 2D center camera viewing mode."
         -image "renderArnold_LatLong.png"
-        -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.createArnoldLatLong_Camera()\")";
+        -sourceType "python"
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLong_Camera()";
     
       // VR Stereo Section
       if($mayaVersion >= 2015){
@@ -218,7 +219,8 @@ global proc createArnoldDomemaster3DMenu() {
         -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic LatLong / Equirectangular / Spherical camera with the LatLong Stereo shader applied."
         -image "renderArnold_latlongStereo.png"
-        -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.createArnoldLatLongStereoRig()\")"; 
+        -sourceType "python"
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldLatLongStereoRig()"; 
      
       /*
        
@@ -226,12 +228,14 @@ global proc createArnoldDomemaster3DMenu() {
         -label "LatLong Stereo Aim Camera" 
         -annotation "Create a stereoscopic LatLong / Equirectangular / Spherical camera with an aim constraint and the LatLong_Stereo shader applied."
         -image "renderArnold_latlongStereo.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoAimRig()\")"; 
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoAimRig()"; 
       menuItem
         -label "LatLong Stereo Zenith Camera" 
         -annotation "Create a stereoscopic LatLong / Equirectangular / Spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
         -image "renderArnold_latlongStereo.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoZenithRig()";
       */
            
       // Fulldome 2D Section
@@ -244,14 +248,16 @@ global proc createArnoldDomemaster3DMenu() {
       menuItem
         -label "Domemaster FOV Camera" 
         -annotation "Create a fulldome camera with a 2D FOV style Domemaster lens shader applied. This option uses the DomemasterStereo shader in a 2D center camera viewing mode."
-        -image "renderArnold_domemasterWxH.png" 
-        -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.createArnoldDomemasterFOV_Camera()\")";
+        -image "renderArnold_domemasterWxH.png"
+        -sourceType "python"
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldDomemasterFOV_Camera()";
 
       menuItem
         -label "Domemaster WxH Camera" 
         -annotation "Create a fulldome camera with the Domemaster WxH lens shader applied. This shader uses a diameter and height setting instead of a field of view control."
-        -image "renderArnold_domemasterWxH.png" 
-        -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.createArnoldDomemasterWxH_Camera()\")";
+        -image "renderArnold_domemasterWxH.png"
+        -sourceType "python"
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldDomemasterWxH_Camera()";
 
       // Fulldome Stereo Section
       if($mayaVersion >= 2015){
@@ -264,19 +270,22 @@ global proc createArnoldDomemaster3DMenu() {
         -label "Domemaster Stereo Camera" 
         -annotation "Create a stereo fulldome camera rig."
         -image "renderArnold_domemasterStereo.png" 
-        -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.createArnoldFulldomeStereoRig()\")";
+        -sourceType "python"
+        -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createArnoldFulldomeStereoRig()";
       
       /*
       menuItem 
         -label "Dome Texture" 
         -annotation "Create a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader." 
         -image "render_rob_lookup_background.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createRobLookup()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()";
       menuItem 
         -label "Dome Ramp" 
         -annotation "Create a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo."
         -image "domeArnold_ramp.png"
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeRampTexture()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()";
 */
       
       menuItem -divider true;
@@ -297,15 +306,20 @@ global proc createArnoldDomemaster3DMenu() {
     setParent -menu ..;
     
   // Fulldome Tools Section
-  
-  
-/*
   if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Fulldome Tools";
   }else{
     menuItem -divider true;
   }
-
+  
+  menuItem 
+    -label "Create Reference Grid" 
+    -annotation "Create a hemispherical wireframe reference grid."
+    -image "domeArnold_grid.png"
+    -sourceType "python"
+    -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.createDomeGrid()";
+  
+/*
   menuItem 
     -label "Create Galaxy" 
     -annotation "Create dynamic particle based galaxies."
@@ -437,12 +451,14 @@ global proc createArnoldDomemaster3DMenu() {
     -label "Add Pre/Post Render Mel" 
     -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
     -image "domeArnold_mayaScript.png" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.addPrePostRenderScript()\");";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.addPrePostRenderScript()";
   menuItem
     -label "Remove Pre/Post Render Mel" 
     -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
     -image "domeArnold_mayaScript.png" 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()";
     */
     
   menuItem
@@ -454,7 +470,8 @@ global proc createArnoldDomemaster3DMenu() {
     -label "Reload Arnold Plugin" 
     -annotation "Arnold to reload. This can fix issues if Maya didn't startup correctly."
     -image "domeArnold_load.png" 
-    -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.forceArnoldLoad()\");";
+    -sourceType "python"
+    -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.forceArnoldLoad()";
 
   // Support Section
   if($mayaVersion >= 2015){
@@ -472,7 +489,8 @@ global proc createArnoldDomemaster3DMenu() {
     -label "Domemaster3D Wiki Help" 
     -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
     -image "domeArnold_help.png" 
-    -command "python(\"import arnoldDomeCamera\\nreload(arnoldDomeCamera)\\narnoldDomeCamera.openDomemasterWiki()\");";
+    -sourceType "python"
+    -command "import arnoldDomeCamera\nreload(arnoldDomeCamera)\narnoldDomeCamera.openDomemasterWiki()";
   menuItem 
     -label "Domemaster3D Version Info" 
     -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."

@@ -209,22 +209,26 @@ global proc createDomemaster3DMenu() {
         -label "LatLong Camera" 
         -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
         -image ("render_latlong_lens" + $imageExt)
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLong_Camera()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()";
       menuItem
         -label "LatLong Stereo Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLong_Stereo shader applied."
         -image ("render_LatLong_Stereo" + $imageExt)
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoRig()\")"; 
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoRig()"; 
       menuItem
         -label "LatLong Stereo Aim Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with an aim constraint and the LatLong_Stereo shader applied."
         -image ("render_LatLong_Stereo" + $imageExt)
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoAimRig()\")"; 
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoAimRig()"; 
       menuItem
         -label "LatLong Stereo Zenith Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
         -image ("render_LatLong_Stereo" + $imageExt)
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createLatLongStereoZenithRig()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoZenithRig()";
 
       // Fulldome 2D Section
       if($mayaVersion >= 2015){
@@ -237,12 +241,14 @@ global proc createDomemaster3DMenu() {
         -label "Domemaster WxH Camera" 
         -annotation "Create a fulldome camera with the domeAFL_WxH lens shader applied. This shader uses a diameter and height setting instead of a field of view control."
         -image ("render_domeAFL_WxH" + $imageExt) 
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_WxH_Camera()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_WxH_Camera()";
       menuItem
         -label "Domemaster FOV Camera" 
         -annotation "Create a fulldome camera with the domeAFL_FOV lens shader applied."
         -image ("render_domeAFL_FOV" + $imageExt) 
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeAFL_FOV_Camera()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeAFL_FOV_Camera()";
 
       // Fulldome Stereo Section
 
@@ -256,18 +262,21 @@ global proc createDomemaster3DMenu() {
         -label "Domemaster3D FOV Camera" 
         -annotation "Create a stereo fulldome camera rig with the domeAFL_FOV_Stereo lens shader applied."
         -image ("render_domeAFL_FOV_Stereo" + $imageExt) 
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeStereoRig()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeStereoRig()";
                
       menuItem 
         -label "Dome Texture" 
         -annotation "Create a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader." 
         -image ("render_rob_lookup_background" + $imageExt)
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createRobLookup()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()";
       menuItem 
         -label "Dome Ramp" 
         -annotation "Create a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo."
         -image ("render_domeRamp" + $imageExt)
-        -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeRampTexture()\")";
+        -sourceType "python"
+        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()";
 
       menuItem -divider true;
 
@@ -299,22 +308,26 @@ global proc createDomemaster3DMenu() {
       -label "Create Color Material" 
       -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with a color texture map."
       -image ("colorMaterial" + $imageExt)
-      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorMiaMaterial()\");";
+      -sourceType "python"
+      -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorMiaMaterial()";
     menuItem 
       -label "Create Color + Bump Material" 
       -annotation "Create a mia_material_x_passes / mentalrayTexture based shading network with color and bump map textures."
       -image ("bumpMaterial" + $imageExt)
-      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorBumpMiaMaterial()\")";
+      -sourceType "python"
+      -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorBumpMiaMaterial()";
     menuItem 
       -label "Create Color Image Sequence Material" 
       -annotation "Create a mia_material_x_passes / mentalrayTexture based image sequence shading network."
       -image ("mentalrayTextureAnimationMaterial" + $imageExt) 
-      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createColorImageSequenceMiaMaterial()\")";
+      -sourceType "python"
+      -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createColorImageSequenceMiaMaterial()";
     menuItem 
       -label "Create Hybrid MR + Maya Color Material" 
       -annotation "Create a hybrid mia_material_x_passes / mentalrayTexture / maya file node based image sequence shading network that is controlled with a place2dTexture node."
       -image ("hybridMaterial" + $imageExt) 
-      -command "python(\"import domeMaterial\\nreload(domeMaterial)\\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()\")";
+      -sourceType "python"
+      -command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createHybridColorImageSequenceMiaMaterial()";
 
     // Mental Ray Elliptical Filtering
     if($mayaVersion >= 2016){
@@ -341,12 +354,14 @@ global proc createDomemaster3DMenu() {
       -label "Create Fulldome IBL" 
       -annotation "Create a fulldome 180 degree IBL (Image Based Lighting) shading network. This repositions a fulldome image as a mentalrayIblShape angular environment map."
       -image ("fulldomeIBL" + $imageExt) 
-      -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createFulldomeIBL()\")";
+      -sourceType "python"
+      -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createFulldomeIBL()";
     menuItem 
       -label "Create Hemirect IBL" 
       -annotation "Create a hemi-equirectangular IBL (Image Based Lighting) shading network. This repositions the \"top half\" of a latlong / equirectangular panorama image as a mentalrayIblShape spherical environment map."
       -image ("hemirectIBL" + $imageExt)
-      -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createHemirectIBL()\")";
+      -sourceType "python"
+      -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createHemirectIBL()";
 
   //} end of only show the materials if we are on Maya 2011-2016.5
   
@@ -363,7 +378,8 @@ global proc createDomemaster3DMenu() {
       -label "Create Starglobe" 
       -annotation "Create a starry background for your fulldome scenes."
       -image ("render_starglobe" + $imageExt)
-      //-command "python(\"import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()\")";
+      //-sourceType "python"
+      //-command "import domeMaterial\nreload(domeMaterial)\ndomeMaterial.createStarglobe()";
       -command "source \"domeStarglobe.mel\";\ncreateStarglobe();";  
   //}
   
@@ -371,7 +387,8 @@ global proc createDomemaster3DMenu() {
     -label "Create Reference Grid" 
     -annotation "Create a hemispherical wireframe reference grid."
     -image ("domeGrid" + $imageExt) 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.createDomeGrid()\")";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeGrid()";
   menuItem 
     -label "Create Galaxy" 
     -annotation "Create dynamic particle based galaxies."
@@ -389,7 +406,8 @@ global proc createDomemaster3DMenu() {
       -label "CrossBounce Simulation" 
       -annotation "Simulate the effect of \"crossbounce\" light pollution that happens\n when imagery is projected across a hemispherical fulldome theatre screen."
       -image ("domeCrossBounce" + $imageExt) 
-      -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\\n\\nimport domeCrossBounce\\nreload(domeCrossBounce)\\ndomeCrossBounce.createCrossBounce()\")";
+      -sourceType "python"
+      -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()\nimport domeCrossBounce\nreload(domeCrossBounce)\ndomeCrossBounce.createCrossBounce()";
   //}
   
   menuItem 
@@ -532,12 +550,14 @@ global proc createDomemaster3DMenu() {
     -label "Add Pre/Post Render Mel" 
     -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
     -image ("domeMayaScript" + $imageExt) 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.addPrePostRenderScript()\");";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.addPrePostRenderScript()";
   menuItem
     -label "Remove Pre/Post Render Mel" 
     -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
     -image ("domeMayaScript" + $imageExt) 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.removePrePostRenderScript()\");";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()";
   menuItem
     -label "Launch Another Maya Instance" 
     -annotation "This tool will launch an additional copy of Maya that will run independently. This is handy if you want to work in two separate Maya sessions at the same time"
@@ -547,7 +567,8 @@ global proc createDomemaster3DMenu() {
     -label "Reload MentalRay Plugin" 
     -annotation "Force mental ray to reload. This can fix issues if Maya didn't startup correctly."
     -image ("mentalray_load" + $imageExt) 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.forceMentalRayLoad()\");";
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()";
 
   // Support Section
 
@@ -565,8 +586,9 @@ global proc createDomemaster3DMenu() {
   menuItem 
     -label "Domemaster3D Wiki Help" 
     -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
-    -image ("domeHelp" + $imageExt) 
-    -command "python(\"import domeCamera\\nreload(domeCamera)\\ndomeCamera.openDomemasterWiki()\");";
+    -image ("domeHelp" + $imageExt)
+    -sourceType "python"
+    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.openDomemasterWiki()";
   menuItem 
     -label "Domemaster3D Version Info" 
     -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."

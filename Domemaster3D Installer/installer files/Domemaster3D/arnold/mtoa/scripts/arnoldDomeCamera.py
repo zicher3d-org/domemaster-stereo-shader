@@ -8,9 +8,11 @@ This script makes it easy to start creating fulldome stereoscopic content in Aut
 
 Version History
 
-Version 2.1.1
+Version 2.1.2
 ------------
 2016-09-17
+
+Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute.
 
 Code reformatting
 
@@ -106,8 +108,36 @@ arnoldDomeCamera.createArnoldLatLongStereoRig()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D getMayaVersionDome
+Domemaster3D DomeGrid test background 
+A python function to create a spherical yellow test grid in Maya. 
 
+Run using the command:
+import arnoldDomeCamera as arnoldDomeCamera
+reload(arnoldDomeCamera)
+arnoldDomeCamera.createDomeGrid()
+
+------------------------------------------------------------------------------
+
+Domemaster3D LatLongGrid test background 
+A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
+
+Run using the command:
+import arnoldDomeCamera as arnoldDomeCamera
+reload(arnoldDomeCamera)
+arnoldDomeCamera.createLatLongGrid()
+------------------------------------------------------------------------------
+
+Domemaster3D createTestShapes
+A python function to create a test sphere and cube in Maya. 
+
+Run using the command:
+import arnoldDomeCamera as arnoldDomeCamera
+reload(arnoldDomeCamera)
+arnoldDomeCamera.createTestShapes()
+
+------------------------------------------------------------------------------
+
+Domemaster3D getMayaVersionDome
 A python function to check what Maya version is active.
 
 import arnoldDomeCamera
@@ -116,10 +146,6 @@ arnoldDomeCamera.getMayaVersionDome()
 
 ------------------------------------------------------------------------------
 
-"""
-
-
-"""
 Show the Domemaster Wiki
 --------------------------------
 Loads the wiki page in your default web browser
@@ -140,7 +166,6 @@ arnoldDomeCamera.openDomemasterDownloads()
 print("Open the Domemaster Bug Reporter")
 import arnoldDomeCamera as arnoldDomeCamera
 arnoldDomeCamera.openDomemasterBugReport()
-
 
 """
 
@@ -747,8 +772,12 @@ def createLatLongGrid():
   createDomeGrid()
   
   # Align the grid on the horizontal axis
-  cmds.setAttr('domeGrid.rotateX', 90, type='float')
+  #cmds.setAttr('domeGridSurface.rotateX', 90)
   
+  # Set the grid to a full 360 degree FOV sphere
+  cmds.setAttr('domeGrid.fieldOfView', 360)
+
+
 """
 Domemaster3D DomeGrid test background 
 --------------------------------------
@@ -964,8 +993,11 @@ def createDomeGrid():
   cmds.setAttr(domeToonShaderShape+'.meshHardEdges', 1)
   
   # Create a polygon paint effects stroke output
-  cmds.select(domeToonShader, replace=True);
-  mel.eval('doPaintEffectsToPoly(1,1,1,1,100000);')
+  cmds.select(domeToonShader, replace=True)
+  # The catchQuiet command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute...
+  mel.eval('catch(doPaintEffectsToPoly(1,1,1,1,100000));')
+  #mel.eval('catchQuiet(doPaintEffectsToPoly(1,1,1,1,100000));')
+  
   
   # Make a local space mesh connection to fix the grouped node double translation issue
   #connectAttr -f domeGridToonShape.outMainMesh MainShape.inMesh;
@@ -1034,7 +1066,7 @@ def createDomeGrid():
   
   # 180 degree default = 180
   # 360 degree default = 360
-  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=360, defaultValue=360 , keyable=True)
+  cmds.addAttr(baseNodeName, longName=attrName, attributeType="double", min=0.1, max=360, defaultValue=180 , keyable=True)
   print('Adding custom Attributes ' + baseNodeName + '.' + attrName)
   
   #---------------------------------------------------------------------------  
@@ -1209,6 +1241,7 @@ def createDomeGrid():
   PreviewShapeExpr = ""
 
   PreviewShapeExpr += "// Custom " + previewAttrName + " Preview Shape Expressions\n\n"
+  PreviewShapeExpr += "string $currentPanel;\n"
   PreviewShapeExpr += "if( " + domeRadiusTransform + "." + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  //Off Mode\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -1224,10 +1257,10 @@ def createDomeGrid():
   PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
   PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 2){\n"
   PreviewShapeExpr += "  //Shaded Mode\n"
-  PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
   PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
-  PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
   PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
@@ -1237,10 +1270,10 @@ def createDomeGrid():
   PreviewShapeExpr += "  MeshGroup.visibility = 1;\n"
   PreviewShapeExpr += "} else if(" + domeRadiusTransform + "." + previewAttrName + " == 3){\n"
   PreviewShapeExpr += "  //Wireframe on Shaded Mode\n"
-  PreviewShapeExpr += "  string $currentPanel = \"modelPanel4\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
   PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
-  PreviewShapeExpr += "  string $currentPanel = \"StereoPanel\";\n"
+  PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
   PreviewShapeExpr += "  if(`modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"

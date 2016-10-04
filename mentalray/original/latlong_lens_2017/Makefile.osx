@@ -17,7 +17,8 @@ CC=g++
 #MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2015
 #MAYA_DIR=/Applications/Autodesk/mentalrayForMaya2016.5
 #MAYA_DIR=/Applications/NVIDIA\ Corporation/mentalrayForMaya2016.5-3.14
-MAYA_DIR=/Applications/NVIDIA\ Corporation/mentalrayForMaya2017-3.14
+#MAYA_DIR=/Applications/NVIDIA\ Corporation/mentalrayForMaya2017-3.14
+MAYA_DIR=/Applications/NVIDIA\ Corporation/mentalray3.14forMaya2017
 
 # Domemaster3D Maya 2016-2016 Shaders
 #DOMEMASTER_DIR=/Applications/Domemaster3D/maya/shaders

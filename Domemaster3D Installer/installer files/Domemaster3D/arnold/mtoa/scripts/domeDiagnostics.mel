@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V2.1.1
-  2016-09-15 11.47 AM
+  Dome Diagnostics Report Tool V2.1.2
+  2016-10-04 01.55 PM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -9,6 +9,12 @@
 
   Version History
   ----------------
+  
+  Version 2.1.2
+  ------------------
+  2016-10-04
+
+  Added the "MAYA_VP2_USE_GPU_MAX_TARGET_SIZE" environment variable that is used in Maya 2016/2016.5 to allow Viewport 2.0 to render frames larger than 4K.
 
   Version 2.1.1
   ------------------
@@ -934,6 +940,9 @@ global proc domeDiagnostics(){
   
   $domeTempString = `getenv "MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE"`;
   $domeDebugText += "### `MAYA_VP2_DEFAULT_MATERIAL_LOADING_MODE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_VP2_USE_GPU_MAX_TARGET_SIZE"`;
+  $domeDebugText += "### `MAYA_VP2_USE_GPU_MAX_TARGET_SIZE` ###\r\n> " + $domeTempString + "\r\n\r\n";
   
   $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
   $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";

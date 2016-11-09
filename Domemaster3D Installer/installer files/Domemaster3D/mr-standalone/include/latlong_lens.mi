@@ -4,8 +4,10 @@
 # 3DS MAX GUI controls added by Andrew Hazelden (andrew@andrewhazelden.com)
 #
 # ------------------------------------------------------
-# Version 2.1 - July 5, 2014 
+# Version 2.1 - September 15, 2016 
 # Update by Andrew Hazelden
+# Updated the LatLong_Stereo mental ray shader to add
+# ray differential support in mr 3.14
 # ------------------------------------------------------
 # The Maya Node IDs are being updated to use the newly 
 # registered robertoZiche block range.

@@ -1,5 +1,6 @@
 # Domemaster Stereoscopic Lens Shader Mental Ray Include File
-# Version 1.6 - With an updated domeAFL_FOV_Stereo Node ID
+# Version 2.1 - With an updated domeAFL_FOV_Stereo Node ID
+# 2016-09-16
 # -------------------------------------------------------------------
 #           Simulate a Virtual Angular Fisheye Lens (AFL) for 
 #               the Production of Full-Dome Animations
@@ -14,6 +15,10 @@
 # by Andrew Hazelden (andrew@andrewhazelden.com)
 # http://www.andrewhazelden.com
 #
+# ------------------------------------------------------
+# Version 2.1 - September 15, 2016
+# Updated the domeAFL_FOV_Stereo mental ray shader to add
+# ray differential support in mr 3.14
 # ------------------------------------------------------
 # Version 1.6 alpha 9 - December 20, 2014
 # Updated the domeAFL_FOV_Stereo mental ray include file

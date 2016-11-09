@@ -1,9 +1,14 @@
+# latlong_lens Lens Shader Mental Ray Include File
 # Legacy Fallback NodeID Phenomenon
 #
 # This file helps you open latlong_lens nodes with Legacy ID codes
 # from previous Domemaster3D releases prior to V1.5 July 2014
+# ---------------------------------------------------------------------
+# by Andrew Hazelden (andrew@andrewhazelden.com)
+# http://www.andrewhazelden.com
+# ---------------------------------------------------------------------
 #
-# Updated Node IDs
+# Updated latlong_lens Node IDs
 #    New Node ID = 1185224
 #    Old Node ID = 58675
 #

@@ -1,5 +1,5 @@
 # LatLong_Stereo Lens Shader Mental Ray Include File
-# Version 1.6 - 2014-12-20 
+# Version 2.1 - 2016-09-16 
 # -------------------------------------------------------------------
 # LatLong Stereo Shader by Roberto Ziche (http://www.robertoziche.com/)
 # Maya Support by Andrew Hazelden (andrew@andrewhazelden.com)
@@ -9,16 +9,20 @@
 #  LatLong_Stereo
 #    Node ID = 1185225
 #
-#------------------------------------------
+# ------------------------------------------------------
+# Version 2.1 - September 15, 2016
+# Updated the LatLong_Stereo mental ray shader to add
+# ray differential support in mr 3.14
+#-------------------------------------------------------
 # Version 1.6 alpha 9 - December 20, 2014
 # Updated the LatLong_Stereo mental ray include file
 # to allow for a smaller minimum zero parallax distance 
 # of 0.001 to allow for smaller camera scales.
-#------------------------------------------
+#-------------------------------------------------------
 
-#------------------------------------------
+#-------------------------------------------------------
 # LatLong_Stereo
-#------------------------------------------
+#-------------------------------------------------------
 
 declare shader
   color "LatLong_Stereo" (

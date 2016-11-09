@@ -1,6 +1,6 @@
 # Domemaster Stereoscopic Lens Shader Mental Ray Include File
-# Version 1.6 - Legacy Fallback NodeID Phenomenon
-# 2014-12-20 10.32 am
+# Version 2.1 - Legacy Fallback NodeID Phenomenon
+# 2016-09-16
 #
 # This file helps you open domeAFL nodes with Legacy ID codes
 # from previous Domemaster3D releases prior to V1.5 July 2014

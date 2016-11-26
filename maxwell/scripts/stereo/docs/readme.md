@@ -22,7 +22,7 @@ Copy the "stereo" folder to your Maxwell 3.2 scripts directory:
 
 `/opt/maxwell/3/scripts/`
 
-**Mac**
+**macOS**
 
 `/Applications/Maxwell 3/scripts/`
 

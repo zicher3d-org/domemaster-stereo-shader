@@ -297,6 +297,8 @@ Maya
   
   Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
 
+  Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style.
+
 Version 2.1.4
 -------------
 2016-11-03

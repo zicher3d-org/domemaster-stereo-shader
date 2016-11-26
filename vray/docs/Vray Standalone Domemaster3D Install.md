@@ -12,13 +12,13 @@
     +    [Vray Shader Parameters Screenshot](#vray-shader-parameters-screenshot)
     +    [Listing the Nodes](#listing-the-nodes)
         *    [Windows Node List](#windows-node-list)
-        *    [Mac Node List](#mac-node-list)
+        *    [macOS Node List](#mac-node-list)
         *    [Linux Node List](#linux-node-list)
     +    [Node Parameters](#node-parameters)
         *    [plgparams.exe DomemasterStereo](#plgparamsexe-domemasterstereo)
         *    [plgparams.exe LatLongStereo](#plgparamsexe-latlongstereo)
         *    [Windows Parameters](#windows-parameters)
-        *    [Mac Parameters](#mac-parameters)
+        *    [macOS Parameters](#mac-parameters)
         *    [Linux Parameters](#linux-parameters)
 *    [Rendering the Example Scenes](#rendering-the-example-scenes)
 
@@ -125,9 +125,9 @@ For Vray Standalone 2.5 the standard `VRAY_PLUGINS_x64` setting would be:
 
 ![Plgparams Listing the Shader Parameters](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_plugin_parameters.png)  
 
-![Plgparams Listing the Shader Parameters on the Mac 1](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_latlongstereo.png)  
+![Plgparams Listing the Shader Parameters on the macOS 1](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_latlongstereo.png)  
 
-![Plgparams Listing the Shader Parameters on the Mac 2](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_domemasterstereo.png)  
+![Plgparams Listing the Shader Parameters on the macOS 2](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_domemasterstereo.png)  
 
 ### <a name="listing-the-nodes"></a>Listing the Nodes ###
 
@@ -138,7 +138,7 @@ You can list all of the active Vray Shader nodes using the plugin parameters too
 `cd C:\Program Files\Chaos Group\V-Ray\Standalone for x64\bin\x64\vc101\`  
 `plgparams.exe -list`
 
-#### <a name="mac-node-list"></a>Mac Node List ####
+#### <a name="mac-node-list"></a>macOS Node List ####
 
 `cd /Applications/ChaosGroup/V-Ray/Standalone_for_snow_leopard_x86/bin/snow_leopard_x86/gcc-4.2/`  
 `./plgparams.bin -list`
@@ -195,7 +195,7 @@ If you run the plgparams with the shader name listed you can see the individual 
 `plgparams.exe DomemasterStereo`  
 `plgparams.exe LatLongStereo`  
 
-#### <a name="mac-parameters"></a>Mac Parameters ####
+#### <a name="mac-parameters"></a>macOS Parameters ####
 
 `./plgparams.bin DomemasterStereo`  
 `./plgparams.bin LatLongStereo`  

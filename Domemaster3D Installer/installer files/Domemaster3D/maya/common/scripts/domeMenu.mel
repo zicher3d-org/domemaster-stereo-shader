@@ -1,6 +1,6 @@
 /*
 Create the "Domemaster3D" Entry in the Rendering Menu Set V2.2
-2016-11-26 6.10 AM
+2016-11-26
 
 This file provides a Maya 2010 - Maya 2017+ Compatible Menu
 
@@ -363,7 +363,7 @@ global proc createDomemaster3DMenu() {
       -sourceType "python"
       -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createHemirectIBL()";
 
-  //} end of only show the materials if we are on Maya 2011-2016.5
+  //} End of only show the materials if we are on Maya 2011-2016.5
   
   // Fulldome Tools Section
   if($mayaVersion >= 2015){
@@ -432,31 +432,31 @@ global proc createDomemaster3DMenu() {
     menuItem -divider true;
   }
 
-  //Open the render log
-  //Win Example:  C:/Users/hazelden/Documents/maya/mayaRenderLog.txt
-  //Mac Example:  /Users/hazelden/Library/Logs/Maya/mayaRender.log
-  //Linux Example:  /home/hazelden/maya/mayaRender.log
+  // Open the render log
+  // Win Example:  C:/Users/hazelden/Documents/maya/mayaRenderLog.txt
+  // macOS Example:  /Users/hazelden/Library/Logs/Maya/mayaRender.log
+  // Linux Example:  /home/hazelden/maya/mayaRender.log
 
   string $renderLogName = "";
   string $domeMayaRenderLogPathString;
   string $domeUserHomePathString;
 
   if(getMayaPlatform() == "windows"){
-    //Windows Log Filename
+    // Windows Log Filename
     $renderLogName = "mayaRenderLog.txt";
-    //Win Example:  C:/Users/hazelden
+    // Win Example:  C:/Users/hazelden
     $domeUserHomePathString = `getenv "USERPROFILE"`;
     $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
   }else if(getMayaPlatform() == "darwin") {
-    //Mac OS X Log Filename
+    // macOS Log Filename
     $renderLogName = "mayaRender.log";
-    //Mac Example: $Home = /Users/hazelden
+    // macOS Example: $Home = /Users/hazelden
     $domeUserHomePathString = `getenv "HOME"`;
     $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
   }else{
-    //Linux Log Filename
+    // Linux Log Filename
     $renderLogName = "mayaRender.log";
-    //Linux Example: $Home = /home/hazelden
+    // Linux Example: $Home = /home/hazelden
     $domeUserHomePathString = `getenv "HOME"`;
     $domeMayaRenderLogPathString = $domeUserHomePathString + "/maya" + "/mayaRenderLog.txt";
   }
@@ -536,7 +536,7 @@ global proc createDomemaster3DMenu() {
     -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();";
   menuItem
     -label "Open Task Manager" 
-    -annotation "Open the Task Manager on Windows, or the Activity Monitor on Mac OS X."
+    -annotation "Open the Task Manager on Windows, or the Activity Monitor on macOS."
     -imageOverlayLabel "Task"
     -image ("task" + $imageExt)
     -command "source \"domeDiagnostics.mel\";\nopenTaskManager();";
@@ -571,7 +571,6 @@ global proc createDomemaster3DMenu() {
     -command "import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()";
 
   // Support Section
-
   if($mayaVersion >= 2015){
     menuItem -divider true -dividerLabel "Support";
   }else{

@@ -149,7 +149,7 @@ Version 1.3.2 - Build 1
 April 16, 2013
 Edited the default camera connections for the lens shaders to work with the modified versions of the maya createMentalRayIndirectLightingTab.mel & AEmia_physicalskyTemplate.mel scripts. This fixes the problem of the Physical Sky & Sum system overwriting the first .miLensShader input on cameras in the scene.
 
-The location of the default domemaster control map textures is now in the C:\Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on Mac OS X. The Domemaster3D shelf tools have been updated to link to the new sourceimages folder.
+The location of the default domemaster control map textures is now in the C:\Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on macOS. The Domemaster3D shelf tools have been updated to link to the new sourceimages folder.
 
 Version 1.3 - Build 27
 ------------------------
@@ -312,7 +312,7 @@ def getSourceImagesPath(imageFileName):
       # Check if the program is running on Windows 32
       baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
-      # Check if the program is running on Mac OS X
+      # Check if the program is running on macOS
       baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
@@ -365,7 +365,7 @@ def getModelsPath(modelFileName):
       # Check if the program is running on Windows 32
       baseModelsFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
-      # Check if the program is running on Mac OS X
+      # Check if the program is running on macOS
       baseModelsFolder = "/Applications/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
@@ -419,7 +419,7 @@ def getDomePresetsPath(PresetsFileName):
       # Check if the program is running on Windows 32
       basePresetsFolder = "C:/Program Files (x86)/Domemaster3D/maya/common/presets/attrPresets/"
     elif platform.system()== 'Darwin':
-      # Check if the program is running on Mac OS X
+      # Check if the program is running on macOS
       basePresetsFolder = "/Applications/Domemaster3D/maya/common/presets/attrPresets/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux

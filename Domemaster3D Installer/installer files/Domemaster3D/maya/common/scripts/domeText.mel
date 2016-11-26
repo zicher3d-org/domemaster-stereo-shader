@@ -8,7 +8,7 @@
   The title creation settings are saved as extra attributes on the file texture nodes. This makes it possible to re-edit exiting title graphics.
   The Dome Text GUI uses ImageMagick from the command line to create rasterized images with your custom text, font styles, and colors.
   
-  On Mac OS X you need to install ImageMagick to either:
+  On macOS you need to install ImageMagick to either:
   /opt/local/bin/convert
   /opt/ImageMagick/bin/convert
   /usr/local/bin/convert
@@ -16,6 +16,18 @@
   or you need to add the ImageMagick "convert" tool to your system path by editing your ~/.bash_profile
 
   Note: On Windows the ImageMagick tool convert.exe was renamed domeconvert.exe to avoid a name collision with an existing Windows utility of the same name.
+
+
+  Script Usage
+  ----------------
+  To use the Dome Text MEL script run the following MEL commands:
+  print ("Dome Text Tool");
+  source "domeText.mel";
+  domeText();
+
+  To check Maya's system paths use:
+  system("echo $PATH");
+  
 
   Version History
   ----------------
@@ -46,7 +58,7 @@
   Dec 9, 2013
   
   Improved Linux font support
-  Improved Mac font support
+  Improved macOS font support
   
   Updated the window's dock controls so the docked vs floating, and docked left/right window settings are restored
 
@@ -75,14 +87,14 @@
   --------------------
   Oct 17, 2013
   Added 93 international character encoding formats
-	Added controls for converting characters to:
+    Added controls for converting characters to:
     Upper Case
     Lower Case
     Hex Words
     Hex Single Column
     Binary Words
     Binary Single Column
-	Added DomeText aim constraints
+    Added DomeText aim constraints
   Added Cylinder geometry support
   Added Lambert material support
   Added text animation features for automatic left/right/up/down scrolling text
@@ -103,13 +115,6 @@
   Oct 6, 2013
   Initial Version
 
-  To use the Dome Text MEL script run the following MEL commands:
-  print("Dome Text Tool");
-  source "domeText.mel";
-  domeText();
-
- To check Maya's system paths use:
- system("echo $PATH");
 */
 
 // Check what Maya version is active:
@@ -122,7 +127,7 @@ global proc int getMayaVersionDome(){
   //int $mayaVersion = 2010;
 
   // Write out the current Maya version number
-  //print("Maya " + $mayaVersion + " detected.\n");
+  //print ("Maya " + $mayaVersion + " detected.\n");
 
   return $mayaVersion;
 }
@@ -150,152 +155,150 @@ global proc string getMayaPlatform(){
     $mayaPlatform = "linux";
   }
 
-  //print("Running on " + $mayaPlatform + ".\n");
+  //print ("Running on " + $mayaPlatform + ".\n");
   return $mayaPlatform;
 }
 
 
 global proc SaveDockedDomeTextWindowPos(){
-  //Save the DomeViewer dockControl State
-
+  // Save the DomeViewer dockControl State
   string $dockedArea = `dockControl -query -area domeTextDockControl`;
   int $dockedFloating = `dockControl -query -floating domeTextDockControl`;
 
-  //Save the dockControl window state - options: left,right
+  // Save the dockControl window state - options: left,right
   optionVar -stringValue "domeTextDockControlArea" $dockedArea; 
 
-  //Save the dockControl floating state - options: 0, 1
+  // Save the dockControl floating state - options: 0, 1
   optionVar -intValue "domeTextDockControlFloating" $dockedFloating;
 
-  //DockControl Debug Info
+  // DockControl Debug Info
   if($dockedFloating == 0){
-    print("The DomeText window is docked to the " + $dockedArea + " side.\n\n");
-  } else {
-    print("The DomeText window is floating.\n\n");
+    print ("The DomeText window is docked to the " + $dockedArea + " side.\n\n");
+  }else{
+    print ("The DomeText window is floating.\n\n");
   }
 }
 
 
-//Add the selected font to the nodes' extra attribute fields
+// Add the selected font to the nodes' extra attribute fields
 global proc addNodeFontAttrs(string $nodeName){
-
-  //Add font name
+  // Add font name
   string $attrName ="font";
   string $fontName =`optionMenuGrp -query -value menuFontNameSelect`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr -type "string" ($nodeName+"."+$attrName) $fontName;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add encoding name
+  // Add encoding name
   string $attrName ="textEncoding";
   string $encodingName =`optionMenuGrp -query -value menuTextEncodingSelect`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr -type "string" ($nodeName+"."+$attrName) $encodingName;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add fontStyle
+  // Add fontStyle
   string $attrName ="fontStyle";
   int $fontStyle =`optionMenuGrp -query -select menuFontWeightSelect`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "ALL:Bold:Bolder:Lighter:Normal:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $fontStyle;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add alignment
+  // Add alignment
   string $attrName ="alignment";
   int $fontAlign =`optionMenuGrp -query -select menuFontAlignSelect`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "NorthWest:North:NorthEast:West:Center:East:SouthWest:South:SouthEast:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $fontAlign;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add alignTextCamera text
+  // Add alignTextCamera text
   string $attrName ="alignTextCamera";
   string $CameraName = `optionMenuGrp -query -value menuDomeTextCameraSelect`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr -type "string" ($nodeName+"."+$attrName) $CameraName;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add font size
+  // Add font size
   string $attrName ="fontSize";
   int $fontSize = `intSliderGrp -query -value sliderPointSize`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 0 -max 2048 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $fontSize;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Convert Characters
+  // Add Convert Characters
   string $attrName ="convertCharacters";
   int $convertCharacters =`optionMenuGrp -query -select menuConvertCharacters`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Normal Case:Upper Case:Lower Case:Hex Words:Hex Single Column:Binary Words:Binary Single Column:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $convertCharacters;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Kerning Size
+  // Add Kerning Size
   string $attrName ="kerningSize";
   float $kerningSize = `floatSliderGrp -query -value sliderKerningSize`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min -1024 -max 2048 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $kerningSize;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Imagemagick custom text
+  // Add Imagemagick custom text
   string $attrName ="imagemagickCustomText";
   string $imagemagickCustomText = `scrollField -query -text scrollImagemagickCustomText`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr -type "string" ($nodeName+"."+$attrName) $imagemagickCustomText;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
 }
 
 
-//Add custom fg and bg color swatches to the nodes' extra attribute fields
+// Add custom fg and bg color swatches to the nodes' extra attribute fields
 global proc addNodeColorAttrs(string $nodeName){
   //string $NodeName = $domeTextFileNode;
 
-  //Color Swatches
+  // Color Swatches
   float $foregroundRGBcolor[3] = `colorSliderGrp -query -rgb sliderForeColor`;
   float $backgroundRGBcolor[3] = `colorSliderGrp -query -rgb sliderBackColor`;
 
-  //Show custom DomeText attrs
+  // Show custom DomeText attrs
   // int $showAdvancedDomeAttrs = 1;
   // string $attrName ="showAdvancedDomeAttrs";
-  // if (!`attributeExists $attrName $nodeName`) {
+  // if(!`attributeExists $attrName $nodeName`){
     // addAttr -ln $attrName -at bool -keyable true $nodeName;
     // setAttr ($nodeName+"."+$attrName) $showAdvancedDomeAttrs;
     // setAttr -edit -channelBox true  ($nodeName+"."+$attrName);
-    // print("Adding custom showAdvancedDomeAttrs attribute " + $nodeName +"." +$attrName + "\n");
+    // print ("Adding custom showAdvancedDomeAttrs attribute " + $nodeName +"." +$attrName + "\n");
   // }
   
-  //Add foreground Color
+  // Add foreground Color
   string $attrName ="foregroundColor";
   string $attrRName = "foregroundColorR";
   string $attrGName = "foregroundColorG";
   string $attrBName = "foregroundColorB";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 -uac $nodeName;
     addAttr -ln $attrRName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrGName -at "float" -p $attrName $nodeName;
@@ -303,15 +306,15 @@ global proc addNodeColorAttrs(string $nodeName){
     //setAttr -type float3 ($nodeName+"."+$attrName) 1.0 1.0 1.0;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr -type float3 ($nodeName+"."+$attrName) $foregroundRGBcolor[0] $foregroundRGBcolor[1] $foregroundRGBcolor[2];
-    print("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add background Color
+  // Add background Color
   string $attrName ="backgroundColor";
   string $attrRName = "backgroundColorR";
   string $attrGName = "backgroundColorG";
   string $attrBName = "backgroundColorB";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 -uac $nodeName;
     addAttr -ln $attrRName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrGName -at "float" -p $attrName $nodeName;
@@ -319,121 +322,119 @@ global proc addNodeColorAttrs(string $nodeName){
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     //setAttr -type float3 ($nodeName+"."+$attrName) 0.0 0.0 0.0;
     setAttr -type float3 ($nodeName+"."+$attrName) $backgroundRGBcolor[0] $backgroundRGBcolor[1] $backgroundRGBcolor[2];
-    print("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
   }
 
      
-  //Add Transparency checkBoxGrp
+  // Add Transparency checkBoxGrp
   int $isbackgroundTransparent = `checkBoxGrp -query -value1 checkGrpTransparentBackground`;
   string $attrName ="isBgTransparent";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $isbackgroundTransparent;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 }
 
 
-//Add a DomeText version number attribute to the nodes' extra attribute fields
+// Add a DomeText version number attribute to the nodes' extra attribute fields
 global proc addDomeTextVersionAttrs(string $nodeName){
-  //Add Dome Text Node Version
+  // Add Dome Text Node Version
   string $attrName ="DomeTextVersion";
   int $DomeTextVersion = 1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 0 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $DomeTextVersion;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 }
 
 
-//Return a value of 1 if the current node is a Dome Text based file node
+// Return a value of 1 if the current node is a Dome Text based file node
 global proc int isDomeTextNode(string $nodeName){
   string $attrName ="DomeTextVersion";
   int $version = 0;
-  //Check if the DomeTextVersion attribute exists
-  if (`attributeExists $attrName $nodeName`) {
-    //Check the version number is a positive value
+  // Check if the DomeTextVersion attribute exists
+  if(`attributeExists $attrName $nodeName`){
+    // Check the version number is a positive value
     $version = `getAttr ($nodeName+"."+$attrName)`;
-    if( $version >= 1){
-       //This node is a DomeTextVersion 1 or higher node
+    if($version >= 1){
+       // This node is a DomeTextVersion 1 or higher node
       return 1;
-    }
-    else{
-       //This node lacks the correct version number
+    }else{
+       // This node lacks the correct version number
       return 0;
     }
-  }
-  else{
-    //This node lacks the DomeTextVersion attribute
+  }else{
+    // This node lacks the DomeTextVersion attribute
     return 0;
   }
 }
 
 
-//Add the image attributes to the nodes' extra attribute fields
+// Add the image attributes to the nodes' extra attribute fields
 global proc addNodeImageAttrs(string $nodeName){
-  //Add image width
+  // Add image width
   string $attrName = "width";
   int $imageWidth =`optionMenuGrp -query -select menuImageWidthSelect`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "64:128:256:512:1024:1536:2048:3072:4096:8196:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $imageWidth;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add image width
+  // Add image width
   string $attrName = "height";
   int $imageHeight =`optionMenuGrp -query -select menuImageHeightSelect`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "(auto):64:128:256:512:1024:1536:2048:3072:4096:8196:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $imageHeight;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add texture format 
+  // Add texture format 
   string $attrName ="textureFormat";
   int $textureFormat =`optionMenuGrp -query -select menuTextureFormat`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Lambert:SurfaceShader:mia_material_x_passes:Skip Node Creation:Update Existing Node" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $textureFormat;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
  
-  // //Add surface node
+  // Add surface node
   // string $attrName ="surfaceNode";
   // int $surfaceMaterialFormat =`optionMenuGrp -query -select menuSurfaceMaterialFormat`-1;
-  // if (!`attributeExists $attrName $nodeName`) {
+  // if(!`attributeExists $attrName $nodeName`){
     // addAttr -ln $attrName -at "enum" -en "None:Surface Shader:Lambert:Mia_material_x_passes:" $nodeName;
     // setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     // setAttr ($nodeName+"."+$attrName) $surfaceMaterialFormat;
-    // print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    // print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   // }
   
-  //Add supporting shape 
+  // Add supporting shape 
   string $attrName ="shapeFormat";
   int $shapeFormat =`optionMenuGrp -query -select menuShapeFormat`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "None:Plane:Cylinder:Dome:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $shapeFormat;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add the shape orientation axis
+  // Add the shape orientation axis
   string $attrName = "orientationAxis";
   int $planeDirection =`optionMenuGrp -query -select menuDomeOrientationAxis`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Right (X):Top (Y):Front (Z):" -keyable true $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $planeDirection;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
 }
@@ -441,17 +442,17 @@ global proc addNodeImageAttrs(string $nodeName){
 
 
 // Create Scrolling Text Controls for the DomeText image
-//example: createScrollingMayaTexExpr("domeTextPlace2dTexture", "domeTextFileNode");
+// Example: createScrollingMayaTexExpr("domeTextPlace2dTexture", "domeTextFileNode");
 global proc createScrollingMayaTexExpr(string $domePlace2dNode, string $domeTextFileNode){
-  //Add horizontal and vertical text scrolling
+  // Add horizontal and vertical text scrolling
   
-  //Translate Vertical
+  // Translate Vertical
   addAttr -ln "verticalTranslate"  -at double  -min -100 -max 100 -softMinValue -1.0 -softMaxValue 1.0 -defaultValue 0 -keyable true $domeTextFileNode;
 
-  //Translate Horizontal
+  // Translate Horizontal
   addAttr -ln "horizontalTranslate"  -at double -min -100 -max 100 -softMinValue -1.0 -softMaxValue 1.0 -defaultValue 0 -keyable true $domeTextFileNode;
 
-  //Final Expression:
+  // Final Expression:
   //domeTextPlace2dTexture.translateFrameU = domeTextFileNode.horizontalTranslate;
   //domeTextPlace2dTexture.translateFrameV = domeTextFileNode.verticalTranslate;
 
@@ -463,90 +464,88 @@ global proc createScrollingMayaTexExpr(string $domePlace2dNode, string $domeText
   expression -name "translateTexture" -string $domeTextScrollerExpr -object $domePlace2dNode -alwaysEvaluate 1 -unitConversion all ;
   
   //------------------------------------------------------------------------------------------
-  //Add auto scroll animation modes to the horizontalTranslate and verticalTranslate controls.
+  // Add auto scroll animation modes to the horizontalTranslate and verticalTranslate controls.
+  //------------------------------------------------------------------------------------------
   
-  //Save the current playhead time value
+  // Save the current playhead time value
   int $domeGetCurrentTime = `currentTime -query`;
   
-  //Figure out the horizontal and vertical translate extra attribute names
+  // Figure out the horizontal and vertical translate extra attribute names
   //Attr names: domeTextFileNode.horizontalTranslate and domeTextFileNode.verticalTranslate
   string $horizontalTranslateName = $domeTextFileNode + ".horizontalTranslate";
   string $verticalTranslateName = $domeTextFileNode + ".verticalTranslate";
   
-  //Get the animation values from the DomeText UI
-
+  // Get the animation values from the DomeText UI
   string $nodeName = $domeTextFileNode;
   
-  //Add Scroll Direction
+  // Add Scroll Direction
   string $attrName = "scrollDirection";
   int $scrollDirectionInt =`optionMenuGrp -query -select menuAutoScrollDirectionSelect`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Off:Scroll Left:Scroll Right:Scroll Up:Scroll Down:" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $scrollDirectionInt;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add animationStartFrame
+  // Add animationStartFrame
   string $attrName ="animationStartFrame";
   int $animationStartFrame = `intFieldGrp -query -value1 intAnimationStartFrame`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 0  $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $animationStartFrame;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add animationEndFrame
+  // Add animationEndFrame
   string $attrName ="animationEndFrame";
   int $animationEndFrame = `intFieldGrp -query -value1 intAnimationEndFrame`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 0  $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $animationEndFrame;
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add looping checkBoxGrp
+  // Add looping checkBoxGrp
   int $isLoopAnimation = `checkBoxGrp -query -value1 checkGrpLoopAnimation`;
   string $attrName ="LoopAnimation";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $isLoopAnimation;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-
-
-  //Add mirrorText checkBoxGrp
+  // Add mirrorText checkBoxGrp
   int $isMirroredText = `checkBoxGrp -query -value1 checkGrpMirrorText`;
   string $attrName ="mirrorText";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $isMirroredText;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add wrapU checkBoxGrp
+  // Add wrapU checkBoxGrp
   int $textWrapU = `checkBoxGrp -query -value1 checkGrpWrapText`;
   string $attrName ="textWrapU";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $textWrapU;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add wrapV checkBoxGrp
+  // Add wrapV checkBoxGrp
   int $textWrapV = `checkBoxGrp -query -value2 checkGrpWrapText`;
   string $attrName ="textWrapV";
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $textWrapV;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
-    print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
+    print ("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
   string $scrollDirection =`optionMenuGrp -query -value menuAutoScrollDirectionSelect`;
@@ -554,108 +553,108 @@ global proc createScrollingMayaTexExpr(string $domePlace2dNode, string $domeText
   int $animationFrameRange = $animationEndFrame - $animationStartFrame;
   
   if($scrollDirection == "Off"){
-    print("Auto text scrolling is disabled.\n");
-  } else if($scrollDirection == "Scroll Left" ){
-    print("Auto text scrolling is set to scroll left over " + $animationFrameRange + " frames.\n");
+    print ("Auto text scrolling is disabled.\n");
+  }else if($scrollDirection == "Scroll Left"){
+    print ("Auto text scrolling is set to scroll left over " + $animationFrameRange + " frames.\n");
     
-    //Go to frame 1
+    // Go to frame 1
     currentTime $animationStartFrame ;
     if($textWrapU){
-      setAttr $horizontalTranslateName 0; //0 for wrapping
-    } else {
-      setAttr $horizontalTranslateName 1; //1 for non wrapping
+      setAttr $horizontalTranslateName 0; // 0 for wrapping
+    }else{
+      setAttr $horizontalTranslateName 1; // 1 for non wrapping
     }
     setKeyframe $horizontalTranslateName;
     
-    //Go to the duration set the the "scroll speed" setting
+    // Go to the duration set the the "scroll speed" setting
     currentTime $animationEndFrame ;
     setAttr $horizontalTranslateName -1;
     setKeyframe $horizontalTranslateName;
-  } else if($scrollDirection == "Scroll Right" ){
-    print("Auto text scrolling is set to scroll right over " + $animationFrameRange + " frames.\n");
+  }else if($scrollDirection == "Scroll Right" ){
+    print ("Auto text scrolling is set to scroll right over " + $animationFrameRange + " frames.\n");
     
-    //Go to frame 1
+    // Go to frame 1
     currentTime $animationStartFrame ;
+    
     if($textWrapU){
-      setAttr $horizontalTranslateName 0; //0 for wrapping
-    } else {
-      setAttr $horizontalTranslateName -1; //1 for non wrapping
+      setAttr $horizontalTranslateName 0; // 0 for wrapping
+    }else{
+      setAttr $horizontalTranslateName -1; // 1 for non wrapping
     }
     setKeyframe $horizontalTranslateName;
     
-    //Go to the end of the animation
-    currentTime $animationEndFrame ;
+    // Go to the end of the animation
+    currentTime $animationEndFrame;
     setAttr $horizontalTranslateName 1;
     setKeyframe $horizontalTranslateName;
-  } else if($scrollDirection == "Scroll Up" ){
-    print("Auto text scrolling is set to scroll up over " + $animationFrameRange + " frames.\n");
+  }else if($scrollDirection == "Scroll Up"){
+    print ("Auto text scrolling is set to scroll up over " + $animationFrameRange + " frames.\n");
 
-    //Go to frame 1
-    currentTime $animationStartFrame ;
+    // Go to frame 1
+    currentTime $animationStartFrame;
+    
     if($textWrapV){
-      setAttr $verticalTranslateName 0; //0 for wrapping
-    } else {
-      setAttr $verticalTranslateName -1; //1 for non wrapping
+      setAttr $verticalTranslateName 0; // 0 for wrapping
+    }else{
+      setAttr $verticalTranslateName -1; // 1 for non wrapping
     }
     setKeyframe $verticalTranslateName;
     
-    //Go to the end of the animation
+    // Go to the end of the animation
     currentTime $animationEndFrame ;
     setAttr $verticalTranslateName 1;
     setKeyframe $verticalTranslateName;
   } else if($scrollDirection == "Scroll Down" ){
-    print("Auto text scrolling is set to scroll down over " + $animationFrameRange + " frames.\n");
+    print ("Auto text scrolling is set to scroll down over " + $animationFrameRange + " frames.\n");
     
-    //Go to frame 1
+    // Go to frame 1
     currentTime $animationStartFrame ;
     if($textWrapV){
-      setAttr $verticalTranslateName 0; //0 for wrapping
-    } else {
-      setAttr $verticalTranslateName 1; //1 for non wrapping
+      setAttr $verticalTranslateName 0; // 0 for wrapping
+    }else{
+      setAttr $verticalTranslateName 1; // 1 for non wrapping
     }
     setKeyframe $verticalTranslateName;
     
-    //Go to the end of the animation
+    // Go to the end of the animation
     currentTime $animationEndFrame ;
     setAttr $verticalTranslateName -1;
     setKeyframe $verticalTranslateName;
   }
   
-  //Set the animation keys to linear keys
+  // Set the animation keys to linear keys
   keyTangent -e -itt linear -ott linear -animation objects $verticalTranslateName;
   
-  //Check if the animation mode is enabled and the playback should loop
+  // Check if the animation mode is enabled and the playback should loop
   if($scrollDirection != "Off"){
-    if($isLoopAnimation ){
-      print("Looping the dometext animation using post infinity cycles.\n");
+    if($isLoopAnimation){
+      print ("Looping the dometext animation using post infinity cycles.\n");
       if(($scrollDirection == "Scroll Right") || ($scrollDirection == "Scroll Left")){
-        //Set the animation to post infinity cycles
+        // Set the animation to post infinity cycles
         string $domeHorizontalAnimCurves[] = `listConnections -type "animCurveTU" ($horizontalTranslateName)`;
         string $horizontalAnimCurveName = $domeHorizontalAnimCurves[0];
         setAttr ($horizontalAnimCurveName+".postInfinity") 1;
-      } else if( ($scrollDirection == "Scroll Up") || ($scrollDirection == "Scroll Down") ){
-        //Set the animation to post infinity cycles
+      }else if(($scrollDirection == "Scroll Up") || ($scrollDirection == "Scroll Down") ){
+        // Set the animation to post infinity cycles
         string $domeVerticalAnimCurves[] = `listConnections -type "animCurveTU" ($verticalTranslateName)`;
         string $verticalAnimCurveName = $domeVerticalAnimCurves[0];
         setAttr ($verticalAnimCurveName+".postInfinity") 1;
       }
-    } else {
-      print("The dometext animation will play a single time.\n");
+    }else{
+      print ("The dometext animation will play a single time.\n");
     }
   }
 
-  //Return the time playhead back to its original position
+  // Return the time playhead back to its original position
   currentTime $domeGetCurrentTime;
-  
 }
 
 
-//Create a dome text Maya SurfaceShader + a Maya file node with a specified image name and default background color
-//example:
-//createSurfaceShaderDomeFileNode("sourceimages/bob.png", {0.0, 1.0, 0.0});
+// Create a dome text Maya SurfaceShader + a Maya file node with a specified image name and default background color
+// Example: createSurfaceShaderDomeFileNode("sourceimages/bob.png", {0.0, 1.0, 0.0});
 global proc string createSurfaceShaderDomeFileNode(string $imagePath, float $bgColor[] ){
-  print("Image Path: " + $imagePath + "\n");
-  print("Background color: [" + $bgColor[0] + ", " + $bgColor[1] + ", "+ $bgColor[2]+ "]\n");
+  print ("Image Path: " + $imagePath + "\n");
+  print ("Background color: [" + $bgColor[0] + ", " + $bgColor[1] + ", "+ $bgColor[2]+ "]\n");
 
   //string $domePlace2dNode = "place2dTexture1";
   //string $domeTextFileNode = "file1";
@@ -666,7 +665,7 @@ global proc string createSurfaceShaderDomeFileNode(string $imagePath, float $bgC
   //float $bgColor[3] = {0.0, 1.0, 0.0};
   //string $imagePath = "sourceimages/bob.png";
 
-  //Connect the place2D texture node to the Maya Dome Text file texture node
+  // Connect the place2D texture node to the Maya Dome Text file texture node
   connectAttr -f ($domePlace2dNode+".coverage") ($domeTextFileNode+".coverage");
   connectAttr -f ($domePlace2dNode+".translateFrame") ($domeTextFileNode+".translateFrame");
   connectAttr -f ($domePlace2dNode+".rotateFrame") ($domeTextFileNode+".rotateFrame");
@@ -686,57 +685,57 @@ global proc string createSurfaceShaderDomeFileNode(string $imagePath, float $bgC
   connectAttr -f ($domePlace2dNode+".outUV") ($domeTextFileNode+".uvCoord");
   connectAttr -f ($domePlace2dNode+".outUvFilterSize") ($domeTextFileNode+".uvFilterSize");
 
-  //Set the default background color
+  // Set the default background color
   //setAttr ($domeTextFileNode+".defaultColor") -type double3 0.0 1.0 0.0 ;
   setAttr ($domeTextFileNode+".defaultColor") -type double3 $bgColor[0] $bgColor[1] $bgColor[2] ;
 
-  //Attach the PNG file texture to the file node
+  // Attach the PNG file texture to the file node
   //setAttr -type "string" ($domeTextFileNode+".fileTextureName") "sourceimages/bob.png";
   setAttr -type "string" ($domeTextFileNode+".fileTextureName") $imagePath;
 
-  //Add the Dome Text version to the node
+  // Add the Dome Text version to the node
   addDomeTextVersionAttrs($domeTextFileNode);
   
-  //Add fg and bg color swatches to the node
+  // Add fg and bg color swatches to the node
   addNodeColorAttrs($domeTextFileNode);
   
-  //Add the font name to the file node
+  // Add the font name to the file node
   addNodeFontAttrs($domeTextFileNode);
   
-  //Add the image attributes to the file node
+  // Add the image attributes to the file node
   addNodeImageAttrs($domeTextFileNode);
   
-  //Create a default surfaceShader material
+  // Create a default surfaceShader material
   string $domeTextMatNode = `shadingNode  -name "dometext_material" -asShader surfaceShader`;
   
   // Connect the Maya file texture to the surface shader preview material 
   connectAttr -force ($domeTextFileNode+".outColor") ($domeTextMatNode+".outColor");
   
-  //Connect the Maya file texture transparency to the surface shader
+  // Connect the Maya file texture transparency to the surface shader
   connectAttr -f ($domeTextFileNode+".outTransparency") ($domeTextMatNode+".outTransparency");
   
-  //Create the shading group node and connect it to the surface shader
+  // Create the shading group node and connect it to the surface shader
   string $domeTextSGNode = `sets -renderable true -noSurfaceShader true -empty -name ($domeTextMatNode+"SG")`;
   connectAttr -f ($domeTextMatNode+".outColor") ($domeTextSGNode+".surfaceShader");
   
   // Connect the Maya file texture to the lambert incandescent material 
   //connectAttr -force ($domeTextFileNode+".outColor") ($domeTextMatNode+".incandescence");
   
-  //Create the supporting geometry
+  // Create the supporting geometry
   string $domeGeometry = chooseDomeGeometry();
   
   int $domeShapeFormat = `optionMenuGrp -query -select menuShapeFormat`;
   
-  //Check if a supporting shape was created
-  if( ($domeShapeFormat > 1 ) && (`objExists $domeGeometry` )  ){
+  // Check if a supporting shape was created
+  if(($domeShapeFormat > 1) && (`objExists $domeGeometry`)){
     //Apply the shading group to the selected geometry
     select $domeGeometry;
     hyperShade -assign $domeTextSGNode;
-  }else {
-    print("Shading group assignment skipped\n");
+  }else{
+    print ("Shading group assignment skipped\n");
   }
   
-  //Align the dome text to the camera
+  // Align the dome text to the camera
   aimDomeTextPlane($domeGeometry);
   
   // Create Scrolling Text Controls for the DomeText image
@@ -746,12 +745,11 @@ global proc string createSurfaceShaderDomeFileNode(string $imagePath, float $bgC
 }
 
 
-//Create a dome text Maya Lambert + a Maya file node with a specified image name and default background color
-//example:
-//createLambertDomeFileNode("sourceimages/bob.png", {0.0, 1.0, 0.0});
-global proc string createLambertDomeFileNode(string $imagePath, float $bgColor[] ){
-  print("Image Path: " + $imagePath + "\n");
-  print("Background color: [" + $bgColor[0] + ", " + $bgColor[1] + ", "+ $bgColor[2]+ "]\n");
+// Create a dome text Maya Lambert + a Maya file node with a specified image name and default background color
+// Example: createLambertDomeFileNode("sourceimages/bob.png", {0.0, 1.0, 0.0});
+global proc string createLambertDomeFileNode(string $imagePath, float $bgColor[]){
+  print ("Image Path: " + $imagePath + "\n");
+  print ("Background color: [" + $bgColor[0] + ", " + $bgColor[1] + ", "+ $bgColor[2]+ "]\n");
 
   //string $domePlace2dNode = "place2dTexture1";
   //string $domeTextFileNode = "file1";
@@ -762,7 +760,7 @@ global proc string createLambertDomeFileNode(string $imagePath, float $bgColor[]
   //float $bgColor[3] = {0.0, 1.0, 0.0};
   //string $imagePath = "sourceimages/bob.png";
 
-  //Connect the place2D texture node to the Maya Dome Text file texture node
+  // Connect the place2D texture node to the Maya Dome Text file texture node
   connectAttr -f ($domePlace2dNode+".coverage") ($domeTextFileNode+".coverage");
   connectAttr -f ($domePlace2dNode+".translateFrame") ($domeTextFileNode+".translateFrame");
   connectAttr -f ($domePlace2dNode+".rotateFrame") ($domeTextFileNode+".rotateFrame");
@@ -782,128 +780,128 @@ global proc string createLambertDomeFileNode(string $imagePath, float $bgColor[]
   connectAttr -f ($domePlace2dNode+".outUV") ($domeTextFileNode+".uvCoord");
   connectAttr -f ($domePlace2dNode+".outUvFilterSize") ($domeTextFileNode+".uvFilterSize");
 
-  //Set the default background color
+  // Set the default background color
   //setAttr ($domeTextFileNode+".defaultColor") -type double3 0.0 1.0 0.0 ;
   setAttr ($domeTextFileNode+".defaultColor") -type double3 $bgColor[0] $bgColor[1] $bgColor[2] ;
 
-  //Attach the PNG file texture to the file node
+  // Attach the PNG file texture to the file node
   //setAttr -type "string" ($domeTextFileNode+".fileTextureName") "sourceimages/bob.png";
   setAttr -type "string" ($domeTextFileNode+".fileTextureName") $imagePath;
 
-  //Add the Dome Text version to the node
+  // Add the Dome Text version to the node
   addDomeTextVersionAttrs($domeTextFileNode);
   
-  //Add fg and bg color swatches to the node
+  // Add fg and bg color swatches to the node
   addNodeColorAttrs($domeTextFileNode);
   
-  //Add the font name to the file node
+  // Add the font name to the file node
   addNodeFontAttrs($domeTextFileNode);
   
-  //Add the image attributes to the file node
+  // Add the image attributes to the file node
   addNodeImageAttrs($domeTextFileNode);
   
-  //Create a default surfaceShader material
+  // Create a default surfaceShader material
   string $domeTextMatNode = `shadingNode  -name "dometext_material" -asShader lambert`;
   
   // Connect the Maya file texture to the lambert shader preview material 
   connectAttr -force ($domeTextFileNode+".outColor") ($domeTextMatNode+".color");
   
-  //Connect the Maya file texture transparency to the lambert shader
+  // Connect the Maya file texture transparency to the lambert shader
   connectAttr -f ($domeTextFileNode+".outTransparency") ($domeTextMatNode+".transparency");
   
-  //Create the shading group node and connect it to the lambert shader
+  // Create the shading group node and connect it to the lambert shader
   string $domeTextSGNode = `sets -renderable true -noSurfaceShader true -empty -name ($domeTextMatNode+"SG")`;
   connectAttr -f ($domeTextMatNode+".outColor") ($domeTextSGNode+".surfaceShader");
   
   // Connect the Maya file texture to the lambert incandescent material 
   connectAttr -force ($domeTextFileNode+".outColor") ($domeTextMatNode+".incandescence");
   
-  //Create the supporting geometry
+  // Create the supporting geometry
   string $domeGeometry = chooseDomeGeometry();
   
   int $domeShapeFormat = `optionMenuGrp -query -select menuShapeFormat`;
   
-  //Check which direction is 'front' for the text
+  // Check which direction is 'front' for the text
   int $isMirroredText = `checkBoxGrp -query -value1 checkGrpMirrorText`;
 
-  //Check if the texture wrapping is enabled
+  // Check if the texture wrapping is enabled
   int $textWrapU = `checkBoxGrp -query -value1 checkGrpWrapText`;
   int $textWrapV = `checkBoxGrp -query -value2 checkGrpWrapText`;
   setAttr ($domePlace2dNode+".wrapU") $textWrapU;
   setAttr ($domePlace2dNode+".wrapV") $textWrapV;
 
-  //Check if a supporting shape was created
-  if( ($domeShapeFormat > 1 ) && (`objExists $domeGeometry` )  ){
-    //Apply the shading group to the selected geometry
+  // Check if a supporting shape was created
+  if(($domeShapeFormat > 1) && (`objExists $domeGeometry`)){
+    // Apply the shading group to the selected geometry
     select $domeGeometry;
     hyperShade -assign $domeTextSGNode;
      
-    //Modify the texture direction on polygon planes
-    if ($domeShapeFormat == 2){
-      //Check if the mirrored text checkbox is enabled
+    // Modify the texture direction on polygon planes
+    if($domeShapeFormat == 2){
+      // Check if the mirrored text checkbox is enabled
       if($isMirroredText){
         setAttr ($domePlace2dNode+".repeatU") -1;
-      } else {
+      }else{
         setAttr ($domePlace2dNode+".repeatU") 1;
       }
     }
     
-    //Modify the shape if it is a NURBS Cylinder
-    if ( $domeShapeFormat ==3 ){
-      //Creation Axis: Right (X):Top (Y): Front (Z)
+    // Modify the shape if it is a NURBS Cylinder
+    if($domeShapeFormat == 3){
+      // Creation Axis: Right (X):Top (Y): Front (Z)
       int $cylinderDirection = `optionMenuGrp -query -select menuDomeOrientationAxis`-1;
         
-      //Adjust the orientation axis placement of the NURBS Cylinder text.
-      if ( $cylinderDirection == 0 ){
-        //Right (X)
-        //Adjust the texture so it is upright on the NURBS Cylinder
+      // Adjust the orientation axis placement of the NURBS Cylinder text.
+      if($cylinderDirection == 0){
+        // Right (X)
+        // Adjust the texture so it is upright on the NURBS Cylinder
         setAttr ($domePlace2dNode+".rotateFrame") 90;
         setAttr ($domeGeometry+".rotateY") -180;
         
         setAttr ($domePlace2dNode+".repeatV") 1;
         
-        //Check if the mirrored text checkbox is enabled
+        // Check if the mirrored text checkbox is enabled
         if($isMirroredText){
           setAttr ($domePlace2dNode+".repeatU") -1;
-        } else {
+        }else{
           setAttr ($domePlace2dNode+".repeatU") 1;
         }
 
-      } else if ( $cylinderDirection == 1 ){
-        //Top (Y)
-        //Adjust the texture so it is upright on the NURBS Cylinder
+      }else if($cylinderDirection == 1){
+        // Top (Y)
+        // Adjust the texture so it is upright on the NURBS Cylinder
         setAttr ($domePlace2dNode+".rotateFrame") -90;
         setAttr ($domeGeometry+".rotateZ") -90;
        
         setAttr ($domePlace2dNode+".repeatV") 1;
-         //Check if the mirrored text checkbox is enabled
+        // Check if the mirrored text checkbox is enabled
         if($isMirroredText){
           setAttr ($domePlace2dNode+".repeatU") -1;
-        } else {
+        }else{
           setAttr ($domePlace2dNode+".repeatU") 1;
         }
         
-      }else if ( $cylinderDirection == 2 ){
-        //Front (Z)
-        //Adjust the texture so it is upright on the NURBS Cylinder
+      }else if($cylinderDirection == 2){
+        // Front (Z)
+        // Adjust the texture so it is upright on the NURBS Cylinder
         setAttr ($domePlace2dNode+".rotateFrame") 90;
         setAttr ($domeGeometry+".rotateY") 90;
         
         setAttr ($domePlace2dNode+".repeatV") 1;
         
-        //Check if the mirrored text checkbox is enabled
+        // Check if the mirrored text checkbox is enabled
         if($isMirroredText){
           setAttr ($domePlace2dNode+".repeatU") -1;
-        } else {
+        }else{
           setAttr ($domePlace2dNode+".repeatU") 1;
         }
       }
     }
-  }else {
-    print("Shading group assignment skipped\n");
+  }else{
+    print ("Shading group assignment skipped\n");
   }
   
-  //Align the dome text to the camera
+  // Align the dome text to the camera
   aimDomeTextPlane($domeGeometry);
   
   // Create Scrolling Text Controls for the DomeText image
@@ -913,12 +911,11 @@ global proc string createLambertDomeFileNode(string $imagePath, float $bgColor[]
 }
 
 
-//Create a dome text mental ray texture file node with a specified image name
-//example:
-//createDomeMrFileNode("sourceimages/bob.png", {0.0, 1.0, 0.0});
-global proc string createDomeMrFileNode(string $imagePath, float $bgColor[] ){
-  print("Image Path: " + $imagePath + "\n");
-  print("Background color: [" + $bgColor[0] + ", " + $bgColor[1] + ", "+ $bgColor[2]+ "]\n");
+// Create a dome text mental ray texture file node with a specified image name
+// Example: createDomeMrFileNode("sourceimages/bob.png", {0.0, 1.0, 0.0});
+global proc string createDomeMrFileNode(string $imagePath, float $bgColor[]){
+  print ("Image Path: " + $imagePath + "\n");
+  print ("Background color: [" + $bgColor[0] + ", " + $bgColor[1] + ", "+ $bgColor[2]+ "]\n");
 
   //string $domePlace2dNode = "place2dTexture1";
   //string $domeTextFileNode = "file1";
@@ -933,7 +930,7 @@ global proc string createDomeMrFileNode(string $imagePath, float $bgColor[] ){
   //float $bgColor[3] = {0.0, 1.0, 0.0};
   //string $imagePath = "sourceimages/bob.png";
 
-  //Connect the color texture nodes
+  // Connect the color texture nodes
   connectAttr -f ($domeText_tex_vector+".outValue")  ($domeText_tex_remap+".input");
   // mib_texture_vector.outValue -> mib_texture_remap.input
 
@@ -943,27 +940,27 @@ global proc string createDomeMrFileNode(string $imagePath, float $bgColor[] ){
   connectAttr -f  ($domeText_mr_tex+".message")  ($domeText_tex_lookup+".tex");
   // mentalrayTexture.message -> mib_texture_lookup.tex
 
-  //Set the default background color
+  // Set the default background color
   //setAttr ($domeTextFileNode+".defaultColor") -type double3 0.0 1.0 0.0 ;
   //setAttr ($domeText_mr_tex+".defaultColor") -type double3 $bgColor[0] $bgColor[1] $bgColor[2] ;
 
-  //Attach the PNG file texture to the mental ray file texture node
+  // Attach the PNG file texture to the mental ray file texture node
   //setAttr -type "string" ($domeTextFileNode+".fileTextureName") "sourceimages/bob.png";
   setAttr -type "string" ($domeText_mr_tex+".fileTextureName") $imagePath;
 
-  //Add the Dome Text version to the node
+  // Add the Dome Text version to the node
   addDomeTextVersionAttrs($domeText_mr_tex);
   
-  //Add fg and bg color swatches to the nodes
+  // Add fg and bg color swatches to the nodes
   addNodeColorAttrs($domeText_mr_tex);
   
-  //Add the font name to the file node
+  // Add the font name to the file node
   addNodeFontAttrs($domeText_mr_tex);
   
-  //Add the image attributes to the file node
+  // Add the image attributes to the file node
   addNodeImageAttrs($domeText_mr_tex);
   
-  //Set the mia_x_passes material to be glossy
+  // Set the mia_x_passes material to be glossy
   setAttr ($domeTextMatNode+".refl_color") -type double3 1 1 1;
   setAttr ($domeTextMatNode+".reflectivity") 0;
   setAttr ($domeTextMatNode+".refl_gloss") 0;
@@ -971,143 +968,145 @@ global proc string createDomeMrFileNode(string $imagePath, float $bgColor[] ){
   setAttr ($domeTextMatNode+".diffuse_weight") 1;
   setAttr ($domeTextMatNode+".diffuse") -type double3 0 0 0;
   
-  //Create the shading group node
+  // Create the shading group node
   string $domeTextSGNode = `sets -renderable true -noSurfaceShader true -empty -name ($domeTextMatNode+"SG")`;
   
-  //Attach the texture lookup node to the mia_x_passes material
+  // Attach the texture lookup node to the mia_x_passes material
   connectAttr -f ($domeText_tex_lookup+".outValue") ($domeTextMatNode+".additional_color");
   connectAttr -f ($domeText_tex_lookup+".outValueA") ($domeTextMatNode+".additional_colorA");
   
-  //Attach the texture lookup node to the mia_x_passes material
+  // Attach the texture lookup node to the mia_x_passes material
   connectAttr -f ($domeText_tex_lookup+".outValue") ($domeTextMatNode+".diffuse");
   connectAttr -f ($domeText_tex_lookup+".outValueA") ($domeTextMatNode+".diffuseA");
   
-  //Attach the mia_x_passes material to the shading group
+  // Attach the mia_x_passes material to the shading group
   connectAttr -f ($domeTextMatNode+".message") ($domeTextSGNode+".miMaterialShader");
   connectAttr -f ($domeTextMatNode+".message") ($domeTextSGNode+".miPhotonShader");
   connectAttr -f ($domeTextMatNode+".message") ($domeTextSGNode+".miShadowShader");
   
-  //Make the surface transparent using the cut-out opacity option
+  // Make the surface transparent using the cut-out opacity option
   //int $isbackgroundTransparent = `checkBoxGrp -query -value1 checkGrpTransparentBackground`;
-  //if ($isbackgroundTransparent){
+  //if($isbackgroundTransparent){
   //connectAttr -f ($domeText_tex_lookup+".outValueA") ($domeTextMatNode+".cutout_opacity");
   //}
   
-  //Create the supporting geometry
+  // Create the supporting geometry
   string $domeGeometry = chooseDomeGeometry();
   int $domeShapeFormat = `optionMenuGrp -query -select menuShapeFormat`;
   
-  //Check if a supporting shape was created
-  if( ($domeShapeFormat > 1 ) && (`objExists $domeGeometry` )  ){
-    //Apply the shading group to the selected geometry
+  // Check if a supporting shape was created
+  if(($domeShapeFormat > 1) && (`objExists $domeGeometry`)){
+    // Apply the shading group to the selected geometry
     select $domeGeometry;
     hyperShade -assign $domeTextSGNode;
 
-    //Modify the shape if it is a NURBS Cylinder
-    if ( $domeShapeFormat ==3 ){
+    // Modify the shape if it is a NURBS Cylinder
+    if($domeShapeFormat == 3){
       //Creation Axis: Right (X):Top (Y): Front (Z)
-      int $cylinderDirection = `optionMenuGrp -query -select menuDomeOrientationAxis`-1;
+      int $cylinderDirection = `optionMenuGrp -query -select menuDomeOrientationAxis` - 1;
         
-      //Adjust the orientation axis placement of the NURBS Cylinder text.
-      if ( $cylinderDirection == 0 ){
-        //Right (X)
+      // Adjust the orientation axis placement of the NURBS Cylinder text.
+      if($cylinderDirection == 0){
+        // Right (X)
         //setAttr ($domePlace2dNode+".rotateFrame") 90;
         setAttr ($domeGeometry+".rotateY") -180;
-      } else if ( $cylinderDirection == 1 ){
-        //Top (Y)
+      }else if($cylinderDirection == 1){
+        // Top (Y)
         //setAttr ($domePlace2dNode+".rotateFrame") -90;
         setAttr ($domeGeometry+".rotateZ") -90;
-      }else if ( $cylinderDirection == 2 ){
-        //Front (Z)
+      }else if($cylinderDirection == 2){
+        // Front (Z)
         //setAttr ($domePlace2dNode+".rotateFrame") 90;
         setAttr ($domeGeometry+".rotateY") 90;
       }
     }
     
-  }else {
-    print("Shading group assignment skipped\n");
+  }else{
+    print ("Shading group assignment skipped\n");
   }
   
-  //Align the dome text to the camera
+  // Align the dome text to the camera
   aimDomeTextPlane($domeGeometry);
   
   return $domeText_mr_tex;
 }
 
-//Align the dome text to the camera
-//Syntax: aimDomeTextPlane("DomeTextPlane");
-global proc aimDomeTextPlane( string $domeGeometry){
-  //Get the camera name
+
+// Align the dome text to the camera
+// Syntax: aimDomeTextPlane("DomeTextPlane");
+global proc aimDomeTextPlane(string $domeGeometry){
+  // Get the camera name
   string $CameraName = `optionMenuGrp -query -value menuDomeTextCameraSelect`;
   
-  if ( $CameraName  != "Select a Camera..." ){
-    print("Parenting the DomeText " + $domeGeometry +" to the "+ $CameraName + " camera.\n");
+  if($CameraName != "Select a Camera..."){
+    print ("Parenting the DomeText " + $domeGeometry +" to the "+ $CameraName + " camera.\n");
     
-    //Syntax: pointConstraint parentName childName;
+    // Syntax: pointConstraint parentName childName;
     //pointConstraint -offset 0 0 0 -weight 1 `getObjectParentNode($CameraName)` $domeGeometry;
     
-    //Syntax: AimConstrain parentName childName;
+    // Syntax: AimConstrain parentName childName;
     //aimConstraint -offset 0 0 0 -weight 1 -aimVector 0 0 1 -upVector 0 1 0 -worldUpType "vector" -worldUpVector 0 1 0;
     
     aimConstraint -offset 0 0 0 -weight 1 -aimVector 0 0 1 -upVector 0 1 0 -worldUpType "vector" -worldUpVector 0 1 0 $CameraName $domeGeometry;
   }
 }
 
-//Toggle the surface material, and shape option menus
+
+// Toggle the surface material, and shape option menus
 global proc disableSurfaceAndShape(){
-  if( (`optionMenuGrp -query -select menuTextureFormat`) >=3 ){
-    //Disable the selection of the menu items
+  if((`optionMenuGrp -query -select menuTextureFormat`) >=3){
+    // Disable the selection of the menu items
     //optionMenuGrp -edit -enable false menuSurfaceMaterialFormat;
     optionMenuGrp -edit -enable false menuShapeFormat;
     
-    //Reset the menus to the first item in the list
+    // Reset the menus to the first item in the list
     //optionMenuGrp -edit -select 1 menuSurfaceMaterialFormat;
     //optionMenuGrp -edit -select 1 menuShapeFormat;
   }else{
-    //Enable the selection of the menu items
+    // Enable the selection of the menu items
     //optionMenuGrp -edit -enable true menuSurfaceMaterialFormat;
     optionMenuGrp -edit -enable true menuShapeFormat;
     
-    //Reset the menus to the defaults
+    // Reset the menus to the defaults
     //optionMenuGrp -edit -select 2 menuSurfaceMaterialFormat;
   }
 }
 
 
-//Toggle the shape option menus
+// Toggle the shape option menus
 global proc disableShape(){
-  //if( 1>=(`optionMenuGrp -query -select menuSurfaceMaterialFormat`) ){
-    //Disable the selection of the menu items
+  //if(1>=(`optionMenuGrp -query -select menuSurfaceMaterialFormat`) ){
+    // Disable the selection of the menu items
   //  optionMenuGrp -edit -enable false menuShapeFormat;
-    //Reset the menus to the first item in the list
+    // Reset the menus to the first item in the list
     // //optionMenuGrp -edit -select 1 menuShapeFormat;
   //}else{
-    //Enable the selection of the menu items
+    // Enable the selection of the menu items
     optionMenuGrp -edit -enable true menuShapeFormat;
  // }
 }
 
 
 global proc string getDomeImagePath(){
-  //Read the current "sourceimages" directory from the workspace (set project) settings
+  // Read the current "sourceimages" directory from the workspace (set project) settings
   string $defaultSourceImages;
   
   // Check if we are running Maya 2011 or higher
   float $mayaVersion = getMayaVersionDome();
   
-  //File dialog results path
+  // File dialog results path
   string $resultArray[];
   string $result;
   
-  //Listed file types
+  // Listed file types
   string $basicFilter = "*.png";
   
   string $advancedFilter = "Images( *.png *.tif *.tga *.bmp *.psd);;PNG (*.png);;Targa (*.tga);;Tiff (*.tif);;Windows Bitmap (*.bmp);;All Files (*.*)";
   
-  //Check if  you are running Maya 2011 or newer and then show the fileDialog2 file picker
-  if ($mayaVersion >=2011){
-    //Maya 2011+ 
-    //List directories with starting location and a open button
+  // Check if you are running Maya 2011 or newer and then show the fileDialog2 file picker
+  if($mayaVersion >=2011){
+    // Maya 2011+ 
+    // List directories with starting location and a open button
     
     // $defaultSourceImages  = `workspace -expandName "sourceimages"`;
     $defaultSourceImages =`textFieldGrp -query -text textImageOutputName`;
@@ -1121,34 +1120,34 @@ global proc string getDomeImagePath(){
     -caption "Select an Image Path"
     -dialogStyle 2`;
     
-    print("Using the FileDialog2 image picker.\n");
+    print ("Using the FileDialog2 image picker.\n");
     
     $result = $resultArray[0];
   }else{
-    //Check if  you are running Maya 2010 or older and then show the classic fileDialog file picker
+    // Check if  you are running Maya 2010 or older and then show the classic fileDialog file picker
     $defaultSourceImages  = `workspace -expandName "sourceimages"` + "/" + $basicFilter;
     
-    //Maya 2010 or lower
-    // list directories with starting location and a open button
+    // Maya 2010 or lower
+    // List directories with starting location and a open button
    $result = `fileDialog 
     -mode 1 
     -directoryMask $defaultSourceImages
     -title "Select an Image Path"`;
     
-  print("Using the FileDialog image picker.\n");
+    print ("Using the FileDialog image picker.\n");
   }
 
   return $result;
 }
 
 
-//Rebuild the Text Preset option menu
+// Rebuild the Text Preset option menu
 global proc buildTextPresetMenu(){
   if(`optionMenuGrp -exists menuTextPresetSelect`){
-    //print("Removing the existing Text Preset menu.\n");
+    //print ("Removing the existing Text Preset menu.\n");
     deleteUI menuTextPresetSelect;
-  } else {
-    //print("Create the Text Preset menu.\n");
+  }else{
+    //print ("Create the Text Preset menu.\n");
   }
 
   // Create the Text Preset Pop-up Menu  
@@ -1167,12 +1166,12 @@ global proc buildTextPresetMenu(){
   // menuItem -label "mentalrayTexture1";
   // menuItem -label "mentalrayTexture2";
  
-  //List all of the texture nodes
+  // List all of the texture nodes
   string $fileNodeList[] = `lsType("file")`;
   string $mrFileNodeList[] = `lsType("mentalrayTexture")`;
   string $textureNodeItems = "";
   
-  //Sort the texture node names alphabetically
+  // Sort the texture node names alphabetically
   $fileNodeList = sort($fileNodeList);
   $mrFileNodeList = sort($mrFileNodeList);
   
@@ -1180,13 +1179,12 @@ global proc buildTextPresetMenu(){
   //print ($fileNodeList);
   //print ($mrFileNodeList);
     
-  int $i = 0; //track the total number of maya + mr texture nodes
+  int $i = 0; // Track the total number of maya + mr texture nodes
   
-  //Scan Maya File Texture Nodes
-  for ( $textureNodeItems in $fileNodeList )
-  {
+  // Scan Maya File Texture Nodes
+  for($textureNodeItems in $fileNodeList){
      // Look for the last item <done> in the array
-     if ( ($textureNodeItems != "<done>") && (isDomeTextNode($textureNodeItems))  ){
+     if( ($textureNodeItems != "<done>") && (isDomeTextNode($textureNodeItems))  ){
        //print ( "Maya Texture[" + $i + "] " + $textureNodeItems + "\n");
        menuItem -label $textureNodeItems;
      }
@@ -1195,11 +1193,10 @@ global proc buildTextPresetMenu(){
 
   //menuItem -divider true;
   
-  //Scan Mental Ray File Texture Nodes
-  for ( $textureNodeItems in $mrFileNodeList )
-  {
+  // Scan Mental Ray File Texture Nodes
+  for($textureNodeItems in $mrFileNodeList){
      // Look for the last item <done> in the array
-     if ( ($textureNodeItems != "<done>") && (isDomeTextNode($textureNodeItems))  ){
+     if(($textureNodeItems != "<done>") && (isDomeTextNode($textureNodeItems))){
        //print ( "MR Texture[" + $i + "] " + $textureNodeItems + "\n");
        menuItem -label $textureNodeItems;
      }
@@ -1213,278 +1210,276 @@ global proc buildTextPresetMenu(){
 }
 
 
-//Reload an old DomeText message from the selected texture node
- global proc restoreDomeTextPreset( string $nodeName ){
- 
-  //Skip processing the popup menu caption text
+// Reload an old DomeText message from the selected texture node
+global proc restoreDomeTextPreset(string $nodeName){
+  // Skip processing the popup menu caption text
   if($nodeName == "Select a DomeText Node...") return;
 
-  //Make sure the node exists before working with it
+  // Make sure the node exists before working with it
   if(`objExists $nodeName`){
-    print("Restoring editable DomeText from: " + $nodeName + "\n");
+    print ("Restoring editable DomeText from: " + $nodeName + "\n");
     
-    //Find out if the current node is a maya or mental ray texture
+    // Find out if the current node is a maya or mental ray texture
     string $textureNodeType = `nodeType($nodeName)`;
-    if( $textureNodeType == "file"){
-      //Maya file texture
+    if($textureNodeType == "file"){
+      // Maya file texture
       optionMenuGrp -edit -select 1 menuTextureFormat;
-    } else if ($textureNodeType == "mentalrayTexture"){
-      //Mental Ray File Texture
+    }else if($textureNodeType == "mentalrayTexture"){
+      // Mental Ray File Texture
       optionMenuGrp -edit -select 2 menuTextureFormat;
     }
     
-    //Restore the note message
-    if (`attributeExists "nts" $nodeName`) {
+    // Restore the note message
+    if(`attributeExists "nts" $nodeName`){
       print "The note attribute exists.\n";
-      //Read the textual note from the texture node
+      // Read the textual note from the texture node
       //string $domeTextString = getAttr "file1.nts";
       string $domeTextString = getAttr ($nodeName+".nts");
-      //Write the value back to the Dome Text window's text field
+      // Write the value back to the Dome Text window's text field
       scrollField -edit -text $domeTextString scrollTextString;
-      print("Note: " +  $domeTextString + "\n");
-    } else {
+      print ("Note: " +  $domeTextString + "\n");
+    }else{
       print "The note attribute does not exist.\n";
-    } //end check if nts attr exists
+    } // End check if nts attr exists
     
-    //Restore the file name field
+    // Restore the file name field
     string $currentFileName = getAttr ($nodeName+".fileTextureName");
     textFieldGrp -edit -text $currentFileName textImageOutputName;
     
-   //Restore Imagemagick custom text field
-    if (`attributeExists "imagemagickCustomText" $nodeName`){
+    // Restore Imagemagick custom text field
+    if(`attributeExists "imagemagickCustomText" $nodeName`){
       print "The imagemagickCustomText attribute exists.\n";
       string $imagemagickCustomText = getAttr ($nodeName+".imagemagickCustomText");
       scrollField -edit -text $imagemagickCustomText scrollImagemagickCustomText;
-    } else {
+    }else{
       print "The imagemagickCustomText attribute does not exist.\n";
-    } //end check if imagemagickCustomText attr exists
+    } // End check if imagemagickCustomText attr exists
     
-    //Restore foreground and background color swatches
-    if (`attributeExists "foregroundColor" $nodeName` && `attributeExists "backgroundColor" $nodeName`) {
+    // Restore foreground and background color swatches
+    if(`attributeExists "foregroundColor" $nodeName` && `attributeExists "backgroundColor" $nodeName`) {
       print "The FG & BG color attributes exist.\n";
       //Restore the color swatches from the node's extra attributes
       float $foregroundRGBcolor[3] = `getAttr ($nodeName+".foregroundColor")`;
       float $backgroundRGBcolor[3] = `getAttr ($nodeName+".backgroundColor")`; 
       colorSliderGrp -edit -rgb $foregroundRGBcolor[0] $foregroundRGBcolor[1] $foregroundRGBcolor[2] sliderForeColor;
       colorSliderGrp -edit -rgb $backgroundRGBcolor[0] $backgroundRGBcolor[1] $backgroundRGBcolor[2] sliderBackColor;
-    } else {
+    }else{
       print "The FG & BG color attributes do not exist.\n";
-    } //end check if fg & bg attr exists
+    } // End check if fg & bg attr exists
     
     //Restore the background transparent checkBoxGrp
-    if (`attributeExists "isBgTransparent" $nodeName`){
+    if(`attributeExists "isBgTransparent" $nodeName`){
       print "The background transparency attribute exists.\n";
       int $isbackgroundTransparent = getAttr ($nodeName+".isBgTransparent");
       checkBoxGrp -edit -value1 $isbackgroundTransparent checkGrpTransparentBackground;
-    } else {
+    }else{
       print "The background transparency attribute does not exist.\n";
-    } //end check if background transparency attr exists
+    } // End check if background transparency attr exists
     
-     //Restore the font name
-    if (`attributeExists "font" $nodeName`){
+    // Restore the font name
+    if(`attributeExists "font" $nodeName`){
       print "The font name attribute exists.\n";
       string $fontName = getAttr ($nodeName+".font");
       optionMenuGrp -edit -value $fontName menuFontNameSelect;
-    } else {
+    }else{
       print "The font name attribute does not exist.\n";
-    } //end check if font name attr exists
+    } // End check if font name attr exists
     
-     //Restore the encoding name
-     if (`attributeExists "textEncoding" $nodeName`){
+    // Restore the encoding name
+    if(`attributeExists "textEncoding" $nodeName`){
       print "The text encoding attribute exists.\n";
       string $fontName = getAttr ($nodeName+".textEncoding");
       optionMenuGrp -edit -value $fontName menuTextEncodingSelect;
-    } else {
+    }else{
       print "The text encoding attribute does not exist.\n";
-    } //end check if the text encoding name attr exists
+    } // End check if the text encoding name attr exists
     
-     //Restore the font style
-     if (`attributeExists "fontStyle" $nodeName`){
+    // Restore the font style
+    if(`attributeExists "fontStyle" $nodeName`){
       print "The font style attribute exists.\n";
       int $fontStyle = 1+ getAttr ($nodeName+".fontStyle");
       optionMenuGrp -edit -select $fontStyle menuFontWeightSelect;
-    } else {
+    }else{
       print "The font style attribute does not exist.\n";
-    } //end check if font style attr exists
+    } // End check if font style attr exists
     
-     //Restore the font alignment
-     if (`attributeExists "alignment" $nodeName`){
+    // Restore the font alignment
+    if(`attributeExists "alignment" $nodeName`){
       print "The alignment attribute exists.\n";
       int $fontAlign = 1+ getAttr ($nodeName+".alignment");
       optionMenuGrp -edit -select $fontAlign menuFontAlignSelect;
-    } else {
+    }else{
       print "The alignment attribute does not exist.\n";
-    } //end check if alignment attr exists
+    } // End check if alignment attr exists
     
-     //Restore the alignTextCamera text
-     if (`attributeExists "alignTextCamera" $nodeName`){
+    // Restore the alignTextCamera text
+    if(`attributeExists "alignTextCamera" $nodeName`){
       print "The alignTextCamera attribute exists.\n";
       string $CameraName = getAttr ($nodeName+".alignTextCamera");
       optionMenuGrp -edit -value $CameraName menuDomeTextCameraSelect;
-    } else {
+    }else{
       print "The align Text Camera attribute does not exist.\n";
-    } //end check if the alignTextCamera name attr exists
+    } // End check if the alignTextCamera name attr exists
      
-     //Restore the Convert Characters
-     if (`attributeExists "convertCharacters" $nodeName`){
+    // Restore the Convert Characters
+    if(`attributeExists "convertCharacters" $nodeName`){
       print "The Convert Characters attribute exists.\n";
       int $convertCharacters = 1+ getAttr ($nodeName+".convertCharacters");
       optionMenuGrp -edit -select $convertCharacters menuConvertCharacters;
-    } else {
+    }else{
       print "The alignment attribute does not exist.\n";
-    } //end check if convertCharacters attr exists   
+    } // End check if convertCharacters attr exists   
         
-    //Restore the Scroll Direction
-    if (`attributeExists "scrollDirection" $nodeName`){
+    // Restore the Scroll Direction
+    if(`attributeExists "scrollDirection" $nodeName`){
       print "The scrollDirection attribute exists.\n";
       int $scrollDirectionInt = 1+ getAttr ($nodeName+".scrollDirection");
       optionMenuGrp -edit -select $scrollDirectionInt menuAutoScrollDirectionSelect;
-    } else {
+    }else{
       print "The scrollDirection attribute does not exist.\n";
-    } //end check if scrollDirection attr exists
+    } // End check if scrollDirection attr exists
     
-    //Restore the animationStartFrame
-    if (`attributeExists "animationStartFrame" $nodeName`){
+    // Restore the animationStartFrame
+    if(`attributeExists "animationStartFrame" $nodeName`){
       print "The animationStartFrame attribute exists.\n";
       int $animationStartFrame = getAttr ($nodeName+".animationStartFrame");
       intFieldGrp -edit -value1 $animationStartFrame intAnimationStartFrame;
-    } else {
+    }else{
       print "The animationStartFrame attribute does not exist.\n";
-    } //end check if animationStartFrame attr exists
+    } // End check if animationStartFrame attr exists
     
-    //Restore the animationEndFrame
-    if (`attributeExists "animationEndFrame" $nodeName`){
+    // Restore the animationEndFrame
+    if(`attributeExists "animationEndFrame" $nodeName`){
       print "The animationEndFrame attribute exists.\n";
       int $animationEndFrame = getAttr ($nodeName+".animationEndFrame");
       intFieldGrp -edit -value1 $animationEndFrame intAnimationEndFrame;
-    } else {
+    }else{
       print "The animationEndFrame attribute does not exist.\n";
-    } //end check if animationEndFrame attr exists
+    } // End check if animationEndFrame attr exists
     
-    //Restore the looping checkBoxGrp
-    if (`attributeExists "loopAnimation" $nodeName`){
+    // Restore the looping checkBoxGrp
+    if(`attributeExists "loopAnimation" $nodeName`){
       print "TheloopAnimation attribute exists.\n";
       int $isLoopAnimation = getAttr ($nodeName+".loopAnimation");
       checkBoxGrp -edit -value1 $isLoopAnimation checkGrpLoopAnimation;
-    } else {
+    }else{
       print "The loopAnimation attribute does not exist.\n";
-    } //end check if LoopAnimation attr exists
+    } // End check if LoopAnimation attr exists
    
-    //Restore the mirrorText checkBoxGrp
-    if (`attributeExists "mirrorText" $nodeName`){
+    // Restore the mirrorText checkBoxGrp
+    if(`attributeExists "mirrorText" $nodeName`){
       print "mirrorText attribute exists.\n";
       int $isMirroredText = getAttr ($nodeName+".mirrorText");
       checkBoxGrp -edit -value1 $isMirroredText checkGrpMirrorText;
-    } else {
+    }else{
       print "The mirrorText attribute does not exist.\n";
-    } //end check if mirrorText attr exists
+    } // End check if mirrorText attr exists
    
-    //Restore the textWrapU checkBoxGrp
-    if (`attributeExists "textWrapU" $nodeName`){
+    // Restore the textWrapU checkBoxGrp
+    if(`attributeExists "textWrapU" $nodeName`){
       print "textWrapU attribute exists.\n";
       int $wrapU = getAttr ($nodeName+".textWrapU");
       checkBoxGrp -edit -value1 $wrapU checkGrpWrapText;
-    } else {
+    }else{
       print "The textWrapU attribute does not exist.\n";
-    } //end check if textWrapU attr exists
+    } // End check if textWrapU attr exists
    
-    //Restore the textWrapV checkBoxGrp
-    if (`attributeExists "textWrapV" $nodeName`){
+    // Restore the textWrapV checkBoxGrp
+    if(`attributeExists "textWrapV" $nodeName`){
       print "textWrapV attribute exists.\n";
       int $wrapV = getAttr ($nodeName+".textWrapV");
       checkBoxGrp -edit -value2 $wrapV checkGrpWrapText;
-    } else {
+    }else{
       print "The textWrapV attribute does not exist.\n";
-    } //end check if textWrapV attr exists
+    } // End check if textWrapV attr exists
 
-    //Restore the font size
-    if (`attributeExists "fontSize" $nodeName`){
+    // Restore the font size
+    if(`attributeExists "fontSize" $nodeName`){
       print "The font size attribute exists.\n";
       int $fontSize = getAttr ($nodeName+".fontSize");
       intSliderGrp -edit -value $fontSize sliderPointSize;
-    } else {
+    }else{
       print "The font size attribute does not exist.\n";
-    } //end check if font size attr exists
+    } // End check if font size attr exists
     
-    //Restore the kerning size
-    if (`attributeExists "kerningSize" $nodeName`){
+    // Restore the kerning size
+    if(`attributeExists "kerningSize" $nodeName`){
       print "The kerningSize attribute exists.\n";
       float $kerningSize = getAttr ($nodeName+".kerningSize");
       floatSliderGrp -edit -value $kerningSize sliderKerningSize;
-    } else {
+    }else{
       print "The kerningSize attribute does not exist.\n";
-    } //end check if kerningSize attr exists
+    } // End check if kerningSize attr exists
        
-    //Restore the image size
-    if (`attributeExists "width" $nodeName`){
+    // Restore the image size
+    if(`attributeExists "width" $nodeName`){
       print "The image width attribute exists.\n";
       int $imageWidth = 1+ getAttr ($nodeName+".width");
       optionMenuGrp -edit -select $imageWidth menuImageWidthSelect;
-    } else {
+    }else{
       print "The image width attribute does not exist.\n";
-    } //end check if image width attr exists
+    } // End check if image width attr exists
        
-    if (`attributeExists "height" $nodeName`){
+    if(`attributeExists "height" $nodeName`){
       print "The image height attribute exists.\n";
-      //Restore the image height state
+      // Restore the image height state
       int $imageheight = 1+ getAttr ($nodeName+".height");
       optionMenuGrp -edit -select $imageheight menuImageHeightSelect;
-    } else {
+    }else{
       print "The image height attribute does not exist.\n";
-    } //end check if image height attr exists   
+    } // End check if image height attr exists   
     
-    //Restore the texture format settings
-    if (`attributeExists "textureFormat" $nodeName`){
+    // Restore the texture format settings
+    if(`attributeExists "textureFormat" $nodeName`){
       print "The texture format attribute exists.\n";
       int $textureFormat = 1+ getAttr ($nodeName+".textureFormat");
       optionMenuGrp -edit -select $textureFormat menuTextureFormat;
-    } else {
+    }else{
       print "The texture format attribute does not exist.\n";
-    } //end check if texture format attr exists
+    } // End check if texture format attr exists
     
     // //Restore the surface node settings
-    // if (`attributeExists "surfaceNode" $nodeName`){
+    // if(`attributeExists "surfaceNode" $nodeName`){
       // print "The surface node attribute exists.\n";
       // int $surfaceMaterialFormat = 1+ getAttr ($nodeName+".surfaceNode");
       // optionMenuGrp -edit -select $surfaceMaterialFormat menuSurfaceMaterialFormat;
-    // } else {
+    // }else{
       // print "The surface node attribute does not exist.\n";
-    // } //end check if surface node attr exists
+    // } // End check if surface node attr exists
        
-    //Restore the supporting shape settings
-    if (`attributeExists "shapeFormat" $nodeName`){
+    // Restore the supporting shape settings
+    if(`attributeExists "shapeFormat" $nodeName`){
       print "The supporting shape attribute exists.\n";
       int $shapeFormat = 1+ getAttr ($nodeName+".shapeFormat");
       optionMenuGrp -edit -select $shapeFormat menuShapeFormat;
-    } else {
+    }else{
       print "The supporting shape attribute does not exist.\n";
-    } //end check if the supporting shape attr exists  
+    } // End check if the supporting shape attr exists  
     
-    //Restore the orientationAxis settings
-    if (`attributeExists "orientationAxis" $nodeName`){
+    // Restore the orientationAxis settings
+    if(`attributeExists "orientationAxis" $nodeName`){
       print "The orientationAxis attribute exists.\n";
       int $planeDirection = 1+ getAttr ($nodeName+".orientationAxis");
       optionMenuGrp -edit -select $planeDirection menuDomeOrientationAxis;
-    } else {
+    }else{
       print "The orientationAxis attribute does not exist.\n";
-    } //end check if the orientationAxis attr exists  
+    } // End check if the orientationAxis attr exists  
     
     
-    
-  } else {
+  }else{
     print ("Texture Node Not found");
-  }  //end check if node exists
+  }  // End check if node exists
 }
 
 
 
-//Rebuild the cameras option menu
+// Rebuild the cameras option menu
 global proc buildDomeTextCamerasMenu(){
   if(`optionMenuGrp -exists menuDomeTextCameraSelect`){
-    //print("Removing the existing cameras menu.\n");
+    //print ("Removing the existing cameras menu.\n");
     deleteUI menuDomeTextCameraSelect;
-  } else {
-    //print("Create the Camera menu.\n");
+  }else{
+    //print ("Create the Camera menu.\n");
   }
 
   // Create the Camera list options menu 
@@ -1497,26 +1492,25 @@ global proc buildDomeTextCamerasMenu(){
 
   menuItem -label "Select a Camera...";
 
-  //List all of the camera nodes
+  // List all of the camera nodes
   string $cameraNodeList[] = `lsType("camera")`;
   string $cameraNodeItems = "";
   
-  //Sort the camera node names alphabetically
+  // Sort the camera node names alphabetically
   $cameraNodeList = sort($cameraNodeList);
   
   //print ("Nodes:\n");
   //print ($cameraNodeList);
     
-  int $i = 0; //track the total number of camera nodes
+  int $i = 0; //  Track the total number of camera nodes
   
   //Scan camera File Texture Nodes
-  for ( $cameraNodeItems in $cameraNodeList )
-  {
+  for($cameraNodeItems in $cameraNodeList){
      // Look for the last item <done> in the array
-     if ( $cameraNodeItems != "<done>" ){
+     if($cameraNodeItems != "<done>"){
        //print ( "camera [" + $i + "] " + $cameraNodeItems + "\n");
        //menuItem -label $cameraNodeItems;
-       //List the camera's using the base transform node name
+       // List the camera's using the base transform node name
        menuItem -label `getObjectParentNode($cameraNodeItems)`;
      }
      $i = $i+1;
@@ -1529,9 +1523,9 @@ global proc buildDomeTextCamerasMenu(){
 }
 
 
-//Create a supporting Polygon Plane Surface
+// Create a supporting Polygon Plane Surface
 global proc string createDomePlane(){
-  //image Size
+  // Image Size
   float $imageWidth = `optionMenuGrp -query -value menuImageWidthSelect`;
   int $imageMode =`optionMenuGrp -query -select menuImageHeightSelect`-1;
   float $imageHeight = 0.0;
@@ -1539,60 +1533,60 @@ global proc string createDomePlane(){
   float $polygonHeight = `floatSliderGrp -query -value sliderShapeHeightSize`;
   float $polygonWidth = 0;
   
-  //Check if the (auto) mode was enabled
-  if ( $imageMode ){
+  // Check if the (auto) mode was enabled
+  if($imageMode){
     $imageHeight  = `optionMenuGrp -query -value menuImageHeightSelect`;
-  } else {
-    print("Automatic image height setting detected. Using a preset 1:1 aspect ratio setting.\n");
+  }else{
+    print ("Automatic image height setting detected. Using a preset 1:1 aspect ratio setting.\n");
     $imageHeight  = $imageWidth;
   }
   
-  //Calculate the image aspect ratio
-  float $imageAspectRatio = $imageWidth / $imageHeight ;
-  print("Image Aspect ratio: " + $imageAspectRatio + ":1\n");
-  //Image Dimensions
-  print("Image Size: " + $imageWidth + "x" + $imageHeight + "\n");
-  //Calculate the polygon size based upon the aspect Ratio
+  // Calculate the image aspect ratio
+  float $imageAspectRatio = $imageWidth / $imageHeight;
+  print ("Image Aspect ratio: " + $imageAspectRatio + ":1\n");
+  // Image Dimensions
+  print ("Image Size: " + $imageWidth + "x" + $imageHeight + "\n");
+  // Calculate the polygon size based upon the aspect Ratio
   $polygonWidth = $polygonHeight * $imageAspectRatio;
-  print("Polygon Size: " + $polygonWidth + "x" + $polygonHeight + "\n");
+  print ("Polygon Size: " + $polygonWidth + "x" + $polygonHeight + "\n");
   
   // Set up the polygon plane direction
-  //"enum" -en "Right (X):Top (Y):Front (Z):" $nodeName;
-  //Creation Axis: Right (X):Top (Y): Front (Z)
+  // "enum" -en "Right (X):Top (Y):Front (Z):" $nodeName;
+  // Creation Axis: Right (X):Top (Y): Front (Z)
   
   int $planeDirection = `optionMenuGrp -query -select menuDomeOrientationAxis`-1;
 
   //int $planeDirection = 1;
   int $planeCreationAxis[3] = {0,0,0};
   
-  if ( $planeDirection == 0 ){
-    //Right (X)
+  if($planeDirection == 0){
+    // Right (X)
     $planeCreationAxis = {1,0,0};
-  } else if ( $planeDirection == 1 ){
-    //Top (Y)
+  }else if($planeDirection == 1){
+    // Top (Y)
     $planeCreationAxis = {0,1,0};
-  }else if ( $planeDirection == 2 ){
-    //Front (Z)
+  }else if($planeDirection == 2){
+    // Front (Z)
     $planeCreationAxis = {0,0,1};
   }
   
-  //Create a polygon plane for the text card
+  // Create a polygon plane for the text card
   string $domeTextPlane[] = `polyPlane -w 1 -h 1 -sx 1 -sy 1 -ax $planeCreationAxis[0] $planeCreationAxis[1] $planeCreationAxis[2]-cuv 2 -ch 1 -name "DomeTextPlane"`;
   
-  //Resize the correct dimension
-  if ( $planeDirection == 0 ){
-    //Right (X)
-    //Resize the polygon plane
+  // Resize the correct dimension
+  if($planeDirection == 0){
+    // Right (X)
+    // Resize the polygon plane
     setAttr ($domeTextPlane[0]+".scaleZ") $polygonWidth;
     setAttr ($domeTextPlane[0]+".scaleY") $polygonHeight;
-  } else if ( $planeDirection == 1 ){
-    //Top (Y)
-    //Resize the polygon plane
+  }else if($planeDirection == 1){
+    // Top (Y)
+    // Resize the polygon plane
     setAttr ($domeTextPlane[0]+".scaleX") $polygonWidth;
     setAttr ($domeTextPlane[0]+".scaleZ") $polygonHeight;
-  }else if ( $planeDirection == 2 ){
-    //Front (Z)
-    //Resize the polygon plane
+  }else if($planeDirection == 2){
+    // Front (Z)
+    // Resize the polygon plane
     setAttr ($domeTextPlane[0]+".scaleX") $polygonWidth;
     setAttr ($domeTextPlane[0]+".scaleY") $polygonHeight;
   }
@@ -1601,9 +1595,9 @@ global proc string createDomePlane(){
 }
 
 
-//Create a supporting NURBS Cylinder Surface
+// Create a supporting NURBS Cylinder Surface
 global proc string createDomeCylinder(){
-  //image Size
+  // Image Size
   float $imageWidth = `optionMenuGrp -query -value menuImageWidthSelect`;
   int $imageMode =`optionMenuGrp -query -select menuImageHeightSelect`-1;
   float $imageHeight = 0.0;
@@ -1611,28 +1605,28 @@ global proc string createDomeCylinder(){
   float $cylinderHeight = `floatSliderGrp -query -value sliderShapeHeightSize`;
   float $cylinderWidth = 0;
   
-  //Check if the (auto) mode was enabled
-  if ( $imageMode ){
+  // Check if the (auto) mode was enabled
+  if($imageMode){
     $imageHeight  = `optionMenuGrp -query -value menuImageHeightSelect`;
-  } else {
-    print("Automatic image height setting detected. Using a preset 1:1 aspect ratio setting.\n");
+  }else{
+    print ("Automatic image height setting detected. Using a preset 1:1 aspect ratio setting.\n");
     $imageHeight  = $imageWidth;
   }
   
-  //Calculate the image aspect ratio
+  // Calculate the image aspect ratio
   float $imageAspectRatio = $imageWidth / $imageHeight ;
-  print("Image Aspect ratio: " + $imageAspectRatio + ":1\n");
-  //Image Dimensions
-  print("Image Size: " + $imageWidth + "x" + $imageHeight + "\n");
+  print ("Image Aspect ratio: " + $imageAspectRatio + ":1\n");
+  // Image Dimensions
+  print ("Image Size: " + $imageWidth + "x" + $imageHeight + "\n");
 
-  //Calculate the cylinder radius based upon the height
+  // Calculate the cylinder radius based upon the height
   float $cylinderRadius = (($imageAspectRatio*$cylinderHeight)/3.14)/2;
   
-  //Calculate height ratio as circumference = 3.14 * diameter
+  // Calculate height ratio as circumference = 3.14 * diameter
   //float $heightRatio = 1; 
   float $heightRatio = $cylinderHeight/$cylinderRadius;
 
-  print("Cylinder Size: " + $cylinderHeight + "x" + ($cylinderRadius*2) + "\n");
+  print ("Cylinder Size: " + $cylinderHeight + "x" + ($cylinderRadius*2) + "\n");
   
   //float $adjustedRadius = polygonHeight / $heightRatio;
   
@@ -1645,37 +1639,36 @@ global proc string createDomeCylinder(){
   //int $cylinderDirection = 1;
   int $cylinderCreationAxis[3] = {0,0,0};
   
-  if ( $cylinderDirection == 0 ){
-    //Right (X)
+  if($cylinderDirection == 0){
+    // Right (X)
     $cylinderCreationAxis = {0,1,0};
-  } else if ( $cylinderDirection == 1 ){
-    //Top (Y)
+  }else if($cylinderDirection == 1){
+    // Top (Y)
     $cylinderCreationAxis = {0,0,1};
-  }else if ( $cylinderDirection == 2 ){
-    //Front (Z)
+  }else if($cylinderDirection == 2){
+    // Front (Z)
     $cylinderCreationAxis = {0,1,0};
   }
   
-  //Create a NURBS Cylinder for the text card //default -heightRatio 2
+  // Create a NURBS Cylinder for the text card //default -heightRatio 2
   string $domeTextCylinder[] = `cylinder -pivot 0 0 0 -axis $cylinderCreationAxis[0] $cylinderCreationAxis[1] $cylinderCreationAxis[2] -startSweep 0 -endSweep 360 -radius $cylinderRadius -heightRatio $heightRatio -degree 3 -useTolerance 0 -tolerance 0.01 -sections 8 -spans 1 -constructionHistory 1 -name "DomeTextCylinder"`;
   
-  //Resize the correct dimension
-  if ( $cylinderDirection == 0 ){
-    //Right (X)
-    //Resize the NURBS Cylinder
+  // Resize the correct dimension
+  if($cylinderDirection == 0){
+    // Right (X)
+    // Resize the NURBS Cylinder
     //setAttr ($domeTextCylinder[0]+".scaleX") $polygonWidth;
     //setAttr ($domeTextCylinder[0]+".scaleZ") $polygonWidth;
     //setAttr ($domeTextCylinder[0]+".scaleY") $polygonHeight;
-  } else if ( $cylinderDirection == 1 ){
-    //Top (Y)
-    //Resize the NURBS Cylinder
+  }else if($cylinderDirection == 1){
+    // Top (Y)
+    // Resize the NURBS Cylinder
     //setAttr ($domeTextCylinder[0]+".scaleX") $polygonWidth;
     //setAttr ($domeTextCylinder[0]+".scaleY") $polygonWidth;
     //setAttr ($domeTextCylinder[0]+".scaleZ") $polygonHeight;
-
-  }else if ( $cylinderDirection == 2 ){
-    //Front (Z)
-    //Resize the NURBS Cylinder
+  }else if($cylinderDirection == 2){
+    // Front (Z)
+    // Resize the NURBS Cylinder
     //setAttr ($domeTextCylinder[0]+".scaleX") $polygonWidth;
     //setAttr ($domeTextCylinder[0]+".scaleZ") $polygonWidth;
     //setAttr ($domeTextCylinder[0]+".scaleY") $polygonHeight;
@@ -1688,7 +1681,6 @@ global proc string createDomeCylinder(){
 global proc domeText(){
   global int $domeWindowHeight = 625;
   global int $domeWindowWidth = 584;
-  
   
   //old window width = 500
 
@@ -1705,25 +1697,25 @@ global proc domeText(){
   float $mayaVersion = getMayaVersionDome();
 
   // Write out the current Maya version number and detected operating system
-  print("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+  print ("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
 
-  if ($mayaVersion >=2011){
+  if($mayaVersion >=2011){
   // Remove an existing docked control window when running the DomeText tool for a 2nd time.
-    if (`dockControl -exists domeTextDockControl`){ 
+    if(`dockControl -exists domeTextDockControl`){ 
       deleteUI -control domeTextDockControl; 
-      print( "Removing an existing docked Dome Text Window\n");}
+      print ( "Removing an existing docked Dome Text Window\n");}
 
-  if (`window -exists domeTextWin`){
+  if(`window -exists domeTextWin`){
       deleteUI domeTextWin;
       windowPref -remove domeTextWin;
-      print("Reloading the Dome Text window elements\n");}
+      print ("Reloading the Dome Text window elements\n");}
   }else{
     // You are running Maya 2010 or lower - skip the dockcontrols
     // Remove an existing window when running the DomeText tool for a 2nd time.
-    if (`window -exists domeTextWin`){
+    if(`window -exists domeTextWin`){
       deleteUI domeTextWin;
       windowPref -remove domeTextWin;
-      print("Reloading the Dome Text window elements\n");}
+      print ("Reloading the Dome Text window elements\n");}
   }
 
   string $domeTextWindow = `window 
@@ -1745,7 +1737,7 @@ global proc domeText(){
       -adjustableColumn true
       textPresetLayout;
       
-      //Create the Text Presets Option Menu
+      // Create the Text Presets Option Menu
       buildTextPresetMenu();
       
     setParent ..;
@@ -1795,98 +1787,97 @@ global proc domeText(){
         "Choose a font name to change the appearance of the generated text. The installed fonts \nare listed by scanning the operating system's font folder paths."
         menuFontNameSelect;
 
-      //Scan the system for installed fonts
+      // Scan the system for installed fonts
       string $fontFolderPath;
       string $installedFonts[];
               
-      if ($mayaPlatform  == "windows"){
-        //Windows 32/x64
+      if($mayaPlatform  == "windows"){
+        // Windows 32/x64
         // Font Folders: C:/Windows/Fonts/
         
         $fontFolderPath = "C:\\Windows\\Fonts\\";     
         $installedFonts = `getFileList -folder $fontFolderPath`;
         
-      }else if ($mayaPlatform  == "darwin"){
-        //Mac OS X
-        //Font Folders: /System/Library/Fonts/:/Library/Fonts/:~/Library/Fonts/";
+      }else if($mayaPlatform  == "darwin"){
+        // macOS
+        // Font Folders: /System/Library/Fonts/:/Library/Fonts/:~/Library/Fonts/";
 
         $fontFolderPath = "/Library/Fonts/";
         string $fontFolderPath2 = "/System/Library/Fonts/";
 
-        //Build the user fonts folder path
-        //string $fontFolderPath3 = "~/Library/Fonts/";
+        // Build the user fonts folder path
+        // string $fontFolderPath3 = "~/Library/Fonts/";
         string $macHomePath = `getenv "HOME"`;
-				string $fontFolderPath3 = $macHomePath + "/Library/Fonts/";
-				
-        //Scan the three mac font locations for files
+        string $fontFolderPath3 = $macHomePath + "/Library/Fonts/";
+                
+        // Scan the three mac font locations for files
         string $fontTemp1[] = `getFileList -folder $fontFolderPath`;
         string $fontTemp2[] = `getFileList -folder $fontFolderPath2`;
         string $fontTemp3[] = `getFileList -folder $fontFolderPath3`;
         
-        //Add the folder path as a prefix to each of the array items
-			  stringArrayAddPrefix( $fontTemp1, ($fontFolderPath) );
-        stringArrayAddPrefix( $fontTemp2, ($fontFolderPath2) );
-        stringArrayAddPrefix( $fontTemp3, ($fontFolderPath3) );
+        // Add the folder path as a prefix to each of the array items
+        stringArrayAddPrefix($fontTemp1, ($fontFolderPath));
+        stringArrayAddPrefix($fontTemp2, ($fontFolderPath2));
+        stringArrayAddPrefix($fontTemp3, ($fontFolderPath3));
         
-        //Merge the list of installed fonts
+        // Merge the list of installed fonts
         //$installedFonts = stringArrayCatenate($fontTemp1, $fontTemp2);
         //$installedFonts = stringArrayCatenate($installedFonts, $fontTemp3);
         
-        $installedFonts = stringArrayCatenate($fontTemp3, $fontTemp1 );
+        $installedFonts = stringArrayCatenate($fontTemp3, $fontTemp1);
         $installedFonts = stringArrayCatenate($installedFonts, $fontTemp2);
         
-      }else {  
-        //Linux
-        //Font Folders: /usr/share/fonts/
-				//  
+      }else{  
+        // Linux
+        // Font Folders: /usr/share/fonts/
+
         //$fontFolderPath = "/usr/share/fonts/";
         //$fontFolderPath = "/usr/share/fonts/dejavu/";
         //$installedFonts = `getFileList -folder $fontFolderPath`;
         
-        //Location of the Linux Font folders:
+        // Location of the Linux Font folders:
         $fontFolderPath = "/usr/share/fonts/";
 
-				//Scan the first level of folders:
+        // Scan the first level of folders:
         string $installedFontFolders[] = `getFileList -folder $fontFolderPath`; 
         string $installedFontsSubFolders;
         string $installedFontsSubSubFolders;
 
-        //List of all the fonts
+        // List of all the fonts
         string $fontTemp1[];
 
-				//Scan the second level of folders:	
-        for ( $installedFontsSubFolders in $installedFontFolders ) {
-          $fontTemp1 = `getFileList -folder ($fontFolderPath+$installedFontsSubFolders+"/") `;
+        // Scan the second level of folders: 
+        for($installedFontsSubFolders in $installedFontFolders){
+          $fontTemp1 = `getFileList -folder ($fontFolderPath+$installedFontsSubFolders+"/")`;
           //-filespec "*.ttf"
-					//Add the folder path as a prefix to each of the array items
-					stringArrayAddPrefix( $fontTemp1, ($fontFolderPath+$installedFontsSubFolders+"/") );
+          //Add the folder path as a prefix to each of the array items
+          stringArrayAddPrefix($fontTemp1, ($fontFolderPath+$installedFontsSubFolders+"/"));
           $installedFonts = stringArrayCatenate($installedFonts, $fontTemp1);
         }
 
-				//Scan the third level of folders:	
-        for ( $installedFontsSubSubFolders in $installedFonts ) {
+        // Scan the third level of folders:  
+        for($installedFontsSubSubFolders in $installedFonts){
           $fontTemp1 = `getFileList -folder ($installedFontsSubSubFolders+"/") `;
           //-filespec "*.ttf"
-					//Add the folder path as a prefix to each of the array items
-					stringArrayAddPrefix( $fontTemp1, ($installedFontsSubSubFolders+"/") );
+          // Add the folder path as a prefix to each of the array items
+          stringArrayAddPrefix( $fontTemp1, ($installedFontsSubSubFolders+"/") );
           $installedFonts = stringArrayCatenate($installedFonts, $fontTemp1);
         }
  
-				//Sort the list of fonts
-			  $installedFonts = sort($installedFonts);
+        // Sort the list of fonts
+        $installedFonts = sort($installedFonts);
     
       }
       
-      //print("Installed Fonts: \n");
+      //print ("Installed Fonts: \n");
       //print $installedFonts;
-      //print("End of the installed fonts list\n");
+      //print ("End of the installed fonts list\n");
 
-      int $i_count = 0; //track the total number of included fonts
+      int $i_count = 0; // Track the total number of included fonts
       string $installedFontsItems;
       
-      //Scan the font array list
-      for ( $installedFontsItems in $installedFonts )
-      {
+      // Scan the font array list
+      for($installedFontsItems in $installedFonts){
         menuItem -label $installedFontsItems;
         $i_count = $i_count+1;
       }
@@ -1895,33 +1886,33 @@ global proc domeText(){
       //  -select 1
       // menuFontNameSelect;
       
-      //Preselect Arial in font name options menu 
+      // Preselect Arial in font name options menu 
       string $fontFilenameString = "";
       string $defaultfontName = "";
       
-      if ($mayaPlatform  == "windows"){
+      if($mayaPlatform  == "windows"){
         //Windows 32/x64
         $defaultfontName = "arial.ttf";
         $fontFilenameString = $fontFolderPath + $defaultfontName;
-      }else if ($mayaPlatform  == "darwin"){
-        //Mac OS X
+      }else if($mayaPlatform  == "darwin"){
+        //macOS
         //$defaultfontName = "Arial.ttf";
         $defaultfontName = "/Library/Fonts/Arial.ttf";
         $fontFilenameString = $defaultfontName;
-      }else {  
-        //Linux
+      }else{  
+        // Linux
         $defaultfontName = "/usr/share/fonts/dejavu/DejaVuSans.ttf";
         $fontFilenameString = $defaultfontName;
       }
         
        
       
-      //Check if the font exists
-      if (`filetest -f $fontFilenameString`){
-        print("Setting " + $fontFilenameString + " as the default font.\n");
+      // Check if the font exists
+      if(`filetest -f $fontFilenameString`){
+        print ("Setting " + $fontFilenameString + " as the default font.\n");
         optionMenuGrp -edit -value $defaultfontName menuFontNameSelect;
       }else{
-        print("The default font " + $fontFilenameString + " does not exist.\n");
+        print ("The default font " + $fontFilenameString + " does not exist.\n");
       } 
       
 
@@ -2027,7 +2018,7 @@ global proc domeText(){
       menuItem -label "all languages utf_8";
       menuItem -label "all languages utf_8_sig";
 
-      //Preselect the first pop-up menu option
+      // Preselect the first pop-up menu option
       optionMenuGrp 
         -edit
         -select 1
@@ -2047,7 +2038,7 @@ global proc domeText(){
       menuItem -label "Lighter";
       menuItem -label "Normal";
 
-      //Preselect the "ALL" pop-up menu option
+      // Preselect the "ALL" pop-up menu option
       optionMenuGrp 
         -edit
         -select 1
@@ -2088,7 +2079,7 @@ global proc domeText(){
       menuItem -label "Binary Words";
       menuItem -label "Binary Single Column";
 
-      //Preselect the normal pop-up menu option
+      // Preselect the normal pop-up menu option
       optionMenuGrp
         -edit
         -select 1
@@ -2130,8 +2121,8 @@ global proc domeText(){
     //-width $domeWindowWidth
     -adjustableColumn true ;
 
-    //Color Pickers
-    //To convert from a 0-255 to 0-1 Color = value*0.003921568627451
+    // Color Pickers
+    // To convert from a 0-255 to 0-1 Color = value*0.003921568627451
 
     colorSliderGrp 
       -label "Foreground Color" 
@@ -2165,31 +2156,31 @@ global proc domeText(){
       //-width $domeWindowWidth
       -adjustableColumn true;
 
-      //Check the platform to come up with the correct source images folder
+      // Check the platform to come up with the correct source images folder
 
-      //Read the current "sourceimages" directory from the workspace (set project) settings
+      // Read the current "sourceimages" directory from the workspace (set project) settings
       string $defaultSourceImages = `workspace -expandName "sourceimages"`;
       
-      //Copy the current date and time in the format 2013-10-10_10.47.07
+      // Copy the current date and time in the format 2013-10-10_10.47.07
       string $currentDateTime = `date -format "YYYY-MM-DD_hh.mm.ss"`;
       
-      //The image name without a leading slash
+      // The image name without a leading slash
       string $imageFilename = "text_string_" + $currentDateTime + ".png";
 
       //The path to the image directory with a trailing slash
       string $imageFilePath = "";
 
-      if ($mayaPlatform  == "windows"){
-        //Windows 32/x64
+      if($mayaPlatform  == "windows"){
+        // Windows 32/x64
         //$imageFilePath = "%USERPROFILE%\\My Documents\\maya\\projects\\default\\sourceimages\\"+ $imageFilename;
         //$imageFilePath = "C:\\"+ $imageFilename;
         $imageFilePath = $defaultSourceImages + "/" + $imageFilename;
-      }else if ($mayaPlatform  == "darwin"){
-        //Mac OS X
+      }else if($mayaPlatform  == "darwin"){
+        // macOS
         //$imageFilePath = "~/Documents/maya/projects/default/sourceimages/" + $imageFilename;
         $imageFilePath = $defaultSourceImages + "/" + $imageFilename;
-      }else {  
-        //Linux
+      }else{  
+        // Linux
         //$imageFilePath = "~/Documents/maya/projects/default/sourceimages/" + $imageFilename;
         $imageFilePath = $defaultSourceImages + "/" + $imageFilename;
       }
@@ -2232,7 +2223,7 @@ global proc domeText(){
       menuItem -label "4096";
       menuItem -label "8192";
 
-      //Preselect the "1024" option menu
+      // Preselect the "1024" option menu
       optionMenuGrp
         -edit
         -select 5
@@ -2257,7 +2248,7 @@ global proc domeText(){
       menuItem -label "4096";
       menuItem -label "8192";
 
-      //Preselect the "(auto)" option menu
+      // Preselect the "(auto)" option menu
       optionMenuGrp 
         -edit
         -select 6
@@ -2276,7 +2267,7 @@ global proc domeText(){
       -adjustableColumn true
       domeTextCameraLayout;
       
-      //Create the Camera option menu
+      // Create the Camera option menu
       buildDomeTextCamerasMenu();
     setParent ..;    
       
@@ -2291,7 +2282,7 @@ global proc domeText(){
       -label "Texture Node" 
       // "Maya File Texture" "mentalrayTexture" "Skip Node Creation" "Update Existing Node"
      -annotation "Choose between a classic Maya Software material, or a native Mental Ray material, \nskip the creation of a new texture node, or update an existing node."
-      //Toggle the surface node, and shape node option menus
+      // Toggle the surface node, and shape node option menus
       -changeCommand "disableSurfaceAndShape();"
       menuTextureFormat;
       
@@ -2301,7 +2292,7 @@ global proc domeText(){
     menuItem -label "Skip Node Creation";
     menuItem -label "Update Existing Node" -enable false;
       
-     //Preselect the "Maya Lambert" option menu
+    // Preselect the "Maya Lambert" option menu
     optionMenuGrp 
       -edit
       -select 1
@@ -2321,14 +2312,14 @@ global proc domeText(){
       -annotation "Choose the base geometry that the Dome Text material is applied to."
       menuShapeFormat;
       
-      menuItem -label "None";
-      menuItem -label "Plane";
-      //menuItem -label "Cylinder" -enable false;
-      menuItem -label "Cylinder";
-	 //menuItem -label "Dome" -enable false;
-      menuItem -label "Dome" -enable false;
-	  
-    //Preselect the "Plane" option menu
+    menuItem -label "None";
+    menuItem -label "Plane";
+    //menuItem -label "Cylinder" -enable false;
+    menuItem -label "Cylinder";
+    //menuItem -label "Dome" -enable false;
+    menuItem -label "Dome" -enable false;
+  
+    // Preselect the "Plane" option menu
     optionMenuGrp -edit
       -select 2
       menuShapeFormat;
@@ -2337,7 +2328,7 @@ global proc domeText(){
       -label "Orientation Axis" 
       // Creation Axis: Right (X):Top (Y): Front (Z)
      -annotation "Choose which view to use when placing the supporting surface."
-      //Toggle the surface node, and shape node option menus
+      // Toggle the surface node, and shape node option menus
       -changeCommand "disableSurfaceAndShape();"
       menuDomeOrientationAxis;
       
@@ -2345,7 +2336,7 @@ global proc domeText(){
     menuItem -label "Top (Y)";
     menuItem -label "Front (Z)";
       
-     //Preselect the right (x) option menu
+    // Preselect the right (x) option menu
     optionMenuGrp 
       -edit
       -select 3
@@ -2423,7 +2414,7 @@ global proc domeText(){
       -columnWidth2 260 260
       -columnAlign2 "left" "left";
 
-      //Get the current frame range
+      // Get the current frame range
       int $minFrame = `playbackOptions -query -min`;
       int $maxFrame = `playbackOptions -query -max`;
       
@@ -2516,43 +2507,43 @@ global proc domeText(){
       
   setParent ..;
   
-  //----------------------------------------------------------------------
-  //Show the window
-  //On Maya 2011 and higher provide access to the dockable UI 
-  //----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Show the window
+  // On Maya 2011 and higher provide access to the dockable UI 
+  // ----------------------------------------------------------------------
   
   string $dockedArea = "";
   int $dockedFloating = 0;
 
-  //Load the dockControl Settings
-  if ($mayaVersion >= 2011) {
-    //Is the window docked to the left or right of the screen?
+  // Load the dockControl Settings
+  if($mayaVersion >= 2011){
+    // Is the window docked to the left or right of the screen?
     if(`optionVar -exists "domeTextDockControlArea"`){
       $dockedArea = `optionVar -query "domeTextDockControlArea"`;
-    } else{
+    }else{
       $dockedArea = "right";
     }
 
-    //Is the window floating or not?
+    // Is the window floating or not?
     if(`optionVar -exists "domeTextDockControlFloating"`){
       $dockedFloating = `optionVar -query "domeTextDockControlFloating"`;
-    } else {
+    }else{
       $dockedFloating = 0;
     }
   }
   
-  if ( $mayaVersion == 2011 ){
-  //Make the Maya 2011 or higher window dockable
+  if($mayaVersion == 2011){
+  // Make the Maya 2011 or higher window dockable
   string $domeTextDockControl = `dockControl 
         -label "Dome Text"
-				-area $dockedArea 
-				// -area "right" //snap to the right side of the view next to the attribute editor
-				//-area "left"     //snap to the left side of the view next to the tool settings tab
+                -area $dockedArea 
+                // -area "right" //snap to the right side of the view next to the attribute editor
+                //-area "left"     //snap to the left side of the view next to the tool settings tab
         -content domeTextWin
-				-floating $dockedFloating
-				//-floating 1 //floating window
-				//-floating 0 //docked window
-		    -height $domeWindowHeight
+                -floating $dockedFloating
+                //-floating 1 //floating window
+                //-floating 0 //docked window
+            -height $domeWindowHeight
         -width $domeWindowWidth
         //-allowedArea "all"
         -allowedArea "left"
@@ -2562,27 +2553,27 @@ global proc domeText(){
         //-floatChangeCommand "evalDeferred(\"dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();\")"
         domeTextDockControl`;
   
-  //Force the window back to the right size
+  // Force the window back to the right size
   evalDeferred("dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();");
 
-  //Get the current window size
+  // Get the current window size
   print ("\nDome Text Window Size: " 
             + `dockControl -q -width domeTextDockControl` 
             + " width " 
             + `dockControl -q -height domeTextDockControl` 
             + " height\n");
-  }else if ( $mayaVersion >= 2012 ) {
-  //Make the Maya 2011 or higher window dockable
+  }else if($mayaVersion >= 2012){
+  // Make the Maya 2011 or higher window dockable
   string $domeTextDockControl = `dockControl 
         -label "Dome Text"
-				-area $dockedArea 
-				// -area "right" //snap to the right side of the view next to the attribute editor
-				//-area "left"     //snap to the left side of the view next to the tool settings tab
+                -area $dockedArea 
+                // -area "right" //snap to the right side of the view next to the attribute editor
+                //-area "left"     //snap to the left side of the view next to the tool settings tab
         -content domeTextWin
-				-floating $dockedFloating
-				//-floating 1 //floating window
-				//-floating 0 //docked window
-		    -height $domeWindowHeight
+                -floating $dockedFloating
+                //-floating 1 //floating window
+                //-floating 0 //docked window
+            -height $domeWindowHeight
         -width $domeWindowWidth
         //-allowedArea "all"
         -allowedArea "left"
@@ -2592,22 +2583,22 @@ global proc domeText(){
         -floatChangeCommand "evalDeferred(\"dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();\")"
         domeTextDockControl`;
   
-  //Force the window back to the right size
+  // Force the window back to the right size
   evalDeferred("dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();");
 
-  //Get the current window size
+  // Get the current window size
   print ("\nDome Text Window Size: " 
             + `dockControl -q -width domeTextDockControl` 
             + " width " 
             + `dockControl -q -height domeTextDockControl` 
             + " height\n");
  
-  } else{
-    //Make the Maya 2010 or lower window a regular window type
+  }else{
+    // Make the Maya 2010 or lower window a regular window type
     //showWindow $domeTextWindow;
     showWindow domeTextWin;
     
-    //Get the current window size
+    // Get the current window size
     print ("\nDome Text Window Size: "  
              + `window -q -width domeTextWin` 
              + " width " 
@@ -2617,40 +2608,40 @@ global proc domeText(){
 }
 
 
-//Load the generated image in the Maya Render View window
+// Load the generated image in the Maya Render View window
 global proc loadInRenderView(){
-  //Get the generated image filename
+  // Get the generated image filename
   string $filenameString = `textFieldGrp -query -text textImageOutputName`;
 
-  //Check if the generated image exists
-  if (`filetest -f $filenameString`){
-    print("Loading image " + $filenameString + " in the render view\n");
+  // Check if the generated image exists
+  if(`filetest -f $filenameString`){
+    print ("Loading image " + $filenameString + " in the render view\n");
     //string $editor = `renderWindowEditor`;
     string $editor = "renderView";
     renderWindowEditor -edit -autoResize true -loadImage $filenameString $editor;
   }else{
-    print("Image " + $filenameString + " does not exist.\n");
+    print ("Image " + $filenameString + " does not exist.\n");
   }
 }
 
 
 global proc createDomeText(){
-  python( "import sys" );
+  python("import sys");
 
-   //Check the operating system
+  // Check the operating system
   string $mayaPlatform = getMayaPlatform();
   
-  //Check if we are running Maya 2011 or higher
+  // Check if we are running Maya 2011 or higher
   float $mayaVersion = getMayaVersionDome();
-  print("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+  print ("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
 
-  //Get the camera name
+  // Get the camera name
   string $CameraName = `optionMenuGrp -query -value menuDomeTextCameraSelect`;
 
-  //Convert 0-1 color values to a 0-255 range
+  // Convert 0-1 color values to a 0-255 range
   float $floatToEightBitColor = 256;
   
-  //Font Controls
+  // Font Controls
   int $fontId = `optionMenuGrp -query -select menuFontNameSelect`;
   string $fontName =`optionMenuGrp -query -value menuFontNameSelect`;
   string $textEncoding = `optionMenuGrp -query -value menuTextEncodingSelect`;
@@ -2660,402 +2651,401 @@ global proc createDomeText(){
   string $fontStyle =`optionMenuGrp -query -value menuFontWeightSelect`;
   string $convertCharacters = `optionMenuGrp -query -value menuConvertCharacters`;
   
-  //Select "Maya File Texture" or "Mental Ray Texture" node generation
+  // Select "Maya File Texture" or "Mental Ray Texture" node generation
   int $textureFormat = `optionMenuGrp -query -select menuTextureFormat`;
   
-  //Select the domeText geometry format: None:Plane:Cylinder:Dome
+  // Select the domeText geometry format: None:Plane:Cylinder:Dome
   int $domeShapeFormat = `optionMenuGrp -query -select menuShapeFormat`;
-  //Write the geometry format as a plain text string
+  // Write the geometry format as a plain text string
   string $domeShapeType = `optionMenuGrp -query -value menuShapeFormat`;
   
-  //User entered text
+  // User entered text
   string $domeTextString = `scrollField -query -text scrollTextString`;
   
-  //User entered Imagemagick custom text options
+  // User entered Imagemagick custom text options
   string $imagemagickCustomText = `scrollField -query -text scrollImagemagickCustomText`;
   
-  //Generated Filename
+  // Generated Filename
   string $filenameString = `textFieldGrp -query -text textImageOutputName`;
 
-  //Generated image width and height in pixels
+  // Generated image width and height in pixels
   string $imageWidth =`optionMenuGrp -query -value menuImageWidthSelect`;
   string $imageHeight = `optionMenuGrp -query -value menuImageHeightSelect`;
   
-  //Color Swatches
+  // Color Swatches
   float $foregroundRGBcolor[] = `colorSliderGrp -query -rgb sliderForeColor`;
   float $backgroundRGBcolor[] = `colorSliderGrp -query -rgb sliderBackColor`;
   
   int $isbackgroundTransparent = `checkBoxGrp -query -value1 checkGrpTransparentBackground`;
   
   
-  //Debug Values
-  print("Output Geometry: " + $domeShapeType + "\n");
-  print("File texture node format: " + $textureFormat + "\n");
-  print("Font: " + $fontName + " Font ID: " + $fontId + "\n");
-  print("Text Encoding: " + $textEncoding + "\n");
-  print("Font Style: " + $fontStyle + "\n");
-  print("Convert Case: " + $convertCharacters + "\n");
-  print("Point Size: " + $fontSize + "\n");
-  print("Kerning Size: " + $kerningSize + "\n");
+  // Debug Values
+  print ("Output Geometry: " + $domeShapeType + "\n");
+  print ("File texture node format: " + $textureFormat + "\n");
+  print ("Font: " + $fontName + " Font ID: " + $fontId + "\n");
+  print ("Text Encoding: " + $textEncoding + "\n");
+  print ("Font Style: " + $fontStyle + "\n");
+  print ("Convert Case: " + $convertCharacters + "\n");
+  print ("Point Size: " + $fontSize + "\n");
+  print ("Kerning Size: " + $kerningSize + "\n");
   
-  print("Foreground Color: "  
+  print ("Foreground Color: "  
   + $foregroundRGBcolor[0] + " " 
   + $foregroundRGBcolor[1] + " " 
   + $foregroundRGBcolor[2] + "\n"); 
   
-  print("Background Color: " 
+  print ("Background Color: " 
   + $backgroundRGBcolor[0] + " " 
   + $backgroundRGBcolor[1] + " " 
   + $backgroundRGBcolor[2] + " " 
   + "\n");
   
-  print("Transparent BG: " + $isbackgroundTransparent + "\n");
+  print ("Transparent BG: " + $isbackgroundTransparent + "\n");
   
-  print("Image Filename: " + $filenameString + "\n");
-  print("Image Size: " + $imageWidth + "x"+ $imageHeight + "\n");
+  print ("Image Filename: " + $filenameString + "\n");
+  print ("Image Size: " + $imageWidth + "x"+ $imageHeight + "\n");
   
-  print("\nText: " + $domeTextString + "\n");
+  print ("\nText: " + $domeTextString + "\n");
   
-  print("\nImagemagick Custom Text: " + $imagemagickCustomText + "\n");
+  print ("\nImagemagick Custom Text: " + $imagemagickCustomText + "\n");
   
-  if ( $CameraName  != "Select a Camera..." ){
-    print("The DomeText align to camera feature is enabled. The DomeText will be aligned to the " + $CameraName + "\n");
-  } else{
-    print("The DomeText camera alignment feature was disabled as no camera was selected.\n");
+  if($CameraName != "Select a Camera..."){
+    print ("The DomeText align to camera feature is enabled. The DomeText will be aligned to the " + $CameraName + "\n");
+  }else{
+    print ("The DomeText camera alignment feature was disabled as no camera was selected.\n");
   }
   
-  //Speak the text aloud
+  // Speak the text aloud
   //system("say \"" + $domeTextString + "\"");
   
   // Create a custom text file
-  $textFilenameString = ( `internalVar -userTmpDir` + "dometext.txt" );
+  $textFilenameString = (`internalVar -userTmpDir` + "dometext.txt");
   //$textFilenameString = $filenameString + ".txt";
   $fileId=`fopen $textFilenameString "w"`;
   fprint $fileId ($domeTextString + "\n");
   fclose $fileId;
   
-  //Convert the file to UTF8
-  string $utfTextFilenameString = ( `internalVar -userTmpDir` + "dometext_utf8.txt" );
+  // Convert the file to UTF8
+  string $utfTextFilenameString = (`internalVar -userTmpDir` + "dometext_utf8.txt");
   //$textFilenameString = $filenameString + "utf8.txt";
   
-  //Choose the text encoding format
+  // Choose the text encoding format
   string $textEncodingFormat = "";
     
-  if ( $textEncoding == "Windows Default - Western Europe windows-1252" ){
+  if($textEncoding == "Windows Default - Western Europe windows-1252"){
     $textEncodingFormat = "windows-1252";
-  } else if ( $textEncoding == "English ascii" ){
+  }else if($textEncoding == "English ascii"){
     $textEncodingFormat = "ascii";
-  } else if ( $textEncoding == "Traditional Chinese big5" ){
+  }else if($textEncoding == "Traditional Chinese big5"){
     $textEncodingFormat = "big5";
-  } else if ( $textEncoding == "Traditional Chinese big5hkscs" ){
+  }else if($textEncoding == "Traditional Chinese big5hkscs"){
     $textEncodingFormat = "big5hkscs";
-  } else if ( $textEncoding == "English cp037" ){
+  }else if($textEncoding == "English cp037"){
     $textEncodingFormat = "cp037";
-  } else if ( $textEncoding == "Hebrew cp424" ){
+  }else if($textEncoding == "Hebrew cp424"){
     $textEncodingFormat = "cp424";
-  } else if ( $textEncoding == "English cp437" ){
+  }else if($textEncoding == "English cp437"){
     $textEncodingFormat = "cp437";
-  } else if ( $textEncoding == "Western Europe cp500" ){
+  }else if($textEncoding == "Western Europe cp500"){
     $textEncodingFormat = "cp500";
-  } else if ( $textEncoding == "Arabic cp720" ){
+  }else if($textEncoding == "Arabic cp720"){
     $textEncodingFormat = "cp720";
-  } else if ( $textEncoding == "Greek cp737" ){
+  }else if($textEncoding == "Greek cp737"){
     $textEncodingFormat = "cp737";
-  } else if ( $textEncoding == "Baltic languages cp775" ){
+  }else if($textEncoding == "Baltic languages cp775"){
     $textEncodingFormat = "cp775";
-  } else if ( $textEncoding == "Western Europe cp850" ){
+  }else if($textEncoding == "Western Europe cp850"){
     $textEncodingFormat = "cp850";
-  } else if ( $textEncoding == "Central and Eastern Europe cp852" ){
+  }else if($textEncoding == "Central and Eastern Europe cp852"){
     $textEncodingFormat = "cp852";
-  } else if ( $textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian cp855" ){
+  }else if($textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian cp855"){
     $textEncodingFormat = "cp855";
-  } else if ( $textEncoding == "Hebrew cp856" ){
+  }else if($textEncoding == "Hebrew cp856"){
     $textEncodingFormat = "cp856";
-  } else if ( $textEncoding == "Turkish cp857" ){
+  }else if($textEncoding == "Turkish cp857"){
     $textEncodingFormat = "cp857";
-  } else if ( $textEncoding == "Western Europe cp858" ){
+  }else if($textEncoding == "Western Europe cp858"){
     $textEncodingFormat = "cp858";
-  } else if ( $textEncoding == "Portuguese cp860" ){
+  }else if($textEncoding == "Portuguese cp860"){
     $textEncodingFormat = "cp860";
-  } else if ( $textEncoding == "Icelandic cp861" ){
+  }else if($textEncoding == "Icelandic cp861"){
     $textEncodingFormat = "cp861";
-  } else if ( $textEncoding == "Hebrew cp862" ){
+  }else if($textEncoding == "Hebrew cp862"){
     $textEncodingFormat = "cp862";
-  } else if ( $textEncoding == "Canadian cp863" ){
+  }else if($textEncoding == "Canadian cp863"){
     $textEncodingFormat = "cp863";
-  } else if ( $textEncoding == "Arabic cp864" ){
+  }else if($textEncoding == "Arabic cp864"){
     $textEncodingFormat = "cp864";
-  } else if ( $textEncoding == "Danish, Norwegian cp865" ){
+  }else if($textEncoding == "Danish, Norwegian cp865"){
     $textEncodingFormat = "cp865";
-  } else if ( $textEncoding == "Russian cp866" ){
+  }else if($textEncoding == "Russian cp866"){
     $textEncodingFormat = "cp866";
-  } else if ( $textEncoding == "Greek cp869" ){
+  }else if($textEncoding == "Greek cp869"){
     $textEncodingFormat = "cp869";
-  } else if ( $textEncoding == "Thai cp874" ){
+  }else if($textEncoding == "Thai cp874"){
     $textEncodingFormat = "cp874";
-  } else if ( $textEncoding == "Greek cp875" ){
+  }else if($textEncoding == "Greek cp875"){
     $textEncodingFormat = "cp875";
-  } else if ( $textEncoding == "Japanese cp932" ){
+  }else if($textEncoding == "Japanese cp932"){
     $textEncodingFormat = "cp932";
-  } else if ( $textEncoding == "Korean cp949" ){
+  }else if($textEncoding == "Korean cp949"){
     $textEncodingFormat = "cp949";
-  } else if ( $textEncoding == "Traditional Chinese cp950" ){
+  }else if($textEncoding == "Traditional Chinese cp950"){
     $textEncodingFormat = "cp950";
-  } else if ( $textEncoding == "Urdu cp1006" ){
+  }else if($textEncoding == "Urdu cp1006"){
     $textEncodingFormat = "cp1006";
-  } else if ( $textEncoding == "Turkish cp1026" ){
+  }else if($textEncoding == "Turkish cp1026"){
     $textEncodingFormat = "cp1026";
-  } else if ( $textEncoding == "Western Europe cp1140" ){
+  }else if($textEncoding == "Western Europe cp1140"){
     $textEncodingFormat = "cp1140";
-  } else if ( $textEncoding == "Central and Eastern Europe cp1250" ){
+  }else if($textEncoding == "Central and Eastern Europe cp1250"){
     $textEncodingFormat = "cp1250";
-  } else if ( $textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian cp1251" ){
+  }else if($textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian cp1251" ){
     $textEncodingFormat = "cp1251";
-  } else if ( $textEncoding == "Western Europe cp1252" ){
+  }else if($textEncoding == "Western Europe cp1252"){
     $textEncodingFormat = "cp1252";
-  } else if ( $textEncoding == "Greek cp1253" ){
+  }else if($textEncoding == "Greek cp1253"){
     $textEncodingFormat = "cp1253";
-  } else if ( $textEncoding == "Turkish cp1254" ){
+  }else if($textEncoding == "Turkish cp1254"){
     $textEncodingFormat = "cp1254";
-  } else if ( $textEncoding == "Hebrew cp1255" ){
+  }else if($textEncoding == "Hebrew cp1255"){
     $textEncodingFormat = "cp1255";
-  } else if ( $textEncoding == "Arabic cp1256" ){
+  }else if($textEncoding == "Arabic cp1256"){
     $textEncodingFormat = "cp1256";
-  } else if ( $textEncoding == "Baltic languages cp1257" ){
+  }else if($textEncoding == "Baltic languages cp1257"){
     $textEncodingFormat = "cp1257";
-  } else if ( $textEncoding == "Vietnamese cp1258" ){
+  }else if($textEncoding == "Vietnamese cp1258"){
     $textEncodingFormat = "cp1258";
-  } else if ( $textEncoding == "Japanese euc_jp" ){
+  }else if($textEncoding == "Japanese euc_jp"){
     $textEncodingFormat = "euc_jp";
-  } else if ( $textEncoding == "Japanese euc_jis_2004" ){
+  }else if($textEncoding == "Japanese euc_jis_2004"){
     $textEncodingFormat = "euc_jis_2004";
-  } else if ( $textEncoding == "Japanese euc_jisx0213" ){
+  }else if($textEncoding == "Japanese euc_jisx0213"){
     $textEncodingFormat = "euc_jisx0213";
-  } else if ( $textEncoding == "Korean euc_kr" ){
+  }else if($textEncoding == "Korean euc_kr"){
     $textEncodingFormat = "euc_kr";
-  } else if ( $textEncoding == "Simplified Chinese gb2312" ){
+  }else if($textEncoding == "Simplified Chinese gb2312"){
     $textEncodingFormat = "gb2312";
-  } else if ( $textEncoding == "Unified Chinese gbk" ){
+  }else if($textEncoding == "Unified Chinese gbk"){
     $textEncodingFormat = "gbk";
-  } else if ( $textEncoding == "Unified Chinese gb18030" ){
+  }else if($textEncoding == "Unified Chinese gb18030"){
     $textEncodingFormat = "gb18030";
-  } else if ( $textEncoding == "Simplified Chinese hz" ){
+  }else if($textEncoding == "Simplified Chinese hz"){
     $textEncodingFormat = "hz";
-  } else if ( $textEncoding == "Japanese iso2022_jp" ){
+  }else if($textEncoding == "Japanese iso2022_jp"){
     $textEncodingFormat = "iso2022_jp";
-  } else if ( $textEncoding == "Japanese iso2022_jp_1" ){
+  }else if($textEncoding == "Japanese iso2022_jp_1"){
     $textEncodingFormat = "iso2022_jp_1";
-  } else if ( $textEncoding == "Japanese, Korean, Simplified Chinese, Western Europe, Greek iso2022_jp_2" ){
+  }else if($textEncoding == "Japanese, Korean, Simplified Chinese, Western Europe, Greek iso2022_jp_2"){
     $textEncodingFormat = "iso2022_jp_2";
-  } else if ( $textEncoding == "Japanese iso2022_jp_2004" ){
+  }else if($textEncoding == "Japanese iso2022_jp_2004"){
     $textEncodingFormat = "iso2022_jp_2004";
-  } else if ( $textEncoding == "Japanese iso2022_jp_3" ){
+  }else if($textEncoding == "Japanese iso2022_jp_3"){
     $textEncodingFormat = "iso2022_jp_3";
-  } else if ( $textEncoding == "Japanese iso2022_jp_ext" ){
+  }else if($textEncoding == "Japanese iso2022_jp_ext"){
     $textEncodingFormat = "iso2022_jp_ext";
-  } else if ( $textEncoding == "Korean iso2022_kr" ){
+  }else if($textEncoding == "Korean iso2022_kr"){
     $textEncodingFormat = "iso2022_kr";
-  } else if ( $textEncoding == "West Europe latin_1" ){
+  }else if($textEncoding == "West Europe latin_1"){
     $textEncodingFormat = "latin_1";
-  } else if ( $textEncoding == "Central and Eastern Europe iso8859_2" ){
+  }else if($textEncoding == "Central and Eastern Europe iso8859_2"){
     $textEncodingFormat = "iso8859_2";
-  } else if ( $textEncoding == "Esperanto, Maltese iso8859_3" ){
+  }else if($textEncoding == "Esperanto, Maltese iso8859_3"){
     $textEncodingFormat = "iso8859_3";
-  } else if ( $textEncoding == "Baltic languages iso8859_4" ){
+  }else if($textEncoding == "Baltic languages iso8859_4"){
     $textEncodingFormat = "iso8859_4";
-  } else if ( $textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian iso8859_5" ){
+  }else if($textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian iso8859_5"){
     $textEncodingFormat = "iso8859_5";
-  } else if ( $textEncoding == "Arabic iso8859_6" ){
+  }else if($textEncoding == "Arabic iso8859_6"){
     $textEncodingFormat = "iso8859_6";
-  } else if ( $textEncoding == "Greek iso8859_7" ){
+  }else if($textEncoding == "Greek iso8859_7"){
     $textEncodingFormat = "iso8859_7";
-  } else if ( $textEncoding == "Hebrew iso8859_8" ){
+  }else if($textEncoding == "Hebrew iso8859_8"){
     $textEncodingFormat = "iso8859_8";
-  } else if ( $textEncoding == "Turkish iso8859_9" ){
+  }else if($textEncoding == "Turkish iso8859_9"){
     $textEncodingFormat = "iso8859_9";
-  } else if ( $textEncoding == "Nordic languages iso8859_10" ){
+  }else if($textEncoding == "Nordic languages iso8859_10"){
     $textEncodingFormat = "iso8859_10";
-  } else if ( $textEncoding == "Baltic languages iso8859_13" ){
+  }else if($textEncoding == "Baltic languages iso8859_13"){
     $textEncodingFormat = "iso8859_13";
-  } else if ( $textEncoding == "Celtic languages iso8859_14" ){
+  }else if($textEncoding == "Celtic languages iso8859_14"){
     $textEncodingFormat = "iso8859_14";
-  } else if ( $textEncoding == "Western Europe iso8859_15" ){
+  }else if($textEncoding == "Western Europe iso8859_15"){
     $textEncodingFormat = "iso8859_15";
-  } else if ( $textEncoding == "South-Eastern Europe iso8859_16" ){
+  }else if($textEncoding == "South-Eastern Europe iso8859_16"){
     $textEncodingFormat = "iso8859_16";
-  } else if ( $textEncoding == "Korean johab" ){
+  }else if($textEncoding == "Korean johab"){
     $textEncodingFormat = "johab";
-  } else if ( $textEncoding == "Russian koi8_r" ){
+  }else if($textEncoding == "Russian koi8_r"){
     $textEncodingFormat = "koi8_r";
-  } else if ( $textEncoding == "Ukrainian koi8_u" ){
+  }else if($textEncoding == "Ukrainian koi8_u"){
     $textEncodingFormat = "koi8_u";
-  } else if ( $textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian mac_cyrillic" ){
+  }else if($textEncoding == "Bulgarian, Byelorussian, Macedonian, Russian, Serbian mac_cyrillic"){
     $textEncodingFormat = "mac_cyrillic";
-  } else if ( $textEncoding == "Greek mac_greek" ){
+  }else if($textEncoding == "Greek mac_greek"){
     $textEncodingFormat = "mac_greek";
-  } else if ( $textEncoding == "Icelandic mac_iceland" ){
+  }else if($textEncoding == "Icelandic mac_iceland"){
     $textEncodingFormat = "mac_iceland";
-  } else if ( $textEncoding == "Central and Eastern Europe mac_latin2" ){
+  }else if($textEncoding == "Central and Eastern Europe mac_latin2"){
     $textEncodingFormat = "mac_latin2";
-  } else if ( $textEncoding == "Western Europe mac_roman" ){
+  }else if($textEncoding == "Western Europe mac_roman"){
     $textEncodingFormat = "mac_roman";
-  } else if ( $textEncoding == "Turkish mac_turkish" ){
+  }else if($textEncoding == "Turkish mac_turkish"){
     $textEncodingFormat = "mac_turkish";
-  } else if ( $textEncoding == "Kazakh ptcp154" ){
+  }else if($textEncoding == "Kazakh ptcp154"){
     $textEncodingFormat = "ptcp154";
-  } else if ( $textEncoding == "Japanese shift_jis" ){
+  }else if($textEncoding == "Japanese shift_jis"){
     $textEncodingFormat = "shift_jis";
-  } else if ( $textEncoding == "Japanese shift_jis_2004" ){
+  }else if($textEncoding == "Japanese shift_jis_2004"){
     $textEncodingFormat = "shift_jis_2004";
-  } else if ( $textEncoding == "Japanese shift_jisx0213" ){
+  }else if($textEncoding == "Japanese shift_jisx0213"){
     $textEncodingFormat = "shift_jisx0213";
-  } else if ( $textEncoding == "all languages utf_32" ){
+  }else if($textEncoding == "all languages utf_32"){
     $textEncodingFormat = "utf_32";
-  } else if ( $textEncoding == "all languages utf_32_be" ){
+  }else if($textEncoding == "all languages utf_32_be"){
     $textEncodingFormat = "utf_32_be";
-  } else if ( $textEncoding == "all languages utf_32_le" ){
+  }else if($textEncoding == "all languages utf_32_le"){
     $textEncodingFormat = "utf_32_le";
-  } else if ( $textEncoding == "all languages utf_16" ){
+  }else if($textEncoding == "all languages utf_16"){
     $textEncodingFormat = "utf_16";
-  } else if ( $textEncoding == "all languages (BMP only) utf_16_be" ){
+  }else if($textEncoding == "all languages (BMP only) utf_16_be"){
     $textEncodingFormat = "utf_16_be";
-  } else if ( $textEncoding == "all languages (BMP only) utf_16_le" ){
+  }else if($textEncoding == "all languages (BMP only) utf_16_le"){
     $textEncodingFormat = "utf_16_le";
-  } else if ( $textEncoding == "all languages utf_7" ){
+  }else if($textEncoding == "all languages utf_7"){
     $textEncodingFormat = "utf_7";
-  } else if ( $textEncoding == "all languages utf_8" ){
+  }else if($textEncoding == "all languages utf_8"){
     $textEncodingFormat = "utf_8";
-  } else if ( $textEncoding == "all languages utf_8_sig" ){
+  }else if($textEncoding == "all languages utf_8_sig"){
     $textEncodingFormat = "utf_8_sig";
   }else{
-    //Windows default format - Western Europe fallback
+    // Windows default format - Western Europe fallback
     $textEncodingFormat = "windows-1252";
   }
   
   // Actual command:
   // import domeTextUTF as domeTextUTF
   // domeTextUTF.convertTextToUTF('C:/dometext.txt', 'C:/dometext_utf8.txt', 'big5', 'Normal Case')
-  string $utfPythonConvertString  = "";
+  string $utfPythonConvertString = "";
   $utfPythonConvertString += "import domeTextUTF as domeTextUTF\n";
   $utfPythonConvertString += "reload(domeTextUTF)\n";
   $utfPythonConvertString += "domeTextUTF.convertTextToUTF(";
   $utfPythonConvertString += "'" + $textFilenameString + "', '" + $utfTextFilenameString + "', '" + $textEncodingFormat +  "', '" + $convertCharacters + "')";
   
-  //Convert the text formats to UTF8
+  // Convert the text formats to UTF8
   python($utfPythonConvertString);
   
-  //Send the text commands to ImageMagick
-  //Check the platform to come up with the correct syntax
+  // Send the text commands to ImageMagick
+  // Check the platform to come up with the correct syntax
   string $changeWorkingDir = "";
   string $imagemagickPath = "";
 
-  if ($mayaPlatform  == "windows"){
-    //Windows 32/x64
-    //Warning: The convert.exe program has the same name as a windows 7 system tool so it has been renamed domeconvert.exe
+  if($mayaPlatform  == "windows"){
+    // Windows 32/x64
+    // Warning: The convert.exe program has the same name as a windows 7 system tool so it has been renamed domeconvert.exe
 
-    //Debug testing alternate paths
+    // Debug testing alternate paths
     //$imagemagickPath = "\"C:\\Program Files\\Domemaster3D\\bin\\domeconvert.exe\"";
     //$imagemagickPath = "\"%PROGRAMFILES%\"\\Domemaster3D\\bin\\domeconvert.exe";
     //$imagemagickPath = " \"\"%PROGRAMFILES%\"\"\\Domemaster3D\\bin\\domeconvert.exe ";
    
-   //Added to system path: ";C:\Program Files\Domemaster3D\bin"
+    // Added to system path: ";C:\Program Files\Domemaster3D\bin"
     $imagemagickPath = "domeconvert.exe";
   }else if($mayaPlatform  == "darwin"){
-    //Mac OS X
-    //Check for ImageMagick installs on Mac OS X
+    // macOS
+    // Check for ImageMagick installs on macOS
     string $optLocalBin = "/opt/local/bin/convert";
     string $optImageMagickBin = "/opt/ImageMagick/bin/convert";
     string $usrImageMagickBin = "/usr/local/bin/convert";
     
-    //Verify which ImageMagick paths exist on the system
+    // Verify which ImageMagick paths exist on the system
     if(`file -query -exists $usrImageMagickBin`){
       $imagemagickPath = $usrImageMagickBin;
-      print("ImageMagick was found in " + $imagemagickPath + "\n");
+      print ("ImageMagick was found in " + $imagemagickPath + "\n");
     }else if(`file -query -exists $optLocalBin`){
       $imagemagickPath = $optLocalBin;
-      print("ImageMagick was found in " + $imagemagickPath + "\n");
+      print ("ImageMagick was found in " + $imagemagickPath + "\n");
     }else if(`file -query -exists $optImageMagickBin`){
       $imagemagickPath = $optImageMagickBin;
-      print("ImageMagick was found in " + $imagemagickPath + "\n");
+      print ("ImageMagick was found in " + $imagemagickPath + "\n");
     }else{
       $imagemagickPath = "convert";
-      print("Looking for ImageMagick in the system $PATH locations.\n");
+      print ("Looking for ImageMagick in the system $PATH locations.\n");
     }
   }else{  
-    //Linux
+    // Linux
     //$imagemagickPath = "convert";
     $imagemagickPath = "/usr/bin/convert";
   }
  
-  //Pick the correct font settings for the current platform
+  // Pick the correct font settings for the current platform
   string $fontString = "";
   string $fontFolderPath;   
 
-  //Select the fonts
-  if ($mayaPlatform  == "windows"){
+  // Select the fonts
+  if($mayaPlatform  == "windows"){
     //Windows 32/x64
     //$fontString = " -font \"" + "c:\\windows\\fonts\\courbd.ttf" + "\"";
     //$fontString =  " -font \"" + "Courier-New-Bold" + "\"";
     $fontFolderPath = "C:/Windows/Fonts/";
     $fontString =  " -font \"" + $fontFolderPath + $fontName + "\"";
-  }else if ($mayaPlatform  == "darwin"){
-    //Mac OS X
+  }else if($mayaPlatform  == "darwin"){
+    // macOS
     //$fontString =  " -font \"" + "Courier" + "\"";
     $fontString =  " -font \"" + $fontName + "\"";
   }else{  
-    //Linux
+    // Linux
     //$fontString =  " -font \"" + "Courier" + "\"";
     $fontString =  " -font \"" + $fontName + "\"";
   }
 
-  //Set up the custom font styles
+  // Set up the custom font styles
   string $fontStyleString = "";
 
-  //start by adding the Unicode text encoding flag as the first item
+  // start by adding the Unicode text encoding flag as the first item
   //$fontStyleString += " -encoding Unicode ";
   $fontStyleString += " -pointsize \"" + $fontSize + "\"";
   $fontStyleString += " -kerning \"" + $kerningSize + "\"";
   $fontStyleString += " -weight \"" + $fontStyle + "\"";
   $fontStyleString += " -size \"" + $imageWidth + "\"x";
    
-   //Check if the image height is set to the automatic size mode
-   if ($imageHeight != "(auto)"){
+   // Check if the image height is set to the automatic size mode
+   if($imageHeight != "(auto)"){
     $fontStyleString += "\"" + $imageHeight + "\"";
    }
 
   $fontStyleString += " -gravity " + $fontAlign; 
 
-  //Create the text caption string elements
-  //Pick the correct text caption settings for the current platform
+  // Create the text caption string elements
+  // Pick the correct text caption settings for the current platform
   string $captionString = "";
 
-  //Select the platform
-  if ($mayaPlatform  == "windows"){
-    //Windows 32/x64 - Use @file for text contents
+  // Select the platform
+  if($mayaPlatform  == "windows"){
+    // Windows 32/x64 - Use @file for text contents
     //$captionString = " caption:@" + $textFilenameString;
     $captionString = " caption:@" + $utfTextFilenameString;
     
-  }else if ($mayaPlatform  == "darwin"){
-    //Mac OS X - Use @file for text contents
+  }else if($mayaPlatform  == "darwin"){
+    // macOS - Use @file for text contents
     //$captionString =  " caption:@" + $textFilenameString;
     $captionString = " caption:@" + $utfTextFilenameString;
   }else{  
-    //Linux - Use @file for text contents
+    // Linux - Use @file for text contents
     //$captionString = " caption:@" + $textFilenameString;
     $captionString = " caption:@" + $utfTextFilenameString;
   }
 
-  //Checks for transparency and writes the background color to a string
+  // Checks for transparency and writes the background color to a string
   string $backgroundColorString = "";
   string $fillColorString = "";
 
-  if ($isbackgroundTransparent){
+  if($isbackgroundTransparent){
     $backgroundColorString = " -background none";
 
-    //extra imagemagick composite flag
+    // Extra imagemagick composite flag
     //$backgroundColorString = $backgroundColorString+ " -composite ";
-
-  } else{
+  }else{
       $backgroundColorString = " -background \"rgb("
       + trunc($backgroundRGBcolor[0]*$floatToEightBitColor) + ", " 
       + trunc($backgroundRGBcolor[1]*$floatToEightBitColor) + ", " 
@@ -3069,7 +3059,7 @@ global proc createDomeText(){
       // + ")\"";
   }
 
-  //Write the foreground fill color values to a string
+  // Write the foreground fill color values to a string
   $fillColorString = " -fill \"rgb("
       + trunc($foregroundRGBcolor[0]*$floatToEightBitColor) + ", " 
       + trunc($foregroundRGBcolor[1]*$floatToEightBitColor) + ", " 
@@ -3082,7 +3072,7 @@ global proc createDomeText(){
       // + ceil($foregroundRGBcolor[2]*$floatToEightBitColor)
       // + ")\"";
 
-  //Save the system console command string to a variable
+  // Save the system console command string to a variable
   string $systemCommandString = "";
 
   $systemCommandString += $imagemagickPath;
@@ -3095,36 +3085,36 @@ global proc createDomeText(){
   $systemCommandString += " " + "\"" + $filenameString + "\"";
   $systemCommandString += "\n";
   
-  print("DomeConvert Command: " + $systemCommandString + "\n");
+  print ("DomeConvert Command: " + $systemCommandString + "\n");
   string $result = system($systemCommandString);
   print ("Feedback: " + $result + "\n");
    
    
-  //Create a new dometext command log file for debugging
-  //The log file is called DomeTextLog.txt and is stored in the user's temp directory
-  $logFileNameString = ( `internalVar -userTmpDir` + "DomeTextLog.txt" );
+  // Create a new dometext command log file for debugging
+  // The log file is called DomeTextLog.txt and is stored in the user's temp directory
+  $logFileNameString = (`internalVar -userTmpDir` + "DomeTextLog.txt");
   $logFileId = `fopen $logFileNameString "w"`;
   print ("Writing log file to: " + $logFileNameString + "\n");
-  //Save command line log file
+  // Save command line log file
   fprint $logFileId ("DomeConvert Command: " + $systemCommandString + "\n");
   fprint $logFileId ("Feedback: " + $result + "\n");
   fclose $logFileId; 
    
   /*
-  //Add the text string to the image as an embedded metadata tag
+  // Add the text string to the image as an embedded metadata tag
   string $commentString = "";
 
-  //Use either the "-set comment" or "-set label" commands for metadata captions
-  //Select the platform
-  if ($mayaPlatform  == "windows"){
+  // Use either the "-set comment" or "-set label" commands for metadata captions
+  // Select the platform
+  if($mayaPlatform  == "windows"){
     //Windows 32/x64 - Use @file for text contents
     //$commentString = " -label @" + $textFilenameString;
     $commentString = " -set label \"Hello Domies\"";
-  }else if ($mayaPlatform  == "darwin"){
-    //Mac OS X - Use @file for text contents
+  }else if($mayaPlatform  == "darwin"){
+    // macOS - Use @file for text contents
     $commentString =  " -set label @" + $textFilenameString;
   }else{  
-    //Linux - Use @file for text contents
+    // Linux - Use @file for text contents
     $commentString = " -set label @" + $textFilenameString;
   }
   
@@ -3134,87 +3124,85 @@ global proc createDomeText(){
   $systemCommandString += " " + "\"" + $filenameString + "\"";
   $systemCommandString += "\n";
   
-  print("Comment Command: " + $systemCommandString);
+  print ("Comment Command: " + $systemCommandString);
   string $result = system($systemCommandString);
   print ("Feedback: " + $result);
   */
   
-  //Refresh the image file texture 
+  // Refresh the image file texture 
   //AEfileTextureReloadCmd file1.fileTextureName;
   
-  //Get the file texture node name
+  // Get the file texture node name
   global string $texNodeName = "";
   
-  //Generate the correct file texture node
+  // Generate the correct file texture node
   if($textureFormat == 1){
-    //Create a new Maya Lambert + Maya file texture node
+    // Create a new Maya Lambert + Maya file texture node
     //createDomeFileNode("sourceimages/bob2.png", {0.0, 1.0, 0.0});
-    if ($isbackgroundTransparent){
+    if($isbackgroundTransparent){
       $texNodeName = createLambertDomeFileNode( $filenameString, {0.0, 0.0, 0.0});
     }else{
       $texNodeName = createLambertDomeFileNode( $filenameString, {$backgroundRGBcolor[0], $backgroundRGBcolor[1], $backgroundRGBcolor[2]});  
      }
-  } else if($textureFormat == 2){
-    //Create a new Maya SurfaceShader + Maya file texture node
+  }else if($textureFormat == 2){
+    // Create a new Maya SurfaceShader + Maya file texture node
     //createDomeFileNode("sourceimages/bob2.png", {0.0, 1.0, 0.0});
-    if ($isbackgroundTransparent){
+    if($isbackgroundTransparent){
       $texNodeName = createSurfaceShaderDomeFileNode( $filenameString, {0.0, 0.0, 0.0});
     }else{
       $texNodeName = createSurfaceShaderDomeFileNode( $filenameString, {$backgroundRGBcolor[0], $backgroundRGBcolor[1], $backgroundRGBcolor[2]});  
     } 
-  }else if ($textureFormat == 3){
-    //Create a new mental ray file texture node
+  }else if($textureFormat == 3){
+    // Create a new mental ray file texture node
     //createDomeMrFileNode("sourceimages/bob2.png", {0.0, 1.0, 0.0});
-    if ($isbackgroundTransparent){
+    if($isbackgroundTransparent){
       $texNodeName = createDomeMrFileNode( $filenameString, {0.0, 0.0, 0.0});
     }else{
       $texNodeName = createDomeMrFileNode( $filenameString, {$backgroundRGBcolor[0], $backgroundRGBcolor[1], $backgroundRGBcolor[2]});
     }
-  }else if ($textureFormat == 4){
-    print("Skipping file texture node creation.\n");
-  } //End of file texture node generation
+  }else if($textureFormat == 4){
+    print ("Skipping file texture node creation.\n");
+  } // End of file texture node generation
     
-  //Create the note message if generating a Maya or Mental Ray node 
-  if ( ($textureFormat == 1) || ($textureFormat == 2) || ($textureFormat == 3)) {
-    //Write the Dome Text message to the domeText Note fields:
-    print("Adding note to " + $texNodeName + " file node\n");
+  // Create the note message if generating a Maya or Mental Ray node 
+  if(($textureFormat == 1) || ($textureFormat == 2) || ($textureFormat == 3)) {
+    // Write the Dome Text message to the domeText Note fields:
+    print ("Adding note to " + $texNodeName + " file node\n");
     string $domeTextNoteString = "";
     $domeTextNoteString += $domeTextString;
-    //Write the settings to the attribute editor note fields
+    // Write the settings to the attribute editor note fields
     setNotesAttribute( $texNodeName, "notes", "nts", "string", `scrollField -edit -text $domeTextNoteString AENotesScrollField`); 
-  } //end note generation  
+  } // End note generation  
   
-  //Regenerate the Text Presets option menu after adding a new node
+  // Regenerate the Text Presets option menu after adding a new node
   buildTextPresetMenu();
   
-  //Display the texture node in the attribute editor
+  // Display the texture node in the attribute editor
   //evalDeferred("showEditorExact ($texNodeName);");
   
-  //Enable hardware texturing
+  // Enable hardware texturing
   modelEditor -edit -displayAppearance smoothShaded -displayTextures true modelPanel1;
   modelEditor -edit -displayAppearance smoothShaded -displayTextures true modelPanel4;
 }
 
-
+// Select the domeText geometry format: None:Plane:Cylinder:Dome
 global proc string chooseDomeGeometry(){
-  //Select the domeText geometry format: None:Plane:Cylinder:Dome
   int $domeShapeFormat = `optionMenuGrp -query -select menuShapeFormat`;
-
   string $domeGeometry = "";
 
-  //Check what type of supporting geometry is required
-  if ( $domeShapeFormat == 1 ){
-    print("Skipping geometry creation\n");
+  // Check what type of supporting geometry is required
+  if($domeShapeFormat == 1){
+    print ("Skipping geometry creation\n");
     $domeGeometry = "";
-  } else if ( $domeShapeFormat == 2 ){
-    print("Creating a new DomeText polygon plane surface.\n");
+  }else if($domeShapeFormat == 2){
+    print ("Creating a new DomeText polygon plane surface.\n");
     $domeGeometry = createDomePlane();
-  } else if ( $domeShapeFormat ==3 ){
-    print("Creating a new DomeText cylinder surface.\n");
+  }else if($domeShapeFormat == 3){
+    print ("Creating a new DomeText cylinder surface.\n");
     //$domeGeometry = "pCylinder";
     $domeGeometry = createDomeCylinder();
-  } else if ( $domeShapeFormat == 4 ){
-    print("Creating a new DomeText dome surface.\n");
+  }else if($domeShapeFormat == 4){
+    print ("Creating a new DomeText dome surface.\n");
     //$domeGeometry = "pDome";
     $domeGeometry = "";
   }
@@ -3223,15 +3211,15 @@ global proc string chooseDomeGeometry(){
 }
 
 
-//Find the object's child node
-global proc string getObjectShapeNode ( string $object ) {
+// Find the object's child node
+global proc string getObjectShapeNode(string $object){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }
 
-//Find the object's parent node
-//example: print `getObjectParentNode( "domeAFL_FOV_CameraShape2")`;
-global proc string getObjectParentNode ( string $object ) {
+// Find the object's parent node
+// Example: print `getObjectParentNode("domeAFL_FOV_CameraShape2")`;
+global proc string getObjectParentNode(string $object){
   string $shapes[] = `listRelatives -parent -shapes $object`;
   return $shapes[0];
 }

@@ -5,7 +5,7 @@
 
   The Dome Histogram tool allows you to view a histogram of the current image in the render view using the ImageMagick utility.
   
-  On Mac OS X you need to install ImageMagick to either:
+  On macOS you need to install ImageMagick to either:
   /opt/local/bin/convert
   /opt/ImageMagick/bin/convert
   /usr/local/bin/convert
@@ -396,8 +396,8 @@ global proc domeComputeHistogram(){
    // Added to system path: ";C:\Program Files\Domemaster3D\bin"
     $imagemagickPath = "domeconvert.exe";
   }else if($mayaPlatform  == "darwin"){
-    // Mac OS X
-    // Check for ImageMagick installs on Mac OS X
+    // macOS
+    // Check for ImageMagick installs on macOS
     string $optLocalBin = "/opt/local/bin/convert";
     string $optImageMagickBin = "/opt/ImageMagick/bin/convert";
     string $usrImageMagickBin = "/usr/local/bin/convert";

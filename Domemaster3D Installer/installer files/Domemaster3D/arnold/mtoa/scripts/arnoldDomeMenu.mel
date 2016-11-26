@@ -358,9 +358,9 @@ global proc createArnoldDomemaster3DMenu() {
     $domeUserHomePathString = `getenv "USERPROFILE"`;
     $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
   }else if(getMayaPlatform() == "darwin") {
-    // Mac OS X Log Filename
+    // macOS Log Filename
     $renderLogName = "mayaRender.log";
-    // Mac Example: $Home = /Users/hazelden
+    // macOS Example: $Home = /Users/hazelden
     $domeUserHomePathString = `getenv "HOME"`;
     $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
   }else{
@@ -441,7 +441,7 @@ global proc createArnoldDomemaster3DMenu() {
     -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();";
   menuItem
     -label "Open Task Manager" 
-    -annotation "Open the Task Manager on Windows, or the Activity Monitor on Mac OS X."
+    -annotation "Open the Task Manager on Windows, or the Activity Monitor on macOS."
     -imageOverlayLabel "Task"
     -image "domeArnold_task.png"
     -command "source \"domeDiagnostics.mel\";\nopenTaskManager();";

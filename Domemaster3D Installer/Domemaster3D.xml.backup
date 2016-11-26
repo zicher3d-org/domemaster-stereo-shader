@@ -2427,7 +2427,7 @@
             </ruleList>
         </createBackupFile>
 
-        <!-- Mac Maya Env Backup -->
+        <!-- macOS Maya Env Backup -->
         <createBackupFile>
             <destination></destination>
             <explanation>Backing up Maya.env</explanation>

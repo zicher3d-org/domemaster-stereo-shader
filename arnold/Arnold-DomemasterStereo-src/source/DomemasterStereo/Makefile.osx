@@ -1,12 +1,12 @@
-# Mac OS X - Domemaster3D Arnold Shader Makefile
+# macOS - Domemaster3D Arnold Shader Makefile
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
 # You can compile this file from the command line using:
-# Make -f Makefile.osx
+# make -f Makefile.osx
 
 # You can install the files using the command
-# sudo Make -f Makefile.osx install
+# sudo make -f Makefile.osx install
 
 CC=g++
 

@@ -154,7 +154,7 @@
   The environment variable "MAYA_NO_INITIAL_AUTOLOAD_MT" can be used to exclude the autoloading of plugins like xgenToolkit and xgenMR that were added in Maya 2014+.
   The environment variable "MAYA_CUSTOM_TEMPLATE_PATH" is used to define the path for the Maya 2016 XML property editor templates.
   The environment variable "XPC_SERVICE_NAME" is typically set to a value like "com.autodesk.Maya.2016.226948"
-  The environment variable "IMF_PLUG_IN_PATH" lists the folder path for the mental ray tools like imf_display. On Maya 2016 on Mac OS X it is set to "/Applications/Autodesk/mentalrayForMaya2016/bin/image"
+  The environment variable "IMF_PLUG_IN_PATH" lists the folder path for the mental ray tools like imf_display. On Maya 2016 on macOS it is set to "/Applications/Autodesk/mentalrayForMaya2016/bin/image"
   
   Version V1.9.1
   --------------------

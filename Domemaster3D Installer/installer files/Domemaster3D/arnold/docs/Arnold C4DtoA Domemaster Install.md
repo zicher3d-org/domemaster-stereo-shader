@@ -59,9 +59,9 @@ Copy the Domemaster3D Cinema4D UI **res** resource files into the Arnold C4DtoA 
 
 `C:\Program Files\Domemaster3D\arnold\scenes\C4DtoA Sample Project\`
 
-### Mac OS X ###
+### macOS ###
 
-**Step 1.** Download and install the file "Domemaster3D v1.9 for Maya + 3DS Max on Windows 64-bit" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+**Step 1.** Download and install the file "Domemaster3D v2.2 for Maya + 3DS Max on macOS" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
 **Step 2.** Open up the new Domemaster3D shadersfolder:
 

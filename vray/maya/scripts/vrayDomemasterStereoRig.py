@@ -81,19 +81,19 @@ def getSourceImagesPath(imageFileName):
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
-      #Check if the program is running on Windows 
+      # Check if the program is running on Windows 
       baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
     elif platform.system()== 'win32':
-      #Check if the program is running on Windows 32
+      # Check if the program is running on Windows 32
       baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
-      #Check if the program is running on Mac OS X
+      # Check if the program is running on macOS
       baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux2':
-      #Check if the program is running on Linux
+      # Check if the program is running on Linux
       baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode

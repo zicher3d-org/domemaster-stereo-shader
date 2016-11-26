@@ -10,11 +10,11 @@
     +    [Removing a Lens Shader](#removing-a-lens-shader)
 *    [Maya Shader Installation](#maya-shader-installation)
     +    [Windows 64-bit](#windows-64-bit)
-    +    [Mac OS 64-bit](#mac-64-bit)
+    +    [macOS 64-bit](#mac-64-bit)
     +    [Linux 64-bit](#linux-64-bit)
 *    [Compiling Instructions](#compiling-instructions)
     +    [Windows 64-bit](#windows-64-bit-compile)
-    +    [Mac OS 64-bit](#mac-os-64-bit-compile)
+    +    [macOS 64-bit](#mac-os-64-bit-compile)
     +    [Linux 64-bit](#linux-64-bit-compile)
 
 ## <a name="overview"></a>Overview ##
@@ -133,8 +133,8 @@ Copy the Maya shelf files to your user account's Maya shelf folder:
 
 `C:\Users\<User Account>\Documents\maya\<Version>\prefs\shelves`
 
-### <a name="mac-64-bit"></a>Mac 64-bit ###
-**Step 1.** Download and install the file "Domemaster3D for Maya on Mac OS X" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+### <a name="mac-64-bit"></a>macOS 64-bit ###
+**Step 1.** Download and install the file "Domemaster3D for Maya on macOS" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
 **Step 2.** Open up the new Domemaster3D modules folder:
 `/Applications/Domemaster3D/ray/maya/modules`
@@ -186,7 +186,7 @@ Copy the Maya shelf files to your user account's Maya shelf folder:
 
 
 ### <a name="linux-64-bit"></a>Linux 64-bit ###
-**Step 1.** Download and install the file "Domemaster3D Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+**Step 1.** Download and install the file "Domemaster3D Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, macOS, Linux" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
 **Step 2.** Open up the new Domemaster3D modules folder:
 
@@ -254,9 +254,9 @@ If you are running an older version of Visual Studio you can use the legacy Micr
 `vray_LatLongStereo.dsp`  
 
 
-### <a name="mac-os-64-bit-compile"></a>Mac OS X 64-bit Compile ###
+### <a name="mac-os-64-bit-compile"></a>macOS 64-bit Compile ###
 
-The first version of Vray for Mac OS X support has been added to the lens shaders. Mac OS X 10.9 Mavericks or 10.10 Yosemite is required to use the lens shaders.
+The first version of Vray for macOS support has been added to the lens shaders. macOS 10.9 Mavericks or 10.10 Yosemite is required to use the lens shaders.
 
 **Step 1.**
 Install Xcode.
@@ -268,7 +268,7 @@ Open a new terminal window and cd into the source code folder.
 Copy the Vray SDK Lib and Include files into the matching folders located next to the source code files.
 
 **Step 4.**
-Use the Mac OS X makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo.so` shader:  
+Use the macOS makefile to compile a new `vray_DomemasterStereo.so` and `vray_LatLongStereo.so` shader:  
 
 `make -f MakefileMavericks.osx`
 

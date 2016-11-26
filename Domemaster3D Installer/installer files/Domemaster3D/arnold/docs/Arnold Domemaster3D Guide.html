@@ -342,8 +342,8 @@ solidangle_LICENSE=5053@&lt;Write Your RLM Server Address Here&gt;
 <p><code>C:\Program Files\Domemaster3D\arnold\scenes\MtoA_LatLong_Sample_Project.zip</code></p>
 <p>and copy it to your Maya projects folder here:</p>
 <p><code>C:\Users\&lt;User Account&gt;\Documents\maya\projects\</code></p>
-<h3>Mac 64-bit</h3>
-<p><strong>Step 1.</strong> Download and install the file &quot;Domemaster3D for Maya on Mac OS X&quot; from the <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/releases">Domemaster Project's GitHub Releases</a> page or from <a href="http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/">Andrew Hazelden's blog</a>.</p>
+<h3>macOS 64-bit</h3>
+<p><strong>Step 1.</strong> Download and install the file &quot;Domemaster3D for Maya on macOS&quot; from the <a href="https://github.com/zicher3d-org/domemaster-stereo-shader/releases">Domemaster Project's GitHub Releases</a> page or from <a href="http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/">Andrew Hazelden's blog</a>.</p>
 <p><strong>Step 2.</strong> Open up the new Domemaster3D folder:
 <code>/Applications/Domemaster3D/arnold/mtoa/modules</code></p>
 <p>Copy the Maya module file &quot;ArnoldDomemaster3D.mod&quot; from the Domemaster3D mtoa &quot;common/modules&quot; folder to:</p>
@@ -394,7 +394,7 @@ export solidangle_LICENSE=&quot;5053@&lt;Write Your RLM Server Address Here&gt;&
 <p>You can list all of the active Arnold Shader nodes using:</p>
 <h4>Windows Node List</h4>
 <p><code>C:\solidangle\mtoadeploy\&lt;Version&gt;\bin\kick.exe -nodes t</code></p>
-<h4>Mac Node List</h4>
+<h4>macOS Node List</h4>
 <p><code>~/solidangle/mtoa/&lt;Version&gt;/bin/kick -nodes t</code></p>
 <h4>Linux Node List</h4>
 <p><code>/opt/solidangle/mtoa/&lt;Version&gt;/bin/kick -nodes t</code></p>
@@ -454,7 +454,7 @@ export solidangle_LICENSE=&quot;5053@&lt;Write Your RLM Server Address Here&gt;&
 <p><code>kick -l C:\solidangle\mtoadeploy\&lt;Version&gt;\shaders\DomemasterStereo.dll -info DomemasterStereo</code></p>
 <p><code>kick -l C:\solidangle\mtoadeploy\&lt;Version&gt;\shaders\DomemasterWxH.dll -info DomemasterWxH</code></p>
 <p><code>kick -l C:\solidangle\mtoadeploy\&lt;Version&gt;\shaders\LatLongStereo.dll -info LatLongStereo</code></p>
-<h4>Mac Parameters</h4>
+<h4>macOS Parameters</h4>
 <p><code>kick -info DomemasterStereo</code>
 <code>kick -info DomemasterWxH</code>
 <code>kick -info LatLongStereo</code></p>
@@ -489,16 +489,16 @@ Run the &quot;windows64_setup.bat&quot; script using a new command prompt window
 <p><strong>Step 4.</strong>
 Compile the source code using <code>windows64_compile.bat</code> bat script in the same command prompt window used step 3:
 <code>windows64_compile.bat</code></p>
-<h3>Mac OS X 64-bit</h3>
+<h3>macOS 64-bit</h3>
 <p><strong>Step 1.</strong>
 Install Xcode, Arnold, and MtoA.</p>
 <p><strong>Step 2.</strong>
 Open a new terminal window and cd into the source code folder.</p>
 <p><strong>Step 3.</strong>
-Edit the Makefile.osx file and change the <code>MAYA_VERSION</code> variable to match your current Maya release, and update the <code>MTOA_API_VERSION</code> variable to match your current Arnold release number. You might want to edit the <code>macosx_version_min</code> option if you are compiling the shader exclusively for systems running Mac OS X Mavericks 10.9 or newer.</p>
+Edit the Makefile.osx file and change the <code>MAYA_VERSION</code> variable to match your current Maya release, and update the <code>MTOA_API_VERSION</code> variable to match your current Arnold release number. You might want to edit the <code>macosx_version_min</code> option if you are compiling the shader exclusively for systems running macOS Mavericks 10.9 or newer.</p>
 <p><strong>Step 4.</strong>
-Use the Mac OS X makefile to compile a new DomemasterStereo.dylib shader:
-<code>Make -f Makefile.osx</code></p>
+Use the macOS makefile to compile a new DomemasterStereo.dylib shader:
+<code>make -f Makefile.osx</code></p>
 <p><strong>Step 5.</strong>
 You can check your compiled dylib architecture with the following command:</p>
 <pre><code>bash-3.2# lipo -info DomemasterStereo.dylib 

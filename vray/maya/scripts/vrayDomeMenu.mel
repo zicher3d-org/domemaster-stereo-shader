@@ -455,7 +455,7 @@ global proc createVrayDomemaster3DMenu() {
     -command "source \"domeDiagnostics.mel\";\ndomeDiagnostics();";
   menuItem
     -label "Open Task Manager" 
-    -annotation "Open the Task Manager on Windows, or the Activity Monitor on Mac OS X."
+    -annotation "Open the Task Manager on Windows, or the Activity Monitor on macOS."
     -imageOverlayLabel "Task"
     -image "domeVray_task.png"
     -command "source \"domeDiagnostics.mel\";\nopenTaskManager();";

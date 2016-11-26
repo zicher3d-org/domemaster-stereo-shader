@@ -119,7 +119,7 @@ The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Stu
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 
-## Install Guide for Maya 2011 to 2017 x64 on Mac OS X ##
+## Install Guide for Maya 2011 to 2017 x64 on macOS ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 /Applications/Domemaster3D/
@@ -156,11 +156,11 @@ The Domemaster3D shelf file is located at:
 Copy the shelf to your user account's "Maya version" specific folder:
 ~/Library/Preferences/Autodesk/maya/<Maya Version Number>/prefs/shelves/
 
-Step 4. If you are running Mac OS X 10.9, 10.10, or 10.11 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
+Step 4. If you are running macOS 10.9, 10.10, or 10.11 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
 
-Step 5. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on Mac OS X, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
+Step 5. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on macOS, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
 
-For the technically inclined Mac user you can install ImageMagick using Xcode and the Mac Ports tool ( https://www.macports.org/ ) with the terminal command: 
+For the technically inclined macOS user you can install ImageMagick using Xcode and the Mac Ports tool ( https://www.macports.org/ ) with the terminal command: 
 sudo ports install ImageMagick
 
 
@@ -238,7 +238,7 @@ Linux Install Path:
 Windows Install Path:
 C:\Program Files\Domemaster3D\
 
-Mac OS X Install Path:
+macOS Install Path:
 /Applications/Domemaster3D/
 
 
@@ -252,7 +252,7 @@ Linux include Path:
 Windows include Path:
 C:\Program Files\Domemaster3D\mr-standalone\include\
 
-Mac OS X include Path:
+macOS include Path:
 /Applications/Domemaster3D/mr-standalone/include/
 
 
@@ -266,7 +266,7 @@ Linux Shader Lib Path:
 Windows Shader Lib Path:
 C:\Program Files\Domemaster3D\mr-standalone\windows-x64\
 
-Mac OS X Shader Lib Path:
+macOS Shader Lib Path:
 /Applications/Domemaster3D/mr-standalone/mac-x64/
 
 

@@ -87,9 +87,9 @@ and copy it to your Maya projects folder here:
 
 `C:\Users\<User Account>\Documents\maya\projects\`
 
-### Mac 64-bit ###
+### macOS 64-bit ###
 
-**Step 1.** Download and install the file "Domemaster3D for Maya on Mac OS X" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+**Step 1.** Download and install the file "Domemaster3D for Maya on macOS" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
 **Step 2.** Open up the new Domemaster3D folder:
 `/Applications/Domemaster3D/arnold/mtoa/modules`
@@ -130,7 +130,7 @@ and copy it to your Maya projects folder here:
 
 ### Linux 64-bit ###
 
-**Step 1.** Download and install the file "Domemaster3D Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
+**Step 1.** Download and install the file "Domemaster3D Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, macOS, Linux" from the [Domemaster Project's GitHub Releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases) page or from [Andrew Hazelden's blog](http://www.andrewhazelden.com/blog/2012/04/domemaster3d-stereoscopic-shader-for-autodesk-maya/).
 
 **Step 2.** Open up the new Domemaster3D folder:
 
@@ -173,7 +173,7 @@ You can list all of the active Arnold Shader nodes using:
 
 `C:\solidangle\mtoadeploy\<Version>\bin\kick.exe -nodes t`
 
-#### Mac Node List ####
+#### macOS Node List ####
 
 `~/solidangle/mtoa/<Version>/bin/kick -nodes t`
 
@@ -248,7 +248,7 @@ you can check if the shader is installed and define a custom library search path
 
 `kick -l C:\solidangle\mtoadeploy\<Version>\shaders\LatLongStereo.dll -info LatLongStereo`
 
-#### Mac Parameters ####
+#### macOS Parameters ####
 
 `kick -info DomemasterStereo`
 `kick -info DomemasterWxH`
@@ -304,7 +304,7 @@ Run the "windows64_setup.bat" script using a new command prompt window to setup 
 Compile the source code using `windows64_compile.bat` bat script in the same command prompt window used step 3:
 `windows64_compile.bat`
 
-### Mac OS X 64-bit ###
+### macOS 64-bit ###
 
 **Step 1.**
 Install Xcode, Arnold, and MtoA.
@@ -313,10 +313,10 @@ Install Xcode, Arnold, and MtoA.
 Open a new terminal window and cd into the source code folder.
 
 **Step 3.**
-Edit the Makefile.osx file and change the `MAYA_VERSION` variable to match your current Maya release, and update the `MTOA_API_VERSION` variable to match your current Arnold release number. You might want to edit the `macosx_version_min` option if you are compiling the shader exclusively for systems running Mac OS X Mavericks 10.9 or newer.
+Edit the Makefile.osx file and change the `MAYA_VERSION` variable to match your current Maya release, and update the `MTOA_API_VERSION` variable to match your current Arnold release number. You might want to edit the `macosx_version_min` option if you are compiling the shader exclusively for systems running macOS Mavericks 10.9 or newer.
 
 **Step 4.**
-Use the Mac OS X makefile to compile a new DomemasterStereo.dylib shader:
+Use the macOS makefile to compile a new DomemasterStereo.dylib shader:
 `Make -f Makefile.osx`
 
 **Step 5.**

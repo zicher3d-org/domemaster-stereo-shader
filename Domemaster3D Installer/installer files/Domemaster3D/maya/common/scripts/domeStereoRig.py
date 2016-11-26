@@ -117,7 +117,7 @@ def getSourceImagesPath(imageFileName):
       # Check if the program is running on Windows 32
       baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
     elif platform.system()== 'Darwin':
-      # Check if the program is running on Mac OS X
+      # Check if the program is running on macOS
       baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux

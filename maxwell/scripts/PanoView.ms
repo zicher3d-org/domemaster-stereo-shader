@@ -38,7 +38,7 @@ Step 5.  If any of the specific viewer tools fail to launch when selected, you m
 
 Notes:
 
-The default operating system for PanoView is Windows.  If you are on Mac or Linux, you should change the platform variable from "Windows" to either "Mac", or "Linux" so the correct viewing program is launched.
+The default operating system for PanoView is Windows.  If you are on macOS or Linux, you should change the platform variable from "Windows" to either "Mac", or "Linux" so the correct viewing program is launched.
 
 Uncomment the media viewing tool you want to use in the mediaViewerTool() function by adding or removing the // comment symbols.
 

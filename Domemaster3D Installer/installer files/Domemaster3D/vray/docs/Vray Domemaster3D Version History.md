@@ -77,7 +77,7 @@
 
 **Vray for Maya**
 
-- Added Vray 3.0 for Maya on Mac OS X Support. This build works with Mac OS X 10.9 Mavericks and 10.10 Yosemite only.
+- Added Vray 3.0 for Maya on macOS Support. This build works with macOS 10.9 Mavericks and 10.10 Yosemite only.
 
 ### 2015-05-08 ###
 
@@ -105,13 +105,13 @@ Note: The Domemaster3D Vray for Maya shader parameters have been updated and may
 
 ### 2015-03-31 ###
 
-**Vray Standalone Mac OS X Support**
+**Vray Standalone macOS Support**
 
-- Work has started on updating the Mac OS X based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool `plgparams.bin` on Mac OS X correctly reports the shader parameters in the Vray 2.5 for Mac OS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.
+- Work has started on updating the macOS based makefiles for the Vray DomemasterStereo and LatLongStereo shaders. At this point the vray tool `plgparams.bin` on macOS correctly reports the shader parameters in the Vray 2.5 for macOS i386 build of the shaders. Unfortunately, there is still a lazy binding issue with the shaders when used with Vray Standalone.
 
-![Plgparams Listing the Shader Parameters on the Mac 1](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_latlongstereo.png)  
+![Plgparams Listing the Shader Parameters on the macOS 1](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_latlongstereo.png)  
 
-![Plgparams Listing the Shader Parameters on the Mac 2](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_domemasterstereo.png) 
+![Plgparams Listing the Shader Parameters on the macOS  2](http://www.andrewhazelden.com/projects/domemaster3D/wiki/vray/vray_mac_plugin_params_domemasterstereo.png) 
 
 **Vray for Softimage Support**
 

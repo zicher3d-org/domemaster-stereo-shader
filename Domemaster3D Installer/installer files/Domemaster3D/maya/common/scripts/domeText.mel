@@ -1,6 +1,6 @@
 /*
-  Dome Text V2.1
-  2016-08-02
+  Dome Text V2.2
+  2016-11-26 
   by Andrew Hazelden
 
   The DomeText script is a title generator that creates raster title graphics in the png, tif, tga, bmp, and psd formats.
@@ -11,12 +11,20 @@
   On Mac OS X you need to install ImageMagick to either:
   /opt/local/bin/convert
   /opt/ImageMagick/bin/convert
+  /usr/local/bin/convert
+  
   or you need to add the ImageMagick "convert" tool to your system path by editing your ~/.bash_profile
 
   Note: On Windows the ImageMagick tool convert.exe was renamed domeconvert.exe to avoid a name collision with an existing Windows utility of the same name.
 
   Version History
   ----------------
+  
+  Version 2.2
+  -------------
+  2016-11-26
+  
+  Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
   
   Version 2.1
   -------------
@@ -2952,24 +2960,28 @@ global proc createDomeText(){
    
    //Added to system path: ";C:\Program Files\Domemaster3D\bin"
     $imagemagickPath = "domeconvert.exe";
-  }else if ($mayaPlatform  == "darwin"){
+  }else if($mayaPlatform  == "darwin"){
     //Mac OS X
     //Check for ImageMagick installs on Mac OS X
     string $optLocalBin = "/opt/local/bin/convert";
     string $optImageMagickBin = "/opt/ImageMagick/bin/convert";
-
+    string $usrImageMagickBin = "/usr/local/bin/convert";
+    
     //Verify which ImageMagick paths exist on the system
-    if(`file -query -exists $optLocalBin`){
+    if(`file -query -exists $usrImageMagickBin`){
+      $imagemagickPath = $usrImageMagickBin;
+      print("ImageMagick was found in " + $imagemagickPath + "\n");
+    }else if(`file -query -exists $optLocalBin`){
       $imagemagickPath = $optLocalBin;
       print("ImageMagick was found in " + $imagemagickPath + "\n");
-    } else if (`file -query -exists $optImageMagickBin`){
+    }else if(`file -query -exists $optImageMagickBin`){
       $imagemagickPath = $optImageMagickBin;
       print("ImageMagick was found in " + $imagemagickPath + "\n");
-    } else {
+    }else{
       $imagemagickPath = "convert";
       print("Looking for ImageMagick in the system $PATH locations.\n");
     }
-  }else {  
+  }else{  
     //Linux
     //$imagemagickPath = "convert";
     $imagemagickPath = "/usr/bin/convert";

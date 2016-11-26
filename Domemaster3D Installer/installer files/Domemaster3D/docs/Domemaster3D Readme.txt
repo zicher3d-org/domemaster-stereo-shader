@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1.4 - November 4, 2016
+Version 2.2 - November 26, 2016
 
 About This Shader
 ---------------------
@@ -18,7 +18,7 @@ The Domemaster3D shader is installed to the following paths:
 Windows:
 C:\Program Files\Domemaster3D\
 
-Mac OS X:
+macOS:
 /Applications/Domemaster3D/
 
 Linux:
@@ -27,17 +27,17 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.1 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.2 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.2 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
-Mac Notes
+macOS Notes
 ----------
-The minimum Mac OS X version required to run the compiled versions of the Domemaster3D mental ray shaders is now Mac OS X 10.9 due to the version of Xcode used to compile the current .dylib library files. 
+The minimum macOS version required to run the compiled versions of the Domemaster3D mental ray shaders is now macOS 10.9 due to the version of Xcode used to compile the current .dylib library files. 
 
-If you need support for older versions of Mac OS X, you can compile the shaders locally on a legacy Mac OS X system using the included Makefiles and the shaders will run on systems as old as Mac OS X 10.6.
+If you need support for older versions of macOS, you can compile the shaders locally on a legacy macOS system using the included Makefiles and the shaders will run on systems as old as macOS 10.6.
 
 https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Shader-Compiling#compiling-a-mac-os-x-build
 
@@ -48,7 +48,7 @@ The Domemaster3D control texture maps, models, and the DomeViewer panoramic mesh
 Windows:
 C:\Program Files\Domemaster3D\sourceimages\
 
-Mac OS X:
+macOS:
 /Applications/Domemaster3D/sourceimages/
 
 Linux:
@@ -167,19 +167,19 @@ The 4x2k button sets the render resolution to 4096x2048 pixels.
 The 8x4k button sets the render resolution to 8192x4096 pixels.
 
 Show Maya Project Directory Button
-The PROJ button opens the current maya project folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+The PROJ button opens the current maya project folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (macOS), Windows Explorer, or Nautilus (Linux).
 
 Show Scenes Directory Button
-The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+The SCN button opens the scenes folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (macOS), Windows Explorer, or Nautilus (Linux).
 
 Show Sourceimages Directory Button
-The SRC button opens the sourceimages folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+The SRC button opens the sourceimages folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (macOS), Windows Explorer, or Nautilus (Linux).
 
 Show Images Directory Button
-The IMG button opens the images folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+The IMG button opens the images folder for the current project in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (macOS), Windows Explorer, or Nautilus (Linux).
 
 Show Temporary Directory Button
-The TMP button opens the operating system's temporary %TEMP% / $TEMP folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (Mac OS X), Windows Explorer, or Nautilus (Linux).
+The TMP button opens the operating system's temporary %TEMP% / $TEMP folder in a new window on your desktop. This is the same as if you manually browsed to the folder using Finder (macOS), Windows Explorer, or Nautilus (Linux).
 
 Display Render Log Button
 The rLog button opens the current MayaRenderLog.txt file to show the render statistics.
@@ -189,7 +189,7 @@ The Diag button generates a Maya Diagnostics Report and saves it to your desktop
 The diagnostics output is formatted in plain text format using the "markdown" syntax and can be opened in Markdown Pad / StackEdit / Notepad++ /TextWrangler / BBedit or any other plain text editor.
 
 Task Viewer Button
-This button will open the Mac OS X Activity Monitor, or the Windows Task Manager. This is useful to check the efficiency of the renderer by inspecting the memory usage and the processor utilization.
+This button will open the macOS Activity Monitor, or the Windows Task Manager. This is useful to check the efficiency of the renderer by inspecting the memory usage and the processor utilization.
 
 Upgrade Domemaster Node IDs button
 The Upgr / "Upgrade Domemaster Node IDs" button will look in your Maya Binary scenes for any legacy latlong_lens, domeAFL_FOV, domeAFL_FOV_Stereo, or domeAFL_WxH nodes and replace them with newly created nodes using the current Node ID information from the current domeFL_FOV_Stereo.mi & latlong_lens.mi mental ray include files. The domeAFL node Extra Attributes settings will be refreshed too, along with the expressions linked dome preview shape.
@@ -288,6 +288,15 @@ Martin Watt for writing the original galaxies.mel script.
 Version History
 -----------------
 
+Version 2.2
+-------------
+2016-11-26 
+
+Maya
+  Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
+  
+  Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
+
 Version 2.1.4
 -------------
 2016-11-03
@@ -301,7 +310,7 @@ Version 2.1.3
 2016-10-04
 
 Maya
-	Recompiled the mental ray 3.14 for Mac OS X versions of the lens shaders that are capable of working with Maya 2016/2016.5/2017. The newly compiled mental ray 3.14 lens shaders work with Mac OS X 10.9+ Mavericks.
+	Recompiled the mental ray 3.14 for macOS versions of the lens shaders that are capable of working with Maya 2016/2016.5/2017. The newly compiled mental ray 3.14 lens shaders work with macOS 10.9+ Mavericks.
 	
 Version 2.1.2
 -------------
@@ -584,7 +593,7 @@ Maya
     SEEXPR Software Env Vars:  
       SE_EXPR_PLUGINS
     
-    Mac & Linux Env Vars:
+    macOS & Linux Env Vars:
       LD_LIBRARY_PATH
 
 Version 1.8.3
@@ -679,7 +688,7 @@ Version 1.7.3
 Maya
   Maya 2016 Compatibility Release - Updated the Maya 2016 install paths, the Maya 2016 Visor tab script (visorPanel.mel), the MR physical sky files (AEmia_physicalskyTemplate.mel & createMentalRayIndirectLightingTab.mel), and the mental ray for Maya 2016 mentalrayCustomNodeClass.mel script.
 	
-  Updated the dome diagnostics tool to support Vray for Maya on Mac OS X environment variables
+  Updated the dome diagnostics tool to support Vray for Maya on macOS environment variables
   
   Updated the Domemaster3D module file entry line for the Maya version specific Python Path:
     PYTHONPATH+:=../2015/scripts
@@ -803,7 +812,7 @@ October 24, 2014
 Updated LatLong_Stereo source code for a horizontal orientation
 Updated domeAFL_FOV_Stereo code to fix a bug in the Flip X/Y code
 Updated Makefiles for all platforms
-Recompiled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for Mac/Windows/Linux
+Recompiled latlong_Stereo, domeAFL_FOV_Stereo, and latlong_lens shaders for macOS/Windows/Linux
 
 3DS Max Changes
   Updated 3DS Max LatLong_Stereo .dll shader file and mental ray include file
@@ -838,7 +847,7 @@ July 27, 2014
 
 Maya Changes
 
-  Added a "Task" shelf tool that allows you to quickly open the Mac OS X Activity Monitor, or the Windows Task Manager
+  Added a "Task" shelf tool that allows you to quickly open the macOS Activity Monitor, or the Windows Task Manager
 
   Updated the "diag" domeDiagnostics tool to profile more rendering engines, and improved the mr shader folder scanning
 
@@ -1054,7 +1063,7 @@ Added a "Flip the Panoramic Image" checkbox that causes a mirror effect on the p
 DomeText Update
 Rewrote the Linux DomeText font scanning to scan through each of the font folders located in the linux font path: /usr/share/fonts/
 
-Improved the Mac OS X DomeText font scanning. Fonts that are installed in the /Library/Fonts, /System/Library/Fonts, and ~/Library/Fonts folders are now added to the font menu list. The font folder path is added so it is possible to know which version of a font is selected.
+Improved the macOS DomeText font scanning. Fonts that are installed in the /Library/Fonts, /System/Library/Fonts, and ~/Library/Fonts folders are now added to the font menu list. The font folder path is added so it is possible to know which version of a font is selected.
 
 
 Version 1.4 Beta 8 Changes
@@ -1067,9 +1076,9 @@ Added a set of Maya shelf tools to change the render resolution.
 
 Added a 16x8k equirectangular starglobe texture "starglobe_equirect_reversed_16x8k.jpg" to the sourceimages folder. This texture has been reversed for the view "inside" the night sky environment.
 
-This release adds the DomeViewer tool, the DomeText tool, and a lot of other improvements to the Mac OS X release.
+This release adds the DomeViewer tool, the DomeText tool, and a lot of other improvements to the macOS release.
 
-If you are interested in using the DomeText tool on Mac OS X, the ImageMagick library has to be downloaded separately. This ImageMagick library is available from:
+If you are interested in using the DomeText tool on macOS, the ImageMagick library has to be downloaded separately. This ImageMagick library is available from:
 http://www.imagemagick.org/script/binary-releases.php#macosx
 
 
@@ -1280,7 +1289,7 @@ Added Maya 2014 support
 
 The Maya camera connections for the lens shaders have been updated
 
-The location of the default domemaster control map textures is now in the C:\Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on Mac OS X. The Domemaster3D shelf tools have been updated to automatically link to the new sourceimages folder.
+The location of the default domemaster control map textures is now in the C:\Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on macOS. The Domemaster3D shelf tools have been updated to automatically link to the new sourceimages folder.
 
 There is a fix for the issue where the mental ray physical sky & sun system will overwrite existing connections to the .miLensShader port. The physical sky & sun system will now use the miLensShaderList[0] connection on a camera.
 
@@ -1288,7 +1297,7 @@ There is a fix for the issue where the mental ray physical sky & sun system will
 Version 1.3
 ---------------------------
 Released Nov 4, 2012
-Changed the DomeAFL_FOV and DomeADL_WxH source code to match the view orientation of the camera and the domemaster stereo lens shader. Recompiled the Domemaster3D Mac / Windows mental ray shaders.
+Changed the DomeAFL_FOV and DomeADL_WxH source code to match the view orientation of the camera and the domemaster stereo lens shader. Recompiled the Domemaster3D macOS / Windows mental ray shaders.
 
 Added a python script for creating a domeAFL compatible mia_material shading network. This should solve the typical "blurry grey line" texture sampling artifact that happens near the spring line.
 

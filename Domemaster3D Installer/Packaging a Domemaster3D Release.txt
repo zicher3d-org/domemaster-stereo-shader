@@ -1,7 +1,7 @@
-Packaging a Domemaster3D Release - 2016-11-03
+Packaging a Domemaster3D Release - 2016-11-26
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
-Step 1. Use Cygwin/Terminal to remove any of the Mac OS style ".ds-store" files and Windows thumbnails, too:
+Step 1. Use Cygwin/Terminal to remove any of the macOS style ".ds-store" files and Windows thumbnails, too:
 
 cd /cygdrive/x/GitHub/domemaster-stereo-shader
 
@@ -25,49 +25,49 @@ sudo chmod -R 755 ./
 zip -r "mr3.14 ray-differential shaders.zip" mr3.14
 
 
-Step 2. Build the Bitrock Install Builder based installers for Mac & Windows using the file:
+Step 2. Build the Bitrock Install Builder based installers for macOS & Windows using the file:
 
 ~\GitHub\domemaster-stereo-shader\mentalray\Domemaster3D Installer\Domemaster3D.xml
 
 
 Step 3. Create the following ZIP archives:
 
-Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip
-    Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
+Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install.zip
+    Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install
         Domemaster3D
         Domemaster3D Readme-Short.txt
-        Mac OS X Installation Notes.txt
+        macOS Installation Notes.txt
         Manual Install Guide.txt
 
 # Add the install notes
 cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
-mkdir "Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install"
+mkdir "Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install"
 
 cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Domemaster3D Readme-Short.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
 
-cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Mac OS X Installation Notes.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
+cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/macOS Installation Notes.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
 
 cp "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Manual Install Guide.txt" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
 
 cp -R "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D" "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
 
-# Move the files into the "Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install" sub-folder manually and double check the release dates on the notes
+# Move the files into the "Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install" sub-folder manually and double check the release dates on the notes
 
 # Zip the files
 cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
-zip -r Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install.zip Domemaster3D-X.X-Linux-Mac-Windows-Manual-Install
+zip -r Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install.zip Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install
 
 * * *
 
-Domemaster3D-X.X-osx-installer.zip
+Domemaster3D-X.X-macos-installer.zip
     Domemaster3D-X.X-osx-installer.app
     Domemaster3D Readme-Short.txt
-    Mac OS X Installation Notes.txt
+    macOS Installation Notes.txt
 
 cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
-zip -r Domemaster3D-X.X-osx-installer.zip "Domemaster3D-X.X-osx-installer.app" "Domemaster3D Readme-Short.txt" "Mac OS X Installation Notes.txt"
+zip -r Domemaster3D-X.X-macos-installer.zip "Domemaster3D-X.X-osx-installer.app" "Domemaster3D Readme-Short.txt" "macOS Installation Notes.txt"
 
-Note: Don't forget to code sign the Mac OS X installer!!!
+Note: Don't forget to code sign the macOS installer!!!
 
 * * *
 
@@ -86,7 +86,7 @@ Step 4. Upload the new release to GitHub and use the following format for the Gi
 Combined Download
 vX.X Domemaster3D vX.X for Maya + 3DS Max
 
-This is the Domemaster3D Shader vX.X release for Windows, Mac, and Linux. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2017. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+This is the Domemaster3D Shader vX.X release for Windows, macOS, and Linux. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2017. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
 
 
 vX.XW
@@ -95,13 +95,13 @@ This is the Domemaster3D Shader vX.X release for Maya + 3DS Max on Windows 64-bi
 
 
 vX.XM
-Domemaster3D vX.X for Maya on Mac OS X
-This is the Domemaster3D Shader vX.X release for Maya on Mac OS X 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
+Domemaster3D vX.X for Maya on macOS
+This is the Domemaster3D Shader vX.X release for Maya on macOS 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
 
 This update adds support for Maya 2017.
 
 vX.XL
-Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, Mac, Linux
+Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, macOS, Linux
 This is the Domemaster3D Shader vX.X manual install release for Maya + 3DS Max + Mental Ray Standalone. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders.
 
 This update adds support for Maya 2017.

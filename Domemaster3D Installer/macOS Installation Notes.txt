@@ -1,0 +1,12 @@
+macOS Installation Notes
+--------------------------------
+
+If you are running macOS 10.9, 10.10, 10.11, or 10.12 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow the unsigned Domemaster3D installer to create the /Applications/Domemaster3D resource folder.
+
+Mac Notes
+----------
+The minimum macOS version required to run the compiled versions of the Domemaster3D mental ray shaders is now macOS 10.9 due to the version of Xcode used to compile the current .dylib library files. 
+
+If you need support for older versions of macOS, you can compile the shaders locally on a legacy macOS system using the included Makefiles and the shaders will run on systems as old as macOS 10.6:
+
+https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Shader-Compiling#compiling-a-mac-os-x-build

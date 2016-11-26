@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.1.4 - November 4, 2016
+Version 2.2 - November 26, 2016
 
 About This Shader
 ---------------------
@@ -18,7 +18,7 @@ The Domemaster3D shader is installed to the following paths:
 Windows:
 C:\Program Files\Domemaster3D\
 
-Mac OS X:
+macOS:
 /Applications/Domemaster3D/
 
 Linux:
@@ -33,11 +33,11 @@ http://www.microsoft.com/en-us/download/details.aspx?id=30679
 The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
-Mac Notes
+macOS Notes
 ----------
-The minimum Mac OS X version required to run the compiled versions of the Domemaster3D mental ray shaders is now Mac OS X 10.9 due to the version of Xcode used to compile the current .dylib library files. 
+The minimum macOS version required to run the compiled versions of the Domemaster3D mental ray shaders is now macOS 10.9 due to the version of Xcode used to compile the current .dylib library files. 
 
-If you need support for older versions of Mac OS X, you can compile the shaders locally on a legacy Mac OS X system using the included Makefiles and the shaders will run on systems as old as Mac OS X 10.6.
+If you need support for older versions of macOS, you can compile the shaders locally on a legacy macOS system using the included Makefiles and the shaders will run on systems as old as macOS 10.6.
 
 https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Shader-Compiling#compiling-a-mac-os-x-build
 
@@ -67,6 +67,16 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+
+Version 2.2
+-------------
+2016-11-26 
+
+Maya
+  Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
+  
+  Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
+
 Version 2.1.4
 -------------
 2016-11-03
@@ -79,7 +89,7 @@ Version 2.1.3
 2016-10-04
 
 Maya
-	Recompiled the mental ray 3.14 for Mac OS X versions of the lens shaders that are capable of working with Maya 2016/2016.5/2017. The newly compiled mental ray 3.14 lens shaders work with Mac OS X 10.9+ Mavericks.
+	Recompiled the mental ray 3.14 for macOS versions of the lens shaders that are capable of working with Maya 2016/2016.5/2017. The newly compiled mental ray 3.14 lens shaders work with macOS 10.9+ Mavericks.
 	
 Version 2.1.2
 -------------
@@ -192,17 +202,6 @@ Maya
   Added DomeViewer image projection support for the Facebook 360 Pyramid, LG360 Camera, and the Samsung Gear 360 Camera image projections.
   
   Updated the Dome Diagnostics script
-
-Version 1.9.3
--------------
-2016-02-08
-
-Maya
-  Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemaster3D sourceimages folder
-
-  Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemaster3D sourceimages folder
-
-  Updated the Dome Diagnostics tool to add support for the mental ray env variable "MAYA_MRFM_SHOW_CUSTOM_SHADERS" that will expose the custom mental ray shaders in Maya.
 
 Project Developers
 ----------------------

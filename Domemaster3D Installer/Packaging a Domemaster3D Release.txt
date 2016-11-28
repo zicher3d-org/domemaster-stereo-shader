@@ -1,20 +1,23 @@
-Packaging a Domemaster3D Release - 2016-11-26
+Packaging a Domemaster3D Release - 2016-11-28 
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
 Step 1. Use Cygwin/Terminal to remove any of the macOS style ".ds-store" files and Windows thumbnails, too:
 
 cd /cygdrive/x/GitHub/domemaster-stereo-shader
+find . -name '*.DS_Store' -type f -delete
+find . -name '*Thumbs.db' -type f -delete
+sudo chmod -R 755 ./
 
 # or 
 
-cd "/Personal Documents/GitHub/domemaster-stereo-shader/"
-
+cd "$HOME/Documents/GitHub/domemaster-stereo-shader/"
 find . -name '*.DS_Store' -type f -delete
 find . -name '*Thumbs.db' -type f -delete
+sudo chmod -R 755 ./
 
 
 # zip package the mr 3.14 shaders folder
-cd "/Personal Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/shaders/"
+cd "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/shaders/"
 
 # Files Cleanup
 find . -name '*.DS_Store' -type f -delete
@@ -27,7 +30,7 @@ zip -r "mr3.14 ray-differential shaders.zip" mr3.14
 
 Step 2. Build the Bitrock Install Builder based installers for macOS & Windows using the file:
 
-~\GitHub\domemaster-stereo-shader\mentalray\Domemaster3D Installer\Domemaster3D.xml
+"$HOME/Documents/GitHub/domemaster-stereo-shader/mentalray/Domemaster3D Installer/Domemaster3D.xml"
 
 
 Step 3. Create the following ZIP archives:

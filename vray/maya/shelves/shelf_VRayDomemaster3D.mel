@@ -51,7 +51,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\nvrayDomeCamera.createDomeGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.setRenderRes()" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\nvrayDomeCamera.createDomeGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.setRenderRes()\n\n\n# Turn off the Vray frame buffer\nimport maya.cmds as cmds\ncmds.setAttr('vraySettings.vfbOn', 0)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -77,7 +77,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\nvrayDomeCamera.createLatLongGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
+        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\nvrayDomeCamera.createLatLongGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.changeRenderResWH(2048,1024)\n\n# Turn off the Vray frame buffer\nimport maya.cmds as cmds\ncmds.setAttr('vraySettings.vfbOn', 0)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

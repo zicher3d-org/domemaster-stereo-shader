@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2 - November 26, 2016
+Version 2.2 - November 27, 2016
 
 About This Shader
 ---------------------
@@ -27,10 +27,10 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.1 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.2 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.2 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 macOS Notes
@@ -67,10 +67,9 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
-
 Version 2.2
 -------------
-2016-11-26 
+2016-11-27 
 
 Maya
   Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
@@ -78,6 +77,12 @@ Maya
   Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
 
   Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style.
+
+Vray for Maya
+  Updated the Automagic DomemasterStereo and LatLongStereo shelf buttons to include a line of Python code to turn the Vray Frame Buffer off by default so the Maya Render View will show the stereo result.
+
+  Updated the Domemaster3D for Vray installation instructions on the GitHub Wiki to include instructions on the new module based installation approach:
+  https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Vray-for-Maya-Domemaster3D
 
 Version 2.1.4
 -------------

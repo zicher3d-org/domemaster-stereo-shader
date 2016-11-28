@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2 - November 26, 2016
+Version 2.2 - November 27, 2016
 
 About This Shader
 ---------------------
@@ -290,7 +290,7 @@ Version History
 
 Version 2.2
 -------------
-2016-11-26 
+2016-11-27 
 
 Maya
   Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
@@ -298,6 +298,12 @@ Maya
   Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
 
   Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style.
+
+Vray for Maya
+  Updated the Automagic DomemasterStereo and LatLongStereo shelf buttons to include a line of Python code to turn the Vray Frame Buffer off by default so the Maya Render View will show the stereo result.
+
+  Updated the Domemaster3D for Vray installation instructions on the GitHub Wiki to include instructions on the new module based installation approach:
+  https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Vray-for-Maya-Domemaster3D
 
 Version 2.1.4
 -------------

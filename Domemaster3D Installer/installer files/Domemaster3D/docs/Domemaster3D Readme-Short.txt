@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2 - November 27, 2016
+Version 2.2 - December 7, 2016
 
 About This Shader
 ---------------------
@@ -27,11 +27,17 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.2 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.2 mental ray and Arnold releases for Windows have been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
+
+You can also find a copy of the Visual Studio 2012 (VC++ 11.0) x64 installer in the Domemaster3D folder at:
+C:/Program Files/Domemaster3D/bin/vcredist_2012_vc11_x64.exe
 
 The Domemaster3D v2.2 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
+
+You can also find a copy of the Visual Studio 2013 (VC++ 12.0) x64 installer in the Domemaster3D folder at:
+C:/Program Files/Domemaster3D/bin/vcredist_2013_vc12_x64.exe
 
 macOS Notes
 ----------
@@ -69,16 +75,29 @@ Version History
 
 Version 2.2
 -------------
-2016-11-27 
+2016-12-07
 
+Maya + Max
+  A copy of the Windows based Visual Studio 2012 (vcredist_2012_vc11_x64.exe) and Visual Studio 2013 (vcredist_2013_vc12_x64.exe) Redistributable Package x64 installers are now included with Domemaster3D. These resources are accessible in the bin folder: C:/Program Files/Domemaster3D/bin/
+  
 Maya
+  Improved macOS Gatekeeper security by digitally signing the macOS .dylib lens shader files with Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
+
   Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
   
   Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
 
   Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style.
 
+mental ray for Maya
+  The Domemaster3D lens shaders now officially work with the new mental ray 3.14 release.
+
+Arnold for Maya
+  Improved macOS Gatekeeper security by digitally signing the macOS .dylib lens shader files with Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
+
 Vray for Maya
+  Improved macOS Gatekeeper security by digitally signing the macOS .so lens shader files with Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
+  
   Updated the Automagic DomemasterStereo and LatLongStereo shelf buttons to include a line of Python code to turn the Vray Frame Buffer off by default so the Maya Render View will show the stereo result.
 
   Updated the Domemaster3D for Vray installation instructions on the GitHub Wiki to include instructions on the new module based installation approach:

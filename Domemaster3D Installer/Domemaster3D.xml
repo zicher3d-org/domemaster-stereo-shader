@@ -3239,6 +3239,131 @@
                 </compareText>
             </shouldPackRuleList>
         </componentGroup>
+        <componentGroup>
+            <name>Arnold_for_Cinema4D_Support</name>
+            <description>Arnold Cinema4D Support</description>
+            <canBeEdited>1</canBeEdited>
+            <detailedDescription>This option will install the Domemaster3D Arnold C4DtoA lens shaders for Cinema4D R18.</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <componentList>
+                <!-- Arnold C4DtoA for Cinema4D R18 Install files -->
+                <componentGroup>
+                    <name>c4dtoa_Cinema4D</name>
+                    <description>C4DtoA for Cinema4D R18</description>
+                    <canBeEdited>1</canBeEdited>
+                    <detailedDescription>This option will install the Domemaster3D Arnold C4DtoA files into your Cinema4D folder.</detailedDescription>
+                    <selected>0</selected>
+                    <show>1</show>
+                    <componentList>
+                        <component>
+                            <name>c4dtoa_Cinema4D_Shaders</name>
+                            <description>Cinema4D Shaders</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>C4DtoA Shader File</description>
+                                    <destination>/Applications/MAXON/CINEMA 4D R18/plugins/C4DtoA/shaders</destination>
+                                    <name>c4dtoa_shaders_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.mtd</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>C4DtoA Shader Files</description>
+                                    <destination>${windows_folder_program_files}/MAXON/CINEMA 4D R18/plugins/C4DtoA/shaders</destination>
+                                    <name>c4dtoa_shaders_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.mtd</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                        <component>
+                            <name>c4dtoa_Cinema4D_Resources</name>
+                            <description>C4DtoA Resource Files</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>C4DtoA Resource Files</description>
+                                    <destination>/Applications/MAXON/CINEMA 4D R18/plugins/C4DtoA/res</destination>
+                                    <name>shelf_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionDirectory>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/res</origin>
+                                        </distributionDirectory>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>C4DtoA Resource Files</description>
+                                    <destination>${windows_folder_program_files}/MAXON/CINEMA 4D R18/plugins/C4DtoA/res</destination>
+                                    <name>module_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/res</origin>
+                                        </distributionDirectory>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                    </componentList>
+                </componentGroup>
+            </componentList>
+        </componentGroup>
     </componentList>
     <preInstallationActionList>
         <!-- Windows Maya Env Backup -->

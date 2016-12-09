@@ -3163,6 +3163,73 @@
                         </componentGroup>
                     </componentList>
                 </componentGroup>
+                <componentGroup>
+                    <name>vray_for_Max_Support</name>
+                    <description>V-Ray Support</description>
+                    <canBeEdited>1</canBeEdited>
+                    <detailedDescription>This option will install the Domemaster3D V-Ray lens shaders for Autodesk 3DS Max.</detailedDescription>
+                    <selected>1</selected>
+                    <show>1</show>
+                    <componentList>
+                        <!-- V-Ray Max 2015 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2015</name>
+                            <description>Vray for 3DS Max 2015</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the Domemaster3D Vray lens shaders in the Autodesk 3DS Max 2015 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2015_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${Vray_Max_2015_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/vray/install/3dsmax/vray 3.0 for 3ds Max 2015/vraydomemasterstereo2015.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/vray/install/3dsmax/vray 3.0 for 3ds Max 2015/vraylatlongstereo2015.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Vray_Max_2015_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Vray_2015_Shaders_Dir</name>
+                                    <title>3DS Max 2015 Vray Shaders</title>
+                                    <description>Vray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2015\plugins\vrayplugins</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>vray_max2015_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
+
+                        <!-- End of V-Ray Max 2015 Install files -->
+                    </componentList>
+                </componentGroup>
             </componentList>
             <shouldPackRuleList>
                 <compareText>

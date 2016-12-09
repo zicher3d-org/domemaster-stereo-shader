@@ -2214,944 +2214,954 @@
             <name>Max_Support</name>
             <description>3DS Max Support</description>
             <canBeEdited>1</canBeEdited>
-            <detailedDescription>This option will install the Domemaster3D mental ray lens shader for Autodesk 3DS Max.</detailedDescription>
+            <detailedDescription>This option will install the Domemaster3D mental ray lens shaders for Autodesk 3DS Max.</detailedDescription>
             <selected>1</selected>
             <show>1</show>
             <componentList>
-                <!-- Max 2017 Install files -->
                 <componentGroup>
-                    <name>max_2017</name>
-                    <description>3DS Max 2017 Support</description>
+                    <name>mentalray_for_Max_Support</name>
+                    <description>mental ray Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2017 folder.</detailedDescription>
-                    <selected>0</selected>
+                    <detailedDescription>This option will install the Domemaster3D mental ray lens shaders for Autodesk 3DS Max.</detailedDescription>
+                    <selected>1</selected>
                     <show>1</show>
                     <componentList>
-                        <component>
-                            <name>Max_2017_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2017 Install files -->
+                        <componentGroup>
+                            <name>max_2017</name>
+                            <description>mr for 3DS Max 2017</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2017_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2017_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2017_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2017_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2017_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2017_Shaders_Dir</name>
-                            <title>3DS Max 2017 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2017_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2017_Include_Dir</name>
-                            <title>3DS Max 2017 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2017_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2017 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2017_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2017_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2017_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2017_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2017_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2017_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2017_Shaders_Dir</name>
+                                    <title>3DS Max 2017 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2017_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2017_Include_Dir</name>
+                                    <title>3DS Max 2017 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\NVIDIA\Shaders\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2017_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2016 Install files -->
-                <componentGroup>
-                    <name>max_2016</name>
-                    <description>3DS Max 2016 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2016 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2016_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2016 Install files -->
+                        <componentGroup>
+                            <name>max_2016</name>
+                            <description>mr for 3DS Max 2016</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2016_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2016_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2016_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2016_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2016_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2016_Shaders_Dir</name>
-                            <title>3DS Max 2016 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2016_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2016_Include_Dir</name>
-                            <title>3DS Max 2016 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2016_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2016 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2016_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2016_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2016_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2016_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2016_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2016_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2016_Shaders_Dir</name>
+                                    <title>3DS Max 2016 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2016_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2016_Include_Dir</name>
+                                    <title>3DS Max 2016 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2016\NVIDIA\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2016_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2015 Install files -->
-                <componentGroup>
-                    <name>max_2015</name>
-                    <description>3DS Max 2015 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2015 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2015_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2015 Install files -->
+                        <componentGroup>
+                            <name>max_2015</name>
+                            <description>mr for 3DS Max 2015</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2015_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2015_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2015_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2015_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2015_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2015_Shaders_Dir</name>
-                            <title>3DS Max 2015 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2015_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2015_Include_Dir</name>
-                            <title>3DS Max 2015 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2015_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2015 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2015_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2015_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2015_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2015_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2015_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2015_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2015_Shaders_Dir</name>
+                                    <title>3DS Max 2015 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2015_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2015_Include_Dir</name>
+                                    <title>3DS Max 2015 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2015\NVIDIA\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2015_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2014 Install files -->
-                <componentGroup>
-                    <name>max_2014</name>
-                    <description>3DS Max 2014 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2014 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2014_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2014 Install files -->
+                        <componentGroup>
+                            <name>max_2014</name>
+                            <description>mr for 3DS Max 2014</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2014_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2014_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2014_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2014_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2014_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2014_Shaders_Dir</name>
-                            <title>3DS Max 2014 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2014_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2014_Include_Dir</name>
-                            <title>3DS Max 2014 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2014_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2014 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2014_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2014_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2014_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2014_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2014_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2014_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2014_Shaders_Dir</name>
+                                    <title>3DS Max 2014 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2014_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2014_Include_Dir</name>
+                                    <title>3DS Max 2014 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2014\NVIDIA\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2014_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2013 Install files -->
-                <componentGroup>
-                    <name>max_2013</name>
-                    <description>3DS Max 2013 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2013 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2013_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2013 Install files -->
+                        <componentGroup>
+                            <name>max_2013</name>
+                            <description>mr for 3DS Max 2013</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2013_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2013_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2013_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2013_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2013_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2013_Shaders_Dir</name>
-                            <title>3DS Max 2013 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2013_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2013_Include_Dir</name>
-                            <title>3DS Max 2013 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2013_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2013 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2013_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2013_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2013_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2013_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2013_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2013_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2013_Shaders_Dir</name>
+                                    <title>3DS Max 2013 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2013_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2013_Include_Dir</name>
+                                    <title>3DS Max 2013 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2013\NVIDIA\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2013_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2012 Install files -->
-                <componentGroup>
-                    <name>max_2012</name>
-                    <description>3DS Max 2012 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2012 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2012_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2012 Install files -->
+                        <componentGroup>
+                            <name>max_2012</name>
+                            <description>mr for 3DS Max 2012</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2012_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2012_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2012_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2012_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2012_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2012_Shaders_Dir</name>
-                            <title>3DS Max 2012 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2012_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2012_Include_Dir</name>
-                            <title>3DS Max 2012 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2012_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2012 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2012_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2012_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2012_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2012_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2012_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2012_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2012_Shaders_Dir</name>
+                                    <title>3DS Max 2012 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2012_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2012_Include_Dir</name>
+                                    <title>3DS Max 2012 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2012\mentalimages\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2012_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2011 Install files -->
-                <componentGroup>
-                    <name>max_2011</name>
-                    <description>3DS Max 2011 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2011 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2011_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2011 Install files -->
+                        <componentGroup>
+                            <name>max_2011</name>
+                            <description>mr for 3DS Max 2011</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2011_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2011_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2011_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2011_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2011_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2011_Shaders_Dir</name>
-                            <title>3DS Max 2011 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2011_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2011_Include_Dir</name>
-                            <title>3DS Max 2011 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2011_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2011 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2011_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2011_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2011_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2011_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2011_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2011_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2011_Shaders_Dir</name>
+                                    <title>3DS Max 2011 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2011_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2011_Include_Dir</name>
+                                    <title>3DS Max 2011 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2011\mentalimages\shaders_autoload\mentalray\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2011_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2010 Install files -->
-                <componentGroup>
-                    <name>max_2010</name>
-                    <description>3DS Max 2010 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2010 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2010_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2010 Install files -->
+                        <componentGroup>
+                            <name>max_2010</name>
+                            <description>mr for 3DS Max 2010</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2010_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2010_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2010_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2010_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2010_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                    </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2010_Shaders_Dir</name>
-                            <title>3DS Max 2010 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2010\mentalray\shaders_autoload\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2010_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2010_Include_Dir</name>
-                            <title>3DS Max 2010 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2010\mentalray\shaders_autoload\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2010_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
-                </componentGroup>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2010 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2010_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2010_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2010_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2010_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2010_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2010_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2010_Shaders_Dir</name>
+                                    <title>3DS Max 2010 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2010\mentalray\shaders_autoload\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2010_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2010_Include_Dir</name>
+                                    <title>3DS Max 2010 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2010\mentalray\shaders_autoload\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2010_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
 
-                <!-- Max 2009 Install files -->
-                <componentGroup>
-                    <name>max_2009</name>
-                    <description>3DS Max 2009 Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2009 folder.</detailedDescription>
-                    <selected>0</selected>
-                    <show>1</show>
-                    <componentList>
-                        <component>
-                            <name>Max_2009_Shaders</name>
-                            <description>Shaders</description>
+                        <!-- Max 2009 Install files -->
+                        <componentGroup>
+                            <name>max_2009</name>
+                            <description>mr for 3DS Max 2009</description>
                             <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray shaders</description>
-                                    <destination>${Max_2009_Shaders_Dir}</destination>
-                                    <name>shaders</name>
-                                    <platforms>all</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/latlong_lens.dll</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2009_Shaders_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
-                        <component>
-                            <name>Max_2009_Include</name>
-                            <description>Include</description>
-                            <canBeEdited>1</canBeEdited>
-                            <selected>1</selected>
-                            <show>0</show>
-                            <folderList>
-                                <folder>
-                                    <description>mental ray include</description>
-                                    <destination>${Max_2009_Include_Dir}</destination>
-                                    <name>include</name>
-                                    <platforms>windows</platforms>
-                                    <distributionFileList>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/latlong_lens.mi</origin>
-                                        </distributionFile>
-                                        <distributionFile>
-                                            <origin>installer files/max/include/LatLong_Stereo.mi</origin>
-                                        </distributionFile>
-                                    </distributionFileList>
-                                </folder>
-                            </folderList>
-                            <postInstallationActionList>
-                                <removeFilesFromUninstaller>
-                                    <files>${Max_2009_Include_Dir}</files>
-                                </removeFilesFromUninstaller>
-                            </postInstallationActionList>
-                        </component>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2009 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Max_2009_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray shaders</description>
+                                            <destination>${Max_2009_Shaders_Dir}</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/lib/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2009_Shaders_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                                <component>
+                                    <name>Max_2009_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray include</description>
+                                            <destination>${Max_2009_Include_Dir}</destination>
+                                            <name>include</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/max/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                    <postInstallationActionList>
+                                        <removeFilesFromUninstaller>
+                                            <files>${Max_2009_Include_Dir}</files>
+                                        </removeFilesFromUninstaller>
+                                    </postInstallationActionList>
+                                </component>
+                            </componentList>
+                            <parameterList>
+                                <directoryParameter>
+                                    <name>Max_2009_Shaders_Dir</name>
+                                    <title>3DS Max 2009 Mental Ray Shaders</title>
+                                    <description>Mental Ray Shaders Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2009\mentalray\shaders_autoload\shaders</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2009_shaders</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                                <directoryParameter>
+                                    <name>Max_2009_Include_Dir</name>
+                                    <title>3DS Max 2009 Mental Ray Include</title>
+                                    <description>Mental Ray Include Directory</description>
+                                    <explanation>Please specify the directory requested</explanation>
+                                    <value></value>
+                                    <default>${windows_folder_program_files}\Autodesk\3ds Max 2009\mentalray\shaders_autoload\include</default>
+                                    <allowEmptyValue>0</allowEmptyValue>
+                                    <cliOptionName>max2009_include</cliOptionName>
+                                    <insertAfter>welcome_label</insertAfter>
+                                    <mustBeWritable>1</mustBeWritable>
+                                    <mustExist>0</mustExist>
+                                    <width>40</width>
+                                </directoryParameter>
+                            </parameterList>
+                        </componentGroup>
                     </componentList>
-                    <parameterList>
-                        <directoryParameter>
-                            <name>Max_2009_Shaders_Dir</name>
-                            <title>3DS Max 2009 Mental Ray Shaders</title>
-                            <description>Mental Ray Shaders Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2009\mentalray\shaders_autoload\shaders</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2009_shaders</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                        <directoryParameter>
-                            <name>Max_2009_Include_Dir</name>
-                            <title>3DS Max 2009 Mental Ray Include</title>
-                            <description>Mental Ray Include Directory</description>
-                            <explanation>Please specify the directory requested</explanation>
-                            <value></value>
-                            <default>${windows_folder_program_files}\Autodesk\3ds Max 2009\mentalray\shaders_autoload\include</default>
-                            <allowEmptyValue>0</allowEmptyValue>
-                            <cliOptionName>max2009_include</cliOptionName>
-                            <insertAfter>welcome_label</insertAfter>
-                            <mustBeWritable>1</mustBeWritable>
-                            <mustExist>0</mustExist>
-                            <width>40</width>
-                        </directoryParameter>
-                    </parameterList>
                 </componentGroup>
             </componentList>
             <shouldPackRuleList>

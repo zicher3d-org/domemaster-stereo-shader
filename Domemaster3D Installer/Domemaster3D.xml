@@ -426,126 +426,6 @@
                             </componentList>
                         </componentGroup>
 
-                        <!-- Maya 2016.5 Install files -->
-                        <componentGroup>
-                            <name>mr314_Maya2016_5</name>
-                            <description>mr 3.14 for Maya 2016.5</description>
-                            <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D customized mental ray 3.14 for Maya Module file into your user account's Maya settings folder.</detailedDescription>
-                            <selected>0</selected>
-                            <show>1</show>
-                            <componentList>
-                                <component>
-                                    <name>mr314_Maya_2016_5_module</name>
-                                    <description>Maya Module File</description>
-                                    <canBeEdited>1</canBeEdited>
-                                    <selected>1</selected>
-                                    <show>0</show>
-                                    <folderList>
-                                        <folder>
-                                            <description>Maya Module File</description>
-                                            <destination>~/Library/Preferences/Autodesk/maya/2016.5/modules</destination>
-                                            <name>module_mac</name>
-                                            <platforms>osx</platforms>
-                                            <actionList>
-                                                <changePermissions>
-                                                    <files>*</files>
-                                                    <permissions>777</permissions>
-                                                </changePermissions>
-                                            </actionList>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/maya/modules/mental ray 3.14 modules/Domemaster3D.mod</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                        <folder>
-                                            <description>Maya Module File</description>
-                                            <destination>${windows_folder_personal}/maya/2016.5/modules</destination>
-                                            <name>module_linux</name>
-                                            <platforms>linux</platforms>
-                                            <actionList>
-                                                <changePermissions>
-                                                    <files>*</files>
-                                                    <permissions>777</permissions>
-                                                </changePermissions>
-                                            </actionList>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/maya/modules/mental ray 3.14 modules/Domemaster3D.mod</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                        <folder>
-                                            <description>Maya Modules File</description>
-                                            <destination>${windows_folder_personal}/maya/2016.5/modules</destination>
-                                            <name>module_win</name>
-                                            <platforms>windows</platforms>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/maya/modules/mental ray 3.14 modules/Domemaster3D.mod</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                    </folderList>
-                                </component>
-                                <component>
-                                    <name>mr314_Maya_2016_5_shelf</name>
-                                    <description>Maya Shelf File</description>
-                                    <canBeEdited>1</canBeEdited>
-                                    <selected>1</selected>
-                                    <show>0</show>
-                                    <folderList>
-                                        <folder>
-                                            <description>Maya Shelf File</description>
-                                            <destination>~/Library/Preferences/Autodesk/maya/2016.5/prefs/shelves</destination>
-                                            <name>shelf_mac</name>
-                                            <platforms>osx</platforms>
-                                            <actionList>
-                                                <changePermissions>
-                                                    <files>*</files>
-                                                    <permissions>777</permissions>
-                                                </changePermissions>
-                                            </actionList>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                        <folder>
-                                            <description>Maya Shelf File</description>
-                                            <destination>${windows_folder_personal}/maya/2016.5/prefs/shelves</destination>
-                                            <name>shelf_linux</name>
-                                            <platforms>linux</platforms>
-                                            <actionList>
-                                                <changePermissions>
-                                                    <files>*</files>
-                                                    <permissions>777</permissions>
-                                                </changePermissions>
-                                            </actionList>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                        <folder>
-                                            <description>Maya Shelf File</description>
-                                            <destination>${windows_folder_personal}/maya/2016.5/prefs/shelves</destination>
-                                            <name>module_win</name>
-                                            <platforms>windows</platforms>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/maya/2016.5/shelves/shelf_Domemaster3D.mel</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                    </folderList>
-                                </component>
-                            </componentList>
-                        </componentGroup>
-
                         <!-- Maya 2016 Install files -->
                         <componentGroup>
                             <name>mr314_Maya2016</name>
@@ -1600,6 +1480,317 @@
                     </componentList>
                 </componentGroup>
                 <componentGroup>
+                    <name>mentalray_standalone_Support</name>
+                    <description>mental ray standalone Support</description>
+                    <canBeEdited>1</canBeEdited>
+                    <detailedDescription>This option will install the Domemaster3D mental ray lens shaders for use with mental ray standalone. You can installsupport for the NVIDIA mental ray 3.14 standalone releases.</detailedDescription>
+                    <selected>1</selected>
+                    <show>1</show>
+                    <componentList>
+                        <!-- mr standalone for Maya 2017 Install files -->
+                        <componentGroup>
+                            <name>mr_standalone_Maya2017</name>
+                            <description>mr standalone 3.14 for Maya 2017</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the NVIDIA mental ray standalone 3.14 for Maya 2017 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>mr_standalone_Maya2017_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray standalone shaders</description>
+                                            <destination>/Applications/NVIDIA Corporation/mentalray-3.14-standalone-for-Maya-2017/shaders</destination>
+                                            <name>shaders_mac</name>
+                                            <platforms>osx</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/domeAFL_FOV_Stereo.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/latlong_lens.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/LatLong_Stereo.dylib</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone shaders</description>
+                                            <destination>/opt/nvidia/mentalray-3.14-standalone-for-Maya-2017/shaders</destination>
+                                            <name>shaders_linux</name>
+                                            <platforms>linux</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/domeAFL_FOV_Stereo.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/latlong_lens.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/LatLong_Stereo.dylib</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone shaders</description>
+                                            <destination>${windows_folder_program_files}\NVIDIA Corporation\mentalray 3.14 standalone for Maya 2017\shaders</destination>
+                                            <name>shaders_win</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/windows-x64/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/windows-x64/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/windows-x64/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                                <component>
+                                    <name>mr_standalone_Maya2017_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray standalone include</description>
+                                            <destination>/Applications/NVIDIA Corporation/mentalray-3.14-standalone-for-Maya-2017/shaders/include</destination>
+                                            <name>include_mac</name>
+                                            <platforms>osx</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone include</description>
+                                            <destination>/opt/nvidia/mentalray-3.14-standalone-for-Maya-2017/shaders/include</destination>
+                                            <name>include_linux</name>
+                                            <platforms>linux</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone include</description>
+                                            <destination>${windows_folder_program_files}\NVIDIA Corporation\mentalray 3.14 standalone for Maya 2017\shaders\include</destination>
+                                            <name>include_win</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
+                        <!-- mr standalone for Maya 2016 Install files -->
+                        <componentGroup>
+                            <name>mr_standalone_Maya2016</name>
+                            <description>mr standalone 3.14 for Maya 2016</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the NVIDIA mental ray standalone 3.14 for Maya 2016 folder.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>mr_standalone_Maya2016_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray standalone shaders</description>
+                                            <destination>/Applications/NVIDIA Corporation/mentalray-3.14-standalone-for-Maya-2016/shaders</destination>
+                                            <name>shaders_mac</name>
+                                            <platforms>osx</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/domeAFL_FOV_Stereo.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/latlong_lens.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/LatLong_Stereo.dylib</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone shaders</description>
+                                            <destination>/opt/nvidia/mentalray-3.14-standalone-for-Maya-2016/shaders</destination>
+                                            <name>shaders_linux</name>
+                                            <platforms>linux</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/domeAFL_FOV_Stereo.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/latlong_lens.dylib</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/mac-x64/LatLong_Stereo.dylib</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone shaders</description>
+                                            <destination>${windows_folder_program_files}\NVIDIA Corporation\mentalray 3.14 standalone for Maya 2016\shaders</destination>
+                                            <name>shaders_win</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/windows-x64/domeAFL_FOV_Stereo.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/windows-x64/latlong_lens.dll</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/lib-mr3.14/windows-x64/LatLong_Stereo.dll</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                                <component>
+                                    <name>mr_standalone_Maya2016_Include</name>
+                                    <description>Include</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>mental ray standalone include</description>
+                                            <destination>/Applications/NVIDIA Corporation/mentalray-3.14-standalone-for-Maya-2016/shaders/include</destination>
+                                            <name>include_mac</name>
+                                            <platforms>osx</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone include</description>
+                                            <destination>/opt/nvidia/mentalray-3.14-standalone-for-Maya-2016/shaders/include</destination>
+                                            <name>include_linux</name>
+                                            <platforms>linux</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                        <folder>
+                                            <description>mental ray standalone include</description>
+                                            <destination>${windows_folder_program_files}\NVIDIA Corporation\mentalray 3.14 standalone for Maya 2016\shaders\include</destination>
+                                            <name>include_win</name>
+                                            <platforms>windows</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/domeAFL_FOV_Stereo.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens_Legacy_Phen.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/latlong_lens.mi</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/mr-standalone/include/LatLong_Stereo.mi</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
+                        <!-- End of mr standalone for Maya 2016 Install files -->
+                    </componentList>
+                </componentGroup>
+                <componentGroup>
                     <name>Arnold_for_Maya_Support</name>
                     <description>Arnold MtoA Beta Support</description>
                     <canBeEdited>1</canBeEdited>
@@ -2206,7 +2397,7 @@
                                 </component>
                             </componentList>
                         </componentGroup>
-                        
+
                         <!-- Maya Arnold MtoA 2013 Install files -->
                         <componentGroup>
                             <name>mtoa_Maya2013</name>
@@ -2326,6 +2517,7 @@
                                 </component>
                             </componentList>
                         </componentGroup>
+
                         <!-- End of Maya Arnold Install files -->
                     </componentList>
                 </componentGroup>
@@ -3282,6 +3474,7 @@
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
+
                         <!-- End of mental ray for Max Install files -->
                     </componentList>
                 </componentGroup>

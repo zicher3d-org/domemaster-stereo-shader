@@ -27,7 +27,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.2 mental ray and Arnold releases for Windows have been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.2 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 You can also find a copy of the Visual Studio 2012 (VC++ 11.0) x64 installer in the Domemaster3D "bin" folder at:

@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.2 - November 26, 2016
+Version 2.2 - December 10, 2016
 
 ## Render Farm Note ##
 
@@ -17,7 +17,7 @@ Maya Module Approach
 
 If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
-Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
+Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/ to your user account's Maya modules folder:
 
 $HOME/maya/<Maya Version Number>/modules/
 
@@ -62,7 +62,7 @@ sudo apt-get install imagemagick
 
 ## Notes ##
 
-The Domemaster3D shader v2.1 was compiled using CentOS Linux 6.4. 
+The Domemaster3D shader v2.2 was compiled using CentOS Linux 6.4. 
 
 If there are any issues with running the shader, the developer can be reached at: 
 andrew@andrewhazelden.com
@@ -80,7 +80,7 @@ Maya Module Approach
 
 If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
-Copy the Domemaster3D.mod Maya module file from C:\Program Files\Domemaster3D\maya\modules\Domemaster3D.mod to your user account's Maya modules folder:
+Copy the Domemaster3D.mod Maya module file from C:\Program Files\Domemaster3D\maya\modules\ to your user account's Maya modules folder:
 
 C:\Users\<Your User Account>\Documents\Maya\<Maya Version Number>\modules\
 
@@ -126,11 +126,11 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 5. The Domemaster3D v2.1 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.2 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.1 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.2 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
@@ -147,8 +147,9 @@ Maya Module Approach
 
 If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
-Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/modules/Domemaster3D.mod to your user account's Maya modules folder:
-/Applications/Domemaster3D/<Maya Version Number>/modules/
+Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/modules/ to your user account's Maya modules folder:
+
+~/Library/Preferences/Autodesk/maya/<Maya Version Number>/modules/
 
 Note: If the modules folder doesn't exist yet, you should create it.
 

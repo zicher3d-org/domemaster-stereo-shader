@@ -300,32 +300,49 @@ Version 2.2
 2016-12-09
 
 Installer
-  Added new entries in the Domemaster3D installer for using the lens shaders Vray for Max, Arnold for Maya, and Arnold for Cinema4D.
+
+  Added new entries in the Domemaster3D installer for using the lens shaders V-Ray for Max, Arnold for Maya, and Arnold for Cinema4D.
 
 Maya + Max
+
   A copy of the Windows based Visual Studio 2012 (vcredist_2012_vc11_x64.exe) and Visual Studio 2013 (vcredist_2013_vc12_x64.exe) Redistributable Package x64 installers are now included with Domemaster3D. These resources are accessible in the Domemaster3D "bin" folder: C:/Program Files/Domemaster3D/bin/
   
 Maya
-  Improved macOS Gatekeeper security by digitally signing the macOS .dylib lens shader files with Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
 
-  Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
+  Improved macOS Gatekeeper security by digitally signing the macOS .so lens shader files with:
   
-  Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of: /usr/local/bin/convert
+    Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
+    
+  Updated the Dome Text ImageMagick macOS support to include the homebrew provided program path of:
+  
+    /usr/local/bin/convert
+  
+  Updated the Dome Histogram ImageMagick macOS support to include the homebrew provided program path of:
+  
+    /usr/local/bin/convert
 
   Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style.
 
 mental ray for Maya
+
   The Domemaster3D lens shaders now officially work with the new mental ray 3.14 release.
 
 Arnold for Maya
-  Improved macOS Gatekeeper security by digitally signing the macOS .dylib lens shader files with Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
 
-Vray for Maya
-  Improved macOS Gatekeeper security by digitally signing the macOS .so lens shader files with Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
+  Improved macOS Gatekeeper security by digitally signing the macOS .so lens shader files with:
+  
+    Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
+
+V-Ray for Maya
+
+  Improved macOS Gatekeeper security by digitally signing the macOS .so lens shader files with:
+  
+    Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
   
   Updated the Automagic DomemasterStereo and LatLongStereo shelf buttons to include a line of Python code to turn the Vray Frame Buffer off by default so the Maya Render View will show the stereo result.
 
   Updated the Domemaster3D for Vray installation instructions on the GitHub Wiki to include instructions on the new module based installation approach:
+  
   https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Vray-for-Maya-Domemaster3D
 
 Version 2.1.4

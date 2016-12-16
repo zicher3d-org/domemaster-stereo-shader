@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.2 - December 10, 2016
+Version 2.2.1 - December 16, 2016
 
 ## Render Farm Note ##
 
@@ -244,7 +244,7 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 5. The Domemaster3D v2.2 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.2 mental ray and Arnold release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 

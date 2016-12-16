@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>2.2</version>
+    <version>2.2.1</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -2527,7 +2527,7 @@
             <name>Max_Support</name>
             <description>3DS Max Support</description>
             <canBeEdited>1</canBeEdited>
-            <detailedDescription>This option will install the Domemaster3D mental ray lens shaders for Autodesk 3DS Max.</detailedDescription>
+            <detailedDescription>This option will install the Autodesk 3ds Max versions of the Domemaster3D lens shaders.</detailedDescription>
             <selected>1</selected>
             <show>1</show>
             <componentList>
@@ -2535,7 +2535,7 @@
                     <name>mentalray_for_Max_Support</name>
                     <description>mental ray Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D mental ray lens shaders for Autodesk 3DS Max.</detailedDescription>
+                    <detailedDescription>This option will install the mental ray for 3ds Max versions of the Domemaster3D lens shaders.</detailedDescription>
                     <selected>1</selected>
                     <show>1</show>
                     <componentList>
@@ -2544,7 +2544,7 @@
                             <name>max_2017</name>
                             <description>mr for 3DS Max 2017</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2017 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2017 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -2648,7 +2648,7 @@
                             <name>max_2016</name>
                             <description>mr for 3DS Max 2016</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2016 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2016 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -2752,7 +2752,7 @@
                             <name>max_2015</name>
                             <description>mr for 3DS Max 2015</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2015 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2015 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -2856,7 +2856,7 @@
                             <name>max_2014</name>
                             <description>mr for 3DS Max 2014</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2014 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2014 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -2960,7 +2960,7 @@
                             <name>max_2013</name>
                             <description>mr for 3DS Max 2013</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2013 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2013 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3064,7 +3064,7 @@
                             <name>max_2012</name>
                             <description>mr for 3DS Max 2012</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2012 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2012 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3168,7 +3168,7 @@
                             <name>max_2011</name>
                             <description>mr for 3DS Max 2011</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2011 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2011 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3272,7 +3272,7 @@
                             <name>max_2010</name>
                             <description>mr for 3DS Max 2010</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2010 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2010 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3376,7 +3376,7 @@
                             <name>max_2009</name>
                             <description>mr for 3DS Max 2009</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D mental ray lens shader in the Autodesk 3DS Max 2009 folder.</detailedDescription>
+                            <detailedDescription>This option will install the mental ray for 3ds Max 2009 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3482,16 +3482,87 @@
                     <name>vray_for_Max_Support</name>
                     <description>V-Ray Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D V-Ray lens shaders for Autodesk 3DS Max.</detailedDescription>
+                    <detailedDescription>This option will install the V-Ray for Autodesk 3DS Max versions of the Domemaster3D lens shaders.</detailedDescription>
                     <selected>1</selected>
                     <show>1</show>
                     <componentList>
+                    
+                        <!--  V-Ray for Max 2017 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2017</name>
+                            <description>V-Ray 3.4 for 3ds Max 2017</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the V-Ray 3.4 for 3ds Max 2017 version of the Domemaster3D lens shaders.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2017_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${windows_folder_program_files}/Autodesk/3ds Max 2017/plugins/vrayplugins</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2017/vraydomemasterstereo2017.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2017/vraylatlongstereo2017.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
+                        <!--  V-Ray for Max 2016 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2016</name>
+                            <description>V-Ray 3.4 for 3ds Max 2016</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the V-Ray 3.4 for 3ds Max 2016 version of the Domemaster3D lens shaders.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2016_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${windows_folder_program_files}/Autodesk/3ds Max 2016/plugins/vrayplugins</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2016/vraydomemasterstereo2016.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2016/vraylatlongstereo2016.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
                         <!-- V-Ray for Max 2015 Install files -->
                         <componentGroup>
                             <name>Vray_Max_2015</name>
-                            <description>Vray for 3DS Max 2015</description>
+                            <description>V-Ray 3.0 for 3DS Max 2015</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D Vray lens shaders in the Autodesk 3DS Max 2015 folder.</detailedDescription>
+                            <detailedDescription>This option will install the V-Ray 3.0 for 3ds Max 2015 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3521,7 +3592,41 @@
                             </componentList>
                         </componentGroup>
 
-                        <!-- End of V-Ray for Max 2015 Install files -->
+                        <!-- V-Ray for Max 2014 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2014</name>
+                            <description>V-Ray 3.4 for 3ds Max 2014</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the V-Ray 3.4 for 3ds Max 2014 version of the Domemaster3D lens shaders.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2014_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${windows_folder_program_files}/Autodesk/3ds Max 2014/plugins/vrayplugins</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2014/vraydomemasterstereo2014.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2014/vraylatlongstereo2014.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+                        <!-- End of V-Ray for Max 2014 Install files -->
                     </componentList>
                 </componentGroup>
             </componentList>
@@ -3537,16 +3642,17 @@
             <name>Arnold_for_Cinema4D_Support</name>
             <description>Arnold Cinema4D Support</description>
             <canBeEdited>1</canBeEdited>
-            <detailedDescription>This option will install the Domemaster3D Arnold C4DtoA lens shaders for Cinema4D R18.</detailedDescription>
+            <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D versions of the Domemaster3D lens shaders.</detailedDescription>
             <selected>1</selected>
             <show>1</show>
             <componentList>
+            
                 <!-- Arnold C4DtoA for Cinema4D R18 Install files -->
                 <componentGroup>
                     <name>c4dtoa_Cinema4D</name>
                     <description>C4DtoA for Cinema4D R18</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D Arnold C4DtoA files into your Cinema4D folder.</detailedDescription>
+                    <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D R18 version of the Domemaster3D lens shaders.</detailedDescription>
                     <selected>0</selected>
                     <show>1</show>
                     <componentList>
@@ -3658,6 +3764,243 @@
                 </componentGroup>
             </componentList>
         </componentGroup>
+        
+                <!-- Arnold C4DtoA for Cinema4D R17 Install files -->
+                <componentGroup>
+                    <name>c4dtoa_Cinema4D</name>
+                    <description>C4DtoA for Cinema4D R17</description>
+                    <canBeEdited>1</canBeEdited>
+                    <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D R17 version of the Domemaster3D lens shaders.</detailedDescription>
+                    <selected>0</selected>
+                    <show>1</show>
+                    <componentList>
+                        <component>
+                            <name>c4dtoa_Cinema4D_Shaders</name>
+                            <description>Cinema4D Shaders</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>C4DtoA Shader File</description>
+                                    <destination>/Applications/MAXON/CINEMA 4D R17/plugins/C4DtoA/shaders</destination>
+                                    <name>c4dtoa_shaders_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.mtd</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>C4DtoA Shader Files</description>
+                                    <destination>${windows_folder_program_files}/MAXON/CINEMA 4D R17/plugins/C4DtoA/shaders</destination>
+                                    <name>c4dtoa_shaders_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.mtd</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                        <component>
+                            <name>c4dtoa_Cinema4D_Resources</name>
+                            <description>C4DtoA Resource Files</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>C4DtoA Resource Files</description>
+                                    <destination>/Applications/MAXON/CINEMA 4D R17/plugins/C4DtoA</destination>
+                                    <name>shelf_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionDirectory>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/res</origin>
+                                        </distributionDirectory>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>C4DtoA Resource Files</description>
+                                    <destination>${windows_folder_program_files}/MAXON/CINEMA 4D R17/plugins/C4DtoA</destination>
+                                    <name>module_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/res</origin>
+                                        </distributionDirectory>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                    </componentList>
+                </componentGroup>
+            </componentList>
+        </componentGroup>
+        
+                <!-- Arnold C4DtoA for Cinema4D R16 Install files -->
+                <componentGroup>
+                    <name>c4dtoa_Cinema4D</name>
+                    <description>C4DtoA for Cinema4D R16</description>
+                    <canBeEdited>1</canBeEdited>
+                    <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D R16 version of the Domemaster3D lens shaders.</detailedDescription>
+                    <selected>0</selected>
+                    <show>1</show>
+                    <componentList>
+                        <component>
+                            <name>c4dtoa_Cinema4D_Shaders</name>
+                            <description>Cinema4D Shaders</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>C4DtoA Shader File</description>
+                                    <destination>/Applications/MAXON/CINEMA 4D R16/plugins/C4DtoA/shaders</destination>
+                                    <name>c4dtoa_shaders_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.dylib</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.mtd</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>C4DtoA Shader Files</description>
+                                    <destination>${windows_folder_program_files}/MAXON/CINEMA 4D R16/plugins/C4DtoA/shaders</destination>
+                                    <name>c4dtoa_shaders_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterStereo.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/DomemasterWxH.mtd</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.dll</origin>
+                                        </distributionFile>
+                                        <distributionFile>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/shaders/LatLongStereo.mtd</origin>
+                                        </distributionFile>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                        <component>
+                            <name>c4dtoa_Cinema4D_Resources</name>
+                            <description>C4DtoA Resource Files</description>
+                            <canBeEdited>1</canBeEdited>
+                            <selected>1</selected>
+                            <show>0</show>
+                            <folderList>
+                                <folder>
+                                    <description>C4DtoA Resource Files</description>
+                                    <destination>/Applications/MAXON/CINEMA 4D R16/plugins/C4DtoA</destination>
+                                    <name>shelf_mac</name>
+                                    <platforms>osx</platforms>
+                                    <actionList>
+                                        <changePermissions>
+                                            <files>*</files>
+                                            <permissions>777</permissions>
+                                        </changePermissions>
+                                    </actionList>
+                                    <distributionFileList>
+                                        <distributionDirectory>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/res</origin>
+                                        </distributionDirectory>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>C4DtoA Resource Files</description>
+                                    <destination>${windows_folder_program_files}/MAXON/CINEMA 4D R16/plugins/C4DtoA</destination>
+                                    <name>module_win</name>
+                                    <platforms>windows</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory>
+                                            <origin>installer files/Domemaster3D/arnold/c4dtoa/res</origin>
+                                        </distributionDirectory>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                    </componentList>
+                </componentGroup>
+            </componentList>
+        </componentGroup>
+        
     </componentList>
     <preInstallationActionList>
         <!-- Windows Maya Env Backup -->

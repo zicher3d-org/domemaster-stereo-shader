@@ -1786,6 +1786,7 @@
                                 </component>
                             </componentList>
                         </componentGroup>
+
                         <!-- End of mr standalone for Maya 2016 Install files -->
                     </componentList>
                 </componentGroup>
@@ -3481,16 +3482,52 @@
                     <name>vray_for_Max_Support</name>
                     <description>V-Ray Support</description>
                     <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Domemaster3D V-Ray lens shaders for Autodesk 3DS Max.</detailedDescription>
+                    <detailedDescription>This option will install the V-Ray for Autodesk 3DS Max version of the Domemaster3D lens shaders.</detailedDescription>
                     <selected>1</selected>
                     <show>1</show>
                     <componentList>
+                    <!-- V-Ray for Max 2014 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2014</name>
+                            <description>V-Ray 3.4 for 3ds Max 2014</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the V-Ray 3.4 for 3ds Max 2014 version of the Domemaster3D lens shaders.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2014_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${windows_folder_program_files}/Autodesk/3ds Max 2014/plugins/vrayplugins</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2014/vraydomemasterstereo2014.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2014/vraylatlongstereo2014.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
+                        <!-- End of V-Ray for Max 2014 Install files -->
                         <!-- V-Ray for Max 2015 Install files -->
                         <componentGroup>
                             <name>Vray_Max_2015</name>
-                            <description>Vray for 3DS Max 2015</description>
+                            <description>V-Ray 3.0 for 3DS Max 2015</description>
                             <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D Vray lens shaders in the Autodesk 3DS Max 2015 folder.</detailedDescription>
+                            <detailedDescription>This option will install the V-Ray 3.0 for 3ds Max 2015 version of the Domemaster3D lens shaders.</detailedDescription>
                             <selected>0</selected>
                             <show>1</show>
                             <componentList>
@@ -3521,6 +3558,78 @@
                         </componentGroup>
 
                         <!-- End of V-Ray for Max 2015 Install files -->
+                        <!-- V-Ray for Max 2016 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2016</name>
+                            <description>V-Ray 3.4 for 3ds Max 2016</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the V-Ray 3.4 for 3ds Max 2016 version of the Domemaster3D lens shaders.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2016_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${windows_folder_program_files}/Autodesk/3ds Max 2016/plugins/vrayplugins</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2016/vraydomemasterstereo2016.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2016/vraylatlongstereo2016.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
+                        <!-- End of V-Ray for Max 2016 Install files -->
+                        <!-- V-Ray for Max 2017 Install files -->
+                        <componentGroup>
+                            <name>Vray_Max_2017</name>
+                            <description>V-Ray 3.4 for 3ds Max 2017</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>This option will install the V-Ray 3.4 for 3ds Max 2017 version of the Domemaster3D lens shaders.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <componentList>
+                                <component>
+                                    <name>Vray_Max_2017_Shaders</name>
+                                    <description>Shaders</description>
+                                    <canBeEdited>1</canBeEdited>
+                                    <selected>1</selected>
+                                    <show>0</show>
+                                    <folderList>
+                                        <folder>
+                                            <description>Vray shaders</description>
+                                            <destination>${windows_folder_program_files}/Autodesk/3ds Max 2017/plugins/vrayplugins</destination>
+                                            <name>shaders</name>
+                                            <platforms>all</platforms>
+                                            <distributionFileList>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2017/vraydomemasterstereo2017.dlo</origin>
+                                                </distributionFile>
+                                                <distributionFile>
+                                                    <origin>installer files/Domemaster3D/vray/install/3dsmax/vray 3.4 for 3ds Max 2017/vraylatlongstereo2017.dlo</origin>
+                                                </distributionFile>
+                                            </distributionFileList>
+                                        </folder>
+                                    </folderList>
+                                </component>
+                            </componentList>
+                        </componentGroup>
+
+                        <!-- End of V-Ray for Max 2017 Install files -->
                     </componentList>
                 </componentGroup>
             </componentList>

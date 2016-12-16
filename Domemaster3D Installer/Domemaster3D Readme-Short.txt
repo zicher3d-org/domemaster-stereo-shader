@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2 - December 9, 2016
+Version 2.2.1 - December 16, 2016
 
 About This Shader
 ---------------------
@@ -73,13 +73,25 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+Version 2.2.1
+-----------------
+2016-12-16 
+
+Installer
+
+  Added new entries in the Domemaster3D installer for using the lens shaders with V-Ray for 3ds Max 2014-2017, Arnold for Cinema4D R16-R18, and mental ray 3.14 standalone for Maya 2016-2017.
+
+V-Ray for Max
+
+  Compiled new V-Ray 3.4 for 3ds Max 3014, 2016, and 2017 lens shaders builds using Visual Studio 2013 Community Edition.
+
 Version 2.2
 -------------
 2016-12-09
 
 Installer
 
-  Added new entries in the Domemaster3D installer for using the lens shaders V-Ray for Max, Arnold for Maya, and Arnold for Cinema4D.
+  Added new entries in the Domemaster3D installer for using the lens shaders with V-Ray for Max, Arnold for Maya, and Arnold for Cinema4D.
 
 Maya + Max
 

@@ -3486,7 +3486,6 @@
                     <selected>1</selected>
                     <show>1</show>
                     <componentList>
-                    
                         <!--  V-Ray for Max 2017 Install files -->
                         <componentGroup>
                             <name>Vray_Max_2017</name>
@@ -3626,6 +3625,7 @@
                                 </component>
                             </componentList>
                         </componentGroup>
+
                         <!-- End of V-Ray for Max 2014 Install files -->
                     </componentList>
                 </componentGroup>
@@ -3646,10 +3646,9 @@
             <selected>1</selected>
             <show>1</show>
             <componentList>
-            
                 <!-- Arnold C4DtoA for Cinema4D R18 Install files -->
                 <componentGroup>
-                    <name>c4dtoa_Cinema4D</name>
+                    <name>C4DtoA_Cinema4D_R18</name>
                     <description>C4DtoA for Cinema4D R18</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D R18 version of the Domemaster3D lens shaders.</detailedDescription>
@@ -3657,7 +3656,7 @@
                     <show>1</show>
                     <componentList>
                         <component>
-                            <name>c4dtoa_Cinema4D_Shaders</name>
+                            <name>C4DtoA_Cinema4D_Shaders_R18</name>
                             <description>Cinema4D Shaders</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -3724,7 +3723,7 @@
                             </folderList>
                         </component>
                         <component>
-                            <name>c4dtoa_Cinema4D_Resources</name>
+                            <name>C4DtoA_Cinema4D_Resources_R18</name>
                             <description>C4DtoA Resource Files</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -3762,12 +3761,10 @@
                         </component>
                     </componentList>
                 </componentGroup>
-            </componentList>
-        </componentGroup>
-        
+
                 <!-- Arnold C4DtoA for Cinema4D R17 Install files -->
                 <componentGroup>
-                    <name>c4dtoa_Cinema4D</name>
+                    <name>C4DtoA_Cinema4D_R17</name>
                     <description>C4DtoA for Cinema4D R17</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D R17 version of the Domemaster3D lens shaders.</detailedDescription>
@@ -3775,7 +3772,7 @@
                     <show>1</show>
                     <componentList>
                         <component>
-                            <name>c4dtoa_Cinema4D_Shaders</name>
+                            <name>C4DtoA_Cinema4D_Shaders_R17</name>
                             <description>Cinema4D Shaders</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -3842,7 +3839,7 @@
                             </folderList>
                         </component>
                         <component>
-                            <name>c4dtoa_Cinema4D_Resources</name>
+                            <name>C4DtoA_Cinema4D_Resources_R17</name>
                             <description>C4DtoA Resource Files</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -3880,12 +3877,10 @@
                         </component>
                     </componentList>
                 </componentGroup>
-            </componentList>
-        </componentGroup>
-        
+
                 <!-- Arnold C4DtoA for Cinema4D R16 Install files -->
                 <componentGroup>
-                    <name>c4dtoa_Cinema4D</name>
+                    <name>C4DtoA_Cinema4D_R16</name>
                     <description>C4DtoA for Cinema4D R16</description>
                     <canBeEdited>1</canBeEdited>
                     <detailedDescription>This option will install the Arnold C4DtoA for Cinema4D R16 version of the Domemaster3D lens shaders.</detailedDescription>
@@ -3893,7 +3888,7 @@
                     <show>1</show>
                     <componentList>
                         <component>
-                            <name>c4dtoa_Cinema4D_Shaders</name>
+                            <name>C4DtoA_Cinema4D_Shaders_R16</name>
                             <description>Cinema4D Shaders</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -3960,7 +3955,7 @@
                             </folderList>
                         </component>
                         <component>
-                            <name>c4dtoa_Cinema4D_Resources</name>
+                            <name>C4DtoA_Cinema4D_Resource_R16</name>
                             <description>C4DtoA Resource Files</description>
                             <canBeEdited>1</canBeEdited>
                             <selected>1</selected>
@@ -3998,9 +3993,10 @@
                         </component>
                     </componentList>
                 </componentGroup>
+
+                <!-- End of Arnold C4DtoA for Cinema4D Install files -->
             </componentList>
         </componentGroup>
-        
     </componentList>
     <preInstallationActionList>
         <!-- Windows Maya Env Backup -->

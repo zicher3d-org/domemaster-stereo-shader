@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.2.1 - December 16, 2016
+Version 2.2.1 - December 18, 2016
 
 ## Render Farm Note ##
 

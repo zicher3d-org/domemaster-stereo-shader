@@ -4,7 +4,7 @@
 # the Production of immersive spherical animations
 # -------------------------------------------------------------------
 # MTD by Andrew Hazelden andrew@andrewhazelden.com
-# 2016-09-11 10.36 AM
+# 2016-12-18 6.30 AM
 
 [node LatLongStereo]
     desc                        STRING "LatLong Stereo Shader"
@@ -14,12 +14,14 @@
     maya.classification         STRING "shader/surface"
     maya.type                   STRING "camera"
     maya.translator             STRING "LatLongStereo"
+    maya.swatch                 BOOL   False
+    max.category                STRING "Shading"
     c4d.classification          STRING "surface"
     c4d.menu                    STRING "Domemaster3D"
+    help_url                            STRING "https://github.com/zicher3d-org/domemaster-stereo-shader/wiki"
     houdini.category            STRING "Domemaster3D"
     houdini.icon                STRING "SHOP_surface"
     houdini.label               STRING "LatLongStereo"
-    houdini.help_url            STRING "https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/_pages"
     houdini.order               STRING "camera fov_vert_angle fov_horiz_angle parallax_distance separation exposure separation_map flip_ray_x flip_ray_y  aperture_size aperture_blades aperture_blade_curvature aperture_rotation aperture_aspect_ratio shutter_start shutter_end rolling_shutter_duration "
     
     [attr is_perspective]

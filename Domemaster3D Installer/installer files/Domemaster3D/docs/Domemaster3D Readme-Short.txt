@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.1 - December 18, 2016
+Version 2.2.1 - December 19, 2016
 
 About This Shader
 ---------------------
@@ -83,7 +83,7 @@ Installer
 
 Arnold MaxtoA for 3ds Max
 
-  Edited the metadata file to add a "max.category" entry for each of the shaders
+  Edited the metadata file to add a "max.category" entry for each of the shaders, and created custom Maxscript .ms based scripted controller files.
 
 V-Ray for Max
 

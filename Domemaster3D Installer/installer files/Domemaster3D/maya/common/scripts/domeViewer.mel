@@ -1,6 +1,6 @@
 /*
-  Dome Viewer V2.2
-  2016-11-22
+  Dome Viewer V2.2.1
+  2016-12-21
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
@@ -10,6 +10,12 @@
   To use the Dome Viewer run the following MEL commands:
   source "domeViewer.mel";
   domeViewer();
+  
+  Version 2.2.1
+  -------------
+  2016-12-21
+  
+  Facebook Vertical Strip Cube image projection
   
   Version 2.2
   -------------
@@ -367,9 +373,13 @@ global proc setPanoramaPreview(){
     picture -edit -image "facebookPyramid_120px.png" -width 120 -height 120 picturePanoramaPreview;
     break;
   case 21:
+    // Facebook Vertical Strip Cube
+    picture -edit -image "facebookVerticalStrip_120px.png" -width 20 -height 120 picturePanoramaPreview;
+    break;
+  case 22:
     // LG360
     picture -edit -image "lg360_120px" -width 212 -height 120 picturePanoramaPreview;
-  case 22:
+  case 23:
     // Samsung Gear 360 Camera
     picture -edit -image "samsung_gear_360_120px.png" -width 240 -height 120 picturePanoramaPreview;
     break;
@@ -497,8 +507,10 @@ global proc domeViewer(){
         menuItem -label "Ricoh Theta S Camera";
         menuItem -label "Facebook Cube Map 3x2";
         menuItem -label "Facebook Pyramid";
+        menuItem -label "Facebook Vertical Strip Cube";
         menuItem -label "LG360 Camera";
         menuItem -label "Samsung Gear 360 Camera";
+        
 
         // Preselect the first option menu
         optionMenuGrp 

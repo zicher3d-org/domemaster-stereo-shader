@@ -1,5 +1,5 @@
 ﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.1 - December 19, 2016
+Version 2.2.1 - December 21, 2016
 
 About This Shader
 ---------------------
@@ -297,11 +297,15 @@ Version History
 
 Version 2.2.1
 -----------------
-2016-12-18
+2016-12-21
 
 Installer
 
   Added new entries in the Domemaster3D installer for using the lens shaders with V-Ray for 3ds Max 2014-2017, Arnold MaxtoA for 3ds Max 2017, Arnold for Cinema4D R16-R18, and mental ray 3.14 standalone for Maya 2016-2017.
+  
+Maya
+
+  Edited the DomeViewer tool to add the Facebook Vertical Strip Cube image projection
 
 Arnold MaxtoA for 3ds Max
 

@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.1 - December 21, 2016
+Version 2.2.1 - December 22, 2016
 
 About This Shader
 ---------------------
@@ -75,7 +75,7 @@ Version History
 
 Version 2.2.1
 -----------------
-2016-12-21
+2016-12-22
 
 Installer
 
@@ -84,6 +84,7 @@ Installer
 Maya
 
   Edited the DomeViewer tool to add the Facebook Vertical Strip Cube image projection
+  Fixed the DomeViewer LG360 camera preview icon loading issue
   
 Arnold MaxtoA for 3ds Max
 

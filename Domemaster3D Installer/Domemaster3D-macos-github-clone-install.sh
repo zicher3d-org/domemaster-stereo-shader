@@ -3,7 +3,7 @@
 echo "Domemaster3D macOS GitHub Clone Install"
 echo "----------------------------------------------------------"
 echo "by Andrew Hazelden <andrew@andrewhazelden.com>"
-echo "2016-12-08 10.00 AM"
+echo "2016-12-23 7.19 PM"
 echo ""
 
 
@@ -54,7 +54,7 @@ chmod -R 777 "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
 echo "[Domemaster3D] Installing the Maya 2017 Modules"
 mkdir -p "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
 
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/modules/Domemaster3D-mr3.14.mod" "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/modules/mental ray 3.14 modules/Domemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
 
 cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/vray/maya/modules/VRayDomemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
 

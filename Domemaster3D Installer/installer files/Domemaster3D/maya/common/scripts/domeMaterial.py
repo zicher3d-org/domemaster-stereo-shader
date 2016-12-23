@@ -1034,14 +1034,7 @@ def createDomeViewerStereoCamera(viewerCameraName, meshName, gridMeshName, camer
   cmds.setAttr(regularSceneCamera+".tz", 450)
   
   cmds.viewFit(regularSceneCamera)
-  
-  # Turn off the grid
-  cmds.modelEditor('modelPanel4', edit=True, grid=False)
-  
-  # Turn on hardware texturing and shading
-  cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
-  cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
-  
+
   # gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
   # 
   # Point constrain the mesh to the camera
@@ -1055,10 +1048,56 @@ def createDomeViewerStereoCamera(viewerCameraName, meshName, gridMeshName, camer
    
   # Switch the viewport to look through a new stereo viewing camera
   cameraName = 'stereoCamera'
-  mel.eval('stereoCameraSwitchToCamera ' + cameraName + ' modelPanel1')
+  #mel.eval('stereoCameraSwitchToCamera ' + cameraName + ' modelPanel1')
+  #mel.eval('stereoCameraSwitchToCamera ' + cameraName + ' modelPanel4')
   from maya.app.stereo import stereoCameraCustomPanel
-  stereoCameraCustomPanel.switchToCamera(cameraName,"StereoPanelEditor")
+  stereoCameraCustomPanel.switchToCamera(cameraName,"modelPanel4")
+  #stereoCameraCustomPanel.switchToCamera(cameraName,"StereoPanelEditor")
 
+  # Turn off the grid
+  cmds.modelEditor('modelPanel1', edit=True, grid=False)
+  cmds.modelEditor('modelPanel4', edit=True, grid=False)
+  cmds.modelEditor('StereoPanelEditor', edit=True, grid=False)
+  
+  # Turn on hardware texturing and shading
+  cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', activeOnly=False, wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', activeOnly=False, wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  cmds.modelEditor('StereoPanelEditor', edit=True, displayAppearance='smoothShaded', activeOnly=False, wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  
+  
+  # Read the current setting in the DomeViewer "Stereo Display" options menu
+  stereoDisplayMode = cmds.optionMenuGrp('menuDomeViewerStereoDisplay', query=True, select=True)
+  #stereoDisplayMode = 1
+  
+  # Stereo Display modes
+  if stereoDisplayMode == 1:
+    # Full Color Anaglyph
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'anaglyph'}")
+  elif stereoDisplayMode == 2:
+    # Luminanace Anaglyph
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'anaglyphLum'}")
+  elif stereoDisplayMode == 3:
+    # Freeview (Parallel)
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'freeview'}")
+  elif stereoDisplayMode == 4:
+    # Freeview (Crossed)
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'freeviewX'}")
+  elif stereoDisplayMode == 5:
+    # Horizontal Interlace
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'interlace'}")
+  elif stereoDisplayMode == 6:
+    # Checkerboard
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'checkerboard'}")
+  elif stereoDisplayMode == 7:
+    # Center Eye
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'centerEye'}")
+  elif stereoDisplayMode == 8:
+    # Left Eye
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'leftEye'}")
+  elif stereoDisplayMode == 9:
+    # Right Eye
+    stereoCameraCustomPanel.stereoCameraViewCallback("StereoPanelEditor", "{'displayMode': 'rightEye'}")
+  
   # return the rig array:
   # [u'stereoCamera', u'stereoCameraLeft', u'stereoCameraRight']
   return rig
@@ -1334,7 +1373,7 @@ def createDomeViewer():
         cmds.pointConstraint(cameraRigArray[0], gridMeshNodeCenter, weight=1)
     
     # Add the camera to the scene
-    createDomeViewerCamera(viewerCameraName, viewerMeshNodeCenter, gridMeshNode)
+    createDomeViewerCamera(viewerCameraName, viewerMeshNodeCenter, gridMeshNodeCenter)
     
     # Select the File Texture node in the attribute editor so the image sequence loader will start working
     mel.eval('showEditorExact("' + viewerTextureNode + '")')

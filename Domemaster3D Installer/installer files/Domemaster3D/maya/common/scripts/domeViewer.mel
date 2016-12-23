@@ -567,6 +567,27 @@ global proc domeViewer(){
         -edit
         -select 1
         menuDomeViewerStereoFormat;
+        
+      optionMenuGrp
+        -label "Stereo Display"
+        -annotation "Choose the type of stereoscopic 3D glasses you want to use to view the imagery."
+        menuDomeViewerStereoDisplay;
+        
+      menuItem -label "Full Color Anaglyph";
+      menuItem -label "Luminanace Anaglyph";
+      menuItem -label "Freeview (Parallel)";
+      menuItem -label "Freeview (Crossed) ";
+      menuItem -label "Horizontal Interlace";
+      menuItem -label "Checkerboard";
+      menuItem -label "Center Eye";
+      menuItem -label "Left Eye";
+      menuItem -label "Right Eye";
+      
+      // Preselect the first option menu
+      optionMenuGrp 
+        -edit
+        -select 1
+        menuDomeViewerStereoDisplay;
       
       rowLayout 
         -numberOfColumns 2

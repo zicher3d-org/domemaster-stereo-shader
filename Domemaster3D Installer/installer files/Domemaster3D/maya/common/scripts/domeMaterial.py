@@ -1,6 +1,6 @@
 """
 Dome Material Script V2.2.1
-2016-12-21
+2016-12-23
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -16,35 +16,37 @@ You can set the file textures to an empty path if you don't want a default textu
 Version History
 ----------------
 
-Version 2.2.1 - 2016-12-21
---------------------------
+Version 2.2.1 - 2016-12-23
+-------------------------------
+Code Reformatting
 
 Facebook Vertical Strip Cube image projection
 
-Code Reformatting
+Fixed the LG360 camera preview icon loading issue
+  
+Added stereo 360 degree viewing support for Side by Side Stereo, and Over Under Stereo panoramic imagery.
+
+Added a unlockAncestor() function.
 
 Version 2.1 - 2016-09-15
-------------------------
+-----------------------------
 
 Improved the domeMaterial.mel script's Maya 2017 compatibility by fixing the MEL "Redeclaration of variable" warnings.
 
-Version 2.0
--------------
-2016-05-27
-  
+Version 2.0 - 2016-05-27
+-----------------------------
+
 Added DomeViewer image projection support for the Facebook 360 Pyramid, LG360 Camera, and the Samsung Gear 360 Camera image projections.
   
-Version 1.9.3
--------------
-2016-02-08
+Version 1.9.3 - 2016-02-08
+-----------------------------
 
 Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemaster3D sourceimages folder
 
 Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemaster3D sourceimages folder
 
-Version 1.9.2
--------------
-2016-01-03
+Version 1.9.2 - 2016-01-03
+-----------------------------
 
 Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
 
@@ -52,35 +54,31 @@ Changed the DomeViewer "Show Focal Length in HUD" default state to off
 
 Added a new DomeViewer "Connect Alpha Channel" checkbox to the Extra Controls section of the GUI. This checkbox tells the DomeViewer to connect the alpha channel from the DomeViewer loaded imagery to the surface material node. Th new "Connect Alpha Channel" checkbox is disabled by default so imagery with transparent mental ray rendered physical sky and sun and IBL based environment backdrops can be viewed in the viewport and you will still see the sky background.
 
-Version 1.8
--------------
-2015-08-17 
+Version 1.8 - 2015-08-17 
+-----------------------------
 
 Added a new Hybrid mentalrayTexture material that combines the render time improvements of a mental ray texture based surface material for reducing blurry streak artifacts when rendering with lens shaders, and a real-time high resolution preview benefit of a stock maya file texture node.
 
+Version 1.7 - 2015-03-07 
+-----------------------------
 
-Version 1.7
--------------
-2015-03-07 
 
-Version 1.6 Alpha 7
-----------------------
-November 16, 2014
+Version 1.6 Alpha 7 - 2014-11-16
+-------------------------------------
+
 
 Domemaster3D attribute presets path detection code added:
   domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel') 
   # C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/remapColor/ldr_to_hdr_boost_10x.mel
 
 
-Version 1.6 
----------------
-Oct 3, 2014
+Version 1.6 - 2014-11-3
+---------------------------
 
 Updated the sourceimages path code
 
-Version 1.5
-----------------
-July 12, 2014
+Version 1.5 - 2014-07-12
+-------------------------------
 
 Added a remapColor node to the Starglobe MR texture shading network so you can adjust the brightness of the stars
 
@@ -97,15 +95,13 @@ Added a mentalrayTexture image sequence function and shelf tool. This allows you
 If you are exporting your scene to a .mi file for Maya standalone rendering, you need to export one .mi file per frame so the image sequence texture is updated on every frame in the exported .mi output.
 
 
-Version 1.4 Beta 10
-----------------------
-Dec 27, 2013
+Version 1.4 Beta 10 - 2013-12-27
+----------------------------------------
 
 Added double sided shading code
 
-Version 1.4 Beta 9
----------------------
-Dec 7, 2013
+Version 1.4 Beta 9 - 2013-12-07
+------------------------------------
 
 Updated Linux install path to:
 /opt/Domemaster3D
@@ -115,25 +111,22 @@ Added support for the Quadsphere (starglobe) mesh to the domeViewer
 Added the "Flip the Panoramic Image" checkbox that causes a mirror effect on the panoramic image by flipping the panoramic texture so you are viewing the texture map as if it was an environmental reflection map viewed from the outside. This effect is done by scaling the domeViewer shape (scaleX * -1).
 
 
-Version 1.4 Beta 6 Build 4
--------------------------------
-Oct 27, 2013
+Version 1.4 Beta 6 Build 4 - 2013-10-27
+--------------------------------------------
 
 Added cylindrical panorama support
 Added focal length HUD controls in the domeViewer window
 Added Maya 2010 support to the starglobe GUI window
 
 
-Version 1.4 Beta 4 - Build 4
--------------------------------
-Oct 20, 2013
+Version 1.4 Beta 4 - Build 4 - 2013-10-20
+---------------------------------------------
 
 Added the Dome Viewer feature for exploring rendered domemaster formatted imagery
 
 
-Version 1.3.5 Build 7
---------------------------
-August 20, 2013
+Version 1.3.5 Build 7 - 2013-08-20
+--------------------------------------
 
 Upgraded the Maya dome material shaders to use the mia_material_x_passes shader
 
@@ -142,30 +135,29 @@ Added a starglobe tool to the Maya shelf to create a night sky backdrop
 The starglobe textures and meshes are stored in the Domemaster3D/sourceimages folder.
 
 
-Version 1.3.3
----------------
-May 29, 2013
+Version 1.3.3 - 2013-05-29
+------------------------------
 
 Updated the default locator scale
 
 Updated source image paths for Maya 2010 compatibility
 
 
-Version 1.3.2 - Build 1
--------------------------
-April 16, 2013
+Version 1.3.2 - Build 1 - 2013-04-16
+----------------------------------------
+
 Edited the default camera connections for the lens shaders to work with the modified versions of the maya createMentalRayIndirectLightingTab.mel & AEmia_physicalskyTemplate.mel scripts. This fixes the problem of the Physical Sky & Sum system overwriting the first .miLensShader input on cameras in the scene.
 
 The location of the default domemaster control map textures is now in the C:\Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on macOS. The Domemaster3D shelf tools have been updated to link to the new sourceimages folder.
 
-Version 1.3 - Build 27
-------------------------
-Released Nov 4, 2012
+Version 1.3 - Build 27 - 2012-11-04
+---------------------------------------
+
 Edited default presets for bump map shading network, added WxH and FOV camera tools, changed the default lens shader connections to support the mental ray sky and sun system.
 
-Version 1.0
--------------
-Oct 31, 2012
+Version 1.0 - 2012-10-31
+----------------------------
+
 Created first python script to create a domeAFL mental ray shading network
 
 ------------------------------------------------------------------------------
@@ -273,7 +265,6 @@ import domeMaterial as domeMaterial
 reload(domeMaterial)
 domeMaterial.createDomeViewer()
 
-
 ------------------------------------------------------------------------------
 
 Find out the path to the AttrPresets folder
@@ -282,6 +273,17 @@ A python function to check the operating system platform and the AttrPresets fol
 import domeMaterial as domeMaterial
 reload(domeMaterial)
 domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel')
+
+------------------------------------------------------------------------------
+
+Unlock Ancestor
+A python function to lock/unlock an ancestor plug connection
+
+import domeMaterial as domeMaterial
+reload(domeMaterial)
+domeMaterial.unlockAncestor('stereoCameraRight.rotate', True)
+
+------------------------------------------------------------------------------
 
 """
 
@@ -446,23 +448,43 @@ def getDomePresetsPath(PresetsFileName):
   return combinedFileAndPresetsPath
 
   
-# Syntax: createDomeViewerTexture('domeViewer', True)
-def createDomeViewerTexture(meshName, isGrid):
+# Syntax: createDomeViewerTexture('domeViewer', True, 1, 1)
+def createDomeViewerTexture(meshName, isGrid, stereoMode, stereoView):
   import os
   import maya.cmds as cmds
   import maya.mel as mel
   
+  # stereoMode 1=Mono2D, 2=Side by Side Stereo, 3=Over Under Stereo
+  # stereoView 1=Center, 2=Left, 3=Right
+  
+  stereoViewPrefix = ''
+  if stereoView == 1:
+    # Center View
+    stereoViewPrefix = 'center_'
+  elif stereoView == 2:
+    # Left View
+    stereoViewPrefix = 'left_'
+  elif stereoView == 3:
+    # Right View
+    stereoViewPrefix = 'right_'
+  else:
+    # The fallback option is to use the center view
+    stereoViewPrefix = 'center_'
+    
   # ---------------------------------------------------------------------
   # Set up the base folder path for the Domemaster3D textures
   # ---------------------------------------------------------------------
 
-  # Set the file texture variables to "" if you don't want a file to be specified
-  domeViewerMapFileTexture = ""
+  # Set the file texture variables to '' if you don't want a file to be specified
+  domeViewerMapFileTexture = ''
  
   # Read the texture from the Domemaster3D Folder
   #domeViewerMapFileTexture = getSourceImagesPath("fulldome_1K.jpg")
 
-  materialNamePrefix = ""
+  materialNamePrefix = ''
+  
+  # Check if the stereo format is: "None - Mono 2D", "Side by Side Stereo", "Over Under Stereo"
+  stereoMode = cmds.optionMenuGrp('menuDomeViewerStereoFormat', query=True, select=True)
   
   # Check if the image's alpha channel should be connected to the surface material
   connectAlphaEnabled = cmds.checkBoxGrp('checkGrpDomeViewerConnectAlpha', query=True, value1=True)
@@ -470,14 +492,14 @@ def createDomeViewerTexture(meshName, isGrid):
   # Check if this is a pano or an alignment grid
   if(isGrid == True):
     # Image is a alignment grid
-    materialNamePrefix = 'domeViewerGrid_'
+    materialNamePrefix = stereoViewPrefix + 'domeViewerGrid_'
     # Load the Aaron Bradbury fulldome alignment grid
     domeViewerMapFileTexture = getSourceImagesPath("fulldomeAlignmentGrid_4k.png")
     
     domeViewer_maya_tex = cmds.shadingNode('file', n=materialNamePrefix+'FileTexture', asTexture=True) 
   else:
     # Image is a regular pano
-    materialNamePrefix = 'domeViewer_'
+    materialNamePrefix = stereoViewPrefix + 'domeViewer_'
     
     # Read the texture from the Image Name field in the GUI
     domeViewerMapFileTexture = cmds.textFieldGrp("textDomeViewerImageOutputName", query=True, text=True)
@@ -766,10 +788,38 @@ def createDomeViewerTexture(meshName, isGrid):
 
   cmds.expression(name=exprName, string=PreviewShapeExpr, object=domeRadiusTransform, alwaysEvaluate=True, unitConversion=all)
 
+  # ---------------------------------------------------
+  # Set up the stereo place 2D texture map offsets
+  # ---------------------------------------------------
+  
+  if stereoMode == 2:
+    # Side by Side Stereo
+    # Stretch the horizontal texture area (coverage U) to twice its width
+    cmds.setAttr(domeViewer_maya_placement+'.coverageU', 2)
+    if stereoView == 2:
+      # Left Eye View
+      # Pan the image so the origin is placed at the left frame position 
+      cmds.setAttr(domeViewer_maya_placement+'.translateFrameU', 1)
+    if stereoView == 3:
+      # Right Eye View
+      # Pan the image so the origin is placed at the right frame position 
+      cmds.setAttr(domeViewer_maya_placement+'.translateFrameU', 0)
+  elif stereoMode == 3:
+    # Over Under Stereo
+    # Stretch the vertical texture area (coverage V) to twice its width
+    cmds.setAttr(domeViewer_maya_placement+'.coverageV', 2)
+    if stereoView == 2:
+      # Left Eye View
+      # Pan the image so the origin is placed at the left frame position 
+      cmds.setAttr(domeViewer_maya_placement+'.translateFrameV', 1)
+    if stereoView == 3:
+      # Right Eye View
+      # Pan the image so the origin is placed at the right frame position 
+      cmds.setAttr(domeViewer_maya_placement+'.translateFrameV', 0)
+  
   # Output the name of the new fileTexture node
   return domeViewer_maya_tex
   
-
 
 # Move the domeViewer camera back to it's default starting angle
 def resetDomeViewerCameraAngle():
@@ -800,7 +850,6 @@ def createDomeViewerCamera(viewerCameraName, meshName, gridMeshName):
   import maya.mel as mel
   
   currentPanoFormat = cmds.optionMenuGrp('menuDomeViewerPanoramaFormat', query=True, select=True)
-  
   
   #viewerCameraName = 'viewerCamera'
   
@@ -846,7 +895,7 @@ def createDomeViewerCamera(viewerCameraName, meshName, gridMeshName):
   cmds.setAttr(regularSceneCamera+".ty", 79)
   cmds.setAttr(regularSceneCamera+".tz", 450)
   
-  cmds.viewFit('persp')
+  cmds.viewFit(regularSceneCamera)
   
   # Turn off the grid
   cmds.modelEditor('modelPanel4', edit=True, grid=False)
@@ -870,16 +919,176 @@ def createDomeViewerCamera(viewerCameraName, meshName, gridMeshName):
   cmds.lookThru(cameraName)
 
 
+# Syntax: createDomeViewerStereoCamera('stereoCamera', 'domeViewer', 'domeViewerGrid', 800)
+def createDomeViewerStereoCamera(viewerCameraName, meshName, gridMeshName, cameraSeparation):
+  import os
+  import math
+  import maya.cmds as cmds
+  import maya.mel as mel
+  cmds.loadPlugin("stereoCamera", qt=True)
+  import maya.app.stereo.stereoCameraRig as stereoCameraRig
+  
+  currentPanoFormat = cmds.optionMenuGrp('menuDomeViewerPanoramaFormat', query=True, select=True)
+  
+  # Manually define the name of the center camera object
+  # viewerCameraName = "stereoCamera"
+  cameraName =  viewerCameraName
+  
+  # Remove the old camera
+  if cmds.objExists(viewerCameraName): 
+    cmds.select(viewerCameraName, replace=True)
+    cmds.delete()
+    print('[Removing Old Camera Rig] ' + viewerCameraName)
+   
+  # Calculate the focal length from the field of view
+  domeViewerFOV = cmds.floatSliderGrp("sliderDomeViewerFOV", query=True, value=True)
+  horizontalFilmAperture = 1.417
+  focal = math.tan (0.00872665 * domeViewerFOV)
+  focal = (0.5 * horizontalFilmAperture) / (focal * 0.03937)
+
+  # Add the stereo camera rig
+  rig = stereoCameraRig.createStereoCameraRig('StereoCamera')
+  # [u'stereoCamera', u'stereoCameraLeft', u'stereoCameraRight']
+  
+  # Get the stereo camera rig shape nodes for the center/right/left cameras
+  rig_center_shape_name = getObjectShapeNode(rig[0])
+  # Result: [u'stereoCameraCenterCamShape', u'stereoCameraFrustum'] #
+
+  rig_left_shape_name = getObjectShapeNode(rig[1])
+  # Result: [u'stereoCameraLeftShape'] #
+
+  rig_right_shape_name = getObjectShapeNode(rig[2])
+  # Result: [u'stereoCameraRightShape'] #
+  
+  # Changes the render settings to set the stereo camera to be a renderable camera
+  cmds.setAttr(rig_left_shape_name[0]+'.renderable', 1) #stereoCameraLeftShape
+  cmds.setAttr(rig_right_shape_name[0]+'.renderable', 1) #stereoCameraRightShape
+  cmds.setAttr('topShape.renderable', 0)
+  cmds.setAttr('sideShape.renderable', 0)
+  cmds.setAttr('frontShape.renderable', 0)
+  cmds.setAttr('perspShape.renderable', 0)
+  
+  # Adjust the focal length
+  cmds.setAttr(rig_center_shape_name[0]+'.focalLength', focal)
+  
+  # Set the stereo mode to parallel
+  cmds.setAttr(rig_center_shape_name[0]+'.stereo', 3)
+  
+  # Lock the stereo mode control
+  cmds.setAttr(rig_center_shape_name[0]+'.stereo', lock=True)
+  
+  # Adjust the rig's interaxial separation to move the cameras apart
+  cmds.setAttr(rig_center_shape_name[0]+'.interaxialSeparation', cameraSeparation)
+  
+  # Lock the interaxialSeparation control
+  cmds.setAttr(rig_center_shape_name[0]+'.interaxialSeparation', lock=True)
+  
+  # This attribute isn't actually used i the DomeViewer since the stereo rig is set to a parallel stereo mode
+  cmds.setAttr(rig_center_shape_name[0]+'.zeroParallax', cameraSeparation)
+  
+  # Break apart the left and right camera transform node's translation and rotation attributes
+  cmds.setAttr(rig[1]+'.inheritsTransform', 0);
+  cmds.setAttr(rig[2]+'.inheritsTransform', 0);
+  
+  # Unselect the geometry in the scene
+  cmds.select(clear=True)
+  
+  # Change the icon size
+  cmds.setAttr(rig_center_shape_name[0]+".locatorScale", 15)
+  cmds.setAttr(rig_left_shape_name[0]+".locatorScale", 15)
+  cmds.setAttr(rig_right_shape_name[0]+".locatorScale", 15)
+  
+  # Lock the center camera rig transform
+  cmds.setAttr(rig[0]+'.translate', lock=True)
+  
+  # Un-lock the left camera rig rotations
+  unlockAncestor(rig[1]+'.rotate', False)
+  
+  # Un-lock the right camera rig rotations
+  unlockAncestor(rig[2]+'.rotate', False)
+  
+  # Connect the left camera rotation to the base of the rig
+  cmds.connectAttr(rig[0]+'.rotate', rig[1]+'.rotate', force=True)
+
+  # Connect the right camera rotation to the base of the rig
+  cmds.connectAttr(rig[0]+'.rotate', rig[2]+'.rotate', force=True)
+  
+  # Reset the camera position
+  cmds.setAttr(rig[0]+".rx", 0)
+  cmds.setAttr(rig[0]+".ry", 0)
+  cmds.setAttr(rig[0]+".rz", 0)
+  
+  # Setup the default perspective camera view
+  regularSceneCamera = 'persp'
+  
+  # Tipped View
+  cmds.setAttr(regularSceneCamera+".rx", 20)
+  cmds.setAttr(regularSceneCamera+".ry", -80)
+  
+  # Level View
+  # cmds.setAttr(regularSceneCamera+".rx", 0)
+  # cmds.setAttr(regularSceneCamera+".ry", -60)
+  cmds.setAttr(regularSceneCamera+".rz", 0)
+  cmds.setAttr(regularSceneCamera+".tx", -800)
+  cmds.setAttr(regularSceneCamera+".ty", 79)
+  cmds.setAttr(regularSceneCamera+".tz", 450)
+  
+  cmds.viewFit(regularSceneCamera)
+  
+  # Turn off the grid
+  cmds.modelEditor('modelPanel4', edit=True, grid=False)
+  
+  # Turn on hardware texturing and shading
+  cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  
+  # gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+  # 
+  # Point constrain the mesh to the camera
+  # if cmds.checkBoxGrp("checkGrpDomeViewerPointConstrain", query=True, value1=True):
+  #   cmds.pointConstraint(cameraName[0], meshName, weight=1)
+
+  #   # Add the point constraint for the fulldome grid too
+  #   if (currentPanoFormat == 1):
+  #     if (gridModeEnabled == 1):
+  #       cmds.pointConstraint(cameraName[0], gridMeshName, weight=1)
+   
+  # Switch the viewport to look through a new stereo viewing camera
+  cameraName = 'stereoCamera'
+  mel.eval('stereoCameraSwitchToCamera ' + cameraName + ' modelPanel1')
+  from maya.app.stereo import stereoCameraCustomPanel
+  stereoCameraCustomPanel.switchToCamera(cameraName,"StereoPanelEditor")
+
+  # return the rig array:
+  # [u'stereoCamera', u'stereoCameraLeft', u'stereoCameraRight']
+  return rig
+
 # Load a new domeViewer polygon mesh into the scene
-# Syntax: createDomeViewerMesh('pCube1', 'mentalRayCube1_mesh', '45', 300 , viewerFlipScale)
-def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFlipScale):
+# Syntax: createDomeViewerMesh('pCube1', 'mentalRayCube1_mesh', '45', 300 , viewerFlipScale, stereoView)
+def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFlipScale, stereoView):
   import os  
   import maya.cmds as cmds
   import maya.mel as mel
   
+  # stereoView 0= Don't rename 1=Center, 2=Left, 3=Right
+  stereoViewPrefix = ''
+  if stereoView == 0:
+    # Keep the original name
+    stereoViewPrefix = ''
+  elif stereoView == 1:
+    # Center View
+    stereoViewPrefix = 'center_'
+  elif stereoView == 2:
+    # Left View
+    stereoViewPrefix = 'left_'
+  elif stereoView == 3:
+    # Right View
+    stereoViewPrefix = 'right_'
+  else:
+    # The fallback option is to use the center view
+    stereoViewPrefix = 'center_'
+  
   # Viewer Mesh Object Details
-  #meshName = 'pCube1'
-  #meshFileName = 'mentalRayCube1_mesh'
   meshFileExtension = '.ma'
   meshFileType = 'mayaAscii'
   
@@ -889,6 +1098,12 @@ def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFli
   if cmds.objExists(meshName): 
     print('Removing existing Domemaster3D object: ' + meshName)
     cmds.select(meshName, replace=True)
+    cmds.delete()
+  
+  updatedMeshName = stereoViewPrefix+meshName
+  if cmds.objExists(updatedMeshName): 
+    print('Removing existing Domemaster3D object: ' + updatedMeshName)
+    cmds.select(updatedMeshName, replace=True)
     cmds.delete()
     
   #if cmds.objExists(meshFileName + '_sceneConfigurationScriptNode'): 
@@ -914,6 +1129,15 @@ def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFli
   # Tilt the fulldome screen
   cmds.setAttr(meshName + ".rotateX", (-1*domeTiltAngle));
 
+  # Rename the mesh
+  if cmds.objExists(meshName): 
+    print('[Renaming] ' + meshName + ' to: ' + updatedMeshName)
+    cmds.rename(meshName, updatedMeshName)
+    # Return the mesh name
+    return updatedMeshName
+
+  # Return the mesh name
+  return meshName
   
 """
 Create a DomeViewer mesh
@@ -1058,6 +1282,7 @@ def createDomeViewer():
     # Samsung Gear 360 Camera
     meshName = 'SamsungGear360Viewer'
     meshFileName = 'samsungGear360_mesh'
+   
   #---------------------------------------------------------------------------
   # Create the panoramic elements in Maya
   #---------------------------------------------------------------------------
@@ -1081,31 +1306,184 @@ def createDomeViewer():
     # All other meshes
     viewerMeshScale = 300
 
-  # Add the mesh to the scene
-  createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale)
+  # Check if the stereo format is: 1="None - Mono 2D", 2="Side by Side Stereo", 3="Over Under Stereo"
+  stereoMode = cmds.optionMenuGrp("menuDomeViewerStereoFormat", query=True, select=True)
+  
+  if(stereoMode == 1):
+    # Stereo: None - Mono 2D
+    
+    # Center Eye
+    stereoView = 1
+    # Add the mesh to the scene
+    viewerMeshNodeCenter = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
 
-  # Create the surface material
-  viewerTextureNode = createDomeViewerTexture(meshName, False)
-  
-  gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
-  
-  # Create the fulldome alignment grid
-  if(currentPanoFormat <= 3):
-    if(gridModeEnabled == 1):
-      print("Creating a Bradbury fulldome reference grid.")
-      # Create the dome alignment grid mesh
-      createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, 294, 1)
-      # Create the dome alignment grid surface material
-      viewerTextureNode = createDomeViewerTexture(gridMeshName, True)
-      
-  # Add the camera to the scene
-  createDomeViewerCamera(viewerCameraName, meshName, gridMeshName)
-  
-  # Select the File Texture node in the attribute editor so the image sequence loader will start working
-  mel.eval('showEditorExact("' + viewerTextureNode + '")')
+    # Create the surface material
+    viewerTextureNode = createDomeViewerTexture(viewerMeshNodeCenter, False, stereoMode, 1)
+    
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeCenter = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeCenter = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNode = createDomeViewerTexture(gridMeshNodeCenter, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCamera view
+        cmds.pointConstraint(cameraRigArray[0], gridMeshNodeCenter, weight=1)
+    
+    # Add the camera to the scene
+    createDomeViewerCamera(viewerCameraName, viewerMeshNodeCenter, gridMeshNode)
+    
+    # Select the File Texture node in the attribute editor so the image sequence loader will start working
+    mel.eval('showEditorExact("' + viewerTextureNode + '")')
+  elif(stereoMode == 2):
+    # Stereo: Side by Side Stereo
+    # Add the camera to the scene
+    stereoCameraSeparation = viewerMeshScale*2*1.1
+    cameraRigArray = createDomeViewerStereoCamera('stereoCamera', 'domeViewer', 'domeViewerGrid', stereoCameraSeparation)
+    print('[Stereo Camera Rig]')
+    print(cameraRigArray)
+    
+    # Center Eye
+    stereoView = 1
+    # Add the center mesh to the scene
+    viewerMeshNodeCenter = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Center View
+    viewerTextureNodeCenter = createDomeViewerTexture(viewerMeshNodeCenter, False, stereoMode, stereoView)
+    # Constrain the center viewer mesh to the stereoCamera view
+    cmds.pointConstraint(cameraRigArray[0], viewerMeshNodeCenter, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeCenter = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeCenter = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNode = createDomeViewerTexture(gridMeshNodeCenter, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCamera view
+        cmds.pointConstraint(cameraRigArray[0], gridMeshNodeCenter, weight=1)
+    
+    # Left Eye
+    stereoView = 2
+    # Add the left mesh to the scene
+    viewerMeshNodeLeft = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Left View
+    viewerTextureNodeLeft = createDomeViewerTexture(viewerMeshNodeLeft, False, stereoMode, stereoView)
+    # Constrain the left viewer mesh to the stereoCameraLeft view
+    cmds.pointConstraint(cameraRigArray[1], viewerMeshNodeLeft, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeLeft = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeLeft = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeLeft, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCameraLeft view
+        cmds.pointConstraint(cameraRigArray[1], gridMeshNodeLeft, weight=1)
+    
+    # Right Eye
+    stereoView = 3
+    # Add the right mesh to the scene
+    viewerMeshNodeRight = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Right View
+    viewerTextureNodeRight = createDomeViewerTexture(viewerMeshNodeRight, False, stereoMode, stereoView)
+    # Constrain the right viewer mesh to the stereoCameraRight view
+    cmds.pointConstraint(cameraRigArray[2], viewerMeshNodeRight, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeRight = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeRight = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeRight, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCameraRight view
+        cmds.pointConstraint(cameraRigArray[2], gridMeshNodeRight, weight=1)
+  elif(stereoMode == 3):
+    # Stereo: Over Under Stereo
+    # Add the camera to the scene
+    stereoCameraSeparation = viewerMeshScale*2*1.1
+    cameraRigArray = createDomeViewerStereoCamera('stereoCamera', 'domeViewer', 'domeViewerGrid', stereoCameraSeparation)
+    print('[Stereo Camera Rig]')
+    print(cameraRigArray)
+    
+    # Center Eye
+    stereoView = 1
+    # Add the center mesh to the scene
+    viewerMeshNodeCenter = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Center View
+    viewerTextureNodeCenter = createDomeViewerTexture(viewerMeshNodeCenter, False, stereoMode, stereoView)
+    # Constrain the center viewer mesh to the stereoCamera view
+    cmds.pointConstraint(cameraRigArray[0], viewerMeshNodeCenter, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeCenter = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeCenter = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNode = createDomeViewerTexture(gridMeshNodeCenter, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCamera view
+        cmds.pointConstraint(cameraRigArray[0], gridMeshNodeCenter, weight=1)
+    
+    # Left Eye
+    stereoView = 2
+    # Add the left mesh to the scene
+    viewerMeshNodeLeft = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Left View
+    viewerTextureNodeLeft = createDomeViewerTexture(viewerMeshNodeLeft, False, stereoMode, stereoView)
+    # Constrain the left viewer mesh to the stereoCameraLeft view
+    cmds.pointConstraint(cameraRigArray[1], viewerMeshNodeLeft, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeLeft = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeLeft = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeLeft, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCameraLeft view
+        cmds.pointConstraint(cameraRigArray[1], gridMeshNodeLeft, weight=1)
+    
+    # Right Eye
+    stereoView = 3
+    # Add the right mesh to the scene
+    viewerMeshNodeRight = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Right View
+    viewerTextureNodeRight = createDomeViewerTexture(viewerMeshNodeRight, False, stereoMode, stereoView)
+    # Constrain the right viewer mesh to the stereoCameraRight view
+    cmds.pointConstraint(cameraRigArray[2], viewerMeshNodeRight, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeRight = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print("Creating a Bradbury fulldome reference grid.")
+        # Create the dome alignment grid mesh
+        gridMeshNodeRight = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeRight, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCameraRight view
+        cmds.pointConstraint(cameraRigArray[2], gridMeshNodeRight, weight=1)
+    
+  # Unselect the geometry in the scene
+  cmds.select(clear=True)
   
   # return the name of the domeViewer mesh
-  return meshName
+  return viewerMeshNodeCenter
 
 
 """
@@ -2218,4 +2596,24 @@ getObjectParentNode("nurbsSphereShape1")
 
 def getObjectParentNode(object):
     import maya.cmds as cmds
-    return cmds.listRelatives(object, parent=True)
+    parent = cmds.listRelatives(object, parent=True)
+    
+    print('Parent: ')
+    print(parent)
+    
+    return parent
+
+    
+"""
+A python function to lock/unlock an ancestor plug connection
+
+unlockAncestor('stereoCameraRight.rotate', True)
+# Result:  [u'stereoCameraRight.rotate'] #
+"""
+
+def unlockAncestor(connectionName, lockState):
+    import maya.cmds as cmds
+    if cmds.connectionInfo( connectionName, getLockedAncestor=True):
+    	cmds.setAttr(connectionName, lock=lockState)
+    	print('[Locked Ancestor State] ' + connectionName + ' ' + str(lockState))
+    	return connectionName

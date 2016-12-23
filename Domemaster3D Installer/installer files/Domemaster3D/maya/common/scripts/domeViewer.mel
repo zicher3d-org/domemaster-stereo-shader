@@ -13,11 +13,13 @@
   
   Version 2.2.1
   -------------
-  2016-12-21
+  2016-12-23
   
   Facebook Vertical Strip Cube image projection
   
   Fixed the LG360 camera preview icon loading issue
+  
+  Added stereo 360 degree viewing support for Side by Side Stereo, and Over Under Stereo panoramic imagery.
   
   Version 2.2
   -------------
@@ -292,8 +294,7 @@ global proc loadDomeViewerImageInRenderView(){
 global proc setPanoramaPreview(){
   int $currentPanoFormat = `optionMenuGrp -query -select menuDomeViewerPanoramaFormat`;
   
-  switch($currentPanoFormat)
-  {
+  switch($currentPanoFormat){
   case 1:
     // 180 Degree Fulldome
     picture -edit -image "fisheye_180degree_120px.png" -width 120 -height 120 picturePanoramaPreview;
@@ -506,7 +507,7 @@ global proc domeViewer(){
         menuItem -label "Horizontal Strip Cube";
         menuItem -label "Mental Ray Horizontal Strip Cube1";
         menuItem -label "Quadsphere (Starglobe)";
-        menuItem -label "Gear VR Mono Cube";
+        menuItem -label "Gear VR Cube";
         menuItem -label "Ricoh Theta S Camera";
         menuItem -label "Facebook Cube Map 3x2";
         menuItem -label "Facebook Pyramid";
@@ -547,10 +548,25 @@ global proc domeViewer(){
       menuItem -label "Movie File";
       
       // Preselect the first option menu
-      optionMenuGrp 
+      optionMenuGrp
         -edit
         -select 1
         menuDomeViewerMediaType;
+      
+      optionMenuGrp
+        -label "Stereo Format" 
+        -annotation "Choose the type of stereoscopic media you want to display in the viewer"
+        menuDomeViewerStereoFormat;
+        
+      menuItem -label "None - Mono 2D";
+      menuItem -label "Side by Side Stereo";
+      menuItem -label "Over Under Stereo";
+      
+      // Preselect the first option menu
+      optionMenuGrp 
+        -edit
+        -select 1
+        menuDomeViewerStereoFormat;
       
       rowLayout 
         -numberOfColumns 2
@@ -928,7 +944,7 @@ global proc domeViewer(){
     }
   }
   
-  if( $mayaVersion == 2011 ){
+  if($mayaVersion == 2011){
   // Make the Maya 2011 or higher window dockable
   string $domeViewerDockControl = `dockControl 
         -label "Dome Viewer"
@@ -957,7 +973,7 @@ global proc domeViewer(){
             + " width " 
             + `dockControl -q -height domeViewerDockControl` 
             + " height\n");
-  }else if( $mayaVersion >= 2012 ) {
+  }else if($mayaVersion >= 2012){
   // Make the Maya 2011 or higher window dockable
   string $domeViewerDockControl = `dockControl 
         -label "Dome Viewer"
@@ -1030,89 +1046,89 @@ global proc restoreDomeTimeUnit(){
 	string $type = `optionVar -q workingUnitTime`;
 
 	int $which = 0;
-	if("game" == $type) {
+	if("game" == $type){
 		$which = 1;
-	} else if("film" == $type) {
+	}else if("film" == $type){
 		$which = 2;
-	} else if("pal" == $type) {
+	}else if("pal" == $type){
 		$which = 3;
-	} else if("ntsc" == $type) {
+	}else if("ntsc" == $type){
 		$which = 4;
-	} else if("show" == $type) {
+	}else if("show" == $type){
 		$which = 5;
-	} else if("palf" == $type) {
+	}else if("palf" == $type){
 		$which = 6;
-	} else if("ntscf" == $type) {
+	}else if("ntscf" == $type){
 		$which = 7;
-	} else if("millisec" == $type) {
+	}else if("millisec" == $type){
 		$which = 8;
-	} else if("sec" == $type) {
+	}else if("sec" == $type){
 		$which = 9;
-	} else if("min" == $type) {
+	}else if("min" == $type){
 		$which = 10;
-	} else if("hour" == $type) {
+	}else if("hour" == $type){
 		$which = 11;
-	} else if("2fps" == $type) {
+	}else if("2fps" == $type){
 		$which = 12;
-	} else if("3fps" == $type) {
+	}else if("3fps" == $type){
 		$which = 13;
-	} else if("4fps" == $type) {
+	}else if("4fps" == $type){
 		$which = 14;
-	} else if("5fps" == $type) {
+	}else if("5fps" == $type){
 		$which = 15;
-	} else if("6fps" == $type) {
+	}else if("6fps" == $type){
 		$which = 16;
-	} else if("8fps" == $type) {
+	}else if("8fps" == $type){
 		$which = 17;
-	} else if("10fps" == $type) {
+	}else if("10fps" == $type){
 		$which = 18;
-	} else if("12fps" == $type) {
+	}else if("12fps" == $type){
 		$which = 19;
-	} else if("16fps" == $type) {
+	}else if("16fps" == $type){
 		$which = 20;
-	} else if("20fps" == $type) {
+	}else if("20fps" == $type){
 		$which = 21;
-	} else if("40fps" == $type) {
+	}else if("40fps" == $type){
 		$which = 22;
-	} else if("75fps" == $type) {
+	}else if("75fps" == $type){
 		$which = 23;
-	} else if("80fps" == $type) {
+	}else if("80fps" == $type){
 		$which = 24;
-	} else if("100fps" == $type) {
+	}else if("100fps" == $type){
 		$which = 25;
-	} else if("120fps" == $type) {
+	}else if("120fps" == $type){
 		$which = 26;
-	} else if("125fps" == $type) {
+	}else if("125fps" == $type){
 		$which = 27;
-	} else if("150fps" == $type) {
+	}else if("150fps" == $type){
 		$which = 28;
-	} else if("200fps" == $type) {
+	}else if("200fps" == $type){
 		$which = 29;
-	} else if("240fps" == $type) {
+	}else if("240fps" == $type){
 		$which = 30;
-	} else if("250fps" == $type) {
+	}else if("250fps" == $type){
 		$which = 31;
-	} else if("300fps" == $type) {
+	}else if("300fps" == $type){
 		$which = 32;
-	} else if("375fps" == $type) {
+	}else if("375fps" == $type){
 		$which = 33;
-	} else if("400fps" == $type) {
+	}else if("400fps" == $type){
 		$which = 34;
-	} else if("500fps" == $type) {
+	}else if("500fps" == $type){
 		$which = 35;
-	} else if("600fps" == $type) {
+	}else if("600fps" == $type){
 		$which = 36;
-	} else if("750fps" == $type) {
+	}else if("750fps" == $type){
 		$which = 37;
-	} else if("1200fps" == $type) {
+	}else if("1200fps" == $type){
 		$which = 38;
-	} else if("1500fps" == $type) {
+	}else if("1500fps" == $type){
 		$which = 39;
-	} else if("2000fps" == $type) {
+	}else if("2000fps" == $type){
 		$which = 40;
-	} else if("3000fps" == $type) {
+	}else if("3000fps" == $type){
 		$which = 41;
-	} else if("6000fps" == $type) {
+	}else if("6000fps" == $type){
 		$which = 42;
 	}else{
 		$which = 1;
@@ -1131,87 +1147,87 @@ global proc setDomeTimeUnit(){
 
   if($which == 1){
     $type = "game";
-  } else if($which == 2){
+  }else if($which == 2){
     $type = "film";
-  } else if($which == 3){
+  }else if($which == 3){
     $type = "pal";
-  } else if($which == 4){
+  }else if($which == 4){
     $type = "ntsc";
-  } else if($which == 5){
+  }else if($which == 5){
     $type = "show";
-  } else if($which == 6){
+  }else if($which == 6){
     $type = "palf";
-  } else if($which == 7){
+  }else if($which == 7){
     $type = "ntscf";
-  } else if($which == 8){
+  }else if($which == 8){
     $type = "millisec";
-  } else if($which == 9){
+  }else if($which == 9){
     $type = "sec";
-  } else if($which == 10){
+  }else if($which == 10){
     $type = "min";
-  } else if($which == 11){
+  }else if($which == 11){
     $type = "hour";
-  } else if($which == 12){
+  }else if($which == 12){
     $type = "2fps";
-  } else if($which == 13){
+  }else if($which == 13){
     $type = "3fps";
-  } else if($which == 14){
+  }else if($which == 14){
     $type = "4fps";
-  } else if($which == 15){
+  }else if($which == 15){
     $type = "5fps";
-  } else if($which == 16){
+  }else if($which == 16){
     $type = "6fps";
-  } else if($which == 17){
+  }else if($which == 17){
     $type = "8fps";
-  } else if($which == 18){
+  }else if($which == 18){
     $type = "10fps";
-  } else if($which == 19){
+  }else if($which == 19){
     $type = "12fps";
-  } else if($which == 20){
+  }else if($which == 20){
     $type = "16fps";
-  } else if($which == 21){
+  }else if($which == 21){
     $type = "20fps";
-  } else if($which == 22){
+  }else if($which == 22){
     $type = "40fps";
-  } else if($which == 23){
+  }else if($which == 23){
     $type = "75fps";
-  } else if($which == 24){
+  }else if($which == 24){
     $type = "80fps";
-  } else if($which == 25){
+  }else if($which == 25){
     $type = "100fps";
-  } else if($which == 26){
+  }else if($which == 26){
     $type = "120fps";
-  } else if($which == 27){
+  }else if($which == 27){
     $type = "125fps";
-  } else if($which == 28){
+  }else if($which == 28){
     $type = "150fps";
-  } else if($which == 29){
+  }else if($which == 29){
     $type = "200fps";
-  } else if($which == 30){
+  }else if($which == 30){
     $type = "240fps";
-  } else if($which == 31){
+  }else if($which == 31){
     $type = "250fps";
-  } else if($which == 32){
+  }else if($which == 32){
     $type = "300fps";
-  } else if($which == 33){
+  }else if($which == 33){
     $type = "375fps";
-  } else if($which == 34){
+  }else if($which == 34){
     $type = "400fps";
-  } else if($which == 35){
+  }else if($which == 35){
     $type = "500fps";
-  } else if($which == 36){
+  }else if($which == 36){
     $type = "600fps";
-  } else if($which == 37){
+  }else if($which == 37){
     $type = "750fps";
-  } else if($which == 38){
+  }else if($which == 38){
     $type = "1200fps";
-  } else if($which == 39){
+  }else if($which == 39){
     $type = "1500fps";
-  } else if($which == 40){
+  }else if($which == 40){
     $type = "2000fps";
-  } else if($which == 41){
+  }else if($which == 41){
     $type = "3000fps";
-  } else if($which == 42){
+  }else if($which == 42){
     $type = "6000fps";
   }else{
     // Set the fallback default to 30fps
@@ -1231,4 +1247,3 @@ global proc resetDomeViewerCamera(){
   python("reload(domeMaterial)");
   python("domeMaterial.resetDomeViewerCameraAngle()");
 }
-

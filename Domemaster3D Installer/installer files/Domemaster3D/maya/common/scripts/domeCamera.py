@@ -1,12 +1,16 @@
 """
-Domemaster3D Camera Setup Script V2.2
-2016-11-26
+Domemaster3D Camera Setup Script V2.2.1
+2016-12-23
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 2.2 - 2016-12-23
+-------------------------
+Added a unlockAncestor() function
 
 Version 2.2 - 2016-09-17
 -------------------------
@@ -45,7 +49,6 @@ Version 1.8.3
 2015-08-21
 
 Added the `addPrePostRenderScript()` and `removePrePostRenderScript()` functions to the domeCamera.py script to make it easier to set up the Domemaster3D pre render and post render mel scripts in the Maya render settings window.
-
 
 Version 1.7.4
 ------------
@@ -121,7 +124,6 @@ Version 1.4 B4
 Oct 21, 2013
 
 Upgraded the DomeGrid with new radius controls, color controls, paintFX toon line thickness controls, and custom display modes
-
 
 Version 1.4 B1
 ---------------
@@ -394,6 +396,14 @@ domeCamera.getMayaVersionDome()
 
 ------------------------------------------------------------------------------
 
+Unlock Ancestor
+A python function to lock/unlock an ancestor plug connection
+
+import domeMaterial as domeMaterial
+reload(domeMaterial)
+domeMaterial.unlockAncestor('stereoCameraRight.rotate', True)
+
+------------------------------------------------------------------------------
 """
 
 
@@ -987,10 +997,10 @@ def createDomeAFL_WxH_Camera():
   cmds.setAttr(cameraShape+'.focalLength', domeOverrideFOV)
   
   # 4 mm focal length = 160 degree FOV
-  #cmds.setAttr(cameraShape+'.focalLength', 4 )
+  #cmds.setAttr(cameraShape+'.focalLength', 4)
 
   # 18 mm focal length = 90 degree FOV
-  #cmds.setAttr(cameraShape+'.focalLength', 18 )
+  #cmds.setAttr(cameraShape+'.focalLength', 18)
 
 
 """
@@ -1589,7 +1599,7 @@ def createDomeGrid():
   
   # Chop the polysphere into a hemispherical dome
   #domeGridTransform = domeGridName[0]
-  #domeGridShape = getObjectShapeNode( domeGridName[0] )
+  #domeGridShape = getObjectShapeNode( domeGridName[0])
   #cmds.select(domeGridTransform+'.f[0:323]', domeGridTransform+'.f[648:683]', replace=True)
   #cmds.delete()
   
@@ -1614,20 +1624,20 @@ def createDomeGrid():
   # Rename the toon shader
   domeToonShader = 'domeGridToon'
   domeToonShaderShape = 'domeGridToonShape'
-  cmds.rename('pfxToon1', domeToonShader )
+  cmds.rename('pfxToon1', domeToonShader)
   
   # Define the new toon shader controls
-  cmds.setAttr(domeToonShaderShape+'.profileLines', 0 )
-  cmds.setAttr(domeToonShaderShape+'.borderLines', 0 )
-  cmds.setAttr(domeToonShaderShape+'.creaseLineWidth', 15 )
+  cmds.setAttr(domeToonShaderShape+'.profileLines', 0)
+  cmds.setAttr(domeToonShaderShape+'.borderLines', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseLineWidth', 15)
   cmds.setAttr(domeToonShaderShape+'.creaseColor', 1, 1, 0, type='double3')
-  cmds.setAttr(domeToonShaderShape+'.hardCreasesOnly', 0 )
-  cmds.setAttr(domeToonShaderShape+'.creaseBreakAngle', 0 )
-  cmds.setAttr(domeToonShaderShape+'.creaseAngleMin', 0 )
-  cmds.setAttr(domeToonShaderShape+'.creaseAngleMax', 0 )
-  cmds.setAttr(domeToonShaderShape+'.meshVertexColorMode', 1 )
-  cmds.setAttr(domeToonShaderShape+'.meshQuadOutput', 1 )
-  cmds.setAttr(domeToonShaderShape+'.meshHardEdges', 1 )
+  cmds.setAttr(domeToonShaderShape+'.hardCreasesOnly', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseBreakAngle', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseAngleMin', 0)
+  cmds.setAttr(domeToonShaderShape+'.creaseAngleMax', 0)
+  cmds.setAttr(domeToonShaderShape+'.meshVertexColorMode', 1)
+  cmds.setAttr(domeToonShaderShape+'.meshQuadOutput', 1)
+  cmds.setAttr(domeToonShaderShape+'.meshHardEdges', 1)
   
   # Create a polygon paint effects stroke output
   cmds.select(domeToonShader, replace=True)
@@ -1878,32 +1888,32 @@ def createDomeGrid():
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 0;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 0;\n"
   PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
-  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 1 ){\n"
+  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 1){\n"
   PreviewShapeExpr += "  //Wireframe Mode\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 0;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
   PreviewShapeExpr += "  MeshGroup.visibility = 0;\n"
-  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 2 ){\n"
+  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 2){\n"
   PreviewShapeExpr += "  //Shaded Mode\n"
   PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 0 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideShading = 1;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".visibility = 1;\n"
   PreviewShapeExpr += "  MeshGroup.visibility = 1;\n"
-  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 3 ){\n"
+  PreviewShapeExpr += "} else if (" + domeRadiusTransform + "." + previewAttrName + " == 3){\n"
   PreviewShapeExpr += "  //Wireframe on Shaded Mode\n"
   PreviewShapeExpr += "  $currentPanel = \"modelPanel4\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  $currentPanel = \"StereoPanel\";\n"
-  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel` )\n"
+  PreviewShapeExpr += "  if ( `modelEditor -exists currentPanel`)\n"
   PreviewShapeExpr += "  modelEditor -edit -wireframeOnShaded 1 currentPanel;\n"
   PreviewShapeExpr += "  " + domeSurfaceShape + ".overrideDisplayType = 2;\n"
   PreviewShapeExpr += "  " + domeRadiusTransform + ".overrideEnabled = 1;\n"
@@ -1921,15 +1931,15 @@ def createDomeGrid():
   previewAttrName = "doubleSidedShading";
 
   PreviewShapeExpr += "// Custom Double Sided Shading Expressions\n\n"
-  PreviewShapeExpr += "if (" + previewAttrName + " == 0 ){\n"
+  PreviewShapeExpr += "if (" + previewAttrName + " == 0){\n"
   PreviewShapeExpr += "  print(\"Double Sided Shading Enabled\\n\");\n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 1; \n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 0; \n"
-  PreviewShapeExpr += "} else if (" + previewAttrName + " == 1 ){\n"
+  PreviewShapeExpr += "} else if (" + previewAttrName + " == 1){\n"
   PreviewShapeExpr += "  print(\"Backface Shading Enabled\\n\");\n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 0; \n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 0; \n"
-  PreviewShapeExpr += "} else if (" + previewAttrName + " == 2 ){\n"
+  PreviewShapeExpr += "} else if (" + previewAttrName + " == 2){\n"
   PreviewShapeExpr += "  print(\"Frontface Shading Enabled\\n\");\n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".doubleSided\" 0; \n"
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 1; \n"
@@ -1978,7 +1988,7 @@ def  createTestShapes():
   cmds.setAttr(test_sphere_name[0]+'.translateY', 75)
 
   # Smooth the render time polygon sphere shape
-  cmds.displaySmoothness( test_sphere_name, divisionsU=3, divisionsV=3, pointsWire=16, pointsShaded=4, polygonObject=3 )
+  cmds.displaySmoothness( test_sphere_name, divisionsU=3, divisionsV=3, pointsWire=16, pointsShaded=4, polygonObject=3)
 
   test_cube_name = cmds.polyCube( name='polyTestCube', width=40, height=40, depth=40, subdivisionsX=1, subdivisionsY=1, subdivisionsZ=1, axis=(0, 1, 0),  createUVs=4, constructionHistory=True)
   cmds.setAttr(test_cube_name[0]+'.translateX', 0)
@@ -2322,7 +2332,7 @@ def createFulldomeIBL():
 
   #melSetAttrMatrixString = 'setAttr \\"' + dome_tex_remap + '.transform\\" -type \\"matrix\\" -1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;'
   #melRunString = 'mel.eval("' + melSetAttrMatrixString + '")'
-  #print("Mel  string: " + melRunString )
+  #print("Mel  string: " + melRunString)
   #cmds.evalDeferred(melRunString)
 
 
@@ -2335,7 +2345,7 @@ def createFulldomeIBL():
     
     # Set the IBL light emission quality to 0.5
     envLightQuality = 0.5
-    cmds.floatSliderGrp('miEnvironmentLightingQualityCtrl',  edit=True, value=envLightQuality )
+    cmds.floatSliderGrp('miEnvironmentLightingQualityCtrl',  edit=True, value=envLightQuality)
 
     # Enable Light Emission
     cmds.setAttr(iblShapeName+'.enableEmitLight', 1)
@@ -2508,7 +2518,7 @@ def createHemirectIBL():
 
   #melSetAttrMatrixString = 'setAttr \\"' + dome_tex_remap + '.transform\\" -type \\"matrix\\" -1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;'
   #melRunString = 'mel.eval("' + melSetAttrMatrixString + '")'
-  #print("Mel  string: " + melRunString )
+  #print("Mel  string: " + melRunString)
   #cmds.evalDeferred(melRunString)
 
   """
@@ -2519,7 +2529,7 @@ def createHemirectIBL():
     
     #Set the IBL light emission quality to 0.5
     envLightQuality = 0.5
-    cmds.floatSliderGrp('miEnvironmentLightingQualityCtrl',  edit=True, value=envLightQuality )
+    cmds.floatSliderGrp('miEnvironmentLightingQualityCtrl',  edit=True, value=envLightQuality)
 
     # Enable Light Emission
     cmds.setAttr(iblShapeName+'.enableEmitLight', 1)
@@ -2639,3 +2649,18 @@ def getObjectParentNode(object):
     print(parent)
     
     return parent
+
+    
+"""
+A python function to lock/unlock an ancestor plug connection
+
+unlockAncestor('stereoCameraRight.rotate', True)
+# Result:  [u'stereoCameraRight.rotate'] #
+"""
+
+def unlockAncestor(connectionName, lockState):
+    import maya.cmds as cmds
+    if cmds.connectionInfo( connectionName, getLockedAncestor=True):
+    	cmds.setAttr(connectionName, lock=lockState)
+    	print('[Locked Ancestor State] ' + connectionName + ' ' + str(lockState))
+    	return connectionName

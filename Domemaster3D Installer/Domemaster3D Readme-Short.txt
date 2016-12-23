@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.1 - December 22, 2016
+Version 2.2.1 - December 23, 2016
 
 About This Shader
 ---------------------
@@ -27,7 +27,7 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.2 mental ray and Arnold releases for Windows have been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.2 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 You can also find a copy of the Visual Studio 2012 (VC++ 11.0) x64 installer in the Domemaster3D "bin" folder at:
@@ -75,14 +75,16 @@ Version History
 
 Version 2.2.1
 -----------------
-2016-12-22
+2016-12-23
 
 Installer
 
   Added new entries in the Domemaster3D installer for using the lens shaders with V-Ray for 3ds Max 2014-2017, Arnold MaxtoA for 3ds Max 2017, Arnold for Cinema4D R16-R18, and mental ray 3.14 standalone for Maya 2016-2017.
   
-Maya
-
+Maya DomeViewer
+  
+  Added Side by Side Stereo, and Over Under Stereo image viewing support to the DomeViewer
+  Renamed the DomeViewer "Gear VR Mono Cube" panoramic format entry to "Gear VR Cube"
   Edited the DomeViewer tool to add the Facebook Vertical Strip Cube image projection
   Fixed the DomeViewer LG360 camera preview icon loading issue
   

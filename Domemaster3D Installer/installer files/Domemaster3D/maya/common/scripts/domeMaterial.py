@@ -501,9 +501,30 @@ def createDomeViewerTexture(meshName, isGrid, stereoMode, stereoView):
     # Image is a regular pano
     materialNamePrefix = stereoViewPrefix + 'domeViewer_'
     
-    # Read the texture from the Image Name field in the GUI
-    domeViewerMapFileTexture = cmds.textFieldGrp('textDomeViewerImageOutputName', query=True, text=True)
-  
+    # Check if the Stereo Pair mode is active and then read in separate left and right texture maps
+    if stereoMode == 4:
+      # Read in the left or right image filename
+      if stereoView == 1:
+        # Center View
+        # Read the texture from the Image Name field in the GUI
+        domeViewerMapFileTexture = cmds.textFieldGrp('textDomeViewerImageOutputName', query=True, text=True)
+      elif stereoView == 2:
+        # Left View
+        # Read the texture from the Image Name field in the GUI
+        domeViewerMapFileTexture = cmds.textFieldGrp('textDomeViewerImageOutputName', query=True, text=True)
+      elif stereoView == 3:
+        # Right View
+        # Read the texture from the Image Name field in the GUI
+        domeViewerMapFileTexture = cmds.textFieldGrp('textDomeViewerImageOutputNameRight', query=True, text=True)
+      else:
+        # The fallback option is to use the center view
+        # Read the texture from the Image Name field in the GUI
+        domeViewerMapFileTexture = cmds.textFieldGrp('textDomeViewerImageOutputName', query=True, text=True)
+    else:
+      # For mono 2D images, Side by Side Stereo, and Over Under Stereo load an image from a single file
+      # Read the texture from the Image Name field in the GUI
+       domeViewerMapFileTexture = cmds.textFieldGrp('textDomeViewerImageOutputName', query=True, text=True)
+    
     # Check if the media type is a movie or an image
     if cmds.optionMenuGrp('menuDomeViewerMediaType', query=True, select=True) == 3:
       # Create a Movie Node
@@ -1543,7 +1564,78 @@ def createDomeViewer():
         viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeRight, True, stereoMode, stereoView)
         # Constrain the dome alignment grid mesh to the stereoCameraRight view
         cmds.pointConstraint(cameraRigArray[2], gridMeshNodeRight, weight=1)
+  elif(stereoMode == 4):
+    # Stereo: Stereo Image Pairs
+    # Add the camera to the scene
+    stereoCameraSeparation = viewerMeshScale*4
+    cameraRigArray = createDomeViewerStereoCamera('stereoCamera', 'domeViewer', 'domeViewerGrid', stereoCameraSeparation)
+    print('[Stereo Camera Rig]')
+    print(cameraRigArray)
     
+    # Center Eye
+    stereoView = 1
+    # Add the center mesh to the scene
+    viewerMeshNodeCenter = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Center View
+    viewerTextureNodeCenter = createDomeViewerTexture(viewerMeshNodeCenter, False, stereoMode, stereoView)
+    # Constrain the center viewer mesh to the stereoCamera view
+    cmds.pointConstraint(cameraRigArray[0], viewerMeshNodeCenter, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeCenter = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print('Creating a Bradbury fulldome reference grid.')
+        # Create the dome alignment grid mesh
+        gridMeshNodeCenter = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNode = createDomeViewerTexture(gridMeshNodeCenter, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCamera view
+        cmds.pointConstraint(cameraRigArray[0], gridMeshNodeCenter, weight=1)
+    
+    # Left Eye
+    stereoView = 2
+    # Add the left mesh to the scene
+    viewerMeshNodeLeft = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Left View
+    viewerTextureNodeLeft = createDomeViewerTexture(viewerMeshNodeLeft, False, stereoMode, stereoView)
+    # Constrain the left viewer mesh to the stereoCameraLeft view
+    cmds.pointConstraint(cameraRigArray[1], viewerMeshNodeLeft, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeLeft = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print('Creating a Bradbury fulldome reference grid.')
+        # Create the dome alignment grid mesh
+        gridMeshNodeLeft = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeLeft, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCameraLeft view
+        cmds.pointConstraint(cameraRigArray[1], gridMeshNodeLeft, weight=1)
+    
+    # Right Eye
+    stereoView = 3
+    # Add the right mesh to the scene
+    viewerMeshNodeRight = createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, viewerMeshScale, viewerFlipScale, stereoView)
+    # Create the surface material - Right View
+    viewerTextureNodeRight = createDomeViewerTexture(viewerMeshNodeRight, False, stereoMode, stereoView)
+    # Constrain the right viewer mesh to the stereoCameraRight view
+    cmds.pointConstraint(cameraRigArray[2], viewerMeshNodeRight, weight=1)
+    # Create the fulldome alignment grid
+    gridModeEnabled = cmds.checkBoxGrp('checkGrpDomeViewerGridlinesOverlay', query=True, value1=True)
+    gridMeshNodeRight = ''
+    if(currentPanoFormat <= 3):
+      if(gridModeEnabled == 1):
+        print('Creating a Bradbury fulldome reference grid.')
+        # Create the dome alignment grid mesh
+        gridMeshNodeRight = createDomeViewerMesh(gridMeshName, gridMeshFileName, domeTiltAngle, viewerMeshScale*0.98, 1, stereoView)
+        # Create the dome alignment grid surface material
+        viewerTextureNodeLeft = createDomeViewerTexture(gridMeshNodeRight, True, stereoMode, stereoView)
+        # Constrain the dome alignment grid mesh to the stereoCameraRight view
+        cmds.pointConstraint(cameraRigArray[2], gridMeshNodeRight, weight=1)
+        
+   
   # Unselect the geometry in the scene
   cmds.select(clear=True)
   

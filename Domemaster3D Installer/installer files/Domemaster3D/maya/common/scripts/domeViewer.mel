@@ -556,11 +556,13 @@ global proc domeViewer(){
       optionMenuGrp
         -label "Stereo Format" 
         -annotation "Choose the type of stereoscopic media you want to display in the viewer"
+        -changeCommand "domeViewerStereoFormatUpdate()"
         menuDomeViewerStereoFormat;
         
       menuItem -label "None - Mono 2D";
       menuItem -label "Side by Side Stereo";
       menuItem -label "Over Under Stereo";
+      menuItem -label "Stereo Image Pairs";
       
       // Preselect the first option menu
       optionMenuGrp 
@@ -596,6 +598,8 @@ global proc domeViewer(){
           -annotation "Flip the left and right eye stereo views."
           checkGrpDomeViewerReverseEyeOrder;
       
+      
+      // Mono or Left View
       rowLayout 
         -numberOfColumns 2
         -adjustableColumn2 1
@@ -648,8 +652,63 @@ global proc domeViewer(){
           symbolDomeViewerImageLoadAsbrowser;
           
     setParent ..;
-  setParent ..;
     
+      // Mono or Left View
+      rowLayout 
+        -numberOfColumns 2
+        -adjustableColumn2 1
+        -visible 0
+        domeViewerImageLoadRightLayout;
+
+        // --------------------------------------------------------------------
+        // Build the default image name + path for the viewer
+        // --------------------------------------------------------------------     
+        
+        // Load the ocean fulldome image as the default sample
+        
+        // The image name without a leading slash
+        string $imageFilenameRight = "fulldome_2K" + ".jpg";
+        //string $imageFilenameRight = "";
+        
+        // Read the current "images" directory from the workspace (set project) settings
+        //string $defaultImagesDirRight = `workspace -expandName "images"`;
+        //string $defaultImagesDirRight = `workspace -expandName "sourceimages"`;
+        string $defaultImagesDirRight = "";
+        
+        /* if($mayaPlatform  == "windows"){
+          // Windows 32/x64
+          $imageFilenameRight = $defaultImagesDirRight + "/" + $imageFilename;
+        }else if($mayaPlatform  == "darwin"){
+          // macOS
+          $imageFilenameRight = $defaultImagesDirRight + "/" + $imageFilename;
+        }else{  
+          // Linux
+          $imageFilenameRight = $defaultImagesDirRight + "/" + $imageFilename;
+        } */
+        
+        python("import domeMaterial");
+        python("reload(domeMaterial)");
+        string $runPython = "domeMaterial.getSourceImagesPath(\"" + $imageFilenameRight  +"\")";
+        $defaultImagesDirRight = python($runPython);
+        
+        $imageFilePath =  $defaultImagesDir;
+        
+        textFieldGrp
+          -label "Right Image Name"
+          -text $imageFilePath
+          -adjustableColumn 2
+          -annotation "Choose an image in the PNG, TIFF, IFF, EXR, TGA, JPG, BMP or PSD image formats. \nYou can also choose a video file in either the .avi movie format on Windows, or \na Quicktime .mov, or .qt video on macOS. By clicking on the folder \nicon you can choose an existing file on your hard drive."
+          textDomeViewerImageOutputNameRight;
+          
+        symbolButton 
+          -image "navButtonBrowse.png"
+          -annotation "Choose an image in the PNG, IFF, TIFF, EXR, TGA, JPG, BMP or PSD image formats. \nYou can also choose a video file in either the .avi movie format on Windows, or \na Quicktime .mov, or .qt video on macOS. By clicking on the folder \nicon you can choose an existing file on your hard drive."
+          -command "string $tempPath = getViewerImagePath(); textFieldGrp -edit -text $tempPath textDomeViewerImageOutputNameRight;"
+          symbolDomeViewerImageLoadAsbrowserRight;
+          
+    setParent ..;
+  
+  setParent ..;
 
   frameLayout 
     -label "Viewer Options"
@@ -1269,9 +1328,25 @@ global proc setDomeTimeUnit(){
 }
 
 
+// Move the camera back to the default viewing angle
 global proc resetDomeViewerCamera(){
-  // Move the camera back to the default viewing angle
   python("import domeMaterial");
   python("reload(domeMaterial)");
   python("domeMaterial.resetDomeViewerCameraAngle()");
+}
+
+
+// Update the DomeViewer Stereo Format Menu UI
+// Example: optionMenuGrp -edit -changeCommand "domeViewerStereoFormatUpdate()" menuDomeViewerStereoFormat;
+global proc domeViewerStereoFormatUpdate(){
+  int $stereoFormat = `optionMenuGrp -query -select menuDomeViewerStereoFormat`;
+  if($stereoFormat == 4){
+    // "Stereo Image Pairs" is active so display the left and right image filename fields
+    rowLayout -edit -visible 1 domeViewerImageLoadRightLayout;
+    textFieldGrp -edit -label "Left Image Name" textDomeViewerImageOutputName;
+  }else{
+    // Show only the singular image filename field
+    rowLayout -edit -visible 0 domeViewerImageLoadRightLayout;
+    textFieldGrp -edit -label "Image Name" textDomeViewerImageOutputName;
+  }
 }

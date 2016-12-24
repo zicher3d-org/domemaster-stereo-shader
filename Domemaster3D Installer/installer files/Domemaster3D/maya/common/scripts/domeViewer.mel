@@ -897,7 +897,7 @@ global proc domeViewer(){
           -label ""
           -label1 "Link Panorama to Camera"  
           -value1 1
-          -annotation "Point constrain the panoramic background to the viewer camera. This checkbox will link the \npanoramic background's transform so it follows the camera's motion, while allowing the camera \nview to freely tumble and roll in the viewport."
+          -annotation "Point constrain the 2D mono panoramic background to the viewer camera. This checkbox will link the \npanoramic background's transform so it follows the camera's motion, while allowing the camera \nview to freely tumble and roll in the viewport. This control has no effect on a stereo panoramic image."
           checkGrpDomeViewerPointConstrain;
           
         /*

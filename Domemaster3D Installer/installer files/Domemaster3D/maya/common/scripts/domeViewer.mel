@@ -1,6 +1,6 @@
 /*
   Dome Viewer V2.2.1
-  2016-12-22
+  2016-12-24
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
@@ -13,7 +13,7 @@
   
   Version 2.2.1
   -------------
-  2016-12-23
+  2016-12-24
   
   Facebook Vertical Strip Cube image projection
   
@@ -589,6 +589,13 @@ global proc domeViewer(){
         -select 1
         menuDomeViewerStereoDisplay;
       
+      checkBoxGrp
+          -numberOfCheckBoxes 1
+          -label "Reverse Eye Order"  
+          -value1 0
+          -annotation "Flip the left and right eye stereo views."
+          checkGrpDomeViewerReverseEyeOrder;
+      
       rowLayout 
         -numberOfColumns 2
         -adjustableColumn2 1
@@ -667,8 +674,8 @@ global proc domeViewer(){
       floatSliderGrp 
         -label "Field of View" 
         -field true
-        -minValue 2.06 -maxValue 165
-        -fieldMinValue 2.06  -fieldMaxValue 165
+        -minValue 2.06 -maxValue 164
+        -fieldMinValue 2.06  -fieldMaxValue 164
         //-value 100
         -value 90
         -annotation 

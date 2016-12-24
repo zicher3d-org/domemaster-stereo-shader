@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.2.1 - December 18, 2016
+Version 2.2.1 - December 24, 2016
 
 ## Render Farm Note ##
 
@@ -22,6 +22,8 @@ Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/ 
 $HOME/maya/<Maya Version Number>/modules/
 
 Note: If the modules folder doesn't exist yet, you should create it.
+
+**Linux Note:** The `~/` and `$HOME` symbols are used in a file path to represent the location of the current user account's home folder. On a Linux system seeing `~/` or `$HOME` means the equivalent thing as writing in `/home/<User Account>/`.
 
 Maya ENV Approach
 
@@ -152,6 +154,8 @@ Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/
 ~/Library/Preferences/Autodesk/maya/<Maya Version Number>/modules/
 
 Note: If the modules folder doesn't exist yet, you should create it.
+
+**macOS Note:** The `~/` or `$HOME` symbols are used in a file path to represent the location of the current user account's home folder. On a macOS system seeing `~/` means the equivalent thing as writing in `/Users/<User Account>/`.
 
 Maya ENV Approach
 

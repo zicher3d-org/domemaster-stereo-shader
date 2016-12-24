@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.1 - December 23, 2016
+Version 2.2.1 - December 24, 2016
 
 About This Shader
 ---------------------
@@ -75,7 +75,7 @@ Version History
 
 Version 2.2.1
 -----------------
-2016-12-23
+2016-12-24
 
 Installer
 
@@ -83,12 +83,15 @@ Installer
   
 Maya DomeViewer
   
-  Added Side by Side Stereo, and Over Under Stereo image viewing support to the DomeViewer
-  Renamed the DomeViewer "Gear VR Mono Cube" panoramic format entry to "Gear VR Cube"
-  Edited the DomeViewer tool to add the Facebook Vertical Strip Cube image projection
-  Fixed the DomeViewer LG360 camera preview icon loading issue
+  Updated the DomeViewer tool to add support for viewing stereoscopic 360° imagery. You can now set the Stereo Format control to "None - Mono 2D", "Side by Side Stereo", "Over Under Stereo", and "Stereo Image Pair". The Stereo Display control can be set to "Full Color Anaglyph", "Luminance Anaglyph", "Freeview (Parallel)", "Freeview (Crossed)", "Horizontal Interlace", "Checkerboard", "Center Eye", "Left Eye", and "Right Eye".
   
-Arnold MaxtoA for 3ds Max
+  Renamed the DomeViewer "Gear VR Mono Cube" Panoramic Format to "Gear VR Cube"
+  
+  Edited the DomeViewer tool to add support for the "Facebook Vertical Strip Cube" Panoramic Format 
+  
+  Fixed a DomeViewer "LG360" Panoramic Format preview icon loading issue
+  
+Arnold MaxtoA for 3ds Max Beta
 
   Edited the metadata file to add a "max.category" entry for each of the shaders, and created custom Maxscript .ms based scripted controller files.
 

@@ -801,6 +801,19 @@ def createDomeViewerTexture(meshName, isGrid, stereoMode, stereoView):
       # Flip the right eye to the left eye view
       stereoView = 2
   
+  
+  # Get the selected panoramic image format
+  currentPanoFormat = cmds.optionMenuGrp('menuDomeViewerPanoramaFormat', query=True, select=True)
+  # Deal with left and right flipped 360 degree projections
+  if(currentPanoFormat == 17):
+    # GearVR Mono Cube
+    if stereoView == 2:
+      # Flip the left eye to the right eye view
+      stereoView = 3
+    elif stereoView == 3:
+      # Flip the right eye to the left eye view
+      stereoView = 2
+  
   # Figure out what place 2D node shifts are required
   if stereoMode == 2:
     # Side by Side Stereo
@@ -809,11 +822,11 @@ def createDomeViewerTexture(meshName, isGrid, stereoMode, stereoView):
     if stereoView == 2:
       # Left Eye View
       # Pan the image so the origin is placed at the left frame position 
-      cmds.setAttr(domeViewer_maya_placement+'.translateFrameU', 1)
+      cmds.setAttr(domeViewer_maya_placement+'.translateFrameU', 0)
     if stereoView == 3:
       # Right Eye View
       # Pan the image so the origin is placed at the right frame position 
-      cmds.setAttr(domeViewer_maya_placement+'.translateFrameU', 0)
+      cmds.setAttr(domeViewer_maya_placement+'.translateFrameU', 1)
   elif stereoMode == 3:
     # Over Under Stereo
     # Stretch the vertical texture area (coverage V) to twice its width
@@ -1215,19 +1228,19 @@ def createDomeViewer():
   gridMeshName = ""
   gridMeshFileName = ""
   
-  if (currentPanoFormat == 1):
+  if(currentPanoFormat == 1):
     # 180 Degree Fulldome
     meshName = 'domeViewer'
     
     # Polygon sphere with triangle pinch point
-    #meshFileName = 'fulldome_mesh'
+    meshFileName = 'fulldome_mesh'
 
     # All quads polygon sphere - no pinch point
-    meshFileName = 'fulldome_quads_mesh'
+    #meshFileName = 'fulldome_quads_mesh'
 
     gridMeshName = 'domeViewerGrid'
     gridMeshFileName = 'fulldomeGrid_mesh'
-  if( currentPanoFormat == 2 ):
+  if(currentPanoFormat == 2):
     # 180 Degree Fulldome on 4:3 Ratio Background
     meshName = 'domeViewer'
     
@@ -1239,7 +1252,7 @@ def createDomeViewer():
 
     gridMeshName = 'domeViewerGrid'
     gridMeshFileName = 'fulldomeGrid_mesh'
-  if(currentPanoFormat == 3 ):
+  if(currentPanoFormat == 3):
     # 180 Degree Fulldome on 16:9 Ratio Background
     meshName = 'domeViewer'
     
@@ -1348,7 +1361,10 @@ def createDomeViewer():
     viewerFlipScale = 1
   
   # Create the viewer mesh
-  if(currentPanoFormat == 16):
+  if(currentPanoFormat == 1):
+    # fulldome mesh
+    viewerMeshScale = 150
+  elif(currentPanoFormat == 16):
     # The Quadsphere mesh is 12X larger than the other meshes by default
     viewerMeshScale = 25
   else:
@@ -1390,7 +1406,7 @@ def createDomeViewer():
   elif(stereoMode == 2):
     # Stereo: Side by Side Stereo
     # Add the camera to the scene
-    stereoCameraSeparation = viewerMeshScale*2*1.1
+    stereoCameraSeparation = viewerMeshScale*4
     cameraRigArray = createDomeViewerStereoCamera('stereoCamera', 'domeViewer', 'domeViewerGrid', stereoCameraSeparation)
     print('[Stereo Camera Rig]')
     print(cameraRigArray)
@@ -1460,7 +1476,7 @@ def createDomeViewer():
   elif(stereoMode == 3):
     # Stereo: Over Under Stereo
     # Add the camera to the scene
-    stereoCameraSeparation = viewerMeshScale*2*1.1
+    stereoCameraSeparation = viewerMeshScale*4
     cameraRigArray = createDomeViewerStereoCamera('stereoCamera', 'domeViewer', 'domeViewerGrid', stereoCameraSeparation)
     print('[Stereo Camera Rig]')
     print(cameraRigArray)

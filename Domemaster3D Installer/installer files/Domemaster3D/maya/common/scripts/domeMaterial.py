@@ -16,7 +16,7 @@ You can set the file textures to an empty path if you don't want a default textu
 Version History
 ----------------
 
-Version 2.2.1 - 2016-12-24
+Version 2.2.1 - 2016-12-25
 -------------------------------
 Code Reformatting
 
@@ -26,7 +26,7 @@ Fixed the LG360 camera preview icon loading issue
   
 Added stereo 360 degree viewing support for Side by Side Stereo, and Over Under Stereo panoramic imagery.
 
-Added a unlockAncestor() function.
+Added an unlockAncestor() function.
 
 Version 2.1 - 2016-09-15
 -----------------------------
@@ -860,6 +860,11 @@ def createDomeViewerTexture(meshName, isGrid, stereoMode, stereoView):
       # Right Eye View
       # Pan the image so the origin is placed at the right frame position 
       cmds.setAttr(domeViewer_maya_placement+'.translateFrameV', 0)
+  
+  # Selecting the file texture node so the image sequence expressions are active
+  selectNodeEvalString = 'print("[Selecting Node] " + \"' + domeViewer_maya_tex + '\" + "\\n");evalDeferred("showEditorExact(\\"' + domeViewer_maya_tex + '\\")");'
+  print(selectNodeEvalString)
+  mel.eval(selectNodeEvalString)
   
   # Output the name of the new fileTexture node
   return domeViewer_maya_tex

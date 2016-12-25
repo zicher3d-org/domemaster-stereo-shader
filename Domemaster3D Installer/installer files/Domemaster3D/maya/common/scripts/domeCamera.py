@@ -1374,12 +1374,12 @@ def createLatLongStereoZenithRig():
   centerLensShader = cmds.listConnections(rig_center_shape_name[0]+'.miLensShader')
   
   # Select the camera's LatLong_Stereo nodes in the attribute editor to add the Extra Attrs
-  #mel.eval ('showEditorExact("' + centerLensShader[0] + '") ')
-  mel.eval ('showEditorExact("' + leftLensShader[0] + '") ')
-  mel.eval ('showEditorExact("' + rightLensShader[0] + '") ')
+  #mel.eval('showEditorExact("' + centerLensShader[0] + '")')
+  mel.eval('showEditorExact("' + leftLensShader[0] + '")')
+  mel.eval('showEditorExact("' + rightLensShader[0] + '")')
   
   # Finish off by reselecting the center lens shader
-  mel.eval ('showEditorExact("' + centerLensShader[0] + '") ')
+  mel.eval('showEditorExact("' + centerLensShader[0] + '")')
   
   # Enable the Zenith Mode Checkbox
   cmds.setAttr(centerLensShader[0]+'.Zenith_Mode', 1)

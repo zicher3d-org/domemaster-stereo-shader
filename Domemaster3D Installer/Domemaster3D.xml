@@ -3629,108 +3629,7 @@
                         
                     </componentList>
                 </componentGroup>
-                <componentGroup>
-                    <name>maxtoa_for_Max_Support</name>
-                    <description>Arnold MAXtoA Support</description>
-                    <canBeEdited>1</canBeEdited>
-                    <detailedDescription>This option will install the Arnold MAXtoA for 3ds Max versions of the Domemaster3D lens shaders.</detailedDescription>
-                    <selected>1</selected>
-                    <show>1</show>
-                    <componentList>
-
-                        <!-- Arnold MAXtoA 3ds Max 2017 Install files -->
-                        <componentGroup>
-                            <name>maxtoa_Max2017</name>
-                            <description>MAXtoA for 3ds Max 2017</description>
-                            <canBeEdited>1</canBeEdited>
-                            <detailedDescription>This option will install the Domemaster3D customized Arnold MAXtoA for 3ds Max metadata and shader files into your plugins folder.</detailedDescription>
-                            <selected>0</selected>
-                            <show>1</show>
-                            <componentList>
-                                <component>
-                                    <name>maxtoa_Max_2017_shader</name>
-                                    <description>MAXtoA Shader File</description>
-                                    <canBeEdited>1</canBeEdited>
-                                    <selected>1</selected>
-                                    <show>0</show>
-                                    <folderList>
-                                        <folder>
-                                            <description>MAXtoA Shader File</description>
-                                            <destination>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\</destination>
-                                            <name>module_win</name>
-                                            <platforms>windows</platforms>
-                                            <distributionFileList>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/shaders/DomemasterStereo.dll</origin>
-                                                </distributionFile>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/shaders/DomemasterWxH.dll</origin>
-                                                </distributionFile>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/shaders/LatLongStereo.dll</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                    </folderList>
-                                </component>
-                                <component>
-                                    <name>maxtoa_Max_2017_metadata</name>
-                                    <description>MAXtoA Metadata File</description>
-                                    <canBeEdited>1</canBeEdited>
-                                    <selected>1</selected>
-                                    <show>0</show>
-                                    <folderList>
-                                        <folder>
-                                            <description>MAXtoA Metadata File</description>
-                                            <destination>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\en-US\</destination>
-                                            <name>module_win</name>
-                                            <platforms>windows</platforms>
-                                            <distributionFileList>
-                                              <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/shaders/DomemasterStereo.mtd</origin>
-                                                </distributionFile>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/shaders/DomemasterWxH.mtd</origin>
-                                                </distributionFile>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/shaders/LatLongStereo.mtd</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                    </folderList>
-                                </component>
-                                <component>
-                                    <name>maxtoa_Max_2017_maxscript</name>
-                                    <description>MAXtoA Maxscript File</description>
-                                    <canBeEdited>1</canBeEdited>
-                                    <selected>1</selected>
-                                    <show>0</show>
-                                    <folderList>
-                                        <folder>
-                                            <description>MAXtoA Maxscript File</description>
-                                            <destination>${windows_folder_program_files}\Autodesk\3ds Max 2017\Plugins\maxscript\</destination>
-                                            <name>module_win</name>
-                                            <platforms>windows</platforms>
-                                            <distributionFileList>
-                                              <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/maxscript/DomemasterStereo.ms</origin>
-                                                </distributionFile>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/maxscript/DomemasterWxH.ms</origin>
-                                                </distributionFile>
-                                                <distributionFile>
-                                                    <origin>installer files/Domemaster3D/arnold/maxtoa/maxscript/LatLongStereo.ms</origin>
-                                                </distributionFile>
-                                            </distributionFileList>
-                                        </folder>
-                                    </folderList>
-                                </component>
-                            </componentList>
-                        </componentGroup>
-                    <!-- End of Arnold MAXtoA 3ds Max 2017 Install files -->
-                    </componentList>
-                </componentGroup>
-            </componentList>
+              </componentList>
             <shouldPackRuleList>
                 <compareText>
                     <logic>equals</logic>
@@ -3739,7 +3638,6 @@
                 </compareText>
             </shouldPackRuleList>
         </componentGroup>
-        
         <componentGroup>
             <name>Arnold_for_Cinema4D_Support</name>
             <description>Arnold Cinema4D Support</description>

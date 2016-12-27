@@ -1,5 +1,18 @@
-Packaging a Domemaster3D Release - 2016-11-28 
+Packaging a Domemaster3D Release - 2016-12-27 
 by Andrew Hazelden <andrew@andrewhazelden.com>
+
+
+Package Up the Maya example files:
+cd "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/docs/Maya_Examples/"
+
+# Files Cleanup
+find . -name '*.DS_Store' -type f -delete
+find . -name '*Thumbs.db' -type f -delete
+sudo chmod -R 755 *
+
+# Zip package the examples
+zip -r Maya_Visor_Projects.zip Maya_Visor_Projects/
+
 
 Step 1. Use Cygwin/Terminal to remove any of the macOS style ".ds-store" files and Windows thumbnails, too:
 

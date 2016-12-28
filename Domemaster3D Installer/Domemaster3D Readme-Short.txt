@@ -82,7 +82,13 @@ Maya DomeViewer
   Added Maya 2017 Workspace Control support to the DomeViewer window 
   
   Adjusted the default DomeViewer window width
-  
+
+Maya DomeText
+
+  Added Maya 2017 Workspace Control support to the DomeText window 
+
+  Fixed several Maya 2017 MEL verbosity related "Redeclaration of variable" warning messages
+
 Version 2.2.1
 -----------------
 2016-12-27

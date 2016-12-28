@@ -1,6 +1,6 @@
 /*
-  Dome Text V2.2
-  2016-11-26 
+  Dome Text V2.2.2
+  2016-12-28
   by Andrew Hazelden
 
   The DomeText script is a title generator that creates raster title graphics in the png, tif, tga, bmp, and psd formats.
@@ -16,8 +16,8 @@
   or you need to add the ImageMagick "convert" tool to your system path by editing your ~/.bash_profile
 
   Note: On Windows the ImageMagick tool convert.exe was renamed domeconvert.exe to avoid a name collision with an existing Windows utility of the same name.
-
-
+  
+  
   Script Usage
   ----------------
   To use the Dome Text MEL script run the following MEL commands:
@@ -28,9 +28,17 @@
   To check Maya's system paths use:
   system("echo $PATH");
   
-
+  
   Version History
   ----------------
+    
+  Version 2.2.2
+  -------------
+  2016-12-28
+  
+  Added Maya 2017 Workspace Control support to the DomeText window
+  
+  Fixed several Maya 2017 MEL verbosity related "Redeclaration of variable" warning messages
   
   Version 2.2
   -------------
@@ -161,7 +169,7 @@ global proc string getMayaPlatform(){
 
 
 global proc SaveDockedDomeTextWindowPos(){
-  // Save the DomeViewer dockControl State
+  // Save the DomeText dockControl State
   string $dockedArea = `dockControl -query -area domeTextDockControl`;
   int $dockedFloating = `dockControl -query -floating domeTextDockControl`;
 
@@ -182,9 +190,12 @@ global proc SaveDockedDomeTextWindowPos(){
 
 // Add the selected font to the nodes' extra attribute fields
 global proc addNodeFontAttrs(string $nodeName){
+  string $attrName;
+  string $fontName;
+  
   // Add font name
-  string $attrName ="font";
-  string $fontName =`optionMenuGrp -query -value menuFontNameSelect`;
+  $attrName ="font";
+  $fontName =`optionMenuGrp -query -value menuFontNameSelect`;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
@@ -193,7 +204,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add encoding name
-  string $attrName ="textEncoding";
+  $attrName ="textEncoding";
   string $encodingName =`optionMenuGrp -query -value menuTextEncodingSelect`;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
@@ -203,7 +214,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add fontStyle
-  string $attrName ="fontStyle";
+  $attrName ="fontStyle";
   int $fontStyle =`optionMenuGrp -query -select menuFontWeightSelect`-1;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "ALL:Bold:Bolder:Lighter:Normal:" $nodeName;
@@ -213,7 +224,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add alignment
-  string $attrName ="alignment";
+  $attrName ="alignment";
   int $fontAlign =`optionMenuGrp -query -select menuFontAlignSelect`-1;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "NorthWest:North:NorthEast:West:Center:East:SouthWest:South:SouthEast:" $nodeName;
@@ -223,7 +234,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add alignTextCamera text
-  string $attrName ="alignTextCamera";
+  $attrName ="alignTextCamera";
   string $CameraName = `optionMenuGrp -query -value menuDomeTextCameraSelect`;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
@@ -233,7 +244,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add font size
-  string $attrName ="fontSize";
+  $attrName ="fontSize";
   int $fontSize = `intSliderGrp -query -value sliderPointSize`;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 0 -max 2048 $nodeName;
@@ -243,7 +254,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add Convert Characters
-  string $attrName ="convertCharacters";
+  $attrName ="convertCharacters";
   int $convertCharacters =`optionMenuGrp -query -select menuConvertCharacters`-1;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Normal Case:Upper Case:Lower Case:Hex Words:Hex Single Column:Binary Words:Binary Single Column:" $nodeName;
@@ -253,7 +264,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add Kerning Size
-  string $attrName ="kerningSize";
+  $attrName ="kerningSize";
   float $kerningSize = `floatSliderGrp -query -value sliderKerningSize`;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min -1024 -max 2048 $nodeName;
@@ -263,7 +274,7 @@ global proc addNodeFontAttrs(string $nodeName){
   }
   
   // Add Imagemagick custom text
-  string $attrName ="imagemagickCustomText";
+  $attrName ="imagemagickCustomText";
   string $imagemagickCustomText = `scrollField -query -text scrollImagemagickCustomText`;
   if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
@@ -1681,6 +1692,9 @@ global proc string createDomeCylinder(){
 global proc domeText(){
   global int $domeWindowHeight = 625;
   global int $domeWindowWidth = 584;
+  // global int $domeWindowWidth = 765;
+  
+  string $scrollLayoutParent;
   
   //old window width = 500
 
@@ -1699,11 +1713,18 @@ global proc domeText(){
   // Write out the current Maya version number and detected operating system
   print ("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
 
-  if($mayaVersion >=2011){
+  // Clear out the old window contexts
+  if($mayaVersion >= 2017){
+    if(`workspaceControl -exists domeTextWorkspaceControl`){
+      deleteUI domeTextWorkspaceControl;
+      print( "Removing an existing Dome Text Workspace Control\n");
+    }
+  }else if($mayaVersion >=2011){
   // Remove an existing docked control window when running the DomeText tool for a 2nd time.
     if(`dockControl -exists domeTextDockControl`){ 
       deleteUI -control domeTextDockControl; 
-      print ( "Removing an existing docked Dome Text Window\n");}
+      print ( "Removing an existing docked Dome Text Window\n");
+    }
 
   if(`window -exists domeTextWin`){
       deleteUI domeTextWin;
@@ -1718,17 +1739,44 @@ global proc domeText(){
       print ("Reloading the Dome Text window elements\n");}
   }
 
-  string $domeTextWindow = `window 
-    -title "Dome Text Tool" 
-    //-width $domeWindowWidth
-    -widthHeight $domeWindowWidth $domeWindowHeight 
-    domeTextWin`; 
- 
+  
+  if($mayaVersion >= 2017){
+    // Check where the AE/Channel Box/Layer Editor windows are docked
+    string $attributeEditorDockWidget = getUIComponentDockControl("Attribute Editor", false);
+    // string $channelLayerEditorDockWidget = getUIComponentDockControl("Channel Box / Layer Editor", false);
+    // string $layerEditorComponent = getUIComponentDockControl("Layer Editor", false);
+    
+    // Important Note: The workspaceControl uiScript "if(`exists domeTextBuildPanel`){}" part avoids a possible Maya 2017 startup issue with the empty window context being re-created every time which causes an error to be logged in the first line of the Script Editor log. This exists check code is needed since DomeText isn't a .mll plugin which means the standard workspaceControl option of "-checksPlugins" is not available for use by the DomeText MEL script.
+    
+    // Create a new window
+    workspaceControl
+      -tabToControl $attributeEditorDockWidget -1
+      //-tabToControl $channelLayerEditorDockWidget -1
+      -label "Dome Text" 
+      //-uiScript "if(`exists domeTextBuildPanel`){domeTextBuildPanel;}"
+      -loadImmediately 1
+      -initialWidth $domeWindowWidth
+      -minimumWidth true
+      -raise
+      domeTextWorkspaceControl;
+      
+    $scrollLayoutParent = "domeTextWorkspaceControl";
+  }else{
+    string $domeTextWindow = `window 
+      -title "Dome Text Tool" 
+      //-width $domeWindowWidth
+      -widthHeight $domeWindowWidth $domeWindowHeight 
+      domeTextWin`; 
+      
+    $scrollLayoutParent = "domeTextWin";
+  }
+  
   string $domeScrollableLayout = `scrollLayout 
     -horizontalScrollBarThickness 18
     -verticalScrollBarThickness   18
     -childResizable 1
     //-width $domeWindowWidth
+    -parent ($scrollLayoutParent)
     `;
 
     columnLayout 
@@ -1746,7 +1794,8 @@ global proc domeText(){
     -label "Text Entry"
     -collapsable true
     -collapse false
-    -borderStyle "etchedIn";
+    -borderStyle "etchedIn"
+    -parent ($domeScrollableLayout);
     
     columnLayout 
       //-width $domeWindowWidth
@@ -1771,7 +1820,8 @@ global proc domeText(){
     -label "Font Styles"
     -collapsable true
     -collapse false
-    -borderStyle "etchedIn";
+    -borderStyle "etchedIn"
+    -parent ($domeScrollableLayout);
     
     columnLayout
       //-width ($domeWindowWidth-30)
@@ -2115,34 +2165,35 @@ global proc domeText(){
     -label "Color Styles"
     -collapsable true
     -collapse false
-    -borderStyle "etchedIn";
-    
-  columnLayout 
-    //-width $domeWindowWidth
-    -adjustableColumn true ;
-
-    // Color Pickers
-    // To convert from a 0-255 to 0-1 Color = value*0.003921568627451
-
-    colorSliderGrp 
-      -label "Foreground Color" 
-      -rgb 0.968 0.76 0.07 
-      -annotation "Choose a foreground color for the Dome Text."
-      sliderForeColor;
-
-    colorSliderGrp 
-      -label "Background Color" 
-      -rgb 0.0 0.0 0.0 
-      -annotation "Choose a background color for the Dome Text."
-      sliderBackColor;
-   
-    checkBoxGrp
-      -numberOfCheckBoxes 1
-      -label "Transparent Background"  
-      -value1 1
-      -annotation "Render the foreground Dome Text over a transparent background."
-      checkGrpTransparentBackground;
+    -borderStyle "etchedIn"
+    -parent ($domeScrollableLayout);
       
+    columnLayout 
+      //-width $domeWindowWidth
+      -adjustableColumn true ;
+
+      // Color Pickers
+      // To convert from a 0-255 to 0-1 Color = value*0.003921568627451
+
+      colorSliderGrp 
+        -label "Foreground Color" 
+        -rgb 0.968 0.76 0.07 
+        -annotation "Choose a foreground color for the Dome Text."
+        sliderForeColor;
+
+      colorSliderGrp 
+        -label "Background Color" 
+        -rgb 0.0 0.0 0.0 
+        -annotation "Choose a background color for the Dome Text."
+        sliderBackColor;
+     
+      checkBoxGrp
+        -numberOfCheckBoxes 1
+        -label "Transparent Background"  
+        -value1 1
+        -annotation "Render the foreground Dome Text over a transparent background."
+        checkGrpTransparentBackground;
+        
     setParent ..;
   setParent ..;
 
@@ -2150,7 +2201,8 @@ global proc domeText(){
     -label "Image Controls"
     -collapsable true
     -collapse true
-    -borderStyle "etchedIn";
+    -borderStyle "etchedIn"
+    -parent ($domeScrollableLayout);
     
     columnLayout 
       //-width $domeWindowWidth
@@ -2258,10 +2310,11 @@ global proc domeText(){
   setParent ..; 
 
   frameLayout 
-      -label "Shape Controls"
-      -collapsable true
-      -collapse true
-      -borderStyle "etchedIn";
+    -label "Shape Controls"
+    -collapsable true
+    -collapse true
+    -borderStyle "etchedIn"
+    -parent ($domeScrollableLayout);
       
     columnLayout
       -adjustableColumn true
@@ -2500,7 +2553,7 @@ global proc domeText(){
     LoadViewlayout;
       
     button
-      -label "Load Image in Render View"
+      -label "Load Image into Render View"
       -annotation 
       "This button loads the current image that is listed in the \"Save Image As\" text field in the Render View \nwindow. The image is auto sized to fit the window size. You can view the image at the native resolution \nby pressing the 1:1 button in the Render View. You can also view the alpha channel in the render view."
       -command "loadInRenderView()"; 
@@ -2535,56 +2588,64 @@ global proc domeText(){
   if($mayaVersion == 2011){
   // Make the Maya 2011 or higher window dockable
   string $domeTextDockControl = `dockControl 
-        -label "Dome Text"
-                -area $dockedArea 
-                // -area "right" //snap to the right side of the view next to the attribute editor
-                //-area "left"     //snap to the left side of the view next to the tool settings tab
-        -content domeTextWin
-                -floating $dockedFloating
-                //-floating 1 //floating window
-                //-floating 0 //docked window
-            -height $domeWindowHeight
-        -width $domeWindowWidth
-        //-allowedArea "all"
-        -allowedArea "left"
-        -allowedArea "right"
-        -raise
-        // Disabled for Maya 2011 compatibility testing
-        //-floatChangeCommand "evalDeferred(\"dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();\")"
-        domeTextDockControl`;
-  
+    -label "Dome Text"
+    -area $dockedArea 
+    // -area "right" //snap to the right side of the view next to the attribute editor
+    //-area "left"     //snap to the left side of the view next to the tool settings tab
+    -content domeTextWin
+    -floating $dockedFloating
+    //-floating 1 //floating window
+    //-floating 0 //docked window
+    -height $domeWindowHeight
+    -width $domeWindowWidth
+    //-allowedArea "all"
+    -allowedArea "left"
+    -allowedArea "right"
+    -raise
+    // Disabled for Maya 2011 compatibility testing
+    //-floatChangeCommand "evalDeferred(\"dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();\")"
+    domeTextDockControl`;
+
   // Force the window back to the right size
   evalDeferred("dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();");
 
   // Get the current window size
   print ("\nDome Text Window Size: " 
-            + `dockControl -q -width domeTextDockControl` 
+            + `dockControl -query -width domeTextDockControl` 
             + " width " 
-            + `dockControl -q -height domeTextDockControl` 
+            + `dockControl -query -height domeTextDockControl` 
             + " height\n");
+  }else if(($mayaVersion >= 2017)){
+    // Maya 2017 uses a workspace control
+    // Get the current window size
+    print ("\nDome Text Window Size: " 
+              + `workspaceControl -query -width domeTextWorkspaceControl` 
+              + " width " 
+              + `workspaceControl -query -height domeTextWorkspaceControl` 
+              + " height\n");
   }else if($mayaVersion >= 2012){
   // Make the Maya 2011 or higher window dockable
   string $domeTextDockControl = `dockControl 
-        -label "Dome Text"
-                -area $dockedArea 
-                // -area "right" //snap to the right side of the view next to the attribute editor
-                //-area "left"     //snap to the left side of the view next to the tool settings tab
-        -content domeTextWin
-                -floating $dockedFloating
-                //-floating 1 //floating window
-                //-floating 0 //docked window
-            -height $domeWindowHeight
-        -width $domeWindowWidth
-        //-allowedArea "all"
-        -allowedArea "left"
-        -allowedArea "right"
-        -raise
-        // Disabled for Maya 2011 compatibility testing
-        -floatChangeCommand "evalDeferred(\"dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();\")"
-        domeTextDockControl`;
+    -label "Dome Text"
+    -area $dockedArea 
+    // -area "right" //snap to the right side of the view next to the attribute editor
+    //-area "left"     //snap to the left side of the view next to the tool settings tab
+    -content domeTextWin
+    -floating $dockedFloating
+    //-floating 1 //floating window
+    //-floating 0 //docked window
+    -height $domeWindowHeight
+    -width $domeWindowWidth
+    //-allowedArea "all"
+    -allowedArea "left"
+    -allowedArea "right"
+    -raise
+    // Disabled for Maya 2011 compatibility testing
+    -floatChangeCommand "evalDeferred(\"dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;dockControl -e -raise domeTextDockControl;SaveDockedDomeTextWindowPos();\")"
+    domeTextDockControl`;
   
   // Force the window back to the right size
-  evalDeferred("dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;SaveDockedDomeTextWindowPos();");
+  evalDeferred("dockControl -e -width $domeWindowWidth domeTextDockControl;dockControl -e -height $domeWindowHeight domeTextDockControl;dockControl -e -raise domeTextDockControl;SaveDockedDomeTextWindowPos();");
 
   // Get the current window size
   print ("\nDome Text Window Size: " 
@@ -2633,7 +2694,7 @@ global proc createDomeText(){
   
   // Check if we are running Maya 2011 or higher
   float $mayaVersion = getMayaVersionDome();
-  print ("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+  print ("Maya " + $mayaVersion + " on " + $mayaPlatform + " detected.\n");
 
   // Get the camera name
   string $CameraName = `optionMenuGrp -query -value menuDomeTextCameraSelect`;

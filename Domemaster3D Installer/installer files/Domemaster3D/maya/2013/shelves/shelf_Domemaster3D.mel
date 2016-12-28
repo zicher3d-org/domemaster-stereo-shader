@@ -412,6 +412,31 @@ global proc shelf_Domemaster3D () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Create mental ray IPR Viewport" 
+        -enableBackground 0
+        -align "center" 
+        -label "IPR Viewport" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "domeViewportIPR.png" 
+        -image1 "domeViewportIPR.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "source \"domeRender.mel\";\ndomeMentalRayInteractiveViewport();" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "Reference Grid" 
         -enableBackground 0
         -align "center" 

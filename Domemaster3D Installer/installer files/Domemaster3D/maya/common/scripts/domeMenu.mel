@@ -1,6 +1,6 @@
 /*
 Create the "Domemaster3D" Entry in the Rendering Menu Set V2.2
-2016-12-24
+2016-12-28
 
 This file provides a Maya 2010 - Maya 2017+ Compatible Menu
 
@@ -372,6 +372,15 @@ global proc createDomemaster3DMenu() {
     menuItem -divider true;
   }
 
+  // Only show if Maya 2016+ is active as mental ray 3.14 added the new IPR viewport mode
+  if($mayaVersion >= 2016){
+      menuItem 
+      -label "Create mental ray IPR Viewport" 
+      -annotation "Create a new floating mental ray 3.14 based interactive viewport rendering window."
+      -image ("domeViewportIPR" + $imageExt)
+      -command "source \"domeRender.mel\";\ndomeMentalRayInteractiveViewport();";  
+  }
+  
   // Only show the starglobe if we are on Maya 2011-2016.5
   //if($mayaVersion <= 2016){
     menuItem 

@@ -145,6 +145,9 @@ HemirectIBL Button
 The HemirectIBL tool creates a custom mentalrayTexture based shading network that lets you feed in an image with the top half of an equirectangular panorama into mental ray IBL's spherical texture input. The word Hemirect is short for hemi-equirectangular which is a new panoramic format based upon using the top 90 degree field of view zone of an equirectangular image which gives a 360° horizontal by 90° vertical part of the "all sky" region that matches the coverage area of a regular fulldome image.
 Note: The HemirectIBL image sequence mode requires your batch rendering software to distribute the rendering job using 1 frame per packet / render slice so a new image is loaded for each frame of the sequence. The HemirectIBL tool works with Maya 2015's newly improved "emit light" IBL lighting system.
 
+IPR Viewport
+The IPR Viewport tool creates a new torn off "persp" viewport window using your active camera view. This window has the mental ray 3.14 based interactive viewport rendering mode active which provides an efficient way to preview the camera framing in a 360 degree panoramic scene with a mental ray lens shader active. The IPR Viewport window is set to use the same aspect ratio as your final rendered imagery and the viewport is created at 50% of the size of your current Maya "Test Resolution" setting in the Maya Render View window. Note: For a stereo camera make sure to be looking through the right or left camera view in the stereo camera rig before you activate the IPR Viewport mode.
+
 DomeGrid Button
 The DomeGrid tool creates a hemispherical yellow wireframe reference grid.
 
@@ -298,6 +301,12 @@ Version History
 Version 2.2.2
 -------------
 2016-12-28
+
+Maya
+
+  Added a new "Create mental ray IPR Viewport" Domemaster3D menu item and an "IPR Viewport" shelf tool that creates a torn off mental ray 3.14 interactive viewport window. This window has the mental ray 3.14 based interactive viewport rendering mode active which provides an efficient way to preview the camera framing in a 360 degree panoramic scene with a mental ray lens shader active. The IPR Viewport window is set to use the same aspect ratio as your final rendered imagery and the viewport is created at 50% of the size of your current Maya "Test Resolution" setting in the Maya Render View window. Note: For a stereo camera make sure to be looking through the right or left camera view in the stereo camera rig before you activate the IPR Viewport mode.
+  
+  The domeRender.mel based function is named "domeMentalRayInteractiveViewport();".
 
 Maya DomeViewer
 

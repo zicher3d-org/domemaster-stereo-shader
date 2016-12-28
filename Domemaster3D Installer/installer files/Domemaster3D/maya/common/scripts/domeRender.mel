@@ -618,60 +618,68 @@ global proc domeMentalRayInteractiveViewport(){
   
   // Only run if Maya 2016+ is active as mental ray 3.14 added the new IPR viewport mode
   if($mayaVersion >= 2016){
-    string $srcPanel = "modelPanel4";
-    string $panelType = "modelPanel";
-    
-    print("Enabling the mental ray interactive viewport window.\n");
-    
-    // Set the original viewport window back to VP2
-    if(catchQuiet(`modelEditor -edit -rendererName "vp2Renderer" -rendererOverrideName "" $srcPanel`)){
-        print("ModelPanel vp2Renderer editing failed for panel: " + $srcPanel + "\n");
-    }
-    
-    // Tear off the view
-    string $cmd = ($panelType + " -tearOffCopy " + $srcPanel);
-    $newName = `eval $cmd`;  // modelPanel7
-    panel -edit -label (localizedPanelLabel(`interToUI $newName`)) $newName;
-    
-    // Set the torn off viewport window to the mental ray IPR rendering mode
-    if(catchQuiet(`modelEditor -edit -rendererName "vp2Renderer" -rendererOverrideName "mentalrayVP2" $newName`)){
-        print("ModelPanel vp2Renderer editing failed for panel: " + $newName + "\n");
-    }
-    
-    // Check the camera's lens shader name
-    string $camera = `modelEditor -query -camera $newName`;
-    // Todo: Check if it is a stereo rig and then switch the camera to use the left rig view for the mental ray IPR
-    
-    //  Correct image size and aspect ratio
-    float $scaleFactor = 0.5;
-    int $width = `getAttr "defaultResolution.width"` * $scaleFactor;
-    int $height = `getAttr "defaultResolution.height"` * $scaleFactor;
-    
-    // Read the Maya Test Resolution setting
-    global int $renderViewResolutions[];
-    if(`optionVar -exists renderViewTestResolution`){
-      int $testRes = `optionVar -query renderViewTestResolution`;
-
-      if($testRes > 1){
-        $width *= $renderViewResolutions[$testRes];
-        $height *= $renderViewResolutions[$testRes];
-        $width /= 100;
-        $height /= 100;
+    // Make sure mental ray 3.14 is active
+    if((`exists renderLiveCmd`) && (`exists mentalrayChangeImrRegion`)){
+      string $srcPanel = "modelPanel4";
+      string $panelType = "modelPanel";
+      
+      print("Enabling the mental ray interactive viewport window.\n");
+      
+      // Set the original viewport window back to VP2
+      if(catchQuiet(`modelEditor -edit -rendererName "vp2Renderer" -rendererOverrideName "" $srcPanel`)){
+          print("ModelPanel vp2Renderer editing failed for panel: " + $srcPanel + "\n");
       }
-    }
-    
-    // Split apart the panel path to get the base window name
-    string $modelEditorParent = `modelEditor -query -parent $newName`;
-    string $buffer[];
-    tokenize $modelEditorParent "|" $buffer ;
-    
-    // Force the viewport window to match the render resolution
-    window -edit -width $width -height $height $buffer[0];
+      
+      // Tear off the view
+      string $cmd = ($panelType + " -tearOffCopy " + $srcPanel);
+      $newName = `eval $cmd`;  // modelPanel7
+      panel -edit -label (localizedPanelLabel(`interToUI $newName`)) $newName;
+      
+      // Set the torn off viewport window to the mental ray IPR rendering mode
+      if(catchQuiet(`modelEditor -edit -rendererName "vp2Renderer" -rendererOverrideName "mentalrayVP2" $newName`)){
+          print("ModelPanel vp2Renderer editing failed for panel: " + $newName + "\n");
+      }
+      
+      // Check the camera's lens shader name
+      string $camera = `modelEditor -query -camera $newName`;
+      // Todo: Check if it is a stereo rig and then switch the camera to use the left rig view for the mental ray IPR
+      
+      //  Correct image size and aspect ratio
+      float $scaleFactor = 0.5;
+      int $width = `getAttr "defaultResolution.width"` * $scaleFactor;
+      int $height = `getAttr "defaultResolution.height"` * $scaleFactor;
+      
+      // Read the Maya Test Resolution setting
+      global int $renderViewResolutions[];
+      if(`optionVar -exists renderViewTestResolution`){
+        int $testRes = `optionVar -query renderViewTestResolution`;
 
-    // Tell mental ray to refresh the whole viewport area
-    renderLiveCmd -f;
-    mentalrayChangeImrRegion("");
-    refresh;
+        if($testRes > 1){
+          $width *= $renderViewResolutions[$testRes];
+          $height *= $renderViewResolutions[$testRes];
+          $width /= 100;
+          $height /= 100;
+        }
+      }
+      
+      // Split apart the panel path to get the base window name
+      string $modelEditorParent = `modelEditor -query -parent $newName`;
+      string $buffer[];
+      tokenize $modelEditorParent "|" $buffer ;
+      
+      // Force the viewport window to match the render resolution
+      window -edit -width $width -height $height $buffer[0];
+      
+      // Add a custom title bar to the window
+      window -edit -title "Domemaster3D Interactive Viewport - Powered by mental ray 3.14" $buffer[0];
+      
+      // Tell mental ray to refresh the whole viewport area
+      renderLiveCmd -f;
+      mentalrayChangeImrRegion("");
+      refresh;
+    }else{
+      print ("The interactive viewport is currently unavailable since mental ray 3.14 is not active yet: The function renderLiveCmd() was not found.\n");
+    }
   }else{
     warning ("Maya 2016 or higher is required to use the mental ray 3.14 interactive viewport mode.\n");
   }

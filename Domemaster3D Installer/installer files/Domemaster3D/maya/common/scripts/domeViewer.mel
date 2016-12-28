@@ -1,6 +1,6 @@
 /*
-  Dome Viewer V2.2.1
-  2016-12-24
+  Dome Viewer V2.2.2
+  2016-12-28
   by Andrew Hazelden
   
   A fulldome and panoramic image+movie viewer. The viewer supports all image and movie formats that can be opened using the Maya File Texture and Movie Nodes. You can display immersive images, image sequences, and movie files with accelerated RAM playback. Tilted fulldome theater screens can be simulated with the "Dome Tilt" attribute.
@@ -10,6 +10,14 @@
   To use the Dome Viewer run the following MEL commands:
   source "domeViewer.mel";
   domeViewer();
+  
+  Version 2.2.2
+  -------------
+  2016-12-28
+  
+  Added Maya 2017 Workspace Control support to the DomeViewer window. 
+  
+  Adjusted the default DomeViewer window width
   
   Version 2.2.1
   -------------
@@ -393,8 +401,11 @@ global proc setPanoramaPreview(){
 
 global proc domeViewer(){
   global int $domeViewerWindowHeight = 625;
-  global int $domeViewerWindowWidth = 595;
-
+  //global int $domeViewerWindowWidth = 595;
+  global int $domeViewerWindowWidth = 765;
+  
+  string $scrollLayoutParent;
+  
   //old width 584
 
   //-------------------------------------------------
@@ -410,9 +421,15 @@ global proc domeViewer(){
   float $mayaVersion = getMayaVersionDome();
 
   // Write out the current Maya version number and detected operating system
-  print("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+  print("Maya " + $mayaVersion + " on " + $mayaPlatform + " detected.\n");
 
-  if($mayaVersion >=2011){
+  // Clear out the old window contexts
+  if($mayaVersion >= 2017){
+    if(`workspaceControl -exists domeViewerWorkspaceControl`){
+      deleteUI domeViewerWorkspaceControl;
+      print( "Removing an existing Dome Viewer Workspace Control\n");
+    }
+  }else if($mayaVersion >=2011){
     // Remove an existing docked control window when running the DomeViewer tool for a 2nd time.
     if(`dockControl -exists domeViewerDockControl`){ 
       deleteUI -control domeViewerDockControl; 
@@ -433,19 +450,48 @@ global proc domeViewer(){
     }
   }
 
-  string $domeViewerWindow = `window 
-    -title "Dome Viewer" 
-    //-width $domeWindowWidth
-    -widthHeight $domeViewerWindowWidth $domeViewerWindowHeight 
-    domeViewerWin`; 
- 
+  
+  if($mayaVersion >= 2017){
+    // Check where the AE/Channel Box/Layer Editor windows are docked
+    string $attributeEditorDockWidget = getUIComponentDockControl("Attribute Editor", false);
+    // string $channelLayerEditorDockWidget = getUIComponentDockControl("Channel Box / Layer Editor", false);
+    // string $layerEditorComponent = getUIComponentDockControl("Layer Editor", false);
+    
+    // Important Note: The workspaceControl uiScript "if(`exists domeViewerBuildPanel`){}" part avoids a possible Maya 2017 startup issue with the empty window context being re-created every time which causes an error to be logged in the first line of the Script Editor log. This exists check code is needed since DomeViewer isn't a .mll plugin which means the standard workspaceControl option of "-checksPlugins" is not available for use by the DomeViewer MEL script.
+    
+    // Create a new window
+    workspaceControl
+      -tabToControl $attributeEditorDockWidget -1
+      //-tabToControl $channelLayerEditorDockWidget -1
+      -label "Dome Viewer" 
+      //-uiScript "if(`exists domeViewerBuildPanel`){domeViewerBuildPanel;}"
+      -loadImmediately 1
+      -initialWidth $domeViewerWindowWidth
+      -minimumWidth true
+      -raise
+      domeViewerWorkspaceControl;
+      
+    $scrollLayoutParent = "domeViewerWorkspaceControl";
+  }else{
+    string $domeViewerWindow = `window 
+      -title "Dome Viewer" 
+      //-width $domeWindowWidth
+      -widthHeight $domeViewerWindowWidth $domeViewerWindowHeight 
+      domeViewerWin`;
+      
+    $scrollLayoutParent = "domeViewerWin";
+  }
+  
   string $domeViewerScrollableLayout = `scrollLayout 
     -horizontalScrollBarThickness 18
     -verticalScrollBarThickness   18
     -childResizable 1
     //-width $domeViewerWindowWidth
+    -parent ($scrollLayoutParent)
     `;
 
+    string $runPython;
+    
     rowLayout 
       -numberOfColumns 2
       -adjustableColumn 1
@@ -466,10 +512,10 @@ global proc domeViewer(){
         -label "The Dome Viewer tool creates an immersive fulldome media player.";
     }
 
-      picture 
-        -width 48
-        -height 48
-        -image "domeViewer.xpm";
+    picture 
+      -width 48
+      -height 48
+      -image "domeViewer.xpm";
 
      setParent ..;   
     
@@ -633,7 +679,7 @@ global proc domeViewer(){
         
         python("import domeMaterial");
         python("reload(domeMaterial)");
-        string $runPython = "domeMaterial.getSourceImagesPath(\"" + $imageFilename  +"\")";
+        $runPython = "domeMaterial.getSourceImagesPath(\"" + $imageFilename  +"\")";
         $defaultImagesDir = python($runPython);
         
         $imageFilePath =  $defaultImagesDir;
@@ -688,7 +734,7 @@ global proc domeViewer(){
         
         python("import domeMaterial");
         python("reload(domeMaterial)");
-        string $runPython = "domeMaterial.getSourceImagesPath(\"" + $imageFilenameRight  +"\")";
+        $runPython = "domeMaterial.getSourceImagesPath(\"" + $imageFilenameRight  +"\")";
         $defaultImagesDirRight = python($runPython);
         
         $imageFilePath =  $defaultImagesDir;
@@ -940,9 +986,9 @@ global proc domeViewer(){
       -label "Create Viewer"
       -annotation "Add an immersive viewer to the scene"
       -command "createDomeViewer()"; 
-      
+    
     button
-      -label "Load Image in Render View"
+      -label "Load Image into Render View"
       -annotation "This button loads the current image that is listed in the \"Image Name\" text field in the Render View\n window. The image is auto sized to fit the window size. You can view the image at the native resolution \nby pressing the 1:1 button in the Render View."
       -command "loadDomeViewerImageInRenderView()"; 
       
@@ -1032,64 +1078,72 @@ global proc domeViewer(){
   }
   
   if($mayaVersion == 2011){
-  // Make the Maya 2011 or higher window dockable
-  string $domeViewerDockControl = `dockControl 
-        -label "Dome Viewer"
-				-area $dockedArea 
-				// -area "right" //snap to the right side of the view next to the attribute editor
-				//-area "left"     //snap to the left side of the view next to the tool settings tab
-        -content domeViewerWin
-				-floating $dockedFloating
-				//-floating 1 //floating window
-				//-floating 0 //docked window
-		    -height $domeViewerWindowHeight
-        -width $domeViewerWindowWidth
-        //-allowedArea "all"
-        -allowedArea "left"
-        -allowedArea "right"
-        // Disabled for Maya 2011 compatibility testing
-        //-floatChangeCommand "evalDeferred(\"dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();\")"
-        domeViewerDockControl`;
-  
-  // Force the window back to the right size
-  evalDeferred("dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();");
+    // Make the Maya 2011 or higher window dockable
+    string $domeViewerDockControl = `dockControl 
+          -label "Dome Viewer"
+          -area $dockedArea 
+          // -area "right" //snap to the right side of the view next to the attribute editor
+          //-area "left"     //snap to the left side of the view next to the tool settings tab
+          -content domeViewerWin
+          -floating $dockedFloating
+          //-floating 1 //floating window
+          //-floating 0 //docked window
+          -height $domeViewerWindowHeight
+          -width $domeViewerWindowWidth
+          //-allowedArea "all"
+          -allowedArea "left"
+          -allowedArea "right"
+          // Disabled for Maya 2011 compatibility testing
+          //-floatChangeCommand "evalDeferred(\"dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();\")"
+          domeViewerDockControl`;
+    
+    // Force the window back to the right size
+    evalDeferred("dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();");
 
-  // Get the current window size
-  print ("\nDome Viewer Window Size: " 
-            + `dockControl -q -width domeViewerDockControl` 
-            + " width " 
-            + `dockControl -q -height domeViewerDockControl` 
-            + " height\n");
+    // Get the current window size
+    print ("\nDome Viewer Window Size: " 
+              + `dockControl -query -width domeViewerDockControl` 
+              + " width " 
+              + `dockControl -query -height domeViewerDockControl` 
+              + " height\n");
+  }else if(($mayaVersion >= 2017)){
+    // Maya 2017 uses a workspace control
+    // Get the current window size
+    print ("\nDome Viewer Window Size: " 
+              + `workspaceControl -query -width domeViewerWorkspaceControl` 
+              + " width " 
+              + `workspaceControl -query -height domeViewerWorkspaceControl` 
+              + " height\n");
   }else if($mayaVersion >= 2012){
-  // Make the Maya 2011 or higher window dockable
-  string $domeViewerDockControl = `dockControl 
-        -label "Dome Viewer"
-				-area $dockedArea 
-				// -area "right" //snap to the right side of the view next to the attribute editor
-				//-area "left"     //snap to the left side of the view next to the tool settings tab
-        -content domeViewerWin
-				-floating $dockedFloating
-				//-floating 1 //floating window
-				//-floating 0 //docked window
-		    -height $domeViewerWindowHeight
-        -width $domeViewerWindowWidth
-        //-allowedArea "all"
-        -allowedArea "left"
-        -allowedArea "right"
-        // Disabled for Maya 2011 compatibility testing
-        -floatChangeCommand "evalDeferred(\"dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();\")"
-        domeViewerDockControl`;
-  
-  // Force the window back to the right size
-  evalDeferred("dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();");
+    // Make the Maya 2012 or higher window dockable
+    string $domeViewerDockControl = `dockControl 
+          -label "Dome Viewer"
+          -area $dockedArea 
+          // -area "right" //snap to the right side of the view next to the attribute editor
+          //-area "left"     //snap to the left side of the view next to the tool settings tab
+          -content domeViewerWin
+          -floating $dockedFloating
+          //-floating 1 //floating window
+          //-floating 0 //docked window
+          -height $domeViewerWindowHeight
+          -width $domeViewerWindowWidth
+          //-allowedArea "all"
+          -allowedArea "left"
+          -allowedArea "right"
+          -raise
+          // Disabled for Maya 2011 compatibility testing
+          -floatChangeCommand "evalDeferred(\"dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;SaveDockedDomeViewerWindowPos();\")"
+          domeViewerDockControl`;
+    
+    // Force the window back to the right size
+    evalDeferred("dockControl -e -width $domeViewerWindowWidth domeViewerDockControl;dockControl -e -height $domeViewerWindowHeight domeViewerDockControl;dockControl -e -raise domeViewerDockControl;SaveDockedDomeViewerWindowPos();");
 
-  // Get the current window size
-  print ("\nDome Viewer Window Size: " 
-            + `dockControl -q -width domeViewerDockControl` 
-            + " width " 
-            + `dockControl -q -height domeViewerDockControl` 
-            + " height\n");
- 
+    // Get the current window size
+    print ("\nDome Viewer Window Size: " 
+              + `dockControl -query -width domeViewerDockControl` 
+              + " width " 
+              + `dockControl -query -height domeViewerDockControl` 
+              + " height\n");
   }else{
     //Make the Maya 2010 or lower window a regular window type
     //showWindow $domeViewerWindow;
@@ -1097,14 +1151,15 @@ global proc domeViewer(){
     
     //Get the current window size
     print ("\nDome Viewer Window Size: "  
-             + `window -q -width domeViewerWin` 
+             + `window -query -width domeViewerWin` 
              + " width " 
-             + `window -q -height domeViewerWin` 
+             + `window -query -height domeViewerWin` 
              + " height\n");
   }
 }
 
 
+// Run the python script that loads in the display mesh and applies the texture maps
 global proc createDomeViewer(){
   // Sets the current time settings using the DomeViewer control value
   setDomeTimeUnit();
@@ -1124,10 +1179,8 @@ global proc createDomeViewer(){
   //setFocalLengthVisibility(1);
 }
 
-
+// Load the current time settings into the DomeViewer control
 global proc restoreDomeTimeUnit(){
-  // Load the current time settings into the DomeViewer control
-
   //string $type = "ntsc";
 	//string $type = `optionVar -q workingUnitTimeDefault`;
 	string $type = `optionVar -q workingUnitTime`;

@@ -1,6 +1,6 @@
 """
-Dome Material Script V2.2.1
-2016-12-24
+Dome Material Script V2.2.2
+2016-12-28
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -1788,10 +1788,10 @@ def createStarglobe():
   # Load the file texture maps
 
   # Set the filename for the mental ray texture nodes
-  cmds.setAttr( starglobe_mr_tex+'.fileTextureName', StarglobeMapFileTexture , type="string")
+  cmds.setAttr(starglobe_mr_tex+'.fileTextureName', StarglobeMapFileTexture , type="string")
 
   # Set the filename for the maya file texture node
-  cmds.setAttr( starglobe_maya_tex+'.fileTextureName', StarglobeMayaFileTexture , type="string")
+  cmds.setAttr(starglobe_maya_tex+'.fileTextureName', StarglobeMayaFileTexture , type="string")
 
   # Connect the Lambert preview shader
 
@@ -1832,8 +1832,15 @@ def createStarglobe():
   #cmds.select(starglobe_mia_shader_name, r=True)
   
   # Turn on hardware texturing and shading
-  cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
-  cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  #import maya.cmds as cmds
+  if cmds.modelEditor( 'modelPanel1', exists=True):
+    cmds.modelEditor('modelPanel1', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  
+  if cmds.modelEditor( 'modelPanel3', exists=True):
+    cmds.modelEditor('modelPanel3', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
+  
+  if cmds.modelEditor( 'modelPanel4', exists=True):
+    cmds.modelEditor('modelPanel4', edit=True, displayAppearance='smoothShaded', wireframeOnShaded=False, displayTextures=True, displayLights="none")
 
   # Select the original objects
   if object_selection:

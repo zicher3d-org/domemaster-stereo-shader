@@ -1711,7 +1711,7 @@ global proc domeText(){
   float $mayaVersion = getMayaVersionDome();
 
   // Write out the current Maya version number and detected operating system
-  print ("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
+  print ("Maya " + $mayaVersion + " on " + $mayaPlatform + " detected.\n");
 
   // Clear out the old window contexts
   if($mayaVersion >= 2017){
@@ -2653,7 +2653,6 @@ global proc domeText(){
             + " width " 
             + `dockControl -q -height domeTextDockControl` 
             + " height\n");
- 
   }else{
     // Make the Maya 2010 or lower window a regular window type
     //showWindow $domeTextWindow;

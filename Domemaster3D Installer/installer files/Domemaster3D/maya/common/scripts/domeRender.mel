@@ -1,6 +1,6 @@
 /*
   Dome Render V2.2.2
-  2016-12-28
+  2016-12-29
   by Andrew Hazelden
   
   A set of pre and post render MEL scripts that set the focal length and openGL stereo3D display modes based upon the rendering or interactive use of Maya. 
@@ -11,7 +11,7 @@
   
   Version 2.2.2
   --------------
-  2016-12-28
+  2016-12-29
   
   Added a new "Create mental ray IPR Viewport" Domemaster3D menu item that creates a torn off mental ray 3.14 interactive viewport window. The domeRender.mel based function is named "domeMentalRayInteractiveViewport();".
   
@@ -616,6 +616,9 @@ global proc string [] domeUpdateMayaFileNodes(int $selected){
 global proc domeMentalRayInteractiveViewport(){
   int $mayaVersion = getMayaVersionDome();
   
+  // Make sure mental ray was activated
+  python("import domeCamera\nreload(domeCamera)\ndomeCamera.forceMentalRayLoad()\ndomeCamera.forceMentalRayLoad()");
+  
   // Only run if Maya 2016+ is active as mental ray 3.14 added the new IPR viewport mode
   if($mayaVersion >= 2016){
     // Make sure mental ray 3.14 is active
@@ -634,6 +637,7 @@ global proc domeMentalRayInteractiveViewport(){
       string $cmd = ($panelType + " -tearOffCopy " + $srcPanel);
       $newName = `eval $cmd`;  // modelPanel7
       panel -edit -label (localizedPanelLabel(`interToUI $newName`)) $newName;
+      print ("[Viewport Panel] " + $newName + "\n");
       
       // Set the torn off viewport window to the mental ray IPR rendering mode
       if(catchQuiet(`modelEditor -edit -rendererName "vp2Renderer" -rendererOverrideName "mentalrayVP2" $newName`)){
@@ -643,11 +647,9 @@ global proc domeMentalRayInteractiveViewport(){
       // Check the camera's lens shader name
       string $camera = `modelEditor -query -camera $newName`;
       // Todo: Check if it is a stereo rig and then switch the camera to use the left rig view for the mental ray IPR
-      
-      //  Correct image size and aspect ratio
-      float $scaleFactor = 0.5;
-      int $width = `getAttr "defaultResolution.width"` * $scaleFactor;
-      int $height = `getAttr "defaultResolution.height"` * $scaleFactor;
+      float $scaleFactor = 1.0;
+      int $width = `getAttr "defaultResolution.width"`;
+      int $height = `getAttr "defaultResolution.height"`;
       
       // Read the Maya Test Resolution setting
       global int $renderViewResolutions[];
@@ -662,6 +664,29 @@ global proc domeMentalRayInteractiveViewport(){
         }
       }
       
+      print ("[Test Resolution Size] " + $height + "x" + $width + "\n"); 
+      
+      //  Correct the image size and aspect ratio to fit on the current monitor
+      if(`window -exists MayaWindow`){
+        float $maxWidth = `window -query -width MayaWindow`;
+        float $maxHeight = `window -query -height MayaWindow`;
+        // Compute the window aspect ratio
+        float $maxAspectRatio = (float)$maxWidth / (float)$maxHeight;
+      
+        print ("[Maya Window Size] " + $maxWidth + "x" + $maxHeight + " [Ratio] " + $maxAspectRatio + "\n");
+        
+        // Compute the real aspect ratio
+        float $aspectRatio = (float)$width / (float)$height;
+        
+        // Check if the render rez is larger than the monitor and then fit it to 90% of the monitor size
+        if($height > $maxHeight){
+          $height = $maxHeight * 0.50;
+          $width = $maxHeight * $aspectRatio * 0.50;
+        }
+        
+        print ("[Viewport Size] " + $width + "x" + $height  + " [Ratio] " + $aspectRatio + "\n"); 
+      }
+      
       // Split apart the panel path to get the base window name
       string $modelEditorParent = `modelEditor -query -parent $newName`;
       string $buffer[];
@@ -671,7 +696,7 @@ global proc domeMentalRayInteractiveViewport(){
       window -edit -width $width -height $height $buffer[0];
       
       // Add a custom title bar to the window
-      window -edit -title "Domemaster3D Interactive Viewport - Powered by mental ray 3.14" $buffer[0];
+      window -edit -title "Domemaster3D Interactive Viewport - To switch the active camera use \"View > Cycle Through Cameras\" then re-enable the mental ray renderer" $buffer[0];
       
       // Tell mental ray to refresh the whole viewport area
       renderLiveCmd -f;

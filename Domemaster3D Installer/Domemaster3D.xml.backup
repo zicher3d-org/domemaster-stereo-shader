@@ -1,7 +1,7 @@
 <project>
     <shortName>Domemaster3D</shortName>
     <fullName>Domemaster3D Shader</fullName>
-    <version>2.2.1</version>
+    <version>2.2.2</version>
     <readmeFile>Domemaster3D Readme-Short.txt</readmeFile>
     <leftImage>vortex_sidebar.png</leftImage>
     <splashImage>splash_screen.png</splashImage>
@@ -2624,7 +2624,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2017_Include_Dir</name>
@@ -2638,7 +2638,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -2728,7 +2728,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2016_Include_Dir</name>
@@ -2742,7 +2742,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -2832,7 +2832,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2015_Include_Dir</name>
@@ -2846,7 +2846,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -2936,7 +2936,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2014_Include_Dir</name>
@@ -2950,7 +2950,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -3040,7 +3040,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2013_Include_Dir</name>
@@ -3054,7 +3054,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -3144,7 +3144,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2012_Include_Dir</name>
@@ -3158,7 +3158,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -3248,7 +3248,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2011_Include_Dir</name>
@@ -3262,7 +3262,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -3352,7 +3352,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2010_Include_Dir</name>
@@ -3366,7 +3366,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -3456,7 +3456,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                                 <directoryParameter>
                                     <name>Max_2009_Include_Dir</name>
@@ -3470,7 +3470,7 @@
                                     <insertAfter>welcome_label</insertAfter>
                                     <mustBeWritable>1</mustBeWritable>
                                     <mustExist>0</mustExist>
-                                    <width>40</width>
+                                    <width>64</width>
                                 </directoryParameter>
                             </parameterList>
                         </componentGroup>
@@ -4959,6 +4959,7 @@
     <description>Domemaster3D is a fulldome rendering shader for mental ray.</description>
     <enableRollback>1</enableRollback>
     <enableTimestamp>1</enableTimestamp>
+    <height>470</height>
     <osxApplicationBundleIdentifier>com.domemaster.appinstaller</osxApplicationBundleIdentifier>
     <productComments>Domemaster3D is a fulldome rendering shader for mental ray.</productComments>
     <productContact>andrew@andrewhazelden.com</productContact>
@@ -4977,6 +4978,7 @@
     <summary>Domemaster3D is a fulldome rendering shader for mental ray.</summary>
     <unattendedModeUI>minimal</unattendedModeUI>
     <vendor>Andrew Hazelden</vendor>
+    <width>625</width>
 
     <!-- This will be ignored in 32bit systems without consequences -->
     <windows64bitMode>1</windows64bitMode>

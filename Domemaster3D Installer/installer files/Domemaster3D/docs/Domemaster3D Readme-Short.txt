@@ -79,11 +79,11 @@ Version 2.2.2
 
 Installer
 
-  The Domemaster3D installer now attempts to detect the installed programs and will enable the lens shader checkbox options for each host package that is present on the system.
-  
+  The Domemaster3D installer now detects the renderers you have installed. The installer will automatically enable the lens shader install checkbox option for each of 3D packages that are located on the system.
+
 Maya
 
-  Added a new "Create mental ray IPR Viewport" Domemaster3D menu item and an "IPR Viewport" shelf tool that creates a torn off mental ray 3.14 interactive viewport window. This window has the mental ray 3.14 based interactive viewport rendering mode active which provides an efficient way to preview the camera framing in a 360 degree panoramic scene with a mental ray lens shader active. The IPR Viewport window is set to use the same aspect ratio as your final rendered imagery and the viewport is created at 50% of the size of your current Maya "Test Resolution" setting in the Maya Render View window. Note: For a stereo camera make sure to be looking through the right or left camera view in the stereo camera rig before you activate the IPR Viewport mode.
+  Added a new "Create mental ray IPR Viewport" Domemaster3D menu item and an "IPR Viewport" shelf tool that creates a torn off mental ray 3.14 interactive viewport window. This window has the mental ray 3.14 based interactive viewport rendering mode active which provides an efficient way to preview the camera framing in a 360 degree panoramic scene with a mental ray lens shader active. The IPR Viewport window is set to use the same aspect ratio as your final rendered imagery and the viewport is created using your current Maya "Test Resolution" setting in the Maya Render View window. You can use the "View > Cycle Through Cameras" command to change the active camera in the IPR viewport. If you change the camera view this way, then you will have to use the "Renderer > mental ray" menu item to re-activate the IPR rendering mode. Note: For a stereo camera make sure to be looking through the right or left camera view in the stereo camera rig before you activate the IPR Viewport mode.
 
   Maya DomeViewer
 
@@ -97,9 +97,15 @@ Maya
 
     Fixed several Maya 2017 MEL verbosity related "Redeclaration of variable" warning messages
 
-  Maya Gallaxy Creator
+  Maya Galaxy Creator
 
     Added Maya 2017 Workspace Control support to the Galaxy Creator window
+    
+  Maya Starglobe
+    
+    Added Maya 2017 Workspace Control support to the Starglobe window
+    
+    Added a new "Create Starglobe mental ray materials" checkbox to the Starglobe window. This control allows you to choose if you want to create a mental ray native or a Maya Software renderer compatible set of surface materials.
     
 Version 2.2.1
 -----------------

@@ -1,6 +1,6 @@
 """
 Dome Material Script V2.2.2
-2016-12-28
+2016-12-29
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.
@@ -15,6 +15,11 @@ You can set the file textures to an empty path if you don't want a default textu
 
 Version History
 ----------------
+
+Version 2.2.2 - 2016-12-29
+-------------------------------
+
+mental ray 3.14 + Maya 2017 Starglobe tool update
 
 Version 2.2.1 - 2016-12-25
 -------------------------------
@@ -1695,15 +1700,24 @@ def createStarglobe():
   # Load the Maya .ma format starglobe model into the scene
   starglobe_mesh_file = cmds.file (StarglobeModelFile, i=True, type='mayaAscii')
 
-  # Create the mia_material + shading group
+  # Create the shading group
   starglobe_mia_shader_group_name = cmds.sets(renderable=True, noSurfaceShader=True, empty=True, name='starglobe_materialSG')
-  starglobe_mia_shader_name = cmds.shadingNode('mia_material_x_passes', n='starglobe_material', asShader=True) 
+  
+  starglobe_mia_shader_name = ''
+  starglobe_tex_vector  = ''
+  starglobe_tex_remap  = ''
+  starglobe_tex_lookup  = ''
+  starglobe_mr_tex  = ''
+  starglobe_remap_color  = ''
+  if cmds.checkBoxGrp('checkGrpCreateStarglobeMentalRayMaterials', query=True, value1=True) == True:
+    # Create the mia_material + shading group
+    starglobe_mia_shader_name = cmds.shadingNode('mia_material_x_passes', n='starglobe_material', asShader=True) 
 
-  starglobe_tex_vector = cmds.shadingNode('mib_texture_vector', n='starglobe_mib_texture_vector1', asUtility=True ) 
-  starglobe_tex_remap = cmds.shadingNode('mib_texture_remap', n='starglobe_mib_texture_remap1',  asUtility=True) 
-  starglobe_tex_lookup= cmds.shadingNode('mib_texture_lookup', n='starglobe_mib_texture_lookup1',  asUtility=True) 
-  starglobe_mr_tex = cmds.shadingNode('mentalrayTexture', n='starglobe_mentalrayTexture1', asTexture=True) 
-  starglobe_remap_color = cmds.shadingNode('remapColor', n='starglobe_remapColor1', asTexture=True)
+    starglobe_tex_vector = cmds.shadingNode('mib_texture_vector', n='starglobe_mib_texture_vector1', asUtility=True ) 
+    starglobe_tex_remap = cmds.shadingNode('mib_texture_remap', n='starglobe_mib_texture_remap1',  asUtility=True) 
+    starglobe_tex_lookup= cmds.shadingNode('mib_texture_lookup', n='starglobe_mib_texture_lookup1',  asUtility=True) 
+    starglobe_mr_tex = cmds.shadingNode('mentalrayTexture', n='starglobe_mentalrayTexture1', asTexture=True) 
+    starglobe_remap_color = cmds.shadingNode('remapColor', n='starglobe_remapColor1', asTexture=True)
 
   # Create the Lambert in-scene preview material
   starglobe_preview_shader_name = cmds.shadingNode('lambert', n='starglobe_preview_material', asShader=True) 
@@ -1730,69 +1744,73 @@ def createStarglobe():
   cmds.connectAttr(starglobe_maya_placement+'.outUV', starglobe_maya_tex+'.uvCoord', f=True)
   cmds.connectAttr(starglobe_maya_placement+'.outUvFilterSize', starglobe_maya_tex+'.uvFilterSize', f=True)
 
-  # Connect the color texture nodes
-  cmds.connectAttr(starglobe_tex_vector+'.outValue', starglobe_tex_remap+'.input')
-  #mib_texture_vector.outValue -> mib_texture_remap.input
+  if cmds.checkBoxGrp('checkGrpCreateStarglobeMentalRayMaterials', query=True, value1=True) == True:
+    # Connect the color texture nodes
+    cmds.connectAttr(starglobe_tex_vector+'.outValue', starglobe_tex_remap+'.input')
+    #mib_texture_vector.outValue -> mib_texture_remap.input
 
-  cmds.connectAttr(starglobe_tex_remap+'.outValue', starglobe_tex_lookup+'.coord')
-  #mib_texture_remap.outValue -> mib_texture_lookup.coord
+    cmds.connectAttr(starglobe_tex_remap+'.outValue', starglobe_tex_lookup+'.coord')
+    #mib_texture_remap.outValue -> mib_texture_lookup.coord
 
-  cmds.connectAttr(starglobe_mr_tex+'.message', starglobe_tex_lookup+'.tex')
-  #mentalrayTexture.message -> mib_texture_lookup.tex
+    cmds.connectAttr(starglobe_mr_tex+'.message', starglobe_tex_lookup+'.tex')
+    #mentalrayTexture.message -> mib_texture_lookup.tex
 
-  # Connect the starglobe texture to the diffuse color attribute
-  #cmds.connectAttr(starglobe_tex_lookup+'.outValue', starglobe_mia_shader_name+'.diffuse')
-  #mib_texture_lookup.outValue -> mia_material_x_passes.diffuse
+    # Connect the starglobe texture to the diffuse color attribute
+    #cmds.connectAttr(starglobe_tex_lookup+'.outValue', starglobe_mia_shader_name+'.diffuse')
+    #mib_texture_lookup.outValue -> mia_material_x_passes.diffuse
 
-  # Make the mia material shader act like an incandescent/surface shader material
-  #cmds.connectAttr(starglobe_tex_lookup+'.outValue', starglobe_mia_shader_name+'.additional_color')
-  #mib_texture_lookup.outValue -> mia_material_x_passes.additional_color
+    # Make the mia material shader act like an incandescent/surface shader material
+    #cmds.connectAttr(starglobe_tex_lookup+'.outValue', starglobe_mia_shader_name+'.additional_color')
+    #mib_texture_lookup.outValue -> mia_material_x_passes.additional_color
 
-  # Make the mia material shader act like an incandescent/surface shader material
-  # Add a remapColor node so it is possible to brighten the starglobe texture map
-  cmds.connectAttr(starglobe_tex_lookup+'.outValue', starglobe_remap_color+'.color')
-  cmds.connectAttr(starglobe_remap_color+'.outColor', starglobe_mia_shader_name+'.additional_color')
-  #mib_texture_lookup.outValue -> remapColor.color
-  #emapColor.outColor-> mia_material_x_passes.additional_color
+    # Make the mia material shader act like an incandescent/surface shader material
+    # Add a remapColor node so it is possible to brighten the starglobe texture map
+    cmds.connectAttr(starglobe_tex_lookup+'.outValue', starglobe_remap_color+'.color')
+    cmds.connectAttr(starglobe_remap_color+'.outColor', starglobe_mia_shader_name+'.additional_color')
+    #mib_texture_lookup.outValue -> remapColor.color
+    #emapColor.outColor-> mia_material_x_passes.additional_color
 
-  # Set values for the shading nodes
+    # Set values for the shading nodes
 
-  # Set the mia_material to be a matte material
-  #cmds.setAttr(starglobe_mia_shader_name+'.reflectivity', 0)
+    # Set the mia_material to be a matte material
+    #cmds.setAttr(starglobe_mia_shader_name+'.reflectivity', 0)
 
-  # Set the mia_material to be a glossy material
-  cmds.setAttr(starglobe_mia_shader_name+'.refl_color', 1, 1, 1, type='double3')
-  cmds.setAttr(starglobe_mia_shader_name+'.reflectivity', 0)
-  cmds.setAttr(starglobe_mia_shader_name+'.refl_gloss', 0.0)
-  cmds.setAttr(starglobe_mia_shader_name+'.diffuse_roughness', 0)
-  cmds.setAttr(starglobe_mia_shader_name+'.diffuse_weight', 1)
+    # Set the mia_material to be a glossy material
+    cmds.setAttr(starglobe_mia_shader_name+'.refl_color', 1, 1, 1, type='double3')
+    cmds.setAttr(starglobe_mia_shader_name+'.reflectivity', 0)
+    cmds.setAttr(starglobe_mia_shader_name+'.refl_gloss', 0.0)
+    cmds.setAttr(starglobe_mia_shader_name+'.diffuse_roughness', 0)
+    cmds.setAttr(starglobe_mia_shader_name+'.diffuse_weight', 1)
 
-  # Set the material to a black diffuse color
-  cmds.setAttr(starglobe_mia_shader_name+'.diffuse', 0, 0, 0, type='double3')
+    # Set the material to a black diffuse color
+    cmds.setAttr(starglobe_mia_shader_name+'.diffuse', 0, 0, 0, type='double3')
 
-  # Note: the cutout opacity could be used to make the night sky alpha channel transparent or solid
+    # Note: the cutout opacity could be used to make the night sky alpha channel transparent or solid
 
-  # Optional Light Linking
+    # Optional Light Linking
 
-  # Set the mia_material_x_passes shader to ignore the illumination from the lights in the scene with "light linking"
-  #starglobe_mia.mode 0 = Custom Linking
-  #starglobe_mia.mode 1 = Inclusive Linking
-  #starglobe_mia.mode 2 = Exclusive Linking
-  #starglobe_mia.mode 4 = Maya Linking
+    # Set the mia_material_x_passes shader to ignore the illumination from the lights in the scene with "light linking"
+    #starglobe_mia.mode 0 = Custom Linking
+    #starglobe_mia.mode 1 = Inclusive Linking
+    #starglobe_mia.mode 2 = Exclusive Linking
+    #starglobe_mia.mode 4 = Maya Linking
 
-  # Note: All scene lights are skipped by default with "Exclusive linking" mode 2
-  cmds.setAttr(starglobe_mia_shader_name+'.mode', 2)
+    # Note: All scene lights are skipped by default with "Exclusive linking" mode 2
+    cmds.setAttr(starglobe_mia_shader_name+'.mode', 2)
 
-  # End of Optional Light Linking
+    # End of Optional Light Linking
 
   # Load the file texture maps
+  if cmds.checkBoxGrp('checkGrpCreateStarglobeMentalRayMaterials', query=True, value1=True) == True:
+    # Set the filename for the mental ray 8K texture nodes
+    cmds.setAttr(starglobe_mr_tex+'.fileTextureName', StarglobeMapFileTexture , type="string")
 
-  # Set the filename for the mental ray texture nodes
-  cmds.setAttr(starglobe_mr_tex+'.fileTextureName', StarglobeMapFileTexture , type="string")
-
-  # Set the filename for the maya file texture node
-  cmds.setAttr(starglobe_maya_tex+'.fileTextureName', StarglobeMayaFileTexture , type="string")
-
+    # Set the filename for the maya 2K file texture node
+    cmds.setAttr(starglobe_maya_tex+'.fileTextureName', StarglobeMayaFileTexture , type="string")
+  else:
+    # Set the filename for the maya 8K file texture node
+    cmds.setAttr(starglobe_maya_tex+'.fileTextureName', StarglobeMapFileTexture , type="string")
+  
   # Connect the Lambert preview shader
 
   # Connect the Maya starglobe file texture to the lambert preview material color and incandescent shader inputs
@@ -1802,19 +1820,21 @@ def createStarglobe():
   # Connect the Lambert in-scene preview shader to the shading group
   cmds.connectAttr(starglobe_preview_shader_name+'.outColor', starglobe_mia_shader_group_name+'.surfaceShader', f=True)
 
-  # Connect the mia_material nodes
+  if cmds.checkBoxGrp('checkGrpCreateStarglobeMentalRayMaterials', query=True, value1=True) == True:
+    # Connect the mia_material nodes
 
-  # Connect the mia_material shader to the shading group
-  cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.miPhotonShader', f=True)
-  cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.miShadowShader', f=True)
-  cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.miMaterialShader', f=True)
+    # Connect the mia_material shader to the shading group
+    cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.miPhotonShader', f=True)
+    cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.miShadowShader', f=True)
+    cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.miMaterialShader', f=True)
 
   # Old mia_material to shading group connection - replaced by Lambert preview shader
   #cmds.connectAttr(starglobe_mia_shader_name+'.message', starglobe_mia_shader_group_name+'.surfaceShader', f=True)
 
-  # Enable the Hypershade shading group "Suppress all Maya Shaders" checkbox so only the mental ray nodes will be used.
-  # This ensures the preview material will be skipped from rendering in older versions of Maya.
-  cmds.setAttr(starglobe_mia_shader_group_name+'.miExportMrMaterial', 1)
+  if cmds.checkBoxGrp('checkGrpCreateStarglobeMentalRayMaterials', query=True, value1=True) == True:
+    # Enable the Hypershade shading group "Suppress all Maya Shaders" checkbox so only the mental ray nodes will be used.
+    # This ensures the preview material will be skipped from rendering in older versions of Maya.
+    cmds.setAttr(starglobe_mia_shader_group_name+'.miExportMrMaterial', 1)
 
   # Assign the starglobe surface material to the shape: polyStarglobe
   #polyStarglobe
@@ -1851,9 +1871,15 @@ def createStarglobe():
   # No objects were selected
   if not object_selection:
     #print "No objects selected"
+    
     # Select the surface material
-    cmds.select(starglobe_mia_shader_name, r=True)
-
+    if cmds.checkBoxGrp('checkGrpCreateStarglobeMentalRayMaterials', query=True, value1=True) == True:
+      # mental ray native material
+      cmds.select(starglobe_mia_shader_name, r=True)
+    else:
+      # Maya software renderer native material
+      cmds.select(starglobe_preview_shader_name, r=True)
+      
   # Return the name of the starglobe
   return 'polyStarglobe'
 

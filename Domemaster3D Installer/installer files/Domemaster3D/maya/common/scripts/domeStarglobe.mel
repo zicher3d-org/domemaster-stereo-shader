@@ -9,8 +9,8 @@
   ----------------
   
   Version 2.2.2
-  -------------
-  2016-12-28
+  ---------------
+  2016-12-29
   
   Added Maya 2017 Workspace Control support to the Starglobe window
   
@@ -170,7 +170,7 @@ global proc SaveDockedStarglobeWindowPos(){
 
 
 global proc createStarglobe(){
-  global int $starglobeWindowWidth = 500;
+  global int $starglobeWindowWidth = 750;
   global int $starglobeWindowHeight = 300;
   
   string $scrollLayoutParent;
@@ -296,8 +296,17 @@ global proc createStarglobe(){
       
       setParent ..; 
 
-    separator -style "none";  
-
+    separator -style "none"; 
+    
+    checkBoxGrp
+        -numberOfCheckBoxes 1
+        -label1 "Create Starglobe mental ray materials"
+        -value1 1
+        -annotation "This control allows you to create the mental ray native starglobe surface materials. \nWhen disabled only Maya software renderer texturing nodes are used."
+        checkGrpCreateStarglobeMentalRayMaterials;
+        
+    separator -style "none"; 
+    
     button 
       -label "Create Starglobe" 
       -annotation "Create a new starglobe object."

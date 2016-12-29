@@ -1,4 +1,4 @@
-Packaging a Domemaster3D Release - 2016-12-27 
+Packaging a Domemaster3D Release - 2016-12-29 
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
 
@@ -76,7 +76,7 @@ sudo chmod -R 755 ./
 
 # Zip the files
 cd "/Applications/BitRock InstallBuilder Enterprise 16.7.0/output/"
-zip -r Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install.zip Domemaster3D-X.X-Linux-macOS-Windows-Manual-Install
+zip -r Domemaster3D-2.2.2-Linux-macOS-Windows-Manual-Install.zip Domemaster3D-2.2.2-Linux-macOS-Windows-Manual-Install
 
 * * *
 
@@ -105,28 +105,18 @@ zip -r Domemaster3D-X.X-windows-installer.zip "Domemaster3D Readme-Short.txt" "D
 Step 4. Upload the new release to GitHub and use the following format for the GitHub Releases Descriptions:
 
 Combined Download
-vX.X Domemaster3D vX.X for Maya + 3DS Max
 
-This is the Domemaster3D Shader vX.X release for Windows, macOS, and Linux. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2017. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+v2.2.2
+Domemaster3D v2.2.2 for Maya + 3DS Max + Cinema4D
 
+This is the Domemaster3D Shader v2.2.2 release for Windows, macOS, and Linux. This installer is compatible with 3DS Max 2009-2017, Maya 2010-2017, and Cinema4D R16-R18 with C4DtoA.
 
-vX.XW
-Domemaster3D vX.X for Maya + 3DS Max on Windows 64-bit
-This is the Domemaster3D Shader vX.X release for Maya + 3DS Max on Windows 64-bit systems. This installer is compatible with 3DS Max 2009-2017 and Maya 2010-2017. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the C:\Program Files\Domemaster3D\ folder.
+The Domemaster3D installer supports the new mental ray for Maya 3.14 release, it has an option for installing the Vray for Max shaders, and you can also install Domemaster3D beta shaders that work with Arnold MtoA and C4DtoA.
 
-
-vX.XM
-Domemaster3D vX.X for Maya on macOS
-This is the Domemaster3D Shader vX.X release for Maya on macOS 64-bit. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders that will be placed in the /Applications/Domemaster3D/ folder.
-
-This update adds support for Maya 2017.
-
-vX.XL
-Domemaster3D vX.X Manual Install for Maya + 3DS Max + Mental Ray Standalone 64-bit on Windows, macOS, Linux
-This is the Domemaster3D Shader vX.X manual install release for Maya + 3DS Max + Mental Ray Standalone. The installer also includes a copy of the Vray and Arnold Domemaster3D beta shaders.
-
-This update adds support for Maya 2017.
+The beta Vray for Maya lens shaders can be installed manually using the files placed in the C:\Program Files\Domemaster3D\vray\ folder.
 
 Step 5. Update the GitHub based Version History Wiki page with the details from the Domemaster3D Readme-Short.txt file:
 https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Maya-Domemaster3D-Version-History
+
+
 

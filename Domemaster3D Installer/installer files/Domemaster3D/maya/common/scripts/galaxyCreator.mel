@@ -1,5 +1,5 @@
 /*
-  Galaxy Creator GUI V1.9
+  Galaxy Creator GUI V2.2
   by Andrew Hazelden
 
   This is a Maya GUI wrapper for Martin Watt's galaxy script.
@@ -7,6 +7,12 @@
   Version History
   ----------------
 
+  Version 2.2
+  -----------
+  2016-12-28
+  
+  Added Maya 2017 Workspace Control support to the Galaxy Creator window
+  
   Version 2.1
   -----------
   2016-08-02
@@ -91,37 +97,37 @@
 */
 
  global proc showEllipticalGalaxyOptions(){
-  if (`layout -exists spiralGalaxyLayout`){
+  if(`layout -exists spiralGalaxyLayout`){
     layout -edit -visible false spiralGalaxyLayout;
   }
 
-  if (`layout -exists ellipticalGalaxyLayout`){
+  if(`layout -exists ellipticalGalaxyLayout`){
     layout -edit -visible true ellipticalGalaxyLayout;
   }
 }
 
 
  global proc showSpiralGalaxyOptions(){
-  if (`layout -exists spiralGalaxyLayout`){
+  if(`layout -exists spiralGalaxyLayout`){
     layout -edit -visible true spiralGalaxyLayout;
   }
   
-  if (`layout -exists ellipticalGalaxyLayout`){
+  if(`layout -exists ellipticalGalaxyLayout`){
     layout -edit -visible false ellipticalGalaxyLayout;
   }
 }
 
-//Choose between the "Cloud" "MultiPoint" "MultiStreak" particleType option menu layouts
+// Choose between the "Cloud" "MultiPoint" "MultiStreak" particleType option menu layouts
 global proc updateParticleTypeView(){
-  if (`optionMenuGrp  -exists menuParticleType`){
+  if(`optionMenuGrp  -exists menuParticleType`){
     int $particleType =`optionMenuGrp -query -select menuParticleType`-1;
     if( $particleType == 0 ){
       showCloudShadingOptions();
-    } else if ( $particleType == 1 ){
+    }else if( $particleType == 1 ){
       showMultipointShadingOptions();
-    } else if ( $particleType == 2 ){
+    }else if( $particleType == 2 ){
       showMultistreakShadingOptions();
-    } else {
+    }else{
       showCloudShadingOptions();
     }
   }
@@ -131,60 +137,59 @@ global proc updateParticleTypeView(){
 global proc showCloudShadingOptions(){
   print("Showing the cloud particle shading layout.\n");
 
-  if (`layout -exists cloudShadingLayout`){
+  if(`layout -exists cloudShadingLayout`){
     layout -edit -visible true cloudShadingLayout;
     
-    ////Set up the cloud galaxy color
+    // Set up the cloud galaxy color
     evalDeferred("colorSliderGrp -edit -rgb 0.242 0.339 0.502 sliderGalaxyColor;");
   }
   
-  if (`layout -exists multipointShadingLayout`){
+  if(`layout -exists multipointShadingLayout`){
     layout -edit -visible false multipointShadingLayout;
   }
   
-  if (`layout -exists multistreakShadingLayout`){
+  if(`layout -exists multistreakShadingLayout`){
     layout -edit -visible false multistreakShadingLayout;
   }
 }
 
 global proc showMultipointShadingOptions(){
   print("Showing the MultiPoint particle shading layout.\n");
-  if (`layout -exists cloudShadingLayout`){
+  if(`layout -exists cloudShadingLayout`){
     layout -edit -visible false cloudShadingLayout;
   }
   
-  if (`layout -exists multipointShadingLayout`){
+  if(`layout -exists multipointShadingLayout`){
     layout -edit -visible true multipointShadingLayout;
     
-    //Set up the multipoint galaxy color
-    //evalDeferred("colorSliderGrp -edit -rgb 0.084 0.118 0.175 sliderGalaxyColor;");
+    // Set up the multipoint galaxy color
+    // evalDeferred("colorSliderGrp -edit -rgb 0.084 0.118 0.175 sliderGalaxyColor;");
     evalDeferred("colorSliderGrp -edit -rgb 0.067 0.094 0.140 sliderGalaxyColor;");
   }
   
-  if (`layout -exists multistreakShadingLayout`){
+  if(`layout -exists multistreakShadingLayout`){
     layout -edit -visible false multistreakShadingLayout;
   }
 }
 
 global proc showMultistreakShadingOptions(){
   print("Showing the MultiStreak particle shading layout.\n");
-  if (`layout -exists cloudShadingLayout`){
+  if(`layout -exists cloudShadingLayout`){
     layout -edit -visible false cloudShadingLayout;
   }
   
-  if (`layout -exists multipointShadingLayout`){
+  if(`layout -exists multipointShadingLayout`){
     layout -edit -visible false multipointShadingLayout;
   }
   
-  if (`layout -exists multistreakShadingLayout`){
+  if(`layout -exists multistreakShadingLayout`){
     layout -edit -visible true multistreakShadingLayout;
     
-    //Set up the multistreak galaxy color
-    //evalDeferred("colorSliderGrp -edit -rgb 0.084 0.118 0.175 sliderGalaxyColor;");
+    // Set up the multistreak galaxy color
+    // evalDeferred("colorSliderGrp -edit -rgb 0.084 0.118 0.175 sliderGalaxyColor;");
     evalDeferred("colorSliderGrp -edit -rgb 0.067 0.094 0.140 sliderGalaxyColor;");
   }
 }
-
 
 
 // Check what Maya version is active:
@@ -203,12 +208,12 @@ global proc int getMayaVersionDome(){
 }
 
 
-//Add a GalaxyCreator version number attribute to the nodes' extra attribute fields
+// Add a GalaxyCreator version number attribute to the nodes' extra attribute fields
 global proc addGalaxyCreatorVersionAttrs(string $nodeName){
-  //Current Dome Text Node Version
-  string $attrName ="GalaxyCreatorVersion";
+  // Current Dome Text Node Version
+  string $attrName = "GalaxyCreatorVersion";
   int $GalaxyCreatorVersion = 1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 0 $nodeName;
     setAttr ($nodeName+"."+$attrName) $GalaxyCreatorVersion;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
@@ -216,59 +221,66 @@ global proc addGalaxyCreatorVersionAttrs(string $nodeName){
 }
 
 
-//Add custom color swatches and data to the nodes' extra attribute fields
+// Add custom color swatches and data to the nodes' extra attribute fields
 global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
-  //string $NodeName = "galaxyParticle";
+  // string $NodeName = "galaxyParticle";
+  string $attrName;
+  string $attrRName;
+  string $attrGName;
+  string $attrBName;
+  string $attrXName;
+  string $attrYName;
+  string $attrZName;
   
-  //Add current galaxy node type "nucleus", "galaxy"
-  string $attrName ="galaxyMode";
-  if (!`attributeExists $attrName $nodeName`) {
+  // Add current galaxy node type "nucleus", "galaxy"
+  $attrName = "galaxyMode";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -dt "string" $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr -type "string" ($nodeName+"."+$attrName) $galaxyMode;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add Galaxy Orientation options menu
-  string $attrName ="galaxyOrientation";
+  // Add Galaxy Orientation options menu
+  $attrName = "galaxyOrientation";
   int $planarDir =`optionMenuGrp -query -select menuGalaxyOrient`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Right View:Top View:Front View:" $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $planarDir;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Galaxy Type radio buttons
-  string $attrName ="galaxyType";
+  // Add Galaxy Type radio buttons
+  $attrName = "galaxyType";
   int $GalaxyType =`radioButtonGrp -query -select radioGalaxyType`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Spiral Galaxy:Elliptical Galaxy:" $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $GalaxyType;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Orbit Type radio buttons
-  string $attrName ="EllipticalOrbitType";
+  // Add Orbit Type radio buttons
+  $attrName = "EllipticalOrbitType";
   int $radial =`radioButtonGrp -query -select radioEllipticalOrbitType`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Radial:Transverse:" $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $radial;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
     
-   //Add Galaxy Origin
+  // Add Galaxy Origin
   float $centre[3] = {0,0,0};
   $centre[0] = `floatFieldGrp -query -value1 fieldGalaxyCentre`; 
   $centre[1] = `floatFieldGrp -query -value2 fieldGalaxyCentre`; 
   $centre[2] = `floatFieldGrp -query -value3 fieldGalaxyCentre`; 
-  string $attrName ="galaxyOrigin";
-  string $attrXName = "galaxyOriginX";
-  string $attrYName = "galaxyOriginY";
-  string $attrZName = "galaxyOriginZ";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "galaxyOrigin";
+  $attrXName = "galaxyOriginX";
+  $attrYName = "galaxyOriginY";
+  $attrZName = "galaxyOriginZ";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 $nodeName;
     addAttr -ln $attrXName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrYName -at "float" -p $attrName $nodeName;
@@ -277,16 +289,16 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Galaxy Rotation
+  // Add Galaxy Rotation
   float $galaxyRotate[3] = {0,0,0};
   $galaxyRotate[0] = `floatFieldGrp -query -value1 fieldGalaxyRotation`; 
   $galaxyRotate[1] = `floatFieldGrp -query -value2 fieldGalaxyRotation`; 
   $galaxyRotate[2] = `floatFieldGrp -query -value3 fieldGalaxyRotation`; 
-  string $attrName ="galaxyRotation";
-  string $attrXName = "galaxyRotationX";
-  string $attrYName = "galaxyRotationY";
-  string $attrZName = "galaxyRotationZ";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "galaxyRotation";
+  $attrXName = "galaxyRotationX";
+  $attrYName = "galaxyRotationY";
+  $attrZName = "galaxyRotationZ";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 $nodeName;
     addAttr -ln $attrXName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrYName -at "float" -p $attrName $nodeName;
@@ -295,16 +307,16 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }  
     
-  //Add Galaxy Velocity
+  // Add Galaxy Velocity
   float $vel[3] = {0,0,0};
   $vel[0] = `floatFieldGrp -query -value1 fieldGalaxyVel`; 
   $vel[1] = `floatFieldGrp -query -value2 fieldGalaxyVel`; 
   $vel[2] = `floatFieldGrp -query -value3 fieldGalaxyVel`; 
-  string $attrName ="galaxyVelocity";
-  string $attrXName = "galaxyVelocityX";
-  string $attrYName = "galaxyVelocityY";
-  string $attrZName = "galaxyVelocityZ";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "galaxyVelocity";
+  $attrXName = "galaxyVelocityX";
+  $attrYName = "galaxyVelocityY";
+  $attrZName = "galaxyVelocityZ";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 $nodeName;
     addAttr -ln $attrXName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrYName -at "float" -p $attrName $nodeName;
@@ -313,76 +325,76 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }  
   
-  //Add Simulation Speed
-  string $attrName ="galaxySimulationSpeed";
+  // Add Simulation Speed
+  $attrName = "galaxySimulationSpeed";
   int $speedUp = `intSliderGrp -query -value sliderSpeedUp`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 1 -max 1000 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $speedUp;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-   //Add Number of Stars
-  string $attrName ="galaxyNumberStars";
+  // Add Number of Stars
+  $attrName = "galaxyNumberStars";
   int $numStars = `intSliderGrp -query -value sliderGalaxyNumStars`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 10 -max 2000000 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $numStars;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add Galaxy Radius
-  string $attrName ="galaxyRadius";
+  // Add Galaxy Radius
+  $attrName = "galaxyRadius";
   int $galaxyRadius = `intSliderGrp -query -value sliderGalaxyNumRadius`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 1 -max 20000 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $galaxyRadius;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Spiral Arms
-  string $attrName ="galaxySpiralArms";
+  // Add Spiral Arms
+  $attrName = "galaxySpiralArms";
   int $numSpiralArms = `intSliderGrp -query -value sliderGalaxyNumSpiralArms`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 2 -max 20000 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $numSpiralArms;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Galaxy Turns
-  string $attrName ="galaxyTurns";
+  // Add Galaxy Turns
+  $attrName = "galaxyTurns";
   float $numTurns = `floatSliderGrp -query -value sliderGalaxyNumTurns`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0.1 -max 2000 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $numTurns;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
     
-  //Add Particle Type options menu
-  string $attrName ="galaxyParticleType";
+  // Add Particle Type options menu
+  $attrName = "galaxyParticleType";
   int $particleType =`optionMenuGrp -query -select menuParticleType`-1;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at "enum" -en "Cloud:MultiPoint:MultiStreak:" $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $particleType;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }  
   
-  //Color Swatches
+  // Color Swatches
   float $galaxyRGBcolor[3] = `colorSliderGrp -query -rgb sliderGalaxyColor`;
   float $nucleusRGBcolor[3] = `colorSliderGrp -query -rgb sliderNucleusColor`;
   
-  //Add Nucleus Color Swatch
-  string $attrName ="nucleusColor";
-  string $attrRName = "nucleusColorR";
-  string $attrGName = "nucleusColorG";
-  string $attrBName = "nucleusColorB";
-  if (!`attributeExists $attrName $nodeName`) {
+  // Add Nucleus Color Swatch
+  $attrName = "nucleusColor";
+  $attrRName = "nucleusColorR";
+  $attrGName = "nucleusColorG";
+  $attrBName = "nucleusColorB";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 -uac $nodeName;
     addAttr -ln $attrRName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrGName -at "float" -p $attrName $nodeName;
@@ -392,12 +404,12 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     print("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Galaxy Color Swatch
-  string $attrName ="galaxyColor";
-  string $attrRName = "galaxyColorR";
-  string $attrGName = "galaxyColorG";
-  string $attrBName = "galaxyColorB";
-  if (!`attributeExists $attrName $nodeName`) {
+  // Add Galaxy Color Swatch
+  $attrName = "galaxyColor";
+  $attrRName = "galaxyColorR";
+  $attrGName = "galaxyColorG";
+  $attrBName = "galaxyColorB";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 -uac $nodeName;
     addAttr -ln $attrRName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrGName -at "float" -p $attrName $nodeName;
@@ -406,49 +418,49 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     setAttr -type float3 ($nodeName+"."+$attrName) $galaxyRGBcolor[0] $galaxyRGBcolor[1] $galaxyRGBcolor[2];
     print("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
     
-    //Link the extra attribute and the real control
-    //connectControl sliderGalaxyColor ($nodeName+"."+$attrName);
+    // Link the extra attribute and the real control
+    // connectControl sliderGalaxyColor ($nodeName+"."+$attrName);
   }
   
 
   //------------------------------------------------------------------------
-  //Cloud Particle Type
+  // Cloud Particle Type
   //------------------------------------------------------------------------
 
-  //Add Nucleus Particle Radius
-  string $attrName ="nucleusParticleRadius";
+  // Add Nucleus Particle Radius
+  $attrName = "nucleusParticleRadius";
   float $nucleusRadius = `floatSliderGrp -query -value sliderNucleusRadius`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0.01 -max 20.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $nucleusRadius;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Nucleus Glow Intensity
-  string $attrName ="nucleusGlowIntensity";
+  // Add Nucleus Glow Intensity
+  $attrName = "nucleusGlowIntensity";
   float $nucleusGlowIntensity = `floatSliderGrp -query -value sliderNucleusGlowIntensity`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0 -max 20.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $nucleusGlowIntensity;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
    
-  //Add Galaxy Particle Radius
-  string $attrName ="galaxyParticleRadius";
+  // Add Galaxy Particle Radius
+  $attrName = "galaxyParticleRadius";
   float $partiRadius = `floatSliderGrp -query -value sliderParticleRadius`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0.01 -max 20.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $partiRadius;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add Galaxy Glow Intensity
-  string $attrName ="galaxyGlowIntensity";
+  // Add Galaxy Glow Intensity
+  $attrName = "galaxyGlowIntensity";
   float $galaxyGlowIntensity = `floatSliderGrp -query -value sliderGalaxyGlowIntensity`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0 -max 20.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $galaxyGlowIntensity;
@@ -456,17 +468,17 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
   }
 
   //------------------------------------------------------------------------
-  //MultiStreak Particle Type
+  // MultiStreak Particle Type
   //------------------------------------------------------------------------
   
   float $galaxyRGBStreakTransparency[3] = `colorSliderGrp -query -rgb sliderGalaxyMultistreakTransparency`;
     
-  //Add Transparency Color Swatch
-  string $attrName ="galaxyMultistreakTransparency";
-  string $attrRName = "galaxyMultistreakTransparencyR";
-  string $attrGName = "galaxyMultistreakTransparencyG";
-  string $attrBName = "galaxyMultistreakTransparencyB";
-  if (!`attributeExists $attrName $nodeName`) {
+  // Add Transparency Color Swatch
+  $attrName = "galaxyMultistreakTransparency";
+  $attrRName = "galaxyMultistreakTransparencyR";
+  $attrGName = "galaxyMultistreakTransparencyG";
+  $attrBName = "galaxyMultistreakTransparencyB";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 -uac $nodeName;
     addAttr -ln $attrRName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrGName -at "float" -p $attrName $nodeName;
@@ -475,54 +487,54 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     setAttr -type float3 ($nodeName+"."+$attrName) $galaxyRGBStreakTransparency[0] $galaxyRGBStreakTransparency[1] $galaxyRGBStreakTransparency[2];
     print("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
    
-    //Link the extra attribute and the real control
-    //connectControl sliderGalaxyMultistreakTransparency ($nodeName+"."+$attrName);
+    // Link the extra attribute and the real control
+    // connectControl sliderGalaxyMultistreakTransparency ($nodeName+"."+$attrName);
   }
   
-   //Add galaxyMultistreakCount
-  string $attrName ="galaxyMultistreakCount";
+  // Add galaxyMultistreakCount
+  $attrName = "galaxyMultistreakCount";
   int $galaxyMultistreakCount = `intSliderGrp -query -value sliderParticleMultistreakCount`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 1 -max 60 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $galaxyMultistreakCount;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-   //Add galaxyMultistreakRadius
-  string $attrName ="galaxyMultistreakRadius";
+  // Add galaxyMultistreakRadius
+  $attrName = "galaxyMultistreakRadius";
   float $galaxyMultistreakRadius = `floatSliderGrp -query -value sliderParticleMultistreakRadius`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0 -max 10.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $galaxyMultistreakRadius;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add sliderParticleMultistreakLineWidth
-  string $attrName ="galaxyMultistreakLineWidth";
+  // Add sliderParticleMultistreakLineWidth
+  $attrName = "galaxyMultistreakLineWidth";
   int $galaxyMultistreakLineWidth = `intSliderGrp -query -value sliderParticleMultistreakLineWidth`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 1 -max 20 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $galaxyMultistreakLineWidth;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add galaxyMultistreakTailFade
-  string $attrName ="galaxyMultistreakTailFade";
+  // Add galaxyMultistreakTailFade
+  $attrName = "galaxyMultistreakTailFade";
   float $galaxyMultistreakTailFade = `floatSliderGrp -query -value sliderParticleMultistreakTailFade`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min -1 -max 1 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $galaxyMultistreakTailFade;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add galaxyMultistreakTailSize
-  string $attrName ="galaxyMultistreakTailSize";
+  // Add galaxyMultistreakTailSize
+  $attrName = "galaxyMultistreakTailSize";
   float $galaxyMultistreakTailSize = `floatSliderGrp -query -value sliderParticleMultistreakTailSize`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min -100 -max 100.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $galaxyMultistreakTailSize;
@@ -531,17 +543,17 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
   
   
   //------------------------------------------------------------------------
-  //MultiPoint Particle Type
+  // MultiPoint Particle Type
   //------------------------------------------------------------------------
   
   float $galaxyRGBPointTransparency[3] = `colorSliderGrp -query -rgb sliderGalaxyMultipointTransparency`;
     
-  //Add Transparency Color Swatch
-  string $attrName ="galaxyMultipointTransparency";
-  string $attrRName = "galaxyMultipointTransparencyR";
-  string $attrGName = "galaxyMultipointTransparencyG";
-  string $attrBName = "galaxyMultipointTransparencyB";
-  if (!`attributeExists $attrName $nodeName`) {
+  // Add Transparency Color Swatch
+  $attrName = "galaxyMultipointTransparency";
+  $attrRName = "galaxyMultipointTransparencyR";
+  $attrGName = "galaxyMultipointTransparencyG";
+  $attrBName = "galaxyMultipointTransparencyB";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at float3 -uac $nodeName;
     addAttr -ln $attrRName -at "float" -p $attrName $nodeName;
     addAttr -ln $attrGName -at "float" -p $attrName $nodeName;
@@ -551,20 +563,20 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
     print("Adding custom attributes " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add galaxyMultipointCount
-  string $attrName ="galaxyMultipointCount";
+  // Add galaxyMultipointCount
+  $attrName = "galaxyMultipointCount";
   int $galaxyMultipointCount = `intSliderGrp -query -value sliderParticleMultipointCount`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 1 -max 60 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $galaxyMultipointCount;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add galaxyMultipointRadius
-  string $attrName ="galaxyMultipointRadius";
+  // Add galaxyMultipointRadius
+  $attrName = "galaxyMultipointRadius";
   float $galaxyMultipointRadius = `floatSliderGrp -query -value sliderParticleMultipointRadius`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at double -min 0 -max 10.0 $nodeName;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     setAttr ($nodeName+"."+$attrName) $galaxyMultipointRadius;
@@ -572,10 +584,10 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
   }
   
   
-  //Add galaxyMultipointSize
-  string $attrName ="galaxyMultipointSize";
+  // Add galaxyMultipointSize
+  $attrName = "galaxyMultipointSize";
   int $galaxyMultipointSize = `intSliderGrp -query -value sliderParticleMultipointPointSize`;
-  if (!`attributeExists $attrName $nodeName`) {
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at long -min 1 -max 60 $nodeName;
     setAttr -edit -channelBox true ($nodeName+"."+$attrName);
     setAttr ($nodeName+"."+$attrName) $galaxyMultipointSize;
@@ -583,43 +595,43 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
   }
   
   //------------------------------------------------------------------------
-  //End of particle type section
+  // End of particle type section
   //------------------------------------------------------------------------
   
-  //Add a skip nucleus particle creation checkbox
+  // Add a skip nucleus particle creation checkbox
   int $skipCreatingNucleusParticle = `checkBox -query -value skipNucleusParticle`;
-  string $attrName ="skipNucleusParticle";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "skipNucleusParticle";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $skipCreatingNucleusParticle;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add a cloud material to particles checkbox
+  // Add a cloud material to particles checkbox
   int $galaxyMaterial = `checkBox -query -value changeGalaxyMaterial`;
-  string $attrName ="addGalaxyMaterial";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "addGalaxyMaterial";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $galaxyMaterial;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
   
-  //Add a use particle lighting checkbox
+  // Add a use particle lighting checkbox
   int $useParticleLighting = `checkBox -query -value changeUseLighting`;
-  string $attrName ="useParticleLighting";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "useParticleLighting";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $useParticleLighting;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
     print("Adding custom attribute " + $nodeName +"." +$attrName + "\n");
   }
 
-  //Add a connect all particles to newtonFields checkbox
+  // Add a connect all particles to newtonFields checkbox
   int $connectAllNewtonFields = `checkBox -query -value changeAllNewtonFields`;
-  string $attrName ="connectAllNewtonFields";
-  if (!`attributeExists $attrName $nodeName`) {
+  $attrName = "connectAllNewtonFields";
+  if(!`attributeExists $attrName $nodeName`){
     addAttr -ln $attrName -at bool $nodeName;
     setAttr ($nodeName+"."+$attrName) $connectAllNewtonFields;
     //setAttr -edit -keyable true $nodeName+"."+$attrName;
@@ -628,28 +640,27 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
 }
 
 
-//Reload the GalaxyCreator settings from the selected particle node
- global proc restoreGalaxyCreatorPreset( string $nodeName ){
- 
-  //Skip processing the popup menu caption text
+// Reload the GalaxyCreator settings from the selected particle node
+global proc restoreGalaxyCreatorPreset( string $nodeName ){
+  // Skip processing the popup menu caption text
   if($nodeName == "Select a Galaxy Creator Node...") return;
 
-  //Make sure the node exists before working with it
+  // Make sure the node exists before working with it
   if(`objExists $nodeName`){
     print("Restoring editable GalaxyCreator from: " + $nodeName + "\n");
     
-    //Find out if the current node is a maya particle node
+    // Find out if the current node is a Maya particle node
     string $particleNodeType = `nodeType($nodeName)`;
-    if( $particleNodeType == "particle"){
-      //Maya particle
+    if($particleNodeType == "particle"){
+      // Maya particle
       //optionMenuGrp -edit -select 1 menuGalaxyFormat;
-    } else if ($particleNodeType == "newtonField"){
-      //Maya Newton Field
+    }else if($particleNodeType == "newtonField"){
+      // Maya Newton Field
       //optionMenuGrp -edit -select 2 menuGalaxyFormat;
     }
     
-    //Restore the note message
-    if (`attributeExists "nts" $nodeName`) {
+    // Restore the note message
+    if(`attributeExists "nts" $nodeName`){
       print "The note attribute exists.\n";
    
       //Read the textual note from the particle node
@@ -659,22 +670,22 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
       //Write the value back to the Galaxy Creator window's text field
       //scrollField -edit -text $GalaxyCreatorString scrollTextString;
       print("Note: " +  $GalaxyCreatorString + "\n");
-    } else {
+    }else{
       print "The note attribute does not exist.\n";
-    } //end check if nts attr exists
+    } // End check if nts attr exists
     
     
-     //Restore Galaxy Orientation option menu
-    if (`attributeExists "galaxyOrientation" $nodeName`){
+    // Restore Galaxy Orientation option menu
+    if(`attributeExists "galaxyOrientation" $nodeName`){
       print "The galaxyOrientation attribute exists.\n";
       int $planarDir = 1+ getAttr ($nodeName+".galaxyOrientation");
       optionMenuGrp -edit -select $planarDir menuGalaxyOrient;
-    } else {
+    }else{
       print "The galaxyOrientation attribute does not exist.\n";
-    } //end check if galaxyOrientation attr exists
+    } // End check if galaxyOrientation attr exists
     
-     //Restore Galaxy Type radio buttons
-    if (`attributeExists "galaxyType" $nodeName`){
+    // Restore Galaxy Type radio buttons
+    if(`attributeExists "galaxyType" $nodeName`){
       print "The galaxyType attribute exists.\n";
       int $GalaxyType = 1+ getAttr ($nodeName+".galaxyType");
       radioButtonGrp -edit -select $GalaxyType radioGalaxyType;
@@ -684,330 +695,328 @@ global proc addGalaxyNodeAttrs(string $nodeName, string $galaxyMode){
       }else{
         evalDeferred("showSpiralGalaxyOptions();");
       }
-    } else {
+    }else{
       print "The galaxyType attribute does not exist.\n";
-    } //end check if galaxyType attr exists
+    } // End check if galaxyType attr exists
     
-    //Restore EllipticalOrbitType radio buttons
-    if (`attributeExists "EllipticalOrbitType" $nodeName`){
+    // Restore EllipticalOrbitType radio buttons
+    if(`attributeExists "EllipticalOrbitType" $nodeName`){
       print "The EllipticalOrbitType attribute exists.\n";
       int $radial = 1+ getAttr ($nodeName+".EllipticalOrbitType");
       radioButtonGrp -edit -select $radial radioEllipticalOrbitType;
-    } else {
+    }else{
       print "The EllipticalOrbitType attribute does not exist.\n";
-    } //end check if EllipticalOrbitType attr exists
+    } // End check if EllipticalOrbitType attr exists
     
-    //Restore Particle Type option menu
-    if (`attributeExists "galaxyParticleType" $nodeName`){
+    // Restore Particle Type option menu
+    if(`attributeExists "galaxyParticleType" $nodeName`){
       print "The galaxyParticleType attribute exists.\n";
       int $ParticleType = 1+ getAttr ($nodeName+".galaxyParticleType");
       optionMenuGrp -edit -select $ParticleType menuParticleType;
       evalDeferred("updateParticleTypeView();");
-    } else {
+    }else{
       print "The galaxyParticleType attribute does not exist.\n";
-    } //end check if ParticleType attr exists
+    } // End check if ParticleType attr exists
  
-    //Restore Galaxy Origin
-    if (`attributeExists "galaxyOrigin" $nodeName`) {
+    // Restore Galaxy Origin
+    if(`attributeExists "galaxyOrigin" $nodeName`){
       print "The galaxyOrigin attribute exists.\n";
       float $centre[3] = `getAttr ($nodeName+".galaxyOrigin")`;
       floatFieldGrp -edit -value1 $centre[0] -value2 $centre[1] -value3 $centre[2] fieldGalaxyCentre;
-    } else {
+    }else{
       print "The galaxyOrigin attribute does not exist.\n";
-    } //end check if galaxyOrigin attr exist 
+    } // End check if galaxyOrigin attr exist 
  
-    //Restore Galaxy Rotation
-    if (`attributeExists "galaxyRotation" $nodeName`) {
+    // Restore Galaxy Rotation
+    if(`attributeExists "galaxyRotation" $nodeName`){
       print "The galaxyRotation attribute exists.\n";
       float $galaxyRotate[3] = `getAttr ($nodeName+".galaxyRotation")`;
       floatFieldGrp -edit -value1 $galaxyRotate[0] -value2 $galaxyRotate[1] -value3 $galaxyRotate[2] fieldGalaxyRotation;
-    } else {
+    }else{
       print "The galaxyRotation attribute does not exist.\n";
-    } //end check if galaxyRotation attr exist
+    } // End check if galaxyRotation attr exist
  
-     //Restore Galaxy Velocity
-    if (`attributeExists "galaxyVelocity" $nodeName`) {
+    // Restore Galaxy Velocity
+    if(`attributeExists "galaxyVelocity" $nodeName`){
       print "The galaxyVelocity attribute exists.\n";
       float $vel[3] = `getAttr ($nodeName+".galaxyVelocity")`;
       floatFieldGrp -edit -value1 $vel[0] -value2 $vel[1] -value3 $vel[2] fieldGalaxyVel;
-    } else {
+    }else{
       print "The galaxyVelocity attribute does not exist.\n";
-    } //end check if galaxyVelocity attr exist
+    } // End check if galaxyVelocity attr exist
  
-     //Restore the Simulation Speed
-    if (`attributeExists "galaxySimulationSpeed" $nodeName`){
+    // Restore the Simulation Speed
+    if(`attributeExists "galaxySimulationSpeed" $nodeName`){
       print "The galaxySimulationSpeed attribute exists.\n";
       int $speedUp = getAttr ($nodeName+".galaxySimulationSpeed");
       intSliderGrp -edit -value $speedUp sliderSpeedUp;
-    } else {
+    }else{
       print "The galaxySimulationSpeed attribute does not exist.\n";
-    } //end check if galaxySimulationSpeed attr exists
+    } // End check if galaxySimulationSpeed attr exists
  
-    //Restore the Number of Stars
-    if (`attributeExists "galaxyNumberStars" $nodeName`){
+    // Restore the Number of Stars
+    if(`attributeExists "galaxyNumberStars" $nodeName`){
       print "The galaxyNumberStars attribute exists.\n";
       int $numStars = getAttr ($nodeName+".galaxyNumberStars");
       intSliderGrp -edit -value $numStars sliderGalaxyNumStars;
-    } else {
+    }else{
       print "The galaxyNumberStars attribute does not exist.\n";
-    } //end check if galaxyNumberStars attr exists
+    } // End check if galaxyNumberStars attr exists
     
-    //Restore the Galaxy Radius
-    if (`attributeExists "galaxyRadius" $nodeName`){
+    // Restore the Galaxy Radius
+    if(`attributeExists "galaxyRadius" $nodeName`){
       print "The galaxyRadius attribute exists.\n";
       int $galaxyRadius = getAttr ($nodeName+".galaxyRadius");
       intSliderGrp -edit -value $galaxyRadius sliderGalaxyNumRadius;
-    } else {
+    }else{
       print "The galaxyRadius attribute does not exist.\n";
-    } //end check if galaxyRadius attr exists
+    } // End check if galaxyRadius attr exists
     
-    //Restore the Spiral Arms
-    if (`attributeExists "galaxySpiralArms" $nodeName`){
+    // Restore the Spiral Arms
+    if(`attributeExists "galaxySpiralArms" $nodeName`){
       print "The galaxySpiralArms attribute exists.\n";
       int $numTurns = getAttr ($nodeName+".galaxySpiralArms");
       intSliderGrp -edit -value $numTurns sliderGalaxyNumSpiralArms;
-    } else {
+    }else{
       print "The galaxySpiralArms attribute does not exist.\n";
-    } //end check if galaxySpiralArms attr exists
-        
-    //Restore the Galaxy Turns
-    if (`attributeExists "galaxyTurns" $nodeName`){
+    } // End check if galaxySpiralArms attr exists
+    
+    // Restore the Galaxy Turns
+    if(`attributeExists "galaxyTurns" $nodeName`){
       print "The galaxyTurns attribute exists.\n";
       float $numTurns = getAttr ($nodeName+".galaxyTurns");
       floatSliderGrp -edit -value $numTurns sliderGalaxyNumTurns;
-    } else {
+    }else{
       print "The galaxyTurns attribute does not exist.\n";
-    } //end check if galaxyTurns attr exists
+    } // End check if galaxyTurns attr exists
        
-    //Restore color swatches
-    if (`attributeExists "galaxyColor" $nodeName` && `attributeExists "nucleusColor" $nodeName`) {
+    // Restore color swatches
+    if(`attributeExists "galaxyColor" $nodeName` && `attributeExists "nucleusColor" $nodeName`){
       print "The galaxyColor and nucleusColor attributes exist.\n";
       float $galaxyRGBcolor[3] = `getAttr ($nodeName+".galaxyColor")`;
       float $nucleusRGBcolor[3] = `getAttr ($nodeName+".nucleusColor")`;    
       colorSliderGrp -edit -rgb $galaxyRGBcolor[0] $galaxyRGBcolor[1] $galaxyRGBcolor[2] sliderGalaxyColor;
       colorSliderGrp -edit -rgb $nucleusRGBcolor[0] $nucleusRGBcolor[1] $nucleusRGBcolor[2] sliderNucleusColor;
-    } else {
+    }else{
       print "The galaxyColor and nucleusColor attributes do not exist.\n";
-    } //end check if color attr exist
+    } // End check if color attr exist
 
     //------------------------------------------------------------------------
-    //Cloud Particle Type
+    // Cloud Particle Type
     //------------------------------------------------------------------------
         
-    //Restore the nucleusParticleRadius
-    if (`attributeExists "nucleusParticleRadius" $nodeName`){
+    // Restore the nucleusParticleRadius
+    if(`attributeExists "nucleusParticleRadius" $nodeName`){
       print "The nucleusParticleRadius attribute exists.\n";
       float $nucleusRadius = getAttr ($nodeName+".nucleusParticleRadius");
       floatSliderGrp -edit -value $nucleusRadius sliderNucleusRadius;
-    } else {
+    }else{
       print "The nucleusParticleRadius attribute does not exist.\n";
-    } //end check if nucleusParticleRadius attr exists
+    } // End check if nucleusParticleRadius attr exists
        
-    //Restore the nucleusGlowIntensity
-    if (`attributeExists "nucleusGlowIntensity" $nodeName`){
+    // Restore the nucleusGlowIntensity
+    if(`attributeExists "nucleusGlowIntensity" $nodeName`){
       print "The nucleusGlowIntensity attribute exists.\n";
       float $nucleusGlowIntensity = getAttr ($nodeName+".nucleusGlowIntensity");
       floatSliderGrp -edit -value $nucleusGlowIntensity sliderNucleusGlowIntensity;
-    } else {
+    }else{
       print "The nucleusGlowIntensity attribute does not exist.\n";
-    } //end check if nucleusGlowIntensity attr exists
+    } // End check if nucleusGlowIntensity attr exists
     
-     //Restore the galaxyParticleRadius
-    if (`attributeExists "galaxyParticleRadius" $nodeName`){
+    // Restore the galaxyParticleRadius
+    if(`attributeExists "galaxyParticleRadius" $nodeName`){
       print "The galaxyParticleRadius attribute exists.\n";
       float $partiRadius = getAttr ($nodeName+".galaxyParticleRadius");
       floatSliderGrp -edit -value $partiRadius sliderParticleRadius;
-    } else {
+    }else{
       print "The galaxyParticleRadius attribute does not exist.\n";
-    } //end check if galaxyParticleRadius attr exists
+    } // End check if galaxyParticleRadius attr exists
        
-    //Restore the galaxyGlowIntensity
-    if (`attributeExists "galaxyGlowIntensity" $nodeName`){
+    // Restore the galaxyGlowIntensity
+    if(`attributeExists "galaxyGlowIntensity" $nodeName`){
       print "The galaxyGlowIntensity attribute exists.\n";
       float $galaxyGlowIntensity = getAttr ($nodeName+".galaxyGlowIntensity");
       floatSliderGrp -edit -value $galaxyGlowIntensity sliderGalaxyGlowIntensity;
-    } else {
+    }else{
       print "The galaxyGlowIntensity attribute does not exist.\n";
-    } //end check if galaxyGlowIntensity attr exists
+    } // End check if galaxyGlowIntensity attr exists
     
     //------------------------------------------------------------------------
-    //MultiStreak Particle Type
+    // MultiStreak Particle Type
     //------------------------------------------------------------------------
 
-    //Restore transparency swatch
-    if (`attributeExists "galaxyMultistreakTransparency" $nodeName`) {
+    // Restore transparency swatch
+    if(`attributeExists "galaxyMultistreakTransparency" $nodeName`){
       print "The galaxyMultistreakTransparency attribute exists.\n";
       float $galaxyRGBStreakTransparency[3] = `getAttr ($nodeName+".galaxyMultistreakTransparency")`;   
       colorSliderGrp -edit -rgb $galaxyRGBStreakTransparency[0] $galaxyRGBStreakTransparency[1] $galaxyRGBStreakTransparency[2] sliderGalaxyMultistreakTransparency;
-    } else {
+    }else{
       print "The galaxyMultistreakTransparency attribute does not exist.\n";
-    } //end check if transparency attr exist
+    } // End check if transparency attr exist
 
-    //Restore the galaxyMultistreakCount
-    if (`attributeExists "galaxyMultistreakCount" $nodeName`){
+    // Restore the galaxyMultistreakCount
+    if(`attributeExists "galaxyMultistreakCount" $nodeName`){
       print "The galaxyMultistreakCount attribute exists.\n";
       int $galaxyMultistreakCount = getAttr ($nodeName+".galaxyMultistreakCount");
       intSliderGrp -edit -value $galaxyMultistreakCount sliderParticleMultistreakCount;
-    } else {
+    }else{
       print "The galaxyMultistreakCount attribute does not exist.\n";
-    } //end check if galaxyMultistreakCount attr exists
+    } // End check if galaxyMultistreakCount attr exists
 
-    //Restore the galaxyMultistreakRadius
-    if (`attributeExists "galaxyMultistreakRadius" $nodeName`){
+    // Restore the galaxyMultistreakRadius
+    if(`attributeExists "galaxyMultistreakRadius" $nodeName`){
       print "The galaxyMultistreakRadius attribute exists.\n";
       float $galaxyMultistreakRadius = getAttr ($nodeName+".galaxyMultistreakRadius");
       floatSliderGrp -edit -value $galaxyMultistreakRadius sliderParticleMultistreakRadius;
-    } else {
+    }else{
       print "The galaxyMultistreakRadius attribute does not exist.\n";
-    } //end check if galaxyMultistreakRadius attr exists
+    } // End check if galaxyMultistreakRadius attr exists
     
-    //Restore the galaxyMultistreakLineWidth
-    if (`attributeExists "galaxyMultistreakLineWidth" $nodeName`){
+    // Restore the galaxyMultistreakLineWidth
+    if(`attributeExists "galaxyMultistreakLineWidth" $nodeName`){
       print "The galaxyMultistreakLineWidth attribute exists.\n";
       int $galaxyMultistreakLineWidth = getAttr ($nodeName+".galaxyMultistreakLineWidth");
       intSliderGrp -edit -value $galaxyMultistreakLineWidth sliderParticleMultistreakLineWidth;
-    } else {
+    }else{
       print "The galaxyMultistreakLineWidth attribute does not exist.\n";
-    } //end check if galaxyMultistreakLineWidth attr exists
+    } // End check if galaxyMultistreakLineWidth attr exists
     
-    //Restore the galaxyMultistreakTailFade
-    if (`attributeExists "galaxyMultistreakTailFade" $nodeName`){
+    // Restore the galaxyMultistreakTailFade
+    if(`attributeExists "galaxyMultistreakTailFade" $nodeName`){
       print "The galaxyMultistreakTailFade attribute exists.\n";
       float $galaxyMultistreakTailFade = getAttr ($nodeName+".galaxyMultistreakTailFade");
       floatSliderGrp -edit -value $galaxyMultistreakTailFade sliderParticleMultistreakTailFade;
-    } else {
+    }else{
       print "The galaxyMultistreakTailFade attribute does not exist.\n";
-    } //end check if galaxyMultistreakTailFade attr exists
+    } // End check if galaxyMultistreakTailFade attr exists
     
-    //Restore the galaxyMultistreakTailSize
-    if (`attributeExists "galaxyMultistreakTailSize" $nodeName`){
+    // Restore the galaxyMultistreakTailSize
+    if(`attributeExists "galaxyMultistreakTailSize" $nodeName`){
       print "The galaxyMultistreakTailSize attribute exists.\n";
       float $galaxyMultistreakTailSize = getAttr ($nodeName+".galaxyMultistreakTailSize");
       floatSliderGrp -edit -value $galaxyMultistreakTailSize sliderParticleMultistreakTailSize;
-    } else {
+    }else{
       print "The galaxyMultistreakTailSize attribute does not exist.\n";
-    } //end check if galaxyMultistreakTailSize attr exists
+    } // End check if galaxyMultistreakTailSize attr exists
     
     //------------------------------------------------------------------------
-    //MultiPoint Particle Type
+    // MultiPoint Particle Type
     //------------------------------------------------------------------------
      
-    //Restore transparency swatch
-    if (`attributeExists "galaxyMultipointTransparency" $nodeName`) {
+    // Restore transparency swatch
+    if(`attributeExists "galaxyMultipointTransparency" $nodeName`){
       print "The galaxyMultipointTransparency attribute exists.\n";
       float $galaxyRGBPointTransparency[3] = `getAttr ($nodeName+".galaxyMultipointTransparency")`;   
       colorSliderGrp -edit -rgb $galaxyRGBPointTransparency[0] $galaxyRGBPointTransparency[1] $galaxyRGBPointTransparency[2] sliderGalaxyMultipointTransparency;
-    } else {
+    }else{
       print "The galaxyMultipointTransparency attribute does not exist.\n";
-    } //end check if galaxyMultipointTransparency attr exist
+    } // End check if galaxyMultipointTransparency attr exist
     
-    //Restore the galaxyMultipointCount
-    if (`attributeExists "galaxyMultipointCount" $nodeName`){
+    // Restore the galaxyMultipointCount
+    if(`attributeExists "galaxyMultipointCount" $nodeName`){
       print "The galaxyMultipointCount attribute exists.\n";
       int $galaxyMultipointCount = getAttr ($nodeName+".galaxyMultipointCount");
       intSliderGrp -edit -value $galaxyMultipointCount sliderParticleMultipointCount;
-    } else {
+    }else{
       print "The galaxyMultipointCount attribute does not exist.\n";
-    } //end check if galaxyMultipointCount attr exists
+    } // End check if galaxyMultipointCount attr exists
 
-    //Restore the galaxyMultipointRadius
-    if (`attributeExists "galaxyMultipointRadius" $nodeName`){
+    // Restore the galaxyMultipointRadius
+    if(`attributeExists "galaxyMultipointRadius" $nodeName`){
       print "The galaxyMultipointRadius attribute exists.\n";
       float $galaxyMultipointRadius = getAttr ($nodeName+".galaxyMultipointRadius");
       floatSliderGrp -edit -value $galaxyMultipointRadius sliderParticleMultipointRadius;
-    } else {
+    }else{
       print "The galaxyMultipointRadius attribute does not exist.\n";
-    } //end check if galaxyMultipointRadius attr exists
+    } // End check if galaxyMultipointRadius attr exists
     
-    //Restore the galaxyMultipointSize
-    if (`attributeExists "galaxyMultipointSize" $nodeName`){
+    // Restore the galaxyMultipointSize
+    if(`attributeExists "galaxyMultipointSize" $nodeName`){
       print "The galaxyMultipointSize attribute exists.\n";
       int $galaxyMultipointSize = getAttr ($nodeName+".galaxyMultipointSize");
       intSliderGrp -edit -value $galaxyMultipointSize sliderParticleMultipointPointSize;
-    } else {
+    }else{
       print "The galaxyMultipointSize attribute does not exist.\n";
-    } //end check if galaxyMultipointSize attr exists
+    } // End check if galaxyMultipointSize attr exists
 
     //------------------------------------------------------------------------
-    //End of particle type section
+    // End of particle type section
     //------------------------------------------------------------------------
     
-    //Restore the skip nucleus particle creation checkbox
-    if (`attributeExists "skipNucleusParticle" $nodeName`){
+    // Restore the skip nucleus particle creation checkbox
+    if(`attributeExists "skipNucleusParticle" $nodeName`){
       print "The skipNucleusParticle attribute exists.\n";
       int $skipCreatingNucleusParticle = getAttr ($nodeName+".skipNucleusParticle");
       checkBox -edit -value $skipCreatingNucleusParticle skipNucleusParticle;
-    } else {
+    }else{
       print "The skipNucleusParticle attribute does not exist.\n";
-    } //end check if skipNucleusParticle attr exists
+    } // End check if skipNucleusParticle attr exists
     
-    //Restore the cloud material to particles checkbox
-     if (`attributeExists "addGalaxyMaterial" $nodeName`){
+    // Restore the cloud material to particles checkbox
+    if(`attributeExists "addGalaxyMaterial" $nodeName`){
       print "The addGalaxyMaterial attribute exists.\n";
       int $GalaxyMaterial = getAttr ($nodeName+".addGalaxyMaterial");
       checkBox -edit -value $GalaxyMaterial changeGalaxyMaterial;
-    } else {
+    }else{
       print "The addGalaxyMaterial attribute does not exist.\n";
-    } //end check if addGalaxyMaterial attr exists
+    } // End check if addGalaxyMaterial attr exists
     
     
-     //Restore the use particle lighting checkbox
-     if (`attributeExists "useParticleLighting" $nodeName`){
+     // Restore the use particle lighting checkbox
+     if(`attributeExists "useParticleLighting" $nodeName`){
       print "The useParticleLighting attribute exists.\n";
       int $useParticleLighting = getAttr ($nodeName+".useParticleLighting");
       checkBox -edit -value $useParticleLighting changeUseLighting;
-    } else {
+    }else{
       print "The useParticleLighting attribute does not exist.\n";
-    } //end check if useParticleLighting attr exists
+    } // End check if useParticleLighting attr exists
     
-    //Restore the connect all particles to newtonFields checkbox
-    if (`attributeExists "connectAllNewtonFields" $nodeName`){
+    // Restore the connect all particles to newtonFields checkbox
+    if(`attributeExists "connectAllNewtonFields" $nodeName`){
       print "The connectAllNewtonFields attribute exists.\n";
       int $connectAllNewtonFields = getAttr ($nodeName+".connectAllNewtonFields");
       checkBox -edit -value $connectAllNewtonFields changeAllNewtonFields;
-    } else {
+    }else{
       print "The connectAllNewtonFields attribute does not exist.\n";
-    } //end check if connectAllNewtonFields attr exists
+    } // End check if connectAllNewtonFields attr exists
 
-  } else {
+  }else{
     print ("Particle node not found");
-  }  //end check if node exists
+  }  // End check if node exists
 }
 
 
-//Return a value of 1 if the current node is a Galaxy Creator based file node
+// Return a value of 1 if the current node is a Galaxy Creator based file node
 global proc int isGalaxyCreatorNode(string $nodeName){
-  string $attrName ="GalaxyCreatorVersion";
+  string $attrName = "GalaxyCreatorVersion";
   
   int $version = 0;
   
-  //Check if the GalaxyCreatorVersion attribute exists
-  if (`attributeExists $attrName $nodeName`) {
-    //Check the version number is a positive value
+  // Check if the GalaxyCreatorVersion attribute exists
+  if(`attributeExists $attrName $nodeName`){
+    // Check the version number is a positive value
     $version = `getAttr ($nodeName+"."+$attrName)`;
     if( $version >= 1){
-       //This node is a GalaxyCreatorVersion 1 or higher node
+      // This node is a GalaxyCreatorVersion 1 or higher node
       return 1;
-    }
-    else{
-       //This node lacks the correct version number
+    }else{
+       // This node lacks the correct version number
       return 0;
     }
-  }
-  else{
-    //This node lacks the GalaxyCreatorVersion attribute
+  }else{
+    // This node lacks the GalaxyCreatorVersion attribute
     return 0;
   }
 }
 
 
-//Rebuild the Galaxy Preset option menu
+// Rebuild the Galaxy Preset option menu
 global proc buildGalaxyPresetMenu(){
   if(`optionMenuGrp -exists menuGalaxyPresetSelect`){
-    //print("Removing the existing Galaxy Preset menu.\n");
+    // print("Removing the existing Galaxy Preset menu.\n");
     deleteUI menuGalaxyPresetSelect;
-  } else {
-    //print("Create the Galaxy Preset menu.\n");
+  }else{
+    // print("Create the Galaxy Preset menu.\n");
   }
 
   // Create the Galaxy Preset Pop-up Menu  
@@ -1024,25 +1033,25 @@ global proc buildGalaxyPresetMenu(){
   // menuItem -label "nucleusParticle1";
   // menuItem -label "galaxyParticle1";
  
-  //List all of the particle nodes
+  // List all of the particle nodes
   string $particleNodeList[] = `lsType("particle")`;
-  //string $particleNodeList[] = `lsType("newtonField")`;
+  // string $particleNodeList[] = `lsType("newtonField")`;
   string $particleNodeItems = "";
   
-  //Sort the particle node names alphabetically
+  // Sort the particle node names alphabetically
   $particleNodeList = sort($particleNodeList);
   
   print ("Nodes:\n");
   print ($particleNodeList);
     
-  int $i = 0; //track the total number of particle nodes
+  int $i = 0; // Track the total number of particle nodes
   
-  //Scan particle File Texture Nodes
+  // Scan particle File Texture Nodes
   for ( $particleNodeItems in $particleNodeList )
   {
      // Look for the last item <done> in the array
-     if ( ($particleNodeItems != "<done>") && (isGalaxyCreatorNode($particleNodeItems))  ){
-       //if ( ($particleNodeItems != "<done>") ){
+     if( ($particleNodeItems != "<done>") && (isGalaxyCreatorNode($particleNodeItems))  ){
+       // if( ($particleNodeItems != "<done>") ){
        print ( "Particle [" + $i + "] " + $particleNodeItems + "\n");
        menuItem -label $particleNodeItems;
      }
@@ -1057,21 +1066,21 @@ global proc buildGalaxyPresetMenu(){
 
 
 global proc SaveDockedGalaxyWindowPos(){
-  //Save the Galaxy Creator dockControl State
+  // Save the Galaxy Creator dockControl State
 
   string $dockedArea = `dockControl -query -area galaxyDockControl`;
   int $dockedFloating = `dockControl -query -floating galaxyDockControl`;
 
-  //Save the dockControl window state - options: left,right
+  // Save the dockControl window state - options: left,right
   optionVar -stringValue "galaxyDockControlArea" $dockedArea; 
 
-  //Save the dockControl floating state - options: 0, 1
+  // Save the dockControl floating state - options: 0, 1
   optionVar -intValue "galaxyDockControlFloating" $dockedFloating;
 
-  //DockControl Debug Info
+  // DockControl Debug Info
   if($dockedFloating == 0){
     print("The Galaxy Creator is docked to the " + $dockedArea + " side.\n\n");
-  } else {
+  }else{
     print("The Galaxy Creator window is floating.\n\n");
   }
 }
@@ -1099,7 +1108,7 @@ global proc string getMayaPlatform(){
     $mayaPlatform = "linux";
   }
 
-  //print("Running on " + $mayaPlatform + ".\n");
+  // print("Running on " + $mayaPlatform + ".\n");
   return $mayaPlatform;
 }
 
@@ -1107,12 +1116,15 @@ global proc string getMayaPlatform(){
 global proc galaxyCreator(){
   global int $galaxyWindowWidth = 500;
   global int $galaxyWindowHeight = 577;
+  
+  string $scrollLayoutParent;
+  string $galaxyWindow;
   //-------------------------------------------------
   // Get the current Maya Platform using python
   //      The $mayaPlatform options are:
   //          "windows", "darwin", "linux"
   //-------------------------------------------------
-   //Check the operating system
+  // Check the operating system
   string $mayaPlatform = getMayaPlatform();
 
   // Check if we are running Maya 2011 or higher
@@ -1121,43 +1133,79 @@ global proc galaxyCreator(){
   // Write out the current Maya version number and detected operating system
   print("Maya " + $mayaVersion + " on " + $mayaPlatform  + " detected.\n");
 
-  if ($mayaVersion >=2011){
-  // Remove an existing docked control window when running the Galaxy Creator tool for a 2nd time.
-    if (`dockControl -exists galaxyDockControl`){ 
+  // Clear out the old window contexts
+  if($mayaVersion >= 2017){
+    if(`workspaceControl -exists galaxyWorkspaceControl`){
+      deleteUI galaxyWorkspaceControl;
+      print( "Removing an existing Galaxy Creator Workspace Control\n");
+    }
+  }else if($mayaVersion >=2011){
+    // Remove an existing docked control window when running the Galaxy Creator tool for a 2nd time.
+    
+    if(`dockControl -exists galaxyDockControl`){ 
       deleteUI -control galaxyDockControl; 
-      print( "Removing an existing docked Galaxy Creator Window\n");}
+      print( "Removing an existing docked Galaxy Creator Window\n");
+    }
 
-  if (`window -exists galaxyWin`){
-      deleteUI galaxyWin;
-      windowPref -remove galaxyWin;
-      print("Reloading the Galaxy Creator window elements\n");}
-
+    if(`window -exists galaxyWin`){
+        deleteUI galaxyWin;
+        windowPref -remove galaxyWin;
+        print("Reloading the Galaxy Creator window elements\n");
+    }
+        
   }else{
     // You are running Maya 2010 or lower - skip the dockcontrols
     // Remove an existing window when running the Galaxy Creator for a 2nd time.
-    if (`window -exists galaxyWin`){
+    if(`window -exists galaxyWin`){
       deleteUI galaxyWin;
       windowPref -remove galaxyWin;
       print("Reloading the Galaxy Creator window elements\n");}
   }
-
-    string $galaxyWindow = `window 
-      -title "Galaxy Creator 1.3" 
+  
+  
+  if($mayaVersion >= 2017){
+    // Check where the AE/Channel Box/Layer Editor windows are docked
+    string $attributeEditorDockWidget = getUIComponentDockControl("Attribute Editor", false);
+    // string $channelLayerEditorDockWidget = getUIComponentDockControl("Channel Box / Layer Editor", false);
+    // string $layerEditorComponent = getUIComponentDockControl("Layer Editor", false);
+    
+    // Important Note: The workspaceControl uiScript "if(`exists galaxyBuildPanel`){}" part avoids a possible Maya 2017 startup issue with the empty window context being re-created every time which causes an error to be logged in the first line of the Script Editor log. This exists check code is needed since Galaxy Creator isn't a .mll plugin which means the standard workspaceControl option of "-checksPlugins" is not available for use by the Galaxy Creator MEL script.
+    
+    // Create a new window
+    workspaceControl
+      -tabToControl $attributeEditorDockWidget -1
+      //-tabToControl $channelLayerEditorDockWidget -1
+      -label "Galaxy Creator" 
+      //-uiScript "if(`exists galaxyBuildPanel`){galaxyBuildPanel;}"
+      -loadImmediately 1
+      -initialWidth $galaxyWindowWidth
+      -minimumWidth true
+      -raise
+      galaxyWorkspaceControl;
+      
+    $scrollLayoutParent = "galaxyWorkspaceControl";
+  }else{
+    $galaxyWindow = `window 
+      -title "Galaxy Creator" 
       -widthHeight 454 584 
       galaxyWin`;  
-
+      
+    $scrollLayoutParent = "galaxyWin";
+  }
+  
     string $galaxyScrollableLayout = `scrollLayout 
       -horizontalScrollBarThickness 18
       -verticalScrollBarThickness   18
       //-width 455
-      -childResizable 1`;
+      -childResizable 1
+      -parent ($scrollLayoutParent)
+      `;
       
-    columnLayout //-width ($domeWindowWidth-30)
-       //-width $domeWindowWidth
+    columnLayout 
       -adjustableColumn true
       galaxyPresetLayout;
       
-      //Create the Galaxy Presets option menu
+      // Create the Galaxy Presets option menu
       buildGalaxyPresetMenu();    
     setParent ..;  
     
@@ -1264,7 +1312,7 @@ global proc galaxyCreator(){
             menuItem -label "Top View";
             menuItem -label "Front View";
             
-            //Preselect the "Top View" pop-up menu option
+            // Preselect the "Top View" pop-up menu option
             optionMenuGrp -edit
               -select 2
               menuGalaxyOrient;
@@ -1320,7 +1368,7 @@ global proc galaxyCreator(){
       menuItem -label "MultiPoint";
       menuItem -label "MultiStreak";
       
-      //Preselect the "MultiPoint" pop-up menu option
+      // Preselect the "MultiPoint" pop-up menu option
       optionMenuGrp
         -edit
         -select 2
@@ -1370,7 +1418,7 @@ global proc galaxyCreator(){
     setParent ..;
   setParent ..; 
   
-    //Show the cloud render options
+    // Show the cloud render options
     string $cloudShadingLayout = `frameLayout 
       -label "Cloud Shading Options"
       -visible true
@@ -1417,7 +1465,7 @@ global proc galaxyCreator(){
       setParent ..;
     setParent ..;  
     
-    //Show the multipoint render options
+    // Show the multipoint render options
     string $multipointShadingLayout = `frameLayout 
       -label "MultiPoint Shading Options"
       -visible false
@@ -1462,7 +1510,7 @@ global proc galaxyCreator(){
     setParent ..;
     
     
-    //Show the multistreak render options
+    // Show the multistreak render options
     string $multistreakShadingLayout = `frameLayout 
       -label "MultiStreak Shading Options"
       -visible false
@@ -1528,7 +1576,8 @@ global proc galaxyCreator(){
     -label "Extra Controls"
     -collapsable true
 		-collapse true
-    -borderStyle "etchedIn";
+    -borderStyle "etchedIn"
+    -parent ($galaxyScrollableLayout);
     
   	columnLayout 
       -adjustableColumn true;
@@ -1577,7 +1626,8 @@ global proc galaxyCreator(){
   setParent ..; 
 
   columnLayout 
-    -adjustableColumn true;
+    -adjustableColumn true
+    -parent ($galaxyScrollableLayout);
 
      button 
      -label "Create Galaxy" 
@@ -1593,33 +1643,33 @@ global proc galaxyCreator(){
    setParent ..; 
    
   //----------------------------------------------------------------------
-  //Show the window
-  //On Maya 2011 and higher provide access to the dockable UI 
+  // Show the window
+  // On Maya 2011 and higher provide access to the dockable UI 
   //----------------------------------------------------------------------
 
   string $dockedArea = "";
   int $dockedFloating = 0;
 
-  //Load the dockControl Settings
-  if ($mayaVersion >= 2011) {
-    //Is the window docked to the left or right of the screen?
+  // Load the dockControl Settings
+  if($mayaVersion >= 2011){
+    // Is the window docked to the left or right of the screen?
     if(`optionVar -exists "galaxyDockControlArea"`){
       $dockedArea = `optionVar -query "galaxyDockControlArea"`;
-    } else{
+    }else{
       $dockedArea = "right";
     }
 
-    //Is the window floating or not?
+    // Is the window floating or not?
     if(`optionVar -exists "galaxyDockControlFloating"`){
       $dockedFloating = `optionVar -query "galaxyDockControlFloating"`;
-    } else {
+    }else{
       $dockedFloating = 0;
     }
   }
 
 
-  if ($mayaVersion == 2011) {
-    //Make the maya 2011 or higher window dockable
+  if($mayaVersion == 2011){
+    // Make the Maya 2011 or higher window dockable
     string $galaxyDockControl = `dockControl 
           -label "Galaxy Creator"
           -area $dockedArea 
@@ -1634,12 +1684,13 @@ global proc galaxyCreator(){
           //-allowedArea "all"
           -allowedArea "left"
           -allowedArea "right"
+          -raise
           // Disabled for Maya 2011 compatibility testing
           //-floatChangeCommand "evalDeferred(\"dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;SaveDockedGalaxyWindowPos();\")"
           galaxyDockControl`;
     
-    //Force the window back to the right size
-    evalDeferred("dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;SaveDockedGalaxyWindowPos();");
+    // Force the window back to the right size
+    evalDeferred("dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;dockControl -e -raise galaxyDockControl;SaveDockedGalaxyWindowPos();");
 
     //Get the current window size
     print ("\nGalaxy Creator Window Size: " 
@@ -1647,9 +1698,16 @@ global proc galaxyCreator(){
               + " width " 
               + `dockControl -q -height galaxyDockControl` 
               + " height\n");
-            
-  }else if ($mayaVersion >= 2012) {
-    //Make the maya 2012 or higher window dockable and add the floatChangeCommand option
+  }else if($mayaVersion >= 2017){
+    // Maya 2017 uses a workspace control
+    // Get the current window size
+    print ("\nGalaxy Creator Window Size: " 
+              + `workspaceControl -query -width galaxyWorkspaceControl` 
+              + " width " 
+              + `workspaceControl -query -height galaxyWorkspaceControl` 
+              + " height\n");
+  }else if($mayaVersion >= 2012){
+    // Make the maya 2012 or higher window dockable and add the floatChangeCommand option
     string $galaxyDockControl = `dockControl 
         -label "Galaxy Creator"
         -area $dockedArea 
@@ -1664,24 +1722,25 @@ global proc galaxyCreator(){
         //-allowedArea "all"
         -allowedArea "left"
         -allowedArea "right"
+        -raise
         // Disabled in Maya 2011 for compatibility
-        -floatChangeCommand "evalDeferred(\"dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;SaveDockedGalaxyWindowPos();\")"
+        -floatChangeCommand "evalDeferred(\"dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;dockControl -e -raise galaxyDockControl;SaveDockedGalaxyWindowPos();\")"
         galaxyDockControl`;
   
-    //Force the window back to the right size
-    evalDeferred("dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;SaveDockedGalaxyWindowPos();");
+    // Force the window back to the right size
+    evalDeferred("dockControl -edit -width $galaxyWindowWidth galaxyDockControl;dockControl -edit -height $galaxyWindowHeight galaxyDockControl;dockControl -e -raise galaxyDockControl;SaveDockedGalaxyWindowPos();");
 
-    //Get the current window size
+    // Get the current window size
     print ("\nGalaxy Creator Window Size: " 
               + `dockControl -q -width galaxyDockControl` 
               + " width " 
               + `dockControl -q -height galaxyDockControl` 
               + " height\n");
-  }else{
-     //Make the Maya 2010 or lower window a regular window type
+   }else{
+     // Make the Maya 2010 or lower window a regular window type
     showWindow $galaxyWindow;
     
-    //Get the current window size
+    // Get the current window size
     print ("\nGalaxy Creator Window Size: "  
              + `window -q -width galaxyWin` 
              + " width " 
@@ -1691,78 +1750,77 @@ global proc galaxyCreator(){
 }
 
 
-//Open the hardware Render Window
+// Open the hardware Render Window
 global proc openHardwareRender(){
-
-  //Check the current hardware render filename
+  // Check the current hardware render filename
   string $hwRenderOutputFileame = getAttr ("defaultHardwareRenderGlobals.filename");
   
-  //Update the hardware rendered filename
-  //if( $hwRenderOutputFileame == "im"){
+  // Update the hardware rendered filename
+  // if( $hwRenderOutputFileame == "im"){
     $hwRenderOutputFileame = "GalaxyRenderText " + `date -format "YYYY-MM-DD hh.mm"`;
     setAttr -type "string" "defaultHardwareRenderGlobals.filename" ($hwRenderOutputFileame);
-  //}
+  // }
   
   print("Hardware Render Output Filename: " + `getAttr ("defaultHardwareRenderGlobals.filename")` + "\n");
 
 
-  //Get the current frame range
+  // Get the current frame range
   int $maxFrame = `playbackOptions -query -max`;
   int $minFrame = `playbackOptions -query -min`;
 
-  //setAttr "defaultHardwareRenderGlobals.endFrame" 1000;
+  // setAttr "defaultHardwareRenderGlobals.endFrame" 1000;
   setAttr "defaultHardwareRenderGlobals.endFrame" ($maxFrame);
   setAttr "defaultHardwareRenderGlobals.startFrame" ($minFrame);
 
-  //Set the sequence to use the name.number.extension output format
+  // Set the sequence to use the name.number.extension output format
   setAttr "defaultHardwareRenderGlobals.extension" 4;
   
-  //Set the render window to output a 960x540 preview
+  // Set the render window to output a 960x540 preview
   setAttr -type "string" "defaultHardwareRenderGlobals.resolution" "HD_540 960 540 1.777";
   
-  //Enable multipass rendering and set the render passes to 9
-  //This creates a motion blurry style hardware rendering
+  // Enable multipass rendering and set the render passes to 9
+  // This creates a motion blurry style hardware rendering
   setAttr "defaultHardwareRenderGlobals.multiPassRendering" 1;
   setAttr "defaultHardwareRenderGlobals.renderPasses" 9;
   setAttr "defaultHardwareRenderGlobals.motionBlur" 1;
   
-  //Deselect the objects in the scene so we get a clean HW rendering
+  // Deselect the objects in the scene so we get a clean HW rendering
   select -cl;
   
-  //Open the Hardware Render Buffer window and render a sample frame
+  // Open the Hardware Render Buffer window and render a sample frame
   HardwareRenderBuffer;
   glRenderWin;
   glRender -renderFrame hardwareRenderView;
-
 }
 
+
 global proc doGalaxy(){
-   //Check the Galaxy Type radio button for spiral or elliptical options
+   // Check the Galaxy Type radio button for spiral or elliptical options
    int $GalaxyType = `radioButtonGrp -query -select radioGalaxyType`;
 
-  //Check the Orbit Type radio button for Radial or Transverse options
+  // Check the Orbit Type radio button for Radial or Transverse options
   int $radial = `radioButtonGrp -query -select radioEllipticalOrbitType` -1;
 
-  //Check the radio button for a Cloud, MultiPoint, or MultiStreak particle type
+  // Check the radio button for a Cloud, MultiPoint, or MultiStreak particle type
   int $particleType = `optionMenuGrp -query -select menuParticleType`;
   
   print("Galaxy Type: " + $GalaxyType + "\n");
   if($GalaxyType == 1){
-      print("Creating a Spiral Galaxy\n");
-  }else if ($GalaxyType == 2){
-      print("Creating an Elliptical Galaxy");
-      //print(" radial " + $radial + " ");
-      if($radial == 0) {
-        print(" with a radial orbit.\n");
-      }else if ($radial == 1){
-        print(" with a transverse orbit.\n");
-      }
+    print("Creating a Spiral Galaxy\n");
+  }else if($GalaxyType == 2){
+    print("Creating an Elliptical Galaxy");
+    // print(" radial " + $radial + " ");
+    if($radial == 0){
+      print(" with a radial orbit.\n");
+    }else if($radial == 1){
+      print(" with a transverse orbit.\n");
+    }
   }
 
   // Skip creating a Nucleus Particle
   int $skipCreatingNucleusParticle = `checkBox -query -value skipNucleusParticle`;
 
-  //Get the GUI Values
+  // Get the GUI Values
   int $numStars =`intSliderGrp -query -value sliderGalaxyNumStars`;
   int $numSpiralArms =`intSliderGrp -query -value sliderGalaxyNumSpiralArms`;
   int $radius  =`intSliderGrp -query -value sliderGalaxyNumRadius`;
@@ -1793,10 +1851,10 @@ global proc doGalaxy(){
 
   int $useParticleLighting = `checkBox -query -value changeUseLighting`;
 
-  //Galaxy Glow Brightness
+  // Galaxy Glow Brightness
   float $galaxyGlowRGBcolor[3] = {0.070044, 0.10216, 0.156};
   
-  //MultiStreak Particle Type
+  // MultiStreak Particle Type
   float $galaxyRGBStreakTransparency[3] = `colorSliderGrp -query -rgb sliderGalaxyMultistreakTransparency`;
   int $galaxyMultistreakCount = `intSliderGrp -query -value sliderParticleMultistreakCount`;
   float $galaxyMultistreakRadius = `floatSliderGrp -query -value sliderParticleMultistreakRadius`;
@@ -1804,65 +1862,63 @@ global proc doGalaxy(){
   float $galaxyMultistreakTailFade = `floatSliderGrp -query -value sliderParticleMultistreakTailFade`;
   float $galaxyMultistreakTailSize = `floatSliderGrp -query -value sliderParticleMultistreakTailSize`;
   
-
-  //MultiPoint Particle Type
+  // MultiPoint Particle Type
   float $galaxyRGBPointTransparency[3] = `colorSliderGrp -query -rgb sliderGalaxyMultipointTransparency`;
   int $galaxyMultipointCount = `intSliderGrp -query -value sliderParticleMultipointCount`;
   float $galaxyMultipointRadius = `floatSliderGrp -query -value sliderParticleMultipointRadius`;
   int $galaxyMultipointSize = `intSliderGrp -query -value sliderParticleMultipointPointSize`;
 
-  
   //===========================
-  //Set up the Galaxy material
+  // Set up the Galaxy material
   //===========================
   
   string $galaxyCloudMaterialName = `shadingNode -asShader particleCloud -name "galaxyCloudMaterial"`;
   string $galaxyMaterialName = `shadingNode -asShader surfaceShader -name "galaxySurfaceMaterial"`;
   
-  //Set up the material SG
+  // Set up the material SG
   string $galaxyMaterialSG =`sets -renderable true -noSurfaceShader true -empty -name "galaxyCloudMaterialSG"`;
 
-  //Read the color from the swatch
+  // Read the color from the swatch
   float $galaxyRGBcolor[] = `colorSliderGrp -query -rgb sliderGalaxyColor`;
   
   print ("[RGB Color] \n");
   print ($galaxyRGBcolor);
   print ("\n");
   
-  //Update the shader's color attribute
+  // Update the shader's color attribute
   setAttr ($galaxyCloudMaterialName+".color") -type double3 $galaxyRGBcolor[0] $galaxyRGBcolor[1] $galaxyRGBcolor[2];
   setAttr ($galaxyMaterialName+".outColor") -type double3 $galaxyRGBcolor[0] $galaxyRGBcolor[1] $galaxyRGBcolor[2];
 
-  //Connect the shading group to the material
+  // Connect the shading group to the material
   connectAttr -f ($galaxyCloudMaterialName+".outColor") ($galaxyMaterialSG+".volumeShader");
   connectAttr -f ($galaxyMaterialName+".outColor") ($galaxyMaterialSG+".surfaceShader");
 
   
   //===========================
-  //Set up the Nucleus material
+  // Set up the Nucleus material
   //===========================
   string $nucleusCloudMaterialName = `shadingNode -asShader particleCloud -name "nucleusCloudMaterial"`;
   string $nucleusMaterialName = `shadingNode -asShader surfaceShader -name "nucleusSurfaceMaterial"`;
   
-  //Set up the material SG
+  // Set up the material SG
   string $nucleusMaterialSG =`sets -renderable true -noSurfaceShader true -empty -name "nucleusCloudMaterialSG"`;
 
-  //Read the color from the swatch
+  // Read the color from the swatch
   float $nucleusRGBcolor[] = `colorSliderGrp -query -rgb sliderNucleusColor`;
   
   print ("[RGB Color] \n");
   print ($nucleusRGBcolor);
   print ("\n");
   
-  //Update the shader's color attribute
+  // Update the shader's color attribute
   setAttr ($nucleusCloudMaterialName+".color") -type double3 $nucleusRGBcolor[0] $nucleusRGBcolor[1] $nucleusRGBcolor[2];
   setAttr ($nucleusMaterialName+".outColor") -type double3 $nucleusRGBcolor[0] $nucleusRGBcolor[1] $nucleusRGBcolor[2];
   
-  //Connect the shading group to the material
+  // Connect the shading group to the material
   connectAttr -f ($nucleusCloudMaterialName+".outColor") ($nucleusMaterialSG+".volumeShader");
   connectAttr -f ($nucleusMaterialName+".outColor") ($nucleusMaterialSG+".surfaceShader");
 
-  //Connect All particles to Newton Fields
+  // Connect All particles to Newton Fields
   int $connectAllNewtonFields = `checkBox -query -value changeAllNewtonFields`;
   
   // Add galaxy material settings
@@ -1879,12 +1935,12 @@ global proc doGalaxy(){
   print ("[Velocity] [X] " + $vel[0] + " [Y] " + $vel[1] + " [Z] " + $vel[2] + "\n");
   print ("\n");
   
-  //Spiral vs Ellipse Galaxy
-  //print ("[Galaxy Shape] " + $galaxyShape + "\n");
+  // Spiral vs Ellipse Galaxy
+  // print ("[Galaxy Shape] " + $galaxyShape + "\n");
   
-  //Galaxy Orientation
-  //print ("[Galaxy Orientation Value] " + $planarDir + "\n");
-  switch ($planarDir) {
+  // Galaxy Orientation
+  // print ("[Galaxy Orientation Value] " + $planarDir + "\n");
+  switch ($planarDir){
     case 0:
       print ("[Galaxy Orientation] " + "Right" + "\n");
       break; 
@@ -1900,7 +1956,7 @@ global proc doGalaxy(){
   
   print ("\n");
   
-  //load the galaxies script
+  // Load the galaxies script
   source "galaxies.mel";
   
   // //Debug test
@@ -1913,19 +1969,13 @@ global proc doGalaxy(){
   string $activeNucleusShape;
 
   string $galaxy_particles[];
-  string $galaxy_particles[];
 
   if($GalaxyType == 1){
-    //Create the Spiral Galaxy
-    $galaxy_particles = spiralGalaxy($numStars, $numSpiralArms, 
-                                            $radius, $numTurns, 
-                                            $centre, 
-                                            $vel, 
-                                            $planarDir, 
-                                            $speedUp);
-  }else if ($GalaxyType == 2){
-    //Create the Elliptical Galaxy
-    $galaxy_particles = ellipticalGalaxy($numStars, $centre, $vel, $radial, $speedUp );
+    // Create the Spiral Galaxy
+    $galaxy_particles = spiralGalaxy($numStars, $numSpiralArms, $radius, $numTurns, $centre, $vel, $planarDir, $speedUp);
+  }else if($GalaxyType == 2){
+    // Create the Elliptical Galaxy
+    $galaxy_particles = ellipticalGalaxy($numStars, $centre, $vel, $radial, $speedUp);
     // Result: newtonField2 particle3 particle4 // 
   }
 
@@ -1939,18 +1989,18 @@ global proc doGalaxy(){
   print ("[Nucleus] " +  $activeNucleusShape + "\n");
   print ("[Stars] " +  $activeStarShape + "\n");
   
-  //Debug test value
-  //string $activeStarShape = "particleShape2.particleRenderType";
-  //setAttr ($activeStarShape) 8;
+  // Debug test value
+  // string $activeStarShape = "particleShape2.particleRenderType";
+  // setAttr ($activeStarShape) 8;
 
-  if ($GalaxyMaterial){
-    //Apply the galaxyCloudMaterialSG material to the particles
+  if($GalaxyMaterial){
+    // Apply the galaxyCloudMaterialSG material to the particles
     sets -e -forceElement ($galaxyMaterialSG) ($activeStarShape);
     
-    //Apply the nucleusCloudMaterialSG material to the particles
+    // Apply the nucleusCloudMaterialSG material to the particles
     sets -e -forceElement ($nucleusMaterialSG) ($activeNucleusShape);
     
-    //Set the particle render type to Cloud, MultiPoint, or MultiStreak
+    // Set the particle render type to Cloud, MultiPoint, or MultiStreak
     if($particleType == 1){
       print( "Cloud particle type\n");
       
@@ -1962,25 +2012,24 @@ global proc doGalaxy(){
       addAttr -is true -ln "radius" -at "float" -min 0 -max 20 -dv 1 ($activeStarShape);
       addAttr -is true -ln "flatShaded" -at bool -dv false ($activeStarShape);
       
-      setAttr ($activeStarShape + ".betterIllumination") 1;  // better illumination
-      setAttr ($activeStarShape + ".radius") $partiRadius;            // select radius
+      setAttr ($activeStarShape + ".betterIllumination") 1;  // Better illumination
+      setAttr ($activeStarShape + ".radius") $partiRadius;  // Select radius
       
-      // set nucleus particle rendering attributes
-      setAttr ($activeNucleusShape + ".particleRenderType") 8;  //Cloud S/w type
+      // Set nucleus particle rendering attributes
+      setAttr ($activeNucleusShape + ".particleRenderType") 8;  // Cloud software rendered type
       addAttr -is true -ln "betterIllumination" -at bool -dv false ($activeNucleusShape);
       addAttr -is true -ln "surfaceShading" -at "float" -min 0 -max 1 -dv 0 ($activeNucleusShape);
       addAttr -is true -ln "threshold" -at "float" -min 0 -max 10 -dv 0 ($activeNucleusShape);
       addAttr -is true -ln "radius" -at "float" -min 0 -max 20 -dv 1 ($activeNucleusShape);
       addAttr -is true -ln "flatShaded" -at bool -dv false ($activeNucleusShape);  
       
-      setAttr ($activeNucleusShape + ".betterIllumination") 1;  // better illumination
-      setAttr ($activeNucleusShape + ".radius") $nucleusRadius;            // select radius
-
-    } else if($particleType == 2){
+      setAttr ($activeNucleusShape + ".betterIllumination") 1;  // Better illumination
+      setAttr ($activeNucleusShape + ".radius") $nucleusRadius;  // select radius
+    }else if($particleType == 2){
       print( "Multipoint particle type\n");
      
-      // set particle rendering attributes
-      setAttr ($activeStarShape + ".particleRenderType") 0;  //Multipoint type
+      // Set particle rendering attributes
+      setAttr ($activeStarShape + ".particleRenderType") 0;  // Multipoint type
       addAttr -is true -ln "colorAccum" -at bool -dv true ($activeStarShape);
       addAttr -is true -ln "useLighting" -at bool -dv false ($activeStarShape);
       addAttr -is true -ln "pointSize" -at long -min 1 -max 60 -dv 2 ($activeStarShape);
@@ -1988,21 +2037,20 @@ global proc doGalaxy(){
       addAttr -is true -ln "multiRadius" -at "float" -min 0 -max 10 -dv 0.3 ($activeStarShape);
       addAttr -is true -ln "normalDir" -at long -min 1 -max 3 -dv 2 ($activeStarShape);
       
-      setAttr ($activeStarShape+".colorAccum") 1; //enable color accumulate
+      setAttr ($activeStarShape+".colorAccum") 1; // Enable color accumulate
       setAttr ($activeStarShape+".pointSize") $galaxyMultipointSize;
       setAttr ($activeStarShape+".multiRadius") $galaxyMultipointRadius;
       setAttr ($activeStarShape+".multiCount") $galaxyMultipointCount;
       setAttr ($activeStarShape+".useLighting") $useParticleLighting;
       
-      //tips to drive the glow higher
-      //setAttr "galaxySurfaceMaterial16.outTransparency" -type double3 0.75 0.75 0.75 ;
-      //setAttr "galaxySurfaceMaterial16.outGlowColor" -type double3 0.3615 0.506443 0.75 ;
-      
-    } else if ($particleType == 3){
+      // Tips to drive the glow higher
+      // setAttr "galaxySurfaceMaterial16.outTransparency" -type double3 0.75 0.75 0.75 ;
+      // setAttr "galaxySurfaceMaterial16.outGlowColor" -type double3 0.3615 0.506443 0.75 ;
+    }else if($particleType == 3){
       print( "Multistreak particle type\n");
       
-      // set particle rendering attributes
-      setAttr ($activeStarShape + ".particleRenderType") 1;  //Multistreak type
+      // Set particle rendering attributes
+      setAttr ($activeStarShape + ".particleRenderType") 1;  // Multistreak type
 
       addAttr -is true -ln "colorAccum" -at bool -dv true ($activeStarShape);
       addAttr -is true -ln "useLighting" -at bool -dv false ($activeStarShape);
@@ -2013,19 +2061,16 @@ global proc doGalaxy(){
       addAttr -is true -ln "tailSize" -at "float" -min -100 -max 100 -dv 1 ($activeStarShape);
       addAttr -is true -ln "normalDir" -at long -min 1 -max 3 -dv 2 ($activeStarShape);
       
-      setAttr ($activeStarShape+".colorAccum") 1; //enable color accumulate
+      setAttr ($activeStarShape+".colorAccum") 1; // Enable color accumulate
       setAttr ($activeStarShape+".multiRadius") $galaxyMultistreakRadius;
       setAttr ($activeStarShape+".multiCount") $galaxyMultistreakCount; 
       setAttr ($activeStarShape+".lineWidth") $galaxyMultistreakLineWidth;
       setAttr ($activeStarShape+".tailFade") $galaxyMultistreakTailFade;
       setAttr ($activeStarShape+".tailSize") $galaxyMultistreakTailSize;
       setAttr ($activeStarShape+".useLighting") $useParticleLighting;
-      
     }
 
-
-
-    //Set up the RadiusPP attributes
+    // Set up the RadiusPP attributes
     addAttr -ln radiusPP -dt doubleArray ($activeNucleusShape);
     addAttr -ln radiusPP0 -dt doubleArray ($activeNucleusShape);
     
@@ -2033,44 +2078,44 @@ global proc doGalaxy(){
     addAttr -ln radiusPP0 -dt doubleArray ($activeStarShape);
     
     //===========================================
-    //Set up the particleCloud material settings
+    // Set up the particleCloud material settings
     //===========================================
     
-    //Set the particle shader glow setting
-    //setAttr ($galaxyCloudMaterialName + ".glowIntensity") 0.5;
+    // Set the particle shader glow setting
+    // setAttr ($galaxyCloudMaterialName + ".glowIntensity") 0.5;
 
-    //Update the shader's glow intensity value
+    // Update the shader's glow intensity value
     float $galaxyGlowIntensity = `floatSliderGrp -query -value sliderGalaxyGlowIntensity`;
     setAttr ($galaxyCloudMaterialName+".glowIntensity") $galaxyGlowIntensity;
 
-    //Set shader density
+    // Set shader density
     setAttr ($galaxyCloudMaterialName + ".blobMap") -type double3 0.04 0.04 0.04 ;
     
-    //Set the particles to be partially transparent
+    // Set the particles to be partially transparent
   if($particleType == 1){
-    //Cloud
+    // Cloud
     setAttr ($galaxyCloudMaterialName + ".transparency") -type double3 0.08 0.08 0.08 ;
     setAttr ($galaxyMaterialName + ".outTransparency") -type double3 0.3 0.3 0.3 ;
-  } else if($particleType == 2){
-    //MultiPoint
+  }else if($particleType == 2){
+    // MultiPoint
     setAttr ($galaxyMaterialName+".outTransparency") -type double3 $galaxyRGBPointTransparency[0] $galaxyRGBPointTransparency[1] $galaxyRGBPointTransparency[2];
     
-    //Glow Brightness = 85% / Good ranges are 83% to 89% of base color value
-    //Galaxy base color: 0.084 0.118 0.175 
-    //Galaxy glow color value: 0.070044 0.10216 0.156
+    // Glow Brightness = 85% / Good ranges are 83% to 89% of base color value
+    // Galaxy base color: 0.084 0.118 0.175 
+    // Galaxy glow color value: 0.070044 0.10216 0.156
 
     $galaxyGlowRGBcolor[0] =  $galaxyRGBcolor[0] * 0.50;
     $galaxyGlowRGBcolor[1] =  $galaxyRGBcolor[1] * 0.50;
     $galaxyGlowRGBcolor[2] =  $galaxyRGBcolor[2] * 0.50;
 
     setAttr ($galaxyMaterialName+".outGlowColor") -type double3  $galaxyGlowRGBcolor[0]  $galaxyGlowRGBcolor[1]  $galaxyGlowRGBcolor[2];
-  } else if($particleType == 3){
-    //MultiStreak
+  }else if($particleType == 3){
+    // MultiStreak
     setAttr ($galaxyMaterialName+".outTransparency") -type double3 $galaxyRGBStreakTransparency[0] $galaxyRGBStreakTransparency[1] $galaxyRGBStreakTransparency[2];
     
-    //Glow Brightness = 85% / Good ranges are 83% to 89% of base color value
-    //Galaxy base color: 0.084 0.118 0.175 
-    //Galaxy glow color value: 0.070044 0.10216 0.156
+    // Glow Brightness = 85% / Good ranges are 83% to 89% of base color value
+    // Galaxy base color: 0.084 0.118 0.175 
+    // Galaxy glow color value: 0.070044 0.10216 0.156
 
     $galaxyGlowRGBcolor[0] =  $galaxyRGBcolor[0] * 0.50;
     $galaxyGlowRGBcolor[1] =  $galaxyRGBcolor[1] * 0.50;
@@ -2079,62 +2124,62 @@ global proc doGalaxy(){
     setAttr ($galaxyMaterialName+".outGlowColor") -type double3  $galaxyGlowRGBcolor[0]  $galaxyGlowRGBcolor[1]  $galaxyGlowRGBcolor[2];
   }
   
-    //Set the particle shader glow setting
-    //setAttr ($nucleusCloudMaterialName + ".glowIntensity") 0.06;
+    // Set the particle shader glow setting
+    // setAttr ($nucleusCloudMaterialName + ".glowIntensity") 0.06;
 
-    //Update the shader's glow intensity value
+    // Update the shader's glow intensity value
     float $nucleusGlowIntensity =`floatSliderGrp -query -value sliderNucleusGlowIntensity`;
     setAttr ($nucleusCloudMaterialName+".glowIntensity") $nucleusGlowIntensity;
 
-    //Set shader density
+    // Set shader density
     setAttr ($nucleusCloudMaterialName + ".blobMap") -type double3 0.04 0.04 0.04 ;
     
-    //Set the cloud to be partially transparent
+    // Set the cloud to be partially transparent
     setAttr ($nucleusCloudMaterialName + ".transparency") -type double3 0.08 0.08 0.08 ;
     setAttr ($nucleusMaterialName + ".outTransparency") -type double3 0.3 0.3 0.3 ;
 
-    //Add shader glow attributes
+    // Add shader glow attributes
     setAttr "shaderGlow1.glowIntensity" 1.0;
     setAttr "shaderGlow1.glowSpread" 0.05;
     setAttr "shaderGlow1.glowFilterWidth" 2;
     setAttr "shaderGlow1.haloIntensity" 0.1;
     setAttr "shaderGlow1.haloSpread" 0.3; 
-  } //end of $GalaxyMaterial creation section
+  } // End of $GalaxyMaterial creation section
   
   if($connectAllNewtonFields){
     print("Connecting the NewtonFields to the particleShapes.\n");
 
-    //Find the particleShapes
+    // Find the particleShapes
     string $allGalaxyParticleShapes[];
     $allGalaxyParticleShapes = `ls -type particle`;
     int $totalParticleCount = `size $allGalaxyParticleShapes`;
     
-    //Find the newtonFields
+    // Find the newtonFields
     string $allGalaxyFields[];
     $allGalaxyFields = `ls -type newtonField`;
     int $totalFieldCount = `size $allGalaxyFields`;
     
-    //Scan the particleShapes
+    // Scan the particleShapes
     int $i;
-    for( $i = 0 ; $i<$totalParticleCount; $i++ ) {
+    for( $i = 0 ; $i<$totalParticleCount; $i++ ){
       print($i + ": " + $allGalaxyParticleShapes[$i] + "\n");
       
-      //Scan the newtonFields
+      // Scan the newtonFields
       int $j;
-      for( $j = 0 ; $j<$totalFieldCount; $j++ ) {
+      for( $j = 0 ; $j<$totalFieldCount; $j++ ){
         print("   " + $j + ": " + $allGalaxyFields[$j] + "\n");
         
-        //Connecting all of the NewtonFields to all of the particleShapes
+        // Connecting all of the NewtonFields to all of the particleShapes
         connectDynamic -fields ($allGalaxyFields[$j]) ($allGalaxyParticleShapes[$i]);
       }
     }
     print("\n");
-  }  //This is the end of the connectAllNewtonFields section
+  }  // This is the end of the connectAllNewtonFields section
 
-  //Adding a radiusPP expression to the galaxy:
-  //dynExpression -s "//Galaxy Edge Fade Effect\n//Uses the radiusPP Control\n\n//Size of the Galaxy\nfloat $galaxyRadius = 23.0;\n\n//Size of the cloud particle\nfloat $galaxyParticleRadius = 0.6;\n\n//Thicken Galaxy Center Ratio (Range 0.1-0.75)\nfloat $galaxyParticleRatio = 0.2;\n\n\n//Calculate the particle's distance from the galaxy origin\nvector $pos = particleShape2.position;\nvector $galaxyOrigin = <<0,0,0>>;\nvector $dist = <<($galaxyOrigin.x-$pos.x), ($galaxyOrigin.y-$pos.y), ($galaxyOrigin.z-$pos.z)>>;\nfloat $magDist = mag($dist);\n\n//Calculate the final particle size\nfloat $galaxyPercent = 1-($magDist / $galaxyRadius);\nfloat $galaxyBaseParticle = ($galaxyParticleRadius*$galaxyParticleRatio);\nfloat $galaxyParticleSize = ($galaxyParticleRadius*$galaxyPercent);\n\n//Set the per particle size\nparticleShape2.radiusPP = $galaxyParticleSize + $galaxyBaseParticle;\n\n//End" -c ($activeStarShape);
+  // Adding a radiusPP expression to the galaxy:
+  // dynExpression -s "//Galaxy Edge Fade Effect\n//Uses the radiusPP Control\n\n//Size of the Galaxy\nfloat $galaxyRadius = 23.0;\n\n//Size of the cloud particle\nfloat $galaxyParticleRadius = 0.6;\n\n//Thicken Galaxy Center Ratio (Range 0.1-0.75)\nfloat $galaxyParticleRatio = 0.2;\n\n\n//Calculate the particle's distance from the galaxy origin\nvector $pos = particleShape2.position;\nvector $galaxyOrigin = <<0,0,0>>;\nvector $dist = <<($galaxyOrigin.x-$pos.x), ($galaxyOrigin.y-$pos.y), ($galaxyOrigin.z-$pos.z)>>;\nfloat $magDist = mag($dist);\n\n//Calculate the final particle size\nfloat $galaxyPercent = 1-($magDist / $galaxyRadius);\nfloat $galaxyBaseParticle = ($galaxyParticleRadius*$galaxyParticleRatio);\nfloat $galaxyParticleSize = ($galaxyParticleRadius*$galaxyPercent);\n\n//Set the per particle size\nparticleShape2.radiusPP = $galaxyParticleSize + $galaxyBaseParticle;\n\n//End" -c ($activeStarShape);
    
-  //Write the Galaxy Creator settings to the Galaxy particle Note fields:
+  // Write the Galaxy Creator settings to the Galaxy particle Note fields:
   print("Adding note to galaxy particle node\n");
 
   string $galaxyNoteString = "";
@@ -2142,16 +2187,16 @@ global proc doGalaxy(){
   $galaxyNoteString += "= Galaxy Creator Settings =\n";
   $galaxyNoteString += "\n";
 
-  //Check what type of galaxy was created
+  // Check what type of galaxy was created
   if($GalaxyType == 1){
     $galaxyNoteString += "Spiral Galaxy Mode\n";
 
-    //$galaxyNoteString += "Galaxy Orientation " + $planarDir +"\n";
-    //Galaxy Orientation
+    // $galaxyNoteString += "Galaxy Orientation " + $planarDir +"\n";
+    // Galaxy Orientation
 
     $galaxyNoteString += "Galaxy Orientation ";
     int $tmpGalaxyOrientation = `optionMenuGrp -query -select menuGalaxyOrient` - 1;
-    switch ( $tmpGalaxyOrientation ) {
+    switch ( $tmpGalaxyOrientation ){
       case 0:
         $galaxyNoteString += "Right" + "\n";
         break;
@@ -2167,12 +2212,11 @@ global proc doGalaxy(){
     $galaxyNoteString += "Sprial Arms " + $numSpiralArms +"\n";
     $galaxyNoteString += "Galaxy Turns " + $numTurns +"\n";
     $galaxyNoteString += "\n";
-
-  } else if ($GalaxyType == 2){
+  }else if($GalaxyType == 2){
     $galaxyNoteString += "Elliptical Galaxy Mode\n";
-    if ($radial == 0){
+    if($radial == 0){
       $galaxyNoteString += "Radial Orbit Type \n";
-    } else if ($radial == 1){
+    }else if($radial == 1){
       $galaxyNoteString += "Transverse Orbit Type\n";
     }
   }
@@ -2204,35 +2248,35 @@ global proc doGalaxy(){
     $galaxyNoteString += "Nucleus Particle Radius " + $nucleusRadius + "\n";
     $galaxyNoteString += "Nucleus Glow Intensity " +`floatSliderGrp -query -value sliderNucleusGlowIntensity`+"\n";
     $galaxyNoteString += "\n";
-  } else {
+  }else{
     $galaxyNoteString += "Nucleus Particle Creation Skipped\n\n";
   }
 
-  //Set the particle render type to Cloud, MultiPoint, or MultiStreak
+  // Set the particle render type to Cloud, MultiPoint, or MultiStreak
   $galaxyNoteString += "Particle Render Type ";
 
   if($particleType == 1){
     $galaxyNoteString += "Cloud\n";
     
-  } else if($particleType == 2){
+  }else if($particleType == 2){
     $galaxyNoteString += "MultiPoint\n";
     $galaxyNoteString += "Galaxy Transparency "
-                              + $galaxyRGBPointTransparency[0] + " " 
-                              + $galaxyRGBPointTransparency[1] + " " 
-                              + $galaxyRGBPointTransparency[2] + " "                      
-                              + "\n";
-                          
+                                + $galaxyRGBPointTransparency[0] + " " 
+                                + $galaxyRGBPointTransparency[1] + " " 
+                                + $galaxyRGBPointTransparency[2] + " "                      
+                                + "\n";
+                            
     $galaxyNoteString += "Galaxy Multi Count " + $galaxyMultipointCount + "\n";
     $galaxyNoteString += "Galaxy Multi Radius " + $galaxyMultipointRadius + "\n";
     $galaxyNoteString += "Galaxy Point Size " + $galaxyMultipointSize + "\n";
-  } else if($particleType == 3){
+  }else if($particleType == 3){
     $galaxyNoteString += "MultiStreak\n";
     
     $galaxyNoteString += "Galaxy Transparency "
-                              + $galaxyRGBStreakTransparency[0] + " " 
-                              + $galaxyRGBStreakTransparency[1] + " " 
-                              + $galaxyRGBStreakTransparency[2] + " "                      
-                              + "\n";
+                                + $galaxyRGBStreakTransparency[0] + " " 
+                                + $galaxyRGBStreakTransparency[1] + " " 
+                                + $galaxyRGBStreakTransparency[2] + " "                      
+                                + "\n";
                               
     $galaxyNoteString += "Galaxy Multi Count " + $galaxyMultistreakCount + "\n";
     $galaxyNoteString += "Galaxy Multi Radius " + $galaxyMultistreakRadius + "\n";
@@ -2240,6 +2284,7 @@ global proc doGalaxy(){
     $galaxyNoteString += "Galaxy Streak Tail Fade " + $galaxyMultistreakTailFade + "\n";
     $galaxyNoteString += "Galaxy Streak Tail Size " + $galaxyMultistreakTailSize + "\n";
   }
+  
   $galaxyNoteString += "\n";
   
   $galaxyNoteString += "Galaxy Color "
@@ -2254,32 +2299,32 @@ global proc doGalaxy(){
   $galaxyNoteString += "Use Lighting on Particles " + $useParticleLighting + " \n";
   $galaxyNoteString += "Connect All newtonFields " + $connectAllNewtonFields + " \n";
 
-  //Write the settings to the attribute editor note fields
+  // Write the settings to the attribute editor note fields
   
-  //Nucleus particle
-  //setNotesAttribute( $galaxy_particles[1], "notes", "nts", "string", `scrollField -e -text $galaxyNoteString AENotesScrollField`);
-  //Galaxy spiral particles
-  //setNotesAttribute( $galaxy_particles[2], "notes", "nts", "string", `scrollField -e -text $galaxyNoteString AENotesScrollField`);
+  // Nucleus particle
+  // setNotesAttribute( $galaxy_particles[1], "notes", "nts", "string", `scrollField -e -text $galaxyNoteString AENotesScrollField`);
+  // Galaxy spiral particles
+  // setNotesAttribute( $galaxy_particles[2], "notes", "nts", "string", `scrollField -e -text $galaxyNoteString AENotesScrollField`);
   
-  //Nucleus particle
+  // Nucleus particle
   setNotesAttribute( $activeNucleusShape, "notes", "nts", "string", `scrollField -e -text $galaxyNoteString AENotesScrollField`);
-  //Galaxy spiral particles
+  // Galaxy spiral particles
   setNotesAttribute( $activeStarShape, "notes", "nts", "string", `scrollField -e -text $galaxyNoteString AENotesScrollField`);
   
- //Rotate the stars in the scene
+ // Rotate the stars in the scene
   setAttr ($galaxy_particles[2] +".rotateX") $galaxyRotate[0];
   setAttr ($galaxy_particles[2] +".rotateY") $galaxyRotate[1];
   setAttr ($galaxy_particles[2] +".rotateZ") $galaxyRotate[2];
 
-  //Toggle particle count HUD
-  //getParticleCount();
-  //ToggleParticleCount;
+  // Toggle particle count HUD
+  // getParticleCount();
+  // ToggleParticleCount;
   
   // Set 2000 frames of playback
   int $theEndTime = `intFieldGrp -query -value1 fieldPaybackEnd`; 
   playbackOptions -e -min 1 -max $theEndTime;
 
-  //Skip creating a Nucleus Particle by removing it afterwards
+  // Skip creating a Nucleus Particle by removing it afterwards
   if($skipCreatingNucleusParticle){
     print("\nThe \"Skip Nucleus Particle Creation\" option was enabled.\n");
     select -cl;
@@ -2287,32 +2332,32 @@ global proc doGalaxy(){
     doDelete;
   }
   
-  //Add custom attributes to the particleShape nodes' extra attribute fields
+  // Add custom attributes to the particleShape nodes' extra attribute fields
   
-  //Add the version attrs to the galaxy and nucleus particle nodes
+  // Add the version attrs to the galaxy and nucleus particle nodes
   addGalaxyCreatorVersionAttrs($activeStarShape);
   if($skipCreatingNucleusParticle == 0){
     addGalaxyCreatorVersionAttrs($activeNucleusShape);
   }
 
-  //Add custom color swatches to the galaxy and nucleus particle nodes
+  // Add custom color swatches to the galaxy and nucleus particle nodes
   addGalaxyNodeAttrs($activeStarShape, "galaxy");
   if($skipCreatingNucleusParticle == 0){
     addGalaxyNodeAttrs($activeNucleusShape, "nucleus");
   }
 
-  //Regenerate the create the Galaxy Creator presets popup menu after adding new particles
+  // Regenerate the create the Galaxy Creator presets popup menu after adding new particles
   buildGalaxyPresetMenu();
   
-  //drop the selection
+  // Drop the selection
   select -cl;
   
-  //Step forward one frame
-  //playButtonStepForward;
+  // Step forward one frame
+  // playButtonStepForward;
 }
 
-
-global proc string getObjectShapeNode ( string $object ) {
+// Find the object's child node
+global proc string getObjectShapeNode ( string $object ){
   string $shapes[] = `listRelatives -children -shapes $object`;
   return $shapes[0];
 }

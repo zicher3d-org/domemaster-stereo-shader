@@ -6,7 +6,7 @@ ECHO Setting up the Visual Studio compiling environment
 ECHO.
 
 REM Add mental ray include directory to %include%
-set include=%include%;C:\Program Files\Autodesk\mentalrayForMaya2015\devkit\include
+set include=%include%;C:\Program Files\Autodesk\mentalrayForMaya2016\devkit\include
 
 REM ADD VC directories to PATH & Setup VC for 64 bit compiling
 

@@ -6,7 +6,7 @@
 
 	Version History
 	----------------
-  Domemaster3D V2.2.2 - 2016-12-28
+  Domemaster3D V2.2.2 - 2016-12-29
 	Domemaster3D V2.2.1 - 2016-12-27
 	Domemaster3D V2.2 - 2016-11-26
 	Domemaster3D V2.1.4 - 2016-11-03
@@ -73,7 +73,7 @@ global proc string getMayaPlatform(){
 global proc arnoldDomeVersion(){
   string $dialogButtonSelected = "";
   string $domemaster3D_version = "2.2.2";
-  string $release_date = "December 28, 2016";
+  string $release_date = "December 29, 2016";
 
   string $domeDialogString = "";
   $domeDialogString += "Domemaster3D Shader for Arnold MtoA" + " - Version " + $domemaster3D_version + "\n";

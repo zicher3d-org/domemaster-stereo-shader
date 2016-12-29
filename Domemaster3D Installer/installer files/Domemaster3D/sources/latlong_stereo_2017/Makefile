@@ -8,6 +8,9 @@
 # You can install the files using the command:
 # sudo make install
 
+# Note: If you don't have gcc on your CentOS system use the command:
+# sudo yum install gcc
+
 CC = gcc
 
 #MAYA_DIR=/usr/autodesk/maya8.5-x64
@@ -18,7 +21,8 @@ CC = gcc
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2015
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2016
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2016.5
-MAYA_DIR=/opt/nvidia/mentalray-for-maya-2017-3.14
+#MAYA_DIR=/opt/nvidia/mentalray-3.14-for-Maya-2016
+MAYA_DIR=/opt/nvidia/mentalray-3.14-for-Maya-2017
 
 # Domemaster3D Maya 2016-2016 Shaders
 #DOMEMASTER_DIR=/opt/Domemaster3D/maya/shaders

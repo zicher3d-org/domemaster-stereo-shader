@@ -2,14 +2,27 @@
 # by Andrew Hazelden  andrew@andrewhazelden.com
 # http://www.andrewhazelden.com
 
+# You can compile this file from the command line using:
+# make
+
+# You can install the files using the command:
+# sudo make install
+
+# Note: If you don't have gcc on your CentOS system use the command:
+# sudo yum install gcc
+
 CC = gcc
 
 #MAYA_DIR=/usr/autodesk/maya8.5-x64
 #MAYA_DIR=/usr/autodesk/maya2011-x64
 #MAYA_DIR=/usr/autodesk/maya2012-x64
 #MAYA_DIR=/usr/autodesk/maya2013-x64
-MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
+#MAYA_DIR=/usr/autodesk/mentalrayForMaya2014
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2015
+#MAYA_DIR=/usr/autodesk/mentalrayForMaya2016
+#MAYA_DIR=/usr/autodesk/mentalrayForMaya2016.5
+#MAYA_DIR=/opt/nvidia/mentalray-3.14-for-Maya-2016
+MAYA_DIR=/opt/nvidia/mentalray-3.14-for-Maya-2017
 
 DOMEMASTER_DIR = /opt/Domemaster3D/maya/shaders
 

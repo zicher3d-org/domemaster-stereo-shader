@@ -1,5 +1,5 @@
-﻿Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.2 - December 28, 2016
+Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
+Version 2.2.2 - December 29, 2016
 
 About This Shader
 ---------------------
@@ -300,8 +300,12 @@ Version History
 
 Version 2.2.2
 -------------
-2016-12-28
+2016-12-29
 
+Installer
+
+  The Domemaster3D installer now attempts to detect the installed programs and will enable the lens shader checkbox options for each host package that is present on the system.
+  
 Maya
 
   Added a new "Create mental ray IPR Viewport" Domemaster3D menu item and an "IPR Viewport" shelf tool that creates a torn off mental ray 3.14 interactive viewport window. This window has the mental ray 3.14 based interactive viewport rendering mode active which provides an efficient way to preview the camera framing in a 360 degree panoramic scene with a mental ray lens shader active. The IPR Viewport window is set to use the same aspect ratio as your final rendered imagery and the viewport is created at 50% of the size of your current Maya "Test Resolution" setting in the Maya Render View window. Note: For a stereo camera make sure to be looking through the right or left camera view in the stereo camera rig before you activate the IPR Viewport mode.

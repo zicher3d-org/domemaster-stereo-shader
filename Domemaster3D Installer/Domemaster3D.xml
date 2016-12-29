@@ -4352,6 +4352,778 @@
                 <fileTest condition="is_not_empty" path="${windows_folder_personal}/maya/2010-x64/Maya.env"/>
             </ruleList>
         </createBackupFile>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2009</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2009/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2010</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2010/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2011</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}\Autodesk\3ds Max 2011\mentalimages"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2012</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}\Autodesk\3ds Max 2012\mentalimages"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2013/NVIDIA/shaders_autoload/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2014/NVIDIA/shaders_autoload/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2015/NVIDIA/shaders_autoload/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2016/NVIDIA/shaders_autoload/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>max_2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2017/Plugins/NVIDIA/Shaders/shaders_autoload/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Vray_Max_2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2014/plugins/vrayplugins/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Vray_Max_2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2015/plugins/vrayplugins/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Vray_Max_2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2016/plugins/vrayplugins"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Vray_Max_2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/3ds Max 2017/plugins/vrayplugins"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>C4DtoA_Cinema4D_R16</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/MAXON/CINEMA 4D R16/plugins/C4DtoA"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>C4DtoA_Cinema4D_R16</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/MAXON/CINEMA 4D R16/plugins/C4DtoA/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>C4DtoA_Cinema4D_R17</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/MAXON/CINEMA 4D R17/plugins/C4DtoA"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>C4DtoA_Cinema4D_R17</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/MAXON/CINEMA 4D R17/plugins/C4DtoA/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>C4DtoA_Cinema4D_R18</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/MAXON/CINEMA 4D R18/plugins/C4DtoA"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>C4DtoA_Cinema4D_R18</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/MAXON/CINEMA 4D R18/plugins/C4DtoA/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr_standalone_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/NVIDIA Corporation/mentalray 3.14 standalone for Maya 2016"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr_standalone_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/NVIDIA Corporation/mentalray-3.14-standalone-for-Maya-2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr_standalone_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/nvidia/mentalray-3.14-standalone-for-Maya-2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr_standalone_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/NVIDIA Corporation/mentalray 3.14 standalone for Maya 2017"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr_standalone_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/NVIDIA Corporation/mentalray-3.14-standalone-for-Maya-2017/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr_standalone_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/nvidia/mentalray-3.14-standalone-for-Maya-2017/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr314_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/NVIDIA Corporation/mentalray 3.14 for Maya 2016"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr314_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/NVIDIA Corporation/mentalray-3.14-for-Maya-2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr314_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/nvidia/mentalray-3.14-for-Maya-2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr314_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/NVIDIA Corporation/mentalray 3.14 for Maya 2017"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr314_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/NVIDIA Corporation/mentalray-3.14-for-Maya-2017/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mr314_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/nvidia/mentalray-3.14-for-Maya-2017/"/>
+            </ruleList>
+        </componentSelection>
+        
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2010</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/Maya2010/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2010</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/maya2010-x64/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2011</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/Maya2011/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2011</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2011/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2011</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/maya2011-x64/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2012</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/Maya2012/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2012</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2012/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2012</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/maya2012-x64/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/Maya2013/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2013/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/maya2013-x64/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2013_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/Maya2013.5/mentalray"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2013_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2013.5/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2013_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/maya2013.5-x64/mentalray/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/mentalrayForMaya2014/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/mentalrayForMaya2014/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/mentalrayForMaya2014/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/mentalrayForMaya2015/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/mentalrayForMaya2015/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/mentalrayForMaya2015/"/>
+            </ruleList>
+        </componentSelection>
+        
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/mentalrayForMaya2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/mentalrayForMaya2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/mentalrayForMaya2016/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2016_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="${windows_folder_program_files}/Autodesk/mentalrayForMaya2016.5/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2016_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/mentalrayForMaya2016.5/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>Maya2016_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/usr/autodesk/mentalrayForMaya2016.5/"/>
+            </ruleList>
+        </componentSelection>
+        
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="C:/solidangle/mtoadeploy/2013/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/solidangle/mtoa/2013/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2013</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/solidangle/mtoa/2013/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="C:/solidangle/mtoadeploy/2014/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/solidangle/mtoa/2014/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2014</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/solidangle/mtoa/2014/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="C:/solidangle/mtoadeploy/2015/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/solidangle/mtoa/2015/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2015</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/solidangle/mtoa/2015/"/>
+            </ruleList>
+        </componentSelection>
+        
+      <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="C:/solidangle/mtoadeploy/2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/solidangle/mtoa/2016/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2016</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/solidangle/mtoa/2016/"/>
+            </ruleList>
+        </componentSelection>
+        
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2016_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="C:/solidangle/mtoadeploy/2016.5/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2016_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/solidangle/mtoa/2016.5/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2016_5</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/solidangle/mtoa/2016.5/"/>
+            </ruleList>
+        </componentSelection>
+    
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="C:/solidangle/mtoadeploy/2017/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/Applications/solidangle/mtoa/2017/"/>
+            </ruleList>
+        </componentSelection>
+        <componentSelection>
+            <deselect></deselect>
+            <select>mtoa_Maya2017</select>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <fileTest condition="is_directory" path="/opt/solidangle/mtoa/2017/"/>
+            </ruleList>
+        </componentSelection>
+        
+        
+        
     </preInstallationActionList>
     <postInstallationActionList>
         <readFile>

@@ -21,7 +21,8 @@ CC=g++
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2015
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2016
 #MAYA_DIR=/usr/autodesk/mentalrayForMaya2016.5
-MAYA_DIR=/opt/nvidia/mentalray-for-maya-2017-3.14
+#MAYA_DIR=/opt/nvidia/mentalray-3.14-for-Maya-2016
+MAYA_DIR=/opt/nvidia/mentalray-3.14-for-Maya-2017
 
 # Domemaster3D Maya 2016-2016 Shaders
 #DOMEMASTER_DIR=/opt/Domemaster3D/maya/shaders

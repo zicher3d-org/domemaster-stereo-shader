@@ -4703,7 +4703,7 @@
                 <platformTest>
                     <type>osx</type>
                 </platformTest>
-                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2011/mentalray/"/>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/maya2011/mentalray/"/>
             </ruleList>
         </componentSelection>
         <componentSelection>
@@ -4734,7 +4734,7 @@
                 <platformTest>
                     <type>osx</type>
                 </platformTest>
-                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2012/mentalray/"/>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/maya2012/mentalray/"/>
             </ruleList>
         </componentSelection>
         <componentSelection>
@@ -4765,7 +4765,7 @@
                 <platformTest>
                     <type>osx</type>
                 </platformTest>
-                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2013/mentalray/"/>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/maya2013/mentalray/"/>
             </ruleList>
         </componentSelection>
         <componentSelection>
@@ -4796,7 +4796,7 @@
                 <platformTest>
                     <type>osx</type>
                 </platformTest>
-                <fileTest condition="is_directory" path="/Applications/Autodesk/Maya2013.5/mentalray/"/>
+                <fileTest condition="is_directory" path="/Applications/Autodesk/maya2013.5/mentalray/"/>
             </ruleList>
         </componentSelection>
         <componentSelection>

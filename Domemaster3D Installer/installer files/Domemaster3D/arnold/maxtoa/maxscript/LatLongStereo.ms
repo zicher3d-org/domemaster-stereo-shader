@@ -1,5 +1,5 @@
 -- LatLong Stereoscopic Lens Shader Arnold MAXtoA Scripted Controller
--- 2016-12-19 8.17 PM
+-- 2016-12-30 8.30 PM
 -- by Andrew Hazelden andrew@andrewhazelden.com and Roberto Ziche
 -- -------------------------------------------------------------------
 -- Todo: Customize the classid node setting line: classID:#(515151,676100)
@@ -23,9 +23,9 @@ replaceUI:true
     arnold_node_camera type:#integer default:1 ui:camera
     
     -- Valid range 0.1-180 degrees
-    arnold_node_fov_vert_angle type:#float Range:[0.1,180,180] default:180 ui:fov_vert_angle
+    arnold_node_fov_vert_angle type:#float default:180 ui:fov_vert_angle
     -- Valid range 0.1-360 degrees
-    arnold_node_fov_horiz_angle type:#float Range:[0.1,360,360] default:360 ui:fov_horiz_angle
+    arnold_node_fov_horiz_angle type:#float default:360 ui:fov_horiz_angle
     
     -- These two controls are set in scene coordinates (typically expressed visually in cm for stereographers)
     arnold_node_parallax_distance type:#worldunits default:(units.decodeValue("360cm")) ui:parallax_distance
@@ -35,8 +35,8 @@ replaceUI:true
     arnold_node_zenith_mode type:#integer default:0 ui:zenith_mode
     
     -- These three controls need to be turned into mappable image selection fields
-    arnold_node_separation_map type:#float Range:[0,1,1] default:1 ui:separation_map
-    arnold_node_head_tilt_map type:#float Range:[0,1,0.5] default:0.5 ui:head_tilt_map
+    arnold_node_separation_map type:#float default:1 ui:separation_map
+    arnold_node_head_tilt_map type:#float default:0.5 ui:head_tilt_map
     
     -- Checkboxes
     arnold_node_flip_ray_x type:#integer default:0 ui:flip_ray_x

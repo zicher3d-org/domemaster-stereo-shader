@@ -23,23 +23,23 @@ replaceUI:true
     arnold_node_camera type:#integer default:1 ui:camera
     
     -- Valid range 0.1-360 degrees
-    arnold_node_fov_angle type:#float Range:[0.1,360,180]  default:180 ui:fov_angle
+    arnold_node_fov_angle type:#float default:180 ui:fov_angle
     
     -- These two controls are set in scene coordinates (typically expressed visually in cm for stereographers)
     arnold_node_zero_parallax_sphere type:#worldunits default:(units.decodeValue("360cm")) ui:zero_parallax_sphere
     arnold_node_separation type:#worldunits default:(units.decodeValue("65cm")) ui:separation
     
     -- Valid range 0-90 degrees 
-    arnold_node_forward_tilt type:#float Range:[0,90,0]  default:0 ui:forward_tilt
+    arnold_node_forward_tilt type:#float default:0 ui:forward_tilt
     
     -- Checkboxes
     arnold_node_tilt_compensation type:#integer default:0 ui:tilt_compensation
     arnold_node_vertical_mode type:#integer default:0 ui:vertical_mode
     
     -- These three controls need to be turned into mappable image selection fields
-    arnold_node_separation_map type:#float Range:[0,1,1] default:1 ui:separation_map
-    arnold_node_head_turn_map type:#float Range:[0,1,1] default:1 ui:head_turn_map
-    arnold_node_head_tilt_map type:#float Range:[0,1,0.5] default:0.5 ui:head_tilt_map
+    arnold_node_separation_map type:#float default:1 ui:separation_map
+    arnold_node_head_turn_map type:#float default:1 ui:head_turn_map
+    arnold_node_head_tilt_map type:#float default:0.5 ui:head_tilt_map
     
     -- Checkboxes
     arnold_node_flip_ray_x type:#integer default:0 ui:flip_ray_x

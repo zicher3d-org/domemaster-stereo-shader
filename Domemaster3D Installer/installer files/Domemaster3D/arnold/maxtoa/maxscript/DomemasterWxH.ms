@@ -1,5 +1,5 @@
 -- Domemaster WxH Lens Shader Arnold MAXtoA Scripted Controller
--- 2016-12-19 8.17 PM
+-- 2016-12-30 8.30 PM 
 -- by Andrew Hazelden andrew@andrewhazelden.com and Roberto Ziche
 -- -------------------------------------------------------------------
 -- Todo: Customize the classid node setting line: classID:#(515151,676102)
@@ -19,8 +19,8 @@ replaceUI:true
   (
     arnold_node type:#string default:"DomemasterWxH"
     
-    arnold_node_diameter type:#float Range:[0.1,9999,1] default:1 ui:diameter
-    arnold_node_height type:#float Range:[0.0001,9999,0.5] default:0.5 ui:height
+    arnold_node_diameter type:#float default:1 ui:diameter
+    arnold_node_height type:#float default:0.5 ui:height
     
     -- Checkboxes
     arnold_node_flip_ray_x type:#integer default:0 ui:flip_ray_x

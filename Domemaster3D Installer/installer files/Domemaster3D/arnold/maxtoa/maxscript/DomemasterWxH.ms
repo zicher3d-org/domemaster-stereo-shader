@@ -1,10 +1,10 @@
 -- Domemaster WxH Lens Shader Arnold MAXtoA Scripted Controller
--- 2016-12-30 8.30 PM 
+-- 2016-12-30 11.37 PM
 -- by Andrew Hazelden andrew@andrewhazelden.com and Roberto Ziche
 -- -------------------------------------------------------------------
 -- Todo: Customize the classid node setting line: classID:#(515151,676102)
 -- 
--- NOTE: This script requires the "Domemaster3D" lens shader DLL that can be downladed from:
+-- NOTE: This script requires the "Domemaster3D" lens shader DLL that can be downloaded from:
 -- https://github.com/zicher3d-org/domemaster-stereo-shader/
 -- -------------------------------------------------------------------
 
@@ -17,14 +17,14 @@ replaceUI:true
 (
   parameters main rollout:params
   (
-    arnold_node type:#string default:"DomemasterWxH"
+    arnold_node                     type:#string          default:"DomemasterWxH"
     
-    arnold_node_diameter type:#float default:1 ui:diameter
-    arnold_node_height type:#float default:0.5 ui:height
+    arnold_node_diameter            type:#float           default:1   ui:diameter
+    arnold_node_height              type:#float           default:0.5 ui:height
     
     -- Checkboxes
-    arnold_node_flip_ray_x type:#integer default:0 ui:flip_ray_x
-    arnold_node_flip_ray_y type:#integer default:0 ui:flip_ray_y
+    arnold_node_flip_ray_x          type:#integer         default:0   ui:flip_ray_x
+    arnold_node_flip_ray_y          type:#integer         default:0   ui:flip_ray_y
   )
   
   -- Hack to touch a parameter that the camera translator "cares" about to 
@@ -41,12 +41,14 @@ replaceUI:true
     checkbutton flip_ray_x          "Flip X"
     checkbutton flip_ray_y          "Flip Y"
     
-    
     -- This is a workaround for the camera being too smart, and ignoring any
     -- updates that are not in its set of "parameters I care about"
-    on diameter selected val do forceUpdate()
-    on height selected val do forceUpdate()
-    on flip_ray_x selected val do forceUpdate()
-    on flip_ray_y changed val do forceUpdate()    
+    
+    -- Note: dropdownlists use "selected" and spinners use "changed"
+    
+    on diameter                     changed val do forceUpdate()
+    on height                       changed val do forceUpdate()
+    on flip_ray_x                   changed val do forceUpdate()
+    on flip_ray_y                   changed val do forceUpdate()    
   )
 )

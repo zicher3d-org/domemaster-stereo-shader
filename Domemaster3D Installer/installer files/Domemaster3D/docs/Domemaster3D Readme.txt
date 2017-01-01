@@ -356,7 +356,7 @@ Arnold MaxtoA for 3ds Max Beta
 
 V-Ray for Max
 
-  Compiled new V-Ray 3.4 for 3ds Max 3014, 2016, and 2017 lens shaders builds using Visual Studio 2013 Community Edition.
+  Compiled new V-Ray 3.4 for 3ds Max 2014 - 2017 lens shaders builds using Visual Studio 2013 Community Edition.
 
 Version 2.2
 -------------

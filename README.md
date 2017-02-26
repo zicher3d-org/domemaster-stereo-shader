@@ -6,10 +6,10 @@ The core developers of the Domemaster3D rendering tools are [Roberto Ziche](http
 
 *The Domemaster3D shaders are distributed under the GPL v3 license.*
 
-## Domemaster3D GUI Installers ##
+## Download the Domemaster3D GUI/Manual Installers ##
 
 **Domemaster3D for Max/Maya**  
-The GitHub releases tab has the latest graphical installers for the Domemaster3D for Max/Maya releases:
+The GitHub releases tab has the downloads for the latest graphical installers for the Domemaster3D for Max/Maya releases, along with a zipped manual install version:
 [https://github.com/zicher3d-org/domemaster-stereo-shader/releases](https://github.com/zicher3d-org/domemaster-stereo-shader/releases)
 
 **Domemaster3D for Softimage**  

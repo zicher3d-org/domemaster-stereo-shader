@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.2.3 - January 4, 2017
+Version 2.3 - May 4, 2017
 
 About This Shader
 ---------------------
@@ -27,13 +27,13 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.2 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.3 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 You can also find a copy of the Visual Studio 2012 (VC++ 11.0) x64 installer in the Domemaster3D "bin" folder at:
 C:/Program Files/Domemaster3D/bin/vcredist_2012_vc11_x64.exe
 
-The Domemaster3D v2.2 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.3 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 You can also find a copy of the Visual Studio 2013 (VC++ 12.0) x64 installer in the Domemaster3D "bin" folder at:
@@ -297,6 +297,13 @@ Martin Watt for writing the original galaxies.mel script.
 
 Version History
 -----------------
+Version 2.3
+-------------
+2017-01-04
+
+Max 2018
+  
+  Updated the Domemaster3D installer to support the new NVIDIA Mental Ray for 3DS Max 2018 release.
 
 Version 2.2.3
 -------------

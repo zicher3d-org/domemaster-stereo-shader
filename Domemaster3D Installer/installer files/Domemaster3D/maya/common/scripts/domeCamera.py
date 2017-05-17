@@ -1,12 +1,16 @@
 """
-Domemaster3D Camera Setup Script V2.2.1
-2016-12-23
+Domemaster3D Camera Setup Script V2.3
+2017-05-17
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
 -------------------------------------------------------------------------------------------------------
 
 Version History
+
+Version 2.3 - 2017-05-17
+-------------------------
+Added support for preserving existing pre/post render MEL script entries when Domemaster3D adds a new camera rig to the scene, or you click the "Add" / "Rem" shelf buttons. This revision is based upon a submission from Campbell Strong.
 
 Version 2.2 - 2016-12-23
 -------------------------
@@ -587,8 +591,8 @@ def setDomeSamplingQuality():
     cmds.setAttr('miDefaultOptions.miSamplesMax', 100)
 
 
-preMEL_domemaster = 'source "domeRender.mel"; domemaster3DPreRenderMEL();'
-postMEL_domemaster = 'source "domeRender.mel"; domemaster3DPostRenderMEL();'
+preMelDomemaster = 'source "domeRender.mel"; domemaster3DPreRenderMEL();'
+postMelDomemaster = 'source "domeRender.mel"; domemaster3DPostRenderMEL();'
 
 """
 Domemaster3D Add Pre/Post Render Mel
@@ -599,22 +603,25 @@ A python function to add the Domemaster3D shader Pre/Post render mel scripts to 
 def addPrePostRenderScript():
   import maya.cmds as cmds
   import maya.mel as mel
-  
+
   print("Adding the Pre/Post Render Mel\n")
   
   # PreRender MEL:
-  preMEL_cur = cmds.getAttr('defaultRenderGlobals.preMel') or ''
-  if not(preMEL_domemaster in preMEL_cur):
-      cmds.setAttr('defaultRenderGlobals.preMel', (preMEL_cur+ ';' +preMEL_domemaster), type = 'string')
-  
+  preMelCurrent = cmds.getAttr('defaultRenderGlobals.preMel') or ''
+  if not(preMelDomemaster in preMelCurrent):
+    preMelCurrent = preMelCurrent + ';' + preMelDomemaster
+    preMelCurrent = preMelCurrent.replace(';;', ';')
+    cmds.setAttr('defaultRenderGlobals.preMel', preMelCurrent, type = 'string')
+
   # PostRender MEL:
-  postMEL_cur = cmds.getAttr('defaultRenderGlobals.postMel') or ''
-  if not(postMEL_domemaster in postMEL_cur):
-      cmds.setAttr('defaultRenderGlobals.postMel', (postMEL_cur+ ';' +postMEL_domemaster), type = 'string')
-  
+  postMelCurrent = cmds.getAttr('defaultRenderGlobals.postMel') or ''
+  if not(postMelDomemaster in postMelCurrent):
+    postMelCurrent = postMelCurrent + ';' + postMelDomemaster
+    postMelCurrent = postMelCurrent.replace(';;', ';')
+    cmds.setAttr('defaultRenderGlobals.postMel', postMelCurrent, type = 'string')
+
   # Enable realtime 3D
-  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();")
-  
+  mel.eval('source "domeRender.mel"; domemaster3DPostRenderMEL();')
 
 
 """
@@ -626,19 +633,23 @@ A python function to remove the Domemaster3D shader Pre/Post render mel scripts 
 def removePrePostRenderScript():
   import maya.cmds as cmds
   import maya.mel as mel
-  
+
   print("Removing the Pre/Post Render Mel\n")
-  
+
   # PreRender MEL:
-  preMEL_cur = cmds.getAttr('defaultRenderGlobals.preMel') or ''
-  cmds.setAttr('defaultRenderGlobals.preMel', cmds.setAttr(preMEL_cur.replace(preMEL_domemaster, ''), type='string')
+  preMelCurrent = cmds.getAttr('defaultRenderGlobals.preMel') or ''
+  preMelCurrent = preMelCurrent.replace(preMelDomemaster, '')
+  preMelCurrent = preMelCurrent.replace(';;', ';')
+  cmds.setAttr('defaultRenderGlobals.preMel', preMelCurrent, type='string')
+  
   # PostRender MEL:
-  postMEL_cur = cmds.getAttr('defaultRenderGlobals.postMel') or ''
-  cmds.setAttr('defaultRenderGlobals.postMel', cmds.setAttr(postMEL_cur.replace(postMEL_domemaster, ''), type='string')
-
+  postMelCurrent = cmds.getAttr('defaultRenderGlobals.postMel') or ''
+  postMelCurrent = postMelCurrent.replace(postMelDomemaster, '')
+  postMelCurrent = postMelCurrent.replace(';;', ';')
+  cmds.setAttr('defaultRenderGlobals.postMel', postMelCurrent, type='string')
+  
   # Disable the realtime 3D camera offsets
-  mel.eval("source \"domeRender.mel\"; domemaster3DPreRenderMEL();")
-
+  mel.eval('source "domeRender.mel"; domemaster3DPostRenderMEL();')
 
 
 """
@@ -1553,7 +1564,7 @@ def createDomeGrid():
 
   # Find out the preview curve's makeNurbCircle node name
   makeCurveShapeName = domeCurveShape
-  makeCurveObject = cmds.listConnections( makeCurveShapeName[0]+'.create', type='makeNurbCircle')
+  makeCurveObject = cmds.listConnections(makeCurveShapeName[0]+'.create', type='makeNurbCircle')
   makeCurveNodeName = makeCurveObject[0]
   print("The NURBS circle creation node is: ")
   print(makeCurveNodeName)
@@ -1563,7 +1574,7 @@ def createDomeGrid():
   #-----------------------------------------------------------------------------
       
   # Find out the name of the "makeNurbCircle" node that is used to create the domeGridPreviewCurve shape
-  makeRevolveObjects= cmds.listConnections(  makeCurveShapeName[0]+'.worldSpace', type='revolve')
+  makeRevolveObjects= cmds.listConnections(makeCurveShapeName[0]+'.worldSpace', type='revolve')
   makeRevolveNodeName = makeRevolveObjects[0];
   print("The circle creation node is: ")
   print(makeRevolveNodeName)

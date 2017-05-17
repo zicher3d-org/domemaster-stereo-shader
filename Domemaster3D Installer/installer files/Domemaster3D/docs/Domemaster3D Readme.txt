@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.3 - May 4, 2017
+Version 2.3 - May 17, 2017
 
 About This Shader
 ---------------------
@@ -10,6 +10,8 @@ The shader collection also supports fulldome 2D rendering using either the DomeA
 Latitude Longitude rendering (also known as spherical or equirectangular output) is supported with the help of the latlong_lens shader, and the stereoscopic LatLong_Stereo shader.
 
 Note: The previous Domemaster3D Shader v1.5 has updated the Maya Binary (.mb) Node ID codes used for the domeAFL and latlong_lens shaders. If you open a .mb file created in a previous Domemaster3D release, you should use the "upgrade" tool in the Domemaster3D shelf to modify the Node ID codes. Lens shader nodes that need to be updated will have their icons replaced in the Hypershade with the red text that reads "NodeID Upgrade Required."
+
+Arnold 5 Compatibility Note: The new Arnold 5 release has changed their lens shader system. At this point in time the current Domemaster3D shaders are not compatible with Arnold 5. If you need a lens shader today that works with Arnold 5 it is recommended you use the new built-in "VR Camera" module provided by Solid Angle directly.
 
 Install Directory
 -------------------
@@ -299,11 +301,15 @@ Version History
 -----------------
 Version 2.3
 -------------
-2017-01-04
+2017-05-17
 
 Max 2018
   
   Updated the Domemaster3D installer to support the new NVIDIA Mental Ray for 3DS Max 2018 release.
+
+Maya
+
+  Added support for preserving existing pre/post render MEL script entries when Domemaster3D adds a new camera rig to the scene, or you click the "Add" / "Rem" shelf buttons. This revision is based upon a submission from Campbell Strong.
 
 Version 2.2.3
 -------------

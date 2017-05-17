@@ -587,6 +587,9 @@ def setDomeSamplingQuality():
     cmds.setAttr('miDefaultOptions.miSamplesMax', 100)
 
 
+preMEL_domemaster = 'source "domeRender.mel"; domemaster3DPreRenderMEL();'
+postMEL_domemaster = 'source "domeRender.mel"; domemaster3DPostRenderMEL();'
+
 """
 Domemaster3D Add Pre/Post Render Mel
 ----------------------
@@ -600,9 +603,14 @@ def addPrePostRenderScript():
   print("Adding the Pre/Post Render Mel\n")
   
   # PreRender MEL:
-  cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  preMEL_cur = cmds.getAttr('defaultRenderGlobals.preMel') or ''
+  if not(preMEL_domemaster in preMEL_cur):
+      cmds.setAttr('defaultRenderGlobals.preMel', (preMEL_cur+ ';' +preMEL_domemaster), type = 'string')
+  
   # PostRender MEL:
-  cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  postMEL_cur = cmds.getAttr('defaultRenderGlobals.postMel') or ''
+  if not(postMEL_domemaster in postMEL_cur):
+      cmds.setAttr('defaultRenderGlobals.postMel', (postMEL_cur+ ';' +postMEL_domemaster), type = 'string')
   
   # Enable realtime 3D
   mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();")
@@ -622,9 +630,11 @@ def removePrePostRenderScript():
   print("Removing the Pre/Post Render Mel\n")
   
   # PreRender MEL:
-  cmds.setAttr('defaultRenderGlobals.preMel', "", type='string')
+  preMEL_cur = cmds.getAttr('defaultRenderGlobals.preMel') or ''
+  cmds.setAttr('defaultRenderGlobals.preMel', cmds.setAttr(preMEL_cur.replace(preMEL_domemaster, ''), type='string')
   # PostRender MEL:
-  cmds.setAttr('defaultRenderGlobals.postMel' , "", type='string')
+  postMEL_cur = cmds.getAttr('defaultRenderGlobals.postMel') or ''
+  cmds.setAttr('defaultRenderGlobals.postMel', cmds.setAttr(postMEL_cur.replace(postMEL_domemaster, ''), type='string')
 
   # Disable the realtime 3D camera offsets
   mel.eval("source \"domeRender.mel\"; domemaster3DPreRenderMEL();")
@@ -802,14 +812,8 @@ def createFulldomeStereoRig():
   # using a PreRender and PostRender MEL script
   #---------------------------------------------------------------------------
   #import maya.cmds as cmds
-
-  # PreRender MEL:
-  cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
-  # PostRender MEL:
-  cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
-
-  # Enable realtime 3D
-  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();")
+  
+  addPrePostRenderScript()
   
   return rig
   
@@ -1180,13 +1184,7 @@ def createLatLongStereoRig():
   #---------------------------------------------------------------------------
   #import maya.cmds as cmds
 
-  # PreRender MEL:
-  cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
-  # PostRender MEL:
-  cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
-
-  # Enable realtime 3D
-  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();")
+  addPrePostRenderScript()
   
   return rig
 
@@ -1280,13 +1278,7 @@ def createLatLongStereoAimRig():
   #---------------------------------------------------------------------------
   #import maya.cmds as cmds
 
-  # PreRender MEL:
-  cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
-  # PostRender MEL:
-  cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
-
-  # Enable realtime 3D
-  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();")
+  addPrePostRenderScript()
   
   # Convert the camera rig to to an Aim Camera Rig
   # Uses the MEL based function cameraMakeNode from:
@@ -1390,13 +1382,7 @@ def createLatLongStereoZenithRig():
   #---------------------------------------------------------------------------
   #import maya.cmds as cmds
 
-  # PreRender MEL:
-  cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
-  # PostRender MEL:
-  cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
-
-  # Enable realtime 3D
-  mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();")
+  addPrePostRenderScript()
   
   return rig
 

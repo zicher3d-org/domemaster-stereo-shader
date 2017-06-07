@@ -1,3 +1,26 @@
+# Domemaster3D - End of Support #
+
+As life happens, both Andrew Hazelden and I (Roberto Ziche) need to move on and slow down the amount of the time we spend volunteering on the development of the Domemaster Stereo Shader. It was a nice project and had a surprisingly good adoption rate since my original experiment in mental ray ( http://www.robertoziche.com/domemaster/ ) back in 2010. And I have to thank Andrew for building an amazing Domemaster3D toolset around it, for regularly posting updates of the toolset with Windows/Linux/Mac based installer packages, and promoting it for all these years.
+
+Since both the Domemaster and Latlong lens shaders still include some unique functionality for omni-directional stereo rendering that no one else provides at the moment, we are hoping that production users who need these tools going forward could join the GitHub project as a contributor to help pick up the development effort on creating bug fixes and to assist with the end user support especially for the stereo 3D planetarium production community that this toolset was designed for.
+
+This is a summary of the project status:
+
+1) The most full featured version of the Domemaster and Latlong stereo lens shaders, where I think I implemented all the features I could think of, is the V-ray 3.x for 3ds Max source code. It works nicely in 3ds Max up to version 2018.
+
+2) The Mental Ray version of the lens shaders should work with the recently released Mental Ray 3.14 for Maya/3ds Max/Standalone products. These lens shaders include support for GPU accelerated GI Next rendering and has ray differential sampling built-in. These modes work in Maya for sure, but there has not been extensive testing done in 3ds Max 2018. We assume the Mental Ray lens shaders will keep working for an extended period of time without the need to be re-compiled for the next few releases of Mental Ray 3.x.
+
+3) The Arnold for Maya version of the lens shaders won't work with Arnold 5 as Solid Angle redesigned the rendering APIs. So don't expect the Domemaster3D toolset to work with Maya 2018 since it only includes Arnold 5.
+
+4) The V-Ray 3.x for Maya version of the lens shaders is still a beta and lacks the tools for easily applying screen space stereo control maps. It's also missing some of the more advanced controls found in the V-Ray for 3ds Max version.
+
+We are always available for clarifications, basic support, and to facilitate people who want to join onto the Domemaster Stereo Shader project as a GitHub contributor and help take over the development efforts going forward.
+
+Roberto and Andrew
+
+
+\<original readme\>
+
 # Domemaster Stereo Shader #
 
 Domemaster3D is a suite of fulldome stereo and LatLong stereo production lens shaders for Mental Ray (3DS Max, Maya, Softimage, Mental Ray Standalone), Vray (Maya, 3DS Max, Vray Standalone), Arnold (MtoA, SItoA, C4DtoA, HtoA, Kick), and a version of the lens model comes integrated in Maxwell Render 3.2+.

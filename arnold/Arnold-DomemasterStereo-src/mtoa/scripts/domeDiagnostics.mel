@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V2.2
-  2016-11-26 6.31 AM
+  Dome Diagnostics Report Tool V2.3
+  2017-06-17 03.45 PM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,11 +10,13 @@
   Version History
   ----------------
   
-  Version 2.2
+  Version 2.3
   ------------------
-  2016-10-04
+  2017-06-17
   
-  Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style.
+  Added the "MAYA_IGNORE_DIALOGS" environment variable that is used to tell Maya to skip showing warning dialogs
+  
+  Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style
   
   Version 2.1.2
   ------------------
@@ -372,7 +374,7 @@ global proc domeDiagnostics(){
   string $domeDebugText = "";
   print ("Writing Domemaster3D Diagnostics Report to: " + $domeDebugLogPathString + "\r\n");
 
-  $domeDebugText += "# Domemaster3D Diagnostics Tool V2.1 #\r\n";
+  $domeDebugText += "# Domemaster3D Diagnostics Tool V2.3 #\r\n";
   $domeDebugText +=  "-----------------------------------------\r\n\r\n";
   $domeDebugText += "Log Creation: " + `date` + "  \r\n";
   $domeDebugText += "Computer: " + $computerName + "  \r\n";
@@ -949,6 +951,9 @@ global proc domeDiagnostics(){
   
   $domeTempString = `getenv "MAYA_VP2_USE_GPU_MAX_TARGET_SIZE"`;
   $domeDebugText += "### `MAYA_VP2_USE_GPU_MAX_TARGET_SIZE` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
+  $domeTempString = `getenv "MAYA_IGNORE_DIALOGS"`;
+  $domeDebugText += "### `MAYA_IGNORE_DIALOGS` ###\r\n> " + $domeTempString + "\r\n\r\n";
   
   $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
   $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
@@ -2505,7 +2510,7 @@ global proc domeLaunchMayaInstance(){
       // Windows
       $runCommand = "start \"" + toNativePath($mayaDirPathString) + $osSeparator + "bin" + $osSeparator + "maya.exe" + "\"";
     }else if(getMayaPlatform() == "darwin"){
-      // macOS 
+      // macOS
       //$runCommand = "\"" + $mayaDirPathString + $osSeparator + "bin" + $osSeparator + "maya" + "\"" + " &";
       $runCommand = "open -a \"" + $mayaDirPathString + $osSeparator + "bin" + $osSeparator + "maya" + "\"";
     }else{

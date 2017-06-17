@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.3 - May 17, 2017
+Version 2.3 - June 17, 2017
 
 About This Shader
 ---------------------
@@ -301,7 +301,7 @@ Version History
 -----------------
 Version 2.3
 -------------
-2017-05-17
+2017-06-17
 
 Max 2018
   
@@ -311,6 +311,8 @@ Maya
 
   Added support for preserving existing pre/post render MEL script entries when Domemaster3D adds a new camera rig to the scene, or you click the "Add" / "Rem" shelf buttons. This revision is based upon a submission from Campbell Strong.
 
+  Updated the domeDiagnostics script.
+
 Version 2.2.3
 -------------
 2017-01-04
@@ -318,7 +320,7 @@ Version 2.2.3
 Maya
 
   Updated the Linux centric Maya.env files to fix a path issue for the sourceimages directory.
-
+  
 Version 2.2.2
 -------------
 2016-12-29

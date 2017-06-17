@@ -1223,7 +1223,7 @@ global proc domeDiagnostics(){
   }else{
 		$domeUserHomePathString = `getenv "HOME"`;
   }
-  $domeDebugText += "### `USERPROFILE PATH`###\r\n> " + $domeUserHomePathString + "\r\n\r\n";  
+  $domeDebugText += "### `USERPROFILE PATH` ###\r\n> " + $domeUserHomePathString + "\r\n\r\n";  
 
 
 

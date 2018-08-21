@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.3 - June 17, 2017
+Version 2.4 - August 21, 2018
 
 About This Shader
 ---------------------
@@ -29,13 +29,13 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.3 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.4 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 You can also find a copy of the Visual Studio 2012 (VC++ 11.0) x64 installer in the Domemaster3D "bin" folder at:
 C:/Program Files/Domemaster3D/bin/vcredist_2012_vc11_x64.exe
 
-The Domemaster3D v2.3 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.4 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 You can also find a copy of the Visual Studio 2013 (VC++ 12.0) x64 installer in the Domemaster3D "bin" folder at:
@@ -75,6 +75,20 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+Version 2.4
+-------------
+2018-08-21
+
+Max 2018
+
+  Added a vray 3.6 for 3ds Max 2018 lens shader build.
+
+Maya 2018
+
+  Updated the Domemaster3D.mod file to add Mental Ray 3.14 for Maya 2018 support.
+
+  Updated the domeDiagnostics script.
+
 Version 2.3
 -------------
 2017-06-17
@@ -88,7 +102,15 @@ Maya
   Added support for preserving existing pre/post render MEL script entries when Domemaster3D adds a new camera rig to the scene, or you click the "Add" / "Rem" shelf buttons. This revision is based upon a submission from Campbell Strong.
 
   Updated the domeDiagnostics script.
-  
+
+Version 2.2.3
+-------------
+2017-01-04
+
+Maya
+
+  Updated the Linux centric Maya.env files to fix a path issue for the sourceimages directory.
+
 Version 2.2.3
 -------------
 2017-01-04

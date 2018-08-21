@@ -1,6 +1,6 @@
 """
- Domemaster3D Fulldome Stereo Rig V2.1
- 2016-08-02 11.58 PM
+ Domemaster3D Fulldome Stereo Rig V2.4
+ 2018-08-21
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
 

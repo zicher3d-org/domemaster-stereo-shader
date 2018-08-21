@@ -1,9 +1,9 @@
 #! /bin/sh
 
-echo "Domemaster3D macOS GitHub Clone Install"
+echo "Domemaster3D macOS Git Clone Install"
 echo "----------------------------------------------------------"
 echo "by Andrew Hazelden <andrew@andrewhazelden.com>"
-echo "2016-12-23 7.19 PM"
+echo "2018-08-21 06.22 AM"
 echo ""
 
 
@@ -31,37 +31,37 @@ fi
 # Install the Domemaster3D files
 echo "[Domemaster3D] Installing the GitHub files"
 mkdir -p "/Applications/Domemaster3D/"
-cp -R "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/" "/Applications/Domemaster3D/"
+cp -R "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/" "/Applications/Domemaster3D/"
 
 echo "[Domemaster3D] Setting up the user permissions"
 chmod -R 777 "/Applications/Domemaster3D/"
 
 
 # Install the Domemaster3D Maya shelves
-echo "[Domemaster3D] Installing the Maya 2017 shelves"
-mkdir -p "$HOME/Library/Preferences/Autodesk/maya/2017/prefs/shelves/"
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/2017/shelves/shelf_Domemaster3D.mel" "$HOME/Library/Preferences/Autodesk/maya/2017/prefs/shelves/"
+echo "[Domemaster3D] Installing the Maya 2018 shelves"
+mkdir -p "$HOME/Library/Preferences/Autodesk/maya/2018/prefs/shelves/"
+cp "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/2018/shelves/shelf_Domemaster3D.mel" "$HOME/Library/Preferences/Autodesk/maya/2018/prefs/shelves/"
 
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/vray/maya/shelves/shelf_VRayDomemaster3D.mel" "$HOME/Library/Preferences/Autodesk/maya/2017/prefs/shelves/"
+cp "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/vray/maya/shelves/shelf_VRayDomemaster3D.mel" "$HOME/Library/Preferences/Autodesk/maya/2018/prefs/shelves/"
 
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/arnold/mtoa/shelves/shelf_ArnoldDomemaster3D.mel" "$HOME/Library/Preferences/Autodesk/maya/2017/prefs/shelves/"
+cp "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/arnold/mtoa/shelves/shelf_ArnoldDomemaster3D.mel" "$HOME/Library/Preferences/Autodesk/maya/2018/prefs/shelves/"
 
-echo "[Domemaster3D] Setting up the Maya 2017 shelf permissions"
-chmod -R 777 "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+echo "[Domemaster3D] Setting up the Maya 2018 shelf permissions"
+chmod -R 777 "$HOME/Library/Preferences/Autodesk/maya/2018/modules/"
 
 
 # Install the Domemaster3D Maya module files
-echo "[Domemaster3D] Installing the Maya 2017 Modules"
-mkdir -p "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+echo "[Domemaster3D] Installing the Maya 2018 Modules"
+mkdir -p "$HOME/Library/Preferences/Autodesk/maya/2018/modules/"
 
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/modules/mental ray 3.14 modules/Domemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+cp "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/maya/modules/mental ray 3.14 modules/Domemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2018/modules/"
 
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/vray/maya/modules/VRayDomemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+cp "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/vray/maya/modules/VRayDomemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2018/modules/"
 
-cp "$HOME/Documents/GitHub/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/arnold/mtoa/modules/ArnoldDomemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+cp "$HOME/Documents/Git/domemaster-stereo-shader/Domemaster3D Installer/installer files/Domemaster3D/arnold/mtoa/modules/ArnoldDomemaster3D.mod" "$HOME/Library/Preferences/Autodesk/maya/2018/modules/"
 
-echo "[Domemaster3D] Setting up the Maya 2017 modules permissions"
-chmod -R 777 "$HOME/Library/Preferences/Autodesk/maya/2017/modules/"
+echo "[Domemaster3D] Setting up the Maya 2018 modules permissions"
+chmod -R 777 "$HOME/Library/Preferences/Autodesk/maya/2018/modules/"
 
 
 echo "[Domemaster3D] Installation Done."

@@ -1,6 +1,6 @@
 /*
-  Dome Render V2.2.2
-  2016-12-29
+  Dome Render V2.4
+  2018-08-21
   by Andrew Hazelden
   
   A set of pre and post render MEL scripts that set the focal length and openGL stereo3D display modes based upon the rendering or interactive use of Maya. 

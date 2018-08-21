@@ -1,5 +1,5 @@
 # Domemaster3D Manual Install Guide for Maya, Max, and Mental Ray Standalone #
-Version 2.3 - May 17, 2017
+Version 2.4 - August 21, 2018
 
 ## Render Farm Note ##
 
@@ -9,7 +9,7 @@ If you are running a commercial render farm service that offers Domemaster3D ren
 
 The new Arnold 5 release has changed their lens shader system. At this point in time the current Domemaster3D shaders are not compatible with Arnold 5. If you need a lens shader today that works with Arnold 5 it is recommended you use the new built-in "VR Camera" module provided by Solid Angle directly.
 
-## Install Guide for Maya 2010 to 2017 on Linux ##
+## Install Guide for Maya 2010 to 2018 on Linux ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 
@@ -19,7 +19,7 @@ Step 2. You can choose to use the classical Maya.env file or the new Maya Module
 
 Maya Module Approach
 
-If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2018 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from /opt/Domemaster3D/maya/modules/ to your user account's Maya modules folder:
 
@@ -68,12 +68,12 @@ sudo apt-get install imagemagick
 
 ## Notes ##
 
-The Domemaster3D shader v2.3 was compiled using CentOS Linux 6.4. 
+The Domemaster3D shader v2.4 was compiled using CentOS Linux 6.4. 
 
 If there are any issues with running the shader, the developer can be reached at: 
 andrew@andrewhazelden.com
 
-## Install Guide for Maya 2010 to 2017 x64 on Windows ##
+## Install Guide for Maya 2010 to 2018 x64 on Windows ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 
@@ -84,7 +84,7 @@ Step 2. You can choose to use the classical Maya.env file or the new Maya Module
 
 Maya Module Approach
 
-If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2018 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from C:\Program Files\Domemaster3D\maya\modules\ to your user account's Maya modules folder:
 
@@ -132,16 +132,16 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 5. The Domemaster3D v2.3 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.4 mental ray release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.3 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.4 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 
-## Install Guide for Maya 2011 to 2017 x64 on macOS ##
+## Install Guide for Maya 2011 to 2018 x64 on macOS ##
 
 Step 1. Extract the ZIP file and copy the included "Domemaster3D" folder to:
 
@@ -151,7 +151,7 @@ Step 2. You can choose to use the classical Maya.env file or the new Maya Module
 
 Maya Module Approach
 
-If you are using Maya 2013-2017 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
+If you are using Maya 2013-2018 you have the option of using the Domemaster3D.mod Maya module file for setting up the Domemaster3D shader in Maya. This approach works well in multi-user environments like media labs.
 
 Copy the Domemaster3D.mod Maya module file from /Applications/Domemaster3D/maya/modules/ to your user account's Maya modules folder:
 
@@ -188,7 +188,7 @@ The Domemaster3D shelf file is located at:
 Copy the shelf to your user account's "Maya version" specific folder:
 ~/Library/Preferences/Autodesk/maya/<Maya Version Number>/prefs/shelves/
 
-Step 4. If you are running macOS 10.9, 10.10, or 10.11, or 10.12 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
+Step 4. If you are running macOS 10.9, 10.10, or 10.11, 10.12, or 10.13 you need to open your System Preferences and adjust the Security & Privacy settings to allow apps downloaded from "Anywhere" to run. This will allow Maya to run the unsigned Domemaster3D shader.
 
 Step 5. (Optional) If you are interested in using the DomeText tool or the Dome Histogram tool on macOS, the ImageMagick library has to be installed separately. This only has to be done on the artist's workstation system and is not required on render farm systems.
 
@@ -253,11 +253,11 @@ This is done by opening the System Control panel, and selecting Advanced
 System Properties > Environment Variables and then editing the current
 "Path" system variable.
 
-Step 5. The Domemaster3D v2.3 mental ray and Arnold release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+Step 5. The Domemaster3D v2.4 mental ray and Arnold release for Windows has been compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
-The Domemaster3D v2.3 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.4 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 

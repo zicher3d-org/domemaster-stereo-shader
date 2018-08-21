@@ -1,5 +1,5 @@
 Domemaster3D Stereo Lens Shader for Maya x64 and 3DS Max x64
-Version 2.3 - June 17, 2017
+Version 2.4 - August 21, 2018
 
 About This Shader
 ---------------------
@@ -29,13 +29,13 @@ Linux:
 
 Windows Notes
 -------------------
-The Domemaster3D v2.3 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
+The Domemaster3D v2.4 mental ray and Arnold release for Windows was compiled with Visual Studio 2012. If your system doesn't have the Visual Studio 2012 (VC++ 11.0) x64 Redistributable Package installed you can download it here: 
 http://www.microsoft.com/en-us/download/details.aspx?id=30679
 
 You can also find a copy of the Visual Studio 2012 (VC++ 11.0) x64 installer in the Domemaster3D "bin" folder at:
 C:/Program Files/Domemaster3D/bin/vcredist_2012_vc11_x64.exe
 
-The Domemaster3D v2.3 for Vray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
+The Domemaster3D v2.4 for V-Ray release for Windows was compiled using Visual Studio 2013. If your system doesn't have the Visual Studio 2013 Visual C++ Redistributable Package installed you can download it here:
 https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 You can also find a copy of the Visual Studio 2013 (VC++ 12.0) x64 installer in the Domemaster3D "bin" folder at:
@@ -75,6 +75,20 @@ https://github.com/zicher3d-org/domemaster-stereo-shader/
 Version History
 -----------------
 
+Version 2.4
+-------------
+2018-08-21
+
+Max 2018
+
+  Added a V-Ray 3.6 for 3ds Max 2018 lens shader build.
+
+Maya 2018
+
+  Updated the Domemaster3D.mod file to add Mental Ray 3.14 for Maya 2018 support.
+
+  Updated the domeDiagnostics script.
+
 Version 2.3
 -------------
 2017-06-17
@@ -89,15 +103,7 @@ Maya
 
   Updated the domeDiagnostics script.
 
-Version 2.2.3
--------------
-2017-01-04
-
-Maya
-
-  Updated the Linux centric Maya.env files to fix a path issue for the sourceimages directory.
-
-Version 2.2.3
+Version 2.2.4
 -------------
 2017-01-04
 
@@ -209,9 +215,9 @@ V-Ray for Maya
   
     Apple Developer ID Application: Andrew Hazelden (7B24U9536W)
   
-  Updated the Automagic DomemasterStereo and LatLongStereo shelf buttons to include a line of Python code to turn the Vray Frame Buffer off by default so the Maya Render View will show the stereo result.
+  Updated the Automagic DomemasterStereo and LatLongStereo shelf buttons to include a line of Python code to turn the V-Ray Frame Buffer off by default so the Maya Render View will show the stereo result.
 
-  Updated the Domemaster3D for Vray installation instructions on the GitHub Wiki to include instructions on the new module based installation approach:
+  Updated the Domemaster3D for V-Ray installation instructions on the GitHub Wiki to include instructions on the new module based installation approach:
   
   https://github.com/zicher3d-org/domemaster-stereo-shader/wiki/Vray-for-Maya-Domemaster3D
 
@@ -242,14 +248,14 @@ Arnold
 
   Updated the Arnold Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
-Vray
+V-Ray
   Added the DomeGrid function createDomeGrid() to create a spherical yellow reference grid in Maya.
 
-  Updated the Vray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
+  Updated the V-Ray Automagic tool's Autosetup() function to add the DomeGrid and test shapes.
 
   Edited the Dome Grid creation script so the catch command is used to handle the event that mental ray might not be installed and a doPaintEffectsToPoly function based Maya code dependency is going to try and change the .miFinalGatherCast attribute. Adjusted the line thickness on the Dome Grid.
 
-  Updated the Vray Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
+  Updated the V-Ray Domemaster3D menu items and created an "Open Directories" section to better categorize the entries.
 
 Maya
   Updated Domemaster3D menu for compatibility with Maya 2017 + mental ray 3.14 beta 9
@@ -310,9 +316,9 @@ Maya
     /Applications/Domemaster3D/docs/Maya_Examples/
     /opt/Domemaster3D/docs/Maya_Examples/
   
-  Updated the Dome Diagnostics script to use Maya workspace based file paths. Added a "domeOpenVrayRenderLogFile();" function for opening the Vray for Maya render log file.
+  Updated the Dome Diagnostics script to use Maya workspace based file paths. Added a "domeOpenVrayRenderLogFile();" function for opening the V-Ray for Maya render log file.
   
-  Started improving the Domemaster3D/Vray for Maya integration. Added a new "VrayDomemaster3D.mod" Maya module file, updated the shelf tool items, and added new "VRay Domemaster3D" menu in the Maya Rendering menu set. 
+  Started improving the Domemaster3D/V-Ray for Maya integration. Added a new "VrayDomemaster3D.mod" Maya module file, updated the shelf tool items, and added new "VRay Domemaster3D" menu in the Maya Rendering menu set. 
   
   Started improving the Domemaster3D/Arnold for Maya integration. Updated the "ArnoldDomemaster3D.mod" Maya module file, updated the shelf tool items, and added a new "Arnold Domemaster3D" menu in the Maya rendering menu set.
   

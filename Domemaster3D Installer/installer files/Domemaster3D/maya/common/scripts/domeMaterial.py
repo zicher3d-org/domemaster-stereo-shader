@@ -1,6 +1,6 @@
 """
-Dome Material Script V2.2.2
-2016-12-29
+Dome Material Script V2.4
+2018-08-21
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
 This script makes it easy to start creating fulldome content in Autodesk Maya.

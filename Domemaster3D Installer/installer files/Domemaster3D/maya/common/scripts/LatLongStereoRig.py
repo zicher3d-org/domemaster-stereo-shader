@@ -1,8 +1,9 @@
 """
- LatLong_Stereo Camera Rig V2.1
- 2016-08-02 11.57 PM
- by Andrew Hazelden  andrew@andrewhazelden.com
- -----------------------------------------------------------------------
+LatLong_Stereo Camera Rig V2.4
+2018-08-21
+by Andrew Hazelden  andrew@andrewhazelden.com
+
+-----------------------------------------------------------------------
 
  This script makes it easy to start creating fulldome stereoscopic content in Autodesk Maya.
  

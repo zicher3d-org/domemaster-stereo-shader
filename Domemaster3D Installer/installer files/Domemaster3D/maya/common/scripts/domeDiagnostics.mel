@@ -1,6 +1,6 @@
 /*
-  Dome Diagnostics Report Tool V2.3
-  2017-06-17 03.45 PM
+  Dome Diagnostics Report Tool V4.0
+  2018-08-21 06.27 AM
   by Andrew Hazelden
   
   The this tool allows you to debug Maya Domemaster3D module loading issues and see what environment paths are active on your system.
@@ -10,13 +10,38 @@
   Version History
   ----------------
   
+  Version 4.0
+  ------------------
+  2018-08-21
+  
+  Added PlayblastPro and RocketComp environment variables.
+  
+  Added the V-Ray for Maya 2018 environment variables:
+
+    VRAY_FOR_MAYA2018_MAIN_x64
+    VRAY_FOR_MAYA2018_PLUGINS_x64
+    VRAY_FOR_MAYA2018_MAIN_PowerPC
+    VRAY_FOR_MAYA2018_PLUGINS_PowerPC
+    VRAY_TOOLS_MAYA2018_x64
+    VRAY_OSL_PATH_MAYA2018_x64
+    CUDA_CACHE_MAXSIZE
+  
   Version 2.3
   ------------------
-  2017-06-17
+  2017-07-29
+  
+  Added the Maya 2018 environment variable "MAYA_ENABLE_LEGACY_VIEWPORT" that allows you to switch from Viewport 2.0 to use the older legacy viewport renderers.
   
   Added the "MAYA_IGNORE_DIALOGS" environment variable that is used to tell Maya to skip showing warning dialogs
   
+  Added the "MAYA_RENDER_SETUP_GLOBAL_PRESETS_PATH" environment variable that is used to tell Maya where the Maya 2017 Render Settings JSON preset files are stored.
+  
   Updated the wording of "Mac OS X" in the code and documentation to the newer "macOS" style
+  
+  Added PlayblastVR "YouTube180" image projection detection.
+  
+  Added a new MEL function to clear the old MayaRenderLog file:
+  // Example: source "domeDiagnostics.mel"; domeClearMayaRenderLogFile();
   
   Version 2.1.2
   ------------------
@@ -297,6 +322,9 @@
   To run the dome diagnostics script:
   source "domeDiagnostics.mel"; domeDiagnostics();
 
+  To clear the old mayaRenderLog use:
+  source "domeDiagnostics.mel"; domeClearMayaRenderLogFile();
+
   To open the mayaRenderLog in Notepad++ use:
   source "domeDiagnostics.mel"; domeOpenMayaRenderLogFile();
 
@@ -476,10 +504,9 @@ global proc domeDiagnostics(){
   //$domeDebugText += "> " + domeOpenglExtensionsInfo() + "  \r\n";
   //$domeDebugText += "\r\n";
 
-  $domeDebugText += "## Active Processes ##\r\n";
+  $domeDebugText += "## Active Processes ##\r\n\t\n";
   $domeDebugText += domeProcessesInfo();
   //$domeDebugText += domeProcessesInfo()+ "  \r\n";
-
 
   $domeDebugText +=  "-----------------------------------------\r\n\r\n";
 
@@ -955,6 +982,9 @@ global proc domeDiagnostics(){
   $domeTempString = `getenv "MAYA_IGNORE_DIALOGS"`;
   $domeDebugText += "### `MAYA_IGNORE_DIALOGS` ###\r\n> " + $domeTempString + "\r\n\r\n";
   
+  $domeTempString = `getenv "MAYA_RENDER_SETUP_GLOBAL_PRESETS_PATH"`;
+  $domeDebugText += "### `MAYA_RENDER_SETUP_GLOBAL_PRESETS_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  
   $domeTempString = `getenv "SUBSTANCES_LOCATION"`;
   $domeDebugText += "### `SUBSTANCES_LOCATION` ###\r\n> " + $domeTempString + "\r\n\r\n";
   
@@ -990,12 +1020,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MAYA_HELP_URL` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The MAYA_HELP_URL environment variable is defined in the MEL file:
   // C:\Program Files\Autodesk\Maya2016\scripts\obsolete\doBrowserHelp.mel
-  
-  $domeTempString = `getenv "MAYA_ENABLE_VP2_SHAPE_INSTANCING"`;
-  $domeDebugText += "### `MAYA_ENABLE_VP2_SHAPE_INSTANCING` ###\r\n> " + $domeTempString + "\r\n\r\n";
-  // The MAYA_ENABLE_VP2_SHAPE_INSTANCING environment variable is defined in the MEL file:
-  // C:\Program Files\Autodesk\Maya2016\scripts\others\createMayaHardware2GlobalsTab.mel
-  
+
   $domeTempString = `getenv "MAYA_BG_DEPTH_IMAGE"`;
   $domeDebugText += "### `MAYA_BG_DEPTH_IMAGE` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The MAYA_BG_DEPTH_IMAGE environment variable is defined in the MEL file:
@@ -1010,7 +1035,7 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MAYA_VP2_DEVICE_OVERRIDE` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The MAYA_VP2_DEVICE_OVERRIDE environment variable is defined in the MEL file:
   // C:\Program Files\Autodesk\Maya2016\scripts\startup\createPrefWndUI.mel 
-  
+
   $domeTempString = `getenv "NEX_DRINIT_PATH"`;
   $domeDebugText += "### `NEX_DRINIT_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The NEX_DRINIT_PATH environment variable is defined in the MEL file:
@@ -1031,6 +1056,15 @@ global proc domeDiagnostics(){
   $domeDebugText += "### `MAYA_ENABLE_LEGACY_HYPERSHADE` ###\r\n> " + $domeTempString + "\r\n\r\n";
   // The MAYA_ENABLE_LEGACY_HYPERSHADE environment variable is defined in the MEL file:
   // C:\Program Files\Autodesk\Maya2016\scripts\others\hyperShadePanel.mel
+  
+  $domeTempString = `getenv "MAYA_ENABLE_VP2_SHAPE_INSTANCING"`;
+  $domeDebugText += "### `MAYA_ENABLE_VP2_SHAPE_INSTANCING` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // The MAYA_ENABLE_VP2_SHAPE_INSTANCING environment variable is defined in the MEL file:
+  // C:\Program Files\Autodesk\Maya2016\scripts\others\createMayaHardware2GlobalsTab.mel
+  
+  $domeTempString = `getenv "MAYA_ENABLE_LEGACY_VIEWPORT"`;
+  $domeDebugText += "### `MAYA_ENABLE_LEGACY_VIEWPORT` ###\r\n> " + $domeTempString + "\r\n\r\n";
+  // Maya 2018+
   
   $domeTempString = `getenv "MAYA_SHADER_LIBRARY_PATH"`;
   $domeDebugText += "### `MAYA_SHADER_LIBRARY_PATH` ###\r\n> " + $domeTempString + "\r\n\r\n";
@@ -1359,7 +1393,29 @@ global proc domeDiagnostics(){
 
   //------------------------------------------------------------
 
-	$domeDebugText += "##  PlayblastVR Variables ##\r\n\r\n";
+  $domeDebugText += "##  RocketComp Variables ##\r\n\r\n";
+  
+  // RocketComp
+  string $rocketcompDirectory = `getenv "ROCKETCOMP_INSTALL_PATH"`;
+  $domeDebugText += "### `ROCKETCOMP_INSTALL_PATH` ###\r\n> " + $rocketcompDirectory + "\r\n\r\n";
+  
+  //------------------------------------------------------------
+
+  $domeDebugText += "##  PlayblastPro Variables ##\r\n\r\n";
+  
+  // PlayblastPro
+  string $playblastPRODirectory = `getenv "PLAYBLASTPRO_INSTALL_PATH"`;
+  $domeDebugText += "### `PLAYBLASTPRO_INSTALL_PATH` ###\r\n> " + $playblastPRODirectory + "\r\n\r\n";
+
+  $playblastVRString = `getenv "PLAYBLASTPRO_TEMP_PATH"`;
+  $domeDebugText += "### `PLAYBLASTPRO_TEMP_PATH` ###\r\n> " + $playblastVRString + "\r\n\r\n";
+
+  string $playblastPROString = `getenv "PLAYBLASTPRO_DEFAULT_FILENAME_PREFIX"`;
+  $domeDebugText += "### `PLAYBLASTPRO_DEFAULT_FILENAME_PREFIX` ###\r\n> " + $playblastPROString + "\r\n\r\n";
+
+  //------------------------------------------------------------
+
+  $domeDebugText += "##  PlayblastVR Variables ##\r\n\r\n";
   
   // PlayblastVR
   string $playblastVRDirectory = `getenv "PLAYBLASTVR_INSTALL_PATH"`;
@@ -1440,6 +1496,12 @@ global proc domeDiagnostics(){
         break;
       case 18:
         $panoramaFormatString = "Individual Cube Map Faces";
+        break;
+      case 19:
+        $panoramaFormatString = "Facebook Vertical Strip Cube";
+        break;
+      case 20:
+        $panoramaFormatString = "YouTube180";
         break;
       default:
         $panoramaFormatString = "Unknown";
@@ -1578,19 +1640,19 @@ global proc domeDiagnostics(){
 
   //------------------------------------------------------------
 
-	$domeDebugText += "##  Maxwell Environment Variables ##\r\n\r\n";
+	//$domeDebugText += "##  Maxwell Environment Variables ##\r\n\r\n";
 
   // Maxwell
-  string $maxwellShaderString = `getenv "MAXWELL3_ROOT"`;
-  $domeDebugText += "### `MAXWELL3_ROOT` ###\r\n> " + $maxwellShaderString + "\r\n\r\n";
+  //string $maxwellShaderString = `getenv "MAXWELL3_ROOT"`;
+  //$domeDebugText += "### `MAXWELL3_ROOT` ###\r\n> " + $maxwellShaderString + "\r\n\r\n";
 
-  string $maxwellLicenseString = `getenv "MAXWELL3_LICENSE_SERVER"`;
-  $domeDebugText += "### `MAXWELL3_LICENSE_SERVER` ###\r\n> " + $maxwellLicenseString + "\r\n\r\n";
+  //string $maxwellLicenseString = `getenv "MAXWELL3_LICENSE_SERVER"`;
+  //$domeDebugText += "### `MAXWELL3_LICENSE_SERVER` ###\r\n> " + $maxwellLicenseString + "\r\n\r\n";
 
-  string $maxwellMaterialsDBString = `getenv "MAXWELL3_MATERIALS_DATABASE"`;
-  $domeDebugText += "### `MAXWELL3_MATERIALS_DATABASE` ###\r\n> " + $maxwellMaterialsDBString + "\r\n\r\n";
+  //string $maxwellMaterialsDBString = `getenv "MAXWELL3_MATERIALS_DATABASE"`;
+  //$domeDebugText += "### `MAXWELL3_MATERIALS_DATABASE` ###\r\n> " + $maxwellMaterialsDBString + "\r\n\r\n";
 
-  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  //$domeDebugText +=  "------------------------------------------------\r\n\r\n";
   
   //------------------------------------------------------------
 
@@ -1655,7 +1717,7 @@ global proc domeDiagnostics(){
 
 	$domeDebugText += "##  VRAY Environment Variables ##\r\n\r\n";
 
-  // VRAY for Maya
+  // V-Ray for Maya
   string $vrayString = `getenv "VRAY_PLUGINS_x64"`;
   $domeDebugText += "### `VRAY_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
 
@@ -1824,11 +1886,37 @@ global proc domeDiagnostics(){
     
     $vrayString = `getenv "VRAY_OSL_PATH_MAYA2017_x64"`;
     $domeDebugText += "### `VRAY_OSL_PATH_MAYA2017_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+  }else if($mayaVersion == 2018){
+    if(getMayaPlatform() == "darwin") {
+      $vrayString = `getenv "VRAY_FOR_MAYA2018_MAIN_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2018_MAIN_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+      $vrayString = `getenv "VRAY_FOR_MAYA2018_PLUGINS_PowerPC"`;
+      $domeDebugText += "### `VRAY_FOR_MAYA2018_PLUGINS_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+      
+      $vrayString = `getenv "VRAY_OSL_PATH_MAYA2018_PowerPC"`;
+      $domeDebugText += "### `VRAY_OSL_PATH_MAYA2018_PowerPC` ###\r\n> " + $vrayString + "\r\n\r\n";
+    }
+    
+    $vrayString = `getenv "VRAY_FOR_MAYA2018_MAIN_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2018_MAIN_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_FOR_MAYA2018_PLUGINS_x64"`;
+    $domeDebugText += "### `VRAY_FOR_MAYA2018_PLUGINS_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+
+    $vrayString = `getenv "VRAY_TOOLS_MAYA2018_x64"`;
+    $domeDebugText += "### `VRAY_TOOLS_MAYA2018_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
+    
+    $vrayString = `getenv "VRAY_OSL_PATH_MAYA2018_x64"`;
+    $domeDebugText += "### `VRAY_OSL_PATH_MAYA2018_x64` ###\r\n> " + $vrayString + "\r\n\r\n";
   }
   
   $vrayString = `getenv "VRAY_FOR_MAYA_DRLISTS_PATH"`;
   $domeDebugText += "### `VRAY_FOR_MAYA_DRLISTS_PATH` ###\r\n> " + $vrayString + "\r\n\r\n";
   // C:\Program Files\Autodesk\Maya2016\vray\scripts\vrayDR.mel 
+  
+  $vrayString = `getenv "CUDA_CACHE_MAXSIZE"`;
+  $domeDebugText += "### `CUDA_CACHE_MAXSIZE` ###\r\n> " + $vrayString + "\r\n\r\n";
   
   $vrayString = `getenv "VRAY_FOR_MAYA_DRPORT"`;
   $domeDebugText += "### `VRAY_FOR_MAYA_DRPORT` ###\r\n> " + $vrayString + "\r\n\r\n";
@@ -1900,36 +1988,36 @@ global proc domeDiagnostics(){
   //------------------------------------------------------------
   // Fabric Engine
   
-	$domeDebugText += "##  Fabric Engine Environment Variables ##\r\n\r\n";
+	//$domeDebugText += "##  Fabric Engine Environment Variables ##\r\n\r\n";
 	
-	string $fabricCapiString = `getenv "FABRIC_CAPI_DIR"`;
-	$domeDebugText += "### `FABRIC_CAPI_DIR` ###\r\n> " + $fabricCapiString + "\r\n\r\n";
+	//string $fabricCapiString = `getenv "FABRIC_CAPI_DIR"`;
+	//$domeDebugText += "### `FABRIC_CAPI_DIR` ###\r\n> " + $fabricCapiString + "\r\n\r\n";
 	
-	string $fabricDirString = `getenv "FABRIC_DIR"`;
-	$domeDebugText += "### `FABRIC_DIR` ###\r\n> " + $fabricDirString + "\r\n\r\n";
+	//string $fabricDirString = `getenv "FABRIC_DIR"`;
+	//$domeDebugText += "### `FABRIC_DIR` ###\r\n> " + $fabricDirString + "\r\n\r\n";
 	
-	string $fabricDocsString = `getenv "FABRIC_DOCUMENTATION_DIR"`;
-	$domeDebugText += "### `FABRIC_DOCUMENTATION_DIR` ###\r\n> " + $fabricDocsString + "\r\n\r\n";
+	//string $fabricDocsString = `getenv "FABRIC_DOCUMENTATION_DIR"`;
+	//$domeDebugText += "### `FABRIC_DOCUMENTATION_DIR` ###\r\n> " + $fabricDocsString + "\r\n\r\n";
 	
-	string $fabricEDKString = `getenv "FABRIC_EDK_DIR"`;
-	$domeDebugText += "### `FABRIC_EDK_DIR` ###\r\n> " + $fabricEDKString + "\r\n\r\n";
+	//string $fabricEDKString = `getenv "FABRIC_EDK_DIR"`;
+	//$domeDebugText += "### `FABRIC_EDK_DIR` ###\r\n> " + $fabricEDKString + "\r\n\r\n";
 	
-	string $fabricPythonString = `getenv "FABRIC_PYTHON_MODULE_DIR"`;
-	$domeDebugText += "### `FABRIC_PYTHON_MODULE_DIR` ###\r\n> " + $fabricPythonString + "\r\n\r\n";
+	//string $fabricPythonString = `getenv "FABRIC_PYTHON_MODULE_DIR"`;
+	//$domeDebugText += "### `FABRIC_PYTHON_MODULE_DIR` ###\r\n> " + $fabricPythonString + "\r\n\r\n";
 
-	string $fabricToolsString = `getenv "FABRIC_TOOLS_DIR"`;
-	$domeDebugText += "### `FABRIC_TOOLS_DIR` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+	//string $fabricToolsString = `getenv "FABRIC_TOOLS_DIR"`;
+	//$domeDebugText += "### `FABRIC_TOOLS_DIR` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
 
-	$fabricToolsString = `getenv "FABRIC_EXTS_PATH"`;
-	$domeDebugText += "### `FABRIC_EXTS_PATH` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+	//$fabricToolsString = `getenv "FABRIC_EXTS_PATH"`;
+	//$domeDebugText += "### `FABRIC_EXTS_PATH` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
 
-	$fabricToolsString = `getenv "FABRIC_SPLICE_UNGUARDED"`;
-	$domeDebugText += "### `FABRIC_SPLICE_UNGUARDED` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+	//$fabricToolsString = `getenv "FABRIC_SPLICE_UNGUARDED"`;
+	//$domeDebugText += "### `FABRIC_SPLICE_UNGUARDED` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
 
-	$fabricToolsString = `getenv "FABRIC_CUDA_LOG"`;
-	$domeDebugText += "### `FABRIC_CUDA_LOG` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
+	//$fabricToolsString = `getenv "FABRIC_CUDA_LOG"`;
+	//$domeDebugText += "### `FABRIC_CUDA_LOG` ###\r\n> " + $fabricToolsString + "\r\n\r\n";
 
-  $domeDebugText +=  "------------------------------------------------\r\n\r\n";
+  //$domeDebugText +=  "------------------------------------------------\r\n\r\n";
 
   //------------------------------------------------------------
 
@@ -2002,6 +2090,38 @@ global proc domeOpenDiagnosticsLogFile(){
   
   // Open the text file
   domeOpenTextFile($logPathString);
+}
+
+// Clear the old MayaRenderLog file:
+// Example: source "domeDiagnostics.mel"; domeClearMayaRenderLogFile();
+global proc domeClearMayaRenderLogFile(){
+  string $domeMayaRenderLogPathString;
+  if(getMayaPlatform() == "windows"){
+    // Win Example:  C:/Users/hazelden
+    $domeUserHomePathString = `getenv "USERPROFILE"`;
+    $domeMayaRenderLogPathString = `getenv "MAYA_APP_DIR"` + "/mayaRenderLog.txt";
+  }else if(getMayaPlatform() == "darwin") {
+    // macOS Example: $Home = /Users/hazelden 
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/Library/Logs/Maya" + "/mayaRender.log";
+  }else{
+    // Linux Example: $Home = /home/hazelden 
+    $domeUserHomePathString = `getenv "HOME"`;
+    $domeMayaRenderLogPathString = $domeUserHomePathString + "/maya" + "/mayaRenderLog.txt";
+  }
+
+  string $editorProgram = "";
+  string $textEditorPathString;
+  string $logPathString = toNativePath($domeMayaRenderLogPathString);
+
+  // Clear the log text file
+  int $isFile = `filetest -r $logPathString`;
+  if($isFile == 1){
+    print("Removing the old file: " + $logPathString + "\n");
+    sysFile -delete $logPathString;
+  }else{
+    print("Cannot remove the old file: \"" + $logPathString + "\n");
+  }
 }
 
 // Open the MayaRenderLog file in a text editor:
@@ -2648,4 +2768,4 @@ global proc string getObjectParentNode(string $object){
 }
 
 // Run the script automatically
-//domeDiagnostics();
+// domeDiagnostics();

@@ -1,6 +1,6 @@
 /*
-  Dome Histogram V2.2
-  2016-11-26
+  Dome Histogram V2.4
+  2018-08-21
   by Andrew Hazelden
 
   The Dome Histogram tool allows you to view a histogram of the current image in the render view using the ImageMagick utility.

@@ -1,4 +1,4 @@
-Packaging a Domemaster3D Release - 2017-05-04 
+Packaging a Domemaster3D Release - 2018-08-21
 by Andrew Hazelden <andrew@andrewhazelden.com>
 
 
@@ -106,10 +106,10 @@ Step 4. Upload the new release to GitHub and use the following format for the Gi
 
 Combined Download
 
-v2.3
-Domemaster3D v2.3 for Maya + 3DS Max + Cinema4D
+v2.4
+Domemaster3D v2.4 for Maya + 3DS Max + Cinema4D
 
-This is the Domemaster3D Shader v2.3 release for Windows, macOS, and Linux. This installer is compatible with 3DS Max 2009-2018, Maya 2010-2017, and Cinema4D R16-R18 with C4DtoA.
+This is the Domemaster3D Shader v2.3 release for Windows, macOS, and Linux. This installer is compatible with 3DS Max 2009-2018, Maya 2010-2019, and Cinema4D R16-R18 with C4DtoA.
 
 The Domemaster3D installer supports the new mental ray for Maya 3.14 release, it has an option for installing the Vray for Max shaders, and you can also install Domemaster3D beta shaders that work with Arnold 4.x MtoA and C4DtoA.
 

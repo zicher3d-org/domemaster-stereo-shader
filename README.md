@@ -27,7 +27,7 @@ Domemaster3D is a suite of fulldome stereo and LatLong stereo production lens sh
 
 The core developers of the Domemaster3D rendering tools are [Roberto Ziche](http://www.robertoziche.com/) and [Andrew Hazelden](http://www.andrewhazelden.com/).  
 
-*The Domemaster3D shaders are distributed under the GPL v3 license.*
+*The Domemaster3D shaders are distributed under the BSD license.*
 
 **Arnold 5 Compatibility Note:** The new Arnold 5 release has changed their lens shader system. At this point in time the current Domemaster3D shaders are not compatible with Arnold 5. If you need a lens shader today that works with Arnold 5 it is recommended you use the new built-in "VR Camera" module provided by Solid Angle directly.
 

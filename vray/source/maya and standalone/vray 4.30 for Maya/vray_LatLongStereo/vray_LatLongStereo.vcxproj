@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -14,17 +14,18 @@
     <SccProjectName />
     <SccLocalPath />
     <ProjectGuid>{0AC26A52-8253-5BE9-9115-854AA466EFEA}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -57,7 +58,7 @@
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\include;C:\Program Files\Chaos Group\V-Ray\Maya 2020 for x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\vray_LatLongStereo.pch</PrecompiledHeaderOutputFile>
@@ -85,7 +86,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\..\..\bin\x64\vc11\plugins\vray_LatLongStereo.dll</OutputFile>
       <ImportLibrary>.\..\..\..\..\build\vray_LatLongStereo\release\x64\vc11\vray_LatLongStereo.lib</ImportLibrary>
-      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc11;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc11;C:\Program Files\Chaos Group\V-Ray\Maya 2020 for x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;vray.lib;plugman_s.lib;vutils_s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -98,7 +99,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\include;C:\Program Files\Chaos Group\V-Ray\Maya 2020 for x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\vray_LatLongStereo.pch</PrecompiledHeaderOutputFile>
@@ -127,7 +128,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\..\..\bin\x64\vc11\plugins\vray_LatLongStereo.dll</OutputFile>
       <ImportLibrary>.\..\..\..\..\build\vray_LatLongStereo\debug\x64\vc11\vray_LatLongStereo.lib</ImportLibrary>
-      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc11;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\lib\x64\vc11;C:\Program Files\Chaos Group\V-Ray\Maya 2020 for x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vray.lib;odbc32.lib;odbccp32.lib;plugman_s.lib;vutils_s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

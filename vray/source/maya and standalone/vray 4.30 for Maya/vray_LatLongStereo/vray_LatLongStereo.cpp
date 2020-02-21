@@ -14,7 +14,7 @@
 #include "misc_ray.h"
 #include "mcsampler.h"
 
-#include "globalnewdelete.cpp"
+//#include "globalnewdelete.cpp"
 
 using namespace VR;
 
@@ -46,7 +46,7 @@ struct LatLongStereo_ParamsStruct {
 
 //**************************************************
 // The actual camera
-class LatLongStereoImpl : public VRayCamera2 {
+class LatLongStereoImpl : public VRayCamera {
 	LatLongStereo_ParamsStruct *params;
 	VRayRenderer *vray;
 
@@ -55,20 +55,24 @@ public:
 	LatLongStereoImpl() : cameraFilmTrans(NULL) {}
 
 	// From VRayCamera
-	virtual int getScreenRay(double xs, double ys,
+	int getScreenRay(
+		double xs,
+		double ys,
 		double time,
-		float dof_uc, float dof_vc,
+		const float *rnds,
+		int numRnds,
 		TraceRay &ray,
-		Ireal &mint, Ireal &maxt,
+		Ireal &mint,
+		Ireal &maxt,
 		RayDeriv &rayDeriv,
-		VR::Color &multResult) const;
+		ShadeCol &multResult,
+		uint32 flags
+	) const override;
 
-	virtual int getScreenRays(VR::RayBunchCamera& raysbunch,
-		const double* xs, const double* ys,
-		const float* dof_uc, const float* dof_vc,
-		bool calcDerivs = false) const;
-
-	int canDoDOF(void) { return false; }
+	/// Returns camera flags @see VRayCameraFlags enum
+	uint32 getFlags(void) const override {
+		return vrayCameraFlags_empty;
+	}
 
 	void renderBegin(VRayRenderer *vray) {}
 	void renderEnd(VRayRenderer *vray) {}
@@ -80,7 +84,7 @@ public:
 
 	// Other methods
 	void init(LatLongStereo_ParamsStruct &params);
-	Vector getDir(double xs, double ys, int rayVsOrgReturnMode) const;
+	simd::Vector3f getDir(double xs, double ys, int rayVsOrgReturnMode) const;
 };
 
 void LatLongStereoImpl::init(LatLongStereo_ParamsStruct &p) {
@@ -100,7 +104,7 @@ void LatLongStereoImpl::frameBegin(VR::VRayRenderer *vray) {
 	}
 }
 
-Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
+simd::Vector3f LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) const {
 
 	const VR::VRayFrameData &fdata=vray->getFrameData();
 	
@@ -227,21 +231,33 @@ Vector LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgReturnMode) c
 
 
   if (rayVsOrgReturnMode == GETDIR){
-    return ray;
+    return simd::Vector3f(ray);
   } else {  
     // GETORG
-    return org;
+    return simd::Vector3f(org);
   }
 }
 
-int LatLongStereoImpl::getScreenRay(double xs, double ys, double time, float dof_uc, float dof_vc, TraceRay &ray, Ireal &mint, Ireal &maxt, RayDeriv &rayDeriv, VR::Color &multResult) const {
+int LatLongStereoImpl::getScreenRay(
+		double xs,
+		double ys,
+		double time,
+		const float *rnds,
+		int numRnds,
+		TraceRay &ray,
+		Ireal &mint,
+		Ireal &maxt,
+		RayDeriv &rayDeriv,
+		ShadeCol &multResult,
+		uint32 flags
+) const {
 	if (cameraFilmTrans) {
 		const VR::VRayFrameData& fdata = vray->getFrameData();
 		cameraFilmTrans->transformScreenRay(xs, ys, fdata.rgnLeft, fdata.rgnTop, fdata.imgWidth, fdata.imgHeight);
 	}
 
-  Vector dir = getDir(xs, ys, GETDIR);   //Return the dir data from the getDir function
-  Vector org = getDir(xs, ys, GETORG);   //Return the org data from the getDir function
+  simd::Vector3f dir = getDir(xs, ys, GETDIR);   //Return the dir data from the getDir function
+  simd::Vector3f org = getDir(xs, ys, GETORG);   //Return the org data from the getDir function
   
   rayDeriv.dPdx.makeZero();
   rayDeriv.dPdy.makeZero();
@@ -258,92 +274,6 @@ int LatLongStereoImpl::getScreenRay(double xs, double ys, double time, float dof
   maxt = LARGE_FLOAT;
 
   return true;
-}
-
-
-int LatLongStereoImpl::getScreenRays( VR::RayBunchCamera& raysbunch,
-                                      const double* xs,   const double* ys, 
-                                      const float* dof_uc, const float* dof_vc, 
-                                      bool calcDerivs /*= false*/ ) const
-{
-		double x[RAYS_IN_BUNCH];
-		double y[RAYS_IN_BUNCH];
-		if (cameraFilmTrans) {
-			const VR::VRayFrameData& fdata = vray->getFrameData();
-			cameraFilmTrans->transformScreenRayBunch(x,y, xs, ys, raysbunch.getCount(), fdata.rgnLeft, fdata.rgnTop, fdata.imgWidth, fdata.imgHeight);
-			xs = x;
-			ys = y;
-		}
-
-	for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.mints()[i] = 0.0f;
-	for( uint32 i = 0; i < raysbunch.getCount(); i++ ) raysbunch.maxts()[i] = LARGE_FLOAT;
-
-	// This should be SingleOrigin for pinhole cameras for better performance
-	raysbunch.setType( RayBunchBaseParams<RAYS_IN_BUNCH>::MultipleOrigins );
-
-	bool success = true;
-
-	// By default call single rays versions
-	for( unsigned int i = 0 ; i < raysbunch.getCount(); i++ )
-	{
-		TraceRay ray;
-		RayDeriv deriv;
-		Color multResult( 1.0f, 1.0f, 1.0f );
-		bool res = getScreenRay( xs[i], ys[i], 
-		                         raysbunch.times()[ i ], 
-								 dof_uc[i], dof_vc[i], 
-								 ray, 
-		                         raysbunch.mints()[i],
-								 raysbunch.maxts()[i],
-								 deriv,
-								 multResult );
-
-		success &= res;
-
-		if (res)
-		{
-			// Scatter
-			raysbunch.origins(0)[i] = ray.p.x;
-			raysbunch.origins(1)[i] = ray.p.y;
-			raysbunch.origins(2)[i] = ray.p.z;
-			raysbunch.dirs(0)[i] = ray.dir.x;
-			raysbunch.dirs(1)[i] = ray.dir.y;
-			raysbunch.dirs(2)[i] = ray.dir.z;
-
-			raysbunch.currMultResults(0)[i] = multResult[0];
-			raysbunch.currMultResults(1)[i] = multResult[1];
-			raysbunch.currMultResults(2)[i] = multResult[2];
-
-			// Restructure derivatives
-			*(raysbunch.dPds( 0, 0 ) + i) = deriv.dPdx.x;
-			*(raysbunch.dPds( 0, 1 ) + i) = deriv.dPdx.y;
-			*(raysbunch.dPds( 0, 2 ) + i) = deriv.dPdx.z;
-
-			*(raysbunch.dPds( 1, 0 ) + i) = deriv.dPdy.x;
-			*(raysbunch.dPds( 1, 1 ) + i) = deriv.dPdy.y;
-			*(raysbunch.dPds( 1, 2 ) + i) = deriv.dPdy.z;
-
-			*(raysbunch.dDds( 0, 0 ) + i) = deriv.dDdx.x;
-			*(raysbunch.dDds( 0, 1 ) + i) = deriv.dDdx.y;
-			*(raysbunch.dDds( 0, 2 ) + i) = deriv.dDdx.z;
-
-			*(raysbunch.dDds( 1, 0 ) + i) = deriv.dDdy.x;
-			*(raysbunch.dDds( 1, 1 ) + i) = deriv.dDdy.y;
-			*(raysbunch.dDds( 1, 2 ) + i) = deriv.dDdy.z;
-		}
-		else
-		{
-			// This could be further optimized not to trace those rays
-			raysbunch.mints()[i] = -LARGE_FLOAT;
-			raysbunch.maxts()[i] = -LARGE_FLOAT;
-
-			raysbunch.currMultResults(0)[i] = 0.0f;
-			raysbunch.currMultResults(1)[i] = 0.0f;
-			raysbunch.currMultResults(2)[i] = 0.0f;
-		}
-	}
-
-	return success;
 }
 
 //**************************************************
@@ -421,5 +351,7 @@ public:
 
 
 #define LatLongStereo_PluginID PluginID(LARGE_CONST(1185226))
-SIMPLE_PLUGIN_LIBRARY(LatLongStereo_PluginID, EXT_RENDER_SETTINGS, "LatLongStereo", "LatLongStereo plugin for V-Ray", LatLongStereo, LatLongStereo_Params);
+
+PLUGIN_LIBRARY("Cameras", "V-Ray Cameras");
+PLUGIN_DESC(LatLongStereo_PluginID, "LatLongStereo", "LatLongStereo plugin for V-Ray", LatLongStereo, LatLongStereo_Params, EXT_RENDER_SETTINGS);
 

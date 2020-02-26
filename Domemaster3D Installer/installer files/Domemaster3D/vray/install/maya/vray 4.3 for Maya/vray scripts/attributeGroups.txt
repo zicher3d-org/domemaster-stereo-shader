@@ -1,0 +1,508 @@
+AttributeGroup vray_DomemasterStereo {
+  label = DomemasterStereo camera
+  attribute_0 = vrayDomemasterStereoOn
+  attribute_1 = vrayDomemasterStereoCamera
+  attribute_2 = vrayDomemasterStereoFovAngle
+  attribute_3 = vrayDomemasterStereoParallaxDistance
+  attribute_4 = vrayDomemasterStereoSeparation
+  attribute_5 = vrayDomemasterStereoForwardTilt
+  attribute_6 = vrayDomemasterStereoTiltCompensation
+  attribute_7 = vrayDomemasterStereoVerticalMode
+  attribute_8 = vrayDomemasterStereoSeparationMap
+  attribute_9 = vrayDomemasterStereoHeadTurnMap
+  attribute_10 = vrayDomemasterStereoHeadTiltMap
+  attribute_11 = vrayDomemasterStereoFlipX
+  attribute_12 = vrayDomemasterStereoFlipY
+  attribute_13 = vrayDomemasterStereoNeckOffset
+}
+
+
+AttributeGroup vray_LatLongStereo {
+  label = LatLongStereo camera
+  attribute_0 = vrayLatLongStereoOn
+  attribute_1 = vrayLatLongStereoCamera
+  attribute_2 = vrayLatLongStereoFovVertAngle
+  attribute_3 = vrayLatLongStereoFovHorizAngle
+  attribute_4 = vrayLatLongStereoParallaxDistance
+  attribute_5 = vrayLatLongStereoSeparation
+  attribute_6 = vrayLatLongStereoZenithMode
+  attribute_7 = vrayLatLongStereoSeparationMap
+  attribute_8 = vrayLatLongStereoFlipX
+  attribute_9 = vrayLatLongStereoFlipY
+  attribute_10 = vrayLatLongStereoNeckOffset
+  attribute_11 = vrayLatLongStereoZenithFov
+}
+
+AttributeGroup vray_light {
+  label = Light attributes
+  attribute_0 = vrayCausticSubdivs
+  attribute_1 = vrayCausticMult
+  attribute_2 = vrayShadowBias
+  attribute_3 = vrayCutoffThreshold
+  attribute_4 = vrayOverrideMBSamples
+  attribute_5 = vrayMBSamples
+}
+AttributeGroup vray_directlight {
+  label = Light attributes
+  attribute_0 = vrayCausticSubdivs
+  attribute_1 = vrayCausticMult
+  attribute_2 = vrayShadowBias
+  attribute_3 = vrayDiffuseContrib
+  attribute_4 = vraySpecularContrib
+  attribute_5 = vrayStoreWithIrradianceMap
+  attribute_6 = vrayOverrideMBSamples
+  attribute_7 = vrayMBSamples
+}
+AttributeGroup vray_pointLight {
+  label = Light attributes
+  attribute_0 = vrayCausticSubdivs
+  attribute_1 = vrayCausticMult
+  attribute_2 = vrayShadowBias
+  attribute_3 = vrayCutoffThreshold
+  attribute_4 = vrayDiffuseContrib
+  attribute_5 = vraySpecularContrib
+  attribute_6 = vrayStoreWithIrradianceMap
+  attribute_7 = vrayOverrideMBSamples
+  attribute_8 = vrayMBSamples
+}
+AttributeGroup vray_arealight {
+  label = Light attributes
+  attribute_0 = vrayCausticSubdivs
+  attribute_1 = vrayCausticMult
+  attribute_2 = vrayShadowBias
+  attribute_3 = vrayCutoffThreshold
+  attribute_4 = vrayDiffuseContrib
+  attribute_5 = vraySpecularContrib
+  attribute_6 = vrayInvisible
+  attribute_7 = vrayOverrideMBSamples
+  attribute_8 = vrayMBSamples
+}
+
+AttributeGroup vray_subdivision {
+  label = Subdivision
+  attribute_0 = vraySubdivEnable
+  attribute_1 = vrayPreserveMapBorders
+  attribute_2 = vraySubdivUVs
+  attribute_3 = vrayStaticSubdiv
+  attribute_4 = vrayClassicalCatmark
+}
+
+AttributeGroup vray_opensubdiv {
+  label = OpenSubdiv
+  attribute_0 = vrayOsdSubdivEnable
+  attribute_1 = vrayOsdSubdivDepth
+  attribute_2 = vrayOsdSubdivType
+  attribute_3 = vrayOsdPreserveMapBorders
+  attribute_4 = vrayOsdSubdivUVs
+  attribute_5 = vrayOsdPreserveGeomBorders
+}
+
+AttributeGroup vray_subquality {
+  label = Subdivision and Displacement Quality
+  attribute_0 = vrayOverrideGlobalSubQual
+  attribute_1 = vrayViewDep
+  attribute_2 = vrayEdgeLength
+  attribute_3 = vrayMaxSubdivs
+}
+
+AttributeGroup vray_displacement {
+  label = Displacement control
+  attribute_0 = vrayDisplacementNone
+  attribute_1 = vrayDisplacementStatic
+  attribute_2 = vrayDisplacementType
+  attribute_3 = vrayDisplacementAmount
+  attribute_4 = vrayDisplacementShift
+  attribute_5 = vrayDisplacementKeepContinuity
+  attribute_6 = vrayEnableWaterLevel
+  attribute_7 = vrayWaterLevel
+  attribute_8 = vrayDisplacementCacheNormals
+  attribute_9 = vray2dDisplacementResolution
+  attribute_10 = vray2dDisplacementPrecision
+  attribute_11 = vray2dDisplacementTightBounds
+  attribute_12 = vray2dDisplacementMultiTile
+  attribute_13 = vray2dDisplacementFilterTexture
+  attribute_14 = vray2dDisplacementFilterBlur
+  attribute_15 = vrayDisplacementUseBounds
+  attribute_16 = vrayDisplacementMinValue
+  attribute_17 = vrayDisplacementMaxValue
+}
+
+AttributeGroup vray_roundedges {
+  label = Round edges
+  attribute_0 = vrayRoundEdges
+  attribute_1 = vrayRoundEdgesRadius
+  attribute_2 = vrayRoundEdgesConsiderSameObjectsOnly
+  attribute_3 = vrayRoundEdgesCorners
+}
+
+AttributeGroup vray_particle_export_attributes {
+  label = Per-particle attribute export
+  attribute_0 = vrayPPExportAcceleration
+  attribute_1 = vrayPPExportAge
+  attribute_2 = vrayPPExportLifespan
+  attribute_3 = vrayPPExportRGB
+  attribute_4 = vrayPPExportOpacity
+  attribute_5 = vrayPPExportEmission
+  attribute_6 = vrayPPExportScalar1
+  attribute_7 = vrayPPExportScalar2
+  attribute_8 = vrayPPExportScalar3
+  attribute_9 = vrayPPExportScalar4
+  attribute_10 = vrayPPExportScalar5
+  attribute_11 = vrayPPExportVector1
+  attribute_12 = vrayPPExportVector2
+  attribute_13 = vrayPPExportVector3
+  attribute_14 = vrayPPExportVector4
+  attribute_15 = vrayPPExportVector5
+}
+
+AttributeGroup vray_particle_sphere_subdiv {
+  label = Sphere Subdivision
+  attribute_0 = vrayParticleSphereSubdiv
+}
+
+AttributeGroup vray_nusrbsStaticGeom {
+  label = NURBS attributes
+  attribute_0 = vrayAsStaticGeom
+  attribute_1 = vrayMaxSubdivDepth
+  attribute_2 = vrayFlatnessCoef
+}
+
+AttributeGroup vray_materialsGlossiness {
+  label = Glossiness controls
+  attribute_0 = vrayOverride
+  attribute_1 = vrayReflectionGlossiness
+  attribute_2 = vrayGlossySubdivs
+  attribute_3 = vrayTraceReflections
+}
+
+AttributeGroup vray_cameraStereoscopic {
+  label = Stereoscopic camera
+  attribute_0 = vrayCameraStereoscopicOn
+  attribute_1 = vrayCameraStereoscopicEyeDistance
+  attribute_2 = vrayCameraStereoscopicSpecifyFocus
+  attribute_3 = vrayCameraStereoscopicFocusDistance
+  attribute_4 = vrayCameraStereoscopicFocusMethod
+  attribute_5 = vrayCameraStereoscopicInterocularMethod
+  attribute_6 = vrayCameraStereoscopicView
+  attribute_7 = vrayCameraStereoscopicOutputLayout
+  attribute_8 = vrayCameraStereoscopicAdjustResolution
+  attribute_9 = vrayCameraStereoscopicPanoramicPoleMergingLabel
+  attribute_10 = vrayCameraStereoscopicTopMergeAngle
+  attribute_11 = vrayCameraStereoscopicBottomMergeAngle
+}
+
+AttributeGroup vray_cameraPhysical {
+  label = Physical camera
+  attribute_0 = vrayCameraPhysicalOn
+  attribute_1 = vrayCameraPhysicalType
+  attribute_2 = vrayCameraPhysicalFilmWidth
+  attribute_3 = vrayCameraPhysicalFocalLength
+  attribute_4 = vrayCameraPhysicalSpecifyFOV
+  attribute_5 = vrayCameraPhysicalFOV
+  attribute_6 = vrayCameraPhysicalZoomFactor
+  attribute_7 = vrayCameraPhysicalDistortionType
+  attribute_8 = vrayCameraPhysicalDistortion
+  attribute_9 = vrayCameraPhysicalLensFile
+  attribute_10 = vrayCameraPhysicalDistortionMap
+  attribute_11 = vrayCameraPhysicalFNumber
+  attribute_12 = vrayCameraPhysicalHorizLensShift
+  attribute_13 = vrayCameraPhysicalLensShift
+  attribute_14 = vrayCameraPhysicalLensAutoVShift
+  attribute_15 = vrayCameraPhysicalShutterSpeed
+  attribute_16 = vrayCameraPhysicalShutterAngle
+  attribute_17 = vrayCameraPhysicalShutterOffset
+  attribute_18 = vrayCameraPhysicalLatency
+  attribute_19 = vrayCameraPhysicalISO
+  attribute_20 = vrayCameraPhysicalSpecifyFocus
+  attribute_21 = vrayCameraPhysicalFocusDistance
+  attribute_22 = vrayCameraPhysicalExposure
+  attribute_23 = vrayCameraPhysicalWhiteBalance
+  attribute_24 = vrayCameraPhysicalVignetting
+  attribute_25 = vrayCameraPhysicalVignettingAmount
+  attribute_26 = vrayCameraPhysicalBladesEnable
+  attribute_27 = vrayCameraPhysicalBladesNum
+  attribute_28 = vrayCameraPhysicalBladesRotation
+  attribute_29 = vrayCameraPhysicalCenterBias
+  attribute_30 = vrayCameraPhysicalAnisotropy
+  attribute_31 = vrayCameraPhysicalUseDof
+  attribute_32 = vrayCameraPhysicalUseMoBlur
+  attribute_33 = vrayCameraPhysicalApertureMap
+  attribute_34 = vrayCameraPhysicalApertureMapAffectsExposure
+  attribute_35 = vrayCameraPhysicalOpticalVignetting
+  attribute_36 = vrayCameraPhysicalRollingShutterMode
+  attribute_37 = vrayCameraPhysicalRollingShutterDuration
+}
+
+AttributeGroup vray_cameraDome {
+  label = Dome camera
+  attribute_0 = vrayCameraDomeOn
+  attribute_1 = vrayCameraDomeFlipX
+  attribute_2 = vrayCameraDomeFlipY
+  attribute_3 = vrayCameraDomeFov
+}
+
+AttributeGroup vray_cameraOverrides {
+  label = Camera settings
+  attribute_0 = vrayCameraOverridesOn
+  attribute_1 = vrayCameraType
+  attribute_2 = vrayCameraOverrideFOV
+  attribute_3 = vrayCameraFOV
+  attribute_4 = vrayCameraHeight
+  attribute_5 = vrayCameraVerticalFOV
+  attribute_6 = vrayCameraAutoFit
+  attribute_7 = vrayCameraDist
+  attribute_8 = vrayCameraCurve
+}
+
+AttributeGroup vray_specific_mtl {
+  label = V-Ray material override
+
+  attribute_0 = vrayEnableAllOverrides
+  attribute_1 = vrayEnableSpecificSurfaceShader
+  attribute_2 = vraySpecificSurfaceShader
+  attribute_3 = vrayEnableGIMaterial
+  attribute_4 = vrayGIMaterial
+  attribute_5 = vrayEnableReflectMaterial
+  attribute_6 = vrayReflectMaterial
+  attribute_7 = vrayEnableRefractMaterial
+  attribute_8 = vrayRefractMaterial
+  attribute_9 = vrayEnableShadowMaterial
+  attribute_10 = vrayShadowMaterial
+  attribute_11 = vrayEnableEnvironmentOverride
+  attribute_12 = vrayMtlEnvironmentOverride
+  attribute_13 = vrayMtlEnvironmentPriority
+}
+
+AttributeGroup vray_closed_volume {
+	label = Closed Volume Shading
+
+	attribute_0 = vrayClosedVolume
+}
+
+AttributeGroup vray_material_id {
+  label = Material ID
+  attribute_0 = vrayColorId
+  attribute_1 = vrayMaterialId
+}
+
+AttributeGroup vray_skip_export {
+  label = Skip Rendering
+  attribute_0 = vraySkipExport
+}
+
+AttributeGroup vray_user_attributes {
+  label = User attributes
+  attribute_0 = vrayUserAttributes
+}
+
+AttributeGroup vray_objectID {
+  label = Object ID
+  attribute_0 = vrayObjectID
+}
+
+AttributeGroup vray_fogFadeOut {
+  label = Fog fade out radius
+  attribute_0 = vrayFogFadeOut
+}
+
+AttributeGroup vray_file_gamma {
+  label = Texture input gamma
+  attribute_0 = vrayFileGammaEnable
+  attribute_1 = vrayFileColorSpace
+  attribute_2 = vrayFileGammaValue
+}
+
+AttributeGroup vray_file_allow_neg_colors {
+  label = Allow negative colors
+  attribute_0 = vrayFileAllowNegColors
+}
+
+AttributeGroup vray_texture_filter {
+  label = Texture Filter
+  attribute_0 = vrayOverrideTextureFilter
+  attribute_1 = vrayTextureFilter
+  attribute_2 = vrayTextureSmoothType
+}
+
+AttributeGroup vray_ignore_data_window {
+  label = Ignore Data Window
+  attribute_0 = vrayIgnoreDataWindow
+}
+
+AttributeGroup vray_texture_format {
+  label = Texture Format
+  attribute_0 = vrayOverrideTextureFormat
+  attribute_1 = vrayTextureFormat
+}
+
+AttributeGroup vray_fluid_shading_quality {
+  label = V-Ray fluid shading quality
+  attribute_0 = vrayFluidShader
+  attribute_1 = vrayFluidScatterGI
+  attribute_2 = vrayFluidScatterBounces
+  attribute_3 = vrayFluidSimplifyTexturesForGI
+  attribute_4 = vrayFluidStepSize
+  attribute_5 = vrayFluidMaxSteps
+  attribute_6 = vrayFluidTextureSamples
+  attribute_7 = vrayFluidCutoffThreshold
+  attribute_8 = vrayFluidSubdivs
+  attribute_9 = vrayFluidColorMult
+  attribute_10 = vrayFluidJitter
+  attribute_11 = vrayFluidSolid
+  attribute_12 = vrayFluidSolidThreshold
+  attribute_13 = vrayFluidLightCache
+  attribute_14 = vrayFluidFullMB
+  attribute_15 = vrayFluidDeep
+}
+
+AttributeGroup vray_nurbscurve_renderable {
+  label = Renderable
+  attribute_0 = vrayNurbsCurveRenderable
+  attribute_1 = vrayNurbsCurveMaterial
+  attribute_2 = vrayNurbsCurveTesselation
+  attribute_3 = vrayNurbsCurveStartWidth
+  attribute_4 = vrayNurbsCurveLockEndWidth
+  attribute_5 = vrayNurbsCurveEndWidth
+}
+AttributeGroup vray_samplerinfo_extra_tex {
+  label = Additional outputs
+  attribute_0 = vrayNormalObj
+  attribute_1 = vrayNormalWorld
+  attribute_2 = vrayGNormalWorld
+  attribute_3 = vrayPointWorldReference
+  attribute_4 = vrayNormalWorldReference
+  attribute_5 = vrayBumpNormalWorld
+  attribute_6 = vrayBumpNormalCamera
+  attribute_7 = vrayBumpNormalObject
+  attribute_8 = vrayRayDepth
+  attribute_9 = vrayPathLength
+  attribute_10 = vrayMtlIDTex
+  attribute_11 = vrayObjIDTex
+  attribute_12 = vrayParentObjIDTex
+  attribute_13 = vrayVelocityWorld
+  attribute_14 = vraySpeed
+  attribute_15 = vrayRandomByID
+  attribute_16 = vrayRandomByPolyShell
+  attribute_17 = vrayRandomBySceneName
+}
+
+AttributeGroup vray_file_ifl {
+  label = Image file list (IFL)
+  attribute_0 = vrayFileIFLStartFrame
+  attribute_1 = vrayFileIFLEndCondition
+  attribute_2 = vrayFileIFLPlaybackRate
+}
+
+AttributeGroup vray_projection_options {
+  label = Projection options
+  attribute_0 = vrayHideBackFaces
+  attribute_1 = vrayHideOccluded
+  attribute_2 = vrayIncludeOverscan
+}
+
+AttributeGroup vray_2d_placement_options {
+  label = 2D Placement Options
+  attribute_0 = vrayUVSetName
+}
+
+AttributeGroup vray_3d_placement_options {
+  label = 3D Placement Options
+  attribute_0 = vrayUVSetName3D
+}
+
+AttributeGroup vray_motion_blur_samples {
+  label = Motion Blur Samples
+  attribute_0 = vrayMotionBlurSamplesEnable
+  attribute_1 = vrayMotionBlurSamplesValue
+}
+
+AttributeGroup vray_hair_shader {
+  label = Hair Shader
+  attribute_0 = vrayHairShader
+  dirtyMode = 1
+}
+
+AttributeGroup vray_hair_geom {
+  label = Hair Geometry
+  attribute_0 = vrayHairGeom
+  attribute_1 = vrayHairTesselMult
+  attribute_2 = vrayHairMinPixelWidth
+  attribute_3 = vrayHairMaxTesselFactor 
+}
+
+AttributeGroup vray_sprite_orient {
+  label = Sprite Orient
+  attribute_0 = vraySpriteOrient
+}
+
+AttributeGroup vray_point_size {
+  label = Point Size
+  attribute_0 = vrayPointSizePP
+  attribute_1 = vrayPointSizeWorld
+  attribute_2 = vrayPointSizeRadius
+}
+
+AttributeGroup vray_particle_cache {
+  label = Cache Interpolation
+  attribute_0 = vrayInterpolatedCache
+}
+
+AttributeGroup vray_instancer_overrides {
+  label = Instancer Overrides
+  attribute_0 = vrayInstancerTimeAttribute
+  attribute_1 = vrayInstancerObjectIDAttribute
+  attribute_2 = vrayInstancerVisibilityAttribute
+  attribute_3 = vrayInstancerUserFloatAttribute1
+  attribute_4 = vrayInstancerUserFloatAttribute2
+  attribute_5 = vrayInstancerUserFloatAttribute3
+  attribute_6 = vrayInstancerUserVectorAttribute1
+  attribute_7 = vrayInstancerUserVectorAttribute2
+  attribute_8 = vrayInstancerUserVectorAttribute3
+}
+
+AttributeGroup vray_surface_luminance {
+  label = Luminance options
+  attribute_0 = vrayLuminanceMode
+  attribute_1 = vrayLuminanceSamples
+  attribute_2 = vrayLuminanceGIContrib
+}
+
+AttributeGroup vray_localrayserver {
+  label = Local ray server
+  attribute_0 = vrayLocalRayserver
+}
+
+AttributeGroup vray_bifrost_mtl {
+	label = VRayMtl options
+	attribute_0 = vrayTraceDepth
+	attribute_1 = vrayGlossyBRDF
+	attribute_2 = vrayAffectShadows
+}
+
+AttributeGroup vray_bifrost_shape {
+	label = Bifrost options
+	attribute_0 = vrayBifrostExportVox
+	attribute_1 = vrayBifrostExportPart
+	attribute_2 = vrayBifrostExportDens
+	attribute_3 = vrayBifrostInterpolation
+}
+
+AttributeGroup vray_rfrk_particler {
+  label = VRay attributes
+  attribute_0 = vrayRFRKParticleRenderMode
+}
+
+AttributeGroup vray_scene_assembly {
+  label = Scene Assembly
+  attribute_0 = vrayGPUCacheShader
+}
+
+AttributeGroup vray_partio {
+  label = Partio
+  attribute_0 = vrayPartioMtl
+}
+
+AttributeGroup vray_legacy_look {
+  label = Legacy Look
+  attribute_0 = vrayLegacyLook
+}

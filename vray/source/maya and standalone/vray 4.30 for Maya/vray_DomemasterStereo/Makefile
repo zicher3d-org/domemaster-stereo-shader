@@ -13,9 +13,9 @@
 all: libvray_DomemasterStereo.so
 
 libvray_DomemasterStereo.so:  vray_DomemasterStereo.obj
-	g++  -lpthread -lrt -lc -lz  -Wl,--gc-sections  -fPIC      -Wl,--no-as-needed   "-Wl,-(" -lvutils_s  -ldl -lvray -lplugman_s -shared -Wl,--export-dynamic -o "./libvray_DomemasterStereo.so" -L"../lib" -L"../lib/gcc-4.4" -O "./vray_DomemasterStereo.obj"  "-Wl,-)" -pthread -lrt
+	g++  -std=c++11 -lpthread -lrt -lc -lz  -Wl,--gc-sections  -fPIC      -Wl,--no-as-needed   "-Wl,-(" -lvutils_s  -ldl -lvray -lplugman_s -shared -Wl,--export-dynamic -o "./libvray_DomemasterStereo.so" -L"../lib" -L"../lib/gcc-4.8" -O "./vray_DomemasterStereo.obj"  "-Wl,-)" -pthread -lrt
 
 
 vray_DomemasterStereo.obj: ./vray_DomemasterStereo.cpp
-	g++ -O0 -g -DENABLE_DEBUG_PRINTF -fPIC -Wreturn-type -Werror=return-type -DREQUIRE_IOSTREAM -DHAVE_EXR -D_LIBRARY_ALEMBIC -DHAVE_OPENSUBDIV -DHAVE_EMBREE -DDEBUG_OPT -DVASSERT_ENABLED -D__VRAY4MAYA30__ -DBits64_ -D_REENTRANT  -fvisibility=hidden -DVRAY_EXPORTS      -fexceptions    -I "../include"  -D "NDEBUG"     -c -o "./vray_DomemasterStereo.obj" "./vray_DomemasterStereo.cpp"
+	g++ -std=c++11 -O0 -g -DENABLE_DEBUG_PRINTF -fPIC -Wreturn-type -Werror=return-type -DREQUIRE_IOSTREAM -DHAVE_EXR -D_LIBRARY_ALEMBIC -DHAVE_OPENSUBDIV -DHAVE_EMBREE -DDEBUG_OPT -DVASSERT_ENABLED -D__VRAY4MAYA30__ -DBits64_ -D_REENTRANT  -fvisibility=hidden -DVRAY_EXPORTS      -fexceptions    -I "../include"  -D "NDEBUG"     -c -o "./vray_DomemasterStereo.obj" "./vray_DomemasterStereo.cpp"
 

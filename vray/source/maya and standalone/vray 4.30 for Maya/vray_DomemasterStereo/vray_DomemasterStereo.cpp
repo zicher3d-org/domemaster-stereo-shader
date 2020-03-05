@@ -143,6 +143,10 @@ simd::Vector3f DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgRe
   float poles_corr_start = params->poles_corr_start * DOME_DTOR;
   float poles_corr_end = params->poles_corr_end * DOME_DTOR;
   float neck_offset = params->neck_offset;
+
+  // check poles correction angles
+  if (poles_corr_end < poles_corr_start)
+    poles_corr_end = poles_corr_start;
   
   // calculate vector to tilted dome pole
   VR::Vector poleTarget;

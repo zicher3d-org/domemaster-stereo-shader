@@ -133,6 +133,10 @@ simd::Vector3f LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgRetur
   float poles_corr_end = params->poles_corr_end * DOME_DTOR;
   float neck_offset = params->neck_offset;
   int zenith_fov = params->zenith_fov;
+
+  // check poles correction angles
+  if (poles_corr_end < poles_corr_start)
+    poles_corr_end = poles_corr_start;
   
   // Calculate phi and theta...
   phi = rx * (fov_horiz_angle / 2.0);

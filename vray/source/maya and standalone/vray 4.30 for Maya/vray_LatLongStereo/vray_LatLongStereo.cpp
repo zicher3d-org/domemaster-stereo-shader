@@ -129,8 +129,8 @@ simd::Vector3f LatLongStereoImpl::getDir(double xs, double ys, int rayVsOrgRetur
   int flip_x = params->flip_x;
   int flip_y = params->flip_y;
   int poles_corr = params->poles_corr;
-  int poles_corr_start = params->poles_corr_start;
-  int poles_corr_end = params->poles_corr_end;
+  float poles_corr_start = params->poles_corr_start * DOME_DTOR;
+  float poles_corr_end = params->poles_corr_end * DOME_DTOR;
   float neck_offset = params->neck_offset;
   int zenith_fov = params->zenith_fov;
   
@@ -317,8 +317,8 @@ struct LatLongStereo_Params: VRayParameterListDesc {
     addParamBool("flip_x", false, -1, "Flip X");
     addParamBool("flip_y", false, -1, "Flip Y");
 	addParamBool("poles_corr", true, -1, "Poles Correction");
-	addParamFloat("poles_corr_start", 0.785398163397448, -1, "Poles Correction Start Angle");
-	addParamFloat("poles_corr_end", 1.48352986419518, -1, "Poles Correction End Angle");
+	addParamFloat("poles_corr_start", 45.f, -1, "Poles Correction Start Angle");
+	addParamFloat("poles_corr_end", 85.f, -1, "Poles Correction End Angle");
     addParamFloat("neck_offset", 0.0f, -1, "Neck Offset");
     addParamBool("zenith_fov", false, -1, "Hemi-equirectangular");
 	}

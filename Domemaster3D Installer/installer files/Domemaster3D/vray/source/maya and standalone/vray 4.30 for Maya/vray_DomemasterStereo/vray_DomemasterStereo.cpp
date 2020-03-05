@@ -18,8 +18,6 @@
 #include "mcsampler.h"
 #include "camerasampler.h"
 
-//#include "globalnewdelete.cpp"
-
 using namespace VR;
 
 struct DomemasterStereo_ParamsStruct {
@@ -35,6 +33,9 @@ struct DomemasterStereo_ParamsStruct {
   float head_tilt_map;
   int   flip_x;
   int   flip_y;
+  int   poles_corr;
+  float poles_corr_start;
+  float poles_corr_end;
   float neck_offset;
 };
 
@@ -138,7 +139,20 @@ simd::Vector3f DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgRe
   int vertical_mode = params->vertical_mode;
   int flip_x = params->flip_x;
   int flip_y = params->flip_y;
+  int poles_corr = params->poles_corr;
+  float poles_corr_start = params->poles_corr_start * DOME_DTOR;
+  float poles_corr_end = params->poles_corr_end * DOME_DTOR;
   float neck_offset = params->neck_offset;
+
+  // check poles correction angles
+  if (poles_corr_end < poles_corr_start)
+    poles_corr_end = poles_corr_start;
+  
+  // calculate vector to tilted dome pole
+  VR::Vector poleTarget;
+  poleTarget.x = 0.0f;
+  poleTarget.y = (float)(sin(forward_tilt));
+  poleTarget.z = (float)(-cos(forward_tilt));
   
   // Compute radius
   r = sqrt((rx * rx) + (ry * ry));
@@ -178,8 +192,32 @@ simd::Vector3f DomemasterStereoImpl::getDir(double xs, double ys, int rayVsOrgRe
       //float head_tilt = params->head_tilt_map;
       
       float separation_mult = 1.0f;
+      float separation_mult_auto = 1.0f;
       float head_turn_mult = 1.0f;
       float head_tilt = 0.5f;
+
+      // Additional automatic separation fade
+      if (poles_corr && !vertical_mode) {
+        float tmpTheta;
+        if (tilt_compensation) {
+          // angle between target vector and tilted dome pole vector
+          tmpTheta = acos(target*poleTarget);
+          tmpTheta = abs(DOME_PIOVER2 - tmpTheta);
+        } else {
+          // angle from zenith
+          tmpTheta = abs(DOME_PIOVER2 - theta);
+        }
+        if (tmpTheta > poles_corr_start) {
+          if (tmpTheta < poles_corr_end) {
+            float fadePos = (tmpTheta - poles_corr_start) / (poles_corr_end - poles_corr_start);
+            separation_mult_auto = (cos(fadePos*DOME_PI) + 1.0f) / 2.0f;
+          }
+          else
+            separation_mult_auto = 0.0f;
+        }
+      }
+      // combine both separation values
+      separation_mult *= separation_mult_auto;
     
       // camera selection and initial position
       if (stereo_camera == LEFTCAM) {
@@ -386,6 +424,9 @@ struct DomemasterStereo_Params: VRayParameterListDesc {
     addParamFloat("head_tilt_map", 0.5f, -1, "Head Tilt map");
     addParamBool("flip_x", false, -1, "Flip X");
     addParamBool("flip_y", false, -1, "Flip Y");
+	addParamBool("poles_corr", true, -1, "Poles Correction");
+	addParamFloat("poles_corr_start", 45.f, -1, "Poles Correction Start Angle");
+	addParamFloat("poles_corr_end", 85.f, -1, "Poles Correction End Angle");
     addParamFloat("neck_offset", 0.0f, -1, "Neck Offset");
 	}
 };
@@ -411,6 +452,9 @@ public:
     paramList->setParamCache("head_tilt_map", &params.head_tilt_map);
     paramList->setParamCache("flip_x", &params.flip_x);
     paramList->setParamCache("flip_y", &params.flip_y);
+    paramList->setParamCache("poles_corr", &params.poles_corr);
+    paramList->setParamCache("poles_corr_start", &params.poles_corr_start);
+    paramList->setParamCache("poles_corr_end", &params.poles_corr_end);
     paramList->setParamCache("neck_offset", &params.neck_offset);
 	}
 

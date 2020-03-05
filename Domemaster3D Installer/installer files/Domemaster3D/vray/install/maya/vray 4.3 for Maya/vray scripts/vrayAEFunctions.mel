@@ -2042,11 +2042,18 @@ global proc vrayOnDomemasterStereoOn(string $node, string $attrName, string $wid
 				vrayOnCameraDomeOn($node, $attrName, $tmpWidget + "vray_cameraDome_camera|dummy");
 			}
 		}
-		string $attrNames[] = {"vrayDomemasterStereoCamera", "vrayDomemasterStereoFovAngle", "vrayDomemasterStereoParallaxDistance", "vrayDomemasterStereoSeparation", "vrayDomemasterStereoForwardTilt", "vrayDomemasterStereoTiltCompensation", "vrayDomemasterStereoVerticalMode", "vrayDomemasterStereoSeparationMap", "vrayDomemasterStereoHeadTurnMap", "vrayDomemasterStereoHeadTiltMap", "vrayDomemasterStereoFlipX", "vrayDomemasterStereoFlipY", "vrayDomemasterStereoNeckOffset" };
+		string $attrNames[] = {
+			"vrayDomemasterStereoCamera", "vrayDomemasterStereoFovAngle", "vrayDomemasterStereoParallaxDistance",
+			"vrayDomemasterStereoSeparation", "vrayDomemasterStereoForwardTilt", "vrayDomemasterStereoTiltCompensation",
+			"vrayDomemasterStereoVerticalMode", "vrayDomemasterStereoSeparationMap", "vrayDomemasterStereoHeadTurnMap",
+			"vrayDomemasterStereoHeadTiltMap", "vrayDomemasterStereoFlipX", "vrayDomemasterStereoFlipY",
+			"vrayDomemasterStereoNeckOffset", "vrayDomemasterStereoPolesCorrection", "vrayDomemasterStereoPolesCorrectionStart",
+			"vrayDomemasterStereoPolesCorrectionEnd"
+		};
 		vrayDimControls($node, $attrNames, $widget, $dim);
     
-    // Add the Domemaster3D shader's Vray Translator Python Script settings 
-    domeVrayAddTranslator();
+		// Add the Domemaster3D shader's Vray Translator Python Script settings 
+		domeVrayAddTranslator();
 	}
 }
 
@@ -2073,11 +2080,17 @@ global proc vrayOnLatLongStereoOn(string $node, string $attrName, string $widget
 				vrayOnCameraDomeOn($node, $attrName, $tmpWidget + "vray_cameraDome_camera|dummy");
 			}
 		}
-		string $attrNames[] = {"vrayLatLongStereoCamera", "vrayLatLongStereoFovVertAngle", "vrayLatLongStereoFovHorizAngle", "vrayLatLongStereoParallaxDistance", "vrayLatLongStereoSeparation", "vrayLatLongStereoZenithMode", "vrayLatLongStereoSeparationMap", "vrayLatLongStereoFlipX", "vrayLatLongStereoFlipY", "vrayLatLongStereoNeckOffset", "vrayLatLongStereoZenithFov" };
+		string $attrNames[] = {
+			"vrayLatLongStereoCamera", "vrayLatLongStereoFovVertAngle", "vrayLatLongStereoFovHorizAngle",
+			"vrayLatLongStereoParallaxDistance", "vrayLatLongStereoSeparation", "vrayLatLongStereoZenithMode",
+			"vrayLatLongStereoSeparationMap", "vrayLatLongStereoFlipX", "vrayLatLongStereoFlipY", "vrayLatLongStereoNeckOffset",
+			"vrayLatLongStereoZenithFov", "vrayLatLongStereoPolesCorrection", "vrayLatLongStereoPolesCorrectionStart",
+			"vrayLatLongStereoPolesCorrectionEnd"
+		};
 		vrayDimControls($node, $attrNames, $widget, $dim);
     
-    // Add the Domemaster3D shader's Vray Translator Python Script settings 
-    domeVrayAddTranslator();
+		// Add the Domemaster3D shader's Vray Translator Python Script settings 
+		domeVrayAddTranslator();
 	}
 }
 

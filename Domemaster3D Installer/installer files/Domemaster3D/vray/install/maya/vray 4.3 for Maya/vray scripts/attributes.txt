@@ -121,6 +121,37 @@ Attribute vrayDomemasterStereoFlipY {
   decl = int
   default = false
 }
+Attribute vrayDomemasterStereoPolesCorrection {
+  label = Poles Correction
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayDomemasterStereoPolesCorrectionStart {
+  label = Poles Correction Start Angle
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 45.0
+}
+Attribute vrayDomemasterStereoPolesCorrectionEnd {
+  label = Poles Correction End Angle
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_min = 45.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 85.0
+}
 Attribute vrayDomemasterStereoNeckOffset {
   label = Neck Offset
   state = optional
@@ -233,6 +264,37 @@ Attribute vrayLatLongStereoFlipY {
   subtype = switch
   decl = int
   default = false
+}
+Attribute vrayLatLongStereoPolesCorrection {
+  label = Poles Correction
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayLatLongStereoPolesCorrectionStart {
+  label = Poles Correction Start Angle
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 45.0
+}
+Attribute vrayLatLongStereoPolesCorrectionEnd {
+  label = Poles Correction End Angle
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_min = 45.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 85.0
 }
 Attribute vrayLatLongStereoNeckOffset {
   label = Neck Offset

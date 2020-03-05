@@ -13,7 +13,10 @@ AttributeGroup vray_DomemasterStereo {
   attribute_10 = vrayDomemasterStereoHeadTiltMap
   attribute_11 = vrayDomemasterStereoFlipX
   attribute_12 = vrayDomemasterStereoFlipY
-  attribute_13 = vrayDomemasterStereoNeckOffset
+  attribute_13 = vrayDomemasterStereoPolesCorrection
+  attribute_14 = vrayDomemasterStereoPolesCorrectionStart
+  attribute_15 = vrayDomemasterStereoPolesCorrectionEnd
+  attribute_16 = vrayDomemasterStereoNeckOffset
 }
 
 
@@ -29,8 +32,11 @@ AttributeGroup vray_LatLongStereo {
   attribute_7 = vrayLatLongStereoSeparationMap
   attribute_8 = vrayLatLongStereoFlipX
   attribute_9 = vrayLatLongStereoFlipY
-  attribute_10 = vrayLatLongStereoNeckOffset
-  attribute_11 = vrayLatLongStereoZenithFov
+  attribute_10 = vrayLatLongStereoPolesCorrection
+  attribute_11 = vrayLatLongStereoPolesCorrectionStart
+  attribute_12 = vrayLatLongStereoPolesCorrectionEnd
+  attribute_13 = vrayLatLongStereoNeckOffset
+  attribute_14 = vrayLatLongStereoZenithFov
 }
 
 AttributeGroup vray_light {

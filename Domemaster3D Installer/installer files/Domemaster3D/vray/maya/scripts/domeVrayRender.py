@@ -180,6 +180,15 @@ def domeVrayTranslator():
         flip_y = domeVrayGetAttrNumValue("vrayLatLongStereoFlipY")
         LatLongStereo.set("flip_y", flip_y)
         
+        poles_corr = domeVrayGetAttrNumValue("vrayLatLongStereoPolesCorrection")
+        LatLongStereo.set("poles_corr", poles_corr)
+        
+        poles_corr_start = domeVrayGetAttrNumValue("vrayLatLongStereoPolesCorrectionStart")
+        LatLongStereo.set("poles_corr_start", poles_corr_start)
+        
+        poles_corr_end = domeVrayGetAttrNumValue("vrayLatLongStereoPolesCorrectionEnd")
+        LatLongStereo.set("poles_corr_end", poles_corr_end)
+        
         neck_offset = domeVrayGetAttrNumValue("vrayLatLongStereoNeckOffset")
         LatLongStereo.set("neck_offset", neck_offset)
         
@@ -229,6 +238,15 @@ def domeVrayTranslator():
         
         flip_y = domeVrayGetAttrNumValue("vrayDomemasterStereoFlipY")
         DomemasterStereo.set("flip_y", flip_y)
+        
+        poles_corr = domeVrayGetAttrNumValue("vrayDomemasterStereoPolesCorrection")
+        DomemasterStereo.set("poles_corr", poles_corr)
+        
+        poles_corr_start = domeVrayGetAttrNumValue("vrayDomemasterStereoPolesCorrectionStart")
+        DomemasterStereo.set("poles_corr_start", poles_corr_start)
+        
+        poles_corr_end = domeVrayGetAttrNumValue("vrayDomemasterStereoPolesCorrectionEnd")
+        DomemasterStereo.set("poles_corr_end", poles_corr_end)
         
         neck_offset = domeVrayGetAttrNumValue("vrayDomemasterStereoNeckOffset")
         DomemasterStereo.set("neck_offset", neck_offset)

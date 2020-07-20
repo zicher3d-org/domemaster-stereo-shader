@@ -1,5 +1,5 @@
 """
-Arnold Domemaster3D Camera Setup Script V2.1.2
+Arnold Domemain3D Camera Setup Script V2.1.2
 2016-09-17 05.27 PM
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
@@ -22,7 +22,7 @@ Version 2.1
 
 Updated Arnold camera shape names
 
-Updated the DomemasterWxH function name
+Updated the DomemainWxH function name
 
 
 Version 1.7.4
@@ -57,7 +57,7 @@ arnoldDomeCamera.forceArnoldLoad()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D Fulldome Stereo Rig
+Domemain3D Fulldome Stereo Rig
 A python function to create a fulldome stereo rig in Maya.
 
 Run using the command:
@@ -66,29 +66,29 @@ reload(arnoldDomeCamera)
 arnoldDomeCamera.createArnoldFulldomeStereoRig()
 
 ------------------------------------------------------------------------------
-Domemaster3D Fulldome FOV Camera
+Domemain3D Fulldome FOV Camera
 
-A python function to create a fulldome 2D FOV style camera in Maya using a single Arnold DomemasterStereo based camera.
+A python function to create a fulldome 2D FOV style camera in Maya using a single Arnold DomemainStereo based camera.
 
 Run using the command:
 import arnoldDomeCamera as arnoldDomeCamera
 reload(arnoldDomeCamera)
-arnoldDomeCamera.createArnoldDomemasterFOV_Camera()
+arnoldDomeCamera.createArnoldDomemainFOV_Camera()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D Fulldome WxH Camera
+Domemain3D Fulldome WxH Camera
 
 A python function to create a fulldome 2D camera in Maya.
 
 Run using the command:
 import arnoldDomeCamera as arnoldDomeCamera
 reload(arnoldDomeCamera)
-arnoldDomeCamera.createArnoldDomemasterWxH_Camera()
+arnoldDomeCamera.createArnoldDomemainWxH_Camera()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createArnoldLatLong_Camera
+Domemain3D createArnoldLatLong_Camera
 A python function to create a 2D LatLong / Equirectangular / Spherical camera.  This option uses the LatLong Stereo shader applied in a 2D center camera viewing mode.
 
 Run using the command:
@@ -98,7 +98,7 @@ arnoldDomeCamera.createArnoldLatLong_Camera()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createArnoldLatLongStereoRig
+Domemain3D createArnoldLatLongStereoRig
 A python function to create a stereoscopic latitude longitude lens shader and attach it to a camera.
 
 Run using the command:
@@ -108,7 +108,7 @@ arnoldDomeCamera.createArnoldLatLongStereoRig()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D DomeGrid test background 
+Domemain3D DomeGrid test background 
 A python function to create a hemispherical yellow test grid in Maya. 
 
 Run using the command:
@@ -118,7 +118,7 @@ arnoldDomeCamera.createDomeGrid()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D LatLongGrid test background 
+Domemain3D LatLongGrid test background 
 A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
 
 Run using the command:
@@ -127,7 +127,7 @@ reload(arnoldDomeCamera)
 arnoldDomeCamera.createLatLongGrid()
 ------------------------------------------------------------------------------
 
-Domemaster3D createTestShapes
+Domemain3D createTestShapes
 A python function to create a test sphere and cube in Maya. 
 
 Run using the command:
@@ -137,7 +137,7 @@ arnoldDomeCamera.createTestShapes()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D getMayaVersionDome
+Domemain3D getMayaVersionDome
 A python function to check what Maya version is active.
 
 import arnoldDomeCamera
@@ -146,62 +146,62 @@ arnoldDomeCamera.getMayaVersionDome()
 
 ------------------------------------------------------------------------------
 
-Show the Domemaster Wiki
+Show the Domemain Wiki
 --------------------------------
 Loads the wiki page in your default web browser
 
 Run using the command:
-print("Open the Domemaster Wiki Page")
+print("Open the Domemain Wiki Page")
 import arnoldDomeCamera as arnoldDomeCamera
-arnoldDomeCamera.openDomemasterWiki()
+arnoldDomeCamera.openDomemainWiki()
 
-print("Open the Domemaster NING Group")
+print("Open the Domemain NING Group")
 import arnoldDomeCamera as arnoldDomeCamera
-arnoldDomeCamera.openDomemasterNing()
+arnoldDomeCamera.openDomemainNing()
 
-print("Open the Domemaster Downloads Page")
+print("Open the Domemain Downloads Page")
 import arnoldDomeCamera as arnoldDomeCamera
-arnoldDomeCamera.openDomemasterDownloads()
+arnoldDomeCamera.openDomemainDownloads()
 
-print("Open the Domemaster Bug Reporter")
+print("Open the Domemain Bug Reporter")
 import arnoldDomeCamera as arnoldDomeCamera
-arnoldDomeCamera.openDomemasterBugReport()
+arnoldDomeCamera.openDomemainBugReport()
 
 """
 
-def openDomemasterWiki():
+def openDomemainWiki():
   import webbrowser
   
-  # Domemaster Stereo Shader - Wiki Page
+  # Domemain Stereo Shader - Wiki Page
   url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki'
   
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
   
   
-def openArnoldDomemasterNing():
+def openArnoldDomemainNing():
   import webbrowser
   
-  # Domemaster NING Group
+  # Domemain NING Group
   url = 'http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images'
   
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
 
 
-def openArnoldDomemasterDownloads():
+def openArnoldDomemainDownloads():
   import webbrowser
   
-  # Domemaster Stereo Shader - Download Page
+  # Domemain Stereo Shader - Download Page
   url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/releases'
 
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
   
-def openArnoldDomemasterBugReport():
+def openArnoldDomemainBugReport():
   import webbrowser
   
-  # Domemaster Stereo Shader - Bug Report Page
+  # Domemain Stereo Shader - Bug Report Page
   url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/issues'
   
   # Open URL in new window, raising the window if possible.
@@ -219,7 +219,7 @@ def getSourceImagesPath(imageFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Check OS platform for Windows/Mac/Linux Paths
@@ -230,32 +230,32 @@ def getSourceImagesPath(imageFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR')+ "/"
-  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  # Typical Result: C:/Program Files/Domemain3D/sourceimages/ 
   
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files/Domemain3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseImagesFolder = "C:/Program Files(x86)/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files(x86)/Domemain3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/Applications/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
       baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system()+ " System]"
+  print "[Domemain3D is running on a " + platform.system()+ " System]"
   print "[Requesting the image file]: " + combinedFileAndImagePath
 
   return combinedFileAndImagePath
@@ -263,7 +263,7 @@ def getSourceImagesPath(imageFileName):
 
 
 """
-Domemaster3D AutoSetup
+Domemain3D AutoSetup
 ----------------------
 A python function to create a fulldome stereo rig and test grid in Maya. 
 
@@ -277,7 +277,7 @@ def Autosetup():
 
 
 """
-Domemaster3D setDomeSamplingQuality
+Domemain3D setDomeSamplingQuality
 ----------------------
 A python function to setup the AA sampling quality. 
 
@@ -292,7 +292,7 @@ def setDomeSamplingQuality():
 
 
 """
-Domemaster3D SetRenderRes
+Domemain3D SetRenderRes
 ----------------------
 A python function to setup the basic 2K x 2K square render settings. 
 
@@ -311,7 +311,7 @@ def setRenderRes():
   fulldomeRenderHeight = 2048
   
   #---------------------------------------------------------------------
-  # Setup the default render settings for a square domemaster image output
+  # Setup the default render settings for a square domemain image output
   # ---------------------------------------------------------------------
   cmds.setAttr('defaultResolution.width', fulldomeRenderWidth)
   cmds.setAttr('defaultResolution.height', fulldomeRenderHeight)
@@ -321,7 +321,7 @@ def setRenderRes():
 
 
 """
-Domemaster3D changeRenderRes
+Domemain3D changeRenderRes
 ----------------------
 A python function to change the basic resolution square render settings. 
 
@@ -340,7 +340,7 @@ def changeRenderRes(renderSizePx):
   fulldomeRenderHeight = renderSizePx
   
   #---------------------------------------------------------------------
-  # Setup the default render settings for a square domemaster image output
+  # Setup the default render settings for a square domemain image output
   # ---------------------------------------------------------------------
   cmds.setAttr('defaultResolution.width', fulldomeRenderWidth)
   cmds.setAttr('defaultResolution.height', fulldomeRenderHeight)
@@ -351,7 +351,7 @@ def changeRenderRes(renderSizePx):
 
   
 """
-Domemaster3D changeRenderResWH
+Domemain3D changeRenderResWH
 ----------------------
 A python function to change the basic resolution render settings. 
 
@@ -371,7 +371,7 @@ def changeRenderResWH(renderSizeW,  renderSizeH):
   domeDeviceAspectRatio=domeRenderWidth/domeRenderHeight
   
   #---------------------------------------------------------------------
-  # Setup the default render settings for a square domemaster image output
+  # Setup the default render settings for a square domemain image output
   # ---------------------------------------------------------------------
   cmds.setAttr('defaultResolution.width', domeRenderWidth)
   cmds.setAttr('defaultResolution.height', domeRenderHeight)
@@ -383,7 +383,7 @@ def changeRenderResWH(renderSizeW,  renderSizeH):
 
 
 """
-Domemaster3D Fulldome Stereo Rig
+Domemain3D Fulldome Stereo Rig
 --------------------------------
 A python function to create a fulldome stereo rig in Maya.
 """
@@ -454,18 +454,18 @@ def createArnoldFulldomeStereoRig():
   #import maya.cmds as cmds
 
   # PreRender MEL:
-  #cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemain3DPreRenderMEL();", type='string')
   # PostRender MEL:
-  #cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemain3DPostRenderMEL();", type='string')
 
   # Enable realtime 3D
-  #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
+  #mel.eval("source \"domeRender.mel\"; domemain3DPostRenderMEL();");
   
   return rig
   
 
 """
-Domemaster3D Fulldome Stereo Rig
+Domemain3D Fulldome Stereo Rig
 --------------------------------
 A python function to create a fulldome stereo rig in Maya.
 """
@@ -535,22 +535,22 @@ def createArnoldLatLongStereoRig():
   #import maya.cmds as cmds
 
   # PreRender MEL:
-  #cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemaster3DPreRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.preMel', "source \"domeRender.mel\"; domemain3DPreRenderMEL();", type='string')
   # PostRender MEL:
-  #cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemaster3DPostRenderMEL();", type='string')
+  #cmds.setAttr('defaultRenderGlobals.postMel' , "source \"domeRender.mel\"; domemain3DPostRenderMEL();", type='string')
 
   # Enable realtime 3D
-  #mel.eval("source \"domeRender.mel\"; domemaster3DPostRenderMEL();");
+  #mel.eval("source \"domeRender.mel\"; domemain3DPostRenderMEL();");
   
   return rig
 
 
 """
-Domemaster3D createDomemasterFOV_Camera
+Domemain3D createDomemainFOV_Camera
 ----------------------
-A python function to create a fulldome 2D FOV style camera in Maya using a single Arnold DomemasterStereo based camera.
+A python function to create a fulldome 2D FOV style camera in Maya using a single Arnold DomemainStereo based camera.
 """
-def createArnoldDomemasterFOV_Camera():
+def createArnoldDomemainFOV_Camera():
   import maya.cmds as cmds
   #import maya.mel as mel 
   
@@ -562,18 +562,18 @@ def createArnoldDomemasterFOV_Camera():
   # ---------------------------------------------------------------------
   
   # Arnold camera type
-  cameraType = 'DomemasterStereo'
+  cameraType = 'DomemainStereo'
   
   # ---------------------------------------------------------------------
   # Create the stereo rig
   # ---------------------------------------------------------------------
 
   # Create a camera and get the shape name.
-  cameraName = cmds.camera(name='ArnoldDomemasterFOV_Camera')
+  cameraName = cmds.camera(name='ArnoldDomemainFOV_Camera')
   cameraShape = cameraName[1]
 
   # ---------------------------------------------------------------------
-  # Assign the Arnold DomemasterStereo camera type
+  # Assign the Arnold DomemainStereo camera type
   # ---------------------------------------------------------------------
   cmds.setAttr(cameraShape+'.ai_translator', cameraType, type='string')
   
@@ -598,7 +598,7 @@ def createArnoldDomemasterFOV_Camera():
   cmds.setAttr(cameraName[0]+'.rotateZ', 0)
 
   # Changes the render settings to set the stereo camera to be a renderable camera
-  cmds.setAttr(cameraShape+'.renderable', 1)# ArnoldDomemasterFOV_Camera
+  cmds.setAttr(cameraShape+'.renderable', 1)# ArnoldDomemainFOV_Camera
   cmds.setAttr('topShape.renderable', 0)
   cmds.setAttr('sideShape.renderable', 0)
   cmds.setAttr('frontShape.renderable', 0)
@@ -618,11 +618,11 @@ def createArnoldDomemasterFOV_Camera():
 
 
 """
-Domemaster3D createDomemasterWxH_Camera
+Domemain3D createDomemainWxH_Camera
 ----------------------
-A python function to set up an Arnold DomemasterWxH based camera.
+A python function to set up an Arnold DomemainWxH based camera.
 """
-def createArnoldDomemasterWxH_Camera():
+def createArnoldDomemainWxH_Camera():
   import maya.cmds as cmds
   #import maya.mel as mel 
   
@@ -634,18 +634,18 @@ def createArnoldDomemasterWxH_Camera():
   # ---------------------------------------------------------------------
   
   # Arnold camera type
-  cameraType = 'DomemasterWxH'
+  cameraType = 'DomemainWxH'
   
   # ---------------------------------------------------------------------
   # Create the stereo rig
   # ---------------------------------------------------------------------
 
   # Create a camera and get the shape name.
-  cameraName = cmds.camera(name='ArnoldDomemasterWxH_Camera')
+  cameraName = cmds.camera(name='ArnoldDomemainWxH_Camera')
   cameraShape = cameraName[1]
 
   # ---------------------------------------------------------------------
-  # Assign the Arnold domemasterWxH camera type
+  # Assign the Arnold domemainWxH camera type
   # ---------------------------------------------------------------------
   cmds.setAttr(cameraShape+'.ai_translator', cameraType, type='string')
   
@@ -683,7 +683,7 @@ def createArnoldDomemasterWxH_Camera():
 
 
 """
-Domemaster3D createArnoldLatLong_Camera
+Domemain3D createArnoldLatLong_Camera
 ----------------------
 A python function to create a 2D LatLong / Equirectangular / Spherical camera.  This option uses the LatLong Stereo shader applied in a 2D center camera viewing mode.
 """
@@ -758,7 +758,7 @@ def createArnoldLatLong_Camera():
 
 
 """
-Domemaster3D LatLongGrid test background 
+Domemain3D LatLongGrid test background 
 --------------------------------------
 A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
 
@@ -782,7 +782,7 @@ def createLatLongGrid():
 
 
 """
-Domemaster3D DomeGrid test background 
+Domemain3D DomeGrid test background 
 --------------------------------------
 A python function to create a spherical yellow test grid in Maya. 
 
@@ -818,27 +818,27 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   
   if cmds.objExists('domeGrid'): 
-    print('Removing existing Domemaster3D object: domeGrid')
+    print('Removing existing Domemain3D object: domeGrid')
     cmds.select('domeGrid', replace=True)
     cmds.delete()
 
   if cmds.objExists('MeshGroup'): 
-    print('Removing existing Domemaster3D object: MeshGroup')
+    print('Removing existing Domemain3D object: MeshGroup')
     cmds.select('MeshGroup', replace=True)
     cmds.delete()
   
   if cmds.objExists(domeGridSurface): 
-    print('Removing existing Domemaster3D object: ' + domeGridSurface)
+    print('Removing existing Domemain3D object: ' + domeGridSurface)
     cmds.select(domeGridSurface, replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridToon'): 
-    print('Removing existing Domemaster3D object: domeGridToon')
+    print('Removing existing Domemain3D object: domeGridToon')
     cmds.select('domeGridToon', replace=True)
     cmds.delete()
     
   if cmds.objExists('domeGrid_displayModeExpr'): 
-    print('Removing existing Domemaster3D object: domeGrid_displayModeExpr')
+    print('Removing existing Domemain3D object: domeGrid_displayModeExpr')
     cmds.select('domeGrid_displayModeExpr', replace=True)
     cmds.delete()
   
@@ -847,22 +847,22 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   
   if cmds.objExists('domeGridLinesSurfaceShader'): 
-    print('Removing existing Domemaster3D object: domeGridLinesSurfaceShader')
+    print('Removing existing Domemain3D object: domeGridLinesSurfaceShader')
     cmds.select('domeGridLinesSurfaceShader', replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridLinesSurfaceShaderSG'): 
-    print('Removing existing Domemaster3D object: domeGridLinesSurfaceShaderSG')
+    print('Removing existing Domemain3D object: domeGridLinesSurfaceShaderSG')
     cmds.select('domeGridLinesSurfaceShaderSG', replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridSurfaceShaderSG'): 
-    print('Removing existing Domemaster3D object: domeGridSurfaceShaderSG')
+    print('Removing existing Domemain3D object: domeGridSurfaceShaderSG')
     cmds.select('domeGridSurfaceShaderSG', replace=True)
     cmds.delete()
     
   if cmds.objExists('domeGridSurfaceShader'): 
-    print('Removing existing Domemaster3D object: domeGridSurfaceShader')
+    print('Removing existing Domemain3D object: domeGridSurfaceShader')
     cmds.select('domeGridSurfaceShader', replace=True)
     cmds.delete()
   
@@ -1326,7 +1326,7 @@ def createDomeGrid():
   
   
 """
-Domemaster3D createTestShapes
+Domemain3D createTestShapes
 ----------------------
 A python function to create a test sphere and cube in Maya. 
 """
@@ -1335,17 +1335,17 @@ def  createTestShapes():
   import maya.cmds as cmds
 
   if cmds.objExists('domeTestLight'): 
-    print('Removing existing Domemaster3D object: domeTestLight')
+    print('Removing existing Domemain3D object: domeTestLight')
     cmds.select('domeTestLight', replace=True)
     cmds.delete()
 
   if cmds.objExists('polyTestSphere'): 
-    print('Removing existing Domemaster3D object: polyTestSphere')
+    print('Removing existing Domemain3D object: polyTestSphere')
     cmds.select('polyTestSphere', replace=True)
     cmds.delete()
 
   if cmds.objExists('polyTestCube'): 
-    print('Removing existing Domemaster3D object: polyTestCube')
+    print('Removing existing Domemain3D object: polyTestCube')
     cmds.select('polyTestCube', replace=True)
     cmds.delete()
 

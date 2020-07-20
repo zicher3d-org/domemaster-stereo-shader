@@ -1,11 +1,11 @@
 """
 domeVrayRender.py
-Domemaster3D for Vray for Maya v1.7
+Domemain3D for Vray for Maya v1.7
 2015-04-01 09.06 pm
 by Andrew Hazelden
 -----------------------------
 
-This script will prepare a Vray Scene for rendering in Maya using the DomemasterStereo or LatLongStereo shaders.
+This script will prepare a Vray Scene for rendering in Maya using the DomemainStereo or LatLongStereo shaders.
 
 Run the python code using:
 import domeVrayRender
@@ -71,14 +71,14 @@ def domeVrayHasLatLongStereoAttrs():
     #print("This is not a LatLongStereo Camera.")
     return 0
     
-# Check if the DomemasterStereo Vray Extra Attributes Exist
-def domeVrayHasDomemasterStereoAttrs():
-  # Check if the vrayDomemasterStereoOn Attr Exists
-  if domeVrayGetAttrNumValue("vrayDomemasterStereoOn") == 1:
-    print("This is a DomemasterStereo Camera.")
+# Check if the DomemainStereo Vray Extra Attributes Exist
+def domeVrayHasDomemainStereoAttrs():
+  # Check if the vrayDomemainStereoOn Attr Exists
+  if domeVrayGetAttrNumValue("vrayDomemainStereoOn") == 1:
+    print("This is a DomemainStereo Camera.")
     return 1
   else:
-    #print("This is not a DomemasterStereo Camera.")
+    #print("This is not a DomemainStereo Camera.")
     return 0
 
 # Check if a vray camera extra attribute exists and get it's current string value
@@ -195,61 +195,61 @@ def domeVrayTranslator():
         zenith_fov = domeVrayGetAttrNumValue("vrayLatLongStereoZenithFov")
         LatLongStereo.set("zenith_fov", zenith_fov)
      
-    elif domeVrayHasDomemasterStereoAttrs() == 1:
-      # DomemasterStereo Lens Shader Setup
-      DomemasterStereo = vr.create("DomemasterStereo", "DomemasterStereo")
+    elif domeVrayHasDomemainStereoAttrs() == 1:
+      # DomemainStereo Lens Shader Setup
+      DomemainStereo = vr.create("DomemainStereo", "DomemainStereo")
       
       # Check if the shader was found
-      if DomemasterStereo is None:
-        print("The DomemasterStereo shader did not load correctly!")
+      if DomemainStereo is None:
+        print("The DomemainStereo shader did not load correctly!")
         return -1
       else:
-        #print(camera + " has a DomemasterStereo lens shader applied.")
-        cameraAttr = domeVrayGetAttrNumValue("vrayDomemasterStereoCamera")
+        #print(camera + " has a DomemainStereo lens shader applied.")
+        cameraAttr = domeVrayGetAttrNumValue("vrayDomemainStereoCamera")
         #Use the camera name to set the stereo camera view value
-        #DomemasterStereo.set("camera", stereo_view)
+        #DomemainStereo.set("camera", stereo_view)
         #Use the Vray Extra Attribute to set the stereo camera view value
-        DomemasterStereo.set("camera", cameraAttr)
+        DomemainStereo.set("camera", cameraAttr)
         
-        fov_angle = domeVrayGetAttrNumValue("vrayDomemasterStereoFovAngle")
-        DomemasterStereo.set("fov_angle", fov_angle)
+        fov_angle = domeVrayGetAttrNumValue("vrayDomemainStereoFovAngle")
+        DomemainStereo.set("fov_angle", fov_angle)
         
-        parallax_distance = domeVrayGetAttrNumValue("vrayDomemasterStereoParallaxDistance")
-        DomemasterStereo.set("parallax_distance", parallax_distance)
+        parallax_distance = domeVrayGetAttrNumValue("vrayDomemainStereoParallaxDistance")
+        DomemainStereo.set("parallax_distance", parallax_distance)
         
-        separation = domeVrayGetAttrNumValue("vrayDomemasterStereoSeparation")
-        DomemasterStereo.set("separation", separation)
+        separation = domeVrayGetAttrNumValue("vrayDomemainStereoSeparation")
+        DomemainStereo.set("separation", separation)
         
-        forward_tilt = domeVrayGetAttrNumValue("vrayDomemasterStereoForwardTilt")
-        DomemasterStereo.set("forward_tilt", forward_tilt)
+        forward_tilt = domeVrayGetAttrNumValue("vrayDomemainStereoForwardTilt")
+        DomemainStereo.set("forward_tilt", forward_tilt)
         
-        tilt_compensation = domeVrayGetAttrNumValue("vrayDomemasterStereoTiltCompensation")
-        DomemasterStereo.set("tilt_compensation", tilt_compensation)
+        tilt_compensation = domeVrayGetAttrNumValue("vrayDomemainStereoTiltCompensation")
+        DomemainStereo.set("tilt_compensation", tilt_compensation)
         
-        vertical_mode = domeVrayGetAttrNumValue("vrayDomemasterStereoVerticalMode")
-        DomemasterStereo.set("vertical_mode", vertical_mode)
+        vertical_mode = domeVrayGetAttrNumValue("vrayDomemainStereoVerticalMode")
+        DomemainStereo.set("vertical_mode", vertical_mode)
         
-        DomemasterStereo.set("separation_map", 1.0)
-        DomemasterStereo.set("head_turn_map", 1.0)
-        DomemasterStereo.set("head_tilt_map", 0.5)
+        DomemainStereo.set("separation_map", 1.0)
+        DomemainStereo.set("head_turn_map", 1.0)
+        DomemainStereo.set("head_tilt_map", 0.5)
         
-        flip_x = domeVrayGetAttrNumValue("vrayDomemasterStereoFlipX")
-        DomemasterStereo.set("flip_x", flip_x)
+        flip_x = domeVrayGetAttrNumValue("vrayDomemainStereoFlipX")
+        DomemainStereo.set("flip_x", flip_x)
         
-        flip_y = domeVrayGetAttrNumValue("vrayDomemasterStereoFlipY")
-        DomemasterStereo.set("flip_y", flip_y)
+        flip_y = domeVrayGetAttrNumValue("vrayDomemainStereoFlipY")
+        DomemainStereo.set("flip_y", flip_y)
         
-        poles_corr = domeVrayGetAttrNumValue("vrayDomemasterStereoPolesCorrection")
-        DomemasterStereo.set("poles_corr", poles_corr)
+        poles_corr = domeVrayGetAttrNumValue("vrayDomemainStereoPolesCorrection")
+        DomemainStereo.set("poles_corr", poles_corr)
         
-        poles_corr_start = domeVrayGetAttrNumValue("vrayDomemasterStereoPolesCorrectionStart")
-        DomemasterStereo.set("poles_corr_start", poles_corr_start)
+        poles_corr_start = domeVrayGetAttrNumValue("vrayDomemainStereoPolesCorrectionStart")
+        DomemainStereo.set("poles_corr_start", poles_corr_start)
         
-        poles_corr_end = domeVrayGetAttrNumValue("vrayDomemasterStereoPolesCorrectionEnd")
-        DomemasterStereo.set("poles_corr_end", poles_corr_end)
+        poles_corr_end = domeVrayGetAttrNumValue("vrayDomemainStereoPolesCorrectionEnd")
+        DomemainStereo.set("poles_corr_end", poles_corr_end)
         
-        neck_offset = domeVrayGetAttrNumValue("vrayDomemasterStereoNeckOffset")
-        DomemasterStereo.set("neck_offset", neck_offset)
+        neck_offset = domeVrayGetAttrNumValue("vrayDomemainStereoNeckOffset")
+        DomemainStereo.set("neck_offset", neck_offset)
 
 #Check what version of Maya is active
 def getMayaVersionDome():

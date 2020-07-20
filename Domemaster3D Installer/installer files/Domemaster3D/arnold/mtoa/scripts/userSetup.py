@@ -1,5 +1,5 @@
 """
-Arnold Domemaster3D Startup Code Version 2.1
+Arnold Domemain3D Startup Code Version 2.1
 2016-07-28 12.51 PM
 by Andrew Hazelden
 """
@@ -100,12 +100,12 @@ def addNewArnoldLatLongRig():
   else:
     print ("An ArnoldLatLongStereoCamera rig already exists in the stereoRigManager.")
 
-# Load the Arnold Domemaster3D menu system in the rendering menu set    
+# Load the Arnold Domemain3D menu system in the rendering menu set    
 def addNewArnoldDomeMenu():
   import maya.mel as mel
-  print("Loading the ArnoldDomemaster3D menu items...")
+  print("Loading the ArnoldDomemain3D menu items...")
   mel.eval('source "arnoldDomeMenu.mel";')
-  mel.eval('createArnoldDomemaster3DMenu();')
+  mel.eval('createArnoldDomemain3DMenu();')
 
   
 # Load the new stereo Arnold stereo rigs
@@ -118,14 +118,14 @@ def deferredLoadArnoldRig():
     cmds.evalDeferred("addNewArnoldDomeRig()")
   
 #----------------------------------------------------------------------------
-# Main Domemaster3D Start up function  
+# Main Domemain3D Start up function  
 #----------------------------------------------------------------------------
 
 # Stop Maya from running the python code twice by looking if it is __main__
 if (__name__ == '__main__'):
   import maya.cmds as cmds
 
-  # Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
+  # Add the Domemain3D Stereo & LatLong_Stereo camera Rig
   #import arnoldDomeStereoRig
   #import arnoldLatLongStereoRig
 
@@ -139,17 +139,17 @@ if (__name__ == '__main__'):
   isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
   # isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
   if(isMayaInBatchMode == False):
-    print("The Arnold Domemaster3D Shader is running in GUI mode.")
+    print("The Arnold Domemain3D Shader is running in GUI mode.")
     # Make sure the stereo plug-in is loaded
     cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
     
     # Load the new stereo Arnold stereo rigs
     cmds.evalDeferred("deferredLoadArnoldRig()")
     
-    # Load the Domemaster3D menu system in the rendering menu set
+    # Load the Domemain3D menu system in the rendering menu set
     cmds.evalDeferred("addNewArnoldDomeMenu()")
   else:
-    print("The Arnold Domemaster3D Shader is running in batch mode.")
+    print("The Arnold Domemain3D Shader is running in batch mode.")
 
 
 
@@ -160,5 +160,5 @@ if (__name__ == '__main__'):
      # pass
    
 # ---------------------------------------------------------------------
-# End Domemaster3D Startup Code
+# End Domemain3D Startup Code
 # ---------------------------------------------------------------------

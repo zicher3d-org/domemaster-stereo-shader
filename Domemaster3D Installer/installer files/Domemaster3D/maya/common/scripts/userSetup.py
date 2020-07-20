@@ -1,5 +1,5 @@
 """
-Domemaster3D Startup Code V2.4
+Domemain3D Startup Code V2.4
 2018-08-21
 by Andrew Hazelden
 """
@@ -73,7 +73,7 @@ def addNewDomeRig():
     print ("A DomeStereoCamera rig already exists in the stereoRigManager.")
   #else:
    # Maya 2010 or older was detected
-   #print ("The Domemaster3D stereo rig feature requires Maya 2011 and newer.")
+   #print ("The Domemain3D stereo rig feature requires Maya 2011 and newer.")
 
 # Check if a LatLongStereoCamera rig exists in the scene  
 def addNewLatLongRig():
@@ -101,15 +101,15 @@ def addNewLatLongRig():
    # Maya 2010 or older was detected
    #print ("The LatLong_Stereo stereo rig feature requires Maya 2011 and newer.")
     
-# Load the Domemaster3D menu system in the rendering menu set    
+# Load the Domemain3D menu system in the rendering menu set    
 def addNewDomeMenu():
   import maya.mel as mel
-  print("Loading the Domemaster3D menu items...")
+  print("Loading the Domemain3D menu items...")
   mel.eval('source "domeMenu.mel";')
-  mel.eval('createDomemaster3DMenu();')
+  mel.eval('createDomemain3DMenu();')
 
 #----------------------------------------------------------------------------
-# Main Domemaster3D Start up function  
+# Main Domemain3D Start up function  
 #----------------------------------------------------------------------------
 
 # Stop Maya from running the python code twice by looking if it is __main__
@@ -120,7 +120,7 @@ if (__name__ == '__main__'):
   #Check OS platform for Windows/Mac/Linux
   import platform
     
-  # Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
+  # Add the Domemain3D Stereo & LatLong_Stereo camera Rig
   import domeStereoRig
   import LatLongStereoRig
 
@@ -135,16 +135,16 @@ if (__name__ == '__main__'):
   isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
   # isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
   if(isMayaInBatchMode == False):
-    print("The Domemaster3D Shader is running in GUI mode.")
+    print("The Domemain3D Shader is running in GUI mode.")
     # Make sure the stereo plug-in is loaded
     cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
     cmds.evalDeferred("addNewDomeRig()")
     cmds.evalDeferred("addNewLatLongRig()")
-    # Load the Domemaster3D menu system in the rendering menu set
+    # Load the Domemain3D menu system in the rendering menu set
     cmds.evalDeferred("addNewDomeMenu()")
     
   else:
-    print("The Domemaster3D Shader is running in batch mode.")
+    print("The Domemain3D Shader is running in batch mode.")
 
   # Make sure the mental ray plugin was loaded
   #if not (cmds.pluginInfo("Mayatomr",q=True,loaded=True)):
@@ -153,5 +153,5 @@ if (__name__ == '__main__'):
   #    pass
 
 # ---------------------------------------------------------------------
-# End Domemaster3D Startup Code
+# End Domemain3D Startup Code
 # ---------------------------------------------------------------------

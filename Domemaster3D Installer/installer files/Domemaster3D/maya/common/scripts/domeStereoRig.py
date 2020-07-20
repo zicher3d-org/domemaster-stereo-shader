@@ -1,5 +1,5 @@
 """
- Domemaster3D Fulldome Stereo Rig V2.4
+ Domemain3D Fulldome Stereo Rig V2.4
  2018-08-21
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
@@ -34,7 +34,7 @@ In a Maya.env file you would change this environment variable by adding a line l
  ------------
  Oct 3, 2014
 
- Updated the sourceimages path code to allow the installation of the Domemaster3D shader to a folder other than the default path.
+ Updated the sourceimages path code to allow the installation of the Domemain3D shader to a folder other than the default path.
  
  New in Version 1.5
  ------------------
@@ -95,7 +95,7 @@ def getSourceImagesPath(imageFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Check OS platform for Windows/Mac/Linux Paths
@@ -106,32 +106,32 @@ def getSourceImagesPath(imageFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
-  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  # Typical Result: C:/Program Files/Domemain3D/sourceimages/ 
   
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files/Domemain3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files (x86)/Domemain3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/Applications/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
       baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Domemain3D is running on a " + platform.system() + " System]"
   print "[Requesting the image file]: " + combinedFileAndImagePath
 
   return combinedFileAndImagePath
@@ -141,7 +141,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
   import maya.cmds as cmds
   print"Center: " + centerCam + "Left: " + leftCam + "Right: " + rightCam
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
   
   # Variables
@@ -262,7 +262,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
   print("Dome Radius: " + str(defaultDomeRadius))
   
   # ---------------------------------------------------------------------
-  # Create the custom Domemaster3D shading networks
+  # Create the custom Domemain3D shading networks
   # ---------------------------------------------------------------------
   
   mayaVersion = getMayaVersionDome()
@@ -386,7 +386,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
   cmds.connectAttr(centerCamLens+'.Dome_Radius', centerCam+'.zeroParallax', force=True)
   cmds.connectAttr(centerCamLens+'.Cameras_Separation', centerCam+'.interaxialSeparation', force=True)
 
-  # Turn on Stereo 3D support for the Domemaster3D Maya camera rig
+  # Turn on Stereo 3D support for the Domemain3D Maya camera rig
   cmds.setAttr(centerCam+'.stereo',  1)
   
 """
@@ -396,25 +396,25 @@ This module defines a Stereo Camera rig.
     registerThisRig() registers it into the system
 """
 
-def __createSlaveCamera(masterShape, name, parent):
+def __createSubordinateCamera(mainShape, name, parent):
   """
   Private method to this module.
-  Create a slave camera
-  Make the default connections between the master camera and the slave one.
+  Create a subordinate camera
+  Make the default connections between the main camera and the subordinate one.
   """
 
   # First create a camera under the right parent with the desired name
   #
-  slave = cmds.camera()[0]
-  slave = cmds.parent(slave, parent)[0]
-  slave = cmds.rename(slave, name)
-  slaveShape = cmds.listRelatives(slave, path=True, shapes=True)[0]
+  subordinate = cmds.camera()[0]
+  subordinate = cmds.parent(subordinate, parent)[0]
+  subordinate = cmds.rename(subordinate, name)
+  subordinateShape = cmds.listRelatives(subordinate, path=True, shapes=True)[0]
   
   # Change some default attributes
   #
-  cmds.setAttr(slave + '.renderable', 0)
+  cmds.setAttr(subordinate + '.renderable', 0)
   
-  # Connect the camera attributes from the master, hide them
+  # Connect the camera attributes from the main, hide them
   #
   for attr in ['horizontalFilmAperture',
         'verticalFilmAperture',
@@ -429,24 +429,24 @@ def __createSlaveCamera(masterShape, name, parent):
         'displayResolution',
         'nearClipPlane',
         'farClipPlane']:
-    slaveAttr = slaveShape + '.' + attr
-    cmds.connectAttr(masterShape + '.' + attr, slaveAttr)
-    cmds.setAttr(slaveAttr, keyable=False)
+    subordinateAttr = subordinateShape + '.' + attr
+    cmds.connectAttr(mainShape + '.' + attr, subordinateAttr)
+    cmds.setAttr(subordinateAttr, keyable=False)
     
   # Hide some more attributes on the transform
   #
   for attr in ['scaleX', 'scaleY', 'scaleZ',
         'visibility',
         'centerOfInterest']:
-    cmds.setAttr(slave + '.' + attr, keyable=False)
+    cmds.setAttr(subordinate + '.' + attr, keyable=False)
 
-  return slave
+  return subordinate
 
 def __createFrustumNode(mainCam, parent, baseName):
   """
   Private method to this module.
   Create a display frustum node under the given parent.
-  Make the default connections between the master camera and the frustum  
+  Make the default connections between the main camera and the frustum  
   Remove some of the channel box attributes that we do not want to show
   up in the channel box. 
   """
@@ -524,8 +524,8 @@ def createRig(unusedBasename='DomeStereoCamera'):
   
   # Create the left & right eye cameras
   # 
-  leftCam  = __createSlaveCamera(centerCam, rootName+'Left',  root)
-  rightCam = __createSlaveCamera(centerCam, rootName+'Right', root)
+  leftCam  = __createSubordinateCamera(centerCam, rootName+'Left',  root)
+  rightCam = __createSubordinateCamera(centerCam, rootName+'Right', root)
   
   # Set up message attribute connections to define the role of each camera
   #
@@ -551,7 +551,7 @@ def createRig(unusedBasename='DomeStereoCamera'):
 
   
   #---------------------------------------------------------------------------
-  # Custom Domemaster3D Setup code
+  # Custom Domemain3D Setup code
   #---------------------------------------------------------------------------
   import os
   import sys
@@ -564,7 +564,7 @@ def createRig(unusedBasename='DomeStereoCamera'):
   domeOverrideFOV = int(os.getenv('DOMEMASTER3D_MAYA_REALTIME_FOV', defaultRealtimeFOV))
     
   if((domeOverrideFOV >= 3) and (domeOverrideFOV <= 3500)):
-    print ("Using a Domemaster3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
+    print ("Using a Domemain3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
   else:
     print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + str(domeOverrideFOV) + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + str(defaultRealtimeFOV) + " will be used instead.\n")
     domeOverrideFOV = defaultRealtimeFOV

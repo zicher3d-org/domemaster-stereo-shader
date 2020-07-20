@@ -1,5 +1,5 @@
 """
-Vray Domemaster3D Startup Code Version 2.1
+Vray Domemain3D Startup Code Version 2.1
 2016-07-26 04.41 PM
 by Andrew Hazelden
 """
@@ -14,7 +14,7 @@ def findVrayDomeRig():
     defs = cmds.stereoRigManager(rigDefinition=rig)
     print 'Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1]
     # Check for rig
-    if (rig == "VrayDomemasterStereoCamera"):
+    if (rig == "VrayDomemainStereoCamera"):
       return 1
       
   return 0
@@ -50,30 +50,30 @@ def getMayaVersionDome():
   return mayaVersion
 
 
-# Check if a DomemasterStereoCamera rig exists in the scene  
+# Check if a DomemainStereoCamera rig exists in the scene  
 def addNewVrayDomeRig():
   import maya.mel as mel
   import maya.cmds as cmds
   
   if (findVrayDomeRig() == 0):
-    print ("An VrayDomemasterStereoCamera rig has been added to the stereoRigManager.")
-    # Register the DomemasterStereoCamera rig type
+    print ("An VrayDomemainStereoCamera rig has been added to the stereoRigManager.")
+    # Register the DomemainStereoCamera rig type
     # add[rig, language, createProcedure]
     # cameraSetFunc=[rig,callback] 
     # Add the custom rig
-    #cmds.evalDeferred("cmds.stereoRigManager(add=['VrayDomemasterStereoCamera', 'Python', 'vrayDomemasterStereoRig.createRig'])")
-    cmds.stereoRigManager(add=['VrayDomemasterStereoCamera', 'Python', 'vrayDomemasterStereoRig.createRig'])
+    #cmds.evalDeferred("cmds.stereoRigManager(add=['VrayDomemainStereoCamera', 'Python', 'vrayDomemainStereoRig.createRig'])")
+    cmds.stereoRigManager(add=['VrayDomemainStereoCamera', 'Python', 'vrayDomemainStereoRig.createRig'])
     # Add the custom callback set for Maya 2011+
     mayaVersion = getMayaVersionDome()
     if (mayaVersion >= 2011):
-      #cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['VrayDomemasterStereoCamera','vrayDomemasterStereoRig.attachToCameraSet'] )")
-      cmds.stereoRigManager(cameraSetFunc=['VrayDomemasterStereoCamera','vrayDomemasterStereoRig.attachToCameraSet'])
+      #cmds.evalDeferred("cmds.stereoRigManager(cameraSetFunc=['VrayDomemainStereoCamera','vrayDomemainStereoRig.attachToCameraSet'] )")
+      cmds.stereoRigManager(cameraSetFunc=['VrayDomemainStereoCamera','vrayDomemainStereoRig.attachToCameraSet'])
     
     # Make the new rig the default rig
-    #cmds.evalDeferred("cmds.stereoRigManager(defaultRig='VrayDomemasterStereoCamera')")
-    cmds.stereoRigManager(defaultRig='VrayDomemasterStereoCamera')
+    #cmds.evalDeferred("cmds.stereoRigManager(defaultRig='VrayDomemainStereoCamera')")
+    cmds.stereoRigManager(defaultRig='VrayDomemainStereoCamera')
   else:
-    print ("An VrayDomemasterStereoCamera rig already exists in the stereoRigManager.")
+    print ("An VrayDomemainStereoCamera rig already exists in the stereoRigManager.")
 
 
 # Check if a LatLongStereoCamera rig exists in the scene  
@@ -103,12 +103,12 @@ def addNewVrayLatLongRig():
     
     
     
-# Load the Vray Domemaster3D menu system in the rendering menu set    
+# Load the Vray Domemain3D menu system in the rendering menu set    
 def addNewVrayDomeMenu():
   import maya.mel as mel
-  print("Loading the Vray Domemaster3D menu items...")
+  print("Loading the Vray Domemain3D menu items...")
   mel.eval('source "vrayDomeMenu.mel";')
-  mel.eval('createVrayDomemaster3DMenu();')
+  mel.eval('createVrayDomemain3DMenu();')
 
   
 # Load the new Vray stereo rigs
@@ -121,15 +121,15 @@ def deferredLoadVrayRig():
     cmds.evalDeferred("addNewVrayDomeRig()")
 
 #----------------------------------------------------------------------------
-# Main Domemaster3D Start up function  
+# Main Domemain3D Start up function  
 #----------------------------------------------------------------------------
 
 # Stop Maya from running the python code twice by looking if it is __main__
 if (__name__ == '__main__'):
   import maya.cmds as cmds
 
-  # Add the Domemaster3D Stereo & LatLong_Stereo camera Rig
-  #import vrayDomemasterStereoRig
+  # Add the Domemain3D Stereo & LatLong_Stereo camera Rig
+  #import vrayDomemainStereoRig
   #import vrayLatLongStereoRig
 
   """
@@ -142,17 +142,17 @@ if (__name__ == '__main__'):
   isMayaInBatchMode = maya.OpenMaya.MGlobal.mayaState() == maya.OpenMaya.MGlobal.kBatch
   # isMayaInBatchMode = 1 means Batch Mode, 0 means GUI mode
   if(isMayaInBatchMode == False):
-    print("The Vray Domemaster3D Shader is running in GUI mode.")
+    print("The Vray Domemain3D Shader is running in GUI mode.")
     # Make sure the stereo plug-in is loaded
     cmds.evalDeferred("cmds.loadPlugin('stereoCamera', quiet=True)")
     
     # Load the new Vray stereo rigs
     cmds.evalDeferred("deferredLoadVrayRig()")
     
-    # Load the Vray Domemaster3D menu system in the rendering menu set
+    # Load the Vray Domemain3D menu system in the rendering menu set
     cmds.evalDeferred("addNewVrayDomeMenu()")
   else:
-    print("The Vray Domemaster3D Shader is running in batch mode.")
+    print("The Vray Domemain3D Shader is running in batch mode.")
 
   
   # Make sure the Vray plugin was loaded
@@ -162,5 +162,5 @@ if (__name__ == '__main__'):
      # pass
    
 # ---------------------------------------------------------------------
-# End Vray Domemaster3D Startup Code
+# End Vray Domemain3D Startup Code
 # ---------------------------------------------------------------------

@@ -1,4 +1,4 @@
-# Domemaster Stereo Shader Template File
+# Domemain Stereo Shader Template File
 # 2015-01-31 09.29 am
 
 import pymel.core as pm
@@ -6,20 +6,20 @@ import maya.cmds as cmds
 import mtoa.ui.ae.templates as templates
 #from mtoa.ui.ae.customShapeAttributes import CameraTemplate as CameraTemplate
 
-def DomemasterStereoCreateCameraMode(attr):
+def DomemainStereoCreateCameraMode(attr):
     cmds.setUITemplate('attributeEditorPresetsTemplate', pushTemplate=True)
-    cmds.attrEnumOptionMenuGrp('DomemasterStereoCameraMode', attribute=attr, label="Camera", enumeratedItem=[(0, 'Center'), (1, 'Left'), (2, 'Right')])    
+    cmds.attrEnumOptionMenuGrp('DomemainStereoCameraMode', attribute=attr, label="Camera", enumeratedItem=[(0, 'Center'), (1, 'Left'), (2, 'Right')])    
     cmds.setUITemplate(popTemplate=True)
 
-def DomemasterStereoSetCameraMode(attr):
-    cmds.attrEnumOptionMenuGrp('DomemasterStereoCameraMode', edit=True, attribute=attr)
+def DomemainStereoSetCameraMode(attr):
+    cmds.attrEnumOptionMenuGrp('DomemainStereoCameraMode', edit=True, attribute=attr)
 
-#class DomemasterStereoTemplate(CameraTemplate):
-class DomemasterStereoTemplate(templates.AttributeTemplate):
+#class DomemainStereoTemplate(CameraTemplate):
+class DomemainStereoTemplate(templates.AttributeTemplate):
   def setup(self):
-    self.beginLayout("Domemaster Stereo Shader", collapse=False)
+    self.beginLayout("Domemain Stereo Shader", collapse=False)
     # Create the Cameras option menu with the Center, Left, and Right views
-    self.addCustom("aiCamera", DomemasterStereoCreateCameraMode, DomemasterStereoSetCameraMode)
+    self.addCustom("aiCamera", DomemainStereoCreateCameraMode, DomemainStereoSetCameraMode)
     self.addControl("aiFovAngle", label="Field of View")
     self.addSeparator()
     self.addControl("aiZeroParallaxSphere", label="Zero Parallax Sphere")
@@ -61,5 +61,5 @@ class DomemasterStereoTemplate(templates.AttributeTemplate):
     
     self.endLayout()
 
-templates.registerTranslatorUI(DomemasterStereoTemplate, "camera", "DomemasterStereo")
-#templates.registerTranslatorUI(DomemasterStereoTemplate, "stereoRigCamera", "DomemasterStereo")
+templates.registerTranslatorUI(DomemainStereoTemplate, "camera", "DomemainStereo")
+#templates.registerTranslatorUI(DomemainStereoTemplate, "stereoRigCamera", "DomemainStereo")

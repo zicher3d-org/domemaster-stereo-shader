@@ -1,5 +1,5 @@
 """
-Domemaster3D Camera Setup Script V2.4
+Domemain3D Camera Setup Script V2.4
 2018-08-21
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 
@@ -10,7 +10,7 @@ Version History
 
 Version 2.3 - 2017-05-17
 -------------------------
-Added support for preserving existing pre/post render MEL script entries when Domemaster3D adds a new camera rig to the scene, or you click the "Add" / "Rem" shelf buttons. This revision is based upon a submission from Campbell Strong.
+Added support for preserving existing pre/post render MEL script entries when Domemain3D adds a new camera rig to the scene, or you click the "Add" / "Rem" shelf buttons. This revision is based upon a submission from Campbell Strong.
 
 Version 2.2 - 2016-12-23
 -------------------------
@@ -52,7 +52,7 @@ Version 1.8.3
 ------------
 2015-08-21
 
-Added the `addPrePostRenderScript()` and `removePrePostRenderScript()` functions to the domeCamera.py script to make it easier to set up the Domemaster3D pre render and post render mel scripts in the Maya render settings window.
+Added the `addPrePostRenderScript()` and `removePrePostRenderScript()` functions to the domeCamera.py script to make it easier to set up the Domemain3D pre render and post render mel scripts in the Maya render settings window.
 
 Version 1.7.4
 ------------
@@ -76,7 +76,7 @@ Version 1.5
 ---------------
 July 12, 2014
 
-Added a new "FulldomeIBL" tool to the Maya shelf. This allows you to use a file texture with a circular domemaster 180 degree FOV image as the image based lighting environment map in the scene, and as the source of final gather IBL, and Maya 2015 "emit light" based lighting. The fulldome texture is applied using a mentalrayTexture with an image sequence expression. The FulldomeIBL tool supports domemaster frame masking. 
+Added a new "FulldomeIBL" tool to the Maya shelf. This allows you to use a file texture with a circular domemain 180 degree FOV image as the image based lighting environment map in the scene, and as the source of final gather IBL, and Maya 2015 "emit light" based lighting. The fulldome texture is applied using a mentalrayTexture with an image sequence expression. The FulldomeIBL tool supports domemain frame masking. 
 
 The new "HemirectIBL" tool (hemirect = half height equirectangular 360x90 degree image) tool creates a custom mentalrayTexture based shading network that lets you feed in an image with the top half of an equirectangular panorama into the mental ray IBL's spherical texture input. Note: This mode requires your batch rendering software to distribute the rendering job using 1 frame per packet/render slice so a new image is loaded for each from of the sequence. The HemirectIBL tool works with Maya 2015's newly improved "emit light" IBL lighting system.
 
@@ -103,7 +103,7 @@ Version 1.4 B9
 Dec 7, 2013
 
 Updated Linux install path to:
-/opt/Domemaster3D
+/opt/Domemain3D
 
 Version 1.4 B8
 -----------------
@@ -150,7 +150,7 @@ Version 1.3.4
 Released June 27, 2013
 Updated the the Automagic tool's dome grid color to a brighter yellow value. This makes the grid more visible in a Physical Sun & Sky scene.
 
-Added a new HELP icon to the Maya Shelf toolset. This shelf item loads the domemaster stereo shader wiki page.
+Added a new HELP icon to the Maya Shelf toolset. This shelf item loads the domemain stereo shader wiki page.
 
 
 Version 1.3.3
@@ -167,7 +167,7 @@ Version 1.3.2
 Released April 16, 2013
 Edited the default camera connections for the lens shaders to work with the modified versions of the maya createMentalRayIndirectLightingTab.mel & AEmia_physicalskyTemplate.mel scripts. This fixes the problem of the Physical Sky & Sun system overwriting the first .miLensShader input on cameras in the scene.
 
-The location of the default domemaster control map textures is now in the Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on macOS. The Domemaster3D shelf tools have been updated to link to the new sourceimages folder.
+The location of the default domemain control map textures is now in the Program Files\Domemain3D\sourceimages folder on Windows or the /Applications/Domemain3D/sourceimages folder on macOS. The Domemain3D shelf tools have been updated to link to the new sourceimages folder.
 
 Version 1.3
 ------------
@@ -184,12 +184,12 @@ Improved python code and made it Maya 2010 compatible.
 Version 1.0
 ------------
 Released Aug 6, 2012
-First release of the Domemaster3D auto-setup python scripts.
+First release of the Domemain3D auto-setup python scripts.
 
 
 ------------------------------------------------------------------------------
 
-Domemaster3D AutoSetup
+Domemain3D AutoSetup
 A python function to create a fulldome stereo rig and test grid in Maya.
 
 Run using the command:
@@ -199,7 +199,7 @@ domeCamera.autosetup()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D Fulldome Stereo Rig
+Domemain3D Fulldome Stereo Rig
 A python function to create a fulldome stereo rig in Maya.
 
 Run using the command:
@@ -209,7 +209,7 @@ domeCamera.createFulldomeStereoRig()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createLatLong_Camera
+Domemain3D createLatLong_Camera
 A python function to create a latitude longitude lens shader and attach it to a camera.
 
 Run using the command:
@@ -218,7 +218,7 @@ reload(domeCamera)
 domeCamera.createLatLong_Camera()
 ------------------------------------------------------------------------------
 
-Domemaster3D createLatLongStereoRig
+Domemain3D createLatLongStereoRig
 A python function to create a stereoscopic latitude longitude lens shader and attach it to a camera.
 
 Run using the command:
@@ -227,7 +227,7 @@ reload(domeCamera)
 domeCamera.createLatLongStereoRig()
 ------------------------------------------------------------------------------
 
-Domemaster3D createLatLongStereoAimRig
+Domemain3D createLatLongStereoAimRig
 --------------------------------
 A python function to create a LatLong stereo rig in Maya with an aim constraint applied.
 Reminder: Maya has issues with using cameras that have aim constraints when you apply them to animation layers.
@@ -238,7 +238,7 @@ reload(domeCamera)
 domeCamera.createLatLongStereoAimRig()
 ------------------------------------------------------------------------------
 
-Domemaster3D createLatLongStereoZenithRig
+Domemain3D createLatLongStereoZenithRig
 A python function to create a stereoscopic latitude longitude lens shader and attach it to a camera. 
 The lens shaders have the Zenith Mode checkboxes enabled by default.
 
@@ -250,7 +250,7 @@ domeCamera.createLatLongStereoZenithRig()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createDomeAFL_WxH_Camera
+Domemain3D createDomeAFL_WxH_Camera
 A python function to create a domeAFL_WxH lens shader and attach it to a camera.
 
 Run using the command:
@@ -260,7 +260,7 @@ domeCamera.createDomeAFL_WxH_Camera()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createDomeAFL_FOV_Camera
+Domemain3D createDomeAFL_FOV_Camera
 A python function to create a domeAFL_FOV lens shader and attach it to a camera.
 
 Run using the command:
@@ -270,7 +270,7 @@ domeCamera.createDomeAFL_FOV_Camera()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D DomeGrid test background 
+Domemain3D DomeGrid test background 
 A python function to create a hemispherical yellow test grid in Maya. 
 
 Run using the command:
@@ -280,7 +280,7 @@ domeCamera.createDomeGrid()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D LatLongGrid test background 
+Domemain3D LatLongGrid test background 
 A python function to create a spherical yellow test grid in Maya. 
 
 Run using the command:
@@ -290,7 +290,7 @@ domeCamera.createLatLongGrid()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createTestShapes
+Domemain3D createTestShapes
 A python function to create a test sphere and cube in Maya. 
 
 Run using the command:
@@ -300,7 +300,7 @@ domeCamera.createTestShapes()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createRobLookup
+Domemain3D createRobLookup
 A python function to create a mental ray screen space texture 
 and connect it to a robLookupBackground lens shader. 
 
@@ -310,7 +310,7 @@ reload(domeCamera)
 domeCamera.createRobLookup()
 ------------------------------------------------------------------------------
 
-Domemaster3D createDomeRampTexture
+Domemain3D createDomeRampTexture
 A python function to create a mental ray screen space ramp texture 
 and connect it to a robLookupBackground lens shader.
 
@@ -320,7 +320,7 @@ reload(domeCamera)
 domeCamera.createDomeRampTexture()
 ------------------------------------------------------------------------------
 
-Domemaster3D setRenderRes
+Domemain3D setRenderRes
 A python function to setup the basic mental ray 2K x 2K square render settings. 
 
 Run using the command:
@@ -329,8 +329,8 @@ reload(domeCamera)
 domeCamera.setRenderRes()
 ------------------------------------------------------------------------------
 
-Domemaster3D Add Pre/Post Render Mel
-A python function to add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window.
+Domemain3D Add Pre/Post Render Mel
+A python function to add the Domemain3D shader Pre/Post render mel scripts to the Maya Render Settings window.
 
 Run using the command:
 import domeCamera as domeCamera
@@ -338,8 +338,8 @@ reload(domeCamera)
 domeCamera.addPrePostRenderScript()
 ------------------------------------------------------------------------------
 
-Domemaster3D Remove Pre/Post Render Mel
-A python function to remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window. 
+Domemain3D Remove Pre/Post Render Mel
+A python function to remove the Domemain3D shader Pre/Post render mel scripts from the Maya Render Settings window. 
 
 Run using the command:
 import domeCamera as domeCamera
@@ -347,7 +347,7 @@ reload(domeCamera)
 domeCamera.removePrePostRenderScript()
 ------------------------------------------------------------------------------
 
-Domemaster3D setDomeSamplingQuality
+Domemain3D setDomeSamplingQuality
 A python function to setup the mental ray AA sampling quality. 
 
 Run using the command:
@@ -357,7 +357,7 @@ domeCamera.setDomeSamplingQuality()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D changeRenderRes
+Domemain3D changeRenderRes
 A python function to change the basic mental ray resolution square render settings. 
 
 Run using the command:
@@ -367,7 +367,7 @@ domeCamera.changeRenderRes(1024)
 
 ------------------------------------------------------------------------------
 
-Domemaster3D Force Mental Ray to load
+Domemain3D Force Mental Ray to load
 A python function to make sure mental ray is active and the MR shading nodes are read to be used.
 
 Run using the command:
@@ -377,7 +377,7 @@ domeCamera.forceMentalRayLoad()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D createFulldomeIBL
+Domemain3D createFulldomeIBL
 A python function to create a mental ray texture and connect it to an mental ray mentalrayIbl node.
 
 The this function will offset the texture coordinates so a 180 degree fisheye image would sit in the center of the mental ray IBL system's 360 degree angular fisheye input.
@@ -390,7 +390,7 @@ domeCamera.createFulldomeIBL()
 
 ------------------------------------------------------------------------------
 
-Domemaster3D getMayaVersionDome
+Domemain3D getMayaVersionDome
 
 A python function to check what Maya version is active.
 
@@ -412,63 +412,63 @@ domeMaterial.unlockAncestor('stereoCameraRight.rotate', True)
 
 
 """
-Show the Domemaster Wiki
+Show the Domemain Wiki
 --------------------------------
 Loads the wiki page in your default web browser
 
 Run using the command:
-print("Open the Domemaster Wiki Page")
+print("Open the Domemain Wiki Page")
 import domeCamera as domeCamera
-domeCamera.openDomemasterWiki()
+domeCamera.openDomemainWiki()
 
-print("Open the Domemaster NING Group")
+print("Open the Domemain NING Group")
 import domeCamera as domeCamera
-domeCamera.openDomemasterNing()
+domeCamera.openDomemainNing()
 
-print("Open the Domemaster Downloads Page")
+print("Open the Domemain Downloads Page")
 import domeCamera as domeCamera
-domeCamera.openDomemasterDownloads()
+domeCamera.openDomemainDownloads()
 
-print("Open the Domemaster Bug Reporter")
+print("Open the Domemain Bug Reporter")
 import domeCamera as domeCamera
-domeCamera.openDomemasterBugReport()
+domeCamera.openDomemainBugReport()
 
 
 """
 
-def openDomemasterWiki():
+def openDomemainWiki():
   import webbrowser
   
-  # Domemaster Stereo Shader - Wiki Page
+  # Domemain Stereo Shader - Wiki Page
   url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/wiki'
   
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
   
   
-def openDomemasterNing():
+def openDomemainNing():
   import webbrowser
   
-  # Domemaster NING Group
+  # Domemain NING Group
   url = 'http://fulldome.ning.com/forum/topics/stereoscopic-domemaster-images'
   
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
 
 
-def openDomemasterDownloads():
+def openDomemainDownloads():
   import webbrowser
   
-  # Domemaster Stereo Shader - Download Page
+  # Domemain Stereo Shader - Download Page
   url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/releases'
 
   # Open URL in new window, raising the window if possible.
   webbrowser.open_new(url)
   
-def openDomemasterBugReport():
+def openDomemainBugReport():
   import webbrowser
   
-  # Domemaster Stereo Shader - Bug Report Page
+  # Domemain Stereo Shader - Bug Report Page
   url = 'https://github.com/zicher3d-org/domemaster-stereo-shader/issues'
   
   # Open URL in new window, raising the window if possible.
@@ -486,7 +486,7 @@ def getSourceImagesPath(imageFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Check OS platform for Windows/Mac/Linux Paths
@@ -497,32 +497,32 @@ def getSourceImagesPath(imageFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
-  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  # Typical Result: C:/Program Files/Domemain3D/sourceimages/ 
   
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files/Domemain3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files (x86)/Domemain3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/Applications/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
       baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Domemain3D is running on a " + platform.system() + " System]"
   print "[Requesting the image file]: " + combinedFileAndImagePath
 
   return combinedFileAndImagePath
@@ -530,7 +530,7 @@ def getSourceImagesPath(imageFileName):
 
 
 """
-Domemaster3D AutoSetup
+Domemain3D AutoSetup
 ----------------------
 A python function to create a fulldome stereo rig and test grid in Maya. 
 
@@ -546,7 +546,7 @@ def autosetup():
 
 
 """
-Domemaster3D setDomeSamplingQuality
+Domemain3D setDomeSamplingQuality
 ----------------------
 A python function to setup the mental ray AA sampling quality. 
 
@@ -591,13 +591,13 @@ def setDomeSamplingQuality():
     cmds.setAttr('miDefaultOptions.miSamplesMax', 100)
 
 
-preMelDomemaster = 'source "domeRender.mel"; domemaster3DPreRenderMEL();'
-postMelDomemaster = 'source "domeRender.mel"; domemaster3DPostRenderMEL();'
+preMelDomemain = 'source "domeRender.mel"; domemain3DPreRenderMEL();'
+postMelDomemain = 'source "domeRender.mel"; domemain3DPostRenderMEL();'
 
 """
-Domemaster3D Add Pre/Post Render Mel
+Domemain3D Add Pre/Post Render Mel
 ----------------------
-A python function to add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window.
+A python function to add the Domemain3D shader Pre/Post render mel scripts to the Maya Render Settings window.
 
 """
 def addPrePostRenderScript():
@@ -608,26 +608,26 @@ def addPrePostRenderScript():
   
   # PreRender MEL:
   preMelCurrent = cmds.getAttr('defaultRenderGlobals.preMel') or ''
-  if not(preMelDomemaster in preMelCurrent):
-    preMelCurrent = preMelCurrent + ';' + preMelDomemaster
+  if not(preMelDomemain in preMelCurrent):
+    preMelCurrent = preMelCurrent + ';' + preMelDomemain
     preMelCurrent = preMelCurrent.replace(';;', ';')
     cmds.setAttr('defaultRenderGlobals.preMel', preMelCurrent, type = 'string')
 
   # PostRender MEL:
   postMelCurrent = cmds.getAttr('defaultRenderGlobals.postMel') or ''
-  if not(postMelDomemaster in postMelCurrent):
-    postMelCurrent = postMelCurrent + ';' + postMelDomemaster
+  if not(postMelDomemain in postMelCurrent):
+    postMelCurrent = postMelCurrent + ';' + postMelDomemain
     postMelCurrent = postMelCurrent.replace(';;', ';')
     cmds.setAttr('defaultRenderGlobals.postMel', postMelCurrent, type = 'string')
 
   # Enable realtime 3D
-  mel.eval('source "domeRender.mel"; domemaster3DPostRenderMEL();')
+  mel.eval('source "domeRender.mel"; domemain3DPostRenderMEL();')
 
 
 """
-Domemaster3D Remove Pre/Post Render Mel
+Domemain3D Remove Pre/Post Render Mel
 ----------------------
-A python function to remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window. 
+A python function to remove the Domemain3D shader Pre/Post render mel scripts from the Maya Render Settings window. 
 
 """
 def removePrePostRenderScript():
@@ -638,22 +638,22 @@ def removePrePostRenderScript():
 
   # PreRender MEL:
   preMelCurrent = cmds.getAttr('defaultRenderGlobals.preMel') or ''
-  preMelCurrent = preMelCurrent.replace(preMelDomemaster, '')
+  preMelCurrent = preMelCurrent.replace(preMelDomemain, '')
   preMelCurrent = preMelCurrent.replace(';;', ';')
   cmds.setAttr('defaultRenderGlobals.preMel', preMelCurrent, type='string')
   
   # PostRender MEL:
   postMelCurrent = cmds.getAttr('defaultRenderGlobals.postMel') or ''
-  postMelCurrent = postMelCurrent.replace(postMelDomemaster, '')
+  postMelCurrent = postMelCurrent.replace(postMelDomemain, '')
   postMelCurrent = postMelCurrent.replace(';;', ';')
   cmds.setAttr('defaultRenderGlobals.postMel', postMelCurrent, type='string')
   
   # Disable the realtime 3D camera offsets
-  mel.eval('source "domeRender.mel"; domemaster3DPostRenderMEL();')
+  mel.eval('source "domeRender.mel"; domemain3DPostRenderMEL();')
 
 
 """
-Domemaster3D SetRenderRes
+Domemain3D SetRenderRes
 ----------------------
 A python function to setup the basic mental ray 2K x 2K square render settings. 
 
@@ -669,7 +669,7 @@ def setRenderRes():
   fulldomeRenderHeight = 2048
   
   #---------------------------------------------------------------------
-  # Setup the default render settings for a square domemaster image output
+  # Setup the default render settings for a square domemain image output
   # ---------------------------------------------------------------------
   cmds.setAttr('defaultResolution.width', fulldomeRenderWidth)
   cmds.setAttr('defaultResolution.height', fulldomeRenderHeight)
@@ -679,7 +679,7 @@ def setRenderRes():
 
 
 """
-Domemaster3D changeRenderRes
+Domemain3D changeRenderRes
 ----------------------
 A python function to change the basic mental ray resolution square render settings. 
 
@@ -696,7 +696,7 @@ def changeRenderRes(renderSizePx):
   fulldomeRenderHeight = renderSizePx
   
   #---------------------------------------------------------------------
-  # Setup the default render settings for a square domemaster image output
+  # Setup the default render settings for a square domemain image output
   # ---------------------------------------------------------------------
   cmds.setAttr('defaultResolution.width', fulldomeRenderWidth)
   cmds.setAttr('defaultResolution.height', fulldomeRenderHeight)
@@ -707,7 +707,7 @@ def changeRenderRes(renderSizePx):
 
   
 """
-Domemaster3D changeRenderResWH
+Domemain3D changeRenderResWH
 ----------------------
 A python function to change the basic mental ray resolution render settings. 
 
@@ -725,7 +725,7 @@ def changeRenderResWH(renderSizeW,  renderSizeH):
   domeDeviceAspectRatio=domeRenderWidth/domeRenderHeight
   
   #---------------------------------------------------------------------
-  # Setup the default render settings for a square domemaster image output
+  # Setup the default render settings for a square domemain image output
   # ---------------------------------------------------------------------
   cmds.setAttr('defaultResolution.width', domeRenderWidth)
   cmds.setAttr('defaultResolution.height', domeRenderHeight)
@@ -737,7 +737,7 @@ def changeRenderResWH(renderSizeW,  renderSizeH):
 
 
 """
-Domemaster3D Fulldome Stereo Rig
+Domemain3D Fulldome Stereo Rig
 --------------------------------
 A python function to create a fulldome stereo rig in Maya.
 """
@@ -830,7 +830,7 @@ def createFulldomeStereoRig():
   
 
 """
-Domemaster3D createDomeAFL_FOV_Camera
+Domemain3D createDomeAFL_FOV_Camera
 ----------------------
 A python function to create a domeAFL_FOV lens shader and attach it to a camera.
 """ 
@@ -901,7 +901,7 @@ def createDomeAFL_FOV_Camera():
   domeOverrideFOV = int(os.getenv('DOMEMASTER3D_MAYA_REALTIME_FOV', defaultRealtimeFOV))
 	
   if((domeOverrideFOV >= 3) and (domeOverrideFOV <= 3500)):
-    print ("Using a Domemaster3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
+    print ("Using a Domemain3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
   else:
     print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + str(domeOverrideFOV) + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + str(defaultRealtimeFOV) + " will be used instead.\n")
     domeOverrideFOV = defaultRealtimeFOV
@@ -931,7 +931,7 @@ def createDomeAFL_FOV_Camera():
   
 
 """
-Domemaster3D createDomeAFL_WxH_Camera
+Domemain3D createDomeAFL_WxH_Camera
 ----------------------
 A python function to create a domeAFL_WxH lens shader and attach it to a camera.
 """
@@ -1003,7 +1003,7 @@ def createDomeAFL_WxH_Camera():
   domeOverrideFOV = int(os.getenv('DOMEMASTER3D_MAYA_REALTIME_FOV', defaultRealtimeFOV))
 	
   if((domeOverrideFOV >= 3) and (domeOverrideFOV <= 3500)):
-    print ("Using a Domemaster3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
+    print ("Using a Domemain3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
   else:
     print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + str(domeOverrideFOV) + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + str(defaultRealtimeFOV) + " will be used instead.\n")
     domeOverrideFOV = defaultRealtimeFOV
@@ -1019,7 +1019,7 @@ def createDomeAFL_WxH_Camera():
 
 
 """
-Domemaster3D createLatLong_Camera
+Domemain3D createLatLong_Camera
 ----------------------
 A python function to create a latitude longitude lens shader and attach it to a camera.
 """ 
@@ -1092,7 +1092,7 @@ def createLatLong_Camera():
   domeOverrideFOV = int(os.getenv('DOMEMASTER3D_MAYA_REALTIME_FOV', defaultRealtimeFOV))
 	
   if((domeOverrideFOV >= 3) and (domeOverrideFOV <= 3500)):
-    print ("Using a Domemaster3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
+    print ("Using a Domemain3D realtime viewport FOV value of " + str(domeOverrideFOV) + ".\n")
   else:
     print ("The \"DOMEMASTER3D_MAYA_REALTIME_FOV\" environment variable overridden FOV Value of " + str(domeOverrideFOV) + " is outside of the acceptable range of 3 mm to 3500mm that Maya accepts as a valid camera field of view value. The default value of " + str(defaultRealtimeFOV) + " will be used instead.\n")
     domeOverrideFOV = defaultRealtimeFOV
@@ -1108,7 +1108,7 @@ def createLatLong_Camera():
 
 
 """
-Domemaster3D LatLong Stereo Rig
+Domemain3D LatLong Stereo Rig
 --------------------------------
 A python function to create a LatLong stereo rig in Maya.
 """
@@ -1202,7 +1202,7 @@ def createLatLongStereoRig():
 
 
 """
-Domemaster3D LatLong Stereo Aim Rig
+Domemain3D LatLong Stereo Aim Rig
 --------------------------------
 A python function to create a LatLong stereo rig in Maya with an aim constraint applied.
 """
@@ -1303,7 +1303,7 @@ def createLatLongStereoAimRig():
 
   
 """
-Domemaster3D LatLong Stereo Zenith Rig
+Domemain3D LatLong Stereo Zenith Rig
 --------------------------------
 A python function to create a LatLong stereo rig in Maya.
 The lens shaders have the Zenith Mode checkboxes enabled by default.
@@ -1399,7 +1399,7 @@ def createLatLongStereoZenithRig():
 
 
 """
-Domemaster3D LatLongGrid test background 
+Domemain3D LatLongGrid test background 
 --------------------------------------
 A python function to create a spherical yellow test grid in Maya that is rotated 90 degrees on the RotateX. 
 
@@ -1423,7 +1423,7 @@ def createLatLongGrid():
 
 
 """
-Domemaster3D DomeGrid test background 
+Domemain3D DomeGrid test background 
 --------------------------------------
 A python function to create a hemispherical yellow test grid in Maya. 
 
@@ -1459,27 +1459,27 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   
   if cmds.objExists('domeGrid'): 
-    print('Removing existing Domemaster3D object: domeGrid')
+    print('Removing existing Domemain3D object: domeGrid')
     cmds.select('domeGrid', replace=True)
     cmds.delete()
 
   if cmds.objExists('MeshGroup'): 
-    print('Removing existing Domemaster3D object: MeshGroup')
+    print('Removing existing Domemain3D object: MeshGroup')
     cmds.select('MeshGroup', replace=True)
     cmds.delete() 
   
   if cmds.objExists(domeGridSurface): 
-    print('Removing existing Domemaster3D object: ' + domeGridSurface)
+    print('Removing existing Domemain3D object: ' + domeGridSurface)
     cmds.select(domeGridSurface, replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridToon'): 
-    print('Removing existing Domemaster3D object: domeGridToon')
+    print('Removing existing Domemain3D object: domeGridToon')
     cmds.select('domeGridToon', replace=True)
     cmds.delete()
     
   if cmds.objExists('domeGrid_displayModeExpr'): 
-    print('Removing existing Domemaster3D object: domeGrid_displayModeExpr')
+    print('Removing existing Domemain3D object: domeGrid_displayModeExpr')
     cmds.select('domeGrid_displayModeExpr', replace=True)
     cmds.delete()
   
@@ -1488,22 +1488,22 @@ def createDomeGrid():
   #---------------------------------------------------------------------------
   
   if cmds.objExists('domeGridLinesSurfaceShader'): 
-    print('Removing existing Domemaster3D object: domeGridLinesSurfaceShader')
+    print('Removing existing Domemain3D object: domeGridLinesSurfaceShader')
     cmds.select('domeGridLinesSurfaceShader', replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridLinesSurfaceShaderSG'): 
-    print('Removing existing Domemaster3D object: domeGridLinesSurfaceShaderSG')
+    print('Removing existing Domemain3D object: domeGridLinesSurfaceShaderSG')
     cmds.select('domeGridLinesSurfaceShaderSG', replace=True)
     cmds.delete()
   
   if cmds.objExists('domeGridSurfaceShaderSG'): 
-    print('Removing existing Domemaster3D object: domeGridSurfaceShaderSG')
+    print('Removing existing Domemain3D object: domeGridSurfaceShaderSG')
     cmds.select('domeGridSurfaceShaderSG', replace=True)
     cmds.delete()
     
   if cmds.objExists('domeGridSurfaceShader'): 
-    print('Removing existing Domemaster3D object: domeGridSurfaceShader')
+    print('Removing existing Domemain3D object: domeGridSurfaceShader')
     cmds.select('domeGridSurfaceShader', replace=True)
     cmds.delete()
   
@@ -1957,7 +1957,7 @@ def createDomeGrid():
   
   
 """
-Domemaster3D createTestShapes
+Domemain3D createTestShapes
 ----------------------
 A python function to create a test sphere and cube in Maya. 
 """
@@ -1966,17 +1966,17 @@ def  createTestShapes():
   import maya.cmds as cmds
 
   if cmds.objExists('domeTestLight'): 
-    print('Removing existing Domemaster3D object: domeTestLight')
+    print('Removing existing Domemain3D object: domeTestLight')
     cmds.select('domeTestLight', replace=True)
     cmds.delete()
 
   if cmds.objExists('polyTestSphere'): 
-    print('Removing existing Domemaster3D object: polyTestSphere')
+    print('Removing existing Domemain3D object: polyTestSphere')
     cmds.select('polyTestSphere', replace=True)
     cmds.delete()
 
   if cmds.objExists('polyTestCube'): 
-    print('Removing existing Domemaster3D object: polyTestCube')
+    print('Removing existing Domemain3D object: polyTestCube')
     cmds.select('polyTestCube', replace=True)
     cmds.delete()
 
@@ -2006,7 +2006,7 @@ def  createTestShapes():
 
 
 """
-Domemaster3D createRobLookup
+Domemain3D createRobLookup
 ----------------------
 A python function to create a mental ray screen space texture 
 and connect it to a robLookupBackground lens shader. 
@@ -2019,7 +2019,7 @@ def createRobLookup():
   forceMentalRayLoad()
 
   # ---------------------------------------------------------------------
-  # Setup the base folder path for the Domemaster3D control maps
+  # Setup the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
   
   # Variables
@@ -2111,7 +2111,7 @@ def createRobLookup():
     
     
 """
-Domemaster3D createDomeRampTexture
+Domemain3D createDomeRampTexture
 ----------------------
 A python function to create a mental ray screen space ramp texture 
 and connect it to a robLookupBackground lens shader.
@@ -2171,23 +2171,23 @@ def createFulldomeIBL():
 
   iblDialogString = 'Do you want to have a circular alpha mask applied to the imagery in your fulldome IBL shading network?\n'
   iblDialogString += '\n'
-  iblDialogString += 'Note: This is useful for hiding comments written in the border zone of the domemaster frame and will stop them from showing up in the environment map background.'
+  iblDialogString += 'Note: This is useful for hiding comments written in the border zone of the domemain frame and will stop them from showing up in the environment map background.'
   
   iblDialogButtonSelected = cmds.confirmDialog( title='FulldomeIBL Creation', message=iblDialogString, button=['Yes','No'], defaultButton='No', cancelButton='No', dismissString='No', icon='question')
 
   if(iblDialogButtonSelected == 'Yes'):
     print 'Creating a circular masked FulldomeIBL Shading Network.\n'
-    # Masked Domemaster Frame Boundary input = 1
+    # Masked Domemain Frame Boundary input = 1
     isMasked = 1
   else:
     print 'Creating a regular FulldomeIBL Shading Network.\n'
-    # UnMasked Domemaster Frame Boundary input = 0
+    # UnMasked Domemain Frame Boundary input = 0
     isMasked = 0
 
   # Check if we are running Maya 2015+ and then enable the emit light mode
   mayaVersion = getMayaVersionDome()
   # ---------------------------------------------------------------------
-  # Setup the base folder path for the Domemaster3D control maps
+  # Setup the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Make sure the mental ray plugin was loaded
@@ -2210,10 +2210,10 @@ def createFulldomeIBL():
   iblMapFileTexture = getSourceImagesPath("fulldomeAlignmentGrid_4k.png")
   print "[Loading IBL Map]: " + iblMapFileTexture
 
-  # Create the alpha domemaster frame mask
+  # Create the alpha domemain frame mask
   if(isMasked):
-    domeMaskMapFileTexture = getSourceImagesPath("domemaster_mask.png")
-    print "[Loading Domemaster Circular Mask Map]: " + domeMaskMapFileTexture
+    domeMaskMapFileTexture = getSourceImagesPath("domemain_mask.png")
+    print "[Loading Domemain Circular Mask Map]: " + domeMaskMapFileTexture
 
   # ---------------------------------------------------------------------
   # Create the mentalrayIblShape node
@@ -2255,7 +2255,7 @@ def createFulldomeIBL():
   dome_map_mr_tex = cmds.shadingNode('mentalrayTexture', n='dome_map_mentalrayTexture1', asTexture=True)
   dome_remap_color = cmds.shadingNode('remapColor', n='dome_remapColor1', asTexture=True)
 
-  # Create the alpha domemaster frame mask
+  # Create the alpha domemain frame mask
   if(isMasked):
     dome_mask_map_mr_tex = cmds.shadingNode('mentalrayTexture', n='dome_mask_mentalrayTexture1', asTexture=True)
     dome_mask_tex_filter = cmds.shadingNode('mib_texture_lookup', n='dome_mask_mib_texture_lookup1', asTexture=True)
@@ -2263,13 +2263,13 @@ def createFulldomeIBL():
     dome_mask_multiply = cmds.shadingNode('multiplyDivide', n='dome_mask_multiply', asUtility=True)
 
   # Connect the nodes
-  # RGB Domemaster Texture Map
+  # RGB Domemain Texture Map
   cmds.setAttr(dome_map_mr_tex+'.fileTextureName', iblMapFileTexture , type="string")
   #cmds.setAttr(dome_map_mr_tex+'.fileTextureName', '' , type="string")
 
-  # Create the alpha domemaster frame mask
+  # Create the alpha domemain frame mask
   if(isMasked):
-    # Circular Domemaster Mask Texture Map
+    # Circular Domemain Mask Texture Map
     cmds.setAttr(dome_mask_map_mr_tex+'.fileTextureName', domeMaskMapFileTexture , type="string")
     #cmds.setAttr(dome_mask_tex_filter+'.fileTextureName', '' , type="string")
 
@@ -2281,14 +2281,14 @@ def createFulldomeIBL():
   cmds.setAttr(iblShapeName+'.type',  1)
 
   # Connect the rest of the MR texture shading network
-  # RGB Domemaster Map
+  # RGB Domemain Map
   cmds.connectAttr(dome_map_mr_tex+'.message', dome_map_tex_filter+'.tex')
   cmds.connectAttr(dome_tex_vector+'.outValue', dome_tex_remap+'.input')
   cmds.connectAttr(dome_tex_remap+'.outValue', dome_map_tex_filter+'.coord')
 
-  # Create the alpha domemaster frame mask
+  # Create the alpha domemain frame mask
   if(isMasked):
-    # Circular Domemaster Mask Map
+    # Circular Domemain Mask Map
     cmds.connectAttr(dome_mask_map_mr_tex+'.message', dome_mask_tex_filter+'.tex')
     cmds.connectAttr(dome_tex_remap+'.outValue', dome_mask_tex_filter+'.coord')
 
@@ -2296,11 +2296,11 @@ def createFulldomeIBL():
     cmds.connectAttr(dome_mask_tex_filter+'.outValue', dome_mask_multiply+'.input1')
     cmds.connectAttr(dome_map_tex_filter+'.outValue', dome_mask_multiply+'.input2')
 
-    # Create the alpha domemaster frame mask
-    # Apply a composited fulldome mask over the domemaster RGB image
+    # Create the alpha domemain frame mask
+    # Apply a composited fulldome mask over the domemain RGB image
     cmds.connectAttr(dome_mask_multiply+'.output', dome_remap_color+'.color')
   else:
-    # Skip the domemaster mask and just apply the raw RGB image
+    # Skip the domemain mask and just apply the raw RGB image
     cmds.connectAttr(dome_map_tex_filter+'.outValue', dome_remap_color+'.color')
 
 
@@ -2405,7 +2405,7 @@ def createHemirectIBL():
   #Check if we are running Maya 2015+ and then enable the emit light mode
   mayaVersion = getMayaVersionDome()
   # ---------------------------------------------------------------------
-  # Setup the base folder path for the Domemaster3D control maps
+  # Setup the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Make sure the mental ray plugin was loaded

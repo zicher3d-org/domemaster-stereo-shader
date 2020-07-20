@@ -1,5 +1,5 @@
 """
- Vray DomemasterStereo Camera Rig V1.7
+ Vray DomemainStereo Camera Rig V1.7
  2015-05-08 11.46 pm
  by Andrew Hazelden  andrew@andrewhazelden.com
  -----------------------------------------------------------------------
@@ -10,7 +10,7 @@
  ---------------
  2015-05-08
 
- Adapted the mental ray script to support Vray DomemasterStereo rendering
+ Adapted the mental ray script to support Vray DomemainStereo rendering
 
 
  Stereo Rig Script Notes
@@ -65,7 +65,7 @@ def getSourceImagesPath(imageFileName):
   import maya.mel as mel
   
   # ---------------------------------------------------------------------
-  #Setup the base folder path for the Domemaster3D control maps
+  #Setup the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   #Check OS platform for Windows/Mac/Linux Paths
@@ -76,32 +76,32 @@ def getSourceImagesPath(imageFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
-  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  # Typical Result: C:/Program Files/Domemain3D/sourceimages/ 
 
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files/Domemain3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files (x86)/Domemain3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/Applications/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
       baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Domemain3D is running on a " + platform.system() + " System]"
   print "[Requesting the image file]: " + combinedFileAndImagePath
 
   return combinedFileAndImagePath
@@ -112,7 +112,7 @@ def createLensShaders(centerCam, leftCam, rightCam):
   import maya.cmds as cmds
   print "[Center] " + centerCam + " [Left] " + leftCam + " [Right] " + rightCam
   # ---------------------------------------------------------------------
-  #Set up the base folder path for the Domemaster3D control maps
+  #Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
   
   #Variables
@@ -128,36 +128,36 @@ def createLensShaders(centerCam, leftCam, rightCam):
     print( "[Center Camera] " + centerCam + "\n" )
 
     # Enable the Lens Shader's Vray Extra Attributes
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoOn', longName='vrayDomemasterStereoOn', attributeType='long', defaultValue=1)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoOn', longName='vrayDomemainStereoOn', attributeType='long', defaultValue=1)
 
     # Center Camera View
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoCamera', longName='vrayDomemasterStereoCamera', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoCamera', longName='vrayDomemainStereoCamera', attributeType='long', defaultValue=0)
 
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoFovAngle', longName='vrayDomemasterStereoFovAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=180)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoParallaxDistance', longName='vrayDomemasterStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoSeparation', longName='vrayDomemasterStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoForwardTilt', longName='vrayDomemasterStereoForwardTilt', attributeType='long', min=0, softMaxValue=360, defaultValue=0)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoTiltCompensation', longName='vrayDomemasterStereoTiltCompensation', attributeType='long', defaultValue=0)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoVerticalMode', longName='vrayDomemasterStereoVerticalMode', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoFovAngle', longName='vrayDomemainStereoFovAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=180)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoParallaxDistance', longName='vrayDomemainStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoSeparation', longName='vrayDomemainStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoForwardTilt', longName='vrayDomemainStereoForwardTilt', attributeType='long', min=0, softMaxValue=360, defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoTiltCompensation', longName='vrayDomemainStereoTiltCompensation', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoVerticalMode', longName='vrayDomemainStereoVerticalMode', attributeType='long', defaultValue=0)
 
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoSeparationMap', longName='vrayDomemasterStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoSeparationMapr', longName='vrayDomemasterStereoSeparationMapr', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoSeparationMapg', longName='vrayDomemasterStereoSeparationMapg', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoSeparationMapb', longName='vrayDomemasterStereoSeparationMapb', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoSeparationMap', longName='vrayDomemainStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoSeparationMapr', longName='vrayDomemainStereoSeparationMapr', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoSeparationMapg', longName='vrayDomemainStereoSeparationMapg', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoSeparationMapb', longName='vrayDomemainStereoSeparationMapb', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
 
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTurnMap', longName='vrayDomemasterStereoHeadTurnMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTurnMapr', longName='vrayDomemasterStereoHeadTurnMapr', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTurnMapg', longName='vrayDomemasterStereoHeadTurnMapg', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTurnMapb', longName='vrayDomemasterStereoHeadTurnMapb', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTurnMap', longName='vrayDomemainStereoHeadTurnMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTurnMapr', longName='vrayDomemainStereoHeadTurnMapr', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTurnMapg', longName='vrayDomemainStereoHeadTurnMapg', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTurnMapb', longName='vrayDomemainStereoHeadTurnMapb', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
 
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTiltMap', longName='vrayDomemasterStereoHeadTiltMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTiltMapr', longName='vrayDomemasterStereoHeadTiltMapr', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=0.5 )
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTiltMapg', longName='vrayDomemasterStereoHeadTiltMapg', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=0.5 )
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoHeadTiltMapb', longName='vrayDomemasterStereoHeadTiltMapb', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=0.5 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTiltMap', longName='vrayDomemainStereoHeadTiltMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTiltMapr', longName='vrayDomemainStereoHeadTiltMapr', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=0.5 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTiltMapg', longName='vrayDomemainStereoHeadTiltMapg', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=0.5 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoHeadTiltMapb', longName='vrayDomemainStereoHeadTiltMapb', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=0.5 )
 
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoFlipX', longName='vrayDomemasterStereoFlipX', attributeType='long', defaultValue=0)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoFlipY', longName='vrayDomemasterStereoFlipY', attributeType='long', defaultValue=0)
-    cmds.addAttr( centerCam, shortName='vrayDomemasterStereoNeckOffset', longName='vrayDomemasterStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoFlipX', longName='vrayDomemainStereoFlipX', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoFlipY', longName='vrayDomemainStereoFlipY', attributeType='long', defaultValue=0)
+    cmds.addAttr( centerCam, shortName='vrayDomemainStereoNeckOffset', longName='vrayDomemainStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
 
      
     # -------------------------------------------------------------------------
@@ -169,36 +169,36 @@ def createLensShaders(centerCam, leftCam, rightCam):
     print( "[Left Camera Shape] " + leftCamShape + "\n" )
 
     # Enable the Lens Shader's Vray Extra Attributes
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoOn', longName='vrayDomemasterStereoOn', attributeType='long', defaultValue=1)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoOn', longName='vrayDomemainStereoOn', attributeType='long', defaultValue=1)
 
     # Left Camera View
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoCamera', longName='vrayDomemasterStereoCamera', attributeType='long', defaultValue=1)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoCamera', longName='vrayDomemainStereoCamera', attributeType='long', defaultValue=1)
 
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoFovAngle', longName='vrayDomemasterStereoFovAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=180)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoParallaxDistance', longName='vrayDomemasterStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoSeparation', longName='vrayDomemasterStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoForwardTilt', longName='vrayDomemasterStereoForwardTilt', attributeType='long', min=0, softMaxValue=360, defaultValue=0)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoTiltCompensation', longName='vrayDomemasterStereoTiltCompensation', attributeType='long', defaultValue=0)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoVerticalMode', longName='vrayDomemasterStereoVerticalMode', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoFovAngle', longName='vrayDomemainStereoFovAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=180)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoParallaxDistance', longName='vrayDomemainStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoSeparation', longName='vrayDomemainStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoForwardTilt', longName='vrayDomemainStereoForwardTilt', attributeType='long', min=0, softMaxValue=360, defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoTiltCompensation', longName='vrayDomemainStereoTiltCompensation', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoVerticalMode', longName='vrayDomemainStereoVerticalMode', attributeType='long', defaultValue=0)
 
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoSeparationMap', longName='vrayDomemasterStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoSeparationMapr', longName='vrayDomemasterStereoSeparationMapr', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoSeparationMapg', longName='vrayDomemasterStereoSeparationMapg', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoSeparationMapb', longName='vrayDomemasterStereoSeparationMapb', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoSeparationMap', longName='vrayDomemainStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoSeparationMapr', longName='vrayDomemainStereoSeparationMapr', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoSeparationMapg', longName='vrayDomemainStereoSeparationMapg', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoSeparationMapb', longName='vrayDomemainStereoSeparationMapb', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
 
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTurnMap', longName='vrayDomemasterStereoHeadTurnMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTurnMapr', longName='vrayDomemasterStereoHeadTurnMapr', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTurnMapg', longName='vrayDomemasterStereoHeadTurnMapg', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTurnMapb', longName='vrayDomemasterStereoHeadTurnMapb', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTurnMap', longName='vrayDomemainStereoHeadTurnMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTurnMapr', longName='vrayDomemainStereoHeadTurnMapr', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTurnMapg', longName='vrayDomemainStereoHeadTurnMapg', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTurnMapb', longName='vrayDomemainStereoHeadTurnMapb', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
 
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTiltMap', longName='vrayDomemasterStereoHeadTiltMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTiltMapr', longName='vrayDomemasterStereoHeadTiltMapr', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=1.0 )
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTiltMapg', longName='vrayDomemasterStereoHeadTiltMapg', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=1.0 )
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoHeadTiltMapb', longName='vrayDomemasterStereoHeadTiltMapb', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTiltMap', longName='vrayDomemainStereoHeadTiltMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTiltMapr', longName='vrayDomemainStereoHeadTiltMapr', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTiltMapg', longName='vrayDomemainStereoHeadTiltMapg', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=1.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoHeadTiltMapb', longName='vrayDomemainStereoHeadTiltMapb', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=1.0 )
 
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoFlipX', longName='vrayDomemasterStereoFlipX', attributeType='long', defaultValue=0)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoFlipY', longName='vrayDomemasterStereoFlipY', attributeType='long', defaultValue=0)
-    cmds.addAttr( leftCamShape, shortName='vrayDomemasterStereoNeckOffset', longName='vrayDomemasterStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoFlipX', longName='vrayDomemainStereoFlipX', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoFlipY', longName='vrayDomemainStereoFlipY', attributeType='long', defaultValue=0)
+    cmds.addAttr( leftCamShape, shortName='vrayDomemainStereoNeckOffset', longName='vrayDomemainStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
 
 
     # -------------------------------------------------------------------------
@@ -210,67 +210,67 @@ def createLensShaders(centerCam, leftCam, rightCam):
     print( "[Right Camera Shape] " + rightCamShape + "\n" )
 
     # Enable the Lens Shader's Vray Extra Attributes
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoOn', longName='vrayDomemasterStereoOn', attributeType='long', defaultValue=1)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoOn', longName='vrayDomemainStereoOn', attributeType='long', defaultValue=1)
 
     # Center Camera View
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoCamera', longName='vrayDomemasterStereoCamera', attributeType='long', defaultValue=2)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoCamera', longName='vrayDomemainStereoCamera', attributeType='long', defaultValue=2)
 
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoFovAngle', longName='vrayDomemasterStereoFovAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=180)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoParallaxDistance', longName='vrayDomemasterStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoSeparation', longName='vrayDomemasterStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoForwardTilt', longName='vrayDomemasterStereoForwardTilt', attributeType='long', min=0, softMaxValue=360, defaultValue=0)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoTiltCompensation', longName='vrayDomemasterStereoTiltCompensation', attributeType='long', defaultValue=0)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoVerticalMode', longName='vrayDomemasterStereoVerticalMode', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoFovAngle', longName='vrayDomemainStereoFovAngle', attributeType='float', min=0.1, softMaxValue=360, defaultValue=180)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoParallaxDistance', longName='vrayDomemainStereoParallaxDistance', attributeType='float', min=0.001, softMaxValue=5000, defaultValue=720)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoSeparation', longName='vrayDomemainStereoSeparation', attributeType='float', min=0, softMaxValue=650, defaultValue=6.5)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoForwardTilt', longName='vrayDomemainStereoForwardTilt', attributeType='long', min=0, softMaxValue=360, defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoTiltCompensation', longName='vrayDomemainStereoTiltCompensation', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoVerticalMode', longName='vrayDomemainStereoVerticalMode', attributeType='long', defaultValue=0)
 
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoSeparationMap', longName='vrayDomemasterStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoSeparationMapr', longName='vrayDomemasterStereoSeparationMapr', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoSeparationMapg', longName='vrayDomemasterStereoSeparationMapg', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoSeparationMapb', longName='vrayDomemasterStereoSeparationMapb', attributeType='float', parent='vrayDomemasterStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoSeparationMap', longName='vrayDomemainStereoSeparationMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoSeparationMapr', longName='vrayDomemainStereoSeparationMapr', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoSeparationMapg', longName='vrayDomemainStereoSeparationMapg', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoSeparationMapb', longName='vrayDomemainStereoSeparationMapb', attributeType='float', parent='vrayDomemainStereoSeparationMap', defaultValue=1.0 )
 
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTurnMap', longName='vrayDomemasterStereoHeadTurnMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTurnMapr', longName='vrayDomemasterStereoHeadTurnMapr', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTurnMapg', longName='vrayDomemasterStereoHeadTurnMapg', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTurnMapb', longName='vrayDomemasterStereoHeadTurnMapb', attributeType='float', parent='vrayDomemasterStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTurnMap', longName='vrayDomemainStereoHeadTurnMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTurnMapr', longName='vrayDomemainStereoHeadTurnMapr', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTurnMapg', longName='vrayDomemainStereoHeadTurnMapg', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTurnMapb', longName='vrayDomemainStereoHeadTurnMapb', attributeType='float', parent='vrayDomemainStereoHeadTurnMap', defaultValue=1.0 )
 
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTiltMap', longName='vrayDomemasterStereoHeadTiltMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTiltMapr', longName='vrayDomemasterStereoHeadTiltMapr', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=1.0 )
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTiltMapg', longName='vrayDomemasterStereoHeadTiltMapg', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=1.0 )
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoHeadTiltMapb', longName='vrayDomemasterStereoHeadTiltMapb', attributeType='float', parent='vrayDomemasterStereoHeadTiltMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTiltMap', longName='vrayDomemainStereoHeadTiltMap', attributeType='float3', usedAsColor=True , numberOfChildren=3)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTiltMapr', longName='vrayDomemainStereoHeadTiltMapr', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTiltMapg', longName='vrayDomemainStereoHeadTiltMapg', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=1.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoHeadTiltMapb', longName='vrayDomemainStereoHeadTiltMapb', attributeType='float', parent='vrayDomemainStereoHeadTiltMap', defaultValue=1.0 )
 
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoFlipX', longName='vrayDomemasterStereoFlipX', attributeType='long', defaultValue=0)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoFlipY', longName='vrayDomemasterStereoFlipY', attributeType='long', defaultValue=0)
-    cmds.addAttr( rightCamShape, shortName='vrayDomemasterStereoNeckOffset', longName='vrayDomemasterStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoFlipX', longName='vrayDomemainStereoFlipX', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoFlipY', longName='vrayDomemainStereoFlipY', attributeType='long', defaultValue=0)
+    cmds.addAttr( rightCamShape, shortName='vrayDomemainStereoNeckOffset', longName='vrayDomemainStereoNeckOffset', attributeType='float', min=-10000.0, softMaxValue=1000.0 , defaultValue=0.0 )
 
     # ---------------------------------------------------------------------
     # Link the common left and right camera attributes to the center camera
     # ---------------------------------------------------------------------
 
     # Link the left camera attributes
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoOn', leftCam+'.vrayDomemasterStereoOn', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoFovAngle', leftCam+'.vrayDomemasterStereoFovAngle', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoParallaxDistance', leftCam+'.vrayDomemasterStereoParallaxDistance', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoSeparation', leftCam+'.vrayDomemasterStereoSeparation', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoForwardTilt', leftCam+'.vrayDomemasterStereoForwardTilt', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoTiltCompensation', leftCam+'.vrayDomemasterStereoTiltCompensation', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoVerticalMode', leftCam+'.vrayDomemasterStereoVerticalMode', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoFlipX', leftCam+'.vrayDomemasterStereoFlipX', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoFlipY', leftCam+'.vrayDomemasterStereoFlipY', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoNeckOffset', leftCam+'.vrayDomemasterStereoNeckOffset', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoOn', leftCam+'.vrayDomemainStereoOn', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoFovAngle', leftCam+'.vrayDomemainStereoFovAngle', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoParallaxDistance', leftCam+'.vrayDomemainStereoParallaxDistance', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoSeparation', leftCam+'.vrayDomemainStereoSeparation', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoForwardTilt', leftCam+'.vrayDomemainStereoForwardTilt', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoTiltCompensation', leftCam+'.vrayDomemainStereoTiltCompensation', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoVerticalMode', leftCam+'.vrayDomemainStereoVerticalMode', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoFlipX', leftCam+'.vrayDomemainStereoFlipX', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoFlipY', leftCam+'.vrayDomemainStereoFlipY', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoNeckOffset', leftCam+'.vrayDomemainStereoNeckOffset', force=True )
 
     # Link the right camera attributes
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoOn', rightCam+'.vrayDomemasterStereoOn', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoFovAngle', rightCam+'.vrayDomemasterStereoFovAngle', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoParallaxDistance', rightCam+'.vrayDomemasterStereoParallaxDistance', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoSeparation', rightCam+'.vrayDomemasterStereoSeparation', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoForwardTilt', rightCam+'.vrayDomemasterStereoForwardTilt', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoTiltCompensation', rightCam+'.vrayDomemasterStereoTiltCompensation', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoVerticalMode', rightCam+'.vrayDomemasterStereoVerticalMode', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoFlipX', rightCam+'.vrayDomemasterStereoFlipX', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoFlipY', rightCam+'.vrayDomemasterStereoFlipY', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoNeckOffset', rightCam+'.vrayDomemasterStereoNeckOffset', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoOn', rightCam+'.vrayDomemainStereoOn', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoFovAngle', rightCam+'.vrayDomemainStereoFovAngle', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoParallaxDistance', rightCam+'.vrayDomemainStereoParallaxDistance', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoSeparation', rightCam+'.vrayDomemainStereoSeparation', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoForwardTilt', rightCam+'.vrayDomemainStereoForwardTilt', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoTiltCompensation', rightCam+'.vrayDomemainStereoTiltCompensation', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoVerticalMode', rightCam+'.vrayDomemainStereoVerticalMode', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoFlipX', rightCam+'.vrayDomemainStereoFlipX', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoFlipY', rightCam+'.vrayDomemainStereoFlipY', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoNeckOffset', rightCam+'.vrayDomemainStereoNeckOffset', force=True )
 
     # ---------------------------------------------------------------------
-    # Create the custom Domemaster3D shading networks
+    # Create the custom Domemain3D shading networks
     # ---------------------------------------------------------------------
 
     # Create the nodes
@@ -279,8 +279,8 @@ def createLensShaders(centerCam, leftCam, rightCam):
     # Link the center camera lens shader to the Maya camera rig stereo3d settings
     # This enables real-time 3D previews in the viewport
     # ---------------------------------------------------------------------
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoParallaxDistance', centerCam+'.zeroParallax', force=True )
-    cmds.connectAttr( centerCam+'.vrayDomemasterStereoSeparation', centerCam+'.interaxialSeparation', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoParallaxDistance', centerCam+'.zeroParallax', force=True )
+    cmds.connectAttr( centerCam+'.vrayDomemainStereoSeparation', centerCam+'.interaxialSeparation', force=True )
 
     #Turn off the Stereo 3D effect on the native Maya camera rig
     # This skips the need for a pre-render and post-render mel script.
@@ -294,25 +294,25 @@ This module defines a Stereo Camera rig.
     registerThisRig() registers it into the system
 """
 
-def __createSlaveCamera(masterShape, name, parent):
+def __createSubordinateCamera(mainShape, name, parent):
   """
   Private method to this module.
-  Create a slave camera
-  Make the default connections between the master camera and the slave one.
+  Create a subordinate camera
+  Make the default connections between the main camera and the subordinate one.
   """
 
   # First create a camera under the right parent with the desired name
   #
-  slave = cmds.camera()[0]
-  slave = cmds.parent(slave, parent)[0]
-  slave = cmds.rename(slave, name)
-  slaveShape = cmds.listRelatives(slave, path=True, shapes=True)[0]
+  subordinate = cmds.camera()[0]
+  subordinate = cmds.parent(subordinate, parent)[0]
+  subordinate = cmds.rename(subordinate, name)
+  subordinateShape = cmds.listRelatives(subordinate, path=True, shapes=True)[0]
   
   # Change some default attributes
   #
-  cmds.setAttr( slave + '.renderable', 0 )
+  cmds.setAttr( subordinate + '.renderable', 0 )
   
-  # Connect the camera attributes from the master, hide them
+  # Connect the camera attributes from the main, hide them
   #
   for attr in [ 'horizontalFilmAperture',
                 'verticalFilmAperture',
@@ -327,24 +327,24 @@ def __createSlaveCamera(masterShape, name, parent):
                 'displayResolution',
                 'nearClipPlane',
                 'farClipPlane' ] :
-    slaveAttr = slaveShape + '.' + attr
-    cmds.connectAttr(masterShape + '.' + attr, slaveAttr)
-    cmds.setAttr(slaveAttr, keyable=False )
+    subordinateAttr = subordinateShape + '.' + attr
+    cmds.connectAttr(mainShape + '.' + attr, subordinateAttr)
+    cmds.setAttr(subordinateAttr, keyable=False )
     
   # Hide some more attributes on the transform
   #
   for attr in [ 'scaleX', 'scaleY', 'scaleZ',
                 'visibility',
                 'centerOfInterest' ] :
-    cmds.setAttr( slave + '.' + attr, keyable=False )
+    cmds.setAttr( subordinate + '.' + attr, keyable=False )
 
-  return slave
+  return subordinate
 
 def __createFrustumNode( mainCam, parent, baseName ):
   """
   Private method to this module.
   Create a display frustum node under the given parent.
-  Make the default connections between the master camera and the frustum  
+  Make the default connections between the main camera and the frustum  
   Remove some of the channel box attributes that we do not want to show
   up in the channel box. 
   """
@@ -367,7 +367,7 @@ def __createFrustumNode( mainCam, parent, baseName ):
     
   return frustum
 
-def createRig(unusedBasename='VrayDomemasterStereoCamera'):
+def createRig(unusedBasename='VrayDomemainStereoCamera'):
   """
   Creates a new stereo rig. Uses a series of Maya commands to build
   a stereo rig.
@@ -380,11 +380,11 @@ def createRig(unusedBasename='VrayDomemasterStereoCamera'):
   import string
   import random
   randomLetterPostfix = random.choice(string.ascii_uppercase)
-  #print ("The StereoCameraRig Random letter extension is: VrayDomemasterStereoCamera" + randomLetterPostfix)
+  #print ("The StereoCameraRig Random letter extension is: VrayDomemainStereoCamera" + randomLetterPostfix)
 
   #Put a temp throwaway value of unusedBasename as the createRig input variable
   #Define basename here instead of the regular createRig() variable
-  basename='VrayDomemasterStereoCamera' + randomLetterPostfix
+  basename='VrayDomemainStereoCamera' + randomLetterPostfix
 
   # Create the root of the rig
   # 
@@ -420,8 +420,8 @@ def createRig(unusedBasename='VrayDomemasterStereoCamera'):
   
   # Create the left & right eye cameras
   # 
-  leftCam  = __createSlaveCamera(centerCam, rootName+'Left',  root)
-  rightCam = __createSlaveCamera(centerCam, rootName+'Right', root)
+  leftCam  = __createSubordinateCamera(centerCam, rootName+'Left',  root)
+  rightCam = __createSubordinateCamera(centerCam, rootName+'Right', root)
   
   # Set up message attribute connections to define the role of each camera
   #
@@ -472,7 +472,7 @@ def createRig(unusedBasename='VrayDomemasterStereoCamera'):
   cmds.addAttr( root, longName='Cam_Locator_Scale', niceName='Cam Locator Scale', attributeType='double', defaultValue=1.0, minValue=0.01)
   cmds.setAttr( root+'.Cam_Locator_Scale', keyable=False, channelBox=True)
   
-  # Result: Connected VrayDomemasterStereoCamera.Cam_Locator_Scale to VrayDomemasterStereoCameraLeftShape.locatorScale. // 
+  # Result: Connected VrayDomemainStereoCamera.Cam_Locator_Scale to VrayDomemainStereoCameraLeftShape.locatorScale. // 
   cmds.connectAttr ( root+'.Cam_Locator_Scale', centerCam+'.locatorScale', force=True)
   cmds.connectAttr ( root+'.Cam_Locator_Scale', leftCam+'.locatorScale', force=True)
   cmds.connectAttr ( root+'.Cam_Locator_Scale', rightCam+'.locatorScale', force=True)
@@ -490,7 +490,7 @@ def attachToCameraSet( *args, **keywords ):
   if not keywords.has_key( 'allDone' ):
     stereoCameraSets.parentToLayer0Rig( *args, cameraSet=keywords['cameraSet'] )
 
-rigTypeName = 'VrayDomemasterStereoCamera'
+rigTypeName = 'VrayDomemainStereoCamera'
 
 def registerThisRig():
   """
@@ -500,8 +500,8 @@ def registerThisRig():
   mayaVersion = getMayaVersionDome()
   if (mayaVersion >= 2011):
     global rigTypeName 
-    cmds.stereoRigManager( add=[rigTypeName, 'Python', 'vrayDomemasterStereoRig.createRig'] )
-    cmds.stereoRigManager( cameraSetFunc=[rigTypeName, 'vrayDomemasterStereoRig.attachToCameraSet'] )
+    cmds.stereoRigManager( add=[rigTypeName, 'Python', 'vrayDomemainStereoRig.createRig'] )
+    cmds.stereoRigManager( cameraSetFunc=[rigTypeName, 'vrayDomemainStereoRig.attachToCameraSet'] )
   else:
     cmds.stereoRigManager(add=['StereoCamera', 'Python', 'maya.app.stereo.stereoCameraDefaultRig.createRig'])
 

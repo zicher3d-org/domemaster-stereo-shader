@@ -46,14 +46,14 @@ Added DomeViewer image projection support for the Facebook 360 Pyramid, LG360 Ca
 Version 1.9.3 - 2016-02-08
 -----------------------------
 
-Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemaster3D sourceimages folder
+Updated the DomeViewer tool to add Ricoh Theta S support along with a set of Ricoh Theta S panoramic viewing meshes "ricoh_theta_s_mesh.obj", and "ricoh_theta_s_mesh.ma" to the Domemain3D sourceimages folder
 
-Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemaster3D sourceimages folder
+Updated the DomeViewer tool to add Facebook Cube Map 3x2 support along with a set of Facebook Cube Map 3x2 panoramic viewing meshes "facebookCube3x2_mesh.obj", and "facebookCube3x2_mesh.ma" to the Domemain3D sourceimages folder
 
 Version 1.9.2 - 2016-01-03
 -----------------------------
 
-Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemaster3D sourceimages folder
+Updated the DomeViewer tool to addGearVR Mono Cube support, and included a set of Gear VR panoramic viewing meshes "gearVRCube_mesh.obj", and "gearVRCube_mesh.ma" in the Domemain3D sourceimages folder
 
 Changed the DomeViewer "Show Focal Length in HUD" default state to off
 
@@ -72,9 +72,9 @@ Version 1.6 Alpha 7 - 2014-11-16
 -------------------------------------
 
 
-Domemaster3D attribute presets path detection code added:
+Domemain3D attribute presets path detection code added:
   domeMaterial.getDomePresetsPath('remapColor/ldr_to_hdr_boost_10x.mel') 
-  # C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/remapColor/ldr_to_hdr_boost_10x.mel
+  # C:/Program Files/Domemain3D/maya/common/presets/attrPresets/remapColor/ldr_to_hdr_boost_10x.mel
 
 
 Version 1.6 - 2014-11-3
@@ -109,7 +109,7 @@ Version 1.4 Beta 9 - 2013-12-07
 ------------------------------------
 
 Updated Linux install path to:
-/opt/Domemaster3D
+/opt/Domemain3D
 
 Added support for the Quadsphere (starglobe) mesh to the domeViewer
 
@@ -127,7 +127,7 @@ Added Maya 2010 support to the starglobe GUI window
 Version 1.4 Beta 4 - Build 4 - 2013-10-20
 ---------------------------------------------
 
-Added the Dome Viewer feature for exploring rendered domemaster formatted imagery
+Added the Dome Viewer feature for exploring rendered domemain formatted imagery
 
 
 Version 1.3.5 Build 7 - 2013-08-20
@@ -137,7 +137,7 @@ Upgraded the Maya dome material shaders to use the mia_material_x_passes shader
 
 Added a starglobe tool to the Maya shelf to create a night sky backdrop
 
-The starglobe textures and meshes are stored in the Domemaster3D/sourceimages folder.
+The starglobe textures and meshes are stored in the Domemain3D/sourceimages folder.
 
 
 Version 1.3.3 - 2013-05-29
@@ -153,7 +153,7 @@ Version 1.3.2 - Build 1 - 2013-04-16
 
 Edited the default camera connections for the lens shaders to work with the modified versions of the maya createMentalRayIndirectLightingTab.mel & AEmia_physicalskyTemplate.mel scripts. This fixes the problem of the Physical Sky & Sum system overwriting the first .miLensShader input on cameras in the scene.
 
-The location of the default domemaster control map textures is now in the C:\Program Files\Domemaster3D\sourceimages folder on Windows or the /Applications/Domemaster3D/sourceimages folder on macOS. The Domemaster3D shelf tools have been updated to link to the new sourceimages folder.
+The location of the default domemain control map textures is now in the C:\Program Files\Domemain3D\sourceimages folder on Windows or the /Applications/Domemain3D/sourceimages folder on macOS. The Domemain3D shelf tools have been updated to link to the new sourceimages folder.
 
 Version 1.3 - Build 27 - 2012-11-04
 ---------------------------------------
@@ -236,7 +236,7 @@ domeMaterial.createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName)
 
 ------------------------------------------------------------------------------
 
-Domemaster3D Force Mental Ray to load
+Domemain3D Force Mental Ray to load
 A python function to make sure mental ray is active and the MR shading nodes are read to be used.
 
 Run using the command:
@@ -250,7 +250,7 @@ Create a Starglobe
 A python function to create a 8K textured starglobe with a mental ray native mia_material_x_passes shading network.
 
 The starglobe meshes are stored in the folder:
-C:/Program Files/Domemaster3D/sourceimages
+C:/Program Files/Domemain3D/sourceimages
 
 Run using the command:
 import domeMaterial as domeMaterial
@@ -263,7 +263,7 @@ Create a Dome Viewer
 A python function to create a fulldome image viewer with an incandescent lambert based shading network.
 
 The domeViewer mesh is stored in the folder:
-C:/Program Files/Domemaster3D/sourceimages
+C:/Program Files/Domemain3D/sourceimages
 
 Run using the command:
 import domeMaterial as domeMaterial
@@ -304,7 +304,7 @@ def getSourceImagesPath(imageFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Check OS platform for Windows/Mac/Linux Paths
@@ -315,32 +315,32 @@ def getSourceImagesPath(imageFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   baseImagesFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
-  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  # Typical Result: C:/Program Files/Domemain3D/sourceimages/ 
   
   # Use a fixed value if the env var is empty
   if baseImagesFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      baseImagesFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files/Domemain3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseImagesFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+      baseImagesFolder = "C:/Program Files (x86)/Domemain3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      baseImagesFolder = "/Applications/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/Applications/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      baseImagesFolder = "/opt/Domemaster3D/sourceimages/"
+      baseImagesFolder = "/opt/Domemain3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
       baseImagesFolder = ""
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Domemain3D is running on a " + platform.system() + " System]"
   print "[Requesting the image file]: " + combinedFileAndImagePath
 
   return combinedFileAndImagePath
@@ -357,7 +357,7 @@ def getModelsPath(modelFileName):
   import maya.cmds as cmds
   import maya.mel as mel
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D models
+  # Set up the base folder path for the Domemain3D models
   # ---------------------------------------------------------------------
 
   # Check OS platform for Windows/Mac/Linux Paths
@@ -368,32 +368,32 @@ def getModelsPath(modelFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   baseModelsFolder = os.environ.get('DOMEMASTER3D_SOURCEIMAGES_DIR') + "/"
-  # Typical Result: C:/Program Files/Domemaster3D/sourceimages/ 
+  # Typical Result: C:/Program Files/Domemain3D/sourceimages/ 
   
   # Use a fixed value if the env var is empty
   if baseModelsFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      baseModelsFolder = "C:/Program Files/Domemaster3D/sourceimages/"
+      baseModelsFolder = "C:/Program Files/Domemain3D/sourceimages/"
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      baseModelsFolder = "C:/Program Files (x86)/Domemaster3D/sourceimages/"
+      baseModelsFolder = "C:/Program Files (x86)/Domemain3D/sourceimages/"
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      baseModelsFolder = "/Applications/Domemaster3D/sourceimages/"
+      baseModelsFolder = "/Applications/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
+      baseModelsFolder = "/opt/Domemain3D/sourceimages/"
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      baseModelsFolder = "/opt/Domemaster3D/sourceimages/"
+      baseModelsFolder = "/opt/Domemain3D/sourceimages/"
     else:
       # Create the empty variable as a fallback mode
       baseModelsFolder = ""
 
   combinedFileAndModelPath = baseModelsFolder + modelFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
+  print "[Domemain3D is running on a " + platform.system() + " System]"
   print "[Requesting the model file]: " + combinedFileAndModelPath
 
   return combinedFileAndModelPath
@@ -411,7 +411,7 @@ def getDomePresetsPath(PresetsFileName):
   import maya.mel as mel
   
   # ---------------------------------------------------------------------
-  # Setup the base folder path for the Domemaster3D AttrPresets
+  # Setup the base folder path for the Domemain3D AttrPresets
   # ---------------------------------------------------------------------
   
   # Check OS platform for Windows/Mac/Linux Paths
@@ -422,32 +422,32 @@ def getDomePresetsPath(PresetsFileName):
   
   # Try and read the value from the current Maya.env file's environment variables
   basePresetsFolder = os.environ.get('DOMEMASTER3D_MAYA_DIR') + '/common/presets/attrPresets/'
-  # Typical Result: C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/
+  # Typical Result: C:/Program Files/Domemain3D/maya/common/presets/attrPresets/
   
   # Use a fixed value if the env var is empty
   if basePresetsFolder == None:
     if platform.system()=='Windows':
       # Check if the program is running on Windows 
-      basePresetsFolder = 'C:/Program Files/Domemaster3D/maya/common/presets/attrPresets/'
+      basePresetsFolder = 'C:/Program Files/Domemain3D/maya/common/presets/attrPresets/'
     elif platform.system()== 'win32':
       # Check if the program is running on Windows 32
-      basePresetsFolder = 'C:/Program Files (x86)/Domemaster3D/maya/common/presets/attrPresets/'
+      basePresetsFolder = 'C:/Program Files (x86)/Domemain3D/maya/common/presets/attrPresets/'
     elif platform.system()== 'Darwin':
       # Check if the program is running on macOS
-      basePresetsFolder = '/Applications/Domemaster3D/maya/common/presets/attrPresets/'
+      basePresetsFolder = '/Applications/Domemain3D/maya/common/presets/attrPresets/'
     elif platform.system()== 'Linux':
       # Check if the program is running on Linux
-      basePresetsFolder = '/opt/Domemaster3D/maya/common/presets/attrPresets/'
+      basePresetsFolder = '/opt/Domemain3D/maya/common/presets/attrPresets/'
     elif platform.system()== 'Linux2':
       # Check if the program is running on Linux
-      basePresetsFolder = '/opt/Domemaster3D/maya/common/presets/attrPresets/'
+      basePresetsFolder = '/opt/Domemain3D/maya/common/presets/attrPresets/'
     else:
       # Create the empty variable as a fallback mode
       basePresetsFolder = ''
 
   combinedFileAndPresetsPath = basePresetsFolder + PresetsFileName
 
-  print '[Domemaster3D is running on a ' + platform.system() + ' System]'
+  print '[Domemain3D is running on a ' + platform.system() + ' System]'
   print '[Requesting the Presets file]: ' + combinedFileAndPresetsPath
 
   return combinedFileAndPresetsPath
@@ -477,13 +477,13 @@ def createDomeViewerTexture(meshName, isGrid, stereoMode, stereoView):
     stereoViewPrefix = 'center_'
     
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D textures
+  # Set up the base folder path for the Domemain3D textures
   # ---------------------------------------------------------------------
 
   # Set the file texture variables to '' if you don't want a file to be specified
   domeViewerMapFileTexture = ''
  
-  # Read the texture from the Domemaster3D Folder
+  # Read the texture from the Domemain3D Folder
   #domeViewerMapFileTexture = getSourceImagesPath("fulldome_1K.jpg")
 
   materialNamePrefix = ''
@@ -1189,13 +1189,13 @@ def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFli
   #object_selection = cmds.ls(sl=True)
 
   if cmds.objExists(meshName): 
-    print('Removing existing Domemaster3D object: ' + meshName)
+    print('Removing existing Domemain3D object: ' + meshName)
     cmds.select(meshName, replace=True)
     cmds.delete()
   
   updatedMeshName = stereoViewPrefix+meshName
   if cmds.objExists(updatedMeshName): 
-    print('Removing existing Domemaster3D object: ' + updatedMeshName)
+    print('Removing existing Domemain3D object: ' + updatedMeshName)
     cmds.select(updatedMeshName, replace=True)
     cmds.delete()
     
@@ -1207,7 +1207,7 @@ def createDomeViewerMesh(meshName, meshFileName, domeTiltAngle, scale, viewerFli
   #  cmds.select(meshFileName + '_uiConfigurationScriptNode', replace=True)
   #  cmds.delete()
     
-  # Load the viewer model from the Domemaster3D source images directory
+  # Load the viewer model from the Domemain3D source images directory
   domeViewerModelFile = getModelsPath(meshFileName + meshFileExtension)
   
   # Load the Maya .ma format viewer model into the scene
@@ -1667,7 +1667,7 @@ def createStarglobe():
   forceMentalRayLoad()
 
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D textures
+  # Set up the base folder path for the Domemain3D textures
   # ---------------------------------------------------------------------
 
   # Set the file texture variables to "" if you don't want a file to be specified
@@ -1680,7 +1680,7 @@ def createStarglobe():
   object_selection = cmds.ls(sl=True)
 
   if cmds.objExists('polyStarglobe'): 
-    print('Removing existing Domemaster3D object: polyStarglobe')
+    print('Removing existing Domemain3D object: polyStarglobe')
     cmds.select( 'polyStarglobe', replace=True)
     cmds.delete()
 
@@ -1900,7 +1900,7 @@ def createColorBumpMiaMaterial():
   forceMentalRayLoad()
 
   # ---------------------------------------------------------------------
-  # Set up the base folder path for the Domemaster3D control maps
+  # Set up the base folder path for the Domemain3D control maps
   # ---------------------------------------------------------------------
 
   # Set the file texture variables to "" if you don't want a file to be specified
@@ -2433,7 +2433,7 @@ def createMentalrayTextureExtraAttrs(color_mr_tex, fileTextureName):
   # Set the file texture variables to "" if you don't want a file to be specified
   #ColorMapFileTexture = ''
   
-  #ColorMapFileTexture = getSourceImagesPath('NightSky_Domemaster.exr')
+  #ColorMapFileTexture = getSourceImagesPath('NightSky_Domemain.exr')
   #ColorMapFileTexture = getSourceImagesPath('checker.iff')
   ColorMapFileTexture = fileTextureName
 

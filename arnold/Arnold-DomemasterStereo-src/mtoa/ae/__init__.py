@@ -1,4 +1,4 @@
 """
-Python Init command for Domemaster3D Fulldome Stereo 
+Python Init command for Domemain3D Fulldome Stereo 
 Created by Andrew Hazelden  andrew@andrewhazelden.com
 """

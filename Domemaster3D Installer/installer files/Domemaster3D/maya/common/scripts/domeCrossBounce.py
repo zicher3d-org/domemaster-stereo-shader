@@ -1,22 +1,22 @@
 """
 Fulldome Cross Bounce Setup Script V2.4
-for Domemaster3D and Maya on Windows
+for Domemain3D and Maya on Windows
 2018-08-21
 
 This script will create a Maya scene that uses Mental Ray Final Gather to compute a fulldome crossbounce light simulation. The rendered image shows the light pollution that happens when a video image is projected on a hemispherical dome screen. You can preview the full result in Photoshop or After Effects by applying the rendered crossbounce simulation with an Add (Linear Dodge) transfer mode over the original fulldome image.
 
-The default image used is the ocean fulldome test image that comes with the domemaster3D shader:
-C:\Program Files\Domemaster3D\sourceimages\fulldome_2K.jpg
+The default image used is the ocean fulldome test image that comes with the domemain3D shader:
+C:\Program Files\Domemain3D\sourceimages\fulldome_2K.jpg
 
 When the script runs, the fulldome_2K.jpg image is used as the source texture for the FulldomeIBL sim and it is also loaded as a "kept image" in the Maya render view window. Also, the fulldome domeAFL_FOV camera is snapshoted automatically as the current render camera so the first time you hit render in the render view you will be looking through the correct camera.
 
-The Domemaster3D v1.6 or newer FulldomeIBL tool is used to set up the domemaster formatted image sequence loading and a remapColor low dynamic range to high dynamic range image conversion preset is used to enhance the IBL based light simulation.
+The Domemain3D v1.6 or newer FulldomeIBL tool is used to set up the domemain formatted image sequence loading and a remapColor low dynamic range to high dynamic range image conversion preset is used to enhance the IBL based light simulation.
 
 
 How to use this Script
 -------------------------
 
-Step 1. You need to download a copy of the Domemaster3D shader (version 1.6 or higher) to use this script:
+Step 1. You need to download a copy of the Domemain3D shader (version 1.6 or higher) to use this script:
 https://github.com/zicher3d-org/domemaster-stereo-shader/releases
 
 Step 2. Place the python "domeCrossBounce.py" script in one of Maya's 'script' folders and restart Maya. Copy the icon file "domeCrossBounce.png" to your Maya icons folder.
@@ -30,9 +30,9 @@ import domeCrossBounce
 reload(domeCrossBounce)
 domeCrossBounce.createCrossBounce()
 
-Step 4. When the script starts you will be asked if you want an circular alpha mask to be applied to the fulldome frame. This will matte out any writing or captions that might exist around a domemaster frame. Choosing "Yes" or "No" in the Fulldome IBL Creation dialog is fine if you are using the sample fulldome_2K.jpg test image.
+Step 4. When the script starts you will be asked if you want an circular alpha mask to be applied to the fulldome frame. This will matte out any writing or captions that might exist around a domemain frame. Choosing "Yes" or "No" in the Fulldome IBL Creation dialog is fine if you are using the sample fulldome_2K.jpg test image.
 
-Step 5. If you click "render" in the Render View you will see the simulated crossbounce light pollution. If you save the frame to your desktop you can try compositing it over the original image ( C:\Program Files\Domemaster3D\sourceimages\fulldome_2K.jpg ) in Photoshop using the Linear Dodge / Add transfer mode to compare the difference.
+Step 5. If you click "render" in the Render View you will see the simulated crossbounce light pollution. If you save the frame to your desktop you can try compositing it over the original image ( C:\Program Files\Domemain3D\sourceimages\fulldome_2K.jpg ) in Photoshop using the Linear Dodge / Add transfer mode to compare the difference.
 """
 
 def createCrossBounce():

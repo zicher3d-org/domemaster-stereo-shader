@@ -1,4 +1,4 @@
-# Domemaster WxH Shader Template File
+# Domemain WxH Shader Template File
 # 2014-11-06 10.44 am
 
 import pymel.core as pm
@@ -7,10 +7,10 @@ import mtoa.ui.ae.templates as templates
 #from mtoa.ui.ae.customShapeAttributes import CameraTemplate as CameraTemplate
 
 
-#class DomemasterWxHTemplate(CameraTemplate):
-class DomemasterWxHTemplate(templates.AttributeTemplate):
+#class DomemainWxHTemplate(CameraTemplate):
+class DomemainWxHTemplate(templates.AttributeTemplate):
   def setup(self):
-    self.beginLayout("Domemaster WxH Shader", collapse=False)
+    self.beginLayout("Domemain WxH Shader", collapse=False)
     # Create the Cameras option menu with the Center, Left, and Right views
 
     self.addControl("aiDiameter", label="Diameter")
@@ -43,4 +43,4 @@ class DomemasterWxHTemplate(templates.AttributeTemplate):
     
     self.endLayout()
 
-templates.registerTranslatorUI(DomemasterWxHTemplate, "camera", "DomemasterWxH")
+templates.registerTranslatorUI(DomemainWxHTemplate, "camera", "DomemainWxH")

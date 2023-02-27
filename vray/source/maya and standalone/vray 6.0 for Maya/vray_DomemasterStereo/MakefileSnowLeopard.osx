@@ -1,0 +1,29 @@
+# macOS - DomemasterStereo Vray Shader Makefile
+# 2015-06-01 09.58 am
+# by Andrew Hazelden  andrew@andrewhazelden.com
+# http://www.andrewhazelden.com
+
+# You can compile this file from the command line using:
+# make -f MakefileSnowLeopard.osx
+
+# Check compiled file details:
+# otool -L libvray_DomemasterStereo.so 
+# lipo -info libvray_DomemasterStereo.so 
+
+# Note: In order to compile the lens shaders, you have to copy your Vray for Maya Lib & Include files into the folders "../lib" and "../include".
+
+.SUFFIXES:
+
+all: libvray_DomemasterStereo.so
+
+libvray_DomemasterStereo.so:  vray_DomemasterStereo.obj
+	g++  -lpthread  -lc -lz  --gc-sections  -msse -msse2 -arch x86_64 -fvisibility=hidden -headerpad_max_install_names -framework System -framework CoreServices -framework Carbon -framework Cocoa -framework ApplicationServices -framework QuickTime -framework IOKit     -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -lvutils_s  -ldl -lvray -lplugman_s -dynamic -bundle -flat_namespace     -o "./libvray_DomemasterStereo.so" -L"../lib"    -O "./vray_DomemasterStereo.obj" 
+
+./vray_DomemasterStereo.obj: ./vray_DomemasterStereo.cpp
+	g++ -O0 -g -DENABLE_DEBUG_PRINTF -msse -msse2 -arch x86_64 -Wreturn-type -Werror=return-type -DREQUIRE_IOSTREAM -DHAVE_EXR -D_LIBRARY_ALEMBIC -DHAVE_OPENSUBDIV -DHAVE_EMBREE -DVRAY_NO_GUI -D__VRAY4MAYA30__ -DBits64_ -D_REENTRANT  -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.4 -fvisibility=hidden -DVRAY_EXPORTS      -fexceptions    -I "../include"  -D "NDEBUG"     -c -o "./vray_DomemasterStereo.obj" "./vray_DomemasterStereo.cpp"
+
+
+clean:
+	-@rm "./vray_DomemasterStereo.obj"
+	-@rm "./libvray_DomemasterStereo.so"
+

@@ -201,7 +201,7 @@ global proc createVrayDomemaster3DMenu() {
         -annotation "Create a latlong / equirectangular / spherical camera with the latlong_lens shader applied."
         -image "render_latlong_lens.png"
         -sourceType "python"
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLong_Camera()";
+        -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.createLatLong_Camera()";
         
     */
     
@@ -217,7 +217,7 @@ global proc createVrayDomemaster3DMenu() {
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with the LatLongStereo shader applied."
         -image "domeVray_LatLongStereo.png"
         -sourceType "python"
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()"; 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()"; 
      
       /*
       menuItem
@@ -225,13 +225,13 @@ global proc createVrayDomemaster3DMenu() {
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera with an aim constraint and the LatLong_Stereo shader applied."
         -image "render_LatLong_Stereo.png"
         -sourceType "python"
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoAimRig()"; 
+        -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.createLatLongStereoAimRig()"; 
       menuItem
         -label "LatLong Stereo Zenith Camera" 
         -annotation "Create a stereoscopic latlong / equirectangular / spherical camera in an upwards facing orientation with the LatLong_Stereo shader applied and \"Zenith Mode\" enabled."
         -image "render_LatLong_Stereo.png"
         -sourceType "python"
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createLatLongStereoZenithRig()";
+        -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.createLatLongStereoZenithRig()";
       */
 
       // Fulldome Stereo Section
@@ -246,7 +246,7 @@ global proc createVrayDomemaster3DMenu() {
         -annotation "Create a stereo fulldome camera rig."
         -image "domeVray_DomemasterStereo.png" 
         -sourceType "python"
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()";
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()";
                
                
       /*
@@ -255,13 +255,13 @@ global proc createVrayDomemaster3DMenu() {
         -annotation "Create a screen space file texture. This is useful for loading file textures as control maps for the domeAFL_FOV_Stereo shader." 
         -image "render_rob_lookup_background.png"
         -sourceType "python"
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createRobLookup()";
+        -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.createRobLookup()";
       menuItem 
         -label "Dome Ramp" 
         -annotation "Create a screen space ramp texture. This is useful for creating editable gradients that can be used to drive the control maps on the domeAFL_FOV_Stereo."
         -image "domeVrayRamp.png.png"
         -sourceType "python"
-        -command "import domeCamera\nreload(domeCamera)\ndomeCamera.createDomeRampTexture()";
+        -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.createDomeRampTexture()";
 */
 
       menuItem -divider true;
@@ -293,7 +293,7 @@ global proc createVrayDomemaster3DMenu() {
     -annotation "Create a hemispherical wireframe reference grid."
     -image "domeVray_grid.png"
     -sourceType "python"
-    -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createDomeGrid()";
+    -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createDomeGrid()";
 
 /*
   menuItem 
@@ -466,13 +466,13 @@ global proc createVrayDomemaster3DMenu() {
     -annotation "Add the Domemaster3D shader Pre/Post render mel scripts to the Maya Render Settings window."
     -image "domeVray_mayaScript.png" 
     -sourceType "python"
-    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.addPrePostRenderScript()";
+    -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.addPrePostRenderScript()";
   menuItem
     -label "Remove Pre/Post Render Mel" 
     -annotation "Remove the Domemaster3D shader Pre/Post render mel scripts from the Maya Render Settings window."
     -image "domeVray_mayaScript.png"
     -sourceType "python"
-    -command "import domeCamera\nreload(domeCamera)\ndomeCamera.removePrePostRenderScript()";
+    -command "import domeCamera\nimport importlib\nimportlib.reload(domeCamera)\ndomeCamera.removePrePostRenderScript()";
     */
     
   menuItem
@@ -485,7 +485,7 @@ global proc createVrayDomemaster3DMenu() {
     -annotation "Vray to reload. This can fix issues if Maya didn't startup correctly."
     -image "domeVray_load.png" 
     -sourceType "python"
-    -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()";
+    -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()";
 
   // Support Section
   if($mayaVersion >= 2015){
@@ -504,7 +504,7 @@ global proc createVrayDomemaster3DMenu() {
     -annotation "Load the Domemaster Stereo Shader Wiki page in your web browser."
     -image "domeVray_help.png" 
     -sourceType "python"
-    -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()";
+    -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()";
   menuItem 
     -label "Domemaster3D Version Info" 
     -annotation "Show the current version number for the Domemaster3D Shader and links to the download page, and the NING group."

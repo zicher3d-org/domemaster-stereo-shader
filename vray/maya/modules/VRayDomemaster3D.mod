@@ -1,3 +1,75 @@
++ MAYAVERSION:2023 PLATFORM:win64 VRayDomemaster3D any C:\Program Files\Domemaster3D\vray\maya
+DOMEMASTER3D_DIR:=../../
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2023 PLATFORM:mac VRayDomemaster3D any /Applications/Domemaster3D/vray/maya
+DOMEMASTER3D_DIR:=../..//
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2023 PLATFORM:linux VRayDomemaster3D any /opt/Domemaster3D/vray/maya
+DOMEMASTER3D_DIR:=../../
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2022 PLATFORM:win64 VRayDomemaster3D any C:\Program Files\Domemaster3D\vray\maya
+DOMEMASTER3D_DIR:=../../
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2022 PLATFORM:mac VRayDomemaster3D any /Applications/Domemaster3D/vray/maya
+DOMEMASTER3D_DIR:=../..//
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2022 PLATFORM:linux VRayDomemaster3D any /opt/Domemaster3D/vray/maya
+DOMEMASTER3D_DIR:=../../
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2021 PLATFORM:win64 VRayDomemaster3D any C:\Program Files\Domemaster3D\vray\maya
+DOMEMASTER3D_DIR:=../../
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2021 PLATFORM:mac VRayDomemaster3D any /Applications/Domemaster3D/vray/maya
+DOMEMASTER3D_DIR:=../..//
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
++ MAYAVERSION:2021 PLATFORM:linux VRayDomemaster3D any /opt/Domemaster3D/vray/maya
+DOMEMASTER3D_DIR:=../../
+DOMEMASTER3D_VRAY_DIR:=
+DOMEMASTER3D_SOURCEIMAGES_DIR:=../../sourceimages
+PYTHONPATH+:=scripts
+MAYA_SCRIPT_PATH+:=scripts
+MAYA_SCRIPT_PATH+:=shelves
+
 + MAYAVERSION:2020 PLATFORM:win64 VRayDomemaster3D any C:\Program Files\Domemaster3D\vray\maya
 DOMEMASTER3D_DIR:=../../
 DOMEMASTER3D_VRAY_DIR:=

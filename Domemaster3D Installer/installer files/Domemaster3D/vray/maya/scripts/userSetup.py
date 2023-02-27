@@ -12,7 +12,7 @@ def findVrayDomeRig():
   print ("Stereo Camera rigs:")
   for rig in rigs:
     defs = cmds.stereoRigManager(rigDefinition=rig)
-    print 'Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1]
+    print('Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1])
     # Check for rig
     if (rig == "VrayDomemasterStereoCamera"):
       return 1
@@ -28,7 +28,7 @@ def findVrayLatLongRig():
   print ("Stereo Camera rigs:")
   for rig in rigs:
     defs = cmds.stereoRigManager(rigDefinition=rig)
-    print 'Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1]
+    print('Rig "'+ rig +'": (language '+defs[0]+') create callback: '+defs[1])
     # Check for rig
     if (rig == "VrayLatLongStereoCamera"):
       return 1

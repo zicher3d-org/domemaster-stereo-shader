@@ -1,0 +1,3358 @@
+Attribute vrayDomemasterStereoOn {
+  label = Treat as a VRay Domemaster Stereo Camera
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnDomemasterStereoOn
+}
+Attribute vrayDomemasterStereoCamera {
+  label = Camera
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = selector
+  decl = int
+  range_0 = Center
+  range_1 = 0
+  range_2 = Left
+  range_3 = 1
+  range_4 = Right
+  range_5 = 2
+  default = 0
+}
+Attribute vrayDomemasterStereoFovAngle {
+  label = Field of View
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0.1
+  rangesoft_max = 360.0
+  range_step = 0.1
+  default = 180.0
+}
+Attribute vrayDomemasterStereoParallaxDistance {
+  label = Parallax Distance
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0.001
+  rangesoft_max = 5000.0
+  range_step = 0.1
+  default = 720.0
+}
+Attribute vrayDomemasterStereoSeparation {
+  label = Camera Separation
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 650.0
+  range_step = 0.1
+  default = 6.5
+}
+Attribute vrayDomemasterStereoForwardTilt {
+  label = Forward Tilt
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 360
+  range_step = 0.1
+  default = 0
+}
+Attribute vrayDomemasterStereoTiltCompensation {
+  label = Tilt Compensation
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayDomemasterStereoVerticalMode {
+  label = Vertical Mode
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayDomemasterStereoSeparationMap {
+  label = Separation Map
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = ctexture
+  decl = color
+  default = 1.0 1.0 1.0 
+}
+Attribute vrayDomemasterStereoHeadTurnMap {
+  label = Head Turn Map
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = ctexture
+  decl = color
+  default = 1.0 1.0 1.0 
+}
+Attribute vrayDomemasterStereoHeadTiltMap {
+  label = Head Tilt Map
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = ctexture
+  decl = color
+  default = 0.5 0.5 0.5
+}
+Attribute vrayDomemasterStereoFlipX {
+  label = Flip X
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayDomemasterStereoFlipY {
+  label = Flip Y
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayDomemasterStereoPolesCorrection {
+  label = Poles Correction
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayDomemasterStereoPolesCorrectionStart {
+  label = Poles Correction Start Angle
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 45.0
+}
+Attribute vrayDomemasterStereoPolesCorrectionEnd {
+  label = Poles Correction End Angle
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_min = 45.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 85.0
+}
+Attribute vrayDomemasterStereoNeckOffset {
+  label = Neck Offset
+  state = optional
+  group = vray_DomemasterStereo
+  subtype = slider
+  decl = float
+  range_min = -10000.0
+  rangesoft_max = 1000.0
+  range_step = 0.1
+  default = 0.0
+}
+
+
+Attribute vrayLatLongStereoOn {
+  label = Treat as a VRay LatLong Stereo Camera
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnLatLongStereoOn
+}
+Attribute vrayLatLongStereoCamera {
+  label = Camera
+  state = optional
+  group = vray_LatLongStereo
+  subtype = selector
+  decl = int
+  range_0 = Center
+  range_1 = 0
+  range_2 = Left
+  range_3 = 1
+  range_4 = Right
+  range_5 = 2
+  default = 0
+}
+
+Attribute vrayLatLongStereoFovVertAngle {
+  label = Field of View Vertical
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.1
+  rangesoft_max = 180.0
+  range_step = 0.1
+  default = 180.0
+}
+Attribute vrayLatLongStereoFovHorizAngle {
+  label = Field of View Horizontal
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.1
+  rangesoft_max = 360.0
+  range_step = 0.1
+  default = 360.0
+}
+Attribute vrayLatLongStereoParallaxDistance {
+  label = Zero Parallax Distance
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.001
+  rangesoft_max = 5000.0
+  range_step = 0.1
+  default = 720.0
+}
+Attribute vrayLatLongStereoSeparation {
+  label = Camera Separation
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 650.0
+  range_step = 0.1
+  default = 6.5
+}
+Attribute vrayLatLongStereoZenithMode {
+  label = Zenith Mode
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayLatLongStereoSeparationMap {
+  label = Separation Map
+  state = optional
+  group = vray_LatLongStereo
+  subtype = ctexture
+  decl = color
+  default = 1.0 1.0 1.0 
+}
+Attribute vrayLatLongStereoFlipX {
+  label = Flip X
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayLatLongStereoFlipY {
+  label = Flip Y
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayLatLongStereoPolesCorrection {
+  label = Poles Correction
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayLatLongStereoPolesCorrectionStart {
+  label = Poles Correction Start Angle
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 45.0
+}
+Attribute vrayLatLongStereoPolesCorrectionEnd {
+  label = Poles Correction End Angle
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_min = 45.0
+  range_max = 90.0
+  range_step = 0.1
+  default = 85.0
+}
+Attribute vrayLatLongStereoNeckOffset {
+  label = Neck Offset
+  state = optional
+  group = vray_LatLongStereo
+  subtype = slider
+  decl = float
+  range_min = -10000.0
+  rangesoft_max = 1000.0
+  range_step = 0.1
+  default = 0.0
+}
+Attribute vrayLatLongStereoZenithFov {
+  label = Hemi-equirectangular
+  state = optional
+  group = vray_LatLongStereo
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayCausticSubdivs {
+  label = Caustics subdivs
+  state = optional
+  group = light
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 30000
+  default = 1000
+}
+Attribute vrayDiffuseContrib {
+  label = Diffuse contribution
+  state = optional
+  group = light
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 2.0
+  default = 1.0
+}
+Attribute vraySpecularContrib {
+  label = Specular contribution
+  state = optional
+  group = light
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 2.0
+  default = 1.0
+}
+Attribute vrayCausticMult {
+  label = Caustics Multiplier
+  state = optional
+  group = light
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 10.0
+  range_step = 0.01
+  default = 1.0
+}
+Attribute vrayInvisible {
+  label = Invisible
+  state = optional
+  group = light
+  subtype = switch
+  decl = int
+  default = 0
+}
+Attribute vrayShadowBias {
+  label = Shadow bias
+  state = optional
+  group = light
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 1
+  range_step = 0.001
+  default = 0.02
+}
+Attribute vrayCutoffThreshold {
+  label = Cutoff Threshold
+  state = optional
+  group = light
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 0.5
+  range_step = 0.0001
+  default = 0.005
+}
+Attribute vrayOverrideMBSamples {
+  label = Override motion blur samples
+  state = optional
+  group = light
+  subtype = switch
+  decl = int
+  default = 0
+  changeCommand = vrayOnLightOverrideMBSamples
+}
+
+Attribute vrayMBSamples {
+  label = Motion blur samples
+  state = optional
+  group = light
+  subtype = slider
+  decl = int
+  range_min = 0
+  range_max = 128
+  rangesoft_max = 16
+  default = 2
+}
+
+Attribute vraySubdivEnable {
+  label = Render as subdivision surface
+  state = optional
+  group = vray_subdivision
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnSubdivEnable
+}
+
+Attribute vrayUserAttributes {
+  label = User attributes
+  state = optional
+  decl = string
+  group = vray_user_attributes
+  default =
+}
+
+Attribute vrayPreserveMapBorders {
+  label = Preserve Map Borders
+  state = optional
+  group = vray_subdivision
+  subtype = selector
+  decl = int
+  range_0 = None
+  range_1 = 0
+  range_2 = Internal
+  range_3 = 1
+  range_4 = All
+  range_5 = 2
+  default = 1
+}
+
+Attribute vraySubdivUVs {
+  label = Subdivide UVs
+  state = optional
+  group = vray_subdivision
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnSubdivUVs
+}
+
+Attribute vrayStaticSubdiv {
+  label = Geometry generation
+  state = optional
+  group = vray_subdivision
+  subtype = selector
+  decl = int
+  range_0 = On the fly
+  range_1 = 0
+  range_2 = Pre-tessellated
+  range_3 = 1
+  default = 1
+}
+
+Attribute vrayClassicalCatmark {
+  label = Classic Catmull Clark
+  state = optional
+  group = vray_subdivision
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayPreserveGeometryBorders {
+  label = Preserve Geometry Borders
+  state = optional
+  group = vray_subdivision
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayOverrideGlobalSubQual {
+  label = Override Global Settings
+  state = optional
+  group = vray_subquality
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnSubdivOverrideEnable
+}
+
+Attribute vrayViewDep {
+  label = View dependent
+  state = optional
+  group = vray_subquality
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayEdgeLength {
+  label = Edge length
+  state = optional
+  group = vray_subquality
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 20
+  range_step = 0.001
+  default = 4
+}
+
+Attribute vrayMaxSubdivs {
+  label = Max subdivs
+  state = optional
+  group = vray_subquality
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 512
+  default = 4
+}
+
+Attribute vrayDisplacementNone {
+  label = None
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 0
+  changeCommand = vrayOnEnableDisplacementNone
+}
+
+Attribute vrayDisplacementType {
+  label = Displacement type
+  state = optional
+  group = vray_displacement
+  subtype = selector
+  decl = int
+  range_0 = 2D Displacement
+  range_1 = 0
+  range_2 = Normal Displacement
+  range_3 = 1
+  range_4 = Vector displacement
+  range_5 = 2
+  range_6 = Vector displacement (absolute)
+  range_7 = 3
+  range_8 = Vector displacement (object)
+  range_9 = 4
+  default = 1
+  changeCommand = vrayOnDisplacementType
+}
+
+Attribute vrayDisplacementAmount {
+  label = Displacement Amount
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = float
+  rangesoft_min = 0
+  rangesoft_max = 10
+  range_step = 0.001
+  default = 1.0
+}
+
+Attribute vrayDisplacementShift {
+  label = Displacement Shift
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = float
+  rangesoft_min = 0
+  rangesoft_max = 10
+  range_step = 0.001
+  default = 0.0
+}
+
+Attribute vrayDisplacementKeepContinuity {
+  label = Keep Continuity
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayDisplacementStatic {
+  label = Geometry generation
+  state = optional
+  group = vray_displacement
+  subtype = selector
+  decl = int
+  range_0 = On the fly
+  range_1 = 0
+  range_2 = Pre-tessellated
+  range_3 = 1
+  default = 1
+}
+
+Attribute vrayDisplacementCacheNormals {
+  label = Cache Normals
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayEnableWaterLevel {
+  label = Enable Water Level
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 0
+  changeCommand = vrayOnEnableWaterLevel
+}
+
+Attribute vrayWaterLevel {
+  label = Water Level
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = float
+  rangesoft_min = 0
+  rangesoft_max = 10
+  range_step = 0.001
+  default = 0.0
+}
+
+Attribute vrayDisplacementUseBounds {
+  label = Displacement bounds
+  state = optional
+  group = vray_displacement
+  subtype = selector
+  decl = int
+  range_0 = Automatic
+  range_1 = 0
+  range_2 = Explicit
+  range_3 = 1
+  default = 0
+  changeCommand = vrayOnDisplacementUseBounds
+}
+
+Attribute vrayDisplacementMinValueFloat {
+  label = Min value
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = float
+  rangesoft_min = -1
+  rangesoft_max = 10
+  range_step = 0.01
+  default = 0.0
+  changeCommand = vrayOnDisplacementBoundsMinChange
+  initialCommand = vrayOnDisplacementBoundsMinCreated
+}
+
+Attribute vrayDisplacementMaxValueFloat {
+  label = Max value
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = float
+  rangesoft_min = -1
+  rangesoft_max = 10
+  range_step = 0.01
+  default = 1.0
+  changeCommand = vrayOnDisplacementBoundsMaxChange
+  initialCommand = vrayOnDisplacementBoundsMaxCreated
+}
+
+Attribute vray2dDisplacementResolution {
+  label = Texture resolution
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = int
+  range_min = 8
+  rangesoft_min = 64
+  rangesoft_max = 1024
+  default = 256
+}
+
+Attribute vray2dDisplacementPrecision {
+  label = Precision
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = int
+  range_min = 1
+  rangesoft_min = 1
+  rangesoft_max = 32
+  default = 8
+}
+
+Attribute vray2dDisplacementTightBounds {
+  label = Tight bounds
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vray2dDisplacementFilterTexture {
+  label = Filter texture
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnDisplacementFilterBlur
+}
+
+Attribute vray2dDisplacementFilterBlur {
+  label = Filter blur
+  state = optional
+  group = vray_displacement
+  subtype = slider
+  decl = float
+  rangesoft_min = 0
+  rangesoft_max = 1
+  range_min = 0
+  range_step = 0.001
+  default = 0.003
+}
+
+Attribute vray2dDisplacementMultiTile {
+  label = Multi tile
+  state = optional
+  group = vray_displacement
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayRoundEdges {
+  label = Enable Round Edges
+  state = optional
+  group = roundedges
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableRoundEdges
+}
+
+Attribute vrayRoundEdgesRadius {
+  label = Radius
+  state = optional
+  group = roundedges
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 1
+  range_step = 0.001
+  default = 1.0
+}
+
+Attribute vrayRoundEdgesConsiderSameObjectsOnly {
+  label = Consider Same Objects Only
+  state = optional
+  group = roundedges
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayRoundEdgesCorners {
+  label = Corners
+  state = optional
+  group = roundedges
+  subtype = selector
+  decl = int
+  range_0 = Convex and Concave
+  range_1 = 0
+  range_2 = Convex Only
+  range_3 = 1
+  range_4 = Concave Only
+  range_5 = 2
+  default = 0
+}
+
+Attribute vrayParticleSphereSubdiv {
+  label = Sphere subdivisions
+  state = optional
+  group = vray_particle_sphere_subdiv
+  subtype = slider
+  decl = int
+  range_min = 3
+  rangesoft_max = 32
+  default = 8
+}
+
+Attribute vrayPPExportAcceleration {
+  label = Acceleration
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportAge {
+  label = Age
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportLifespan {
+  label = Lifespan
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportRGB {
+  label = RGB
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportOpacity {
+  label = Opacity
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportEmission {
+  label = Emission
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportScalar1 {
+  label = userScalar1PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportScalar2 {
+  label = userScalar2PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportScalar3 {
+  label = userScalar3PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportScalar4 {
+  label = userScalar4PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportScalar5 {
+  label = userScalar5PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportVector1 {
+  label = userVector1PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportVector2 {
+  label = userVector2PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportVector3 {
+  label = userVector3PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportVector4 {
+  label = userVector4PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayPPExportVector5 {
+  label = userVector5PP
+  state = optional
+  group = vray_particle_export_attributes
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayAsStaticGeom {
+  label = Geometry generation
+  state = optional
+  group = nurbs
+  subtype = selector
+  decl = int
+  range_0 = On the fly
+  range_1 = 0
+  range_2 = Pre-tessellated
+  range_3 = 1
+  default = 1
+}
+
+Attribute vrayMaxSubdivDepth {
+  label = Max tessellation depth
+  state = optional
+  group = nurbs
+  subtype = slider
+  decl = int
+  range_min = 1
+  rangesoft_max = 100
+  default = 22
+}
+
+Attribute vrayFlatnessCoef {
+  label = Curvature threshold
+  state = optional
+  group = nurbs
+  subtype = slider
+  decl = float
+  rangesoft_min = 0.01
+  range_min = 0.0002
+  rangesoft_max = 100.0
+  range_step = 0.001
+  default = 0.2
+}
+
+Attribute vrayOverride {
+  label = Override
+  state = optional
+  group = glossiness
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnOverrideGlossiness
+}
+
+Attribute vrayReflectionGlossiness {
+  label = Reflection Glossiness
+  state = optional
+  group = glossiness
+  subtype = slider
+  decl = float
+  range_min = 0
+  range_max = 1
+  range_step = 0.001
+  default = 0.8
+}
+
+Attribute vrayTraceReflections {
+  label = Trace reflections
+  state = optional
+  group = glossiness
+  subtype = switch
+  decl = int
+  default = true
+}
+
+Attribute vrayCameraStereoscopicOn {
+  label = Treat as VRay Stereoscopic camera
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = switch
+  decl = int
+  default = true
+  changeCommand = vrayOnCameraStereoscopicOn
+}
+Attribute vrayCameraStereoscopicEyeDistance {
+  label = Eye Distance
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 50.0
+  range_step = 0.001
+  default = 6.5
+  hidemap = 1
+  changeCommand = vrayOnCameraStereoscopicEyeDistance
+}
+Attribute vrayCameraStereoscopicSpecifyFocus {
+  label = Specify Focus
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnCameraStereoscopicSpecifyFocus
+}
+Attribute vrayCameraStereoscopicFocusDistance {
+  label = Focus Distance
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 500.0
+  range_step = 0.001
+  default = 200.0
+  hidemap = 1
+}
+Attribute vrayCameraStereoscopicFocusMethod {
+  label = Focus Method
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = selector
+  decl = int
+  range_0 = None
+  range_1 = 0
+  range_2 = Rotation
+  range_3 = 1
+  range_4 = Shear
+  range_5 = 2
+  default = 0
+}
+Attribute vrayCameraStereoscopicInterocularMethod {
+  label = Interocular Method
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = selector
+  decl = int
+  range_0 = Shift Both
+  range_1 = 0
+  range_2 = Shift Left
+  range_3 = 1
+  range_4 = Shift Right
+  range_5 = 2
+  default = 0
+}
+Attribute vrayCameraStereoscopicView {
+  label = View
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = selector
+  decl = int
+  range_0 = Both
+  range_1 = 0
+  range_2 = Left
+  range_3 = 1
+  range_4 = Right
+  range_5 = 2
+  range_6 = Center
+  range_7 = 3
+  default = 0
+  changeCommand = vrayOnCameraStereoscopicView
+}
+Attribute vrayCameraStereoscopicOutputLayout {
+  label = Output Layout
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = selector
+  decl = int
+  range_0 = Side-By-Side
+  range_1 = 0
+  range_2 = Top-Bottom
+  range_3 = 1
+  default = 0
+}
+Attribute vrayCameraStereoscopicAdjustResolution {
+  label = Adjust Resolution
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayCameraStereoscopicPanoramicPoleMergingLabel {
+  label = Panoramic pole merging
+  state = optional
+  decl = string
+  group = vray_cameraStereoscopic
+  subtype = text_label
+  default =
+}
+Attribute vrayCameraStereoscopicTopMergeAngle {
+  label = Top merge angle
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 90.0
+  range_step = 0.001
+  default = 60.0
+  hidemap = 1
+}
+Attribute vrayCameraStereoscopicBottomMergeAngle {
+  label = Bottom merge angle
+  state = optional
+  group = vray_cameraStereoscopic
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 90.0
+  range_step = 0.001
+  default = 60.0
+  hidemap = 1
+}
+
+Attribute vrayCameraPhysicalOn {
+  label = Treat as VRay Physical camera
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = true
+  changeCommand = vrayOnCameraPhysicalOn
+}
+Attribute vrayCameraPhysicalType {
+  label = Type
+  state = optional
+  group = vray_cameraPhysical
+  subtype = selector
+  decl = int
+  range_0 = Still camera
+  range_1 = 0
+  range_2 = Movie camera
+  range_3 = 1
+  range_4 = Video camera
+  range_5 = 2
+  default = 0
+  changeCommand = vrayOnCameraPhysicalType
+}
+Attribute vrayCameraPhysicalFilmWidth {
+  label = Film gate (in mm)
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 135.0
+  range_step = 0.001
+  default = 36.0
+}
+Attribute vrayCameraPhysicalFocalLength {
+  label = Focal length (in mm)
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 100.0
+  range_step = 0.001
+  default = 40.0
+}
+Attribute vrayCameraPhysicalSpecifyFOV {
+  label = Specify FOV
+  state = optional
+  group = vray_cameraPhysical
+  subtype = selector
+  decl = int
+  range_0 = Off
+  range_1 = 0
+  range_2 = Specify
+  range_3 = 1
+  range_4 = From Maya camera
+  range_5 = 2
+  default = 2
+  changeCommand = vrayOnCameraPhysicalSpecifyFOV
+}
+Attribute vrayCameraPhysicalFOV {
+  label = FOV
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0001
+  rangesoft_max = 180.0
+  range_step = 0.001
+  default = 90.0
+}
+Attribute vrayCameraPhysicalZoomFactor {
+  label = Zoom factor
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 1.0
+}
+Attribute vrayCameraPhysicalDistortionType {
+  label = Distortion type
+  state = optional
+  group = vray_cameraPhysical
+  subtype = selector
+  decl = int
+  range_0 = Quadratic
+  range_1 = 0
+  range_2 = Cubic
+  range_3 = 1
+  range_4 = Lens File
+  range_5 = 2
+  range_6 = Texture
+  range_7 = 3
+  default = 0
+  changeCommand = vrayOnCameraPhysicalDistortionType
+}
+Attribute vrayCameraPhysicalDistortion {
+  label = Distortion amount
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = -1.0
+  rangesoft_max = 1.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalLensFile {
+  label = LENS File
+  state = optional
+  group = vray_cameraPhysical
+  subtype = file
+  decl = string
+  default =
+  fileDefExt = All lens files (*.lens;*.vrlens)(*.lens *.vrlens);;Lens files (*.lens)(*.lens);;V-Ray lens files (*.vrlens)(*.vrlens)
+  fileMode = 1
+}
+Attribute vrayCameraPhysicalDistortionMap {
+  label = Distortion map
+  state = optional
+  group = vray_cameraPhysical
+  subtype = ctexture
+  decl = color
+  default = 1.0 1.0 1.0
+}
+Attribute vrayCameraPhysicalFNumber {
+  label = F-number
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 32.0
+  range_step = 0.001
+  default = 8.0
+}
+Attribute vrayCameraPhysicalHorizLensShift {
+  label = Horizontal lens shift
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = -1e6
+  range_max = 1e6
+  rangesoft_min = -10.0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalLensShift {
+  label = Vertical lens shift
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = -1e6
+  range_max = 1e6
+  rangesoft_min = -10.0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalLensAutoVShift {
+  label = Guess vertical lens shift
+  state = optional
+  decl = string
+  group = vray_cameraPhysical
+  subtype = buttonWide_cmd
+  default = vrayOnCameraPhysicalAutoVShift
+}
+Attribute vrayCameraPhysicalShutterSpeed {
+  label = Shutter speed
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 1000.0
+  range_step = 0.001
+  default = 200.0
+}
+Attribute vrayCameraPhysicalShutterAngle {
+  label = Shutter angle
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 360.0
+  rangesoft_min = 0
+  rangesoft_max = 360.0
+  range_step = 0.001
+  default = 180.0
+}
+Attribute vrayCameraPhysicalShutterOffset {
+  label = Shutter offset
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = -360
+  range_max = 360
+  rangesoft_min = 0
+  rangesoft_max = 360.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalLatency {
+  label = Latency
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalISO {
+  label = ISO
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 400.0
+  range_step = 0.001
+  default = 100.0
+}
+Attribute vrayCameraPhysicalSpecifyFocus {
+  label = Specify focus
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnCameraPhysicalSpecifyFocus
+}
+Attribute vrayCameraPhysicalFocusDistance {
+  label = Focus distance
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.01
+  rangesoft_max = 400.0
+  range_step = 0.001
+  default = 200.0
+}
+Attribute vrayCameraPhysicalExposure {
+  label = Exposure color correction
+  state = optional
+  group = vray_cameraPhysical
+  subtype = selector
+  decl = int
+  range_0 = No exposure
+  range_1 = 0
+  range_2 = Physical Exposure
+  range_3 = 1
+  range_4 = Exposure Value
+  range_5 = 2
+  default = 1
+  changeCommand = vrayOnCameraPhysicalExposure
+}
+Attribute vrayCameraPhysicalWhiteBalance {
+  label = White balance
+  state = optional
+  group = vray_cameraPhysical
+  subtype = ctexture
+  decl = color
+  default = 1 1 1
+}
+Attribute vrayCameraPhysicalExposureValue {
+  label = Exposure Value
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  rangesoft_min = -6.0
+  rangesoft_max = 21.0
+  default = 13.0
+}
+Attribute vrayCameraPhysicalVignetting {
+  label = Enable vignetting effect
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnCameraPhysicalVignetting
+}
+Attribute vrayCameraPhysicalVignettingAmount {
+  label = Vignetting amount
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 1.0
+  range_step = 0.01
+  default = 1.0
+}
+Attribute vrayCameraPhysicalBladesEnable {
+  label = Enable Bokeh effects
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnCameraPhysicalBladesEnable
+}
+Attribute vrayCameraPhysicalBladesNum {
+  label = Number of blades
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 16
+  range_step = 1
+  default = 5
+}
+Attribute vrayCameraPhysicalBladesRotation {
+  label = Blades rotation (in radians)
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 6.28
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalCenterBias {
+  label = Center bias
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = -10.0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalAnisotropy {
+  label = Bokeh anisotropy
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = -1.0
+  rangesoft_max = 1.0
+  range_step = 0.001
+  default = 0.0
+}
+Attribute vrayCameraPhysicalUseDof {
+  label = Enable Depth of field
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = false
+}
+Attribute vrayCameraPhysicalUseMoBlur {
+  label = Enable Motion blur
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnCameraPhysicalUseMoBlur
+}
+Attribute vrayCameraPhysicalApertureMap {
+  label = Aperture map
+  state = optional
+  group = vray_cameraPhysical
+  subtype = ctexture
+  decl = color
+  default = 1.0 1.0 1.0
+}
+Attribute vrayCameraPhysicalApertureMapAffectsExposure {
+  label = Affects exposure
+  state = optional
+  group = vray_cameraPhysical
+  subtype = switch
+  decl = int
+  default = true
+}
+Attribute vrayCameraPhysicalOpticalVignetting {
+  label = Cat's eye bokeh
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  rangesoft_min = -3.0
+  rangesoft_max = 3.0
+  range_step = 0.01
+  default = 0.0
+}
+Attribute vrayCameraPhysicalRollingShutterMode {
+  label = Rolling shutter mode
+  state = optional
+  group = vray_cameraPhysical
+  subtype = selector
+  decl = int
+  range_0 = Disabled
+  range_1 = 0
+  range_2 = Top to bottom
+  range_3 = 1
+  range_4 = Bottom to top
+  range_5 = 2
+  range_6 = Left to right
+  range_7 = 3
+  range_8 = Right to left
+  range_9 = 4
+  default = 0
+  changeCommand = vrayOnCameraPhysicalRollingShutterMode
+}
+Attribute vrayCameraPhysicalRollingShutterDuration {
+  label = Rolling shutter duration
+  state = optional
+  group = vray_cameraPhysical
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 1000.0
+  range_step = 0.001
+  default = 200.0
+}
+
+Attribute vrayCameraPhysicalCameraShaderTex {
+  label = Camera shader texture
+  state = optional
+  group = vray_cameraPhysical
+  subtype = ctexture
+  decl = color
+  default = 0 0 0
+}
+
+Attribute vrayCameraDomeOn {
+  label = Treat as VRay Dome camera
+  state = optional
+  group = vray_cameraDome
+  subtype = switch
+  decl = int
+  default = true
+  changeCommand = vrayOnCameraDomeOn
+}
+
+Attribute vrayCameraDomeFlipX {
+  label = Flip X
+  state = optional
+  group = vray_cameraDome
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayCameraDomeFlipY {
+  label = Flip Y
+  state = optional
+  group = vray_cameraDome
+  subtype = switch
+  decl = int
+  default = false
+}
+
+Attribute vrayCameraDomeFov {
+  label = FOV
+  state = optional
+  group = vray_cameraDome
+  subtype = slider
+  decl = float
+  range_min = 0.0001
+  rangesoft_max = 180.0
+  range_step = 0.001
+  default = 45.0
+}
+
+
+Attribute vrayCameraOverridesOn {
+  label = Override Global Camera Settings
+  state = optional
+  group = vray_cameraOverrides
+  subtype = switch
+  decl = int
+  default = true
+  changeCommand = vrayOnCameraOverridesOn
+}
+Attribute vrayCameraType {
+  label = Type
+  state = optional
+  group = vray_cameraOverrides
+  subtype = selector
+  decl = int
+  range_0 = Standard
+  range_1 = 0
+  range_2 = Spherical
+  range_3 = 1
+  range_4 = Cylindrical (point)
+  range_5 = 2
+  range_6 = Cylindrical (ortho)
+  range_7 = 3
+  range_8 = Box
+  range_9 = 4
+  range_10 = Fish eye
+  range_11 = 5
+  range_12 = Warped spherical (old-style)
+  range_13 = 6
+  range_14 = Orthogonal
+  range_15 = 7
+  range_16 = Pinhole
+  range_17 = 8
+  range_18 = Spherical panorama
+  range_19 = 9
+  range_20 = Cube 6x1
+  range_21 = 10
+  default = 0
+  changeCommand = vrayOnCameraType
+}
+Attribute vrayCameraOverrideFOV {
+  label = Override FOV
+  state = optional
+  group = vray_cameraOverrides
+  subtype = switch
+  decl = int
+  default = false
+  changeCommand = vrayOnCameraOverrideFOV
+}
+Attribute vrayCameraFOV {
+  label = FOV
+  state = optional
+  group = vray_cameraOverrides
+  subtype = slider
+  decl = float
+  range_min = 0
+  range_max = 360
+  rangesoft_min = 0
+  rangesoft_max = 360
+  range_step = 0.001
+  default = 45
+  hidemap = 1
+}
+Attribute vrayCameraHeight {
+  label = Height
+  state = optional
+  group = vray_cameraOverrides
+  subtype = slider
+  decl = float
+  range_min=0
+  rangesoft_min = 0
+  rangesoft_max = 1000
+  range_step = 0.001
+  default = 400
+  hidemap = 1
+}
+Attribute vrayCameraVerticalFOV {
+  label = Vertical FOV
+  state = optional
+  group = vray_cameraOverrides
+  subtype = slider
+  decl = float
+  range_min=0
+  range_max=180
+  range_step = 0.001
+  default = 180
+  hidemap = 1
+}
+Attribute vrayCameraAutoFit {
+  label = Auto Fit
+  state = optional
+  group = vray_cameraOverrides
+  subtype = switch
+  decl = int
+  default = true
+  changeCommand = vrayOnCameraType
+}
+Attribute vrayCameraDist {
+  label = Dist
+  state = optional
+  group = vray_cameraOverrides
+  subtype = slider
+  decl = float
+  range_min=0;
+  rangesoft_min = 0
+  rangesoft_max = 8
+  range_step = 0.001
+  default = 2
+  hidemap = 1
+}
+Attribute vrayCameraCurve {
+  label = Curve
+  state = optional
+  group = vray_cameraOverrides
+  subtype = slider
+  decl = float
+  range_min=0
+  rangesoft_min = 0
+  rangesoft_max = 4
+  range_step = 0.001
+  default = 1
+  hidemap = 1
+}
+
+Attribute vrayClosedVolume {
+  label = Closed Volume Shading
+  state = optional
+  group = vray_closed_volume
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+
+Attribute vrayEnableAllOverrides {
+  label = Enable All Overrides
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableAllOverrides
+}
+
+Attribute vrayEnableSpecificSurfaceShader {
+  label = Enable V-Ray Material Override
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableSpecificSurfaceShader
+}
+
+Attribute vraySpecificSurfaceShader {
+  label = V-Ray Material
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = materialConnection
+}
+
+Attribute vrayEnableGIMaterial {
+  label = Enable GI Material Override
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableGIMaterial
+}
+
+Attribute vrayGIMaterial {
+  label = GI Material
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = materialConnection
+}
+
+Attribute vrayEnableReflectMaterial {
+  label = Enable Reflection Material Override
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableReflectMaterial
+}
+
+Attribute vrayReflectMaterial {
+  label = Reflection Material
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = materialConnection
+}
+
+Attribute vrayEnableRefractMaterial {
+  label = Enable Refraction Material Override
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableRefractMaterial
+}
+
+Attribute vrayRefractMaterial {
+  label = Refraction Material
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = materialConnection
+}
+
+Attribute vrayEnableShadowMaterial {
+  label = Enable Shadow Material Override
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableShadowMaterial
+}
+
+Attribute vrayShadowMaterial {
+  label = Shadow Material
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = materialConnection
+}
+
+Attribute vrayEnableEnvironmentOverride {
+  label = Enable Environment Override
+  state = optional
+  group = vray_specific_mtl
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnEnableEnvironmentOverride
+}
+
+Attribute vrayMtlEnvironmentOverride {
+  label = Environment Override
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = textureConnection
+  addCommand = vrayAddMtlEnvironmentOverride
+}
+
+Attribute vrayMtlEnvironmentPriority {
+  label = Environment Priority
+  state = optional
+  group = vray_specific_mtl
+  subtype = slider
+  decl = int
+  range_min = -1000
+  range_max = 1000
+  rangesoft_min = 0
+  rangesoft_max = 100
+  range_step = 1
+  default = 0
+}
+
+Attribute vrayColorId {
+  label = Material ID
+  state = optional
+  decl = color
+  subtype = ctexture
+  group = vray_material_id
+  default = 0 0 0
+}
+
+Attribute vrayMaterialId {
+  label = Multimatte ID
+  state = optional
+  group = vray_material_id
+  subtype = slider
+  decl = int
+  range_min = 0
+  range_max = 1000000000
+  rangesoft_max = 15
+  range_step = 1
+  default = 0
+}
+
+Attribute vrayLPELabel {
+  label = LPE Label
+  state = optional
+  decl = string
+  group = vray_lpe_label
+  default =
+}
+
+Attribute vrayTraceDepth {
+  label = Trace Depth
+  state = optional
+  group = vray_bifrost_mtl
+  subtype = slider
+  decl = int
+  range_min = -1
+  range_max = 1000
+  rangesoft_max = 10
+  range_step = 1
+  default = -1
+}
+
+Attribute vrayAffectShadows {
+  label = Affect Shadows
+  state = optional
+  group = vray_bifrost_mtl
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayGlossyBRDF {
+  label = Glossy BRDF
+  state = optional
+  decl = int
+  group = vray_test_grp
+  subtype = selector
+  default = 1
+  range_0 = Phong
+  range_1 = 0
+  range_2 = Blinn
+  range_3 = 1
+  range_4 = Ward
+  range_5 = 2
+  range_6 = GGX
+  range_7 = 3
+}
+
+
+Attribute vraySkipExport {
+  label = Skip rendering
+  state = optional
+  group = vray_skip_export
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayObjectID {
+  label = Object ID
+  state = optional
+  group = objectID
+  subtype = slider
+  decl = int
+  range_min = 0
+  range_max = 1000000000
+  rangesoft_max = 15
+  default = 0
+}
+
+Attribute vrayFogFadeOut {
+  label = Fog fade out radius
+  state = optional
+  group = fogFadeOut
+  subtype = slider
+  decl = float
+  default = 0.0
+  range_min = 0
+  rangesoft_min = 0.0
+  rangesoft_max = 100.0
+}
+
+
+Attribute vrayTest_int {
+  label = Test int
+  state = optional
+  decl = int
+  group = vray_test_grp
+  subtype = int
+  default = 5
+}
+
+Attribute vrayTest_color {
+  label = Test color
+  state = optional
+  decl = color
+  group = vray_test_grp
+  default = 0.5 0.6 0.7
+}
+
+Attribute vrayTest_float {
+  label = Test float
+  state = optional
+  decl = float
+  group = vray_test_grp
+  default = 3.14
+}
+
+Attribute vrayTest_float_button {
+  label = Test float button
+  state = optional
+  decl = float
+  group = vray_test_grp
+  subtype = button
+  default = 3.14
+  changeCommand = testBoolButton
+}
+
+Attribute vrayTest_float_switch {
+  label = Test float button
+  state = optional
+  decl = float
+  group = vray_test_grp
+  subtype = switch
+  default = 3.14
+}
+
+Attribute vrayTest_float_selector {
+  label = Test float selector
+  state = optional
+  decl = int
+  group = vray_test_grp
+  subtype = selector
+  default = 3
+  range_0 = One
+  range_1 = 1
+  range_2 = Two
+  range_3 = 2
+  range_4 = Five
+  range_5 = 5
+}
+
+Attribute vrayTest_float_slider {
+  label = Test float
+  state = optional
+  decl = float
+  group = vray_test_grp
+  subtype = slider
+  default = 10.0
+  range_min = 0
+  range_max = 1000
+  rangesoft_max = 10
+  range_step = 0.5
+}
+
+Attribute vrayTest_bool_none {
+  label = Test bool none
+  state = optional
+  decl = bool
+  group = vray_test_grp
+  default = 0
+}
+
+Attribute vrayTest_bool_button {
+  label = Test bool button
+  state = optional
+  decl = bool
+  group = vray_test_grp
+  subtype = button
+  default = 0
+  changeCommand = testBoolButton
+}
+
+Attribute vrayTest_bool_switch {
+  label = Test bool switch
+  state = optional
+  decl = bool
+  group = vray_test_grp
+  subtype = switch
+  default = 1
+}
+
+Attribute vrayTest_bool_selector {
+  label = Test bool selector
+  state = optional
+  decl = bool
+  group = vray_test_grp
+  subtype = selector
+  default = 1
+  range_0 = No
+  range_1 = 0
+  range_2 = Yes
+  range_3 = 1
+}
+
+Attribute vrayTest_float3 {
+  label = Test float3
+  state = optional
+  decl = float[3]
+  group = vray_test_grp
+}
+
+Attribute vrayTest_float3_selector {
+  label = Test float3 selector
+  state = optional
+  decl = float[3]
+  group = vray_test_grp
+  subtype = selector
+  range_0 = Black
+  range_1 = 0 0 0
+  range_2 = Medium grey
+  range_3 = 0.5 0.5 0.5
+  range_4 = White
+  range_5 = 1 1 1
+}
+
+Attribute vrayTest_float3_materialConnection {
+  label = Test float3 materialConnection
+  state = optional
+  decl = float[3]
+  group = vray_test_grp
+  subtype = materialConnection
+}
+
+Attribute vrayTest_string {
+  label = Test string
+  state = optional
+  decl = string
+  group = vray_test_grp
+  default = Some text
+}
+
+Attribute vrayTest_string_selector {
+  label = Test string selector
+  state = optional
+  decl = string
+  group = vray_test_grp
+  subtype = selector
+  range_0 = First option
+  range_1 = Text 1
+  range_2 = Second option
+  range_3 = Text 2
+  range_4 = Third option
+  range_5 = Text 3
+}
+
+Attribute vrayTest_string_file {
+  label = Test string file
+  state = optional
+  decl = string
+  group = vray_test_grp
+  default = Some text
+  subtype = file
+}
+
+Attribute vrayFileGammaEnable {
+  label = Enable input texture correction
+  state = optional
+  group = vray_file_gamma
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnFileGammaEnable
+}
+
+Attribute vrayFileGammaValue {
+  label = Texture input gamma
+  state = optional
+  decl = float
+  group = vray_file_gamma
+  subtype = slider
+  default = 2.2
+  range_min = 0.05
+  range_max = 20.0
+  rangesoft_max = 3.0
+  range_step = 0.05
+  hidemap = 1
+}
+
+Attribute vrayFileAllowNegColors {
+  label = Allow negative colors
+  state = optional
+  group = vray_file_allow_neg_colors
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayFileColorSpace {
+  label = Color Space
+  state = optional
+  group = vray_file_gamma
+  subtype = selector
+  decl = int
+  range_0 = Linear
+  range_1 = 0
+  range_2 = Gamma
+  range_3 = 1
+  range_4 = sRGB
+  range_5 = 2
+  default = 1
+  changeCommand = vrayOnFileColorSpace
+}
+
+Attribute vrayOverrideTextureFilter {
+  label = Override texture filter
+  state = optional
+  group = vray_texture_filter
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnOverrideTextureFilter
+}
+
+Attribute vrayTextureFilter {
+  label = Texture filter
+  state = optional
+  group = vray_texture_filter
+  subtype = selector
+  decl = int
+  range_0 = Nearest
+  range_1 = -1
+  range_2 = Smooth
+  range_3 = 0
+  range_4 = Smooth with mipmaps
+  range_5 = 1
+  range_6 = SAT
+  range_7 = 2
+  range_8 = Elliptical
+  range_9 = 3
+  range_10 = Sharp mip-map filtering
+  range_11 = 5
+  default = 5
+  changeCommand = vrayOnTextureFilter
+}
+
+Attribute vrayTextureFilterBlur {
+  label = Filter Blur
+  state = optional
+  decl = float
+  group = vray_texture_filter_blur
+  subtype = slider
+  default = 1.0
+  range_min = 0.0
+  range_max = 20.0
+  rangesoft_max = 3.0
+  range_step = 0.05
+  hidemap = 1
+}
+
+Attribute vrayTextureSmoothType {
+  label = Smooth method
+  state = optional
+  group = vray_texture_filter
+  subtype = selector
+  decl = int
+  range_0 = Bilinear
+  range_1 = 0
+  range_2 = Bicubic
+  range_3 = 1
+  range_4 = Biquadratic
+  range_5 = 2
+  default = 0
+}
+
+Attribute vrayIgnoreDataWindow {
+  label = Ignore data window
+  state = optional
+  group = vray_ignore_data_window
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayMayaAlphaDetection {
+  label = Use Maya-style Alpha Detection
+  state = optional
+  group = vray_use_maya_alpha_detection
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayOverrideTextureFormat {
+  label = Override texture format
+  state = optional
+  group = vray_texture_format
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnOverrideTextureFormat
+}
+
+Attribute vrayTextureFormat {
+  label = Texture format
+  state = optional
+  group = vray_texture_format
+  subtype = selector
+  decl = int
+  range_0 = 8-bit RGBA
+  range_1 = 0
+  range_2 = 32-bit float
+  range_3 = 1
+  range_4 = 8-bit RGBE
+  range_5 = 2
+  default = 0
+}
+
+Attribute vrayFluidShader {
+  label = Volume Shader
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = selector
+  decl = int
+  range_0 = Phoenix
+  range_1 = 1
+  range_2 = VRayEnvironmentFog
+  range_3 = 2
+  default = 1
+  initialCommand = vrayOnFluidShaderCreated
+  changeCommand = vrayOnFluidShaderChanged
+}
+
+Attribute vrayFluidScatterGI {
+  label = Scatter GI
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 0
+  changeCommand = vrayOnFluidScatterGIChanged
+}
+
+Attribute vrayFluidScatterBounces {
+  label = Scatter bounces
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 32
+  default = 1
+}
+
+Attribute vrayFluidSimplifyTexturesForGI {
+  label = Simplify textures for GI
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayFluidStepSize {
+  label = Step size
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  default = 0.1
+  range_min = 0.001
+  rangesoft_max = 1.0
+  range_step = 0.001
+}
+
+Attribute vrayFluidMaxSteps {
+  label = Max steps
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = int
+  range_min = 1
+  rangesoft_max = 2000
+  default = 5000
+}
+
+Attribute vrayFluidTextureSamples {
+  label = Texture samples
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = int
+  range_min = 1
+  rangesoft_max = 32
+  default = 1
+}
+
+Attribute vrayFluidCutoffThreshold {
+  label = Cut-off threshold
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  rangesoft_max = 0.4
+  range_step = 0.001
+  default = 0.001
+}
+
+Attribute vrayFluidSubdivs {
+  label = Subdivs
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = int
+  range_min = 1
+  rangesoft_max = 128
+  range_step = 1
+  default = 8
+}
+
+Attribute vrayFluidColorMult {
+  label = Diffuse color multiplier
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  range_min = 0.001
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 1.0
+}
+
+Attribute vrayFluidJitter {
+  label = Jitter
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayFluidSolid {
+  label = Solid Mode
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayFluidSolidThreshold {
+  label = Solid threshold
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  range_min = 0.0001
+  rangesoft_max = 1.0
+  range_step = 0.001
+  default = 0.5
+}
+
+Attribute vrayFluidLightCache {
+  label = Volume Light Cache
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayFluidFullMB {
+  label = Full motion blur
+  state = optional
+  decl = int
+  group = vray_fluid_shading_quality
+  subtype = selector
+  range_0 = Disabled
+  range_1 = 0
+  range_2 = Blend
+  range_3 = 1
+  range_4 = Velocity
+  range_5 = 2
+  range_6 = Blend + Velocity
+  range_7 = 3
+}
+
+Attribute vrayFluidDeep {
+  label = Render as Geometry
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayFluidRender {
+  label = Enable Rendering
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnFluidRenderChanged
+}
+
+
+Attribute vrayFluidAlEnable {
+  label = Create Fire Lights
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnFluidAlEnableChanged
+}
+
+Attribute vrayFluidLightsMult {
+  label = Light Power on Scene
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  default = 1.0
+  range_min = 0.0
+  range_max = 1000.0
+  rangesoft_max = 10.0
+  range_step = 0.01
+}
+
+Attribute vrayFluidLightsMultSelf {
+  label = Light Power on Self
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  default = 1.0
+  range_min = 0.0
+  range_max = 1000.0
+  rangesoft_max = 10.0
+  range_step = 0.01
+}
+
+Attribute vrayFluidSelfShadow {
+  label = Self Shadowing
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = selector
+  decl = int
+  range_0 = None
+  range_1 = 0
+  range_2 = Ray-traced
+  range_3 = 1
+  range_4 = Grid-based
+  range_5 = 2
+  default = 2
+}
+
+Attribute vrayFluidGridReduct  {
+  label = Light Grid Resolution (%)
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  default = 5.0
+  range_min = 0.01
+  range_max = 100.0
+  range_step = 0.5
+}
+
+Attribute vrayFluidLightsCut {
+  label = Light Cut-off
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = slider
+  decl = float
+  default = 0.001
+  range_min = 0.0
+  range_max = 1.0
+  range_step = 0.001
+}
+
+Attribute vrayFluidPersistLights {
+  label = Create Lights when not Renderable
+  state = optional
+  group = vray_fluid_shading_quality
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayFluidLegacyPhoenixFDShading {
+  label = Legacy Phoenix Shading
+  state = optional
+  group = vray_fluid_legacy_phoenix_fd_shading
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayNurbsCurveRenderable {
+  label = Render
+  state = optional
+  group = vray_nurbscurve_renderable
+  subtype = switch
+  decl = int
+  default = 0
+  changeCommand = vrayOnNurbsCurveRenderable
+}
+
+Attribute vrayNurbsCurveMaterial {
+  label = Material
+  state = optional
+  decl = float[3]
+  group = vray_nurbscurve_renderable
+  subtype = materialConnection
+}
+
+Attribute vrayNurbsCurveTesselation {
+  label = Tessellation step
+  state = optional
+  group = vray_nurbscurve_renderable
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 100.0
+  range_step = 0.001
+  default = 1.0
+}
+
+Attribute vrayNurbsCurveStartWidth {
+  label = Start width
+  state = optional
+  group = vray_nurbscurve_renderable
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 0.2
+}
+
+Attribute vrayNurbsCurveEndWidth {
+  label = End width
+  state = optional
+  group = vray_nurbscurve_renderable
+  subtype = slider
+  decl = float
+  range_min = 0
+  rangesoft_max = 10.0
+  range_step = 0.001
+  default = 0.2
+}
+
+Attribute vrayNurbsCurveLockEndWidth {
+  label = Lock end width
+  state = optional
+  decl = int
+  subtype = switch
+  group = vray_nurbscurve_renderable
+  default = 1
+  changeCommand = vrayOnNurbsCurveLockEndWidth
+}
+
+Attribute vrayNormalObj {
+  label = Normal Obj
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayNormalWorld {
+  label = Normal World
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayBumpNormalWorld {
+  label = Bump Normal World
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayBumpNormalObject {
+  label = Bump Normal Object
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayBumpNormalCamera {
+  label = Bump Normal Camera
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayGNormalWorld {
+  label = Geom Normal World
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayPointWorldReference {
+  label = Point World Reference
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayNormalWorldReference {
+  label = Normal World Reference
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayRayDepth {
+  label = Ray Depth
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayPathLength {
+  label = Path Length
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayTransparencyLevel {
+  label = Transparency Level
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayMtlIDTex {
+  label = Surface Material ID
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = int
+  default = 0.0
+}
+
+Attribute vrayObjIDTex {
+  label = Object ID
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = int
+  default = 0.0
+}
+
+Attribute vrayParentObjIDTex {
+  label = Parent Object ID
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = int
+  default = 0.0
+}
+
+Attribute vraySpeed {
+  label = Speed
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayRandomByID {
+  label = Random by ID
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayRandomByPolyShell {
+  label = Random by Polygon Shell
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayRandomBySceneName {
+  label = Random by name
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayFaceIndex {
+  label = Face Index
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  decl = int
+  subtype = slider
+  default = 0
+}
+
+Attribute vrayVelocityWorld {
+  label = Velocity World
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = cvector
+  decl = float[3]
+  default = 0.0 0.0 0.0
+}
+
+Attribute vrayFrameIndexOffset {
+  label = Frame Index Offset
+  state = optional
+  group = vray_samplerinfo_extra_tex
+  subtype = slider
+  decl = float
+  default = 0.0
+}
+
+Attribute vrayFileIFLEndCondition {
+  label = IFL End Condition
+  state = optional
+  group = vray_file_ifl
+  subtype = selector
+  decl = int
+  range_0 = Loop
+  range_1 = 0
+  range_2 = Ping Pong
+  range_3 = 1
+  range_4 = Hold
+  range_5 = 2
+  default = 0
+}
+
+Attribute vrayFileIFLStartFrame {
+  label = IFL Start Frame
+  state = optional
+  decl = int
+  group = vray_file_ifl
+  subtype = slider
+  default = 0
+  rangesoft_min = -50
+  rangesoft_max = 50.0
+  range_step = 1
+}
+
+Attribute vrayFileIFLPlaybackRate {
+  label = IFL Playback Rate
+  state = optional
+  decl = float
+  group = vray_file_ifl
+  subtype = slider
+  default = 1.0
+  range_min = 0.0
+  rangesoft_max = 10.0
+  range_step = 0.1
+}
+
+Attribute vrayHideBackFaces {
+  label = Ignore back faces
+  state = optional
+  group = vray_projection_options
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayHideOccluded {
+  label = Ignore occluded
+  state = optional
+  group = vray_projection_options
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayIncludeOverscan {
+  label = Include overscan
+  state = optional
+  group = vray_projection_options
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayUVSetIndex {
+  label = UV set index
+  state = optional
+  group = vray_2d_placement_options
+  subtype = slider
+  decl = int
+  default = 0
+}
+
+Attribute vrayUVSetName {
+  label = UV set name
+  state = optional
+  group = vray_2d_placement_options
+  subtype = string
+  decl = string
+  default =
+}
+
+Attribute vrayUVSetName3D {
+  label = UV set name
+  state = optional
+  group = vray_3d_placement_options
+  subtype = string
+  decl = string
+  default =
+}
+
+Attribute vrayMotionBlurSamplesEnable {
+  label = Override motion blur samples
+  state = optional
+  group = vray_motion_blur_samples
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnMotionBlurSamplesEnable
+}
+
+Attribute vrayMotionBlurSamplesValue {
+  label = Motion blur samples
+  state = optional
+  group = vray_motion_blur_samples
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 20
+  default = 2
+}
+
+Attribute vrayHairShader {
+  label = Hair Shader
+  state = optional
+  decl = float[3]
+  group = vray_specific_mtl
+  subtype = materialConnection
+}
+
+Attribute vrayHairGeom {
+  label = Dynamic Hair Tessellation
+  state = optional
+  group = vray_hair_geom
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayHairTesselMult {
+  label = Segment length (px)
+  state = optional
+  group = vray_hair_geom
+  subtype = slider
+  decl = float
+  range_min = 2.0
+  range_max = 1000.0
+  rangesoft_max = 50.0
+  range_step = 0.01
+  default = 4.0
+}
+
+Attribute vrayHairMaxTesselFactor {
+  label = Max tessellation
+  state = optional
+  group = vray_hair_geom
+  subtype = slider
+  decl = int
+  default = 0
+  range_min = 0
+  rangesoft_max = 20
+}
+
+Attribute vrayHairMinPixelWidth {
+  label = Min pixel width
+  state = optional
+  group = vray_hair_geom
+  subtype = slider
+  decl = float
+  range_min = 0.0
+  range_max = 2.0
+  rangesoft_max = 1.0
+  range_step = 0.01
+  default = 0.0
+}
+
+Attribute vraySpriteOrient {
+  label = Sprite Orient
+  state = optional
+  group = vray_sprite_orient
+  subtype = selector
+  decl = int
+  range_0 = Towards camera center
+  range_1 = 0
+  range_2 = Parallel to camera's image plane
+  range_3 = 1
+  default = 0
+}
+
+Attribute vrayPointSizePP {
+  label = Point size pp
+  state = optional
+  group = vray_point_size
+  subtype = selector
+  decl = int
+  subtype = switch
+  default = 0
+}
+
+Attribute vrayPointSizeWorld {
+  label = Point size world
+  state = optional
+  group = vray_point_size
+  subtype = selector
+  decl = int
+  subtype = switch
+  default = 0
+}
+
+Attribute vrayPointSizeRadius {
+  label = Point size from radius
+  state = optional
+  group = vray_point_size
+  subtype = selector
+  decl = int
+  subtype = switch
+  default = 0
+}
+
+Attribute vrayInterpolatedCache {
+  label = Use Interpolated Cache
+  state = optional
+  group = vray_point_size
+  subtype = selector
+  decl = int
+  subtype = switch
+  default = 0
+}
+
+Attribute vrayInstancerTimeAttribute {
+  label = Instancer PP Times
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerObjectIDAttribute {
+  label = Instancer PP Object IDs
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerVisibilityAttribute {
+  label = PP Primary Visibilities
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerUserFloatAttribute1 {
+  label = PP User Float Attributes 1
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerUserFloatAttribute2 {
+  label = PP User Float Attributes 2
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerUserFloatAttribute3 {
+  label = PP User Float Attributes 3
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerUserVectorAttribute1 {
+  label = PP User Vector Attributes 1
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerUserVectorAttribute2 {
+  label = PP User Vector Attributes 2
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayInstancerUserVectorAttribute3 {
+  label = PP User Vector Attributes 3
+  state = optional
+  decl = string
+  group = vray_instancer_overrides
+  default =
+}
+
+Attribute vrayLuminanceMode {
+  label = Luminance Mode
+  state = optional
+  group = vray_surface_luminance
+  subtype = selector
+  decl = int
+  range_0 = Disabled
+  range_1 = 0
+  range_2 = Direct Only
+  range_3 = 1
+  range_4 = Diffuse Only
+  range_5 = 2
+  range_6 = Direct+Diffuse
+  range_7 = 3
+  range_8 = Matte Shadow
+  range_9 = 4
+  default = 1
+}
+
+Attribute vrayLuminanceSamples {
+  label = Subdivs
+  state = optional
+  group = vray_surface_luminance
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 64
+  range_step = 1
+  default = 8
+}
+
+
+Attribute vrayLuminanceGIContrib {
+  label = Contribute to GI
+  state = optional
+  group = vray_point_size
+  subtype = selector
+  decl = int
+  subtype = switch
+  default = 0
+}
+
+Attribute vrayOsdSubdivEnable {
+  label = Osd Render as OpenSubdiv surface
+  state = optional
+  group = vray_opensubdiv
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnOsdSubdivEnable
+}
+
+Attribute vrayOsdPreserveMapBorders {
+  label = Osd Preserve Map Borders
+  state = optional
+  group = vray_opensubdiv
+  subtype = selector
+  decl = int
+  range_0 = None
+  range_1 = 0
+  range_2 = Internal
+  range_3 = 1
+  range_4 = All
+  range_5 = 2
+  default = 1
+}
+
+Attribute vrayOsdSubdivUVs {
+  label = Osd Subdivide UVs
+  state = optional
+  group = vray_opensubdiv
+  subtype = switch
+  decl = int
+  default = 1
+  changeCommand = vrayOnOsdSubdivUVs
+}
+
+Attribute vrayOsdPreserveGeomBorders {
+  label = Osd Preserve Geometry Borders
+  state = optional
+  group = vray_opensubdiv
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayOsdSubdivType {
+  label = Osd Type
+  state = optional
+  group = vray_opensubdiv
+  subtype = selector
+  decl = int
+  range_0 = Catmull-Clark
+  range_1 = 0
+  range_2 = Loop
+  range_3 = 1
+  default = 0
+}
+
+Attribute vrayOsdSubdivDepth {
+  label = Osd Depth
+  state = optional
+  group = vray_opensubdiv
+  subtype = slider
+  decl = int
+  range_min = 0
+  rangesoft_max = 8
+  range_step = 1
+  default = 2
+}
+
+Attribute vrayLocalRayserver {
+  label = Local ray server
+  state = optional
+  group = vray_localrayserver
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayBifrostExportPart {
+  label = Export particles
+  state = optional
+  group = vray_bifrost_shape
+  subtype = switch
+  decl = int
+  default = 0
+  changeCommand = vrayOnBifrostExportPart
+}
+
+Attribute vrayBifrostExportVox {
+  label = Export voxels
+  state = optional
+  group = vray_bifrost_shape
+  subtype = switch
+  decl = int
+  default = 1
+}
+
+Attribute vrayBifrostExportDens {
+  label = Export density
+  state = optional
+  group = vray_bifrost_shape
+  subtype = switch
+  decl = int
+  default = 0
+}
+
+Attribute vrayBifrostInterpolation {
+  label = Interpolation
+  state = optional
+  group = vray_bifrost_shape
+  subtype = selector
+  decl = int
+  range_0 = Linear
+  range_1 = 0
+  range_2 = Quadratic
+  range_3 = 1
+  default = 1
+}
+
+Attribute vrayRFRKParticleRenderMode {
+  label = Render mode
+  state = optional
+  group = vray_rfrkParticler
+  subtype = selector
+  decl = int
+  range_0 = Spheres
+  range_1 = 0
+  range_2 = Points
+  range_3 = 1
+  default = 0
+}
+
+Attribute vrayGPUCacheShader {
+  label = GPU Cache Shader
+  state = optional
+  decl = float[3]
+  group = vray_scene_assembly
+  subtype = materialConnection
+}
+
+Attribute vrayPartioMtl {
+  label = Partio Shader
+  state = optional
+  decl = float[3]
+  group = vray_partio
+  subtype = materialConnection
+}
+
+Attribute vrayLegacyLook {
+  label = Legacy Look
+  state = optional
+  subtype = switch
+  decl = int
+  group = vray_legacy_look
+  default = 0
+}

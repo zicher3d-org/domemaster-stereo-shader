@@ -33,7 +33,8 @@ Force Vray to Load
 
 Run using the command:
 import vrayDomeCamera as vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.forceVrayLoad()
 
 ------------------------------------------------------------------------------
@@ -43,7 +44,8 @@ A python function to create a fulldome stereo rig in Maya.
 
 Run using the command:
 import vrayDomeCamera as vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.createVrayFulldomeStereoRig()
 
 ------------------------------------------------------------------------------
@@ -53,7 +55,8 @@ A python function to create a stereoscopic latitude longitude lens shader and at
 
 Run using the command:
 import vrayDomeCamera as vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.createVrayLatLongStereoRig()
 
 ------------------------------------------------------------------------------
@@ -63,7 +66,8 @@ A python function to create a spherical yellow test grid in Maya.
 
 Run using the command:
 import vrayDomeCamera as vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.createDomeGrid()
 
 ------------------------------------------------------------------------------
@@ -73,7 +77,8 @@ A python function to create a spherical yellow test grid in Maya that is rotated
 
 Run using the command:
 import vrayDomeCamera as vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.createLatLongGrid()
 
 ------------------------------------------------------------------------------
@@ -83,7 +88,8 @@ A python function to create a test sphere and cube in Maya.
 
 Run using the command:
 import vrayDomeCamera as vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.createTestShapes()
 
 ------------------------------------------------------------------------------
@@ -92,7 +98,8 @@ Domemaster3D getMayaVersionDome
 A python function to check what Maya version is active.
 
 import vrayDomeCamera
-reload(vrayDomeCamera)
+import importlib
+importlib.reload(vrayDomeCamera)
 vrayDomeCamera.getMayaVersionDome()
 
 ------------------------------------------------------------------------------
@@ -207,8 +214,8 @@ def getSourceImagesPath(imageFileName):
 
   combinedFileAndImagePath = baseImagesFolder + imageFileName
 
-  print "[Domemaster3D is running on a " + platform.system() + " System]"
-  print "[Requesting the image file]: " + combinedFileAndImagePath
+  print("[Domemaster3D is running on a " + platform.system() + " System]")
+  print("[Requesting the image file]: " + combinedFileAndImagePath)
 
   return combinedFileAndImagePath
 
@@ -700,11 +707,11 @@ def createDomeGrid():
 
   domeSurfaceShape = getObjectShapeNode(domeRadiusSurfaceName[0]);
 
-  print "\nDome Preview elements:"
-  print domeRadiusSurfaceName
-  print "Dome Preview shape node:"
-  print domeSurfaceShape
-  print "\n"
+  print("\nDome Preview elements:")
+  print(domeRadiusSurfaceName)
+  print("Dome Preview shape node:")
+  print(domeSurfaceShape)
+  print("\n")
 
   # Find out the preview curve's makeNurbCircle node name
   makeCurveShapeName = domeCurveShape
@@ -865,8 +872,8 @@ def createDomeGrid():
   expressionBuilderString = makeCurveNodeName + ".sweep = " +(baseNodeName+'.'+attrName)+ "/2;"
   gridFOVRadiusExpressionName = 'domeGrid_FOVExpr'
   
-  print "DomeGrid FOV Extra Attribute Expressions:"
-  print expressionBuilderString
+  print("DomeGrid FOV Extra Attribute Expressions:")
+  print(expressionBuilderString)
 
   cmds.expression(name=gridFOVRadiusExpressionName, string=expressionBuilderString, object=baseNodeName, alwaysEvaluate=True, unitConversion=all)
   
@@ -1097,8 +1104,8 @@ def createDomeGrid():
   PreviewShapeExpr += "  setAttr \"" + domeSurfaceShape + ".opposite\" 1; \n"
   PreviewShapeExpr += "}\n"
 
-  print "DomeGrid Extra Attribute Expressions:"
-  print PreviewShapeExpr
+  print("DomeGrid Extra Attribute Expressions:")
+  print(PreviewShapeExpr)
 
   cmds.expression(name=exprName, string=PreviewShapeExpr, object='domeGrid', alwaysEvaluate=True, unitConversion=all)
 

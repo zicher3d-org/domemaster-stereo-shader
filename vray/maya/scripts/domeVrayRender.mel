@@ -19,6 +19,6 @@ domeVrayAddTranslator();
 global proc domeVrayAddTranslator(){
   // Use the new domeVrayRender.py python script translator actions
   string $vraySettingsNode = "vraySettings";
-  string $vrayTranslator = "import domeVrayRender\nreload(domeVrayRender)\ndomeVrayRender.domeVrayTranslator()";
+  string $vrayTranslator = "import domeVrayRender\nimport importlib\nimportlib.reload(domeVrayRender)\ndomeVrayRender.domeVrayTranslator()";
   setAttr ($vraySettingsNode+".postTranslatePython") -type "string" $vrayTranslator;
 }

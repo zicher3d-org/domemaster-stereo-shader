@@ -1,0 +1,30 @@
+# macOS - LatLongStereo Vray Shader Makefile
+# 2015-06-01 09.57 am
+# by Andrew Hazelden  andrew@andrewhazelden.com
+# http://www.andrewhazelden.com
+
+# You can compile this file from the command line using:
+# make -f MakefileMavericks.osx
+
+# Check compiled file details:
+# otool -L libvray_LatLongStereo.so 
+# lipo -info libvray_LatLongStereo.so 
+
+# Note: In order to compile the lens shaders, you have to copy your Vray for Maya Lib & Include files into the folders "../lib" and "../include".
+# Note: You have to remove the "--gc-sections" flag when compiling on Maverick and higher
+
+.SUFFIXES:
+
+all: libvray_LatLongStereo.so
+
+libvray_LatLongStereo.so:  vray_LatLongStereo.obj
+	g++  -lpthread  -lc -lz   -msse -msse2 -arch x86_64 -fvisibility=hidden -headerpad_max_install_names -framework System -framework CoreServices -framework Carbon -framework Cocoa -framework ApplicationServices -framework QuickTime -framework IOKit     -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.9 -lvutils_s  -ldl -lvray -lplugman_s -dynamic -bundle -flat_namespace     -o "./libvray_LatLongStereo.so" -L"../lib"    -O "./vray_LatLongStereo.obj" 
+
+./vray_LatLongStereo.obj: ./vray_LatLongStereo.cpp
+	g++ -O0 -g -DENABLE_DEBUG_PRINTF -msse -msse2 -arch x86_64 -Wreturn-type -Werror=return-type -DREQUIRE_IOSTREAM -DHAVE_EXR -D_LIBRARY_ALEMBIC -DHAVE_OPENSUBDIV -DHAVE_EMBREE -DVRAY_NO_GUI -D__VRAY4MAYA30__ -DBits64_ -D_REENTRANT  -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.9 -fvisibility=hidden -DVRAY_EXPORTS      -fexceptions    -I "../include"  -D "NDEBUG"     -c -o "./vray_LatLongStereo.obj" "./vray_LatLongStereo.cpp"
+
+
+clean:
+	-@rm "./vray_LatLongStereo.obj"
+	-@rm "./libvray_LatLongStereo.so"
+

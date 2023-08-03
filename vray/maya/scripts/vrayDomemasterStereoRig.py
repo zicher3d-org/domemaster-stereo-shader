@@ -110,7 +110,7 @@ def getSourceImagesPath(imageFileName):
 def createLensShaders(centerCam, leftCam, rightCam):
   import maya.mel as mel
   import maya.cmds as cmds
-  print "[Center] " + centerCam + " [Left] " + leftCam + " [Right] " + rightCam
+  print("[Center] " + centerCam + " [Left] " + leftCam + " [Right] " + rightCam)
   # ---------------------------------------------------------------------
   #Set up the base folder path for the Domemaster3D control maps
   # ---------------------------------------------------------------------

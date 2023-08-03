@@ -51,7 +51,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\nvrayDomeCamera.createDomeGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.setRenderRes()\n\n\n# Turn off the Vray frame buffer\nimport maya.cmds as cmds\ncmds.setAttr('vraySettings.vfbOn', 0)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()\nvrayDomeCamera.createDomeGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.setRenderRes()\n\n\n# Turn off the Vray frame buffer\nimport maya.cmds as cmds\ncmds.setAttr('vraySettings.vfbOn', 0)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -77,7 +77,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\nvrayDomeCamera.createLatLongGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.changeRenderResWH(2048,1024)\n\n# Turn off the Vray frame buffer\nimport maya.cmds as cmds\ncmds.setAttr('vraySettings.vfbOn', 0)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()\nvrayDomeCamera.createLatLongGrid()\nvrayDomeCamera.createTestShapes()\nvrayDomeCamera.changeRenderResWH(2048,1024)\n\n# Turn off the Vray frame buffer\nimport maya.cmds as cmds\ncmds.setAttr('vraySettings.vfbOn', 0)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -103,7 +103,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createVrayFulldomeStereoRig()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -129,7 +129,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createVrayLatLongStereoRig()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -155,7 +155,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.createDomeGrid()" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.createDomeGrid()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -182,7 +182,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(512)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(512)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -209,7 +209,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(1024)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -236,7 +236,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(2048)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(2048)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -263,7 +263,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(4096)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(4096)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -290,7 +290,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(8192)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderRes(8192)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -317,7 +317,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(2048,1024)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -344,7 +344,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(4096,2048)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(4096,2048)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -371,7 +371,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(8192,4096)" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.changeRenderResWH(8192,4096)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -637,7 +637,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.forceVrayLoad()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -689,7 +689,7 @@ global proc shelf_VRayDomemaster3D () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import vrayDomeCamera\nreload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()" 
+        -command "import vrayDomeCamera\nimport importlib\nimportlib.reload(vrayDomeCamera)\nvrayDomeCamera.openDomemasterWiki()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

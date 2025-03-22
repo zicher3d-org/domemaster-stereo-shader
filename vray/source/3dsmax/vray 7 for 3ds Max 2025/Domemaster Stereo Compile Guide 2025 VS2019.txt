@@ -1,0 +1,166 @@
+Compiling the Domemaster Stereo Shaders
+V-Ray 7 for 3ds Max 2025 Edition Guide
+2025-02-17
+
+
+Compiling Steps
+Step 1. Install V-Ray 7 for Max 2025 "Workstation Edition".
+
+
+Step 2. Install the "SDK_3dsMax.msi" files using the Autodesk 3ds max 2025 installer folder resources:
+C:\Autodesk\WI\Autodesk_3ds_Max_2025_2_EFGJKPS_Win_64bit_002_002\image\x64\Tools\MAXSDK
+
+
+This will place the "%3DSMAX_SDK_ROOT%" files on disk at:
+C:\Program Files\Autodesk\3ds Max 2025 SDK\maxsdk\
+
+
+Step 3. Install Visual Studio 2019 and QT.
+
+https://aka.ms/vs/16/release/vs_community.exe
+
+3ds Max 2025 requires Qt 6.5.3
+When installing Qt, the only component you need to install is MSVC 2019 64-bit, the pre-built components for Visual Studio 2022 64-bit compiler.
+https://help.autodesk.com/view/MAXDEV/2025/ENU/?guid=sdk_requirements
+
+
+3ds Max
+	2025 (27.0)
+
+Target Operating Systems
+	Windows 10 x64
+	Windows 11
+
+Compatible 3ds Max SDK
+	2025
+
+C++ Compiler
+	Microsoft Visual Studio 2019, Windows Platform SDK 10.0.22621.0
+
+Minimum .NET Framework
+	.NET 4.8
+
+Qt
+	Qt 6.5
+
+Using Qt with 3ds Max Plug-ins
+https://help.autodesk.com/view/MAXDEV/2025/ENU/?guid=using_qt_with_3ds_max_plug-ins
+
+Qt Visual Studio Tools (2019) add-on
+https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools2019
+
+https://www.qt.io/download-qt-installer
+
+
+Qt Visual Studio Tools > Qt > Versions >
+Version: 6.5.3
+Path: C:\Qt\6.5.3\msvc2019_64
+
+
+Step 4. Install cmake and add it to the PATH system environment variable:
+https://cmake.org/download/
+
+
+Step 5. Copy the V-Ray Domemaster Stereo Shaders source code folders:
+vraydomemasterstereo
+vraylatlongstereo
+
+Into the V-Ray for 3ds max samples folder:
+C:\Program Files\Chaos\V-Ray\3ds Max 2025\samples\3dsmax_plugins\
+
+Step 6. Update the CmakeLists.txt file to add the Domemaster Stereo Shader folders:
+C:\Program Files\Chaos\V-Ray\3ds Max 2025\samples\CMakeLists.txt
+
+Add the entries:
+add_subdirectory(3dsmax_plugins/vraydomemasterstereo)
+add_subdirectory(3dsmax_plugins/vraylatlongstereo)
+
+For plugin compiling simplicity comment out the other "add_subdirectory()" lines by adding a leading # symbol
+
+
+Step 7. Open command prompt and navigate to the V-Ray samples directory:
+cd "C:\Program Files\Chaos\V-Ray\3ds Max 2025\samples"
+
+Set up several environment variables:
+set 3DSMAX_SDK_ROOT=C:\Program Files\Autodesk\3ds Max 2025 SDK\maxsdk\
+set QTDIR=C:\Qt\6.5.3\msvc2019_64\
+
+Step 8. Run cmake from the command prompt:
+cmake -B"C:\build\VRay3dsMax2025Samples" -H"." -G"Visual Studio 16 2019" -A"x64" -T"v142" -D"3DSMAX_SDK_ROOT=C:\Program Files\Autodesk\3ds Max 2025 SDK\maxsdk\"
+
+
+Step 9. Open the Visual Studio Solution created by cmake
+start C:\build\VRay3dsMax2025Samples\vraysdk_samples.sln
+
+
+Visual Studio will show a message "Qt Visual Studio Tools - You must select a Qt version to use for development". Click on the "Select Qt version" text. In the dialog click on the left sidebar entry "Qt > Versions". Then click the "Browse" button and navigate to the "Qt 6.5.3 msvc2019_64 folder:
+C:\Qt\6.5.3\msvc2019_64
+
+In Visual Studio change the build to "Release x64". From the Build menu select Build Solution.
+
+The compiled dlo files are located at:
+C:\build\VRay3dsMax2025Samples\3dsmax_plugins\vraydomemasterstereo\Release\
+C:\build\VRay3dsMax2025Samples\3dsmax_plugins\vraylatlongstereo\Release\
+
+Step 10. V-Ray plugin install paths:
+
+The 3ds Max V-ray plugins are installed to:
+%ALLUSERSPROFILE%\Autodesk\ApplicationPlugins\VRay3dsMax2025
+
+Additional Files:
+C:\Program Files\Chaos Group\V-Ray\3ds Max 2025
+
+
+Useful Dev Resources:
+V-Ray SDK Reference Guide:
+https://docs.chaos.com/display/VMAX/V-Ray+SDK
+
+QT
+https://www.autodesk.com/developer-network/platform-technologies/3ds-max
+https://help.autodesk.com/view/MAXDEV/2025/ENU/?guid=creating_a_qt-based_plug-in
+https://help.autodesk.com/view/MAXDEV/2025/ENU/?guid=GUID-F039181A-C072-4469-A329-AE60FF7535E7
+https://forums.autodesk.com/t5/3ds-max-programming/qt-installation/td-p/10025579
+
+
+A Visual Studio error "cannot open include file afxres.h" indicates that Visual Studio likely needs:
+v142 build tools
+Windows 10 platform file
+C++ MFC for latest v142 build tools (x86 & x64)
+https://github.com/electronicarts/CnC_Remastered_Collection/issues/36
+
+
+With 3ds Max 2025:
+V-Ray 6.2 compiles okay
+
+V-Ray 7 has a domecamera build error.
+
+Visual Studio reports a series of errors similar to:
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	C2280	'WStr::operator bool(void) const': attempting to reference a deleted function	vraydomecamera	C:\Program Files\Chaos\V-Ray\3ds Max 2025\include\vraygeom.h	205	
+
+C:\Program Files\Chaos\V-Ray\3ds Max 2025\include\vraygeom.h
+line 205 - 210
+
+This appears to be related to wide character to UTF8 string conversions for surface material names in the following vraygeom.h file:
+
+/// Helper struct to initialize and store some material name
+/// Needed as Max stores the name in wchar_t and at render time we might
+/// need the name as utf8.
+struct MtlBaseName : public VUtils::CharString {
+	void init(MtlBase &owner) {
+		const TSTR mtlName=owner.GetName();
+		GET_MBCS(mtlName, mtlName_utf8);
+		if (mtlName_utf8 && *mtlName_utf8) {
+			set(mtlName_utf8);
+		} else {
+			set("UnnamedMtl");
+		}
+	}
+};
+
+The solution is to change:
+GET_MBCS(mtlName, mtlName_utf8);
+
+To:
+GET_MBCS(mtlName.data(), mtlName_utf8);
+
